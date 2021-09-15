@@ -40,9 +40,7 @@ void CUIWindow::Update(float DeltaTime)
 			{
 				m_WidgetArray[j] = m_WidgetArray[j + 1];
 			}
-
 			--m_WidgetCount;
-
 			continue;
 		}
 

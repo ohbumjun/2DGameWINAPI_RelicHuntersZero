@@ -163,6 +163,10 @@ void CPlayer::Update(float DeltaTime)
 		}
 	}
 
+	// Stemina Bar Update
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (State)
+		State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
 
 	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
 		SetOffset(0.f, 20.f);
