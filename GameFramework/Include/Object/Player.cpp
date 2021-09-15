@@ -312,7 +312,7 @@ void CPlayer::RunStart(bool IsRight)
 	m_MoveSpeed = m_SpeedInfo.Fast;
 
 	// 애니메이션 전환 ( Run으로 수정해야 한다 ) 
-	IsRight ? ChangeAnimation("LucidNunNaRightWalk") : ChangeAnimation("LucidNunNaLeftWalk");
+	IsRight ? ChangeAnimation("LucidNunNaRightRun") : ChangeAnimation("LucidNunNaLeftRun");
 }
 
 // 달리기 끝 함수 -------------------------------------------------------
@@ -324,11 +324,11 @@ void CPlayer::RunEnd()
 	m_MoveSpeed = m_SpeedInfo.Normal;
 
 	// 애니메이션 수정 
-	if (CheckCurrentAnimation("LucidNunNaRightWalk"))
+	if (CheckCurrentAnimation("LucidNunNaRightRun"))
 	{
 		ChangeAnimation("LucidNunNaRightWalk");
 	}
-	if (CheckCurrentAnimation("LucidNunNaLeftWalk"))
+	if (CheckCurrentAnimation("LucidNunNaLeftRun"))
 	{
 		ChangeAnimation("LucidNunNaLeftWalk");
 	}
