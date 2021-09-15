@@ -161,6 +161,19 @@ void CMainScene::LoadAnimationSequence()
 			i * 82.f, 0.f, 82.f, 73.f);
 	}
 
+	// left walk
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftWalk",
+		"LucidNunNaLeftWalk", TEXT("Player/Left/awalk_left.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftWalk",
+		255, 0, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaLeftWalk",
+			i * 85.f, 0.f, 85.f, 75.f);
+	}
+
 	// left run
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftRun",
 		"LucidNunNaLeftRun", TEXT("Player/Left/alert_left.bmp"));

@@ -106,6 +106,7 @@ void CAnimation::SetCurrentAnimation(const std::string& Name)
 
 void CAnimation::ChangeAnimation(const std::string& Name)
 {
+	// AnimationInfo* Temp = m_CurrentAnimation;
 	if (m_CurrentAnimation->Sequence->GetName() == Name)
 		return;
 

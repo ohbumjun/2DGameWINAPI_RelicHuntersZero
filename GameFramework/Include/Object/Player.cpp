@@ -79,6 +79,10 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
 	AddAnimation("LucidNunNaRightAttack", false, 0.5f);
 	AddAnimation("LucidNunNaRightSkill1", false, 0.5f);
+	AddAnimation("LucidNunNaRightRun", false, 0.5f);
+
+	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
+	AddAnimation("LucidNunNaLeftRun", false, 0.5f);
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
@@ -236,7 +240,7 @@ void CPlayer::MoveDown(float DeltaTime)
 void CPlayer::MoveLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));
-	ChangeAnimation("LucidNunNaRightWalk");
+	ChangeAnimation("LucidNunNaLeftWalk");
 }
 
 void CPlayer::MoveRight(float DeltaTime)
@@ -319,7 +323,7 @@ void CPlayer::RunEnd()
 	m_RunTime = 1;
 	m_MoveSpeed = m_SpeedInfo.Normal;
 
-	// 애니메이션 수정 ( Run 으로 수정해야 한다 ) 
+	// 애니메이션 수정 
 	if (CheckCurrentAnimation("LucidNunNaRightWalk"))
 	{
 		ChangeAnimation("LucidNunNaRightWalk");
