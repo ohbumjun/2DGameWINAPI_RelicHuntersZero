@@ -210,4 +210,6 @@ void CMainScene::LoadSound()
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
 	GetSceneResource()->SetVolume("Effect", 10);
+
+	GetSceneResource()->LoadSound("Player", false, "Run", "step-1.ogg");
 }

@@ -70,6 +70,7 @@ bool CResourceManager::Init()
 	CreateSoundChannelGroup("BGM");
 	CreateSoundChannelGroup("Effect");
 	CreateSoundChannelGroup("UI");
+	CreateSoundChannelGroup("Player");
 
 	LoadOtherFont(TEXT("NotoSansKR-Black.otf"));
 	LoadOtherFont(TEXT("NotoSansKR-Bold.otf"));

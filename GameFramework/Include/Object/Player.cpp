@@ -288,7 +288,7 @@ void CPlayer::RunRight(float DeltaTime)
 void CPlayer::RunLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));
-	RunStart(true);
+	RunStart(false);
 }
 
 void CPlayer::RunUp(float DeltaTime)
@@ -300,7 +300,7 @@ void CPlayer::RunUp(float DeltaTime)
 void CPlayer::RunDown(float DeltaTime)
 {
 	Move(Vector2(0.f, 1.f));
-	RunStart(true);
+	RunStart(false);
 }
 
 void CPlayer::RunStart(bool IsRight)
