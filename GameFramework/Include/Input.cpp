@@ -140,6 +140,16 @@ bool CInput::Init(HWND hWnd)
 
 	CreateKey("Skill1", '1');
 
+	// Run
+	CreateKey("RunUp", 'W');
+	SetShiftKey("RunUp", true);
+	CreateKey("RunDown", 'S');
+	SetShiftKey("RunDown", true);
+	CreateKey("RunLeft", 'A');
+	SetShiftKey("RunLeft", true);
+	CreateKey("RunRight", 'D');
+	SetShiftKey("RunRight", true);
+
 
 	return true;
 }

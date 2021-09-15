@@ -59,6 +59,18 @@ struct RectInfo
 	}
 };
 
+struct SpeedInfo
+{
+	float Normal;
+	float Fast;
+	float Dash;
+	SpeedInfo() :
+		Normal(200.f),
+		Fast(400.f),
+		Dash(1600.f) {}
+};
+
+
 struct SphereInfo
 {
 	Vector2	Center;
@@ -84,6 +96,8 @@ struct CharacterInfo
 	int	Gold;
 	float	AttackSpeed;
 	float	AttackDistance;
+	float   Stemina;
+	float   SteminaMax = 4;
 };
 
 struct CollisionProfile

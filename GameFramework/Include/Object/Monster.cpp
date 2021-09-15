@@ -52,7 +52,7 @@ void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
 
-	m_Pos += m_Dir * 300.f * DeltaTime;
+	// m_Pos += m_Dir * 300.f * DeltaTime;
 
 	if (m_Pos.y >= 720.f)
 	{

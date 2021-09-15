@@ -44,6 +44,16 @@ private:
 	void Resume(float DeltaTime);
 	void Skill1(float DeltaTime);
 
+// run
+	void RunRight(float DeltaTime);
+	void RunLeft(float DeltaTime);
+	void RunUp(float DeltaTime);
+	void RunDown(float DeltaTime);
+	void RunStart(bool IsRight);
+	void RunEnd();
+	bool m_RunEnable;
+	float m_RunTime;
+
 public:
 	void AttackEnd();
 	void Fire();

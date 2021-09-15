@@ -5,6 +5,7 @@ CCharacter::CCharacter()	:
 	m_CharacterInfo{}
 {
 	m_ObjType = EObject_Type::Character;
+	m_MoveSpeed = m_SpeedInfo.Normal;
 }
 
 CCharacter::CCharacter(const CCharacter& obj) :

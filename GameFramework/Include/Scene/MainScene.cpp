@@ -161,17 +161,30 @@ void CMainScene::LoadAnimationSequence()
 			i * 82.f, 0.f, 82.f, 73.f);
 	}
 
-	// Left Walk
-	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftWalk",
-		"LucidNunNaLeftWalk", TEXT("Player/Left/awalk_left.bmp"));
+	// left run
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftRun",
+		"LucidNunNaLeftRun", TEXT("Player/Left/alert_left.bmp"));
 
-	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftWalk",
+	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftRun",
 		255, 0, 255);
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData("LucidNunNaLeftWalk",
-			i * 85.f, 0.f, 85.f, 75.f);
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaLeftRun",
+			i * 59.f, 0.f, 59.f, 87.f);
+	}
+
+	// right run
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightRun",
+		"LucidNunNaRightRun", TEXT("Player/Right/alert.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaRightRun",
+		255, 0, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightRun",
+			i * 59.f, 0.f, 59.f, 87.f);
 	}
 
 }
