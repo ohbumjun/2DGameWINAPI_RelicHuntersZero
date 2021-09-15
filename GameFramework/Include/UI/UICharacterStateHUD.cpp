@@ -14,6 +14,7 @@ CUICharacterStateHUD::~CUICharacterStateHUD()
 
 bool CUICharacterStateHUD::Init()
 {
+	// 전체 window
 	SetPos(30.f, 20.f);
 
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
@@ -23,13 +24,16 @@ bool CUICharacterStateHUD::Init()
 	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
 	Back->SetTextureColorKey(255, 0, 255);
 
-	//Back->SetPos(30.f, 20.f);
-
+	// 전체 hp bar
 	m_HPBar = CreateWidget<CProgressBar>("HPBar");
-
 	m_HPBar->SetTexture("HPBar", TEXT("BarDefault.bmp"));
-
 	m_HPBar->SetPos(10.f, 10.f);
+
+	// stemina bar
+	m_SteminaBar = CreateWidget<CProgressBar>("SteminaBar");
+	m_SteminaBar->SetTexture("SteminaBar", TEXT("BarStemina.bmp"));
+	m_SteminaBar->SetPos(10.f, 30.f);
+	m_SteminaBar->SetZOrder(1);
 
 	return true;
 }
