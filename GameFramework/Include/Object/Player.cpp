@@ -7,6 +7,8 @@
 #include "../Collision/ColliderSphere.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "EffectHit.h"
+#include"../Scene/SceneResource.h"
+#include "../Scene/Scene.h"
 
 CPlayer::CPlayer()	:
 	m_Skill1Enable(false),
@@ -276,7 +278,6 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::Skill1(float DeltaTime)
 {
-	ChangeAnimation("LucidNunNaRightSkill1");
 }
 
 void CPlayer::RunRight(float DeltaTime)
@@ -306,6 +307,7 @@ void CPlayer::RunDown(float DeltaTime)
 void CPlayer::RunStart(bool IsRight)
 {
 	if (m_CharacterInfo.Stemina <= 0.2 * m_CharacterInfo.SteminaMax || m_RunEnable) return;
+	m_Scene->GetSceneResource()->SoundPlay("Run");
 	m_RunEnable = true;
 
 	// Effect аж╠Б 
