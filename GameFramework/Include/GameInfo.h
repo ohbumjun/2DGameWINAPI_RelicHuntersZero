@@ -96,7 +96,7 @@ struct CharacterInfo
 	int	Gold;
 	float	AttackSpeed;
 	float	AttackDistance;
-	float   Stemina;
+	float   Stemina = 4;
 	float   SteminaMax = 4;
 };
 

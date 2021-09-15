@@ -83,6 +83,7 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaRightSkill1", false, 0.5f);
 	AddAnimation("LucidNunNaRightRun", false, 0.5f);
 
+	AddAnimation("LucidNunNaLeftIdle");
 	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
 	AddAnimation("LucidNunNaLeftRun", false, 0.5f);
 
@@ -155,7 +156,7 @@ void CPlayer::Update(float DeltaTime)
 	{
 		// 스테미나가 줄어드는 속도가 4배 빠르다
 		if(m_CharacterInfo.Stemina >= 0)
-			m_CharacterInfo.Stemina -= DeltaTime;
+			m_CharacterInfo.Stemina -= 2*DeltaTime;
 		if (m_CharacterInfo.Stemina <= 0 || m_RunTime <= 0)
 		{
 			// 스테미나가 다 줄어들면 중단 //
