@@ -227,24 +227,28 @@ float CPlayer::SetDamage(float Damage)
 void CPlayer::MoveUp(float DeltaTime)
 {
 	//m_Pos.y -= 200.f * DeltaTime;
+	RunEnd();
 	Move(Vector2(0.f, -1.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
 void CPlayer::MoveDown(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(0.f, 1.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
 void CPlayer::MoveLeft(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(-1.f, 0.f));
 	ChangeAnimation("LucidNunNaLeftWalk");
 }
 
 void CPlayer::MoveRight(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(1.f, 0.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
