@@ -1,0 +1,8 @@
+1. Animation Sequence는 단순히 데이터만을 가지게 된다.
+애니메이션을 동작시키는데 필요한 Texture와 각 프레임별 Texture에서의 시작위치, 크기만을 가지게 된다.
+
+2. Animation클래스는 가지고 있는 GameObject가 Update를 동작시켜준다.
+
+3. Animation의 Update에서 Frame정보를 만들어 둘것이다.
+
+4. GameObject에서 출력할때 Animation이 있을 경우 Frame정보를 가지고 와서 Animation Sequence로부터 FrameData를 얻어와서 이미지의 어디를 출력해야 하는지를 결정한다.
