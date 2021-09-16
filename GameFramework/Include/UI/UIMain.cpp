@@ -18,9 +18,9 @@ CUIMain::~CUIMain()
 
 bool CUIMain::Init()
 {
-	Resolution	RS = CGameManager::GetInst()->GetResolution();
+	Resolution RS = CGameManager::GetInst()->GetResolution();
 
-	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
+	CUIImage *Back = CreateWidget<CUIImage>("HPBarBack");
 
 	Back->SetTexture("Back", TEXT("Back.bmp"));
 
@@ -47,13 +47,12 @@ void CUIMain::Update(float DeltaTime)
 	{
 		m_TextTime -= 0.1f;
 
-		const TCHAR* TestText[2] =
-		{
-			TEXT("abcdefghijklmnopqrstuvwxyz"),
-			TEXT("ÀÌ°Ô °ÔÀÓÀÌ³Ä")
-		};
+		const TCHAR *TestText[2] =
+			{
+				TEXT("abcdefghijklmnopqrstuvwxyz"),
+				TEXT("ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½")};
 
-		TCHAR	Select[2] = { TestText[m_OutputText][m_OutputIndex], 0 };
+		TCHAR Select[2] = {TestText[m_OutputText][m_OutputIndex], 0};
 
 		m_Text->AddText(Select);
 

@@ -2,35 +2,34 @@
 
 #include "../Ref.h"
 
-class CUIWidget :
-	public CRef
+class CUIWidget : public CRef
 {
 public:
 	CUIWidget();
-	CUIWidget(const CUIWidget& widget);
+	CUIWidget(const CUIWidget &widget);
 	virtual ~CUIWidget();
 
 protected:
-	class CScene* m_Scene;
+	class CScene *m_Scene;
 	int m_ZOrder;
-	bool    m_Visibility;
-	class CUIWindow* m_Owner;
+	bool m_Visibility;
+	class CUIWindow *m_Owner;
 	Vector2 m_Pos;
 	Vector2 m_Size;
-	bool    m_MouseHovered;
+	bool m_MouseHovered;
 
 public:
-	Vector2 GetPos()    const
+	Vector2 GetPos() const
 	{
 		return m_Pos;
 	}
 
-	Vector2 GetSize()   const
+	Vector2 GetSize() const
 	{
 		return m_Size;
 	}
 
-	void SetPos(const Vector2& Pos)
+	void SetPos(const Vector2 &Pos)
 	{
 		m_Pos = Pos;
 	}
@@ -40,7 +39,7 @@ public:
 		m_Pos = Vector2(x, y);
 	}
 
-	void SetSize(const Vector2& Size)
+	void SetSize(const Vector2 &Size)
 	{
 		m_Size = Size;
 	}
@@ -50,12 +49,12 @@ public:
 		m_Size = Vector2(x, y);
 	}
 
-	void SetOwner(class CUIWindow* Owner)
+	void SetOwner(class CUIWindow *Owner)
 	{
 		m_Owner = Owner;
 	}
 
-	void SetScene(class CScene* Scene)
+	void SetScene(class CScene *Scene)
 	{
 		m_Scene = Scene;
 	}
@@ -65,7 +64,7 @@ public:
 		m_Visibility = Visiblity;
 	}
 
-	bool GetVisibility()    const
+	bool GetVisibility() const
 	{
 		return m_Visibility;
 	}
@@ -86,14 +85,13 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual void Render(const Vector2& Pos, HDC hDC);
-	virtual CUIWidget* Clone();
+	virtual void Render(const Vector2 &Pos, HDC hDC);
+	virtual CUIWidget *Clone();
 
 public:
-	bool CollisionMouse(const Vector2& MousePos, float DeltaTime);
+	bool CollisionMouse(const Vector2 &MousePos, float DeltaTime);
 
 public:
 	virtual void CollisionMouseHoveredCallback(float DeltaTime);
 	virtual void CollisionMouseReleaseCallback(float DeltaTime);
 };
-

@@ -8,15 +8,16 @@
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
+#include "EffectHit.h"
+#include "../Scene/SceneResource.h"
+#include "../Scene/Scene.h"
 
-CPlayer::CPlayer()	:
-	m_Skill1Enable(false),
-	m_Skill1Time(0.f)
+CPlayer::CPlayer() : m_Skill1Enable(false),
+					 m_Skill1Time(0.f)
 {
 }
 
-CPlayer::CPlayer(const CPlayer& obj)	:
-	CCharacter(obj)
+CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 {
 	m_Skill1Time = obj.m_Skill1Time;
 	m_Skill1Enable = false;
@@ -31,27 +32,40 @@ void CPlayer::Start()
 	CCharacter::Start();
 
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
-		this, &CPlayer::MoveUp);
+											this, &CPlayer::MoveUp);
 
 	CInput::GetInst()->SetCallback<CPlayer>("MoveDown", KeyState_Push,
-		this, &CPlayer::MoveDown);
+											this, &CPlayer::MoveDown);
 
 	CInput::GetInst()->SetCallback<CPlayer>("MoveLeft", KeyState_Push,
-		this, &CPlayer::MoveLeft);
+											this, &CPlayer::MoveLeft);
 
 	CInput::GetInst()->SetCallback<CPlayer>("MoveRight", KeyState_Push,
-		this, &CPlayer::MoveRight);
+											this, &CPlayer::MoveRight);
 
 	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Down,
-		this, &CPlayer::BulletFire);
+											this, &CPlayer::BulletFire);
 
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
-		this, &CPlayer::Pause);
+											this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
-		this, &CPlayer::Resume);
+											this, &CPlayer::Resume);
 
 	CInput::GetInst()->SetCallback<CPlayer>("Skill1", KeyState_Down,
-		this, &CPlayer::Skill1);
+											this, &CPlayer::Skill1);
+
+	// Run
+	CInput::GetInst()->SetCallback<CPlayer>("RunUp", KeyState_Push,
+											this, &CPlayer::RunUp);
+
+	CInput::GetInst()->SetCallback<CPlayer>("RunDown", KeyState_Push,
+											this, &CPlayer::RunDown);
+
+	CInput::GetInst()->SetCallback<CPlayer>("RunLeft", KeyState_Push,
+											this, &CPlayer::RunLeft);
+
+	CInput::GetInst()->SetCallback<CPlayer>("RunRight", KeyState_Push,
+											this, &CPlayer::RunRight);
 }
 
 bool CPlayer::Init()
@@ -67,6 +81,11 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
 	AddAnimation("LucidNunNaRightAttack", false, 0.5f);
 	AddAnimation("LucidNunNaRightSkill1", false, 0.5f);
+	AddAnimation("LucidNunNaRightRun", false, 0.5f);
+
+	AddAnimation("LucidNunNaLeftIdle");
+	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
+	AddAnimation("LucidNunNaLeftRun", false, 0.5f);
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
@@ -78,30 +97,30 @@ bool CPlayer::Init()
 	Body->SetExtent(80.f, 75.f);
 	Body->SetOffset(0.f, -37.5f);*/
 
-	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
+	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
 	//Head->SetExtent(40.f, 30.f);
 	Head->SetRadius(20.f);
 	Head->SetOffset(0.f, -60.f);
 	Head->SetCollisionProfile("Player");
 
-	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(80.f, 45.f);
 	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
 
 	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
 
-	CProgressBar* HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
+	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 
-	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));	
+	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 
-	CWidgetComponent* NameWidget = CreateWidgetComponent("NameWidget");
+	CWidgetComponent *NameWidget = CreateWidgetComponent("NameWidget");
 
-	CUIText* NameText = NameWidget->CreateWidget<CUIText>("NameText");
+	CUIText *NameText = NameWidget->CreateWidget<CUIText>("NameText");
 
-	NameText->SetText(TEXT("·ç½Ãµå´«³ª"));
+	NameText->SetText(TEXT("ï¿½ï¿½Ãµå´«ï¿½ï¿½"));
 	NameText->SetTextColor(255, 0, 0);
 
 	NameWidget->SetPos(-25.f, -115.f);
@@ -143,6 +162,30 @@ void CPlayer::Update(float DeltaTime)
 		}
 	}
 
+	if (!m_RunEnable)
+	{
+		if (m_CharacterInfo.Stemina <= m_CharacterInfo.SteminaMax)
+			m_CharacterInfo.Stemina += DeltaTime;
+	}
+
+	// Run
+	if (m_RunEnable)
+	{
+		// ï¿½ï¿½ï¿½×¹Ì³ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if (m_CharacterInfo.Stemina >= 0)
+			m_CharacterInfo.Stemina -= 2 * DeltaTime;
+		if (m_CharacterInfo.Stemina <= 0 || m_RunTime <= 0)
+		{
+			// ï¿½ï¿½ï¿½×¹Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½ ï¿½ß´ï¿½ //
+			RunEnd();
+		}
+	}
+
+	// Stemina Bar Update
+	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (State)
+		State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+
 	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
 		SetOffset(0.f, 20.f);
 
@@ -154,12 +197,27 @@ void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
 
-	// ÇöÀç ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ Walk »óÅÂ¿¡¼­ ¼Óµµ°¡ 0ÀÌ µÇ¾ú´Ù¸é ÀÌÀü±îÁö ¿òÁ÷ÀÌ´Ù°¡
-	// Áö±Ý ¸ØÃè´Ù´Â °ÍÀÌ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ Walk ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´Ù°ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 	if (CheckCurrentAnimation("LucidNunNaRightWalk") &&
 		m_Velocity.Length() == 0.f)
 	{
 		ChangeAnimation("LucidNunNaRightIdle");
+	}
+
+	// Run
+	// ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ RunEndï¿½ï¿½ È£ï¿½ï¿½
+	if (CheckCurrentAnimation("LucidNunNaRightRun") &&
+		m_Velocity.Length() == 0.f)
+	{
+		RunEnd();
+		ChangeAnimation("LucidNunNaRightIdle");
+	}
+	if (CheckCurrentAnimation("LucidNunNaLeftRun") &&
+		m_Velocity.Length() == 0.f)
+	{
+		RunEnd();
+		ChangeAnimation("LucidNunNaLeftIdle");
 	}
 }
 
@@ -173,7 +231,7 @@ void CPlayer::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-CPlayer* CPlayer::Clone()
+CPlayer *CPlayer::Clone()
 {
 	return new CPlayer(*this);
 }
@@ -182,12 +240,12 @@ float CPlayer::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
 
-	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	if (State)
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
-	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
+	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
@@ -197,31 +255,35 @@ float CPlayer::SetDamage(float Damage)
 void CPlayer::MoveUp(float DeltaTime)
 {
 	//m_Pos.y -= 200.f * DeltaTime;
+	RunEnd();
 	Move(Vector2(0.f, -1.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
 void CPlayer::MoveDown(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(0.f, 1.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
 void CPlayer::MoveLeft(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(-1.f, 0.f));
-	ChangeAnimation("LucidNunNaRightWalk");
+	ChangeAnimation("LucidNunNaLeftWalk");
 }
 
 void CPlayer::MoveRight(float DeltaTime)
 {
+	RunEnd();
 	Move(Vector2(1.f, 0.f));
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
 void CPlayer::BulletFire(float DeltaTime)
 {
-	ChangeAnimation("LucidNunNaRightAttack");	
+	ChangeAnimation("LucidNunNaRightAttack");
 
 	/*if (m_Skill1Enable)
 	{
@@ -244,6 +306,69 @@ void CPlayer::Skill1(float DeltaTime)
 {
 	ChangeAnimation("LucidNunNaRightSkill1");
 }
+}
+
+void CPlayer::RunRight(float DeltaTime)
+{
+	Move(Vector2(1.f, 0.f));
+	RunStart(true);
+}
+
+void CPlayer::RunLeft(float DeltaTime)
+{
+	Move(Vector2(-1.f, 0.f));
+	RunStart(false);
+}
+
+void CPlayer::RunUp(float DeltaTime)
+{
+	Move(Vector2(0.f, -1.f));
+	RunStart(true);
+}
+
+void CPlayer::RunDown(float DeltaTime)
+{
+	Move(Vector2(0.f, 1.f));
+	RunStart(false);
+}
+
+void CPlayer::RunStart(bool IsRight)
+{
+	if (m_CharacterInfo.Stemina <= 0.2 * m_CharacterInfo.SteminaMax || m_RunEnable)
+		return;
+	m_Scene->GetSceneResource()->SoundPlay("Run");
+	m_RunEnable = true;
+
+	// Effect ï¿½Ö±ï¿½
+	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+														m_Pos, Vector2(178.f, 164.f));
+
+	// ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+	m_MoveSpeed = m_SpeedInfo.Fast;
+
+	// ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½È¯ ( Runï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½ )
+	IsRight ? ChangeAnimation("LucidNunNaRightRun") : ChangeAnimation("LucidNunNaLeftRun");
+}
+
+// ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô¼ï¿½ -------------------------------------------------------
+void CPlayer::RunEnd()
+{
+	if (!m_RunEnable)
+		return;
+	m_RunEnable = false;
+	m_RunTime = 1;
+	m_MoveSpeed = m_SpeedInfo.Normal;
+
+	// ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	if (CheckCurrentAnimation("LucidNunNaRightRun"))
+	{
+		ChangeAnimation("LucidNunNaRightWalk");
+	}
+	if (CheckCurrentAnimation("LucidNunNaLeftRun"))
+	{
+		ChangeAnimation("LucidNunNaLeftWalk");
+	}
+}
 
 void CPlayer::AttackEnd()
 {
@@ -253,9 +378,9 @@ void CPlayer::AttackEnd()
 void CPlayer::Fire()
 {
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-		"PlayerBullet",
-		Vector2(m_Pos + Vector2(75.f, 0.f)),
-		Vector2(50.f, 50.f));
+																"PlayerBullet",
+																Vector2(m_Pos + Vector2(75.f, 0.f)),
+																Vector2(50.f, 50.f));
 }
 
 void CPlayer::Skill1End()

@@ -16,9 +16,9 @@ bool CUICharacterStateHUD::Init()
 {
 	SetPos(30.f, 20.f);
 
-	Resolution	RS = CGameManager::GetInst()->GetResolution();
+	Resolution RS = CGameManager::GetInst()->GetResolution();
 
-	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
+	CUIImage *Back = CreateWidget<CUIImage>("HPBarBack");
 
 	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
 	Back->SetTextureColorKey(255, 0, 255);

@@ -3,7 +3,10 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "UIWindow.h"
+<<<<<<< HEAD
 #include "../Resource/ResourceManager.h"
+=======
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 
 CUIText::CUIText()
 {
@@ -17,8 +20,12 @@ CUIText::CUIText()
 	m_TextColor = RGB(0, 0, 0);
 }
 
+<<<<<<< HEAD
 CUIText::CUIText(const CUIText& widget) :
 	CUIWidget(widget)
+=======
+CUIText::CUIText(const CUIText& widget)
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 {
 	m_TextCapacity = widget.m_TextCapacity;
 	m_TextCount = widget.m_TextCount;
@@ -29,8 +36,11 @@ CUIText::CUIText(const CUIText& widget) :
 	memset(m_Text, 0, sizeof(TCHAR) * m_TextCapacity);
 
 	memcpy(m_Text, widget.m_Text, sizeof(TCHAR) * m_TextCount);
+<<<<<<< HEAD
 
 	m_Font = widget.m_Font;
+=======
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 }
 
 CUIText::~CUIText()
@@ -38,6 +48,7 @@ CUIText::~CUIText()
 	SAFE_DELETE_ARRAY(m_Text);
 }
 
+<<<<<<< HEAD
 void CUIText::SetFont(const std::string& Name)
 {
 	m_Font = CResourceManager::GetInst()->FindFont(Name);
@@ -47,6 +58,10 @@ bool CUIText::Init()
 {
 	m_Font = CResourceManager::GetInst()->FindFont("DefaultFont");
 
+=======
+bool CUIText::Init()
+{
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 	return true;
 }
 
@@ -64,6 +79,7 @@ void CUIText::Collision(float DeltaTime)
 
 void CUIText::Render(HDC hDC)
 {
+<<<<<<< HEAD
 	m_Font->SetFont(hDC);
 
 	SetBkMode(hDC, TRANSPARENT);
@@ -89,4 +105,6 @@ void CUIText::Render(const Vector2& Pos, HDC hDC)
 CUIText* CUIText::Clone()
 {
 	return new CUIText(*this);
+=======
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 }

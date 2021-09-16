@@ -5,8 +5,7 @@
 #include "Button.h"
 #include "UIImage.h"
 
-class CUICharacterStateHUD :
-    public CUIWindow
+class CUICharacterStateHUD : public CUIWindow
 {
 	friend class CScene;
 
@@ -16,14 +15,18 @@ private:
 
 private:
 	CSharedPtr<CProgressBar> m_HPBar;
+	CSharedPtr<CProgressBar> m_SteminaBar;
 
 public:
 	void SetHPPercent(float Percent)
 	{
 		m_HPBar->SetPercent(Percent);
 	}
+	void SetSteminaPercent(float Percent)
+	{
+		m_SteminaBar->SetPercent(Percent);
+	}
 
 public:
 	virtual bool Init();
 };
-

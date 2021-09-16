@@ -36,6 +36,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 
 	m_ColliderList.clear();
 
+<<<<<<< HEAD
 	{
 		auto	iter = obj.m_ColliderList.begin();
 		auto	iterEnd = obj.m_ColliderList.end();
@@ -65,6 +66,19 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 
 			m_WidgetComponentList.push_back(Widget);
 		}
+=======
+	auto	iter = obj.m_ColliderList.begin();
+	auto	iterEnd = obj.m_ColliderList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		CCollider* Collider = (*iter)->Clone();
+
+		Collider->SetOwner(this);
+		Collider->SetScene(m_Scene);
+
+		m_ColliderList.push_back(Collider);
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 	}
 
 	m_PrevPos = obj.m_PrevPos;
@@ -302,6 +316,7 @@ void CGameObject::Update(float DeltaTime)
 	if (m_Animation)
 		m_Animation->Update(DeltaTime);
 
+<<<<<<< HEAD
 	{
 		auto	iter = m_ColliderList.begin();
 		auto	iterEnd = m_ColliderList.end();
@@ -332,6 +347,26 @@ void CGameObject::Update(float DeltaTime)
 		{
 			(*iter)->Update(DeltaTime);
 		}
+=======
+	auto	iter = m_ColliderList.begin();
+	auto	iterEnd = m_ColliderList.end();
+
+	for (; iter != iterEnd;)
+	{
+		if (!(*iter)->IsActive())
+		{
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+			continue;
+		}
+
+		else if ((*iter)->GetEnable())
+		{
+			(*iter)->Update(DeltaTime);
+		}
+
+		++iter;
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 	}
 }
 
@@ -346,6 +381,7 @@ void CGameObject::PostUpdate(float DeltaTime)
 		m_Size = FrameData.Size;
 	}
 
+<<<<<<< HEAD
 	{
 		auto	iter = m_ColliderList.begin();
 		auto	iterEnd = m_ColliderList.end();
@@ -378,6 +414,26 @@ void CGameObject::PostUpdate(float DeltaTime)
 		{
 			(*iter)->PostUpdate(DeltaTime);
 		}
+=======
+	auto	iter = m_ColliderList.begin();
+	auto	iterEnd = m_ColliderList.end();
+
+	for (; iter != iterEnd;)
+	{
+		if (!(*iter)->IsActive())
+		{
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+			continue;
+		}
+
+		else if ((*iter)->GetEnable())
+		{
+			(*iter)->PostUpdate(DeltaTime);
+		}
+
+		++iter;
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 	}
 }
 
@@ -390,6 +446,7 @@ void CGameObject::Collision(float DeltaTime)
 	{
 		m_Scene->GetSceneCollision()->AddCollider(*iter);
 	}
+<<<<<<< HEAD
 
 
 	{
@@ -401,6 +458,8 @@ void CGameObject::Collision(float DeltaTime)
 			(*iter)->Collision(DeltaTime);
 		}
 	}
+=======
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 }
 
 void CGameObject::PrevRender()
@@ -497,6 +556,7 @@ void CGameObject::Render(HDC hDC)
 		++iter;
 	}
 
+<<<<<<< HEAD
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
@@ -507,6 +567,8 @@ void CGameObject::Render(HDC hDC)
 		}
 	}
 
+=======
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 	m_PrevPos = m_Pos;
 	m_Velocity = Vector2(0.f, 0.f);
 }

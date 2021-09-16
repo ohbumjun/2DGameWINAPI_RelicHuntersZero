@@ -4,16 +4,14 @@
 #include "../Scene/Scene.h"
 #include "../Collision/ColliderBox.h"
 
-CMonster::CMonster()	:
-	m_FireTime(0.f),
-	m_FireTimeMax(1.f)
+CMonster::CMonster() : m_FireTime(0.f),
+					   m_FireTimeMax(1.f)
 {
 	m_Dir.x = 0.f;
 	m_Dir.y = 1.f;
 }
 
-CMonster::CMonster(const CMonster& obj) :
-	CCharacter(obj)
+CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 {
 	m_Dir = obj.m_Dir;
 	m_FireTime = obj.m_FireTime;
@@ -40,7 +38,7 @@ bool CMonster::Init()
 	CreateAnimation();
 	AddAnimation("LucidNunNaLeftIdle");
 
-	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
 	Body->SetOffset(0.f, -36.5f);
 	Body->SetCollisionProfile("Monster");
@@ -52,7 +50,7 @@ void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
 
-	m_Pos += m_Dir * 300.f * DeltaTime;
+	// m_Pos += m_Dir * 300.f * DeltaTime;
 
 	if (m_Pos.y >= 720.f)
 	{
@@ -67,7 +65,7 @@ void CMonster::Update(float DeltaTime)
 	}
 
 	/*
-	¸ó½ºÅÍ°¡ ÀÏÁ¤ ½Ã°£¸¶´Ù ÇÑ¹ø¾¿ ÃÑ¾ËÀ» ¿ÞÂÊÀ¸·Î ¹ß»çÇÏ°Ô ¸¸µé¾îº¸¼¼¿ä.
+	ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½îº¸ï¿½ï¿½ï¿½ï¿½.
 	*/
 	m_FireTime += DeltaTime;
 
@@ -78,8 +76,8 @@ void CMonster::Update(float DeltaTime)
 		++m_Count;
 
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-			"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
-			Vector2(50.f, 50.f));
+																	"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
+																	Vector2(50.f, 50.f));
 
 		if (m_Count % 3 != 0)
 			Bullet->SetDir(-1.f, 0.f);
@@ -87,9 +85,9 @@ void CMonster::Update(float DeltaTime)
 		else
 		{
 			//CGameObject* Player = m_Scene->FindObject("Player");
-			CGameObject* Player = m_Scene->GetPlayer();
+			CGameObject *Player = m_Scene->GetPlayer();
 
-			float	Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
+			float Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
 			Bullet->SetDir(Angle);
 		}
 	}
@@ -110,7 +108,7 @@ void CMonster::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-CMonster* CMonster::Clone()
+CMonster *CMonster::Clone()
 {
 	return new CMonster(*this);
 }

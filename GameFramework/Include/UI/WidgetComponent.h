@@ -3,30 +3,29 @@
 #include "../Ref.h"
 #include "UIWidget.h"
 
-class CWidgetComponent :
-    public CRef
+class CWidgetComponent : public CRef
 {
 	friend class CGameObject;
 
 private:
 	CWidgetComponent();
-	CWidgetComponent(const CWidgetComponent& widget);
+	CWidgetComponent(const CWidgetComponent &widget);
 	~CWidgetComponent();
 
 private:
-	class CGameObject* m_Owner;
-	class CScene* m_Scene;
+	class CGameObject *m_Owner;
+	class CScene *m_Scene;
 	CSharedPtr<CUIWidget> m_Widget;
-	Vector2	m_Pos;
-	bool	m_Visibility;
+	Vector2 m_Pos;
+	bool m_Visibility;
 
 public:
-	Vector2 GetPos()    const
+	Vector2 GetPos() const
 	{
 		return m_Pos;
 	}
 
-	void SetPos(const Vector2& Pos)
+	void SetPos(const Vector2 &Pos)
 	{
 		m_Pos = Pos;
 	}
@@ -36,12 +35,12 @@ public:
 		m_Pos = Vector2(x, y);
 	}
 
-	void SetOwner(class CGameObject* Owner)
+	void SetOwner(class CGameObject *Owner)
 	{
 		m_Owner = Owner;
 	}
 
-	void SetScene(class CScene* Scene)
+	void SetScene(class CScene *Scene)
 	{
 		m_Scene = Scene;
 	}
@@ -51,17 +50,17 @@ public:
 		m_Visibility = Visiblity;
 	}
 
-	bool GetVisibility()    const
+	bool GetVisibility() const
 	{
 		return m_Visibility;
 	}
 
-	void SetWidget(CUIWidget* Widget)
+	void SetWidget(CUIWidget *Widget)
 	{
 		m_Widget = Widget;
 	}
 
-	CUIWidget* GetWidget()	const
+	CUIWidget *GetWidget() const
 	{
 		return m_Widget;
 	}
@@ -72,13 +71,13 @@ public:
 	void PostUpdate(float DeltaTime);
 	void Collision(float DeltaTime);
 	void Render(HDC hDC);
-	CWidgetComponent* Clone();
+	CWidgetComponent *Clone();
 
 public:
 	template <typename T>
-	T* CreateWidget(const std::string& Name)
+	T *CreateWidget(const std::string &Name)
 	{
-		T* Widget = new T;
+		T *Widget = new T;
 
 		Widget->SetName(Name);
 		Widget->SetScene(m_Scene);
@@ -94,4 +93,3 @@ public:
 		return Widget;
 	}
 };
-

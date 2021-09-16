@@ -1,10 +1,9 @@
 
 #include "Font.h"
 
-CFont::CFont()	:
-	m_FontInfo{},
-	m_Font(0),
-	m_PrevFont(0)
+CFont::CFont() : m_FontInfo{},
+				 m_Font(0),
+				 m_PrevFont(0)
 {
 }
 
@@ -14,8 +13,8 @@ CFont::~CFont()
 		DeleteObject(m_Font);
 }
 
-bool CFont::LoadFont(const std::string& Name, const TCHAR* FontName, 
-	int Width, int Height)
+bool CFont::LoadFont(const std::string &Name, const TCHAR *FontName,
+					 int Width, int Height)
 {
 	/*
 	#define FW_DONTCARE         0
@@ -33,12 +32,12 @@ bool CFont::LoadFont(const std::string& Name, const TCHAR* FontName,
 	m_FontInfo.lfHeight = (LONG)Height;
 	m_FontInfo.lfWidth = (LONG)Width;
 	m_FontInfo.lfCharSet = HANGEUL_CHARSET;
-	m_FontInfo.lfWeight = FW_NORMAL;	// ±½±â
-	m_FontInfo.lfItalic = 0;	// ±â¿ï±â
-	//m_FontInfo.lfEscapement = 1;	// ¹æÇâ
-	m_FontInfo.lfUnderline = 0;	// ¹ØÁÙ
-	m_FontInfo.lfStrikeOut = 0;	// Ãë¼Ò¼±
-	m_FontInfo.lfPitchAndFamily = 2;	// ÀÚ°£
+	m_FontInfo.lfWeight = FW_NORMAL; // ï¿½ï¿½ï¿½ï¿½
+	m_FontInfo.lfItalic = 0;		 // ï¿½ï¿½ï¿½ï¿½
+	//m_FontInfo.lfEscapement = 1;	// ï¿½ï¿½ï¿½ï¿½
+	m_FontInfo.lfUnderline = 0;		 // ï¿½ï¿½ï¿½ï¿½
+	m_FontInfo.lfStrikeOut = 0;		 // ï¿½ï¿½Ò¼ï¿½
+	m_FontInfo.lfPitchAndFamily = 2; // ï¿½Ú°ï¿½
 
 	lstrcpy(m_FontInfo.lfFaceName, FontName);
 

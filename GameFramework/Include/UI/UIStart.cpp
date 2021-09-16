@@ -17,13 +17,13 @@ CUIStart::~CUIStart()
 
 bool CUIStart::Init()
 {
-	Resolution	RS = CGameManager::GetInst()->GetResolution();
+	Resolution RS = CGameManager::GetInst()->GetResolution();
 
-	CUIImage* Back = CreateWidget<CUIImage>("Back");
+	CUIImage *Back = CreateWidget<CUIImage>("Back");
 
 	Back->SetTexture("StartBack", TEXT("GameBack.bmp"));
 
-	CButton* Button = CreateWidget<CButton>("StartButton");
+	CButton *Button = CreateWidget<CButton>("StartButton");
 
 	Button->SetTexture("StartButton", TEXT("ButtonBack.bmp"));
 	Button->SetPos(RS.Width / 2.f - 100.f, RS.Height / 2.f - 75.f);
@@ -37,7 +37,7 @@ bool CUIStart::Init()
 
 	Button->SetClickCallback<CUIStart>(this, &CUIStart::StartClick);
 
-	CUIText* Text = CreateWidget<CUIText>("StartButtonText");
+	CUIText *Text = CreateWidget<CUIText>("StartButtonText");
 
 	Text->SetText(TEXT("START"));
 	Text->SetTextColor(100, 150, 200);

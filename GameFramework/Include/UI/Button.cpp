@@ -10,8 +10,7 @@ CButton::CButton()
 	m_ButtonState = EButton_State::Normal;
 }
 
-CButton::CButton(const CButton& widget) :
-	CUIWidget(widget)
+CButton::CButton(const CButton &widget) : CUIWidget(widget)
 {
 	memcpy(m_FrameData, widget.m_FrameData, sizeof(AnimationFrameData) * (int)EButton_State::End);
 	m_ButtonSound[0] = widget.m_ButtonSound[0];
@@ -22,7 +21,7 @@ CButton::~CButton()
 {
 }
 
-void CButton::SetTexture(const std::string& Name)
+void CButton::SetTexture(const std::string &Name)
 {
 	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
 
@@ -38,7 +37,7 @@ void CButton::SetTexture(const std::string& Name)
 	}
 }
 
-void CButton::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+void CButton::SetTexture(const std::string &Name, const TCHAR *FileName, const std::string &PathName)
 {
 	m_Scene->GetSceneResource()->LoadTexture(Name, FileName, PathName);
 
@@ -56,7 +55,7 @@ void CButton::SetTexture(const std::string& Name, const TCHAR* FileName, const s
 	}
 }
 
-void CButton::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
+void CButton::SetTextureFullPath(const std::string &Name, const TCHAR *FullPath)
 {
 	m_Scene->GetSceneResource()->LoadTextureFullPath(Name, FullPath);
 
@@ -74,9 +73,9 @@ void CButton::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
 	}
 }
 
-void CButton::SetTexture(const std::string& Name,
-	const std::vector<std::wstring>& vecFileName,
-	const std::string& PathName)
+void CButton::SetTexture(const std::string &Name,
+						 const std::vector<std::wstring> &vecFileName,
+						 const std::string &PathName)
 {
 	m_Scene->GetSceneResource()->LoadTexture(Name, vecFileName, PathName);
 
@@ -101,8 +100,8 @@ void CButton::SetTextureColorKey(unsigned char r, unsigned char g, unsigned char
 		m_Texture->SetColorKey(r, g, b, Index);
 }
 
-void CButton::SetFrameData(EButton_State State, const Vector2& Start,
-	const Vector2& Size)
+void CButton::SetFrameData(EButton_State State, const Vector2 &Start,
+						   const Vector2 &Size)
 {
 	m_FrameData[(int)State].StartPos = Start;
 	m_FrameData[(int)State].Size = Size;
@@ -110,12 +109,12 @@ void CButton::SetFrameData(EButton_State State, const Vector2& Start,
 	m_Size = Size;
 }
 
-void CButton::SetMouseOnSound(const std::string& Name)
+void CButton::SetMouseOnSound(const std::string &Name)
 {
 	m_ButtonSound[0] = m_Scene->GetSceneResource()->FindSound(Name);
 }
 
-void CButton::SetClickSound(const std::string& Name)
+void CButton::SetClickSound(const std::string &Name)
 {
 	m_ButtonSound[1] = m_Scene->GetSceneResource()->FindSound(Name);
 }
@@ -139,9 +138,9 @@ void CButton::Update(float DeltaTime)
 			}
 
 			else if (m_ButtonState == EButton_State::Click &&
-				CInput::GetInst()->GetMouseUp())
+					 CInput::GetInst()->GetMouseUp())
 			{
-				// ¹öÆ° ±â´É µ¿ÀÛ.
+				// ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				if (m_ButtonClickCallback)
 					m_ButtonClickCallback();
 
@@ -152,7 +151,7 @@ void CButton::Update(float DeltaTime)
 			}
 
 			else if (m_ButtonState == EButton_State::Click &&
-				CInput::GetInst()->GetMousePush())
+					 CInput::GetInst()->GetMousePush())
 			{
 				m_ButtonState = EButton_State::Click;
 			}
@@ -187,41 +186,41 @@ void CButton::Render(HDC hDC)
 {
 	if (m_Texture)
 	{
-		Vector2	Pos = m_Pos + m_Owner->GetPos();
+		Vector2 Pos = m_Pos + m_Owner->GetPos();
 
 		if (m_Texture->GetTextureType() == ETexture_Type::Atlas)
 		{
-			// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			m_Texture->Render(hDC, Pos, m_FrameData[(int)m_ButtonState].StartPos, m_FrameData[(int)m_ButtonState].Size);
 		}
 
 		else
 		{
-			// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			m_Texture->Render(hDC, Pos, Vector2(0.f, 0.f), m_Size, (int)m_ButtonState);
 		}
 	}
 }
 
-void CButton::Render(const Vector2& Pos, HDC hDC)
+void CButton::Render(const Vector2 &Pos, HDC hDC)
 {
 	if (m_Texture)
 	{
 		if (m_Texture->GetTextureType() == ETexture_Type::Atlas)
 		{
-			// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			m_Texture->Render(hDC, Pos, m_FrameData[(int)m_ButtonState].StartPos, m_FrameData[(int)m_ButtonState].Size);
 		}
 
 		else
 		{
-			// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+			// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			m_Texture->Render(hDC, Pos, Vector2(0.f, 0.f), m_Size, (int)m_ButtonState);
 		}
 	}
 }
 
-CButton* CButton::Clone()
+CButton *CButton::Clone()
 {
 	return new CButton(*this);
 }

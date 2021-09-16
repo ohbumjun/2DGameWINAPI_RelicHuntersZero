@@ -3,20 +3,19 @@
 #include "UIWidget.h"
 #include "../Resource/Font.h"
 
-class CUIText :
-    public CUIWidget
+class CUIText : public CUIWidget
 {
 public:
 	CUIText();
-	CUIText(const CUIText& widget);
+	CUIText(const CUIText &widget);
 	virtual ~CUIText();
 
 protected:
-	TCHAR* m_Text;
-	int	m_TextCount;
-	int	m_TextCapacity;
-	COLORREF	m_TextColor;
-	CSharedPtr<CFont>	m_Font;
+	TCHAR *m_Text;
+	int m_TextCount;
+	int m_TextCapacity;
+	COLORREF m_TextColor;
+	CSharedPtr<CFont> m_Font;
 
 public:
 	void SetTextColor(unsigned char r, unsigned char g, unsigned char b)
@@ -24,10 +23,10 @@ public:
 		m_TextColor = RGB(r, g, b);
 	}
 
-	void SetText(const TCHAR* Text)
+	void SetText(const TCHAR *Text)
 	{
-		// À¯´ÏÄÚµå ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ¾ò¾î¿Â´Ù.
-		int	Length = lstrlen(Text);
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
+		int Length = lstrlen(Text);
 
 		if (Length + 1 > m_TextCapacity)
 		{
@@ -45,15 +44,15 @@ public:
 		m_TextCount = lstrlen(Text);
 	}
 
-	void AddText(const TCHAR* Text)
+	void AddText(const TCHAR *Text)
 	{
-		int	Length = m_TextCount + lstrlen(Text);
+		int Length = m_TextCount + lstrlen(Text);
 
 		if (Length + 1 > m_TextCapacity)
 		{
 			m_TextCapacity = Length + 1;
 
-			TCHAR* Array = new TCHAR[m_TextCapacity];
+			TCHAR *Array = new TCHAR[m_TextCapacity];
 
 			memset(Array, 0, sizeof(TCHAR) * m_TextCapacity);
 
@@ -83,7 +82,7 @@ public:
 		memset(m_Text, 0, sizeof(TCHAR) * m_TextCapacity);
 	}
 
-	void SetFont(const std::string& Name);
+	void SetFont(const std::string &Name);
 
 public:
 	virtual bool Init();
@@ -91,7 +90,6 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual void Render(const Vector2& Pos, HDC hDC);
-	virtual CUIText* Clone();
+	virtual void Render(const Vector2 &Pos, HDC hDC);
+	virtual CUIText *Clone();
 };
-

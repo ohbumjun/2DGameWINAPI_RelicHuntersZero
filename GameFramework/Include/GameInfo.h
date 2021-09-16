@@ -2,13 +2,13 @@
 #pragma once
 
 /*
-stl : standard template libraryÀÌ´Ù.
-¹è¿­, ´õºí¸µÅ©µå¸®½ºÆ® µî ÀÚ·á±¸Á¶µéÀ» ¹Ì¸® ±¸ÇöÇØ³õÀº ¶óÀÌºê·¯¸®ÀÌ´Ù.
+stl : standard template libraryï¿½Ì´ï¿½.
+ï¿½è¿­, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½Ú·á±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ï¿½Ì´ï¿½.
 */
 
 #include <Windows.h>
-#include <list>		// ´õºí¸µÅ©µå¸®½ºÆ® ÅÛÇÃ¸´ ÀÚ·á±¸Á¶
-#include <vector>	// µ¿Àû¹è¿­ ÅÛÇÃ¸´ ÀÚ·á±¸Á¶
+#include <list>	  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½Ú·á±¸ï¿½ï¿½
+#include <vector> // ï¿½ï¿½ï¿½ï¿½ï¿½è¿­ ï¿½ï¿½ï¿½Ã¸ï¿½ ï¿½Ú·á±¸ï¿½ï¿½
 #include <string>
 #include <unordered_map>
 #include <crtdbg.h>
@@ -24,76 +24,103 @@ stl : standard template libraryÀÌ´Ù.
 
 #pragma comment(lib, "fmod64_vc.lib")
 
+#define KEYCOUNT_MAX 256
 
-#define	KEYCOUNT_MAX	256
+#define ROOT_PATH "RootPath"
+#define TEXTURE_PATH "TexturePath"
+#define SOUND_PATH "SoundPath"
+#define FONT_PATH "FontPath"
 
-#define	ROOT_PATH		"RootPath"
-#define	TEXTURE_PATH	"TexturePath"
-#define	SOUND_PATH		"SoundPath"
-#define	FONT_PATH		"FontPath"
-
-
-#define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
-#define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
-#define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
+#define SAFE_DELETE(p) \
+	if (p)             \
+	{                  \
+		delete p;      \
+		p = nullptr;   \
+	}
+#define SAFE_DELETE_ARRAY(p) \
+	if (p)                   \
+	{                        \
+		delete[] p;          \
+		p = nullptr;         \
+	}
+#define SAFE_RELEASE(p) \
+	if (p)              \
+	{                   \
+		p->Release();   \
+		p = nullptr;    \
+	}
 
 struct Resolution
 {
-	int	Width;
-	int	Height;
+	int Width;
+	int Height;
 };
 
 struct RectInfo
 {
-	float	Left;
-	float	Top;
-	float	Right;
-	float	Bottom;
+	float Left;
+	float Top;
+	float Right;
+	float Bottom;
 
-	RectInfo() :
-		Left(0.f),
-		Top(0.f),
-		Right(0.f),
-		Bottom(0.f)
+	RectInfo() : Left(0.f),
+				 Top(0.f),
+				 Right(0.f),
+				 Bottom(0.f)
 	{
 	}
 };
 
+struct SpeedInfo
+{
+	float Normal;
+	float Fast;
+	float Dash;
+	SpeedInfo() : Normal(200.f),
+				  Fast(400.f),
+				  Dash(1600.f) {}
+};
+
 struct SphereInfo
 {
-	Vector2	Center;
-	float	Radius;
+	Vector2 Center;
+	float Radius;
 };
 
 struct AnimationFrameData
 {
-	Vector2	StartPos;
-	Vector2	Size;
+	Vector2 StartPos;
+	Vector2 Size;
 };
 
 struct CharacterInfo
 {
-	int	Attack;
-	int	Armor;
-	int	HP;
-	int	HPMax;
-	int	MP;
-	int	MPMax;
-	int	Level;
-	int	Exp;
-	int	Gold;
-	float	AttackSpeed;
-	float	AttackDistance;
+	int Attack;
+	int Armor;
+	int HP;
+	int HPMax;
+	int MP;
+	int MPMax;
+	int Level;
+	int Exp;
+	int Gold;
+	float AttackSpeed;
+	float AttackDistance;
+<<<<<<< HEAD
+	== == == =
+				 float Stemina = 4;
+	float SteminaMax = 4;
+>>>>>>> 69991dbf9dd9167eeb97dc5c1ce2636caa31afcd
 };
 
 struct CollisionProfile
 {
-	std::string			Name;
-	ECollision_Channel	Channel;
-	bool				CollisionEnable;
+	std::string Name;
+	ECollision_Channel Channel;
+	bool CollisionEnable;
 
-	// Channel ¼ö¸¸Å­À» ÀúÀåÇÑ´Ù. ÇöÀç ÀÌ ÇÁ·ÎÆÄÀÏÀÌ ´Ù¸¥ ÇÁ·ÎÆÄÀÏ°ú Ãæµ¹ÇØ¾ß ÇÒÁö
-	// ¸»Áö¸¦ ºñ±³ÇÒ¶§ ÇØ´ç ÇÁ·ÎÆÄÀÏÀÌ »ç¿ëÇÏ´Â Ã¤³Î°ú IgnoreÀÎÁö CollisionÀÎÁö¸¦
-	// ÆÇ´ÜÇÒ¶§ »ç¿ëÇÑ´Ù.
-	std::vector<ECollision_State>	vecState;
+	// Channel ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½æµ¹ï¿½Ø¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Ã¤ï¿½Î°ï¿½ Ignoreï¿½ï¿½ï¿½ï¿½ Collisionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Ç´ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	std::vector<ECollision_State> vecState;
 };

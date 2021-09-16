@@ -4,13 +4,11 @@
 #include "../Scene/SceneResource.h"
 #include "UIWindow.h"
 
-CProgressBar::CProgressBar()	:
-	m_Percent(1.f)
+CProgressBar::CProgressBar() : m_Percent(1.f)
 {
 }
 
-CProgressBar::CProgressBar(const CProgressBar& widget) :
-	CUIWidget(widget)
+CProgressBar::CProgressBar(const CProgressBar &widget) : CUIWidget(widget)
 {
 	m_Percent = widget.m_Percent;
 	m_Texture = widget.m_Texture;
@@ -20,7 +18,7 @@ CProgressBar::~CProgressBar()
 {
 }
 
-void CProgressBar::SetTexture(const std::string& Name)
+void CProgressBar::SetTexture(const std::string &Name)
 {
 	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
 
@@ -31,7 +29,7 @@ void CProgressBar::SetTexture(const std::string& Name)
 	}
 }
 
-void CProgressBar::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+void CProgressBar::SetTexture(const std::string &Name, const TCHAR *FileName, const std::string &PathName)
 {
 	m_Scene->GetSceneResource()->LoadTexture(Name, FileName, PathName);
 
@@ -44,7 +42,7 @@ void CProgressBar::SetTexture(const std::string& Name, const TCHAR* FileName, co
 	}
 }
 
-void CProgressBar::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
+void CProgressBar::SetTextureFullPath(const std::string &Name, const TCHAR *FullPath)
 {
 	m_Scene->GetSceneResource()->LoadTextureFullPath(Name, FullPath);
 
@@ -57,9 +55,9 @@ void CProgressBar::SetTextureFullPath(const std::string& Name, const TCHAR* Full
 	}
 }
 
-void CProgressBar::SetTexture(const std::string& Name,
-	const std::vector<std::wstring>& vecFileName,
-	const std::string& PathName)
+void CProgressBar::SetTexture(const std::string &Name,
+							  const std::vector<std::wstring> &vecFileName,
+							  const std::string &PathName)
 {
 	m_Scene->GetSceneResource()->LoadTexture(Name, vecFileName, PathName);
 
@@ -99,23 +97,23 @@ void CProgressBar::Render(HDC hDC)
 {
 	if (m_Texture)
 	{
-		Vector2	Pos = m_Pos + m_Owner->GetPos();
+		Vector2 Pos = m_Pos + m_Owner->GetPos();
 
-		// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+		// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_Texture->Render(hDC, Pos, Vector2(0.f, 0.f), m_Size * Vector2(m_Percent, 1.f));
 	}
 }
 
-void CProgressBar::Render(const Vector2& Pos, HDC hDC)
+void CProgressBar::Render(const Vector2 &Pos, HDC hDC)
 {
 	if (m_Texture)
 	{
-		// ÀÌ¹ÌÁö¸¦ ÀÌ¿ëÇØ¼­ Ãâ·ÂÇÑ´Ù.
+		// ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_Texture->Render(hDC, Pos, Vector2(0.f, 0.f), m_Size * Vector2(m_Percent, 1.f));
 	}
 }
 
-CProgressBar* CProgressBar::Clone()
+CProgressBar *CProgressBar::Clone()
 {
 	return new CProgressBar(*this);
 }

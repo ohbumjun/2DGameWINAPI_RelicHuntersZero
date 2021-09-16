@@ -1,22 +1,21 @@
 #pragma once
 #include "Character.h"
 #include "Bullet.h"
-class CPlayer :
-    public CCharacter
+class CPlayer : public CCharacter
 {
 	friend class CScene;
 
 protected:
 	CPlayer();
-	CPlayer(const CPlayer& obj);
+	CPlayer(const CPlayer &obj);
 	virtual ~CPlayer();
 
 protected:
-	bool	m_Skill1Enable;
-	float	m_Skill1Time;
-	std::list<CSharedPtr<CBullet>>	m_Skill1BulletList;
-	CSharedPtr<CWidgetComponent>	m_HPBarWidget;
-	CSharedPtr<CWidgetComponent>	m_NameWidget;
+	bool m_Skill1Enable;
+	float m_Skill1Time;
+	std::list<CSharedPtr<CBullet>> m_Skill1BulletList;
+	CSharedPtr<CWidgetComponent> m_HPBarWidget;
+	CSharedPtr<CWidgetComponent> m_NameWidget;
 
 public:
 	virtual void SetAttackSpeed(float Speed)
@@ -33,7 +32,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CPlayer* Clone();
+	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
 private:
@@ -46,6 +45,16 @@ private:
 	void Resume(float DeltaTime);
 	void Skill1(float DeltaTime);
 
+	// run
+	void RunRight(float DeltaTime);
+	void RunLeft(float DeltaTime);
+	void RunUp(float DeltaTime);
+	void RunDown(float DeltaTime);
+	void RunStart(bool IsRight);
+	void RunEnd();
+	bool m_RunEnable;
+	float m_RunTime;
+
 public:
 	void AttackEnd();
 	void Fire();
@@ -53,4 +62,3 @@ public:
 	void Skill1End();
 	void Skill1Enable();
 };
-

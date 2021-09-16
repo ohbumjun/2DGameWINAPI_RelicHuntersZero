@@ -2,11 +2,10 @@
 #include "ResourceManager.h"
 #include "../PathManager.h"
 
-CResourceManager* CResourceManager::m_Inst = nullptr;
+CResourceManager *CResourceManager::m_Inst = nullptr;
 
-CResourceManager::CResourceManager()	:
-	m_System(nullptr),
-	m_MasterGroup(nullptr)
+CResourceManager::CResourceManager() : m_System(nullptr),
+									   m_MasterGroup(nullptr)
 {
 }
 
@@ -18,8 +17,8 @@ CResourceManager::~CResourceManager()
 	m_mapFont.clear();
 
 	{
-		auto	iter = m_mapChannelGroup.begin();
-		auto	iterEnd = m_mapChannelGroup.end();
+		auto iter = m_mapChannelGroup.begin();
+		auto iterEnd = m_mapChannelGroup.end();
 
 		for (; iter != iterEnd; ++iter)
 		{
@@ -36,8 +35,8 @@ CResourceManager::~CResourceManager()
 	}
 
 	{
-		auto	iter = m_FontLoadList.begin();
-		auto	iterEnd = m_FontLoadList.end();
+		auto iter = m_FontLoadList.begin();
+		auto iterEnd = m_FontLoadList.end();
 
 		for (; iter != iterEnd; ++iter)
 		{
@@ -53,13 +52,13 @@ bool CResourceManager::Init()
 	if (result != FMOD_OK)
 		return false;
 
-	// SystemÀ» ÃÊ±âÈ­ÇÑ´Ù.
+	// Systemï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 	result = m_System->init(128, FMOD_INIT_NORMAL, nullptr);
 
 	if (result != FMOD_OK)
 		return false;
 
-	// Master Channel GroupÀ» ¾ò¾î¿Â´Ù.
+	// Master Channel Groupï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 	result = m_System->getMasterChannelGroup(&m_MasterGroup);
 
 	if (result != FMOD_OK)
@@ -70,6 +69,7 @@ bool CResourceManager::Init()
 	CreateSoundChannelGroup("BGM");
 	CreateSoundChannelGroup("Effect");
 	CreateSoundChannelGroup("UI");
+	CreateSoundChannelGroup("Player");
 
 	LoadOtherFont(TEXT("NotoSansKR-Black.otf"));
 	LoadOtherFont(TEXT("NotoSansKR-Bold.otf"));
@@ -84,10 +84,10 @@ void CResourceManager::Update()
 {
 }
 
-bool CResourceManager::LoadTexture(const std::string& Name, 
-	const TCHAR* FileName, const std::string& PathName)
+bool CResourceManager::LoadTexture(const std::string &Name,
+								   const TCHAR *FileName, const std::string &PathName)
 {
-	CTexture* Texture = FindTexture(Name);
+	CTexture *Texture = FindTexture(Name);
 
 	if (Texture)
 		return true;
@@ -105,10 +105,10 @@ bool CResourceManager::LoadTexture(const std::string& Name,
 	return true;
 }
 
-bool CResourceManager::LoadTextureFullPath(const std::string& Name,
-	const TCHAR* FullPath)
+bool CResourceManager::LoadTextureFullPath(const std::string &Name,
+										   const TCHAR *FullPath)
 {
-	CTexture* Texture = FindTexture(Name);
+	CTexture *Texture = FindTexture(Name);
 
 	if (Texture)
 		return true;
@@ -126,10 +126,10 @@ bool CResourceManager::LoadTextureFullPath(const std::string& Name,
 	return true;
 }
 
-bool CResourceManager::LoadTexture(const std::string& Name, 
-	const std::vector<std::wstring>& vecFileName, const std::string& PathName)
+bool CResourceManager::LoadTexture(const std::string &Name,
+								   const std::vector<std::wstring> &vecFileName, const std::string &PathName)
 {
-	CTexture* Texture = FindTexture(Name);
+	CTexture *Texture = FindTexture(Name);
 
 	if (Texture)
 		return true;
@@ -147,10 +147,10 @@ bool CResourceManager::LoadTexture(const std::string& Name,
 	return true;
 }
 
-void CResourceManager::SetTextureColorKey(const std::string& Name, 
-	const unsigned char r, const unsigned char g, const unsigned char b, int Index)
+void CResourceManager::SetTextureColorKey(const std::string &Name,
+										  const unsigned char r, const unsigned char g, const unsigned char b, int Index)
 {
-	CTexture* Texture = FindTexture(Name);
+	CTexture *Texture = FindTexture(Name);
 
 	if (!Texture)
 		return;
@@ -158,18 +158,18 @@ void CResourceManager::SetTextureColorKey(const std::string& Name,
 	Texture->SetColorKey(r, g, b, Index);
 }
 
-void CResourceManager::ReleaseTexture(const std::string& Name)
+void CResourceManager::ReleaseTexture(const std::string &Name)
 {
-	auto	iter = m_mapTexture.find(Name);
+	auto iter = m_mapTexture.find(Name);
 
 	if (iter->second->GetRefCount() == 1)
 		m_mapTexture.erase(iter);
 }
 
-CTexture* CResourceManager::FindTexture(const std::string& Name)
+CTexture *CResourceManager::FindTexture(const std::string &Name)
 {
-	auto	iter = m_mapTexture.find(Name);
-	
+	auto iter = m_mapTexture.find(Name);
+
 	if (iter == m_mapTexture.end())
 		return nullptr;
 
@@ -177,16 +177,16 @@ CTexture* CResourceManager::FindTexture(const std::string& Name)
 }
 
 bool CResourceManager::CreateAnimationSequence(
-	const std::string& SequenceName, const std::string& TextureName)
+	const std::string &SequenceName, const std::string &TextureName)
 {
-	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = FindAnimationSequence(SequenceName);
 
 	if (Sequence)
 		return true;
 
 	Sequence = new CAnimationSequence;
 
-	CTexture* Texture = FindTexture(TextureName);
+	CTexture *Texture = FindTexture(TextureName);
 
 	if (!Sequence->Init(SequenceName, Texture))
 	{
@@ -200,10 +200,10 @@ bool CResourceManager::CreateAnimationSequence(
 }
 
 bool CResourceManager::CreateAnimationSequence(
-	const std::string& SequenceName, const std::string& TextureName, 
-	const TCHAR* FileName, const std::string& PathName)
+	const std::string &SequenceName, const std::string &TextureName,
+	const TCHAR *FileName, const std::string &PathName)
 {
-	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = FindAnimationSequence(SequenceName);
 
 	if (Sequence)
 		return true;
@@ -213,7 +213,7 @@ bool CResourceManager::CreateAnimationSequence(
 
 	Sequence = new CAnimationSequence;
 
-	CTexture* Texture = FindTexture(TextureName);
+	CTexture *Texture = FindTexture(TextureName);
 
 	if (!Sequence->Init(SequenceName, Texture))
 	{
@@ -227,11 +227,11 @@ bool CResourceManager::CreateAnimationSequence(
 }
 
 bool CResourceManager::CreateAnimationSequence(
-	const std::string& SequenceName, const std::string& TextureName,
-	const std::vector<std::wstring>& vecFileName, 
-	const std::string& PathName)
+	const std::string &SequenceName, const std::string &TextureName,
+	const std::vector<std::wstring> &vecFileName,
+	const std::string &PathName)
 {
-	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = FindAnimationSequence(SequenceName);
 
 	if (Sequence)
 		return true;
@@ -241,7 +241,7 @@ bool CResourceManager::CreateAnimationSequence(
 
 	Sequence = new CAnimationSequence;
 
-	CTexture* Texture = FindTexture(TextureName);
+	CTexture *Texture = FindTexture(TextureName);
 
 	if (!Sequence->Init(SequenceName, Texture))
 	{
@@ -255,10 +255,10 @@ bool CResourceManager::CreateAnimationSequence(
 }
 
 void CResourceManager::AddAnimationFrameData(
-	const std::string& SequenceName, const Vector2& StartPos,
-	const Vector2& Size)
+	const std::string &SequenceName, const Vector2 &StartPos,
+	const Vector2 &Size)
 {
-	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = FindAnimationSequence(SequenceName);
 
 	if (!Sequence)
 		return;
@@ -267,10 +267,10 @@ void CResourceManager::AddAnimationFrameData(
 }
 
 void CResourceManager::AddAnimationFrameData(
-	const std::string& SequenceName, float PosX, float PosY, 
+	const std::string &SequenceName, float PosX, float PosY,
 	float SizeX, float SizeY)
 {
-	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = FindAnimationSequence(SequenceName);
 
 	if (!Sequence)
 		return;
@@ -278,18 +278,18 @@ void CResourceManager::AddAnimationFrameData(
 	Sequence->AddFrameData(PosX, PosY, SizeX, SizeY);
 }
 
-void CResourceManager::ReleaseAnimationSequence(const std::string& Name)
+void CResourceManager::ReleaseAnimationSequence(const std::string &Name)
 {
-	auto	iter = m_mapAnimationSequence.find(Name);
+	auto iter = m_mapAnimationSequence.find(Name);
 
 	if (iter->second->GetRefCount() == 1)
 		m_mapAnimationSequence.erase(iter);
 }
 
-CAnimationSequence* CResourceManager::FindAnimationSequence(
-	const std::string& Name)
+CAnimationSequence *CResourceManager::FindAnimationSequence(
+	const std::string &Name)
 {
-	auto	iter = m_mapAnimationSequence.find(Name);
+	auto iter = m_mapAnimationSequence.find(Name);
 
 	if (iter == m_mapAnimationSequence.end())
 		return nullptr;
@@ -297,16 +297,16 @@ CAnimationSequence* CResourceManager::FindAnimationSequence(
 	return iter->second;
 }
 
-bool CResourceManager::LoadSound(const std::string& GroupName, bool Loop,
-	const std::string& Name, 
-	const char* FileName, const std::string& PathName)
+bool CResourceManager::LoadSound(const std::string &GroupName, bool Loop,
+								 const std::string &Name,
+								 const char *FileName, const std::string &PathName)
 {
-	CSound* Sound = FindSound(Name);
+	CSound *Sound = FindSound(Name);
 
 	if (Sound)
 		return true;
 
-	FMOD::ChannelGroup* Group = FindSoundChannelGroup(GroupName);
+	FMOD::ChannelGroup *Group = FindSoundChannelGroup(GroupName);
 
 	if (!Group)
 		return false;
@@ -324,9 +324,9 @@ bool CResourceManager::LoadSound(const std::string& GroupName, bool Loop,
 	return true;
 }
 
-bool CResourceManager::CreateSoundChannelGroup(const std::string& Name)
+bool CResourceManager::CreateSoundChannelGroup(const std::string &Name)
 {
-	FMOD::ChannelGroup* Group = FindSoundChannelGroup(Name);
+	FMOD::ChannelGroup *Group = FindSoundChannelGroup(Name);
 
 	if (Group)
 		return true;
@@ -336,7 +336,7 @@ bool CResourceManager::CreateSoundChannelGroup(const std::string& Name)
 	if (result != FMOD_OK)
 		return false;
 
-	// »ý¼ºÇÑ ±×·ìÀ» ¸¶½ºÅÍ ±×·ì¿¡ Ãß°¡ÇØÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ì¿¡ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	m_MasterGroup->addGroup(Group, false);
 
 	m_mapChannelGroup.insert(std::make_pair(Name, Group));
@@ -351,9 +351,9 @@ bool CResourceManager::SetVolume(int Volume)
 	return true;
 }
 
-bool CResourceManager::SetVolume(const std::string& GroupName, int Volume)
+bool CResourceManager::SetVolume(const std::string &GroupName, int Volume)
 {
-	FMOD::ChannelGroup* Group = FindSoundChannelGroup(GroupName);
+	FMOD::ChannelGroup *Group = FindSoundChannelGroup(GroupName);
 
 	if (!Group)
 		return false;
@@ -363,9 +363,9 @@ bool CResourceManager::SetVolume(const std::string& GroupName, int Volume)
 	return true;
 }
 
-bool CResourceManager::SoundPlay(const std::string& Name)
+bool CResourceManager::SoundPlay(const std::string &Name)
 {
-	CSound* Sound = FindSound(Name);
+	CSound *Sound = FindSound(Name);
 
 	if (!Sound)
 		return false;
@@ -375,9 +375,9 @@ bool CResourceManager::SoundPlay(const std::string& Name)
 	return true;
 }
 
-bool CResourceManager::SoundStop(const std::string& Name)
+bool CResourceManager::SoundStop(const std::string &Name)
 {
-	CSound* Sound = FindSound(Name);
+	CSound *Sound = FindSound(Name);
 
 	if (!Sound)
 		return false;
@@ -387,9 +387,9 @@ bool CResourceManager::SoundStop(const std::string& Name)
 	return true;
 }
 
-bool CResourceManager::SoundPause(const std::string& Name)
+bool CResourceManager::SoundPause(const std::string &Name)
 {
-	CSound* Sound = FindSound(Name);
+	CSound *Sound = FindSound(Name);
 
 	if (!Sound)
 		return false;
@@ -399,9 +399,9 @@ bool CResourceManager::SoundPause(const std::string& Name)
 	return true;
 }
 
-bool CResourceManager::SoundResume(const std::string& Name)
+bool CResourceManager::SoundResume(const std::string &Name)
 {
-	CSound* Sound = FindSound(Name);
+	CSound *Sound = FindSound(Name);
 
 	if (!Sound)
 		return false;
@@ -411,18 +411,18 @@ bool CResourceManager::SoundResume(const std::string& Name)
 	return true;
 }
 
-void CResourceManager::ReleaseSound(const std::string& Name)
+void CResourceManager::ReleaseSound(const std::string &Name)
 {
-	auto	iter = m_mapSound.find(Name);
+	auto iter = m_mapSound.find(Name);
 
 	if (iter->second->GetRefCount() == 1)
 		m_mapSound.erase(iter);
 }
 
-FMOD::ChannelGroup* CResourceManager::FindSoundChannelGroup(
-	const std::string& Name)
+FMOD::ChannelGroup *CResourceManager::FindSoundChannelGroup(
+	const std::string &Name)
 {
-	auto	iter = m_mapChannelGroup.find(Name);
+	auto iter = m_mapChannelGroup.find(Name);
 
 	if (iter == m_mapChannelGroup.end())
 		return nullptr;
@@ -430,9 +430,9 @@ FMOD::ChannelGroup* CResourceManager::FindSoundChannelGroup(
 	return iter->second;
 }
 
-CSound* CResourceManager::FindSound(const std::string& Name)
+CSound *CResourceManager::FindSound(const std::string &Name)
 {
-	auto	iter = m_mapSound.find(Name);
+	auto iter = m_mapSound.find(Name);
 
 	if (iter == m_mapSound.end())
 		return nullptr;
@@ -440,12 +440,12 @@ CSound* CResourceManager::FindSound(const std::string& Name)
 	return iter->second;
 }
 
-bool CResourceManager::LoadOtherFont(const TCHAR* FileName, 
-	const std::string& PathName)
+bool CResourceManager::LoadOtherFont(const TCHAR *FileName,
+									 const std::string &PathName)
 {
-	TCHAR	FullPath[MAX_PATH] = {};
+	TCHAR FullPath[MAX_PATH] = {};
 
-	const PathInfo* Info = CPathManager::GetInst()->FindPath(PathName);
+	const PathInfo *Info = CPathManager::GetInst()->FindPath(PathName);
 
 	if (Info)
 		lstrcpy(FullPath, Info->Path);
@@ -459,10 +459,10 @@ bool CResourceManager::LoadOtherFont(const TCHAR* FileName,
 	return true;
 }
 
-bool CResourceManager::LoadFont(const std::string& Name,
-	const TCHAR* FontName, int Width, int Height)
+bool CResourceManager::LoadFont(const std::string &Name,
+								const TCHAR *FontName, int Width, int Height)
 {
-	CFont* Font = FindFont(Name);
+	CFont *Font = FindFont(Name);
 
 	if (Font)
 		return true;
@@ -480,9 +480,9 @@ bool CResourceManager::LoadFont(const std::string& Name,
 	return true;
 }
 
-CFont* CResourceManager::FindFont(const std::string& Name)
+CFont *CResourceManager::FindFont(const std::string &Name)
 {
-	auto	iter = m_mapFont.find(Name);
+	auto iter = m_mapFont.find(Name);
 
 	if (iter == m_mapFont.end())
 		return nullptr;

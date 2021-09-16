@@ -3,21 +3,20 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 
-CAnimation::CAnimation()	:
-	m_CurrentAnimation(nullptr)
+CAnimation::CAnimation() : m_CurrentAnimation(nullptr)
 {
 }
 
-CAnimation::CAnimation(const CAnimation& Anim)
+CAnimation::CAnimation(const CAnimation &Anim)
 {
-	// AnimÀº const °´Ã¼ÀÌ´Ù. AnimÀÌ °¡Áö°í ÀÖ´Â stlÀ» »ç¿ëÇÏ·Á ÇÒ¶§´Â
-	// iterator µéÀ» const_iterator ¸¦ »ç¿ëÇØ¾ß ÇÑ´Ù.
-	std::unordered_map<std::string, AnimationInfo*>::const_iterator	iter = Anim.m_mapAnimation.begin();
-	std::unordered_map<std::string, AnimationInfo*>::const_iterator	iterEnd = Anim.m_mapAnimation.end();
+	// Animï¿½ï¿½ const ï¿½ï¿½Ã¼ï¿½Ì´ï¿½. Animï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ stlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ò¶ï¿½ï¿½ï¿½
+	// iterator ï¿½ï¿½ï¿½ï¿½ const_iterator ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
+	std::unordered_map<std::string, AnimationInfo *>::const_iterator iter = Anim.m_mapAnimation.begin();
+	std::unordered_map<std::string, AnimationInfo *>::const_iterator iterEnd = Anim.m_mapAnimation.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
-		AnimationInfo* Info = new AnimationInfo;
+		AnimationInfo *Info = new AnimationInfo;
 
 		Info->Sequence = iter->second->Sequence;
 		Info->FrameTime = iter->second->FrameTime;
@@ -35,8 +34,8 @@ CAnimation::CAnimation(const CAnimation& Anim)
 
 CAnimation::~CAnimation()
 {
-	auto	iter = m_mapAnimation.begin();
-	auto	iterEnd = m_mapAnimation.end();
+	auto iter = m_mapAnimation.begin();
+	auto iterEnd = m_mapAnimation.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -44,15 +43,15 @@ CAnimation::~CAnimation()
 	}
 }
 
-void CAnimation::AddAnimation(const std::string& SequenceName, 
-	bool Loop, float PlayTime, float PlayScale, bool Reverse)
+void CAnimation::AddAnimation(const std::string &SequenceName,
+							  bool Loop, float PlayTime, float PlayScale, bool Reverse)
 {
-	CAnimationSequence* Sequence = m_Scene->GetSceneResource()->FindAnimationSequence(SequenceName);
+	CAnimationSequence *Sequence = m_Scene->GetSceneResource()->FindAnimationSequence(SequenceName);
 
 	if (!Sequence)
 		return;
 
-	AnimationInfo* Info = new AnimationInfo;
+	AnimationInfo *Info = new AnimationInfo;
 
 	Info->Sequence = Sequence;
 	Info->Loop = Loop;
@@ -61,17 +60,17 @@ void CAnimation::AddAnimation(const std::string& SequenceName,
 	Info->Reverse = Reverse;
 	Info->FrameTime = PlayTime / Sequence->GetFrameCount();
 
-	// Ã³À½ Ãß°¡µÇ´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÏ °æ¿ì ÀÌ ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ±âº» ¾Ö´Ï¸ÞÀÌ¼ÇÀ¸·Î
-	// ¼³Á¤ÇÑ´Ù.
+	// Ã³ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½âº» ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (m_mapAnimation.empty())
 		m_CurrentAnimation = Info;
 
 	m_mapAnimation.insert(std::make_pair(SequenceName, Info));
 }
 
-void CAnimation::SetPlayTime(const std::string& Name, float PlayTime)
+void CAnimation::SetPlayTime(const std::string &Name, float PlayTime)
 {
-	AnimationInfo* Info = FindInfo(Name);
+	AnimationInfo *Info = FindInfo(Name);
 
 	if (!Info)
 		return;
@@ -79,9 +78,9 @@ void CAnimation::SetPlayTime(const std::string& Name, float PlayTime)
 	Info->PlayTime = PlayTime;
 }
 
-void CAnimation::SetPlayScale(const std::string& Name, float PlayScale)
+void CAnimation::SetPlayScale(const std::string &Name, float PlayScale)
 {
-	AnimationInfo* Info = FindInfo(Name);
+	AnimationInfo *Info = FindInfo(Name);
 
 	if (!Info)
 		return;
@@ -89,14 +88,14 @@ void CAnimation::SetPlayScale(const std::string& Name, float PlayScale)
 	Info->PlayScale = PlayScale;
 }
 
-void CAnimation::SetCurrentAnimation(const std::string& Name)
+void CAnimation::SetCurrentAnimation(const std::string &Name)
 {
 	m_CurrentAnimation = FindInfo(Name);
 
 	m_CurrentAnimation->Frame = 0;
 	m_CurrentAnimation->Time = 0.f;
 
-	size_t	Size = m_CurrentAnimation->vecNotify.size();
+	size_t Size = m_CurrentAnimation->vecNotify.size();
 
 	for (size_t i = 0; i < Size; ++i)
 	{
@@ -104,7 +103,7 @@ void CAnimation::SetCurrentAnimation(const std::string& Name)
 	}
 }
 
-void CAnimation::ChangeAnimation(const std::string& Name)
+void CAnimation::ChangeAnimation(const std::string &Name)
 {
 	if (m_CurrentAnimation->Sequence->GetName() == Name)
 		return;
@@ -112,7 +111,7 @@ void CAnimation::ChangeAnimation(const std::string& Name)
 	m_CurrentAnimation->Frame = 0;
 	m_CurrentAnimation->Time = 0.f;
 
-	size_t	Size = m_CurrentAnimation->vecNotify.size();
+	size_t Size = m_CurrentAnimation->vecNotify.size();
 
 	for (size_t i = 0; i < Size; ++i)
 	{
@@ -124,14 +123,14 @@ void CAnimation::ChangeAnimation(const std::string& Name)
 	m_CurrentAnimation->Time = 0.f;
 }
 
-bool CAnimation::CheckCurrentAnimation(const std::string& Name)
+bool CAnimation::CheckCurrentAnimation(const std::string &Name)
 {
 	return m_CurrentAnimation->Sequence->GetName() == Name;
 }
 
-void CAnimation::SetReverse(const std::string& Name, bool Reverse)
+void CAnimation::SetReverse(const std::string &Name, bool Reverse)
 {
-	AnimationInfo* Info = FindInfo(Name);
+	AnimationInfo *Info = FindInfo(Name);
 
 	if (!Info)
 		return;
@@ -139,9 +138,9 @@ void CAnimation::SetReverse(const std::string& Name, bool Reverse)
 	Info->Reverse = Reverse;
 }
 
-void CAnimation::SetLoop(const std::string& Name, bool Loop)
+void CAnimation::SetLoop(const std::string &Name, bool Loop)
 {
-	AnimationInfo* Info = FindInfo(Name);
+	AnimationInfo *Info = FindInfo(Name);
 
 	if (!Info)
 		return;
@@ -151,15 +150,15 @@ void CAnimation::SetLoop(const std::string& Name, bool Loop)
 
 void CAnimation::Update(float DeltaTime)
 {
-	// ¾Ö´Ï¸ÞÀÌ¼Ç ½Ã°£À» Áõ°¡½ÃÄÑÁØ´Ù.
+	// ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	m_CurrentAnimation->Time += DeltaTime * m_CurrentAnimation->PlayScale;
 
-	bool	AnimEnd = false;
+	bool AnimEnd = false;
 
-	// Áõ°¡µÈ ½Ã°£ÀÌ 1ÇÁ·¹ÀÓ´ç Èê·¯¾ß ÇÒ ½Ã°£À» Áö³µ´Ù¸é ÇÁ·¹ÀÓÀ» Áõ°¡½ÃÄÑÁà¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ ï¿½ê·¯ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	if (m_CurrentAnimation->Time >= m_CurrentAnimation->FrameTime)
 	{
-		// 1ÇÁ·¹ÀÓ´ç Èê·¯¾ß ÇÒ ½Ã°£À» »©ÁØ´Ù.
+		// 1ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ ï¿½ê·¯ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½.
 		m_CurrentAnimation->Time -= m_CurrentAnimation->FrameTime;
 
 		if (m_CurrentAnimation->Reverse)
@@ -179,7 +178,7 @@ void CAnimation::Update(float DeltaTime)
 		}
 	}
 
-	size_t	Size = m_CurrentAnimation->vecNotify.size();
+	size_t Size = m_CurrentAnimation->vecNotify.size();
 
 	for (size_t i = 0; i < Size; ++i)
 	{
@@ -212,13 +211,13 @@ void CAnimation::Update(float DeltaTime)
 				m_CurrentAnimation->Frame = m_CurrentAnimation->Sequence->GetFrameCount() - 1;
 		}
 
-		// ¸ð¼ÇÀÌ ³¡³µ´Ù¸é EndFunctionÀÌ ÀÖÀ» °æ¿ì È£ÃâÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ EndFunctionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if (m_CurrentAnimation->EndFunction)
 			m_CurrentAnimation->EndFunction();
 
 		if (m_CurrentAnimation->Loop)
 		{
-			size_t	Size = m_CurrentAnimation->vecNotify.size();
+			size_t Size = m_CurrentAnimation->vecNotify.size();
 
 			for (size_t i = 0; i < Size; ++i)
 			{
@@ -228,14 +227,14 @@ void CAnimation::Update(float DeltaTime)
 	}
 }
 
-CAnimation* CAnimation::Clone()
+CAnimation *CAnimation::Clone()
 {
 	return new CAnimation(*this);
 }
 
-AnimationInfo* CAnimation::FindInfo(const std::string& Name)
+AnimationInfo *CAnimation::FindInfo(const std::string &Name)
 {
-	auto	iter = m_mapAnimation.find(Name);
+	auto iter = m_mapAnimation.find(Name);
 
 	if (iter == m_mapAnimation.end())
 		return nullptr;

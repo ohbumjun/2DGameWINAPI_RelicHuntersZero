@@ -1,14 +1,14 @@
 #include "Input.h"
 
-CInput* CInput::m_Inst = nullptr;
+CInput *CInput::m_Inst = nullptr;
 
 CInput::CInput()
 {
-	// vector´Â size¿Í capacity°¡ ÀÖ´Ù.
-	// capacity ´Â ½ÇÁ¦ ¹è¿­ÀÌ ÇÒ´çµÈ °³¼öÀÌ´Ù.
-	// size ´Â ½ÇÁ¦ Ãß°¡µÈ °³¼öÀÌ´Ù.
-	// vector resize ÇÔ¼ö : ÀÌ ÇÔ¼ö·Î ¿øÇÏ´Â °³¼ö¸¦ ÁöÁ¤ÇØµÎ¸é
-	// ÇØ´ç °³¼ö¸¸Å­À» ¹Ì¸® ÇÒ´çÇØµÐ´Ù.
+	// vectorï¿½ï¿½ sizeï¿½ï¿½ capacityï¿½ï¿½ ï¿½Ö´ï¿½.
+	// capacity ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+	// size ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+	// vector resize ï¿½Ô¼ï¿½ : ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ¸ï¿½
+	// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ò´ï¿½ï¿½ØµÐ´ï¿½.
 	m_vecKeyState.resize(KEYCOUNT_MAX);
 
 	for (int i = 0; i < KEYCOUNT_MAX; ++i)
@@ -16,7 +16,7 @@ CInput::CInput()
 		m_vecKeyState[i].Key = i;
 	}
 
-	// vector reserve ÇÔ¼ö : capacity¸¦ ¿øÇÏ´Â °³¼ö¸¸Å­ ¿¹¾àÇØµÐ´Ù.
+	// vector reserve ï¿½Ô¼ï¿½ : capacityï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÐ´ï¿½.
 
 	m_Ctrl = false;
 	m_Alt = false;
@@ -25,8 +25,8 @@ CInput::CInput()
 
 CInput::~CInput()
 {
-	std::unordered_map<std::string, KeyInfo*>::iterator iter = m_mapInfo.begin();
-	std::unordered_map<std::string, KeyInfo*>::iterator iterEnd = m_mapInfo.end();
+	std::unordered_map<std::string, KeyInfo *>::iterator iter = m_mapInfo.begin();
+	std::unordered_map<std::string, KeyInfo *>::iterator iterEnd = m_mapInfo.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -34,9 +34,9 @@ CInput::~CInput()
 	}
 }
 
-bool CInput::CreateKey(const std::string& Name, int Key)
+bool CInput::CreateKey(const std::string &Name, int Key)
 {
-	KeyInfo* Info = FindKeyInfo(Name);
+	KeyInfo *Info = FindKeyInfo(Name);
 
 	if (Info)
 		return false;
@@ -48,31 +48,31 @@ bool CInput::CreateKey(const std::string& Name, int Key)
 
 	m_mapInfo.insert(std::make_pair(Name, Info));
 
-	bool	Add = false;
+	bool Add = false;
 
-	size_t	Size = m_vecAddKey.size();
+	size_t Size = m_vecAddKey.size();
 
 	for (size_t i = 0; i < Size; ++i)
 	{
 		if (m_vecAddKey[i] == Key)
 		{
-			// ÀÌ¹Ì °°Àº Å°°¡ Ãß°¡°¡ µÇ¾îÀÖ´Â °æ¿ì¶ó¸é
-			// Add¸¦ true·Î ¸¸µé¾îÁØ´Ù.
+			// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+			// Addï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 			Add = true;
 			break;
 		}
 	}
 
-	// ÀÌ¹Ì °°Àº Å°°¡ Ãß°¡°¡ µÇ¾î ÀÖ´Ù¸é AddKey¿¡ µî·ÏÀ» ¾ÈÇÑ´Ù.
+	// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½Ö´Ù¸ï¿½ AddKeyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (!Add)
 		m_vecAddKey.push_back(Key);
 
 	return true;
 }
 
-bool CInput::SetCtrlKey(const std::string& Name, bool State)
+bool CInput::SetCtrlKey(const std::string &Name, bool State)
 {
-	KeyInfo* Info = FindKeyInfo(Name);
+	KeyInfo *Info = FindKeyInfo(Name);
 
 	if (!Info)
 		return false;
@@ -82,9 +82,9 @@ bool CInput::SetCtrlKey(const std::string& Name, bool State)
 	return true;
 }
 
-bool CInput::SetAltKey(const std::string& Name, bool State)
+bool CInput::SetAltKey(const std::string &Name, bool State)
 {
-	KeyInfo* Info = FindKeyInfo(Name);
+	KeyInfo *Info = FindKeyInfo(Name);
 
 	if (!Info)
 		return false;
@@ -94,9 +94,9 @@ bool CInput::SetAltKey(const std::string& Name, bool State)
 	return true;
 }
 
-bool CInput::SetShiftKey(const std::string& Name, bool State)
+bool CInput::SetShiftKey(const std::string &Name, bool State)
 {
-	KeyInfo* Info = FindKeyInfo(Name);
+	KeyInfo *Info = FindKeyInfo(Name);
 
 	if (!Info)
 		return false;
@@ -106,11 +106,11 @@ bool CInput::SetShiftKey(const std::string& Name, bool State)
 	return true;
 }
 
-KeyInfo* CInput::FindKeyInfo(const std::string& Name)
+KeyInfo *CInput::FindKeyInfo(const std::string &Name)
 {
-	std::unordered_map<std::string, KeyInfo*>::iterator iter = m_mapInfo.find(Name);
+	std::unordered_map<std::string, KeyInfo *>::iterator iter = m_mapInfo.find(Name);
 
-	// ¸øÃ£¾ÒÀ» °æ¿ì end¸¦ ¸®ÅÏÇÑ´Ù.
+	// ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ endï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (iter == m_mapInfo.end())
 		return nullptr;
 
@@ -125,14 +125,14 @@ bool CInput::Init(HWND hWnd)
 	m_MousePush = false;
 	m_MouseUp = false;
 
-	// °ÔÀÓ¿¡¼­ »ç¿ëÇÏ´Â Å°¸¦ ¼³Á¤ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	CreateKey("MoveUp", 'W');
 	CreateKey("MoveDown", 'S');
 	CreateKey("MoveLeft", 'A');
 	CreateKey("MoveRight", 'D');
 	CreateKey("Fire", VK_SPACE);
 	//SetCtrlKey("Fire", true);
-	
+
 	CreateKey("Pause", 'P');
 	SetCtrlKey("Pause", true);
 	CreateKey("Resume", 'R');
@@ -140,33 +140,42 @@ bool CInput::Init(HWND hWnd)
 
 	CreateKey("Skill1", '1');
 
+	// Run
+	CreateKey("RunUp", 'W');
+	SetShiftKey("RunUp", true);
+	CreateKey("RunDown", 'S');
+	SetShiftKey("RunDown", true);
+	CreateKey("RunLeft", 'A');
+	SetShiftKey("RunLeft", true);
+	CreateKey("RunRight", 'D');
+	SetShiftKey("RunRight", true);
 
 	return true;
 }
 
 void CInput::Update(float DeltaTime)
 {
-	// Å° »óÅÂ¸¦ ¾÷µ¥ÀÌÆ® ÇØÁØ´Ù.
+	// Å° ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ø´ï¿½.
 	UpdateKeyState();
 
-	// ¸¶¿ì½º ¾÷µ¥ÀÌÆ®
+	// ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	UpdateMouse(DeltaTime);
 
-	// À§¿¡¼­ ¾÷µ¥ÀÌÆ®¸¦ ÇØÁØ »óÅÂ¸¦ ÀÌ¿ëÇØ¼­ ½ÇÁ¦ Å° Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ñ´ï¿½.
 	UpdateKeyInfo(DeltaTime);
 }
 
 void CInput::UpdateMouse(float DeltaTime)
 {
-	POINT	ptMouse;
+	POINT ptMouse;
 
-	// ¾Æ·¡ ÇÔ¼ö´Â ¸¶¿ì½ºÀÇ À§Ä¡¸¦ ½ºÅ©¸°ÁÂÇ¥ ±âÁØÀ¸·Î ±¸ÇØÁÖ°í ÀÖ´Ù.
+	// ï¿½Æ·ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½Ö´ï¿½.
 	GetCursorPos(&ptMouse);
 
-	// ½ºÅ©¸° ÁÂÇ¥¸¦ Å¬¶óÀÌ¾ðÆ® ÁÂÇ¥·Î º¯È¯ÇÑ´Ù.
+	// ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	ScreenToClient(m_hWnd, &ptMouse);
 
-	Vector2	Pos;
+	Vector2 Pos;
 	Pos.x = (float)ptMouse.x;
 	Pos.y = (float)ptMouse.y;
 
@@ -203,17 +212,17 @@ void CInput::UpdateMouse(float DeltaTime)
 
 void CInput::UpdateKeyState()
 {
-	// µî·ÏµÈ Å° ¼ö¸¸Å­ ¹Ýº¹ÇÏ¸ç ÇØ´ç Å°°¡ ´­·¯Á³´ÂÁö¸¦ ÆÇ´ÜÇØ³õ´Â´Ù.
-	size_t	Size = m_vecAddKey.size();
+	// ï¿½ï¿½Ïµï¿½ Å° ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ýºï¿½ï¿½Ï¸ï¿½ ï¿½Ø´ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ø³ï¿½ï¿½Â´ï¿½.
+	size_t Size = m_vecAddKey.size();
 
 	for (size_t i = 0; i < Size; ++i)
 	{
-		int	Key = m_vecAddKey[i];
+		int Key = m_vecAddKey[i];
 
 		if (GetAsyncKeyState(Key) & 0x8000)
 		{
-			// Áö±Ý ¸· ´­·¶´ÂÁö ¾Æ´Ï¸é ÀÌÀü ÇÁ·¹ÀÓºÎÅÍ °è¼Ó ´©¸£°í ÀÖ´ø°ÇÁö¸¦
-			// ÆÇ´ÜÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Óºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 			if (!m_vecKeyState[Key].State[KeyState_Down] &&
 				!m_vecKeyState[Key].State[KeyState_Push])
 			{
@@ -234,7 +243,7 @@ void CInput::UpdateKeyState()
 			m_vecKeyState[Key].State[KeyState_Up] = true;
 		}
 
-		else if(m_vecKeyState[Key].State[KeyState_Up])
+		else if (m_vecKeyState[Key].State[KeyState_Up])
 		{
 			m_vecKeyState[Key].State[KeyState_Up] = false;
 		}
@@ -267,12 +276,12 @@ void CInput::UpdateKeyState()
 
 void CInput::UpdateKeyInfo(float DeltaTime)
 {
-	std::unordered_map<std::string, KeyInfo*>::iterator iter = m_mapInfo.begin();
-	std::unordered_map<std::string, KeyInfo*>::iterator iterEnd = m_mapInfo.end();
+	std::unordered_map<std::string, KeyInfo *>::iterator iter = m_mapInfo.begin();
+	std::unordered_map<std::string, KeyInfo *>::iterator iterEnd = m_mapInfo.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
-		int	Key = iter->second->State.Key;
+		int Key = iter->second->State.Key;
 
 		if (m_vecKeyState[Key].State[KeyState_Down] &&
 			iter->second->Ctrl == m_Ctrl &&
@@ -305,8 +314,8 @@ void CInput::UpdateKeyInfo(float DeltaTime)
 
 void CInput::ClearCallback()
 {
-	auto	iter = m_mapInfo.begin();
-	auto	iterEnd = m_mapInfo.end();
+	auto iter = m_mapInfo.begin();
+	auto iterEnd = m_mapInfo.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
