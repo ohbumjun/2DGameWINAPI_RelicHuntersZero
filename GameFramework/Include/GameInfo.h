@@ -90,8 +90,8 @@ struct CharacterInfo
 	int	Armor;
 	int	HP;
 	int	HPMax;
-	int	MP;
-	int	MPMax;
+	float MP;
+	float MPMax;
 	int	Level;
 	int	Exp;
 	int	Gold;

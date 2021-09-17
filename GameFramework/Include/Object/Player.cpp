@@ -105,22 +105,29 @@ bool CPlayer::Init()
 	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
 
+	// HPBar
 	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
-
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
-
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
-
 	m_HPBarWidget->SetPos(-25.f, -95.f);
+
+	// MPBar
+	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
+	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
+	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
+	m_MPBarWidget->SetPos(-25.f, -85.f);
 
 	CWidgetComponent *NameWidget = CreateWidgetComponent("NameWidget");
 
 	CUIText *NameText = NameWidget->CreateWidget<CUIText>("NameText");
 
-	NameText->SetText(TEXT("��õ崫��"));
+	NameText->SetText(TEXT("Lucid"));
 	NameText->SetTextColor(255, 0, 0);
 
 	NameWidget->SetPos(-25.f, -115.f);
+
+	m_CharacterInfo.MP = 5;
+	m_CharacterInfo.MPMax = 5;
 
 	m_CharacterInfo.HP = 1000;
 	m_CharacterInfo.HPMax = 1000;
@@ -154,8 +161,8 @@ void CPlayer::Update(float DeltaTime)
 			{
 				(*iter)->SetTimeScale(1.f);
 			}
-
-			m_Skill1BulletList.clear();*/
+			m_Skill1BulletList.clear();
+			*/
 		}
 	}
 
@@ -167,15 +174,20 @@ void CPlayer::Update(float DeltaTime)
 	}
 	if (m_RunEnable)
 	{
-		// ���׹̳��� �پ��� �ӵ��� 4�� ������
 		if (m_CharacterInfo.MP >= 0)
 			m_CharacterInfo.MP -= DeltaTime;
 		if (m_CharacterInfo.MP <= 0)
 		{
-			// ���׹̳��� �� �پ��� �ߴ� //
 			RunEnd();
 		}
 	}
+	
+	// MPBar
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (State)
+		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+	CProgressBar* MPBar = (CProgressBar*)m_MPBarWidget->GetWidget();
+	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
 	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
 		SetOffset(0.f, 20.f);
@@ -188,9 +200,6 @@ void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
 
-	// ���� �ִϸ��̼��� Walk ���¿��� �ӵ��� 0�� �Ǿ��ٸ� �������� �����̴ٰ�
-	// ���� ����ٴ� ���̴�.
-	// Walk ����
 	if (CheckCurrentAnimation("LucidNunNaRightWalk") &&
 		m_Velocity.Length() == 0.f)
 	{
@@ -202,8 +211,6 @@ void CPlayer::PostUpdate(float DeltaTime)
 		ChangeAnimation("LucidNunNaLeftIdle");
 	}
 
-	// Run ����
-	// �޸����� ���, ������ RunEnd�� ȣ��
 	if (CheckCurrentAnimation("LucidNunNaRightRun") &&
 		m_Velocity.Length() == 0.f)
 	{
@@ -308,15 +315,11 @@ void CPlayer::RunDown(float DeltaTime)
 
 void CPlayer::RunStart()
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax || m_RunEnable)
+	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax || m_RunEnable )
 		return;
 	m_RunEnable = true;
-
-	// Effect �ֱ�
 	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 														m_Pos, Vector2(178.f, 164.f));
-
-	// �ӵ� ����
 	m_MoveSpeed = m_SpeedInfo.Fast;
 }
 
@@ -327,7 +330,6 @@ void CPlayer::RunEnd()
 	m_RunEnable = false;
 	m_MoveSpeed = m_SpeedInfo.Normal;
 
-	// �ִϸ��̼� ���� ( Run ���� �����ؾ� �Ѵ� )
 	if (CheckCurrentAnimation("LucidNunNaRightRun"))
 	{
 		ChangeAnimation("LucidNunNaRightWalk");
