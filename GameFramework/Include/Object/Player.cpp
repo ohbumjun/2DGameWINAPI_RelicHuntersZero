@@ -371,6 +371,9 @@ void CPlayer::Dash(float DelatTime)
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
+
+	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 )
+
 }
 
 void CPlayer::DashEnd()

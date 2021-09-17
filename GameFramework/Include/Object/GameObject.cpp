@@ -56,13 +56,11 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	{
 		auto	iter = obj.m_WidgetComponentList.begin();
 		auto	iterEnd = obj.m_WidgetComponentList.end();
-
 		for (; iter != iterEnd; ++iter)
 		{
 			CWidgetComponent* Widget = (*iter)->Clone();
 			Widget->SetOwner(this);
 			Widget->SetScene(m_Scene);
-
 			m_WidgetComponentList.push_back(Widget);
 		}
 	}
@@ -385,12 +383,10 @@ void CGameObject::Collision(float DeltaTime)
 {
 	auto	iter = m_ColliderList.begin();
 	auto	iterEnd = m_ColliderList.end();
-
 	for (; iter != iterEnd; ++iter)
 	{
 		m_Scene->GetSceneCollision()->AddCollider(*iter);
 	}
-
 
 	{
 		auto	iter = m_WidgetComponentList.begin();
@@ -406,17 +402,13 @@ void CGameObject::Collision(float DeltaTime)
 void CGameObject::PrevRender()
 {
 	CCamera* Camera = m_Scene->GetCamera();
-
 	m_RenderPos = m_Pos - Camera->GetPos();
-
 	Vector2	Size = m_Size;
 
 	if (m_Animation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
-
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
-
 		Size = FrameData.Size;
 	}
 
@@ -522,4 +514,8 @@ float CGameObject::SetDamage(float Damage)
 		return 0.f;
 
 	return Damage;
+}
+
+void CGameObject::GoOppDirection(Vector2 Dir)
+{
 }

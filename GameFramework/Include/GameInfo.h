@@ -104,9 +104,5 @@ struct CollisionProfile
 	std::string			Name;
 	ECollision_Channel	Channel;
 	bool				CollisionEnable;
-
-	// Channel ����ŭ�� �����Ѵ�. ���� �� ���������� �ٸ� �������ϰ� �浹�ؾ� ����
-	// ������ ���Ҷ� �ش� ���������� ����ϴ� ä�ΰ� Ignore���� Collision������
-	// �Ǵ��Ҷ� ����Ѵ�.
 	std::vector<ECollision_State>	vecState;
 };

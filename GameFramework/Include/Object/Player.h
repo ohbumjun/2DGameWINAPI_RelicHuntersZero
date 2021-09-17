@@ -42,7 +42,7 @@ private:
 	void MoveLeft(float DeltaTime);
 	void MoveRight(float DeltaTime);
 
-	// Run
+// Run
 private:
 	void RunLeft(float DeltaTime);
 	void RunRight(float DeltaTime);
@@ -52,12 +52,16 @@ private:
 	void RunStart();
 	void RunEnd();
 
-	// Dash
+// Dash
 private:
 	void Dash(float DeltaTime);
 	void DashEnd();
 	bool m_DashEnable;
 	float m_DashTime;
+	Vector2 GetOppDirection(Vector2 Dir)
+	{
+		return Vector2(-Dir.x, -Dir.y);
+	}
 
 	// Other Skills
 private:
@@ -69,7 +73,11 @@ private:
 public:
 	void AttackEnd();
 	void Fire();
-
 	void Skill1End();
 	void Skill1Enable();
+	virtual void GoOppDirection(Vector2 Dir)
+	{
+		Vector2 Dist = Vector2(Dir.x * 20, Dir.y * 20);
+		m_Pos += Dist;
+	};
 };
