@@ -153,6 +153,10 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("RunRight", 'D');
 	SetShiftKey("RunRight", true);
 
+	// Dash
+	CreateKey("Dash", VK_TAB);
+
+
 	ShowCursor(FALSE);
 
 	CUIImage *MouseDefault = new CUIImage;

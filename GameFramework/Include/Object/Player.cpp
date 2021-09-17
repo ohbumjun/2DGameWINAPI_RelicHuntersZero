@@ -29,6 +29,18 @@ void CPlayer::Start()
 {
 	CCharacter::Start();
 
+	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Down,
+		this, &CPlayer::BulletFire);
+
+	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
+		this, &CPlayer::Pause);
+	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
+		this, &CPlayer::Resume);
+
+	CInput::GetInst()->SetCallback<CPlayer>("Skill1", KeyState_Down,
+		this, &CPlayer::Skill1);
+
+	// Move
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
 											this, &CPlayer::MoveUp);
 
@@ -41,17 +53,7 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("MoveRight", KeyState_Push,
 											this, &CPlayer::MoveRight);
 
-	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Down,
-											this, &CPlayer::BulletFire);
-
-	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
-											this, &CPlayer::Pause);
-	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
-											this, &CPlayer::Resume);
-
-	CInput::GetInst()->SetCallback<CPlayer>("Skill1", KeyState_Down,
-											this, &CPlayer::Skill1);
-
+	// Run
 	CInput::GetInst()->SetCallback<CPlayer>("RunUp", KeyState_Push,
 											this, &CPlayer::RunUp);
 
@@ -63,6 +65,10 @@ void CPlayer::Start()
 
 	CInput::GetInst()->SetCallback<CPlayer>("RunRight", KeyState_Push,
 											this, &CPlayer::RunRight);
+
+	// Dash
+	CInput::GetInst()->SetCallback<CPlayer>("Dash", KeyState_Down,
+		this, &CPlayer::Dash);
 }
 
 bool CPlayer::Init()
@@ -166,12 +172,12 @@ void CPlayer::Update(float DeltaTime)
 		}
 	}
 
-	// Run
-	if (!m_RunEnable)
+	if (!m_RunEnable && !m_DashEnable)
 	{
 		if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
 			m_CharacterInfo.MP += DeltaTime;
 	}
+	// Run
 	if (m_RunEnable)
 	{
 		if (m_CharacterInfo.MP >= 0)
@@ -179,6 +185,16 @@ void CPlayer::Update(float DeltaTime)
 		if (m_CharacterInfo.MP <= 0)
 		{
 			RunEnd();
+		}
+	}
+	// Dash
+	if (m_DashEnable)
+	{
+		if (m_DashTime >= 0)
+			m_DashTime -= DeltaTime;
+		if (m_DashTime <= 0)
+		{
+			DashEnd();
 		}
 	}
 	
@@ -340,12 +356,23 @@ void CPlayer::RunEnd()
 	}
 }
 
-void CPlayer::Dash()
+void CPlayer::Dash(float DelatTime)
 {
+	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
+	m_DashTime = 0.15;
+	m_DashEnable = true;
+	m_MoveSpeed = m_SpeedInfo.Dash;
+	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.5 * m_CharacterInfo.MPMax;
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+		m_Pos, Vector2(178.f, 164.f));
 }
 
 void CPlayer::DashEnd()
 {
+	if (!m_DashEnable) return;
+	m_DashEnable = false;
+	m_MoveSpeed = m_SpeedInfo.Normal;
 }
 
 void CPlayer::BulletFire(float DeltaTime)
