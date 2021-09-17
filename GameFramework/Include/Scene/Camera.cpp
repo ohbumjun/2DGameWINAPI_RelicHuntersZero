@@ -1,5 +1,5 @@
-
 #include "Camera.h"
+#include "../Input.h"
 
 CCamera::CCamera()	:
 	m_Resolution(1280.f, 720.f),
@@ -27,7 +27,8 @@ void CCamera::Update(float DeltaTime)
 
 		else
 		{
-			m_Pos = m_Target->GetPos() - m_TargetPivot * m_Resolution +
+			Vector2 RenderPos = (m_Target->GetPos() + CInput::GetInst()->GetMousePos()) / 2;
+			m_Pos = RenderPos - m_TargetPivot * m_Resolution +
 				m_TargetOffset;
 		}
 	}

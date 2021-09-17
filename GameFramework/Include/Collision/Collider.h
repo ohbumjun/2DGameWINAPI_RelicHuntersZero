@@ -90,6 +90,10 @@ public:
 	{
 		return m_Profile;
 	}
+	bool IsCollisionListEmpty() const
+	{
+		return m_CollisionList.empty();
+	}
 
 public:
 	void SetCollisionProfile(const std::string& Name);
