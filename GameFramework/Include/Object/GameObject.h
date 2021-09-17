@@ -211,6 +211,7 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CGameObject* Clone();
 	virtual float SetDamage(float Damage);
+	virtual void GoOppDirection(Vector2 Dir);
 
 
 public:

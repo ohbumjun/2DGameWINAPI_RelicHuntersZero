@@ -12,6 +12,7 @@ protected:
 protected:
 	CharacterInfo m_CharacterInfo;
 	SpeedInfo m_SpeedInfo;
+	Vector2   m_Dir;
 
 public:
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
