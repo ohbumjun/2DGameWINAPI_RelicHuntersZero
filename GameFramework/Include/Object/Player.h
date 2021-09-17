@@ -1,22 +1,21 @@
 #pragma once
 #include "Character.h"
 #include "Bullet.h"
-class CPlayer :
-    public CCharacter
+class CPlayer : public CCharacter
 {
 	friend class CScene;
 
 protected:
 	CPlayer();
-	CPlayer(const CPlayer& obj);
+	CPlayer(const CPlayer &obj);
 	virtual ~CPlayer();
 
 protected:
-	bool	m_Skill1Enable;
-	float	m_Skill1Time;
-	std::list<CSharedPtr<CBullet>>	m_Skill1BulletList;
-	CSharedPtr<CWidgetComponent>	m_HPBarWidget;
-	CSharedPtr<CWidgetComponent>	m_NameWidget;
+	bool m_Skill1Enable;
+	float m_Skill1Time;
+	std::list<CSharedPtr<CBullet>> m_Skill1BulletList;
+	CSharedPtr<CWidgetComponent> m_HPBarWidget;
+	CSharedPtr<CWidgetComponent> m_NameWidget;
 
 public:
 	virtual void SetAttackSpeed(float Speed)
@@ -33,7 +32,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CPlayer* Clone();
+	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
 private:
@@ -42,8 +41,8 @@ private:
 	void MoveLeft(float DeltaTime);
 	void MoveRight(float DeltaTime);
 
-// Run
-private :
+	// Run
+private:
 	void RunLeft(float DeltaTime);
 	void RunRight(float DeltaTime);
 	void RunUp(float DeltaTime);
@@ -52,13 +51,13 @@ private :
 	void RunStart();
 	void RunEnd();
 
-// Dash
-private :
+	// Dash
+private:
 	void Dash();
 	void DashEnd();
 	bool m_DashEnable;
 
-// Other Skills
+	// Other Skills
 private:
 	void BulletFire(float DeltaTime);
 	void Pause(float DeltaTime);
@@ -72,4 +71,3 @@ public:
 	void Skill1End();
 	void Skill1Enable();
 };
-
