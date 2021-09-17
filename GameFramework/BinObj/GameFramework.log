@@ -1,0 +1,50 @@
+﻿  Animation.cpp
+  Collider.cpp
+  ColliderBox.cpp
+  ColliderSphere.cpp
+  Collision.cpp
+  CollisionManager.cpp
+  GameManager.cpp
+  Input.cpp
+  Math.cpp
+  Bullet.cpp
+  Character.cpp
+  EffectHit.cpp
+  GameObject.cpp
+  Monster.cpp
+  Player.cpp
+  PathManager.cpp
+  Ref.cpp
+  AnimationSequence.cpp
+  Font.cpp
+  ResourceManager.cpp
+  Generating Code...
+  Compiling...
+  Sound.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Resource\Sound.cpp(56,50): warning C4311: 'type cast': pointer truncation from 'FMOD::Channel *' to 'int'
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Resource\Sound.cpp(56,50): warning C4302: 'type cast': truncation from 'FMOD::Channel *' to 'int'
+  Texture.cpp
+  Camera.cpp
+  MainScene.cpp
+  Scene.cpp
+  SceneCollision.cpp
+  SceneManager.cpp
+  SceneResource.cpp
+  StartScene.cpp
+  Timer.cpp
+  Button.cpp
+  NumberWidget.cpp
+  ProgressBar.cpp
+  UICharacterStateHUD.cpp
+  UIImage.cpp
+  UIMain.cpp
+  UIStart.cpp
+  UIText.cpp
+  UIWidget.cpp
+  UIWindow.cpp
+  Generating Code...
+  Compiling...
+  WidgetComponent.cpp
+  main.cpp
+  Generating Code...
+  GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Bin\GameFramework_Debug.exe
