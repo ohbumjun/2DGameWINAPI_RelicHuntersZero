@@ -54,9 +54,10 @@ private:
 
 	// Dash
 private:
-	void Dash();
+	void Dash(float DeltaTime);
 	void DashEnd();
 	bool m_DashEnable;
+	float m_DashTime;
 
 	// Other Skills
 private:
