@@ -373,7 +373,17 @@ void CPlayer::Dash(float DelatTime)
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 
 	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 )
-
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->IsCollisionListEmpty())
+		{
+			DashEnd();
+			Vector2 Dist = Vector2(-100 * m_Dir.x, -100 * m_Dir.y);
+			m_Pos += Dist;
+		}
+	}
 }
 
 void CPlayer::DashEnd()

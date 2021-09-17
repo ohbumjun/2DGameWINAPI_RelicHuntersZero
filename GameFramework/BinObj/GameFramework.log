@@ -1,6 +1,2 @@
-﻿  Player.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(366,19): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(370,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-  MainScene.cpp
-  Generating Code...
+﻿  Camera.cpp
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Bin\GameFramework_Debug.exe
