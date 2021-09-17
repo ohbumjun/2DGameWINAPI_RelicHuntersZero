@@ -15,6 +15,7 @@ protected:
 	float m_Skill1Time;
 	std::list<CSharedPtr<CBullet>> m_Skill1BulletList;
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
+	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 
 public:

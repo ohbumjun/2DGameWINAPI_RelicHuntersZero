@@ -14,7 +14,7 @@ protected:
 	SpeedInfo m_SpeedInfo;
 
 public:
-	void SetCharacterInfo(int Attack, int Armor, int HP, int MP, int Level,
+	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance)
 	{

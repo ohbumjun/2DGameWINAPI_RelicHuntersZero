@@ -2,11 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-<<<<<<< HEAD
       <FullPath>C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Bin\GameFramework_Debug.exe</FullPath>
-=======
-      <FullPath>D:\Lecture\37th\API\GameFramework\GameFramework\Bin\GameFramework_Debug.exe</FullPath>
->>>>>>> 3a7a336f5fab3d4a44047277de46874162d19d67
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
