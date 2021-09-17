@@ -1,15 +1,13 @@
 
 #include "Character.h"
 
-CCharacter::CCharacter()	:
-	m_CharacterInfo{}
+CCharacter::CCharacter() : m_CharacterInfo{}
 {
 	m_ObjType = EObject_Type::Character;
 	m_MoveSpeed = m_SpeedInfo.Normal;
 }
 
-CCharacter::CCharacter(const CCharacter& obj) :
-	CGameObject(obj)
+CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
 }
@@ -51,7 +49,7 @@ void CCharacter::Render(HDC hDC)
 	CGameObject::Render(hDC);
 }
 
-CCharacter* CCharacter::Clone()
+CCharacter *CCharacter::Clone()
 {
 	return nullptr;
 }
