@@ -9,6 +9,8 @@
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 #include "EffectHit.h"
+#include "../Scene/Scene.h"
+#include"../Scene/SceneResource.h"
 
 CPlayer::CPlayer() : m_Skill1Enable(false),
 					 m_Skill1Time(0.f)
@@ -336,6 +338,8 @@ void CPlayer::RunStart()
 	m_RunEnable = true;
 	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 														m_Pos, Vector2(178.f, 164.f));
+	m_Scene->GetSceneResource()->SoundPlay("Run");
+
 	m_MoveSpeed = m_SpeedInfo.Fast;
 }
 
@@ -366,6 +370,7 @@ void CPlayer::Dash(float DelatTime)
 		m_CharacterInfo.MP -= 0.5 * m_CharacterInfo.MPMax;
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
+	m_Scene->GetSceneResource()->SoundPlay("Dash");
 }
 
 void CPlayer::DashEnd()

@@ -1,5 +1,5 @@
 ﻿  Player.cpp
 C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\GameInfo.h(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(362,19): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(366,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(366,19): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Include\Object\Player.cpp(370,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\PersonalProject\GameFramework\Bin\GameFramework_Debug.exe

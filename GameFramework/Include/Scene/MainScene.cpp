@@ -209,4 +209,8 @@ void CMainScene::LoadSound()
 	GetSceneResource()->SetVolume("Effect", 10);
 
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
+
+	// Player --> run, dash
+	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
+	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
