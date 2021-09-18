@@ -1,2 +1,3 @@
 ﻿  GameObject.cpp
+C:\Users\user.DESKTOP-3NN2QR0\source\repos\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(27,1): warning C4305: 'initializing': truncation from 'int' to 'float'
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\source\repos\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
