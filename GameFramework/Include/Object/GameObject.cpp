@@ -49,7 +49,6 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	m_Animation->m_Owner = this;
 
 	m_ColliderList.clear();
-
 	{
 		auto	iter = obj.m_ColliderList.begin();
 		auto	iterEnd = obj.m_ColliderList.end();
@@ -327,8 +326,8 @@ void CGameObject::Update(float DeltaTime)
 	{
 		// 떨어지기 시작 !
 		// 떨어지는 시간 누적
-		// m_FallTime += DeltaTime * m_GravityAccel;
-		m_FallTime += DeltaTime;
+		m_FallTime += DeltaTime * m_GravityAccel;
+		// m_FallTime += DeltaTime;
 
 		// 0) 기본 개념
 		// https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=imchan123&logNo=10147703496
@@ -406,7 +405,7 @@ void CGameObject::Update(float DeltaTime)
 		// 정리 : 위치 or 이동거리(S) = 최조 속도 * 시간 + 0.5 * 가속도 * 시간 * 시간  
 		// Velocity : 최초 속도 * 시간 
 		// (0.5 * GRAVITY * m_FallTime * m_FallTime)  :  0.5 * 가속도 * 시간 * 시간
-		// m_Pos.y = m_FallStartY - (Velocity - (0.5 * GRAVITY * m_FallTime * m_FallTime));
+		m_Pos.y = m_FallStartY - (Velocity - (0.5 * GRAVITY * m_FallTime * m_FallTime));
 	}
 
 	if (m_Animation)

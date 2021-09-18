@@ -125,7 +125,7 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	DamageFont->SetJumpVelocity(30.f);
 	DamageFont->SetPhysicsSimulate(true);
 	DamageFont->Jump();
-
+	DamageFont->SetLifeTime(0.3f);
 	CWidgetComponent* Widget = DamageFont->CreateWidgetComponent("DamageFont");
 	CNumberWidget* DamageNumber = Widget->CreateWidget<CNumberWidget>("DamageFont");
 
@@ -133,20 +133,21 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	for (int i = 0; i < 10; ++i)
 	{
 		TCHAR	FileName[256] = {};
-
 		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
-
 		vecNumberFileName.push_back(FileName);
 	}
 
 	DamageNumber->SetTexture("Number", vecNumberFileName);
-	DamageNumber->SetPos(560.f, 100.f);
+
+	// 따로 positioin은 세팅해줄 필요 없다
+	// 왜냐하면, CreateWidgetComponent 을 만들어내는 순간
+	// Owner인 G.O의 위치에 맞게 세팅되기 때문이다.
 	DamageNumber->SetSize(29.f, 48.f);
 
 	for (int i = 0; i < 10; i++)
 	{
 		DamageNumber->SetTextureColorKey(255, 255, 255, i);
 	}
-	DamageNumber->SetSize(29.f, 48.f);
 	DamageNumber->SetNumber((int)m_Damage);
+
 }
