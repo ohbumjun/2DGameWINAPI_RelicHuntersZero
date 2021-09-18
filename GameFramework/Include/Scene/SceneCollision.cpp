@@ -153,7 +153,6 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 void CSceneCollision::Collision(float DeltaTime)
 {
 	size_t	Size = m_vecCollider.size();
-
 	if (Size > 1)
 	{
 		for (size_t i = 0; i < Size - 1; ++i)
@@ -190,6 +189,17 @@ void CSceneCollision::Collision(float DeltaTime)
 
 						Src->CallCollisionBegin(Dest, DeltaTime);
 						Dest->CallCollisionBegin(Src, DeltaTime);
+
+						// 만약 (Player 혹은 Monster)와 Bullet이 충돌한 경우라면 
+						// Stun을 일정시간 걸어서 움직이지 못하고
+						// Bullet에 의해 밀려나게 한다 
+						EObject_Type SrcObjType  = Src->GetOwner()->GetObjType();
+						EObject_Type DestObjType = Dest->GetOwner()->GetObjType();
+						if ((SrcObjType == EObject_Type::Player || SrcObjType == EObject_Type::Monster) &&
+							DestObjType == EObject_Type::Bullet)
+						{
+							// Src->GetOwner()->SetStun();
+						}
 					}
 				}
 
