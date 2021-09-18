@@ -16,6 +16,7 @@ CCharacter::~CCharacter()
 {
 }
 
+
 void CCharacter::Start()
 {
 	CGameObject::Start();
@@ -61,4 +62,14 @@ float CCharacter::SetDamage(float Damage)
 	m_CharacterInfo.HP -= (int)Damage;
 
 	return Damage;
+}
+
+void CCharacter::Move(const Vector2& Dir)
+{
+	CGameObject::Move(Dir);
+}
+
+void CCharacter::Move(const Vector2& Dir, float Speed)
+{
+	CGameObject::Move(Dir, Speed);
 }

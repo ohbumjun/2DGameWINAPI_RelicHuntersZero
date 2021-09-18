@@ -68,7 +68,7 @@ struct SpeedInfo
 	float Dash;
 	SpeedInfo() :
 		Normal(200.f),
-		Fast(300.f),
+		Fast(400.f),
 		Dash(1600.f) {}
 };
 

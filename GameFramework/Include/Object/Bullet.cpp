@@ -37,9 +37,7 @@ CBullet::~CBullet()
 void CBullet::Start()
 {
 	CGameObject::Start();
-
 	CCollider* Body = FindCollider("Body");
-
 	Body->SetCollisionBeginFunction<CBullet>(this, &CBullet::CollisionBegin);
 }
 
@@ -112,13 +110,15 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	// Damage 주기 
 	Dest->GetOwner()->SetDamage(m_Damage);
 
-	// 튕겨나가게 하기
-	Dest->GetOwner()->Move(m_Dir*10);
+	// 튕겨나가게 하기 ( 자신의 size 만큼 )
+	Vector2 DestSize = Dest->GetOwner()->GetSize();
+	Vector2 BulletDir = m_Dir;
 
+	// 총알 반대 방향으로 이동시키기 
+	Dest->GetOwner()->Move(DestSize* BulletDir);
 	
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
-
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont",m_Pos);
