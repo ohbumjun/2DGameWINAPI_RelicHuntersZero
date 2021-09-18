@@ -57,11 +57,20 @@ public:
 	virtual CCharacter *Clone();
 	virtual float SetDamage(float Damage);
 
-public :
+protected :
 	// Move != 가상함수
 	// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
 	// 가상함수 테이블에, Move함수를 들고 있게 하고 싶지 않았다 
-	void Move(const Vector2& Dir);
-	void Move(const Vector2& Dir, float Speed);
+	// 그런데.. 그냥 걸자... ㅋㅋ
+	virtual void Move(const Vector2& Dir);
+	virtual void Move(const Vector2& Dir, float Speed);
 
+private :
+	bool m_Stun;
+	float m_StunTime;
+	void SetStun()
+	{
+		m_Stun = true;
+		m_StunTime = 0.5f;
+	}
 };

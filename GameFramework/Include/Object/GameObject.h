@@ -199,8 +199,8 @@ public:
 		m_TimeScale = TimeScale;
 	}
 
-	void Move(const Vector2& Dir);
-	void Move(const Vector2& Dir, float Speed);
+	virtual void Move(const Vector2& Dir);
+	virtual void Move(const Vector2& Dir, float Speed);
 
 	void SetImageStart(float x, float y)
 	{

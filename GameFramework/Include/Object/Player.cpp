@@ -18,8 +18,8 @@ CPlayer::CPlayer() :
 	m_Skill1Time(0.f),
 	m_RunEnable(false),
 	m_DashEnable(false)
-		
 {
+	m_ObjType = EObject_Type::Player;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -458,6 +458,8 @@ void CPlayer::Skill1(float DeltaTime)
 	ChangeAnimation("LucidNunNaRightSkill1");
 }
 
+// 참고 : Bullet의 경우, Collision을 고려할 필요가 없다
+// 왜냐하면 충돌하는 순간 Bullet은 자기 혼자 바로 사라져 버리기 때문이다 
 bool CPlayer::CollisionCheck()
 {
 	auto iter = m_ColliderList.begin();
