@@ -58,7 +58,6 @@ bool CUIWidget::CollisionMouse(const Vector2& MousePos, float DeltaTime)
 		}
 		return true;
 	}
-
 	return false;
 }
 
