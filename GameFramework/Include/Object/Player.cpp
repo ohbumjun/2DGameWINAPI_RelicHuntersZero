@@ -401,6 +401,12 @@ void CPlayer::BulletFire(float DeltaTime)
 {
 	ChangeAnimation("LucidNunNaRightAttack");
 
+	/*
+	SetPhysicsSimulate(true);
+	Jump();
+	SetJumpVelocity(30.f);
+	*/
+
 	/*if (m_Skill1Enable)
 	{
 		Bullet->SetTimeScale(0.f);

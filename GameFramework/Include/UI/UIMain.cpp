@@ -44,9 +44,7 @@ bool CUIMain::Init()
 	for (int i = 0; i < 10; ++i)
 	{
 		TCHAR	FileName[256] = {};
-
 		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
-
 		vecNumberFileName.push_back(FileName);
 	}
 
@@ -83,7 +81,6 @@ bool CUIMain::Init()
 	Colon->SetTexture("Colon", TEXT("Number/Colon.bmp"));
 	Colon->SetPos(530.f, 100.f);
 	Colon->SetSize(29.f, 48.f);
-
 	m_Time = 0.f;
 
 	return true;
