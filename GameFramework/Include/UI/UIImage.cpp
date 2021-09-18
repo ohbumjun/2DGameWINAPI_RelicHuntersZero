@@ -140,24 +140,6 @@ void CUIImage::Render(HDC hDC)
 
 		else
 		{
-			// 이미지를 이용해서 출력한다.
-			m_Texture->Render(hDC, Pos + m_Offset, ImagePos, Size);
-		}
-	}
-}
-
-void CUIImage::Render(const Vector2& Pos, HDC hDC)
-{
-	if (m_Texture)
-	{
-		Vector2	ImagePos;
-		Vector2	Size = m_Size;
-
-		if (!m_vecFrameData.empty())
-		{
-			ImagePos = m_vecFrameData[m_FrameIndex].StartPos;
-			Size = m_vecFrameData[m_FrameIndex].Size;
-
 			if (m_Texture->GetTextureType() == ETexture_Type::Frame)
 			{
 				// 이미지를 이용해서 출력한다.
@@ -169,7 +151,29 @@ void CUIImage::Render(const Vector2& Pos, HDC hDC)
 				m_Texture->Render(hDC, Pos + m_Offset, ImagePos, Size);
 			}
 		}
+	}
+}
 
+void CUIImage::Render(const Vector2& Pos, HDC hDC)
+{
+	if (m_Texture)
+	{
+		Vector2	ImagePos;
+		Vector2	Size = m_Size;
+		if (!m_vecFrameData.empty())
+		{
+			ImagePos = m_vecFrameData[m_FrameIndex].StartPos;
+			Size = m_vecFrameData[m_FrameIndex].Size;
+			if (m_Texture->GetTextureType() == ETexture_Type::Frame)
+			{
+				// 이미지를 이용해서 출력한다.
+				m_Texture->Render(hDC, Pos + m_Offset, ImagePos, Size, m_FrameIndex);
+			}
+			else
+			{
+				m_Texture->Render(hDC, Pos + m_Offset, ImagePos, Size);
+			}
+		}
 		else
 		{
 			// 이미지를 이용해서 출력한다.

@@ -58,12 +58,8 @@ private:
 	void DashEnd();
 	bool m_DashEnable;
 	float m_DashTime;
-	Vector2 GetOppDirection(Vector2 Dir)
-	{
-		return Vector2(-Dir.x, -Dir.y);
-	}
 
-	// Other Skills
+// Other Skills
 private:
 	void BulletFire(float DeltaTime);
 	void Pause(float DeltaTime);

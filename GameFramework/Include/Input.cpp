@@ -217,10 +217,7 @@ void CInput::UpdateMouse(float DeltaTime)
 {
 	POINT ptMouse;
 
-	// �Ʒ� �Լ��� ���콺�� ��ġ�� ��ũ����ǥ �������� �����ְ� �ִ�.
 	GetCursorPos(&ptMouse);
-
-	// ��ũ�� ��ǥ�� Ŭ���̾�Ʈ ��ǥ�� ��ȯ�Ѵ�.
 	ScreenToClient(m_hWnd, &ptMouse);
 
 	Vector2 Pos;

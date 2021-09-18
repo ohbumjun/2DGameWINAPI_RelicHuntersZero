@@ -62,7 +62,6 @@ void CNumberWidget::Render(HDC hDC)
 		m_FrameIndex = 0;
 		CUIImage::Render(hDC);
 	}
-
 	else
 	{
 		// 비어있지 않다면 값이 있다는 것이다.
@@ -70,6 +69,15 @@ void CNumberWidget::Render(HDC hDC)
 
 		for (size_t i = 0; i < Size; ++i)
 		{
+			if (m_Texture->GetTextureType() == ETexture_Type::Frame)
+				m_FrameIndex = m_vecNumber[i];
+			else
+				m_FrameIndex = 0;
+
+			// 처음에 OffSet 0으로 세팅해준 다음 Render로 넘어갈 수 있게 해주기 
+			m_Offset.x = i * m_Size.x;
+
+			CUIImage::Render(hDC);
 		}
 	}
 }

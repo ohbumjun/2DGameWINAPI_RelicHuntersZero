@@ -90,6 +90,8 @@ public:
 	{
 		return m_Profile;
 	}
+	// 나중에 가서 디자인 패턴을 적용할 수 있으면 적용하기 
+	// 우선 구현 + 디자인 패턴 적용 
 	bool IsCollisionListEmpty() const
 	{
 		return m_CollisionList.empty();

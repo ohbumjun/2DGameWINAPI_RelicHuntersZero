@@ -372,16 +372,20 @@ void CPlayer::Dash(float DelatTime)
 		m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 
-	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 )
+	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->IsCollisionListEmpty())
+		if (!(*iter)->IsCollisionListEmpty())
 		{
 			DashEnd();
-			Vector2 Dist = Vector2(-100 * m_Dir.x, -100 * m_Dir.y);
-			m_Pos += Dist;
+			Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
+			m_Dir = OppDir;
+			Move(OppDir*10);
+			// Vector2 Dist = Vector2(-100 * m_Dir.x, -100 * m_Dir.y);
+			// m_Dir += Dist;
+			break;
 		}
 	}
 }

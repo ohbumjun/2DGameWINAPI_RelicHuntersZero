@@ -25,6 +25,7 @@ stl : standard template library�̴�.
 
 #pragma comment(lib, "fmod64_vc.lib")
 
+#define GRAVITY 9.8f;
 
 #define	KEYCOUNT_MAX	256
 
