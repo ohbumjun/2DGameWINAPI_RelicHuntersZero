@@ -59,6 +59,7 @@ private:
 private:
 	void Dash(float DeltaTime);
 	void DashEnd();
+	void DashCollide();
 	bool m_DashEnable;
 	float m_DashTime;
 
