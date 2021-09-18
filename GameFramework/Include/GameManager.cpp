@@ -15,6 +15,7 @@ bool CGameManager::m_Loop = true;
 CGameManager::CGameManager() : m_Timer(nullptr),
 							   m_TimeScale(1.f)
 {
+	// init commit 
 }
 
 CGameManager::~CGameManager()
