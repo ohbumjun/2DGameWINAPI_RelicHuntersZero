@@ -66,10 +66,12 @@ float CCharacter::SetDamage(float Damage)
 
 void CCharacter::Move(const Vector2& Dir)
 {
+	SetDir(Dir);
 	CGameObject::Move(Dir);
 }
 
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
+	SetDir(Dir);
 	CGameObject::Move(Dir, Speed);
 }

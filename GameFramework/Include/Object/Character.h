@@ -12,9 +12,18 @@ protected:
 protected:
 	CharacterInfo m_CharacterInfo;
 	SpeedInfo m_SpeedInfo;
+	// Dir ¼¼ÆÃ 
 	Vector2   m_Dir;
 
 public:
+	void SetDir(Vector2 Dir)
+	{
+		m_Dir = Dir;
+	}
+	void SetDir(float x, float y)
+	{
+		m_Dir = Vector2(x, y);
+	}
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance)

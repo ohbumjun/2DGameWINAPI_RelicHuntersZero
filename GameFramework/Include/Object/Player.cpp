@@ -78,9 +78,9 @@ void CPlayer::Start()
 		this, &CPlayer::Dash);
 
 	// Collider setting
-	CCollider* Body = FindCollider("Body");
-	CCollider* Head = FindCollider("Head");
-	Body->SetCollisionBeginFunction<CPlayer>(this, &CPlayer::CollisionBegin);
+	// CCollider* Body = FindCollider("Body");
+	// CCollider* Head = FindCollider("Head");
+	// Body->SetCollisionBeginFunction<CPlayer>(this, &CPlayer::CollisionBegin);
 }
 
 bool CPlayer::Init()
@@ -193,6 +193,9 @@ void CPlayer::Update(float DeltaTime)
 	// Dash
 	if (m_DashEnable)
 	{
+		if (CollisionCheck())
+			DashCollide();
+
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
 		if (m_DashTime <= 0)
@@ -263,16 +266,13 @@ CPlayer *CPlayer::Clone()
 float CPlayer::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
-
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	if (State)
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
-
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
-
 	return Damage;
 }
 
@@ -307,17 +307,23 @@ void CPlayer::MoveRight(float DeltaTime)
 
 void CPlayer::Move(const Vector2& Dir)
 {
-	if (CollisionCheck()) return;
+	if (CollisionCheck())
+	{
+		// 그외 충돌시 효과 추가하기 
+		if (m_DashEnable) return;
+	}
 	CCharacter::Move(Dir);
 }
 
 void CPlayer::Move(const Vector2& Dir, float Speed)
 {
-	if (CollisionCheck()) return;
+	if (CollisionCheck())
+	{
+		// 그외 충돌시 효과 추가하기 
+		if (m_DashEnable) return;
+	}
 	CCharacter::Move(Dir, Speed);
 }
-
-
 
 void CPlayer::RunLeft(float DeltaTime)
 {
@@ -379,17 +385,22 @@ void CPlayer::RunEnd()
 void CPlayer::Dash(float DelatTime)
 {
 	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
+
 	// Dash Time 세팅 
 	m_DashTime = 0.15;
 	m_DashEnable = true;
+
 	// speed 조정 
 	m_MoveSpeed = m_SpeedInfo.Dash;
+
 	// MP 감소
 	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.5 * m_CharacterInfo.MPMax;
+
 	// Effect 효과
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
+
 	// Sound 효과
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 }
@@ -399,6 +410,20 @@ void CPlayer::DashEnd()
 	if (!m_DashEnable) return;
 	m_DashEnable = false;
 	m_MoveSpeed = m_SpeedInfo.Normal;
+}
+
+void CPlayer::DashCollide()
+{
+	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
+	// 대시중 충돌 여부 확인
+	// 나중에 체크해야 한다. 
+	// 충돌한 대상이 몬스터인지, 장애물인지, 등등 
+	// 지금은 우선 이렇게 단순하게 세팅하자.
+	// 이동 방향 반대로 이동시키기
+	SetDir(Vector2(-m_Dir.x,-m_Dir.y));
+	DashEnd();
+	// 자기 크기만큼 bounce back
+	Move(m_Dir * m_Size * 2);
 }
 
 void CPlayer::BulletFire(float DeltaTime)
@@ -463,18 +488,20 @@ Vector2 CPlayer::GetColliderPos()
 		}
 	}
 	return m_Resolution;
+
 }
+
 
 void CPlayer::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
-	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
-	// 대시중 충돌 여부 확인
+	/*
 	bool Result = CollisionCheck();
 	if (Result && m_DashEnable)
 	{
-		// m_Pos = GetColliderPos();
-		// m_Pos -= Vector2(GetSize());
+		m_Pos = GetColliderPos();
+		m_Pos -= Vector2(GetSize());
 	}
+	*/
 }
 
 void CPlayer::AttackEnd()
