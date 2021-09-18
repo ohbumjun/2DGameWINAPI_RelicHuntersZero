@@ -7,6 +7,7 @@
 #include "../Scene/SceneResource.h"
 #include "../UI//NumberWidget.h"
 #include "../UI/WidgetComponent.h"
+#include "DamageFont.h"
 
 CBullet::CBullet()
 {
@@ -120,34 +121,7 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
-	CGameObject* DamageFont = m_Scene->CreateObject<CGameObject>("DamageFont", m_Pos);
-
-	DamageFont->SetJumpVelocity(30.f);
-	DamageFont->SetPhysicsSimulate(true);
-	DamageFont->Jump();
-	DamageFont->SetLifeTime(0.3f);
-	CWidgetComponent* Widget = DamageFont->CreateWidgetComponent("DamageFont");
-	CNumberWidget* DamageNumber = Widget->CreateWidget<CNumberWidget>("DamageFont");
-
-	std::vector<std::wstring>	vecNumberFileName;
-	for (int i = 0; i < 10; ++i)
-	{
-		TCHAR	FileName[256] = {};
-		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
-		vecNumberFileName.push_back(FileName);
-	}
-
-	DamageNumber->SetTexture("Number", vecNumberFileName);
-
-	// 따로 positioin은 세팅해줄 필요 없다
-	// 왜냐하면, CreateWidgetComponent 을 만들어내는 순간
-	// Owner인 G.O의 위치에 맞게 세팅되기 때문이다.
-	DamageNumber->SetSize(29.f, 48.f);
-
-	for (int i = 0; i < 10; i++)
-	{
-		DamageNumber->SetTextureColorKey(255, 255, 255, i);
-	}
-	DamageNumber->SetNumber((int)m_Damage);
-
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont",m_Pos);
+	DamageFont->SetDamageNumber((int)m_Damage);
+	
 }

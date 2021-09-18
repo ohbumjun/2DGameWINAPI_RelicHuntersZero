@@ -48,8 +48,7 @@ bool CMainScene::Init()
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
-	CMonster *Monster = CreateObject<CMonster>("Monster",
-											   Vector2(1000.f, 100.f));
+	CMonster *Monster = CreateObject<CMonster>("Monster",Vector2(1000.f, 100.f));
 
 	/*CUIWindow* TestWindow = CreateUIWindow<CUIWindow>("TestWindow");
 

@@ -356,12 +356,10 @@ bool CScene::Render(HDC hDC)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
-
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
 				}
-
 				continue;
 			}
 			++i;
@@ -374,7 +372,6 @@ bool CScene::Render(HDC hDC)
 				--i;
 				continue;
 			}
-
 			m_UIArray[i]->Render(hDC);
 			--i;
 		}
@@ -394,7 +391,15 @@ int CScene::SortY(const void* Src, const void* Dest)
 
 	if (SrcY < DestY)
 		return -1;
-
+	// 여기서는 Y가 클수록, 아래에 있다는 것이고
+	// Y가 작을 수록, 위에 있다는 것이다
+	// 우리는 아래에 있는 Y를 화면 앞에다가 그리고 싶은 것
+	// 즉, Y값이 큰애를 화면 앞에다가 그리고 싶은 것
+	// 따라서, 먼저 SortY를 통해, Y가 작은 애들, 
+	// 즉, 더 위에있는 애들이 앞에오게 정렬한 다음
+	// Render에서, 배열 앞에서부터 그림으로써
+	// 배열 상 뒤로 갈수록, 아래에 위치해있는 애들을
+	// 나중에 그리게 하고, 이를 통해, 화면 앞쪽에 그릴 수 있게 설정하는 것이다 
 	else if (SrcY > DestY)
 		return 1;
 

@@ -5,7 +5,7 @@
 #include "UIWindow.h"
 
 CNumberWidget::CNumberWidget()	:
-	m_Number(2)
+	m_Number(1)
 {
 }
 
@@ -72,7 +72,6 @@ void CNumberWidget::Render(HDC hDC)
 	{
 		// 비어있지 않다면 값이 있다는 것이다.
 		size_t	Size = m_vecNumber.size();
-
 		for (size_t i = 0; i < Size; ++i)
 		{
 			if (m_Texture->GetTextureType() == ETexture_Type::Frame)
@@ -83,7 +82,6 @@ void CNumberWidget::Render(HDC hDC)
 			// 처음에 OffSet 0으로 세팅해준 다음 Render로 넘어갈 수 있게 해주기 
 			// ex) 1 --> 2 --> 3 : 이런식으로 오른쪽으로 넘어가면서 !
 			m_Offset.x = i * m_Size.x;
-
 			CUIImage::Render(hDC);
 		}
 	}

@@ -79,18 +79,14 @@ public:
 	T* CreateWidget(const std::string& Name)
 	{
 		T* Widget = new T;
-
 		Widget->SetName(Name);
 		Widget->SetScene(m_Scene);
-
 		if (!Widget->Init())
 		{
 			SAFE_DELETE(Widget);
 			return nullptr;
 		}
-
 		m_Widget = Widget;
-
 		return Widget;
 	}
 };
