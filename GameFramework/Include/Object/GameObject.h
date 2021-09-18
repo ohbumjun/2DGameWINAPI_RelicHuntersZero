@@ -38,9 +38,27 @@ protected:
 
 	bool m_PhysicsSimulate;
 	float m_FallTime; // 떨어지는 시간
+	float m_FallStartY; // 점프 시점 ( 점프 시작의 y좌표 )
 
+	bool m_Jump;
+	float m_JumpVelocity;
+
+	bool m_IsGround;
 
 public:
+	void Jump()
+	{
+		if (!m_Jump)
+		{
+			m_Jump = true;
+			m_IsGround = false;
+		}
+		m_FallStartY = m_Pos.y;
+	}
+	void SetJumpVelocity(float Velocity)
+	{
+		m_JumpVelocity = Velocity;
+	}
 	void SetPhysicsSimulate(bool Physics)
 	{
 		m_PhysicsSimulate = Physics;

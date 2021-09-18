@@ -16,13 +16,21 @@ CGameObject::CGameObject()	:
 	m_Start(false),
 	m_DamageEnable(true),
 	m_ObjType(EObject_Type::GameObject),
-	m_PhysicsSimulate(false)
+	m_PhysicsSimulate(false),
+	m_FallTime(0.f),
+	m_FallStartY(0.f),
+	m_Jump(false),
+	m_JumpVelocity(0.f),
+	m_IsGround(false)
 {
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
+	m_IsGround = obj.m_IsGround;
+	m_FallStartY = obj.m_FallStartY;
+	m_FallTime = obj.m_FallTime;
 	m_PhysicsSimulate = obj.m_PhysicsSimulate;
 	m_DamageEnable = obj.m_DamageEnable;
 	m_ObjType = obj.m_ObjType;
@@ -297,6 +305,94 @@ void CGameObject::Update(float DeltaTime)
 	if (!m_Start)
 	{
 		Start();
+	}
+
+	// 중력을 적용한다
+	// 땅에 닿아있지 않고, 물리 시뮬레이션 동작중이라면
+	if (m_PhysicsSimulate && !m_IsGround)
+	{
+		// 떨어지기 시작 !
+		// 떨어지는 시간 누적
+		// m_FallTime += DeltaTime * m_GravityAccel;
+		m_FallTime += DeltaTime;
+
+		// 0) 기본 개념
+		// https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=imchan123&logNo=10147703496
+		// - 속력 : 이동거리 // 걸린 시간 ( 단위 시간당 이동한 거리 ) --> 스칼라 , 방향 x
+		// - 속도 : 변위 // 걸린 시간 --> 출발점과 도착점의 직선거리와 그 방향 ( 이동위치의 변화정도 )
+		// - 가속도 : 단위 시간 당 속도의 변화량 
+		// - 속도 * 시간 == 거리 ( 거리를 미분하면 속도 )
+		// - 가속도 * 시간 == 속도 ( 속도를 미분하면 가속도 )
+
+		// 1) 자유낙하운동 개념
+		// https://blog.naver.com/skh8464/220757273930
+		// 1_1) 개념
+		// 등속도 운동 vs 등가속도 운동
+		// 등속도 운동  : 일정 시간, 일정 거리 이동
+		// ex) 1m/s : 1초동안, 일정하게 1m 이동
+		// 등가속도 운동 : 일정 시간, 일정 속도 증가
+		//				  일정 시간, 이동 거리 증가
+		// 속력 = 거리 // 시간
+		// 즉, 등가속도 운동에서는, 속력이 1s 당 
+		// 일정량 증가하는데
+		// 자유낙하운동에서는 1s당 9.8m/s 씩 증가한다
+		// 꾸준히 속력이 증가한다는 것이다
+		// 따라서
+		// 거리 = 속력 * 시간
+		// 거리도, 일정량 증가하게 되는 것이다
+
+		// 1_2) 등가속도 운동 공식
+		// A : 가속도, S : 이동거리, T : 시간 
+		// V : 속력, V0 : 초기 속력
+		// A = (V - V0) // T 
+		// 가속도 : 시간당 속력 변화량 
+
+		// A * T = V - V0
+		// V = V0 + A*T
+
+		// 1_3) 등가속도 운동 상에서 S 공식
+		// ( 위의 링크 참고 )
+		// x축 시간, y축 속력 그래프에서의 아래 면적
+		// S = T*(V + V0) // 2
+		// S = T*(2*V0 + A*T) // 2
+		// S = V0*T + A*T*T//2
+		// 속도,가속도,시간으로 한 시점의 좌표(위치)를 계산하는 공식이다 
+
+		// t초 후의 y값 ( 높이 ) 를 구해야 한다
+		// V: 속도, A : 가속도 , G: 중력
+		// y = V*A - 0.5f * G * t * t
+		// 0.5f * G * t * t : 이동거리 == 떨어진 y 양
+		// 위의 식은 t에 대한 2차식이다
+		// 따라서 2차식에 관한 근을 구할 때
+		// 근의 공식을 활용할 수 있다
+		// (-b + 루트(b^2 - 4ac)) / 2a
+
+		float Velocity = 0.f;
+
+		// 점프상태이다 ?
+		// 위로 올라가고 있다는 의미이다.
+		if (m_Jump)
+		{
+			// 시간의 흐름이 크면 클수록
+			// m_FallTime도 커지고
+			// 그에 따라 Velocity도 커질 것이다 
+			Velocity = m_JumpVelocity * m_FallTime;
+		}
+
+		float SaveY = m_Pos.y;
+		// 일단 중력가속도 까지는 적용하지 않는다 
+		// jump를 했다고 가정해보자. 
+		// 그럼 처음에는 Velocity가 (0.5 * GRAVITY * m_FallTime * m_FallTime) 보다 더 클것이다
+		// 따라서, y.좌표는 -가 되고, 이는 다른 말로 하면, 위로 올라간다는 의미
+		// 하지만, 시간이 지날 수록 m_FallTime은 증가할 것이며 , 결국 Velocity값이 더 작아지고
+		// 이는 y좌표가 + 가 된다는 것이고 ( - (-) ) = +
+		// 결국 내려가게 된다는 의미이다 
+
+		// 점프 상태가 아니라면, velocity가 0 이 되므로, 시작부터 쭉 떨어지게 된다.
+		// 정리 : 위치 or 이동거리(S) = 최조 속도 * 시간 + 0.5 * 가속도 * 시간 * 시간  
+		// Velocity : 최초 속도 * 시간 
+		// (0.5 * GRAVITY * m_FallTime * m_FallTime)  :  0.5 * 가속도 * 시간 * 시간
+		// m_Pos.y = m_FallStartY - (Velocity - (0.5 * GRAVITY * m_FallTime * m_FallTime));
 	}
 
 	if (m_Animation)
