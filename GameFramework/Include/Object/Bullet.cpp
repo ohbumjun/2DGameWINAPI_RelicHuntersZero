@@ -5,6 +5,8 @@
 #include "EffectHit.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../UI//NumberWidget.h"
+#include "../UI/WidgetComponent.h"
 
 CBullet::CBullet()
 {
@@ -117,4 +119,34 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		m_Pos, Vector2(178.f, 164.f));
 
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
+
+	CGameObject* DamageFont = m_Scene->CreateObject<CGameObject>("DamageFont", m_Pos);
+
+	DamageFont->SetJumpVelocity(30.f);
+	DamageFont->SetPhysicsSimulate(true);
+	DamageFont->Jump();
+
+	CWidgetComponent* Widget = DamageFont->CreateWidgetComponent("DamageFont");
+	CNumberWidget* DamageNumber = Widget->CreateWidget<CNumberWidget>("DamageFont");
+
+	std::vector<std::wstring>	vecNumberFileName;
+	for (int i = 0; i < 10; ++i)
+	{
+		TCHAR	FileName[256] = {};
+
+		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
+
+		vecNumberFileName.push_back(FileName);
+	}
+
+	DamageNumber->SetTexture("Number", vecNumberFileName);
+	DamageNumber->SetPos(560.f, 100.f);
+	DamageNumber->SetSize(29.f, 48.f);
+
+	for (int i = 0; i < 10; i++)
+	{
+		DamageNumber->SetTextureColorKey(255, 255, 255, i);
+	}
+	DamageNumber->SetSize(29.f, 48.f);
+	DamageNumber->SetNumber((int)m_Damage);
 }

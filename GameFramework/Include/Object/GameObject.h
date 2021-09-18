@@ -43,9 +43,16 @@ protected:
 	bool m_Jump;
 	float m_JumpVelocity;
 
+	float m_GravityAccel;
+
 	bool m_IsGround;
+	float m_LifeTime;
 
 public:
+	void SetLifeTime(float Time)
+	{
+		m_LifeTime = Time;
+	}
 	void Jump()
 	{
 		if (!m_Jump)

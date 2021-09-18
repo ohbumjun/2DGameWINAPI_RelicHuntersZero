@@ -21,13 +21,17 @@ CGameObject::CGameObject()	:
 	m_FallStartY(0.f),
 	m_Jump(false),
 	m_JumpVelocity(0.f),
-	m_IsGround(false)
+	m_IsGround(false),
+	m_GravityAccel(10.f),
+	m_LifeTime(INT_MAX)
 {
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
+	m_LifeTime = obj.m_LifeTime;
+	m_GravityAccel = obj.m_GravityAccel;
 	m_IsGround = obj.m_IsGround;
 	m_FallStartY = obj.m_FallStartY;
 	m_FallTime = obj.m_FallTime;
@@ -305,6 +309,16 @@ void CGameObject::Update(float DeltaTime)
 	if (!m_Start)
 	{
 		Start();
+	}
+
+	if (m_LifeTime >= 0.f)
+	{
+		m_LifeTime -= DeltaTime;
+		if (m_LifeTime <= 0.f)
+		{
+			Destroy();
+			return;
+		}
 	}
 
 	// 중력을 적용한다
