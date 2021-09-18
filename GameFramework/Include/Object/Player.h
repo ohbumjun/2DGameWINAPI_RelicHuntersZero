@@ -14,6 +14,7 @@ protected:
 	bool m_Skill1Enable;
 	float m_Skill1Time;
 	std::list<CSharedPtr<CBullet>> m_Skill1BulletList;
+	// Widget
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
@@ -36,12 +37,14 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
+// Move
 private:
 	void MoveUp(float DeltaTime);
 	void MoveDown(float DeltaTime);
 	void MoveLeft(float DeltaTime);
 	void MoveRight(float DeltaTime);
-
+	void Move(const Vector2& Dir);
+	void Move(const Vector2& Dir, float Speed);
 // Run
 private:
 	void RunLeft(float DeltaTime);
@@ -65,6 +68,12 @@ private:
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
 	void Skill1(float DeltaTime);
+
+// Collision
+private :
+	bool CollisionCheck();
+	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
+	Vector2 GetColliderPos();
 
 public:
 	void AttackEnd();

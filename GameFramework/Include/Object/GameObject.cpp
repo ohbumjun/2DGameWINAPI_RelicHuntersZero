@@ -432,7 +432,6 @@ void CGameObject::Update(float DeltaTime)
 			++iter;
 		}
 	}
-
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
@@ -449,16 +448,12 @@ void CGameObject::PostUpdate(float DeltaTime)
 	if (m_Animation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
-
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
-
 		m_Size = FrameData.Size;
 	}
-
 	{
 		auto	iter = m_ColliderList.begin();
 		auto	iterEnd = m_ColliderList.end();
-
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())
@@ -467,22 +462,16 @@ void CGameObject::PostUpdate(float DeltaTime)
 				iterEnd = m_ColliderList.end();
 				continue;
 			}
-
 			else if ((*iter)->GetEnable())
 			{
 				(*iter)->PostUpdate(DeltaTime);
 			}
-
 			++iter;
 		}
 	}
-
-
-
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
-
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->PostUpdate(DeltaTime);
@@ -498,7 +487,6 @@ void CGameObject::Collision(float DeltaTime)
 	{
 		m_Scene->GetSceneCollision()->AddCollider(*iter);
 	}
-
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();

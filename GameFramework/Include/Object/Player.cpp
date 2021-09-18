@@ -11,9 +11,14 @@
 #include "EffectHit.h"
 #include "../Scene/Scene.h"
 #include"../Scene/SceneResource.h"
+#include "../Scene/Camera.h"
 
-CPlayer::CPlayer() : m_Skill1Enable(false),
-					 m_Skill1Time(0.f)
+CPlayer::CPlayer() : 
+	m_Skill1Enable(false),
+	m_Skill1Time(0.f),
+	m_RunEnable(false),
+	m_DashEnable(false)
+		
 {
 }
 
@@ -71,6 +76,11 @@ void CPlayer::Start()
 	// Dash
 	CInput::GetInst()->SetCallback<CPlayer>("Dash", KeyState_Down,
 		this, &CPlayer::Dash);
+
+	// Collider setting
+	CCollider* Body = FindCollider("Body");
+	CCollider* Head = FindCollider("Head");
+	Body->SetCollisionBeginFunction<CPlayer>(this, &CPlayer::CollisionBegin);
 }
 
 bool CPlayer::Init()
@@ -103,7 +113,6 @@ bool CPlayer::Init()
 	Body->SetOffset(0.f, -37.5f);*/
 
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
-	//Head->SetExtent(40.f, 30.f);
 	Head->SetRadius(20.f);
 	Head->SetOffset(0.f, -60.f);
 	Head->SetCollisionProfile("Player");
@@ -134,6 +143,7 @@ bool CPlayer::Init()
 
 	NameWidget->SetPos(-25.f, -115.f);
 
+	// MP,HP Setting
 	m_CharacterInfo.MP = 5;
 	m_CharacterInfo.MPMax = 5;
 
@@ -162,15 +172,6 @@ void CPlayer::Update(float DeltaTime)
 			SetTimeScale(1.f);
 			CGameManager::GetInst()->SetTimeScale(1.f);
 
-			/*auto	iter = m_Skill1BulletList.begin();
-			auto	iterEnd = m_Skill1BulletList.end();
-
-			for (; iter != iterEnd; ++iter)
-			{
-				(*iter)->SetTimeScale(1.f);
-			}
-			m_Skill1BulletList.clear();
-			*/
 		}
 	}
 
@@ -183,7 +184,7 @@ void CPlayer::Update(float DeltaTime)
 	if (m_RunEnable)
 	{
 		if (m_CharacterInfo.MP >= 0)
-			m_CharacterInfo.MP -= DeltaTime;
+			m_CharacterInfo.MP -= 2*DeltaTime;
 		if (m_CharacterInfo.MP <= 0)
 		{
 			RunEnd();
@@ -207,11 +208,12 @@ void CPlayer::Update(float DeltaTime)
 	CProgressBar* MPBar = (CProgressBar*)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
+	// Character Offset
 	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
 		SetOffset(0.f, 20.f);
-
 	else
 		SetOffset(0.f, 0.f);
+
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -303,6 +305,20 @@ void CPlayer::MoveRight(float DeltaTime)
 	ChangeAnimation("LucidNunNaRightWalk");
 }
 
+void CPlayer::Move(const Vector2& Dir)
+{
+	if (CollisionCheck()) return;
+	CCharacter::Move(Dir);
+}
+
+void CPlayer::Move(const Vector2& Dir, float Speed)
+{
+	if (CollisionCheck()) return;
+	CCharacter::Move(Dir, Speed);
+}
+
+
+
 void CPlayer::RunLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));
@@ -363,31 +379,19 @@ void CPlayer::RunEnd()
 void CPlayer::Dash(float DelatTime)
 {
 	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
+	// Dash Time 세팅 
 	m_DashTime = 0.15;
 	m_DashEnable = true;
+	// speed 조정 
 	m_MoveSpeed = m_SpeedInfo.Dash;
+	// MP 감소
 	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.5 * m_CharacterInfo.MPMax;
+	// Effect 효과
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
+	// Sound 효과
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
-
-	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-	for (; iter != iterEnd; ++iter)
-	{
-		if (!(*iter)->IsCollisionListEmpty())
-		{
-			DashEnd();
-			Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
-			m_Dir = OppDir;
-			Move(OppDir*10);
-			// Vector2 Dist = Vector2(-100 * m_Dir.x, -100 * m_Dir.y);
-			// m_Dir += Dist;
-			break;
-		}
-	}
 }
 
 void CPlayer::DashEnd()
@@ -427,6 +431,50 @@ void CPlayer::Resume(float DeltaTime)
 void CPlayer::Skill1(float DeltaTime)
 {
 	ChangeAnimation("LucidNunNaRightSkill1");
+}
+
+bool CPlayer::CollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->IsCollisionListEmpty())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+Vector2 CPlayer::GetColliderPos()
+{
+	// 만약 충돌체가 없다면, 월드해상도 끝의 위치를 리턴 ( 여기에는 어떤 collider도 없을 것이므로 ) 
+	Vector2 m_Resolution = m_Scene->GetCamera()->GetWorldResolution();
+	if(!CollisionCheck()) return m_Resolution;
+
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->IsCollisionListEmpty())
+		{
+			return (*iter)->GetOwner()->GetPos();
+		}
+	}
+	return m_Resolution;
+}
+
+void CPlayer::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
+{
+	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
+	// 대시중 충돌 여부 확인
+	bool Result = CollisionCheck();
+	if (Result && m_DashEnable)
+	{
+		// m_Pos = GetColliderPos();
+		// m_Pos -= Vector2(GetSize());
+	}
 }
 
 void CPlayer::AttackEnd()

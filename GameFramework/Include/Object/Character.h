@@ -37,6 +37,7 @@ public:
 		m_CharacterInfo.AttackSpeed = Speed;
 	}
 
+
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -46,4 +47,12 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CCharacter *Clone();
 	virtual float SetDamage(float Damage);
+
+public :
+	// Move != 가상함수
+	// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
+	// 가상함수 테이블에, Move함수를 들고 있게 하고 싶지 않았다 
+	void Move(const Vector2& Dir);
+	void Move(const Vector2& Dir, float Speed);
+
 };

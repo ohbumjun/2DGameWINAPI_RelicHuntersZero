@@ -1,2 +1,4 @@
-﻿  Bullet.cpp
-  GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\source\repos\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
+﻿  Player.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(383,19): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(389,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
