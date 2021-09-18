@@ -15,13 +15,15 @@ CGameObject::CGameObject()	:
 	m_CameraCull(false),
 	m_Start(false),
 	m_DamageEnable(true),
-	m_ObjType(EObject_Type::GameObject)
+	m_ObjType(EObject_Type::GameObject),
+	m_PhysicsSimulate(false)
 {
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
+	m_PhysicsSimulate = obj.m_PhysicsSimulate;
 	m_DamageEnable = obj.m_DamageEnable;
 	m_ObjType = obj.m_ObjType;
 
@@ -516,6 +518,3 @@ float CGameObject::SetDamage(float Damage)
 	return Damage;
 }
 
-void CGameObject::GoOppDirection(Vector2 Dir)
-{
-}

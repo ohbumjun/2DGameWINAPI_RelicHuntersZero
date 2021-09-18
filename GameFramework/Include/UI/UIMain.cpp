@@ -9,7 +9,8 @@
 #include "UIText.h"
 #include "NumberWidget.h"
 
-CUIMain::CUIMain()
+CUIMain::CUIMain() :
+	m_Minute(0)
 {
 }
 
@@ -37,10 +38,9 @@ bool CUIMain::Init()
 	m_OutputText = 0;
 	m_OutputIndex = 0;
 
-	CNumberWidget* Number = CreateWidget<CNumberWidget>("Number");
-
+	// m_NumberWidget
+	m_NumberWidget = CreateWidget<CNumberWidget>("Number");
 	std::vector<std::wstring>	vecNumberFileName;
-
 	for (int i = 0; i < 10; ++i)
 	{
 		TCHAR	FileName[256] = {};
@@ -50,16 +50,48 @@ bool CUIMain::Init()
 		vecNumberFileName.push_back(FileName);
 	}
 
-	Number->SetTexture("Number", vecNumberFileName);
-	Number->SetPos(500.f, 100.f);
-	Number->SetSize(29.f, 48.f);
-	Number->SetNumber(123);
+	m_NumberWidget->SetTexture("Number", vecNumberFileName);
+	m_NumberWidget->SetPos(560.f, 100.f);
+	m_NumberWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_NumberWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+
+	// m_Number1Widget
+	m_Number1Widget = CreateWidget<CNumberWidget>("Number");
+	m_Number1Widget->SetTexture("Number", vecNumberFileName);
+	m_Number1Widget->SetPos(590.f, 100.f);
+	m_Number1Widget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_Number1Widget->SetTextureColorKey(255, 255, 255, i);
+	}
+
+	// m_MinuteWidget
+	m_MinuteWidget = CreateWidget<CNumberWidget>("Number");
+	m_MinuteWidget->SetTexture("Number", vecNumberFileName);
+	m_MinuteWidget->SetPos(500.f, 100.f);
+	m_MinuteWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_MinuteWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+
+	// Colon
+	CUIImage* Colon = CreateWidget<CNumberWidget>("Colon");
+	Colon->SetTexture("Colon", TEXT("Number/Colon.bmp"));
+	Colon->SetPos(530.f, 100.f);
+	Colon->SetSize(29.f, 48.f);
+
+	m_Time = 0.f;
 
 	return true;
 }
 
 void CUIMain::Update(float DeltaTime)
 {
+	CUIWindow::Update(DeltaTime);
 	m_TextTime += DeltaTime;
 
 	if (m_TextTime >= 0.1f)
@@ -87,4 +119,15 @@ void CUIMain::Update(float DeltaTime)
 			m_OutputText = (m_OutputText + 1) % 2;
 		}
 	}
+
+	m_Time += DeltaTime;
+	if (m_Time >= 60.f)
+	{
+		m_Minute += 1;
+		m_Time -= 60.f;
+	}
+
+	m_MinuteWidget->SetNumber((int)(m_Minute));
+	m_NumberWidget->SetNumber((int)(m_Time/10));
+	m_Number1Widget->SetNumber((int)(m_Time)%10);
 }

@@ -36,7 +36,15 @@ protected:
 	bool			m_DamageEnable;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 
+	bool m_PhysicsSimulate;
+	float m_FallTime; // 떨어지는 시간
+
+
 public:
+	void SetPhysicsSimulate(bool Physics)
+	{
+		m_PhysicsSimulate = Physics;
+	}
 	void DamageEnable(bool Enable)
 	{
 		m_DamageEnable = Enable;
@@ -211,8 +219,6 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CGameObject* Clone();
 	virtual float SetDamage(float Damage);
-	virtual void GoOppDirection(Vector2 Dir);
-
 
 public:
 	template <typename T>

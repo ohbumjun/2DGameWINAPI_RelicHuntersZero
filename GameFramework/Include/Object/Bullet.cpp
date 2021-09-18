@@ -110,7 +110,8 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	Dest->GetOwner()->SetDamage(m_Damage);
 
 	// 튕겨나가게 하기
-	Dest->GetOwner()->GoOppDirection(m_Dir);
+	Dest->GetOwner()->Move(m_Dir*10);
+
 	
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
