@@ -11,7 +11,6 @@ protected:
 	virtual ~CMonster();
 
 private:
-	Vector2	m_Dir;
 	float	m_FireTime;
 	float	m_FireTimeMax;
 	int		m_Count;

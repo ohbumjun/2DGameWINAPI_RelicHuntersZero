@@ -148,16 +148,34 @@ void CMainScene::LoadAnimationSequence()
 	}
 
 	// 텔레포트 캐릭터
+	/* 1번째 버전 
+		GetSceneResource()->CreateAnimationSequence("LucidNunNaTeleport",
+			"LucidNunNaTeleport", TEXT("Player/teleport.bmp"));
+
+		GetSceneResource()->SetTextureColorKey("LucidNunNaTeleport",
+			255, 0, 255);
+
+		for (int i = 0; i < 10; ++i)
+		{
+			for (int j = 0; j < 10; ++j)
+			{
+				GetSceneResource()->AddAnimationFrameData("LucidNunNaTeleport",
+					j * 240.f, i * 320.f, 240.f, 320.f);
+			}
+		}
+	*/
+	// 3번째 버전
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaTeleport",
-		"LucidNunNaTeleport", TEXT("Player/teleport.bmp"));
+		"LucidNunNaTeleport", TEXT("Player/teleport2.bmp"));
 
-	GetSceneResource()->SetTextureColorKey("LucidNunNaTeleport",
-		255, 0, 255);
+	// 임시적으로 SetTexture 키 방지 ( 배경화면색도 하얀색 )
+	// GetSceneResource()->SetTextureColorKey("LucidNunNaTeleport",
+		// 255, 0, 255);
 
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 11; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaTeleport",
-			i * 46.f, 0.f, 46.f, 54.f);
+			i * 57.3f, 0.f, 57.3f, 78.f);
 	}
 	
 
@@ -223,6 +241,19 @@ void CMainScene::LoadAnimationSequence()
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaStun",
 			i * 32.f, 0.f, 32.f, 32.f);
+	}
+
+	// Target Attack 
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaTargetAttack",
+		"LucidNunNaTargetAttack", TEXT("Player/TargetAttack.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaTargetAttack",
+		255, 0, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaTargetAttack",
+			i * 192.f, 0.f, 192.f, 192.f);
 	}
 
 }

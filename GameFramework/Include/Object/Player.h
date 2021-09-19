@@ -2,7 +2,6 @@
 #include "Character.h"
 #include "Bullet.h"
 #include "TeleportMouse.h"
-#include "../UI/RedTargetWidget.h"
 
 class CPlayer : public CCharacter
 {
@@ -95,13 +94,14 @@ private:
 
 // АјАн
 private :
-	CRedTargetWidget* m_RedTargetWidget;
+	Vector2 m_TargetPos;
 public  :
 	void AttackEnd();
 	void Fire();
 	void SetTargetPos(float DeltaTime);
 	void DeleteTargetPos(float DeltaTime);
 	void FireTarget();
+	void BulletFireTarget(float DeltaTime);
 
 public:
 	void Skill1End();

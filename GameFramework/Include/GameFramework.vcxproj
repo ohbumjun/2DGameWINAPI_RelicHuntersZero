@@ -189,7 +189,6 @@
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\NumberWidget.cpp" />
     <ClCompile Include="UI\ProgressBar.cpp" />
-    <ClCompile Include="UI\RedTargetWidget.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
@@ -248,7 +247,6 @@
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\NumberWidget.h" />
     <ClInclude Include="UI\ProgressBar.h" />
-    <ClInclude Include="UI\RedTargetWidget.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIMain.h" />
