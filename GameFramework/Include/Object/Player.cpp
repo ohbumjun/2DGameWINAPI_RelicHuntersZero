@@ -9,15 +9,18 @@
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 #include "EffectHit.h"
+#include "TeleportMouse.h"
 #include "../Scene/Scene.h"
-#include"../Scene/SceneResource.h"
+#include "../Scene/SceneResource.h"
 #include "../Scene/Camera.h"
 
 CPlayer::CPlayer() : 
 	m_Skill1Enable(false),
 	m_Skill1Time(0.f),
 	m_RunEnable(false),
-	m_DashEnable(false)
+	m_DashEnable(false),
+	m_TeleportEnable(false),
+	m_TeleportTime(TELEPORT_MOUSE_DISPLAY_TIME)
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -69,10 +72,11 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("Dash", KeyState_Down,
 		this, &CPlayer::Dash);
 
-	// Collider setting
-	// CCollider* Body = FindCollider("Body");
-	// CCollider* Head = FindCollider("Head");
-	// Body->SetCollisionBeginFunction<CPlayer>(this, &CPlayer::CollisionBegin);
+	// Teleport
+	CInput::GetInst()->SetCallback<CPlayer>("Teleport", KeyState_Down,
+		this, &CPlayer::Teleport);
+	CInput::GetInst()->SetCallback<CPlayer>("TeleportPositionSet", KeyState_Down,
+		this, &CPlayer::SetTeleportPos);
 }
 
 bool CPlayer::Init()
@@ -527,6 +531,41 @@ void CPlayer::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		m_Pos -= Vector2(GetSize());
 	}
 	*/
+}
+
+void CPlayer::Teleport(float DeltaTime)
+{
+	if (!m_TeleportEnable) return;
+
+	// Animation 적용하기 
+	
+
+	// 이동하기
+	m_Pos = m_TeleportPos;
+
+	// Animation 되돌려두기
+
+	// m_TeleportEnable
+	m_TeleportEnable = false;
+}
+
+void CPlayer::SetTeleportPos(float DeltaTime)
+{
+	// Teleport 준비 
+	m_TeleportEnable = true;
+	// 클릭하는 순간, 좌표상의 마우스 위치 가져오기 
+	POINT ptMouse;
+	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
+	GetCursorPos(&ptMouse);
+	ScreenToClient(hwnd, &ptMouse);
+
+	m_TeleportPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
+
+	// 화면상에 Teleport 위치 애니메이션 그리기
+	// CTeleportMouse* TeleportMouse = m_Scene->CreateObject<CTeleportMouse>("TeleportMouseDisplay", "TeleportMouseDisplay",
+		// m_TeleportPos, Vector2(40.f, 40.f));
+
+
 }
 
 void CPlayer::AttackEnd()

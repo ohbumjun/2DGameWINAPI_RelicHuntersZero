@@ -5,6 +5,7 @@
 #include "../Object/Monster.h"
 #include "SceneResource.h"
 #include "../Object/EffectHit.h"
+#include "../Object/TeleportMouse.h"
 #include "Camera.h"
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
@@ -26,6 +27,9 @@ bool CMainScene::Init()
 	GetCamera()->SetWorldResolution(10000.f, 10000.f);
 
 	CEffectHit *EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
+
+	// Teleport
+	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
 
 	CBullet *PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
 
@@ -49,19 +53,6 @@ bool CMainScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	CMonster *Monster = CreateObject<CMonster>("Monster",Vector2(1000.f, 100.f));
-
-	/*CUIWindow* TestWindow = CreateUIWindow<CUIWindow>("TestWindow");
-
-	CUIImage* Image = TestWindow->CreateWidget<CUIImage>("TestImage");
-
-	Image->SetTexture("Test", TEXT("teemo.bmp"));
-	Image->SetPos(100.f, 100.f);
-	Image->SetZOrder(1);
-
-	CUIImage* Image1 = TestWindow->CreateWidget<CUIImage>("TestImage1");
-
-	Image1->SetTexture("Test1", TEXT("Start.bmp"));
-	Image1->SetPos(150.f, 100.f);*/
 
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
@@ -119,9 +110,9 @@ void CMainScene::LoadAnimationSequence()
 												  i * 70.f, 0.f, 70.f, 81.f);
 	}
 
+	// 충돌 효과 애니메이션 
 	GetSceneResource()->CreateAnimationSequence("HitRight",
 												"HitRight", TEXT("Hit2.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("HitRight",
 										   255, 0, 255);
 
@@ -130,13 +121,12 @@ void CMainScene::LoadAnimationSequence()
 		GetSceneResource()->AddAnimationFrameData("HitRight",
 												  i * 178.f, 0.f, 178.f, 164.f);
 	}
-
+	
+	// 총알
 	GetSceneResource()->CreateAnimationSequence("Bullet",
 												"Bullet", TEXT("Smoke.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("Bullet",
 										   255, 0, 255);
-
 	for (int i = 0; i < 8; ++i)
 	{
 		for (int j = 0; j < 8; ++j)
@@ -146,6 +136,18 @@ void CMainScene::LoadAnimationSequence()
 		}
 	}
 
+	// 텔리포트 마우스 : 차후 적용하기 
+	GetSceneResource()->CreateAnimationSequence("TeleportMouseDisplay",
+	"TeleportMouseDisplay", TEXT("Mouse/TeleportMouse.bmp"));
+	GetSceneResource()->SetTextureColorKey("TeleportMouseDisplay",
+		255, 0, 255);
+	for (int i = 0; i < 4; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("TeleportMouseDisplay",
+			i * 36.25f, 0.f, 36.25f, 26.f);
+	}
+
+	// 왼쪽 방향 기본 애니메이션 
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftIdle",
 												"LucidNunNaLeftIdle", TEXT("Player/Left/astand_left.bmp"));
 

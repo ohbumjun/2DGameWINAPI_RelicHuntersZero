@@ -46,22 +46,12 @@ bool CBullet::Init()
 	if (!CGameObject::Init())
 		return false;
 
-	//SetTexture("Bullet", TEXT("Hit2.bmp"));
-	//SetSize(178.f, 164.f);
-	//SetImageStart(178.f * 5, 0.f);
-	//SetTextureColorKey(255, 0, 255);
 	SetPivot(0.5f, 0.5f);
 
 	CreateAnimation();
 	AddAnimation("Bullet", true, 1.f);
 
-	/*CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(50.f, 50.f);
-	Body->SetOffset(0.f, 0.f);
-	Body->SetCollisionBeginFunction<CBullet>(this, &CBullet::CollisionBegin);*/
-
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
-	//Body->SetExtent(50.f, 50.f);
 	Body->SetRadius(25.f);
 	Body->SetOffset(0.f, 0.f);
 

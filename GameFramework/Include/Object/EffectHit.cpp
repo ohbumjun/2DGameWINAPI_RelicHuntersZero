@@ -21,7 +21,6 @@ CEffectHit::~CEffectHit()
 void CEffectHit::Start()
 {
 	CGameObject::Start();
-
 	SetAnimationEndNotify<CEffectHit>("HitRight", this, &CEffectHit::AnimationFinish);
 }
 
@@ -31,7 +30,6 @@ bool CEffectHit::Init()
 		return false;
 
 	SetPivot(0.5f, 0.5f);
-
 	CreateAnimation();
 	AddAnimation("HitRight", false, 0.2f);
 
