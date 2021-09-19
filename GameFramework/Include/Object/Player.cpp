@@ -19,7 +19,11 @@ CPlayer::CPlayer() :
 	m_Skill1Time(0.f),
 	m_RunEnable(false),
 	m_DashEnable(false),
-	m_TeleportEnable(false)
+	m_DashTime(0.f),
+	m_TeleportEnable(false),
+	m_TelePortTime(0.f),
+	m_TeleportObj{},
+	m_TeleportPos(Vector2(0.f,0.f))
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -203,6 +207,16 @@ void CPlayer::Update(float DeltaTime)
 			DashEnd();
 		}
 	}
+
+	// Teleport
+	/*
+		if (m_TeleportEnable)
+		{
+			m_TelePortTime -= DeltaTime;
+			if (m_TelePortTime)
+				SAFE_DELETE(m_TeleportObj);
+		}
+	*/
 	
 	// MPBar
 	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
@@ -552,6 +566,9 @@ void CPlayer::Teleport(float DeltaTime)
 	// MP 90% 감소
 	if (m_CharacterInfo.MP >= 0.9 * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.9 * m_CharacterInfo.MPMax;
+	
+	// TeleportMouse Cursor Animation 지워주기
+	SAFE_DELETE(m_TeleportObj);
 }
 
 void CPlayer::SetTeleportPos(float DeltaTime)
@@ -567,10 +584,14 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	m_TeleportPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
 
 	// 화면상에 Teleport 위치 애니메이션 그리기
-	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
-		m_TeleportPos, Vector2(178.f, 164.f));
-	CTeleportMouse* TeleportMouse = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
-		m_TeleportPos);
+	// m_TeleportObj에 부여된 obj가 없을 때만 할당( 그렇지 않으면 메모리 leak )
+	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
+	m_TeleportPos);
+
+	// Update 함수에서, 커서만 누르고, Teleport 안해주면
+	// m_TeleportObj 에 Animation이 계속 남아있을 수 있다
+	// 따라서, 일정 시간이 지나면 지워주기 위해 m_TeleportTime을 세팅한다
+	m_TelePortTime = TELEPORT_MOUSE_DISPLAY_TIME;
 
 }
 

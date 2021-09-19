@@ -43,7 +43,7 @@ stl : standard template library�̴�.
 // Time
 #define STUN_TIME 0.5f
 #define DASH_TIME 0.15f
-#define TELEPORT_MOUSE_DISPLAY_TIME 2.f
+#define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
 // Speed 
 #define NORMAL_SPEED 200.f
@@ -51,6 +51,9 @@ stl : standard template library�̴�.
 #define FAST_SPEED 400.f
 #define BULLET_SPEED 500.f
 #define DASH_SPEED 1600.f
+
+// Distance 
+#define NORMAL_BULLET_DISTANCE 800.f;
 
 struct Resolution
 {

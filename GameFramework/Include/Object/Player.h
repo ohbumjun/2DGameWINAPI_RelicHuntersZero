@@ -78,12 +78,15 @@ private :
 private :
 	virtual void Stun();
 	virtual void StunEnd();
+
 // 순간 이동
 private :
 	bool    m_TeleportEnable;
 	Vector2 m_TeleportPos;
+	float   m_TelePortTime; // 텔레포트 마우스 커서를 담은 obj를 지워주기 위함
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
+	class CTeleportMouse* m_TeleportObj;
 
 public:
 	void AttackEnd();
