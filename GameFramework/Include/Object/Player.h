@@ -1,6 +1,9 @@
 #pragma once
 #include "Character.h"
 #include "Bullet.h"
+#include "TeleportMouse.h"
+#include "../UI/RedTargetWidget.h"
+
 class CPlayer : public CCharacter
 {
 	friend class CScene;
@@ -84,14 +87,23 @@ private :
 	bool    m_TeleportEnable;
 	Vector2 m_TeleportPos;
 	float   m_TelePortTime; // 텔레포트 마우스 커서를 담은 obj를 지워주기 위함
+	CTeleportMouse* m_TeleportObj;
+private:
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
-	class CTeleportMouse* m_TeleportObj;
 	void DeleteTeleportObj();
 
-public:
+// 공격
+private :
+	CRedTargetWidget* m_RedTargetWidget;
+public  :
 	void AttackEnd();
 	void Fire();
+	void SetTargetPos(float DeltaTime);
+	void DeleteTargetPos(float DeltaTime);
+	void FireTarget();
+
+public:
 	void Skill1End();
 	void Skill1Enable();
 	virtual void GoOppDirection(Vector2 Dir)

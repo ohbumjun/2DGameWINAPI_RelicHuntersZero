@@ -80,6 +80,10 @@ void CPlayer::Start()
 		this, &CPlayer::Teleport);
 	CInput::GetInst()->SetCallback<CPlayer>("TeleportPositionSet", KeyState_Down,
 		this, &CPlayer::SetTeleportPos);
+
+	// Target
+	CInput::GetInst()->SetCallback<CPlayer>("TargetPos", KeyState_Push,
+		this, &CPlayer::SetTargetPos);
 }
 
 bool CPlayer::Init()
@@ -104,7 +108,9 @@ bool CPlayer::Init()
 	// Stun
 	AddAnimation("LucidNunNaStun", true, 0.6f);
 
-	AddAnimation("TeleportMouseDisplay", true, 0.6f);
+	// Teleport
+	AddAnimation("LucidNunNaTeleport", false, 0.6f);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
 
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
@@ -553,12 +559,13 @@ void CPlayer::Teleport(float DeltaTime)
 	if (!m_TeleportEnable || m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax) return;
 
 	// Animation 적용하기 
-	
+	ChangeAnimation("LucidNunNaTeleport");
 
 	// 이동하기
 	m_Pos = m_TeleportPos;
 
 	// Animation 되돌려두기
+	// ChangeMoveAnimation();
 
 	// m_TeleportEnable
 	m_TeleportEnable = false;
@@ -616,6 +623,18 @@ void CPlayer::Fire()
 																"PlayerBullet",
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
+}
+
+void CPlayer::SetTargetPos(float DeltaTime)
+{
+}
+
+void CPlayer::DeleteTargetPos(float DeltaTime)
+{
+}
+
+void CPlayer::FireTarget()
+{
 }
 
 void CPlayer::Skill1End()

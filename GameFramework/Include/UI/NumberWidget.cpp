@@ -118,6 +118,7 @@ void CNumberWidget::Render(const Vector2& Pos, HDC hDC)
 }
 
 CNumberWidget* CNumberWidget::Clone()
+
 {
 	return new CNumberWidget(*this);
 }
