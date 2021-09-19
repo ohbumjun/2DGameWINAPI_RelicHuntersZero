@@ -45,6 +45,7 @@ private:
 	void MoveRight(float DeltaTime);
 	void Move(const Vector2& Dir);
 	void Move(const Vector2& Dir, float Speed);
+
 // Run
 private:
 	void RunLeft(float DeltaTime);

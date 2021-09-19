@@ -114,10 +114,9 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	Vector2 DestSize = Dest->GetOwner()->GetSize();
 	Vector2 BulletDir = m_Dir;
 
-	// 총알 반대 방향으로 이동시키기 
+	// 총알 반대 방향으로 이동시키기 ( Stun 걸기 )
 	Dest->GetOwner()->SetStunDir(BulletDir);
 	Dest->GetOwner()->Stun();
-	// Dest->GetOwner()->Move(DestSize* BulletDir);
 	
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 		m_Pos, Vector2(178.f, 164.f));
