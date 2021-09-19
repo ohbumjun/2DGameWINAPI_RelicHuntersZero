@@ -5,6 +5,7 @@ class CTeleportMouse :
 	public CGameObject
 {
 	friend class CScene;
+	friend class CPlayer;
 
 protected:
 	CTeleportMouse();

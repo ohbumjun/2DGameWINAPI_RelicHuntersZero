@@ -64,9 +64,7 @@ void CMonster::Update(float DeltaTime)
 		m_Dir.y = 1.f;
 	}
 
-	/*
-	몬스터가 일정 시간마다 한번씩 총알을 왼쪽으로 발사하게 만들어보세요.
-	*/
+
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
 	{

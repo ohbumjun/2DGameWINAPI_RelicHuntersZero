@@ -17,8 +17,7 @@ CBullet::CBullet()
 
 	m_Damage = 20.f;
 
-	m_Distance = 800.f;
-
+	m_Distance = NORMAL_BULLET_DISTANCE;
 	SetMoveSpeed(BULLET_SPEED);
 }
 

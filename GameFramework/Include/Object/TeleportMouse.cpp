@@ -17,7 +17,7 @@ CTeleportMouse::~CTeleportMouse()
 void CTeleportMouse::Start()
 {
     CGameObject::Start();
-    SetAnimationEndNotify<CTeleportMouse>("TeleportMouseDisplay", this, &CTeleportMouse::AnimationFinish);
+    // SetAnimationEndNotify<CTeleportMouse>("TeleportMouseDisplay", this, &CTeleportMouse::AnimationFinish);
 }
 
 bool CTeleportMouse::Init()
@@ -25,7 +25,8 @@ bool CTeleportMouse::Init()
     if (!CGameObject::Init()) return false;
     SetPivot(0.5f, 0.5f);
     CreateAnimation();
-    AddAnimation("TeleportMouseDisplay", true, TELEPORT_MOUSE_DISPLAY_TIME);
+    // 1초 짜리 animation을 5초 동안, 5번 진행되게 해야 한다
+    AddAnimation("TeleportMouseDisplay", true, 1.f);
 
     return true;
 }
