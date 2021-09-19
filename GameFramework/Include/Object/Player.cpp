@@ -19,8 +19,7 @@ CPlayer::CPlayer() :
 	m_Skill1Time(0.f),
 	m_RunEnable(false),
 	m_DashEnable(false),
-	m_TeleportEnable(false),
-	m_TeleportTime(TELEPORT_MOUSE_DISPLAY_TIME)
+	m_TeleportEnable(false)
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -535,7 +534,7 @@ void CPlayer::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 
 void CPlayer::Teleport(float DeltaTime)
 {
-	if (!m_TeleportEnable) return;
+	if (!m_TeleportEnable || m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax) return;
 
 	// Animation 적용하기 
 	
@@ -547,23 +546,27 @@ void CPlayer::Teleport(float DeltaTime)
 
 	// m_TeleportEnable
 	m_TeleportEnable = false;
+
+	// MP 90% 감소
+	if (m_CharacterInfo.MP >= 0.9 * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.9 * m_CharacterInfo.MPMax;
 }
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
 	// Teleport 준비 
 	m_TeleportEnable = true;
+
 	// 클릭하는 순간, 좌표상의 마우스 위치 가져오기 
 	POINT ptMouse;
 	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
 	GetCursorPos(&ptMouse);
 	ScreenToClient(hwnd, &ptMouse);
-
 	m_TeleportPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
 
 	// 화면상에 Teleport 위치 애니메이션 그리기
-	// CTeleportMouse* TeleportMouse = m_Scene->CreateObject<CTeleportMouse>("TeleportMouseDisplay", "TeleportMouseDisplay",
-		// m_TeleportPos, Vector2(40.f, 40.f));
+	CTeleportMouse* TeleportMouse = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
+		m_TeleportPos);
 
 
 }
