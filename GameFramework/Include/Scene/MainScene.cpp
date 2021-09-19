@@ -196,6 +196,19 @@ void CMainScene::LoadAnimationSequence()
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightRun",
 												  i * 59.f, 0.f, 59.f, 87.f);
 	}
+
+	// Stun
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaStun",
+		"LucidNunNaStun", TEXT("Player.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaStun",
+		255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightRun",
+			i * 32.f, 0.f, 32.f, 32.f);
+	}
+
 }
 
 void CMainScene::LoadSound()

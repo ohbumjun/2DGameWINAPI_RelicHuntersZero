@@ -45,7 +45,7 @@ private:
 	void MoveRight(float DeltaTime);
 	void Move(const Vector2& Dir);
 	void Move(const Vector2& Dir, float Speed);
-
+	void ChangeMoveAnimation(); // 坷弗率,哭率 only
 // Run
 private:
 	void RunLeft(float DeltaTime);
@@ -55,6 +55,7 @@ private:
 	bool m_RunEnable;
 	void RunStart();
 	void RunEnd();
+	void ChangeRunAnimation(); // 坷弗率 哭率 only
 
 // Dash
 private:
@@ -76,6 +77,11 @@ private :
 	bool CollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
+
+// Stun
+private :
+	virtual void Stun();
+	virtual void StunEnd();
 
 public:
 	void AttackEnd();
