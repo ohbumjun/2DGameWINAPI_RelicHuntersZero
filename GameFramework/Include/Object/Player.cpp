@@ -244,6 +244,17 @@ void CPlayer::Update(float DeltaTime)
 	else
 		SetOffset(0.f, 0.f);
 
+	// 가만히 있을 때
+	// Mouse Pos에 따른, 방향 조정( Animation 조정 )
+	if (CheckCurrentAnimation("LucidNunNaRightIdle") || CheckCurrentAnimation("LucidNunNaLeftIdle"))
+	{
+		Vector2 MousePos = CInput::GetInst()->GetMousePos();
+		Vector2 MousePlayerPosDiff = m_Pos - MousePos;
+		if (MousePlayerPosDiff.x >= 0) // Player가 마우스보다 오른쪽에 있음 --> 왼쪽을 보게 하기
+			ChangeAnimation("LucidNunNaLeftIdle");
+		else				 // Player가 마우스보다 왼쪽에 있음 --> 오른쪽을 보게 하기
+			ChangeAnimation("LucidNunNaRightIdle");
+	}
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
