@@ -189,7 +189,6 @@ void CPlayer::Update(float DeltaTime)
 
 			SetTimeScale(1.f);
 			CGameManager::GetInst()->SetTimeScale(1.f);
-
 		}
 	}
 
@@ -250,6 +249,10 @@ void CPlayer::Update(float DeltaTime)
 	{
 		Vector2 MousePos = CInput::GetInst()->GetMousePos();
 		Vector2 MousePlayerPosDiff = m_Pos - MousePos;
+		// 방향 setting
+		float	Angle = GetAngle(m_Pos, MousePos);
+		SetDir(Angle);
+		// Animation Change
 		if (MousePlayerPosDiff.x >= 0) // Player가 마우스보다 오른쪽에 있음 --> 왼쪽을 보게 하기
 			ChangeAnimation("LucidNunNaLeftIdle");
 		else				 // Player가 마우스보다 왼쪽에 있음 --> 오른쪽을 보게 하기
