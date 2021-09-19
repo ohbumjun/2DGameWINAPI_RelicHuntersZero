@@ -11,7 +11,6 @@ protected:
 
 protected:
 	CharacterInfo m_CharacterInfo;
-	SpeedInfo m_SpeedInfo;
 	// Dir ¼¼ÆÃ 
 	Vector2   m_Dir;
 
@@ -65,12 +64,4 @@ protected :
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
 
-private :
-	bool m_Stun;
-	float m_StunTime;
-	void SetStun()
-	{
-		m_Stun = true;
-		m_StunTime = 0.5f;
-	}
 };

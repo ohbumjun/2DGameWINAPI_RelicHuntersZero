@@ -9,7 +9,6 @@
 
 CGameObject::CGameObject()	:
 	m_Scene(nullptr),
-	m_MoveSpeed(200.f),
 	m_TimeScale(1.f),
 	m_Animation(nullptr),
 	m_CameraCull(false),
@@ -23,13 +22,20 @@ CGameObject::CGameObject()	:
 	m_JumpVelocity(0.f),
 	m_IsGround(false),
 	m_GravityAccel(10.f),
-	m_LifeTime(INT_MAX)
+	m_LifeTime(INT_MAX),
+	m_StunDir{},
+	m_StunEnable(false),
+	m_StunTime(0.f)
 {
+	m_MoveSpeed = NORMAL_SPEED;
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
+	m_StunDir = obj.m_StunDir;
+	m_StunEnable = obj.m_StunEnable;
+	m_StunTime = obj.m_StunTime;
 	m_LifeTime = obj.m_LifeTime;
 	m_GravityAccel = obj.m_GravityAccel;
 	m_IsGround = obj.m_IsGround;
@@ -101,6 +107,31 @@ CGameObject::~CGameObject()
 	{
 		(*iter)->ClearCollisionList();
 	}
+}
+
+void CGameObject::Stun()
+{
+	m_MoveSpeed = STUN_SPEED;
+	m_StunTime = STUN_TIME;
+	m_StunEnable = true;
+}
+
+void CGameObject::StunMove()
+{
+	Vector2	CurrentMove = m_StunDir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	m_Velocity += CurrentMove;
+	m_Pos += CurrentMove;
+}
+
+void CGameObject::SetStunDir(Vector2 Dir)
+{
+	m_StunDir = Dir;
+}
+
+void CGameObject::StunEnd()
+{
+	m_StunEnable = false;
+	m_MoveSpeed = NORMAL_SPEED;
 }
 
 CCollider* CGameObject::FindCollider(const std::string& Name)
@@ -223,6 +254,7 @@ void CGameObject::SetScene(CScene* Scene)
 
 void CGameObject::Move(const Vector2& Dir)
 {
+	if (m_StunEnable) return;
 	Vector2	CurrentMove = Dir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity	+= CurrentMove;
 	m_Pos += CurrentMove;
@@ -230,6 +262,7 @@ void CGameObject::Move(const Vector2& Dir)
 
 void CGameObject::Move(const Vector2& Dir, float Speed)
 {
+	if(m_StunEnable) return;
 	Vector2	CurrentMove = Dir * Speed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
@@ -439,6 +472,20 @@ void CGameObject::Update(float DeltaTime)
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->Update(DeltaTime);
+		}
+	}
+
+	// Stun ÀÛ¿ë
+	if (m_StunEnable)
+	{
+		if (m_StunTime >= 0.f)
+		{
+			m_StunTime -= DeltaTime;
+			StunMove();
+			if (m_StunTime < 0.f)
+			{
+				StunEnd();
+			}
 		}
 	}
 }

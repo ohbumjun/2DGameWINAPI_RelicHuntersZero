@@ -18,6 +18,7 @@ public:
 
 protected:
 	class CScene* m_Scene;
+	// Pos 
 	Vector2		m_PrevPos;
 	Vector2		m_Pos;
 	Vector2		m_RenderPos;
@@ -36,17 +37,37 @@ protected:
 	bool			m_DamageEnable;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 
+// 물리
+private :
 	bool m_PhysicsSimulate;
 	float m_FallTime; // 떨어지는 시간
 	float m_FallStartY; // 점프 시점 ( 점프 시작의 y좌표 )
-
 	bool m_Jump;
 	float m_JumpVelocity;
-
 	float m_GravityAccel;
-
 	bool m_IsGround;
 	float m_LifeTime;
+// Stun
+protected :
+	bool m_StunEnable;
+	float m_StunTime;
+	Vector2 m_StunDir;
+public :
+	void Stun();
+	void StunMove();
+	void SetStunDir(Vector2 Dir);
+	void StunEnd();
+
+public:
+	virtual void Start();
+	virtual bool Init();
+	virtual void Update(float DeltaTime);
+	virtual void PostUpdate(float DeltaTime);
+	virtual void Collision(float DeltaTime);
+	virtual void PrevRender();
+	virtual void Render(HDC hDC);
+	virtual CGameObject* Clone();
+	virtual float SetDamage(float Damage);
 
 public:
 	void SetLifeTime(float Time)
@@ -233,17 +254,6 @@ public:
 		const std::string& PathName = TEXTURE_PATH);
 	void SetTextureColorKey(unsigned char r,
 		unsigned char g, unsigned char b, int Index = 0);
-
-public:
-	virtual void Start();
-	virtual bool Init();
-	virtual void Update(float DeltaTime);
-	virtual void PostUpdate(float DeltaTime);
-	virtual void Collision(float DeltaTime);
-	virtual void PrevRender();
-	virtual void Render(HDC hDC);
-	virtual CGameObject* Clone();
-	virtual float SetDamage(float Damage);
 
 public:
 	template <typename T>

@@ -2,12 +2,9 @@
 #include "Character.h"
 
 CCharacter::CCharacter() : 
-	m_CharacterInfo{},
-	m_Stun(false),
-	m_StunTime(0.f)
+	m_CharacterInfo{}
 {
 	m_ObjType = EObject_Type::Character;
-	m_MoveSpeed = m_SpeedInfo.Normal;
 }
 
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
@@ -37,11 +34,11 @@ void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
 	// stun 정보 update
-	if (m_Stun)
+	if (m_StunEnable)
 	{
-		m_Stun -= DeltaTime;
-		if (m_Stun <= 0.f)
-			m_Stun = false;
+		m_StunTime -= DeltaTime;
+		if (m_StunTime <= 0.f)
+			m_StunEnable = false;
 	}
 }
 
@@ -76,16 +73,12 @@ float CCharacter::SetDamage(float Damage)
 
 void CCharacter::Move(const Vector2& Dir)
 {
-	// 스턴 걸리면 움직이지 못하게 한다 
-	if(m_Stun) return;
-	SetDir(Dir);
 	CGameObject::Move(Dir);
+	SetDir(Dir);
 }
 
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
-	// 스턴 걸리면 움직이지 못하게 한다 
-	if(m_Stun) return;
-	SetDir(Dir);
 	CGameObject::Move(Dir, Speed);
+	SetDir(Dir);
 }

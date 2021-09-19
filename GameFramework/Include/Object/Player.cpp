@@ -19,7 +19,7 @@ CPlayer::CPlayer() :
 	m_RunEnable(false),
 	m_DashEnable(false)
 {
-	m_ObjType = EObject_Type::Player;
+	m_ObjType = EObject_Type::Character;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -38,38 +38,30 @@ void CPlayer::Start()
 
 	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Down,
 		this, &CPlayer::BulletFire);
-
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 		this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
 		this, &CPlayer::Resume);
-
 	CInput::GetInst()->SetCallback<CPlayer>("Skill1", KeyState_Down,
 		this, &CPlayer::Skill1);
 
 	// Move
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
 											this, &CPlayer::MoveUp);
-
 	CInput::GetInst()->SetCallback<CPlayer>("MoveDown", KeyState_Push,
 											this, &CPlayer::MoveDown);
-
 	CInput::GetInst()->SetCallback<CPlayer>("MoveLeft", KeyState_Push,
 											this, &CPlayer::MoveLeft);
-
 	CInput::GetInst()->SetCallback<CPlayer>("MoveRight", KeyState_Push,
 											this, &CPlayer::MoveRight);
 
 	// Run
 	CInput::GetInst()->SetCallback<CPlayer>("RunUp", KeyState_Push,
 											this, &CPlayer::RunUp);
-
 	CInput::GetInst()->SetCallback<CPlayer>("RunDown", KeyState_Push,
 											this, &CPlayer::RunDown);
-
 	CInput::GetInst()->SetCallback<CPlayer>("RunLeft", KeyState_Push,
 											this, &CPlayer::RunLeft);
-
 	CInput::GetInst()->SetCallback<CPlayer>("RunRight", KeyState_Push,
 											this, &CPlayer::RunRight);
 
@@ -310,7 +302,13 @@ void CPlayer::Move(const Vector2& Dir)
 	if (CollisionCheck())
 	{
 		// 그외 충돌시 효과 추가하기 
+		// 이렇게 하면, Dash중에 충돌 날시, Move를 멈춘다
+		// < Dash 충돌 원리 > 
+		// 1) Update --> Dash + CollsionCheck() : DashCollide 함수 실행
+		// 2) 한편, Move 상에서는 Dash + CollisionCheck() 이면, Move 진행 x ( 이전의 Dash를 통한 Move 를 막아주기 위해 )
+		// 3) (이전의 Move는 멈춘 상태) DashCollide() 함수를 통해, 해당 obj를 뒤로 밀려나게 한다.
 		if (m_DashEnable) return;
+
 	}
 	CCharacter::Move(Dir);
 }
@@ -362,7 +360,7 @@ void CPlayer::RunStart()
 														m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Run");
 
-	m_MoveSpeed = m_SpeedInfo.Fast;
+	m_MoveSpeed = FAST_SPEED;
 }
 
 void CPlayer::RunEnd()
@@ -370,7 +368,7 @@ void CPlayer::RunEnd()
 	if (!m_RunEnable)
 		return;
 	m_RunEnable = false;
-	m_MoveSpeed = m_SpeedInfo.Normal;
+	m_MoveSpeed = FAST_SPEED;
 
 	if (CheckCurrentAnimation("LucidNunNaRightRun"))
 	{
@@ -387,11 +385,11 @@ void CPlayer::Dash(float DelatTime)
 	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
 
 	// Dash Time 세팅 
-	m_DashTime = 0.15;
+	m_DashTime = DASH_TIME;
 	m_DashEnable = true;
 
 	// speed 조정 
-	m_MoveSpeed = m_SpeedInfo.Dash;
+	m_MoveSpeed = DASH_SPEED;
 
 	// MP 감소
 	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
@@ -409,7 +407,7 @@ void CPlayer::DashEnd()
 {
 	if (!m_DashEnable) return;
 	m_DashEnable = false;
-	m_MoveSpeed = m_SpeedInfo.Normal;
+	m_MoveSpeed = NORMAL_SPEED;
 }
 
 void CPlayer::DashCollide()
@@ -429,18 +427,6 @@ void CPlayer::DashCollide()
 void CPlayer::BulletFire(float DeltaTime)
 {
 	ChangeAnimation("LucidNunNaRightAttack");
-
-	/*
-	SetPhysicsSimulate(true);
-	Jump();
-	SetJumpVelocity(30.f);
-	*/
-
-	/*if (m_Skill1Enable)
-	{
-		Bullet->SetTimeScale(0.f);
-		m_Skill1BulletList.push_back(Bullet);
-	}*/
 }
 
 void CPlayer::Pause(float DeltaTime)
