@@ -56,7 +56,6 @@ private:
 	void RunStart();
 	void RunEnd();
 	void ChangeRunAnimation(); // ¿À¸¥ÂÊ ¿ÞÂÊ only
-
 // Dash
 private:
 	void Dash(float DeltaTime);
@@ -64,20 +63,17 @@ private:
 	void DashCollide();
 	bool m_DashEnable;
 	float m_DashTime;
-
 // Other Skills
 private:
 	void BulletFire(float DeltaTime);
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
 	void Skill1(float DeltaTime);
-
 // Collision
 private :
 	bool CollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
-
 // Stun
 private :
 	virtual void Stun();

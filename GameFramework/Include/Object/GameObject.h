@@ -55,7 +55,7 @@ protected :
 public :
 	void SetStunDir(Vector2 Dir);
 	virtual void Stun();
-	virtual void StunMove(Vector2 NormalizedStunDir);
+	virtual void StunMove();
 	virtual void StunEnd();
 
 public:
@@ -68,6 +68,8 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CGameObject* Clone();
 	virtual float SetDamage(float Damage);
+	virtual void Move(const Vector2& Dir);
+	virtual void Move(const Vector2& Dir, float Speed);
 
 public:
 	void SetLifeTime(float Time)
@@ -219,10 +221,6 @@ public:
 	{
 		m_TimeScale = TimeScale;
 	}
-
-	virtual void Move(const Vector2& Dir);
-	virtual void Move(const Vector2& Dir, float Speed);
-
 	void SetImageStart(float x, float y)
 	{
 		m_ImageStart.x = x;

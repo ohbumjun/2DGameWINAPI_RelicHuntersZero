@@ -191,7 +191,6 @@ void CPlayer::Update(float DeltaTime)
 	{
 		if (CollisionCheck())
 			DashCollide();
-
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
 		if (m_DashTime <= 0)
@@ -506,12 +505,12 @@ Vector2 CPlayer::GetColliderPos()
 void CPlayer::Stun()
 {
 	CCharacter::Stun();
-	ChangeAnimation("LucidNunNaLeftWalk");
+	ChangeAnimation("LucidNunNaLeftIdle");
 }
 
 void CPlayer::StunEnd()
 {
-	CCharacter::Stun();
+	CCharacter::StunEnd();
 	// 방향에 따라서 바꿔주기
 	ChangeAnimation("LucidNunNaRightIdle");
 }
