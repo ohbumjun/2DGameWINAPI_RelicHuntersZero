@@ -205,7 +205,7 @@ void CMainScene::LoadAnimationSequence()
 		255, 0, 255);
 	for (int i = 0; i < 3; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightRun",
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaStun",
 			i * 32.f, 0.f, 32.f, 32.f);
 	}
 

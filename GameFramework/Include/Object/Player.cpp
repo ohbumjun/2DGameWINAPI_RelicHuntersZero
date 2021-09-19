@@ -442,9 +442,10 @@ void CPlayer::DashCollide()
 	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
 	OppDir.Normalize();
 	SetDir(OppDir);
+
 	DashEnd();
 	// 자기 크기만큼 bounce back
-	Move(m_Dir * m_Size * 2);
+	Move(m_Dir * m_Size );
 }
 
 void CPlayer::BulletFire(float DeltaTime)
@@ -505,13 +506,13 @@ Vector2 CPlayer::GetColliderPos()
 void CPlayer::Stun()
 {
 	CCharacter::Stun();
-	ChangeAnimation("LucidNunNaLeftIdle");
+	ChangeAnimation("LucidNunNaStun");
 }
 
 void CPlayer::StunEnd()
 {
 	CCharacter::StunEnd();
-	// 방향에 따라서 바꿔주기
+	// 방향에 따라서 바꿔주기 ( 차후 마우스 위치에 따른 방향 수정후 적용 )
 	ChangeAnimation("LucidNunNaRightIdle");
 }
 

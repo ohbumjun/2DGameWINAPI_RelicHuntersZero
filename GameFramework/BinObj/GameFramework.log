@@ -1,3 +1,5 @@
 ﻿  Player.cpp
 C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(417,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  MainScene.cpp
+  Generating Code...
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
