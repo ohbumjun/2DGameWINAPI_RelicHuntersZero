@@ -94,6 +94,10 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
+	// Stun
+	AddAnimation("LucidNunNaStun", true, 0.6f);
+
+
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
 
@@ -271,30 +275,29 @@ float CPlayer::SetDamage(float Damage)
 void CPlayer::MoveUp(float DeltaTime)
 {
 	RunEnd();
-	//m_Pos.y -= 200.f * DeltaTime;
 	Move(Vector2(0.f, -1.f));
-	ChangeAnimation("LucidNunNaRightWalk");
+	ChangeMoveAnimation();
 }
 
 void CPlayer::MoveDown(float DeltaTime)
 {
 	RunEnd();
 	Move(Vector2(0.f, 1.f));
-	ChangeAnimation("LucidNunNaLeftWalk");
+	ChangeMoveAnimation();
 }
 
 void CPlayer::MoveLeft(float DeltaTime)
 {
 	RunEnd();
 	Move(Vector2(-1.f, 0.f));
-	ChangeAnimation("LucidNunNaLeftWalk");
+	ChangeMoveAnimation();
 }
 
 void CPlayer::MoveRight(float DeltaTime)
 {
 	RunEnd();
 	Move(Vector2(1.f, 0.f));
-	ChangeAnimation("LucidNunNaRightWalk");
+	ChangeMoveAnimation();
 }
 
 void CPlayer::Move(const Vector2& Dir)
@@ -323,34 +326,43 @@ void CPlayer::Move(const Vector2& Dir, float Speed)
 	CCharacter::Move(Dir, Speed);
 }
 
+void CPlayer::ChangeMoveAnimation()
+{
+	if (m_StunEnable) return;
+	// 왼쪽 
+	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftWalk");
+	// 오른쪽 
+	else ChangeAnimation("LucidNunNaRightWalk");
+}
+
 
 
 void CPlayer::RunLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));
 	RunStart();
-	ChangeAnimation("LucidNunNaLeftRun");
+	ChangeRunAnimation();
 }
 
 void CPlayer::RunRight(float DeltaTime)
 {
 	Move(Vector2(1.f, 0.f));
 	RunStart();
-	ChangeAnimation("LucidNunNaRightRun");
+	ChangeRunAnimation();
 }
 
 void CPlayer::RunUp(float DeltaTime)
 {
 	Move(Vector2(0.f, -1.f));
 	RunStart();
-	ChangeAnimation("LucidNunNaRightRun");
+	ChangeRunAnimation();
 }
 
 void CPlayer::RunDown(float DeltaTime)
 {
 	Move(Vector2(0.f, 1.f));
 	RunStart();
-	ChangeAnimation("LucidNunNaLeftRun");
+	ChangeRunAnimation();
 }
 
 void CPlayer::RunStart()
@@ -379,6 +391,15 @@ void CPlayer::RunEnd()
 	{
 		ChangeAnimation("LucidNunNaLeftWalk");
 	}
+}
+
+void CPlayer::ChangeRunAnimation()
+{
+	if (m_StunEnable) return;
+	// 왼쪽 
+	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftRun");
+	// 오른쪽 
+	else ChangeAnimation("LucidNunNaRightRun");
 }
 
 void CPlayer::Dash(float DelatTime)
@@ -419,7 +440,9 @@ void CPlayer::DashCollide()
 	// 충돌한 대상이 몬스터인지, 장애물인지, 등등 
 	// 지금은 우선 이렇게 단순하게 세팅하자.
 	// 이동 방향 반대로 이동시키기
-	SetDir(Vector2(-m_Dir.x,-m_Dir.y));
+	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
+	OppDir.Normalize();
+	SetDir(OppDir);
 	DashEnd();
 	// 자기 크기만큼 bounce back
 	Move(m_Dir * m_Size * 2);
@@ -478,6 +501,19 @@ Vector2 CPlayer::GetColliderPos()
 	}
 	return m_Resolution;
 
+}
+
+void CPlayer::Stun()
+{
+	CCharacter::Stun();
+	ChangeAnimation("LucidNunNaLeftWalk");
+}
+
+void CPlayer::StunEnd()
+{
+	CCharacter::Stun();
+	// 방향에 따라서 바꿔주기
+	ChangeAnimation("LucidNunNaRightIdle");
 }
 
 

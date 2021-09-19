@@ -71,10 +71,8 @@ bool CBullet::Init()
 void CBullet::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-
 	Vector2	Dir = m_Dir;
 	Dir.Normalize();
-
 	Move(Dir);
 
 	m_Distance -= GetMoveSpeedFrame();

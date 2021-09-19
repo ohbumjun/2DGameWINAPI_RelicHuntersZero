@@ -53,10 +53,10 @@ protected :
 	float m_StunTime;
 	Vector2 m_StunDir;
 public :
-	void Stun();
-	void StunMove();
 	void SetStunDir(Vector2 Dir);
-	void StunEnd();
+	virtual void Stun();
+	virtual void StunMove(Vector2 NormalizedStunDir);
+	virtual void StunEnd();
 
 public:
 	virtual void Start();

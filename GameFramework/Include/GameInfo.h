@@ -41,7 +41,7 @@ stl : standard template library�̴�.
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
 
 // Time
-#define STUN_TIME 1.0f
+#define STUN_TIME 1.f
 #define DASH_TIME 0.15f
 
 // Speed 

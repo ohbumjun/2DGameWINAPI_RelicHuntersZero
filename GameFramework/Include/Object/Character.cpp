@@ -82,3 +82,13 @@ void CCharacter::Move(const Vector2& Dir, float Speed)
 	CGameObject::Move(Dir, Speed);
 	SetDir(Dir);
 }
+
+void CCharacter::Stun()
+{
+	CGameObject::Stun();
+}
+
+void CCharacter::StunEnd()
+{
+	CGameObject::StunEnd();
+}

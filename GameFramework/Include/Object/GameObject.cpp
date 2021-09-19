@@ -115,9 +115,9 @@ void CGameObject::Stun()
 	m_StunEnable = true;
 }
 
-void CGameObject::StunMove()
+void CGameObject::StunMove(Vector2 NormalizedStunDir)
 {
-	Vector2	CurrentMove =  m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	Vector2	CurrentMove = NormalizedStunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }
@@ -477,9 +477,14 @@ void CGameObject::Update(float DeltaTime)
 	// Stun 작용
 	if (m_StunEnable)
 	{
-		StunMove();
 		if (m_StunTime >= 0.f)
 		{
+			// Stun Move 조절
+			Vector2 Dir = m_StunDir;
+			Dir.Normalize();
+			StunMove(Dir);
+
+			// Time 조절
 			m_StunTime -= DeltaTime;
 			if (m_StunTime < 0.f)
 			{
