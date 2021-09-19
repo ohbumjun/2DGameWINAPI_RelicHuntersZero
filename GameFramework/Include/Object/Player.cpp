@@ -100,6 +100,8 @@ bool CPlayer::Init()
 	// Stun
 	AddAnimation("LucidNunNaStun", true, 0.6f);
 
+	AddAnimation("TeleportMouseDisplay", true, 0.6f);
+
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
@@ -332,7 +334,7 @@ void CPlayer::ChangeMoveAnimation()
 {
 	if (m_StunEnable) return;
 	// 왼쪽 
-	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftWalk");
+	if (m_Dir.x == -1.f) ChangeAnimation("TeleportMouseDisplay");
 	// 오른쪽 
 	else ChangeAnimation("LucidNunNaRightWalk");
 }
@@ -565,9 +567,10 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	m_TeleportPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
 
 	// 화면상에 Teleport 위치 애니메이션 그리기
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+		m_TeleportPos, Vector2(178.f, 164.f));
 	CTeleportMouse* TeleportMouse = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
 		m_TeleportPos);
-
 
 }
 

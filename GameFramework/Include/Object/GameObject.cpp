@@ -12,7 +12,7 @@ CGameObject::CGameObject()	:
 	m_TimeScale(1.f),
 	m_Animation(nullptr),
 	m_CameraCull(false),
-	m_Start(false),
+	m_Start(false), // false로 처리한다 ! --> object가 생성될때마다, false로 처리 
 	m_DamageEnable(true),
 	m_ObjType(EObject_Type::GameObject),
 	m_PhysicsSimulate(false),
@@ -45,6 +45,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	m_DamageEnable = obj.m_DamageEnable;
 	m_ObjType = obj.m_ObjType;
 
+	// 얘는 무조건 false로 세팅해둬야 한다.
 	m_Start = false;
 
 	m_Scene = obj.m_Scene;
