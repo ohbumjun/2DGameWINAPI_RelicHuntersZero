@@ -115,9 +115,10 @@ void CGameObject::Stun()
 	m_StunEnable = true;
 }
 
-void CGameObject::StunMove(Vector2 NormalizedStunDir)
+void CGameObject::StunMove()
 {
-	Vector2	CurrentMove = NormalizedStunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	if (!m_StunEnable) return;
+	Vector2	CurrentMove = m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }
@@ -125,12 +126,12 @@ void CGameObject::StunMove(Vector2 NormalizedStunDir)
 void CGameObject::SetStunDir(Vector2 Dir)
 {
 	m_StunDir = Dir;
+	m_StunDir.Normalize();
 }
 
 void CGameObject::StunEnd()
 {
 	m_StunEnable = false;
-	m_StunTime = 0.f;
 }
 
 CCollider* CGameObject::FindCollider(const std::string& Name)
@@ -446,7 +447,6 @@ void CGameObject::Update(float DeltaTime)
 	{
 		auto	iter = m_ColliderList.begin();
 		auto	iterEnd = m_ColliderList.end();
-
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())
@@ -455,42 +455,27 @@ void CGameObject::Update(float DeltaTime)
 				iterEnd = m_ColliderList.end();
 				continue;
 			}
-
 			else if ((*iter)->GetEnable())
 			{
 				(*iter)->Update(DeltaTime);
 			}
-
 			++iter;
 		}
 	}
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
-
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->Update(DeltaTime);
 		}
 	}
-
-	// Stun 작용
 	if (m_StunEnable)
 	{
-		if (m_StunTime >= 0.f)
-		{
-			// Stun Move 조절
-			Vector2 Dir = m_StunDir;
-			Dir.Normalize();
-			StunMove(Dir);
-
-			// Time 조절
-			m_StunTime -= DeltaTime;
-			if (m_StunTime < 0.f)
-			{
-				StunEnd();
-			}
-		}
+		StunMove();
+		m_StunTime -= DeltaTime;
+		if (m_StunTime < 0.f)
+			StunEnd();
 	}
 }
 
@@ -527,6 +512,15 @@ void CGameObject::PostUpdate(float DeltaTime)
 		{
 			(*iter)->PostUpdate(DeltaTime);
 		}
+	}
+	// Stun 작용
+	if (m_StunEnable)
+	{
+		// Stun Move 조절
+		StunMove();
+		// Time 조절
+		if(m_StunTime >= 0.f) m_StunTime -= DeltaTime;
+		if (m_StunTime < 0.f) StunEnd();
 	}
 }
 

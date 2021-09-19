@@ -51,7 +51,6 @@ bool CMonster::Init()
 void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
-
 	m_Pos += m_Dir * 300.f * DeltaTime;
 
 	if (m_Pos.y >= 720.f)
@@ -59,7 +58,6 @@ void CMonster::Update(float DeltaTime)
 		m_Pos.y = 720.f;
 		m_Dir.y = -1.f;
 	}
-
 	else if (m_Pos.y - m_Size.y <= 0.f)
 	{
 		m_Pos.y = m_Size.y;
@@ -70,13 +68,10 @@ void CMonster::Update(float DeltaTime)
 	몬스터가 일정 시간마다 한번씩 총알을 왼쪽으로 발사하게 만들어보세요.
 	*/
 	m_FireTime += DeltaTime;
-
 	if (m_FireTime >= m_FireTimeMax)
 	{
 		m_FireTime -= m_FireTimeMax;
-
 		++m_Count;
-
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
 			Vector2(50.f, 50.f));

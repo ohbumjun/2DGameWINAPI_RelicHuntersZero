@@ -33,13 +33,6 @@ bool CCharacter::Init()
 void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	// stun Á¤º¸ update
-	if (m_StunEnable)
-	{
-		m_StunTime -= DeltaTime;
-		if (m_StunTime <= 0.f)
-			m_StunEnable = false;
-	}
 }
 
 void CCharacter::PostUpdate(float DeltaTime)
