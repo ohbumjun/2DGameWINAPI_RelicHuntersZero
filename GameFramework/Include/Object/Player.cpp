@@ -323,6 +323,8 @@ void CPlayer::Move(const Vector2& Dir, float Speed)
 	CCharacter::Move(Dir, Speed);
 }
 
+
+
 void CPlayer::RunLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));

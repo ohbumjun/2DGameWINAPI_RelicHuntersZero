@@ -111,14 +111,13 @@ CGameObject::~CGameObject()
 
 void CGameObject::Stun()
 {
-	m_MoveSpeed = STUN_SPEED;
 	m_StunTime = STUN_TIME;
 	m_StunEnable = true;
 }
 
 void CGameObject::StunMove()
 {
-	Vector2	CurrentMove = m_StunDir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	Vector2	CurrentMove =  m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }
@@ -131,7 +130,7 @@ void CGameObject::SetStunDir(Vector2 Dir)
 void CGameObject::StunEnd()
 {
 	m_StunEnable = false;
-	m_MoveSpeed = NORMAL_SPEED;
+	m_StunTime = 0.f;
 }
 
 CCollider* CGameObject::FindCollider(const std::string& Name)
@@ -478,10 +477,10 @@ void CGameObject::Update(float DeltaTime)
 	// Stun ÀÛ¿ë
 	if (m_StunEnable)
 	{
+		StunMove();
 		if (m_StunTime >= 0.f)
 		{
 			m_StunTime -= DeltaTime;
-			StunMove();
 			if (m_StunTime < 0.f)
 			{
 				StunEnd();

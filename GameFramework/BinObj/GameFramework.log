@@ -1,4 +1,57 @@
-﻿  GameObject.cpp
+﻿  Animation.cpp
+  Collider.cpp
+  ColliderBox.cpp
+  ColliderSphere.cpp
+  Collision.cpp
+  CollisionManager.cpp
+  GameManager.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\GameManager.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+  Input.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Input.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+  Math.cpp
+  Bullet.cpp
+  Character.cpp
+  DamageFont.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\DamageFont.cpp(21,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  EffectHit.cpp
+  GameObject.cpp
 C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(29,1): warning C4305: 'initializing': truncation from 'int' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(441,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(440,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Monster.cpp
+  Player.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(398,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  PathManager.cpp
+  Ref.cpp
+  AnimationSequence.cpp
+  Font.cpp
+  Generating Code...
+  Compiling...
+  ResourceManager.cpp
+  Sound.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Resource\Sound.cpp(56,50): warning C4311: 'type cast': pointer truncation from 'FMOD::Channel *' to 'int'
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Resource\Sound.cpp(56,50): warning C4302: 'type cast': truncation from 'FMOD::Channel *' to 'int'
+  Texture.cpp
+  Camera.cpp
+  MainScene.cpp
+  Scene.cpp
+  SceneCollision.cpp
+  SceneManager.cpp
+  SceneResource.cpp
+  StartScene.cpp
+  Timer.cpp
+  Button.cpp
+  NumberWidget.cpp
+  ProgressBar.cpp
+  UICharacterStateHUD.cpp
+  UIImage.cpp
+  UIMain.cpp
+  UIStart.cpp
+  UIText.cpp
+  UIWidget.cpp
+  Generating Code...
+  Compiling...
+  UIWindow.cpp
+  WidgetComponent.cpp
+  main.cpp
+  Generating Code...
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe

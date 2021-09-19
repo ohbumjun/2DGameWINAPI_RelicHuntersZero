@@ -41,12 +41,12 @@ stl : standard template library�̴�.
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
 
 // Time
-#define STUN_TIME 1.f
+#define STUN_TIME 1.0f
 #define DASH_TIME 0.15f
 
 // Speed 
 #define NORMAL_SPEED 200.f
-#define STUN_SPEED 150.f
+#define STUN_SPEED 100.f
 #define FAST_SPEED 400.f
 #define BULLET_SPEED 500.f
 #define DASH_SPEED 1600.f
