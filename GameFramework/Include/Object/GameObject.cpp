@@ -25,9 +25,9 @@ CGameObject::CGameObject()	:
 	m_LifeTime(INT_MAX),
 	m_StunDir{},
 	m_StunEnable(false),
-	m_StunTime(0.f)
+	m_StunTime(0.f),
+	m_MoveSpeed(NORMAL_SPEED)
 {
-	m_MoveSpeed = NORMAL_SPEED;
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
