@@ -25,7 +25,6 @@ public:
 	virtual void SetAttackSpeed(float Speed)
 	{
 		CCharacter::SetAttackSpeed(Speed);
-
 		SetAnimationPlayScale("LucidNunNaRightAttack", Speed);
 	}
 
@@ -38,7 +37,13 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
-
+// Dir
+private :
+	void SetDir(float Angle)
+	{
+		m_Dir.x = cosf(DegreeToRadian(Angle));
+		m_Dir.y = sinf(DegreeToRadian(Angle));
+	}
 // Move
 private:
 	void MoveUp(float DeltaTime);
