@@ -21,9 +21,7 @@ CMainScene::~CMainScene()
 bool CMainScene::Init()
 {
 	LoadSound();
-
 	LoadAnimationSequence();
-
 	GetCamera()->SetWorldResolution(10000.f, 10000.f);
 
 	CEffectHit *EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
@@ -136,16 +134,19 @@ void CMainScene::LoadAnimationSequence()
 		}
 	}
 
-	// 텔리포트 마우스 : 차후 적용하기 
+	// 텔리포트 마우스 
 	GetSceneResource()->CreateAnimationSequence("TeleportMouseDisplay",
-	"TeleportMouseDisplay", TEXT("Mouse/TeleportMouse.bmp"));
-	GetSceneResource()->SetTextureColorKey("TeleportMouseDisplay",
-		255, 0, 255);
-	for (int i = 0; i < 4; ++i)
+	"TeleportMouseDisplay", TEXT("Mouse/h.bmp"));
+	GetSceneResource()->SetTextureColorKey("TeleportMouseDisplay", 255, 0, 255);
+	for (int i = 0; i < 3; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData("TeleportMouseDisplay",
-			i * 36.25f, 0.f, 36.25f, 26.f);
+		for (int j = 0; j < 4; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData("TeleportMouseDisplay",
+				j * 61.f, i * 61.f, 61.f, 61.f);
+		}
 	}
+	
 
 	// 왼쪽 방향 기본 애니메이션 
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftIdle",

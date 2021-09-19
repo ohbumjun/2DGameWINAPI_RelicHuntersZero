@@ -23,7 +23,6 @@ void CTeleportMouse::Start()
 bool CTeleportMouse::Init()
 {
     if (!CGameObject::Init()) return false;
-
     SetPivot(0.5f, 0.5f);
     CreateAnimation();
     AddAnimation("TeleportMouseDisplay", true, TELEPORT_MOUSE_DISPLAY_TIME);
