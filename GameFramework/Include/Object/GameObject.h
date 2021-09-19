@@ -111,6 +111,7 @@ public:
 public:
 	CCollider* FindCollider(const std::string& Name);
 
+// Animation
 protected:
 	CAnimation* m_Animation;
 
@@ -232,6 +233,7 @@ public:
 		m_ImageStart = ImageStart;
 	}
 
+// Texture
 public:
 	void SetTexture(CTexture* Texture)
 	{

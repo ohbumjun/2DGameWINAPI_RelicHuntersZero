@@ -26,7 +26,7 @@ bool CTeleportMouse::Init()
 
     SetPivot(0.5f, 0.5f);
     CreateAnimation();
-    AddAnimation("TeleportMouseDisplay", false, TELEPORT_MOUSE_DISPLAY_TIME);
+    AddAnimation("TeleportMouseDisplay", true, TELEPORT_MOUSE_DISPLAY_TIME);
 
     return true;
 }
