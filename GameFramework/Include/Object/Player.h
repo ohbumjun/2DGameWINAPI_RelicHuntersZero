@@ -87,6 +87,7 @@ private :
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
 	class CTeleportMouse* m_TeleportObj;
+	void DeleteTeleportObj();
 
 public:
 	void AttackEnd();
