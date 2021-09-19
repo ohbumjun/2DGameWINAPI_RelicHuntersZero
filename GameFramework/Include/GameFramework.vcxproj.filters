@@ -225,9 +225,6 @@
     <ClCompile Include="Object\TeleportMouse.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="UI\RedTargetWidget.cpp">
-      <Filter>07. UI\01. Widget</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -397,9 +394,6 @@
     </ClInclude>
     <ClInclude Include="Object\TeleportMouse.h">
       <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\RedTargetWidget.h">
-      <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

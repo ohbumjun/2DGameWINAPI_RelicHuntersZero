@@ -162,8 +162,11 @@ bool CInput::Init(HWND hWnd)
 	SetCtrlKey("TeleportPositionSet", true);
 
 	// Zoom
-	CreateKey("TargetPos", VK_RBUTTON);
+	CreateKey("TargetPos", VK_LBUTTON);
 	SetCtrlKey("TargetPos", true);
+	CreateKey("TargetFire", VK_SPACE);
+	SetCtrlKey("TargetFire", true);
+
 
 	ShowCursor(FALSE);
 

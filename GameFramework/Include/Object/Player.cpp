@@ -84,6 +84,10 @@ void CPlayer::Start()
 	// Target
 	CInput::GetInst()->SetCallback<CPlayer>("TargetPos", KeyState_Push,
 		this, &CPlayer::SetTargetPos);
+	CInput::GetInst()->SetCallback<CPlayer>("TargetFire", KeyState_Push,
+		this, &CPlayer::BulletFireTarget);
+	
+	
 }
 
 bool CPlayer::Init()
@@ -93,7 +97,7 @@ bool CPlayer::Init()
 
 	SetPivot(0.5f, 1.f);
 
-	//SetTexture("Teemo", TEXT("teemo.bmp"));
+	// Animation ---
 	CreateAnimation();
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
@@ -105,24 +109,25 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
+	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
+
 	// Stun
 	AddAnimation("LucidNunNaStun", true, 0.6f);
 
 	// Teleport
-	AddAnimation("LucidNunNaTeleport", false, 0.6f);
+	AddAnimation("LucidNunNaTeleport", false, 0.3f);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
-
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
 
+	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
+
 	AddAnimationNotify<CPlayer>("LucidNunNaRightSkill1", 2, this, &CPlayer::Skill1Enable);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightSkill1", this, &CPlayer::Skill1End);
 
-	/*CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(80.f, 75.f);
-	Body->SetOffset(0.f, -37.5f);*/
-
+	// Collider ---
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
 	Head->SetRadius(20.f);
 	Head->SetOffset(0.f, -60.f);
@@ -133,7 +138,8 @@ bool CPlayer::Init()
 	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
 
-	// HPBar
+	// Widget --- 
+	// HPBar 
 	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
@@ -154,6 +160,7 @@ bool CPlayer::Init()
 
 	NameWidget->SetPos(-25.f, -115.f);
 
+	// Info ---
 	// MP,HP Setting
 	m_CharacterInfo.MP = 5;
 	m_CharacterInfo.MPMax = 5;
@@ -627,6 +634,12 @@ void CPlayer::Fire()
 
 void CPlayer::SetTargetPos(float DeltaTime)
 {
+	// m_TargetPos¿¡ ¼¼ÆÃ 
+	POINT ptMouse;
+	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
+	GetCursorPos(&ptMouse);
+	ScreenToClient(hwnd, &ptMouse);
+	m_TargetPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
 }
 
 void CPlayer::DeleteTargetPos(float DeltaTime)
@@ -635,7 +648,19 @@ void CPlayer::DeleteTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget()
 {
+	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
+		"PlayerBullet",
+		Vector2(m_Pos + Vector2(75.f, 0.f)),
+		Vector2(50.f, 50.f));
+	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
+	Bullet->SetDir(Angle);
 }
+
+void CPlayer::BulletFireTarget(float DeltaTime)
+{
+	ChangeAnimation("LucidNunNaTargetAttack");
+}
+
 
 void CPlayer::Skill1End()
 {
