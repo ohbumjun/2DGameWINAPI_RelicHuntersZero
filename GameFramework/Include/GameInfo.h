@@ -43,6 +43,7 @@ stl : standard template library�̴�.
 // Time
 #define STUN_TIME 0.5f
 #define DASH_TIME 0.15f
+#define TELEPORT_MOUSE_DISPLAY_TIME 2.f
 
 // Speed 
 #define NORMAL_SPEED 200.f

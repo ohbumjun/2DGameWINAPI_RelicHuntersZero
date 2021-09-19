@@ -156,9 +156,14 @@ bool CInput::Init(HWND hWnd)
 	// Dash
 	CreateKey("Dash", VK_TAB);
 
+	// Teleport
+	CreateKey("Teleport",'T');
+	CreateKey("TeleportPositionSet", VK_RBUTTON);
+	SetCtrlKey("TeleportPositionSet", true);
 
 	ShowCursor(FALSE);
 
+	// 마우스 Widget 세팅 ( CUIImage안에, Mouse Image Texture를 세팅할것이다 )
 	CUIImage *MouseDefault = new CUIImage;
 
 	MouseDefault->SetSize(32.f, 31.f);

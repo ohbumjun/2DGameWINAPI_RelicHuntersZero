@@ -78,6 +78,13 @@ private :
 private :
 	virtual void Stun();
 	virtual void StunEnd();
+// 순간 이동
+private :
+	bool    m_TeleportEnable;
+	float   m_TeleportTime;
+	Vector2 m_TeleportPos;
+	void Teleport(float DeltaTime);
+	void SetTeleportPos(float DeltaTime);
 
 public:
 	void AttackEnd();

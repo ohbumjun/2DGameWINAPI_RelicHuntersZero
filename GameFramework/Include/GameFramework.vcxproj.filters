@@ -222,6 +222,9 @@
     <ClCompile Include="Object\DamageFont.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\TeleportMouse.cpp">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -387,6 +390,9 @@
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
     <ClInclude Include="Object\DamageFont.h">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TeleportMouse.h">
       <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
   </ItemGroup>
