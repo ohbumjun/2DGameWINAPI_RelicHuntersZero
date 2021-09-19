@@ -361,8 +361,7 @@ void CPlayer::RunStart()
 	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
 														m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Run");
-
-	m_MoveSpeed = FAST_SPEED;
+	SetMoveSpeed(FAST_SPEED);
 }
 
 void CPlayer::RunEnd()
@@ -370,7 +369,7 @@ void CPlayer::RunEnd()
 	if (!m_RunEnable)
 		return;
 	m_RunEnable = false;
-	m_MoveSpeed = FAST_SPEED;
+	SetMoveSpeed(NORMAL_SPEED);
 
 	if (CheckCurrentAnimation("LucidNunNaRightRun"))
 	{
@@ -391,7 +390,7 @@ void CPlayer::Dash(float DelatTime)
 	m_DashEnable = true;
 
 	// speed 조정 
-	m_MoveSpeed = DASH_SPEED;
+	SetMoveSpeed(DASH_SPEED);
 
 	// MP 감소
 	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
@@ -409,7 +408,7 @@ void CPlayer::DashEnd()
 {
 	if (!m_DashEnable) return;
 	m_DashEnable = false;
-	m_MoveSpeed = NORMAL_SPEED;
+	SetMoveSpeed(NORMAL_SPEED);
 }
 
 void CPlayer::DashCollide()
