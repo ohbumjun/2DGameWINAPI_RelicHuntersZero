@@ -146,6 +146,19 @@ void CMainScene::LoadAnimationSequence()
 				j * 61.f, i * 61.f, 61.f, 61.f);
 		}
 	}
+
+	// 텔레포트 캐릭터
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaTeleport",
+		"LucidNunNaTeleport", TEXT("Player/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaTeleport",
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaTeleport",
+			i * 46.f, 0.f, 46.f, 54.f);
+	}
 	
 
 	// 왼쪽 방향 기본 애니메이션 

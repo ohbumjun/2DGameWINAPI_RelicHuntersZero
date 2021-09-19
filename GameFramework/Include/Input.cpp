@@ -161,6 +161,10 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("TeleportPositionSet", VK_RBUTTON);
 	SetCtrlKey("TeleportPositionSet", true);
 
+	// Zoom
+	CreateKey("TargetPos", VK_RBUTTON);
+	SetCtrlKey("TargetPos", true);
+
 	ShowCursor(FALSE);
 
 	// 마우스 Widget 세팅 ( CUIImage안에, Mouse Image Texture를 세팅할것이다 )
