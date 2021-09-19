@@ -185,6 +185,7 @@ void CPlayer::Update(float DeltaTime)
 		if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
 			m_CharacterInfo.MP += DeltaTime;
 	}
+
 	// Run
 	if (m_RunEnable)
 	{
@@ -195,6 +196,7 @@ void CPlayer::Update(float DeltaTime)
 			RunEnd();
 		}
 	}
+
 	// Dash
 	if (m_DashEnable)
 	{
@@ -213,8 +215,7 @@ void CPlayer::Update(float DeltaTime)
 		if (m_TeleportEnable)
 		{
 			m_TelePortTime -= DeltaTime;
-			if (m_TelePortTime)
-				SAFE_DELETE(m_TeleportObj);
+			SAFE_DELETE(m_TeleportObj);
 		}
 	*/
 	
@@ -348,7 +349,7 @@ void CPlayer::ChangeMoveAnimation()
 {
 	if (m_StunEnable) return;
 	// 왼쪽 
-	if (m_Dir.x == -1.f) ChangeAnimation("TeleportMouseDisplay");
+	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftWalk");
 	// 오른쪽 
 	else ChangeAnimation("LucidNunNaRightWalk");
 }
@@ -568,11 +569,14 @@ void CPlayer::Teleport(float DeltaTime)
 		m_CharacterInfo.MP -= 0.9 * m_CharacterInfo.MPMax;
 	
 	// TeleportMouse Cursor Animation 지워주기
-	SAFE_DELETE(m_TeleportObj);
+	if (m_TeleportObj)
+		delete m_TeleportObj;
 }
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
+	if(m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax) return;
+
 	// Teleport 준비 
 	m_TeleportEnable = true;
 
@@ -585,8 +589,11 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 
 	// 화면상에 Teleport 위치 애니메이션 그리기
 	// m_TeleportObj에 부여된 obj가 없을 때만 할당( 그렇지 않으면 메모리 leak )
-	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
-	m_TeleportPos);
+	if (!m_TeleportObj)
+	{
+		m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
+		m_TeleportPos);
+	}
 
 	// Update 함수에서, 커서만 누르고, Teleport 안해주면
 	// m_TeleportObj 에 Animation이 계속 남아있을 수 있다
