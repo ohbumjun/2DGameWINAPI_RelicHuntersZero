@@ -49,8 +49,6 @@ enum class EButton_State
 enum class EObject_Type
 {
 	GameObject,
-	Player,
-	Monster,
 	Character,
 	Bullet,
 	Effect

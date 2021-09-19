@@ -29,15 +29,27 @@ stl : standard template library�̴�.
 
 #define	KEYCOUNT_MAX	256
 
+// Path
 #define	ROOT_PATH		"RootPath"
 #define	TEXTURE_PATH	"TexturePath"
 #define	SOUND_PATH		"SoundPath"
 #define	FONT_PATH		"FontPath"
 
-
+// Delete 
 #define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
 #define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
+
+// Time
+#define STUN_TIME 1.f
+#define DASH_TIME 0.15f
+
+// Speed 
+#define NORMAL_SPEED 200.f
+#define STUN_SPEED 150.f
+#define FAST_SPEED 400.f
+#define BULLET_SPEED 500.f
+#define DASH_SPEED 1600.f
 
 struct Resolution
 {
@@ -60,18 +72,6 @@ struct RectInfo
 	{
 	}
 };
-
-struct SpeedInfo
-{
-	float Normal;
-	float Fast;
-	float Dash;
-	SpeedInfo() :
-		Normal(200.f),
-		Fast(400.f),
-		Dash(1600.f) {}
-};
-
 
 struct SphereInfo
 {
