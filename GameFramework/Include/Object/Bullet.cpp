@@ -19,7 +19,7 @@ CBullet::CBullet()
 
 	m_Distance = 800.f;
 
-	SetMoveSpeed(500.f);
+	SetMoveSpeed(BULLET_SPEED);
 }
 
 CBullet::CBullet(const CBullet& obj)	:
