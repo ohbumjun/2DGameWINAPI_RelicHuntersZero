@@ -27,9 +27,13 @@ void CCamera::Update(float DeltaTime)
 		else
 		{
 			Vector2 TargetPos = m_Target->GetPos();
-			Vector2 MousePos = CInput::GetInst()->GetMousePos();
+			// MousePos : 현재 스크린 상에서의 mouse 좌표 
+			// m_Pos    : 현재 스크린 왼쪽 상단이, world 상에서 지니는 좌표
+			Vector2	MousePos = CInput::GetInst()->GetMousePos();
+			// Vector2	MouseWorldPos = MousePos + m_Scene->GetCamera()->GetPos();
+			Vector2	MouseWorldPos = MousePos + m_Pos;
 
-			Vector2 RenderPos = (m_Target->GetPos() + CInput::GetInst()->GetMousePos()) / 2;
+			Vector2 RenderPos = (TargetPos + MouseWorldPos) / 2;
 			m_Pos = RenderPos - m_TargetPivot * m_Resolution +
 				m_TargetOffset;
 		}
