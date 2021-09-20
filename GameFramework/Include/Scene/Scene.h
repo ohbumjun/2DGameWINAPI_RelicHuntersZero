@@ -12,7 +12,7 @@ protected:
 	CScene();
 	virtual ~CScene();
 
-private:
+protected:
 	class CSceneResource* m_Resource;
 	class CSceneCollision* m_Collision;
 	class CCamera* m_Camera;
