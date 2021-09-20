@@ -37,15 +37,19 @@ CCollider::~CCollider()
 	}
 }
 
-bool CCollider::IsCollisionWithMonster()
+int CCollider::IsCollisionWithMonster()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster) return true;
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster)
+		{
+			// Damage를 얻어온다 
+			return (*iter)->GetOwner()->GetAttack();
+		}
 	}
-	return false;
+	return -1;
 }
 
 void CCollider::SetCollisionProfile(const std::string& Name)

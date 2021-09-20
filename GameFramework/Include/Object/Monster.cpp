@@ -131,3 +131,7 @@ float CMonster::SetDamage(float Damage)
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
 }
+
+void CMonster::CharacterDestroy()
+{
+}

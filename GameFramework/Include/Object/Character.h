@@ -53,6 +53,10 @@ public:
 	{
 		return m_CharacterInfo.Armor;
 	}
+	virtual int GetAttack()const
+	{
+		return m_CharacterInfo.Attack;
+	}
 
 public:
 	virtual void Start();
@@ -74,4 +78,7 @@ protected :
 protected :
 	virtual void Stun();
 	virtual void StunEnd();
+protected:
+	// Á×À½
+	virtual void CharacterDestroy() = 0;
 };

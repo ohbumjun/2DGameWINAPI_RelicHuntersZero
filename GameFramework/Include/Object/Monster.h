@@ -27,6 +27,6 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CMonster* Clone();
 	virtual float SetDamage(float Damage);
-
+	virtual void CharacterDestroy();
 };
 

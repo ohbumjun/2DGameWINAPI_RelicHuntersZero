@@ -33,13 +33,11 @@ public:
 	int Release()
 	{
 		--m_RefCount;
-
 		if (m_RefCount <= 0)
 		{
 			delete	this;
 			return 0;
 		}
-
 		return m_RefCount;
 	}
 

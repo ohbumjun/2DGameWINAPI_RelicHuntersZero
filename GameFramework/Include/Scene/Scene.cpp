@@ -105,8 +105,11 @@ bool CScene::Init()
 
 bool CScene::Update(float DeltaTime)
 {
-	if (m_Player)
-		m_Player->Update(DeltaTime);
+	if (m_Player )
+	{
+		if (m_Player->IsActive())
+			m_Player->Update(DeltaTime);
+	}
 
 	{
 		auto	iter = m_ObjList.begin();
@@ -158,8 +161,10 @@ bool CScene::Update(float DeltaTime)
 bool CScene::PostUpdate(float DeltaTime)
 {
 	if (m_Player)
-		m_Player->PostUpdate(DeltaTime);
-
+	{
+		if(m_Player->IsActive())
+			m_Player->PostUpdate(DeltaTime);
+	}
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
 		std::list<CSharedPtr<CGameObject>>::iterator	iterEnd = m_ObjList.end();
@@ -212,8 +217,10 @@ bool CScene::PostUpdate(float DeltaTime)
 bool CScene::Collision(float DeltaTime)
 {
 	if (m_Player)
-		m_Player->Collision(DeltaTime);
-
+	{
+		if (m_Player->IsActive())
+			m_Player->Collision(DeltaTime);
+	}
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
 		std::list<CSharedPtr<CGameObject>>::iterator	iterEnd = m_ObjList.end();
@@ -277,7 +284,10 @@ bool CScene::Collision(float DeltaTime)
 bool CScene::Render(HDC hDC)
 {
 	if (m_Player)
-		m_Player->PrevRender();
+	{
+		if(m_Player->IsActive())
+			m_Player->PrevRender();
+	}
 
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
