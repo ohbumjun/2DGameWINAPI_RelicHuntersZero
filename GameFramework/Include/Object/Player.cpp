@@ -570,20 +570,16 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	// Bullet Setting
 	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 6.0) // 6.0 으로 나눈다는 것은 60씩 증가시킨다 --> 12개
 	{
-		/*
-		for (float f = 0.0; f < 2 * M_PI; f += M_PI / 45) 
-		{
-			pmx = cx + (radius / 4) * cos(f);
-			pmy = cx + (radius / 4) * sin(f);
-			rect(vector3D(-0.01, 0.02, 0), vector3D(0.01, -0.02, 0));
-		}
-		*/
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",
 			// 중점 + 반지름 길이 * 함수
 			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f) 
 				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
 			Vector2(m_Size.x,m_Size.y));
+
+		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
+		CCollider* BulletBody = Bullet->FindCollider("Body");
+		BulletBody->SetCollisionProfile("PlayerAttack");
 		float	Angle = GetAngle(Bullet->GetPos(), Vector2(0.f,0.f));
 		Bullet->SetDir(Angle);
 		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
