@@ -105,10 +105,15 @@ bool CScene::Init()
 
 bool CScene::Update(float DeltaTime)
 {
-	if (m_Player )
+	if (m_Player)
 	{
 		if (m_Player->IsActive())
 			m_Player->Update(DeltaTime);
+		else
+		{
+			// delete m_Player;
+			// m_Player = nullptr;
+		}
 	}
 
 	{
@@ -275,7 +280,6 @@ bool CScene::Collision(float DeltaTime)
 	}
 
 	m_Collision->CollisionMouse(DeltaTime);
-
 	m_Collision->Collision(DeltaTime);
 
 	return false;

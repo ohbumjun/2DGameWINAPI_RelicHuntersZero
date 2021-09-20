@@ -12,8 +12,11 @@
 #define BULLET_SPEED 500.f
 #define DASH_SPEED 1600.f
 
-// Monster Attack Distance
+// Attack Distance
 #define NORMAL_ATTACK_DISTANCE 500.f
 #define MEDIUM_ATTACK_DISTANCE 700.f
 #define HARD_ATTACK_DISTANCE 900.f
 #define BOSS_ATTACK_DISTANCE 2000.f
+
+// Death Time
+#define DEATH_TIME 5.f

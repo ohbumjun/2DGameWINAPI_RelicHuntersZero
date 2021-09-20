@@ -7,7 +7,9 @@
 
 CMonster::CMonster()	:
 	m_FireTime(0.f),
-	m_FireTimeMax(1.f)
+	m_FireTimeMax(1.f),
+	m_Count(0),
+	m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
 {
 	m_Dir.x = 0.f;
 	m_Dir.y = 1.f;
@@ -21,6 +23,7 @@ CMonster::CMonster(const CMonster& obj) :
 	m_FireTime = obj.m_FireTime;
 	m_FireTimeMax = obj.m_FireTimeMax;
 	m_Count = obj.m_Count;
+	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 }
 
 CMonster::~CMonster()
@@ -67,6 +70,13 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
+	// Target limit time이 지나면 다시 target pos 쪽으로 dir을 바꾼다
+
+	// 혹은 범위를 벗어나도 dir을 바꾼다
+
+	// 그러다가, 범위내에 player가 들어오면, 해당 쪽으로 이동 (  )
+
+	// 랜덤한 위치로 이동
 	// 위아래 이동 
 	if (m_Pos.y >= 720.f)
 	{
