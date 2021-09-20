@@ -47,6 +47,7 @@ private :
 	float m_GravityAccel;
 	bool m_IsGround;
 	float m_LifeTime;
+
 // Stun
 protected :
 	bool m_StunEnable;
@@ -165,6 +166,7 @@ public:
 	}
 
 	float GetBottom()	const;
+	virtual int GetArmor()const;
 
 public:
 	void SetScene(class CScene* Scene);

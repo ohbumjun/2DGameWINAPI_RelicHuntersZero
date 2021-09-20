@@ -26,7 +26,7 @@ CPlayer::CPlayer() :
 	m_TeleportObj{},
 	m_TeleportPos(Vector2(0.f,0.f))
 {
-	m_ObjType = EObject_Type::Character;
+	m_ObjType = EObject_Type::Player;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -667,7 +667,7 @@ void CPlayer::Fire()
 																"PlayerBullet",
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
-	Bullet->SetDamage(m_CharacterInfo.Attack);
+	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -695,7 +695,7 @@ void CPlayer::FireTarget()
 		Vector2(50.f, 50.f));
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
 	Bullet->SetDir(Angle);
-	Bullet->SetDamage(m_CharacterInfo.Attack);
+	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 }
 
 void CPlayer::BulletFireTarget(float DeltaTime)
