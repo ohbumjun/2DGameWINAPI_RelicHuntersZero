@@ -188,15 +188,7 @@ void CPlayer::Update(float DeltaTime)
 	// if (m_DeathAnimationTime > 0.f) return;
 
 	// 범위 벗어남 여부 파악
-	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
-	if (m_Pos.x <= 0)
-		m_Pos.x = 0.f;
-	if (m_Pos.x + m_Size.x >= WorldResolution.x)
-		m_Pos.x = WorldResolution.x - m_Size.x;
-	if (m_Pos.y <= 0)
-		m_Pos.y = 0.f;
-	if (m_Pos.y + m_Size.y >= WorldResolution.y)
-		m_Pos.y = WorldResolution.y - m_Size.y;
+	MoveWithinWorldResolution();
 
 	// 몬스터와의 충돌 여부 파악
 	int MonsterDamage = MonsterCollisionCheck();
