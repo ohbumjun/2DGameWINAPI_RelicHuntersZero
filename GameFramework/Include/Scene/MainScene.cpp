@@ -50,7 +50,7 @@ bool CMainScene::Init()
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(rand() % 1000, rand() % 100));
-	Monster->SetCharacterInfo(20, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
+	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK,NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
 		1, 100, 100, 100, NORMAL_MONSTER_DISTANCE);
 
 
