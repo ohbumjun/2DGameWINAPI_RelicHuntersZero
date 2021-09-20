@@ -75,7 +75,7 @@ private:
 // Collision
 private :
 	bool CollisionCheck();
-	bool MonsterCollisionCheck();
+	int MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
 	void CollideBounceBack();
@@ -105,7 +105,7 @@ public  :
 	void DeleteTargetPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float DeltaTime);
-
+	virtual void CharacterDestroy();
 public:
 	void Skill1End();
 	void Skill1Enable();

@@ -167,7 +167,7 @@ public:
 
 	float GetBottom()	const;
 	virtual int GetArmor()const;
-
+	virtual int GetAttack()const;
 public:
 	void SetScene(class CScene* Scene);
 

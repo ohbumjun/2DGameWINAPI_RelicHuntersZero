@@ -61,7 +61,6 @@ float CCharacter::SetDamage(float Damage)
 	Damage -= m_CharacterInfo.Armor;
 	if (Damage < 0) Damage = 0;
 	m_CharacterInfo.HP -= (int)Damage;
-	if (m_CharacterInfo.HP <= 0) Destroy();
 	return Damage;
 }
 

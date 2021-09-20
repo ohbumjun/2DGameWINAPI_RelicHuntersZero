@@ -250,10 +250,14 @@ int CGameObject::GetArmor() const
 	return 0;
 }
 
+int CGameObject::GetAttack() const
+{
+	return 0;
+}
+
 void CGameObject::SetScene(CScene* Scene)
 {
 	m_Scene = Scene;
-
 	if (m_Animation)
 		m_Animation->m_Scene = Scene;
 }
@@ -482,6 +486,7 @@ void CGameObject::Update(float DeltaTime)
 		m_StunTime -= DeltaTime;
 		if (m_StunTime < 0.f)
 			StunEnd();
+		return;
 	}
 }
 

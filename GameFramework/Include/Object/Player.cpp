@@ -112,6 +112,10 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
 	// Stun
+	AddAnimation("LucidNunNaRightDeath", false, 5.f);
+	AddAnimation("LucidNunNaLeftDeath", false, 5.f);
+
+	// Stun
 	AddAnimation("LucidNunNaStun", true, 0.6f);
 
 	// Teleport
@@ -120,6 +124,9 @@ bool CPlayer::Init()
 
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
+
+	AddAnimationNotify<CPlayer>("LucidNunNaLeftDeath", 2, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
 
 	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
@@ -178,12 +185,15 @@ void CPlayer::Update(float DeltaTime)
 	// if (GetAsyncKeyState(VK_F1) & 0x8000)
 		// SetAttackSpeed(0.5f);
 
-	if (MonsterCollisionCheck())
+	// 몬스터와의 충돌 여부 파악
+	int MonsterDamage = MonsterCollisionCheck();
+	if (MonsterDamage !=- 1)
 	{
-		if (m_StunEnable) return;
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-		DamageFont->SetDamageNumber(10);
-		SetDamage(10);
+		MonsterDamage -= m_CharacterInfo.Armor;
+		if (MonsterDamage <= 0) MonsterDamage = 0;
+		DamageFont->SetDamageNumber(MonsterDamage);
+		SetDamage(MonsterDamage);
 		CollideBounceBack();
 	}
 
@@ -314,12 +324,16 @@ float CPlayer::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
-
 	if (State)
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
-
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+
+	if (m_CharacterInfo.HP <= 0)
+	{
+		Destroy();
+		return -1.f;
+	}
 	return Damage;
 }
 
@@ -536,18 +550,19 @@ bool CPlayer::CollisionCheck()
 	return false;
 }
 
-bool CPlayer::MonsterCollisionCheck()
+int CPlayer::MonsterCollisionCheck()
 {
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->IsCollisionWithMonster())
+		int MonsterDamage = (*iter)->IsCollisionWithMonster();
+		if (MonsterDamage != -1)
 		{
-			return true;
+			return MonsterDamage;
 		}
 	}
-	return false;
+	return -1;
 }
 
 Vector2 CPlayer::GetColliderPos()
@@ -699,6 +714,14 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 {
 	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
 	ChangeAnimation("LucidNunNaTargetAttack");
+}
+
+void CPlayer::CharacterDestroy()
+{
+	// 왼쪽 
+	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftDeath");
+	// 오른쪽 
+	else ChangeAnimation("LucidNunNaRightDeath");
 }
 
 
