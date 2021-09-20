@@ -699,7 +699,9 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
 	GetCursorPos(&ptMouse);
 	ScreenToClient(hwnd, &ptMouse);
-	m_TeleportPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	m_TeleportPos = Vector2((float)(MousePos.x+ CameraPos.x), (float)(MousePos.y+ CameraPos.y));
 
 	// 화면상에 Teleport 위치 애니메이션 그리기
 	 // 이전에 그린 teleport animation 지우기 (메모리 leak 방지 )
