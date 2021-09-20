@@ -5,6 +5,7 @@
 #include "../Scene/Camera.h"
 #include "../Collision/ColliderBox.h"
 #include "../UI/ProgressBar.h"
+#include "Player.h"
 
 CMonster::CMonster()	:
 	m_FireTime(0.f),
@@ -84,9 +85,18 @@ void CMonster::Update(float DeltaTime)
 		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	}
 
-	// 혹은 범위를 벗어나도 dir을 바꾼다
-
-	// 그러다가, 범위내에 player가 들어오면, 해당 쪽으로 이동 (  )
+	// 그러다가, 범위내에 player가 들어오면, 해당 쪽으로 이동
+	if (m_Player)
+	{
+		Vector2 PlayerPos = m_Player->GetPos();
+		float DistToPlayer = (m_Pos - PlayerPos).Length();
+		if (DistToPlayer <= m_CharacterInfo.DashDistance)
+		{
+			float Angle = GetAngle(m_Pos, PlayerPos);
+			SetDir(Angle);
+			m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+		}
+	}
 
 	// 랜덤한 위치로 이동
 	// 위아래 이동 
