@@ -42,7 +42,7 @@ bool CMainScene::Init()
 
 	CPlayer *Player = CreateObject<CPlayer>("Player");
 	Player->SetCharacterInfo(60, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
-		1, 100, 100, 100, NORMAL_MONSTER_DISTANCE);
+		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
 
 	SetPlayer(Player);
 	GetCamera()->SetTarget(Player);
@@ -50,9 +50,9 @@ bool CMainScene::Init()
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(rand() % 1000, rand() % 100));
-	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK,NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
-		1, 100, 100, 100, NORMAL_MONSTER_DISTANCE);
-
+	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK,NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX, 
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
