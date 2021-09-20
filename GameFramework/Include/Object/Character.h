@@ -23,6 +23,11 @@ public:
 	{
 		m_Dir = Vector2(x, y);
 	}
+	void SetDir(float Angle)
+	{
+		m_Dir.x = cosf(DegreeToRadian(Angle));
+		m_Dir.y = sinf(DegreeToRadian(Angle));
+	}
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance)
