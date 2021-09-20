@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "Bullet.h"
 #include "../Scene/Scene.h"
+#include "../Scene/Camera.h"
 #include "../Collision/ColliderBox.h"
 #include "../UI/ProgressBar.h"
 
@@ -14,6 +15,8 @@ CMonster::CMonster()	:
 	m_Dir.x = 0.f;
 	m_Dir.y = 1.f;
 	m_ObjType = EObject_Type::Monster;
+	/// m_MoveTargetPos = SetRandomTargetPos();
+	// SetRandomTargetDir();
 }
 
 CMonster::CMonster(const CMonster& obj) :
@@ -70,7 +73,16 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
+	// World 상 안에서 움직인다
+	MoveWithinWorldResolution();
+
 	// Target limit time이 지나면 다시 target pos 쪽으로 dir을 바꾼다
+	m_RandomMoveTime -= DeltaTime;
+	if (m_RandomMoveTime <= 0.f)
+	{
+		SetRandomTargetDir();
+		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+	}
 
 	// 혹은 범위를 벗어나도 dir을 바꾼다
 
@@ -78,7 +90,8 @@ void CMonster::Update(float DeltaTime)
 
 	// 랜덤한 위치로 이동
 	// 위아래 이동 
-	if (m_Pos.y >= 720.f)
+	/*
+	* if (m_Pos.y >= 720.f)
 	{
 		m_Pos.y = 720.f;
 		m_Dir.y = -1.f;
@@ -88,6 +101,8 @@ void CMonster::Update(float DeltaTime)
 		m_Pos.y = m_Size.y;
 		m_Dir.y = 1.f;
 	}
+	*/
+	
 
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
@@ -144,4 +159,20 @@ float CMonster::SetDamage(float Damage)
 
 void CMonster::CharacterDestroy()
 {
+}
+
+void CMonster::SetRandomTargetDir()
+{
+	m_MoveTargetPos = SetRandomTargetPos();
+	float	Angle = GetAngle(m_Pos, m_MoveTargetPos);
+	SetDir(Angle);
+}
+
+Vector2 CMonster::SetRandomTargetPos()
+{
+	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
+	float x = WorldResolution.x;
+	float y = WorldResolution.y;
+	m_MoveTargetPos = Vector2(x, y);
+	return m_MoveTargetPos;
 }

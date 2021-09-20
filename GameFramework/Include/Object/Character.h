@@ -75,6 +75,7 @@ protected :
 	// 그런데.. 그냥 걸자... ㅋㅋ
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
+	void MoveWithinWorldResolution();
 protected :
 	virtual void Stun();
 	virtual void StunEnd();

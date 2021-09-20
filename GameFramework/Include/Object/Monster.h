@@ -14,6 +14,7 @@ private:
 	float	m_FireTime;
 	float	m_FireTimeMax;
 	float   m_RandomMoveTime;
+	Vector2 m_MoveTargetPos;
 	int		m_Count;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
@@ -29,5 +30,8 @@ public:
 	virtual CMonster* Clone();
 	virtual float SetDamage(float Damage);
 	virtual void CharacterDestroy();
+private :
+	void SetRandomTargetDir();
+	Vector2 SetRandomTargetPos();
 };
 
