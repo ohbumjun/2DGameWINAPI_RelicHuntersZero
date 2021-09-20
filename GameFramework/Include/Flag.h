@@ -50,6 +50,7 @@ enum class EObject_Type
 {
 	GameObject,
 	Character,
+	Monster,
 	Bullet,
 	Effect
 };

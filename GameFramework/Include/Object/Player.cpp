@@ -87,7 +87,6 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("TargetFire", KeyState_Down,
 		this, &CPlayer::BulletFireTarget);
 	
-	
 }
 
 bool CPlayer::Init()
@@ -356,7 +355,8 @@ void CPlayer::Move(const Vector2& Dir)
 		// 2) 한편, Move 상에서는 Dash + CollisionCheck() 이면, Move 진행 x ( 이전의 Dash를 통한 Move 를 막아주기 위해 )
 		// 3) (이전의 Move는 멈춘 상태) DashCollide() 함수를 통해, 해당 obj를 뒤로 밀려나게 한다.
 		if (m_DashEnable) return;
-
+		// 우선 충돌하면 무조건 
+		return;
 	}
 	CCharacter::Move(Dir);
 }
@@ -379,8 +379,6 @@ void CPlayer::ChangeMoveAnimation()
 	// 오른쪽 
 	else ChangeAnimation("LucidNunNaRightWalk");
 }
-
-
 
 void CPlayer::RunLeft(float DeltaTime)
 {
@@ -488,10 +486,10 @@ void CPlayer::DashCollide()
 	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
 	OppDir.Normalize();
 	CGameObject* Player = m_Scene->GetPlayer();
-	SetDir(OppDir);
+	SetStunDir(OppDir);
 	DashEnd();
 	// 자기 크기만큼 bounce back
-	Move(m_Dir * m_Size);
+	Stun();
 }
 
 void CPlayer::BulletFire(float DeltaTime)
@@ -526,6 +524,17 @@ bool CPlayer::CollisionCheck()
 		{
 			return true;
 		}
+	}
+	return false;
+}
+
+bool CPlayer::MonsterCollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->IsCollisionWithMonster()) return true;
 	}
 	return false;
 }

@@ -37,6 +37,17 @@ CCollider::~CCollider()
 	}
 }
 
+bool CCollider::IsCollisionWithMonster()
+{
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster) return true;
+	}
+	return false;
+}
+
 void CCollider::SetCollisionProfile(const std::string& Name)
 {
 	m_Profile = CCollisionManager::GetInst()->FindProfile(Name);
