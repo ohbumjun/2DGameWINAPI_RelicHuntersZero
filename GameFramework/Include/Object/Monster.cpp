@@ -3,6 +3,7 @@
 #include "Bullet.h"
 #include "../Scene/Scene.h"
 #include "../Collision/ColliderBox.h"
+#include "../UI/ProgressBar.h"
 
 CMonster::CMonster()	:
 	m_FireTime(0.f),
@@ -45,6 +46,18 @@ bool CMonster::Init()
 	Body->SetExtent(82.f, 73.f);
 	Body->SetOffset(0.f, -36.5f);
 	Body->SetCollisionProfile("Monster");
+
+	// HPBar
+	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
+	CProgressBar* HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
+	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
+	m_HPBarWidget->SetPos(-25.f, -95.f);
+
+	// MPBar
+	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
+	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
+	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
+	m_MPBarWidget->SetPos(-25.f, -85.f);
 
 	return true;
 }
@@ -111,5 +124,9 @@ CMonster* CMonster::Clone()
 
 float CMonster::SetDamage(float Damage)
 {
-	return 0.0f;
+	Damage = CCharacter::SetDamage(Damage);
+	
+	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
+	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	return Damage;
 }

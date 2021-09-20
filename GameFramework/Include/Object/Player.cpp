@@ -685,6 +685,9 @@ void CPlayer::DeleteTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget()
 {
+	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
+	m_CharacterInfo.MP -= 0.2 * m_CharacterInfo.MPMax;
+
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 		"PlayerBullet",
 		Vector2(m_Pos + Vector2(75.f, 0.f)),
