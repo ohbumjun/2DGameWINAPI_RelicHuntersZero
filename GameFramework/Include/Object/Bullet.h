@@ -25,6 +25,10 @@ public:
 		m_Dir.x = x;
 		m_Dir.y = y;
 	}
+	void SetDir(Vector2 Dir)
+	{
+		m_Dir = Dir;
+	}
 	void SetDir(float Angle)
 	{
 		m_Dir.x = cosf(DegreeToRadian(Angle));

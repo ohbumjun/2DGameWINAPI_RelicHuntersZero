@@ -74,6 +74,31 @@ CGameObject* CScene::FindObject(const std::string& Name)
 	return nullptr;
 }
 
+CGameObject* CScene::FindClosedMonsterToPlayer(Vector2 PlayerPos)
+{
+	auto	iter = m_ObjList.begin();
+	auto	iterEnd = m_ObjList.end();
+	float   MinLength = (float)INT_MAX;
+	float   FLOAT_MAX = (float)INT_MAX;
+	CGameObject* ClosestObj = nullptr;
+
+	for (; iter != iterEnd; ++iter)
+	{
+		// Monster Type이 아니면 건너뛴다 
+		if ((*iter)->GetObjType() != EObject_Type::Monster) continue;
+
+		float LengthToObj = Vector2((*iter)->GetPos() - PlayerPos).Length();
+		if (LengthToObj < MinLength)
+		{
+			MinLength = LengthToObj;
+			ClosestObj = (*iter);
+		}
+	}
+	if (MinLength == FLOAT_MAX)
+		return nullptr;
+	return ClosestObj;
+}
+
 void CScene::SetPlayer(const std::string& Name)
 {
 	CGameObject* Player = FindObject(Name);

@@ -36,6 +36,7 @@ private:
 
 public:
 	CGameObject* FindObject(const std::string& Name);
+	CGameObject* FindClosedMonsterToPlayer(Vector2 PlayerPos);
 	void SetPlayer(const std::string& Name);
 	void SetPlayer(CGameObject* Player);
 	CGameObject* GetPlayer()	const

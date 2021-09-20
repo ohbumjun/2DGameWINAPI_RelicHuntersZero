@@ -6,7 +6,7 @@
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
 // Skill Time
-#define SLOW_MOTION_ATTACK_TIME 3.f
+#define SLOW_MOTION_ATTACK_TIME 1.f
 
 // Speed 
 #define NORMAL_SPEED 200.f
