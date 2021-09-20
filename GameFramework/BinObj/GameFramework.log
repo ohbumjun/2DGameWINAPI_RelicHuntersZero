@@ -1,15 +1,5 @@
-﻿  Character.cpp
-  Monster.cpp
+﻿  Monster.cpp
 C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(115,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Player.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(201,13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(221,40): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(488,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(637,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(687,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(707,51): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(716,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  MainScene.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(52,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(174,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(175,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
