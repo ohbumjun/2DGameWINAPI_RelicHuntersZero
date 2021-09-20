@@ -10,6 +10,7 @@ CMonster::CMonster()	:
 {
 	m_Dir.x = 0.f;
 	m_Dir.y = 1.f;
+	m_ObjType = EObject_Type::Monster;
 }
 
 CMonster::CMonster(const CMonster& obj) :

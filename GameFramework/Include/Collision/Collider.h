@@ -96,6 +96,7 @@ public:
 	{
 		return m_CollisionList.empty();
 	}
+	bool IsCollisionWithMonster();
 
 public:
 	void SetCollisionProfile(const std::string& Name);

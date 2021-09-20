@@ -63,7 +63,6 @@ private:
 private:
 	void Dash(float DeltaTime);
 	void DashEnd();
-	void DashCollide();
 	bool m_DashEnable;
 	float m_DashTime;
 // Other Skills
@@ -75,8 +74,10 @@ private:
 // Collision
 private :
 	bool CollisionCheck();
+	bool MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
+	void DashCollide();
 // Stun
 private :
 	virtual void Stun();
