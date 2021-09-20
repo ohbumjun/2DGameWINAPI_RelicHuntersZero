@@ -684,7 +684,7 @@ void CPlayer::DeleteTargetPos(float DeltaTime)
 {
 }
 
-void CPlayer::FireTarget()
+void CPlayer::FireTarget() //
 {
 	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
 	m_CharacterInfo.MP -= 0.2 * m_CharacterInfo.MPMax;
