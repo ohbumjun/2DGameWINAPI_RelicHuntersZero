@@ -30,7 +30,7 @@ public:
 	}
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
-						  float AttackDistance)
+						  float AttackDistance, float DashDistance = 0.f)
 	{
 		m_CharacterInfo.Attack = Attack;
 		m_CharacterInfo.Armor = Armor;
@@ -43,6 +43,7 @@ public:
 		m_CharacterInfo.Gold = Gold;
 		m_CharacterInfo.AttackSpeed = AttackSpeed;
 		m_CharacterInfo.AttackDistance = AttackDistance;
+		m_CharacterInfo.DashDistance = DashDistance;
 	}
 	virtual void SetAttackSpeed(float Speed)
 	{

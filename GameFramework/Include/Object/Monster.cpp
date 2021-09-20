@@ -65,8 +65,9 @@ bool CMonster::Init()
 void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
-	m_Pos += m_Dir * 300.f * DeltaTime;
+	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
+	// 위아래 이동 
 	if (m_Pos.y >= 720.f)
 	{
 		m_Pos.y = 720.f;
@@ -77,7 +78,6 @@ void CMonster::Update(float DeltaTime)
 		m_Pos.y = m_Size.y;
 		m_Dir.y = 1.f;
 	}
-
 
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)

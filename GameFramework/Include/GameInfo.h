@@ -20,6 +20,7 @@ stl : standard template library�̴�.
 #include "Math.h"
 #include "Flag.h"
 #include "MonsterInfo.h"
+#include "PlayerInfo.h"
 #include "fmod.hpp"
 
 #pragma comment(lib, "msimg32.lib")
@@ -41,20 +42,9 @@ stl : standard template library�̴�.
 #define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
 
-// Time
-#define STUN_TIME 0.5f
-#define DASH_TIME 0.15f
-#define TELEPORT_MOUSE_DISPLAY_TIME 5.f
-
-// Speed 
-#define NORMAL_SPEED 200.f
-#define STUN_SPEED 100.f
-#define FAST_SPEED 400.f
-#define BULLET_SPEED 500.f
-#define DASH_SPEED 1600.f
-
-// Distance 
+// Bullet Distance 
 #define NORMAL_BULLET_DISTANCE 800.f;
+
 
 struct Resolution
 {
@@ -103,6 +93,7 @@ struct CharacterInfo
 	int	Gold;
 	float	AttackSpeed;
 	float	AttackDistance;
+	float   DashDistance;
 };
 
 struct CollisionProfile
