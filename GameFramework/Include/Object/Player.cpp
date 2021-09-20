@@ -175,8 +175,8 @@ void CPlayer::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
 
-	if (GetAsyncKeyState(VK_F1) & 0x8000)
-		SetAttackSpeed(0.5f);
+	// if (GetAsyncKeyState(VK_F1) & 0x8000)
+		// SetAttackSpeed(0.5f);
 
 	if (MonsterCollisionCheck())
 	{
@@ -202,11 +202,8 @@ void CPlayer::Update(float DeltaTime)
 	}
 
 	// MP 자동 충전 
-	if (!m_RunEnable && !m_DashEnable)
-	{
-		if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
-			m_CharacterInfo.MP += 0.5 * DeltaTime;
-	}
+	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP += 0.5 * DeltaTime;
 
 	// Run
 	if (m_RunEnable)
@@ -253,8 +250,7 @@ void CPlayer::Update(float DeltaTime)
 	else
 		SetOffset(0.f, 0.f);
 
-	// 가만히 있을 때
-	// Mouse Pos에 따른, 방향 조정( Animation 조정 )
+	// 가만히 있을 때 Mouse Pos에 따른, 방향 조정( Animation 조정 )
 	if (CheckCurrentAnimation("LucidNunNaRightIdle") || CheckCurrentAnimation("LucidNunNaLeftIdle"))
 	{
 		Vector2 MousePos = CInput::GetInst()->GetMousePos();
@@ -684,7 +680,7 @@ void CPlayer::DeleteTargetPos(float DeltaTime)
 {
 }
 
-void CPlayer::FireTarget() //
+void CPlayer::FireTarget() 
 {
 	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
 	m_CharacterInfo.MP -= 0.2 * m_CharacterInfo.MPMax;
@@ -694,12 +690,14 @@ void CPlayer::FireTarget() //
 		Vector2(m_Pos + Vector2(75.f, 0.f)),
 		Vector2(50.f, 50.f));
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
+
 	Bullet->SetDir(Angle);
 	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 }
 
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
+	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
 	ChangeAnimation("LucidNunNaTargetAttack");
 }
 
