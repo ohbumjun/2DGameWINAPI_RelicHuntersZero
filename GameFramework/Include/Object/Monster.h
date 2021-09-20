@@ -13,6 +13,7 @@ protected:
 private:
 	float	m_FireTime;
 	float	m_FireTimeMax;
+	float   m_RandomMoveTime;
 	int		m_Count;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;

@@ -83,7 +83,6 @@ private :
 private :
 	virtual void Stun();
 	virtual void StunEnd();
-
 // 순간 이동
 private :
 	bool    m_TeleportEnable;
@@ -94,7 +93,6 @@ private:
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
 	void DeleteTeleportObj();
-
 // 공격
 private :
 	Vector2 m_TargetPos;
@@ -105,7 +103,9 @@ public  :
 	void DeleteTargetPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float DeltaTime);
+// Death
 	virtual void CharacterDestroy();
+	float m_DeathAnimationTime;
 public:
 	void Skill1End();
 	void Skill1Enable();

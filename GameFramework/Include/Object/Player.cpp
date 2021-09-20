@@ -24,7 +24,8 @@ CPlayer::CPlayer() :
 	m_TeleportEnable(false),
 	m_TelePortTime(0.f),
 	m_TeleportObj{},
-	m_TeleportPos(Vector2(0.f,0.f))
+	m_TeleportPos(Vector2(0.f,0.f)),
+	m_DeathAnimationTime(0.f)
 {
 	m_ObjType = EObject_Type::Player;
 }
@@ -112,8 +113,8 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
 	// Stun
-	AddAnimation("LucidNunNaRightDeath", false, 5.f);
-	AddAnimation("LucidNunNaLeftDeath", false, 5.f);
+	AddAnimation("LucidNunNaRightDeath",false, DEATH_TIME);
+	AddAnimation("LucidNunNaLeftDeath",false,DEATH_TIME);
 
 	// Stun
 	AddAnimation("LucidNunNaStun", true, 0.6f);
@@ -125,7 +126,7 @@ bool CPlayer::Init()
 	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
 
-	AddAnimationNotify<CPlayer>("LucidNunNaLeftDeath", 2, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
 
 	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
@@ -184,6 +185,18 @@ void CPlayer::Update(float DeltaTime)
 
 	// if (GetAsyncKeyState(VK_F1) & 0x8000)
 		// SetAttackSpeed(0.5f);
+	// if (m_DeathAnimationTime > 0.f) return;
+
+	// 범위 벗어남 여부 파악
+	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
+	if (m_Pos.x <= 0)
+		m_Pos.x = 0.f;
+	if (m_Pos.x + m_Size.x >= WorldResolution.x)
+		m_Pos.x = WorldResolution.x - m_Size.x;
+	if (m_Pos.y <= 0)
+		m_Pos.y = 0.f;
+	if (m_Pos.y + m_Size.y >= WorldResolution.y)
+		m_Pos.y = WorldResolution.y - m_Size.y;
 
 	// 몬스터와의 충돌 여부 파악
 	int MonsterDamage = MonsterCollisionCheck();
@@ -331,6 +344,7 @@ float CPlayer::SetDamage(float Damage)
 
 	if (m_CharacterInfo.HP <= 0)
 	{
+		// CharacterDestroy();
 		Destroy();
 		return -1.f;
 	}
@@ -718,8 +732,10 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 
 void CPlayer::CharacterDestroy()
 {
+	m_DeathAnimationTime = DEATH_TIME;
 	// 왼쪽 
-	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftDeath");
+	if (m_Dir.x <= 0.f) 
+		ChangeAnimation("LucidNunNaLeftDeath");
 	// 오른쪽 
 	else ChangeAnimation("LucidNunNaRightDeath");
 }

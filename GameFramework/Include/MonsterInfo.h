@@ -1,5 +1,8 @@
 #pragma once
 
+// Monster Target Pos Time
+#define MONSTER_TARGET_POS_LIMIT_TIME 5.f
+
 // Monster Attack
 #define NORMAL_MONSTER_ATTACK 30
 #define MEDIUM_MONSTER_ATTACK 50

@@ -23,7 +23,7 @@ bool CMainScene::Init()
 {
 	LoadSound();
 	LoadAnimationSequence();
-	GetCamera()->SetWorldResolution(10000.f, 10000.f);
+	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
 	CEffectHit *EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
 
