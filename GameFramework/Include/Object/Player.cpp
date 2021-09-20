@@ -13,6 +13,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Scene/Camera.h"
+#include "DamageFont.h"
 
 CPlayer::CPlayer() : 
 	m_Skill1Enable(false),
@@ -179,6 +180,10 @@ void CPlayer::Update(float DeltaTime)
 
 	if (MonsterCollisionCheck())
 	{
+		if (m_StunEnable) return;
+		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+		DamageFont->SetDamageNumber(10);
+		SetDamage(10);
 		CollideBounceBack();
 	}
 
@@ -498,6 +503,7 @@ void CPlayer::CollideBounceBack()
 	Stun();
 }
 
+
 void CPlayer::BulletFire(float DeltaTime)
 {
 	ChangeAnimation("LucidNunNaRightAttack");
@@ -540,7 +546,10 @@ bool CPlayer::MonsterCollisionCheck()
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->IsCollisionWithMonster()) return true;
+		if ((*iter)->IsCollisionWithMonster())
+		{
+			return true;
+		}
 	}
 	return false;
 }
@@ -639,7 +648,6 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	// m_TeleportObj 에 Animation이 계속 남아있을 수 있다
 	// 따라서, 일정 시간이 지나면 지워주기 위해 m_TeleportTime을 세팅한다
 	m_TelePortTime = TELEPORT_MOUSE_DISPLAY_TIME;
-
 }
 
 void CPlayer::DeleteTeleportObj()
