@@ -30,8 +30,9 @@ bool CMainScene::Init()
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
 	CBullet *PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
+	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
+	
 	CCollider *Collider = PlayerBullet->FindCollider("Body");
-
 	if (Collider)
 		Collider->SetCollisionProfile("PlayerAttack");
 
@@ -99,15 +100,16 @@ void CMainScene::LoadAnimationSequence()
 												  i * 176.f, 0.f, 176.f, 89.f);
 	}
 
-	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightSkill1",
-												"LucidNunNaRightSkill1", TEXT("Player/Right/ashoot1.bmp"));
+	// Slow Motion Skill
+	GetSceneResource()->CreateAnimationSequence("SkillSlowMotionAttack",
+												"SkillSlowMotionAttack", TEXT("Player/Right/ashoot1.bmp"));
 
-	GetSceneResource()->SetTextureColorKey("LucidNunNaRightSkill1",
+	GetSceneResource()->SetTextureColorKey("SkillSlowMotionAttack",
 										   255, 0, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightSkill1",
+		GetSceneResource()->AddAnimationFrameData("SkillSlowMotionAttack",
 												  i * 70.f, 0.f, 70.f, 81.f);
 	}
 
@@ -288,10 +290,10 @@ void CMainScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("BGM", true, "MainBGM", "MainBgm.mp3");
 	GetSceneResource()->SoundPlay("MainBGM");
-	GetSceneResource()->SetVolume("MainBGM", 10);
+	GetSceneResource()->SetVolume("MainBGM", 2);
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
-	GetSceneResource()->SetVolume("Effect", 10);
+	GetSceneResource()->SetVolume("Effect", 2);
 
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
 

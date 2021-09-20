@@ -28,7 +28,7 @@ stl : standard template library�̴�.
 #pragma comment(lib, "fmod64_vc.lib")
 
 #define GRAVITY 9.8f
-
+#define M_PI 3.14
 #define	KEYCOUNT_MAX	256
 
 // Path

@@ -16,8 +16,8 @@
 #include "DamageFont.h"
 
 CPlayer::CPlayer() : 
-	m_Skill1Enable(false),
-	m_Skill1Time(0.f),
+	m_SkillSlowMotionAttackEnable(false),
+	m_SkillSlowMotionAttackTime(0.f),
 	m_RunEnable(false),
 	m_DashEnable(false),
 	m_DashTime(0.f),
@@ -32,8 +32,6 @@ CPlayer::CPlayer() :
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 {
-	m_Skill1Time = obj.m_Skill1Time;
-	m_Skill1Enable = false;
 }
 
 CPlayer::~CPlayer()
@@ -44,14 +42,17 @@ void CPlayer::Start()
 {
 	CCharacter::Start();
 
-	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Down,
+	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
 		this, &CPlayer::BulletFire);
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 		this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
 		this, &CPlayer::Resume);
-	CInput::GetInst()->SetCallback<CPlayer>("Skill1", KeyState_Down,
-		this, &CPlayer::Skill1);
+
+	// Skill 
+	// 1) Slow Motion
+	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
+		this, &CPlayer::SkillSlowMotionAttack);
 
 	// Move
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
@@ -99,17 +100,20 @@ bool CPlayer::Init()
 	SetPivot(0.5f, 1.f);
 
 	// Animation ---
+	// Right 
 	CreateAnimation();
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
-	AddAnimation("LucidNunNaRightAttack", false, 0.5f);
-	AddAnimation("LucidNunNaRightSkill1", false, 0.5f);
+	AddAnimation("LucidNunNaRightAttack", false, 0.2f);
+	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
 	AddAnimation("LucidNunNaRightRun", true, 0.6f);
 
+	// Left
 	AddAnimation("LucidNunNaLeftIdle");
 	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
+	// Target
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
 	// Stun
@@ -132,8 +136,8 @@ bool CPlayer::Init()
 	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
 
-	AddAnimationNotify<CPlayer>("LucidNunNaRightSkill1", 2, this, &CPlayer::Skill1Enable);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightSkill1", this, &CPlayer::Skill1End);
+	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
+	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
 
 	// Collider ---
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
@@ -202,17 +206,18 @@ void CPlayer::Update(float DeltaTime)
 		CollideBounceBack();
 	}
 
-	if (m_Skill1Enable)
+	if (m_SkillSlowMotionAttackEnable)
 	{
-		m_Skill1Time += DeltaTime;
+		m_SkillSlowMotionAttackTime += DeltaTime;
 
-		if (m_Skill1Time >= 3.f)
+		if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME )
 		{
-			m_Skill1Enable = false;
-			m_Skill1Time = 0.f;
+			m_SkillSlowMotionAttackEnable = false;
+			m_SkillSlowMotionAttackTime = 0.f;
 
 			SetTimeScale(1.f);
 			CGameManager::GetInst()->SetTimeScale(1.f);
+			m_SkillSlowMotionBulletList.clear();
 		}
 	}
 
@@ -343,6 +348,15 @@ float CPlayer::SetDamage(float Damage)
 	return Damage;
 }
 
+void CPlayer::ChangeIdleAnimation()
+{
+	if (m_StunEnable) return;
+	// 왼쪽 
+	if (m_Dir.x < 0.f) ChangeAnimation("LucidNunNaLeftIdle");
+	// 오른쪽 
+	else ChangeAnimation("LucidNunNaRightIdle");
+}
+
 void CPlayer::MoveUp(float DeltaTime)
 {
 	RunEnd();
@@ -402,7 +416,7 @@ void CPlayer::ChangeMoveAnimation()
 {
 	if (m_StunEnable) return;
 	// 왼쪽 
-	if (m_Dir.x == -1.f) ChangeAnimation("LucidNunNaLeftWalk");
+	if (m_Dir.x < 0.f) ChangeAnimation("LucidNunNaLeftWalk");
 	// 오른쪽 
 	else ChangeAnimation("LucidNunNaRightWalk");
 }
@@ -535,10 +549,47 @@ void CPlayer::Resume(float DeltaTime)
 	CGameManager::GetInst()->SetTimeScale(1.f);
 }
 
-void CPlayer::Skill1(float DeltaTime)
+void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	ChangeAnimation("LucidNunNaRightSkill1");
+	// Fire();
+	ChangeAnimation("SkillSlowMotionAttack");
 }
+
+void CPlayer::SkillSlowMotionAttackEnd()
+{
+	ChangeIdleAnimation();
+}
+
+void CPlayer::SkillSlowMotionAttackEnable()
+{
+	// Slow Motion
+	CGameManager::GetInst()->SetTimeScale(0.01f);
+	SetTimeScale(100.f);
+	m_SkillSlowMotionAttackEnable = true;
+
+	// Bullet Setting
+	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 6.0) // 6.0 으로 나눈다는 것은 60씩 증가시킨다 --> 12개
+	{
+		/*
+		for (float f = 0.0; f < 2 * M_PI; f += M_PI / 45) 
+		{
+			pmx = cx + (radius / 4) * cos(f);
+			pmy = cx + (radius / 4) * sin(f);
+			rect(vector3D(-0.01, 0.02, 0), vector3D(0.01, -0.02, 0));
+		}
+		*/
+		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
+			"SkillSlowMotionAttackBullet",
+			// 중점 + 반지름 길이 * 함수
+			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f) 
+				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
+			Vector2(m_Size.x,m_Size.y));
+		float	Angle = GetAngle(Bullet->GetPos(), Vector2(0.f,0.f));
+		Bullet->SetDir(Angle);
+		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+	}
+}
+
 
 // 참고 : Bullet의 경우, Collision을 고려할 필요가 없다
 // 왜냐하면 충돌하는 순간 Bullet은 자기 혼자 바로 사라져 버리기 때문이다 
@@ -697,10 +748,6 @@ void CPlayer::SetTargetPos(float DeltaTime)
 	m_TargetPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
 }
 
-void CPlayer::DeleteTargetPos(float DeltaTime)
-{
-}
-
 void CPlayer::FireTarget() 
 {
 	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
@@ -733,15 +780,3 @@ void CPlayer::CharacterDestroy()
 }
 
 
-void CPlayer::Skill1End()
-{
-	ChangeAnimation("LucidNunNaRightIdle");
-}
-
-void CPlayer::Skill1Enable()
-{
-	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(100.f);
-	m_Skill1Enable = true;
-	//m_Skill1Time = 0.f;
-}
