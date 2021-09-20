@@ -177,6 +177,11 @@ void CPlayer::Update(float DeltaTime)
 	if (GetAsyncKeyState(VK_F1) & 0x8000)
 		SetAttackSpeed(0.5f);
 
+	if (MonsterCollisionCheck())
+	{
+		CollideBounceBack();
+	}
+
 	if (m_Skill1Enable)
 	{
 		m_Skill1Time += DeltaTime;
@@ -191,6 +196,7 @@ void CPlayer::Update(float DeltaTime)
 		}
 	}
 
+	// MP 자동 충전 
 	if (!m_RunEnable && !m_DashEnable)
 	{
 		if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
@@ -212,7 +218,7 @@ void CPlayer::Update(float DeltaTime)
 	if (m_DashEnable)
 	{
 		if (CollisionCheck())
-			DashCollide();
+			CollideBounceBack();
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
 		if (m_DashTime <= 0)
@@ -351,9 +357,9 @@ void CPlayer::Move(const Vector2& Dir)
 		// 그외 충돌시 효과 추가하기 
 		// 이렇게 하면, Dash중에 충돌 날시, Move를 멈춘다
 		// < Dash 충돌 원리 > 
-		// 1) Update --> Dash + CollsionCheck() : DashCollide 함수 실행
+		// 1) Update --> Dash + CollsionCheck() : CollideBounceBack 함수 실행
 		// 2) 한편, Move 상에서는 Dash + CollisionCheck() 이면, Move 진행 x ( 이전의 Dash를 통한 Move 를 막아주기 위해 )
-		// 3) (이전의 Move는 멈춘 상태) DashCollide() 함수를 통해, 해당 obj를 뒤로 밀려나게 한다.
+		// 3) (이전의 Move는 멈춘 상태) CollideBounceBack() 함수를 통해, 해당 obj를 뒤로 밀려나게 한다.
 		if (m_DashEnable) return;
 		// 우선 충돌하면 무조건 
 		return;
@@ -475,7 +481,7 @@ void CPlayer::DashEnd()
 	SetMoveSpeed(NORMAL_SPEED);
 }
 
-void CPlayer::DashCollide()
+void CPlayer::CollideBounceBack()
 {
 	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
 	// 대시중 충돌 여부 확인

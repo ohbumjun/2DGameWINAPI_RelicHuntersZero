@@ -77,7 +77,7 @@ private :
 	bool MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
-	void DashCollide();
+	void CollideBounceBack();
 // Stun
 private :
 	virtual void Stun();
