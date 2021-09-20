@@ -14,6 +14,9 @@ private:
 	float	m_FireTime;
 	float	m_FireTimeMax;
 	int		m_Count;
+private :
+	CSharedPtr<CWidgetComponent> m_HPBarWidget;
+	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 
 public:
 	virtual void Start();
