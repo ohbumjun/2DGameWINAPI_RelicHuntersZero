@@ -19,6 +19,8 @@ private:
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
+private :
+	CSharedPtr<class CPlayer> m_Player;
 
 public:
 	virtual void Start();
@@ -30,6 +32,11 @@ public:
 	virtual CMonster* Clone();
 	virtual float SetDamage(float Damage);
 	virtual void CharacterDestroy();
+public :
+	void SetPlayer(class CPlayer* Player)
+	{
+		m_Player = Player;
+	}
 private :
 	void SetRandomTargetDir();
 	Vector2 SetRandomTargetPos();
