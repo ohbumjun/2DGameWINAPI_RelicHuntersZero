@@ -245,6 +245,11 @@ float CGameObject::GetBottom() const
 	return m_Pos.y + (1.f - m_Pivot.y) * Size.y + m_Offset.y;
 }
 
+int CGameObject::GetArmor() const
+{
+	return 0;
+}
+
 void CGameObject::SetScene(CScene* Scene)
 {
 	m_Scene = Scene;

@@ -51,6 +51,7 @@ enum class EObject_Type
 	GameObject,
 	Character,
 	Monster,
+	Player,
 	Bullet,
 	Effect
 };

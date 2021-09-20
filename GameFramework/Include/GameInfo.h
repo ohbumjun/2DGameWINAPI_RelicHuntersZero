@@ -19,6 +19,7 @@ stl : standard template library�̴�.
 #include "SharedPtr.h"
 #include "Math.h"
 #include "Flag.h"
+#include "MonsterInfo.h"
 #include "fmod.hpp"
 
 #pragma comment(lib, "msimg32.lib")
@@ -41,7 +42,7 @@ stl : standard template library�̴�.
 #define	SAFE_RELEASE(p)	if(p)	{ p->Release(); p = nullptr; }
 
 // Time
-#define STUN_TIME 1.f
+#define STUN_TIME 0.5f
 #define DASH_TIME 0.15f
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 

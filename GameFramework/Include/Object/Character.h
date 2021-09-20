@@ -61,6 +61,7 @@ public:
 	virtual CCharacter *Clone();
 	virtual float SetDamage(float Damage);
 
+
 protected :
 	// Move != 가상함수
 	// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지

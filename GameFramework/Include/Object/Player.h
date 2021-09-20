@@ -37,6 +37,7 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
+
 // Dir
 private :
 	

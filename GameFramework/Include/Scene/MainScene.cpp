@@ -41,18 +41,18 @@ bool CMainScene::Init()
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	CPlayer *Player = CreateObject<CPlayer>("Player");
+	Player->SetCharacterInfo(60, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
+		1, 100, 100, 100, NORMAL_MONSTER_DISTANCE);
 
 	SetPlayer(Player);
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	// CMonster *Monster = CreateObject<CMonster>("Monster",Vector2(rand()% (int)WorldResolution.x,rand()%(int)WorldResolution.y));
 	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(rand() % 1000, rand() % 100));
-	Monster->SetCharacterInfo(20, 10, EASY_MONSTER_HP_MAX, EASY_MONSTER_MP_MAX, 1, 100, 100, 100, EASY_MONSTER_DISTANCE);
-	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
-		int Exp, int Gold, float AttackSpeed,
-		float AttackDistance);
+	Monster->SetCharacterInfo(20, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX, 
+		1, 100, 100, 100, NORMAL_MONSTER_DISTANCE);
+
 
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");

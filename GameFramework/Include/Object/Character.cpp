@@ -12,7 +12,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 	m_CharacterInfo = obj.m_CharacterInfo;
 }
 
-CCharacter::~CCharacter()
+CCharacter::~CCharacter()// 
 {
 }
 
