@@ -61,9 +61,7 @@ void CBullet::Update(float DeltaTime)
 	Vector2	Dir = m_Dir;
 	Dir.Normalize();
 	Move(Dir);
-
 	m_Distance -= GetMoveSpeedFrame();
-
 	if (m_Distance <= 0.f)
 		Destroy();
 }

@@ -208,16 +208,15 @@ void CPlayer::Update(float DeltaTime)
 
 	if (m_SkillSlowMotionAttackEnable)
 	{
-		m_SkillSlowMotionAttackTime += DeltaTime;
+		m_SkillSlowMotionAttackTime += DeltaTime * m_TimeScale;
 
 		if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME )
 		{
-			m_SkillSlowMotionAttackEnable = false;
-			m_SkillSlowMotionAttackTime = 0.f;
-
+			// 시간 되돌리기 
 			SetTimeScale(1.f);
 			CGameManager::GetInst()->SetTimeScale(1.f);
-			m_SkillSlowMotionBulletList.clear();
+			m_SkillSlowMotionAttackEnable = false;
+			m_SkillSlowMotionAttackTime = 0.f;
 		}
 	}
 
@@ -580,12 +579,27 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
 		CCollider* BulletBody = Bullet->FindCollider("Body");
 		BulletBody->SetCollisionProfile("PlayerAttack");
-		float	Angle = GetAngle(Bullet->GetPos(), Vector2(0.f,0.f));
-		Bullet->SetDir(Angle);
+
+		CGameObject* ClosestMonster = FindClosestTarget(Bullet->GetPos());
+
+		if (ClosestMonster)
+		{
+			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
+			Bullet->SetDir(AngleBtwBulletMonster);
+		}
+		else
+		{
+			Bullet->SetDir(m_Dir);
+		}
 		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+		Bullet->SetTimeScale(m_TimeScale);
 	}
 }
 
+CGameObject* CPlayer::FindClosestTarget(Vector2 PlayerPos)
+{
+	return m_Scene->FindClosedMonsterToPlayer(PlayerPos);
+}
 
 // 참고 : Bullet의 경우, Collision을 고려할 필요가 없다
 // 왜냐하면 충돌하는 순간 Bullet은 자기 혼자 바로 사라져 버리기 때문이다 

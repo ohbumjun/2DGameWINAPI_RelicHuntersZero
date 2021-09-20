@@ -74,6 +74,7 @@ private:
 	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
 	std::list<CSharedPtr<CBullet>> m_SkillSlowMotionBulletList;
+	CGameObject* FindClosestTarget(Vector2 PlayerPos);
 // Collision
 private :
 	bool CollisionCheck();
