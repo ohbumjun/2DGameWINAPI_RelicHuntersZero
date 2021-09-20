@@ -28,29 +28,27 @@ bool CMainScene::Init()
 
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
-
 	CBullet *PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
-
 	CCollider *Collider = PlayerBullet->FindCollider("Body");
 
 	if (Collider)
 		Collider->SetCollisionProfile("PlayerAttack");
 
 	CBullet *MonsterBullet = CreatePrototype<CBullet>("MonsterBullet");
-
 	Collider = MonsterBullet->FindCollider("Body");
-
 	if (Collider)
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	CPlayer *Player = CreateObject<CPlayer>("Player");
 
 	SetPlayer(Player);
-
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
-	CMonster *Monster = CreateObject<CMonster>("Monster",Vector2(1000.f, 100.f));
+	Vector2 WorldResolution = m_Camera->GetWorldResolution();
+	// CMonster *Monster = CreateObject<CMonster>("Monster",Vector2(rand()% (int)WorldResolution.x,rand()%(int)WorldResolution.y));
+	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(rand() % 1000, rand() % 100));
+
 
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
