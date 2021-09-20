@@ -205,7 +205,7 @@ void CPlayer::Update(float DeltaTime)
 	if (!m_RunEnable && !m_DashEnable)
 	{
 		if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
-			m_CharacterInfo.MP += DeltaTime;
+			m_CharacterInfo.MP += 0.5 * DeltaTime;
 	}
 
 	// Run
@@ -667,6 +667,7 @@ void CPlayer::Fire()
 																"PlayerBullet",
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
+	Bullet->SetDamage(m_CharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -694,6 +695,7 @@ void CPlayer::FireTarget()
 		Vector2(50.f, 50.f));
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
 	Bullet->SetDir(Angle);
+	Bullet->SetDamage(m_CharacterInfo.Attack);
 }
 
 void CPlayer::BulletFireTarget(float DeltaTime)
