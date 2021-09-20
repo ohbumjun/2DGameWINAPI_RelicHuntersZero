@@ -695,10 +695,6 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	m_TeleportEnable = true;
 
 	// 클릭하는 순간, 좌표상의 마우스 위치 가져오기 
-	POINT ptMouse;
-	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
-	GetCursorPos(&ptMouse);
-	ScreenToClient(hwnd, &ptMouse);
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TeleportPos = Vector2((float)(MousePos.x+ CameraPos.x), (float)(MousePos.y+ CameraPos.y));
@@ -741,9 +737,10 @@ void CPlayer::SetTargetPos(float DeltaTime)
 	// m_TargetPos에 세팅 
 	POINT ptMouse;
 	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
-	GetCursorPos(&ptMouse);
-	ScreenToClient(hwnd, &ptMouse);
-	m_TargetPos = Vector2((float)ptMouse.x, (float)ptMouse.y);
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
+
 }
 
 void CPlayer::FireTarget() 
