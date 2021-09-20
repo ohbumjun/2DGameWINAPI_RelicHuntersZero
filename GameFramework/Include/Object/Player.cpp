@@ -84,7 +84,7 @@ void CPlayer::Start()
 	// Target
 	CInput::GetInst()->SetCallback<CPlayer>("TargetPos", KeyState_Push,
 		this, &CPlayer::SetTargetPos);
-	CInput::GetInst()->SetCallback<CPlayer>("TargetFire", KeyState_Push,
+	CInput::GetInst()->SetCallback<CPlayer>("TargetFire", KeyState_Down,
 		this, &CPlayer::BulletFireTarget);
 	
 	
@@ -487,11 +487,11 @@ void CPlayer::DashCollide()
 	// 이동 방향 반대로 이동시키기
 	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
 	OppDir.Normalize();
+	CGameObject* Player = m_Scene->GetPlayer();
 	SetDir(OppDir);
-
 	DashEnd();
 	// 자기 크기만큼 bounce back
-	Move(m_Dir * m_Size );
+	Move(m_Dir * m_Size);
 }
 
 void CPlayer::BulletFire(float DeltaTime)

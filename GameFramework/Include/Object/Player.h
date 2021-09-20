@@ -39,11 +39,7 @@ public:
 	virtual float SetDamage(float Damage);
 // Dir
 private :
-	void SetDir(float Angle)
-	{
-		m_Dir.x = cosf(DegreeToRadian(Angle));
-		m_Dir.y = sinf(DegreeToRadian(Angle));
-	}
+	
 // Move
 private:
 	void MoveUp(float DeltaTime);

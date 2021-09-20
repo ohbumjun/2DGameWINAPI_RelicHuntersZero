@@ -20,19 +20,16 @@ public:
 	{
 		m_Damage = Damage;
 	}
-
 	void SetDir(float x, float y)
 	{
 		m_Dir.x = x;
 		m_Dir.y = y;
 	}
-
 	void SetDir(float Angle)
 	{
 		m_Dir.x = cosf(DegreeToRadian(Angle));
 		m_Dir.y = sinf(DegreeToRadian(Angle));
 	}
-
 	void SetDistance(float Distance)
 	{
 		m_Distance = Distance;
