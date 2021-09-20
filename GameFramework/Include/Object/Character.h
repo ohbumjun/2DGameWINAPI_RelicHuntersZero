@@ -44,12 +44,14 @@ public:
 		m_CharacterInfo.AttackSpeed = AttackSpeed;
 		m_CharacterInfo.AttackDistance = AttackDistance;
 	}
-
 	virtual void SetAttackSpeed(float Speed)
 	{
 		m_CharacterInfo.AttackSpeed = Speed;
 	}
-
+	virtual int GetArmor()const 
+	{
+		return m_CharacterInfo.Armor;
+	}
 
 public:
 	virtual void Start();
@@ -60,8 +62,7 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CCharacter *Clone();
 	virtual float SetDamage(float Damage);
-
-
+	
 protected :
 	// Move != 가상함수
 	// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
