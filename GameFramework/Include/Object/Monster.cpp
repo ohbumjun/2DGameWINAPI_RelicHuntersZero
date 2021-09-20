@@ -171,8 +171,8 @@ void CMonster::SetRandomTargetDir()
 Vector2 CMonster::SetRandomTargetPos()
 {
 	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
-	float x = WorldResolution.x;
-	float y = WorldResolution.y;
+	float x = rand() % (int)WorldResolution.x;
+	float y = rand() % (int)WorldResolution.y;
 	m_MoveTargetPos = Vector2(x, y);
 	return m_MoveTargetPos;
 }
