@@ -141,7 +141,8 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("Resume", 'R');
 	SetCtrlKey("Resume", true);
 
-	CreateKey("Skill1", '1');
+	CreateKey("SkillSlowMotionAttack", 'K');
+	// SetShiftKey("SkillSlowMotionAttack", true);
 
 	// Run
 	CreateKey("RunUp", 'W');

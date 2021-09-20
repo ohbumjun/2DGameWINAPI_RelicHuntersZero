@@ -13,9 +13,6 @@ protected:
 	virtual ~CPlayer();
 
 protected:
-	bool m_Skill1Enable;
-	float m_Skill1Time;
-	std::list<CSharedPtr<CBullet>> m_Skill1BulletList;
 	// Widget
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
@@ -38,8 +35,9 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
-// Dir
+// Idle
 private :
+	void ChangeIdleAnimation();
 	
 // Move
 private:
@@ -68,10 +66,14 @@ private:
 	float m_DashTime;
 // Other Skills
 private:
-	void BulletFire(float DeltaTime);
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
-	void Skill1(float DeltaTime);
+	void SkillSlowMotionAttack(float DeltaTime);
+	void SkillSlowMotionAttackEnd();
+	void SkillSlowMotionAttackEnable();
+	bool m_SkillSlowMotionAttackEnable;
+	float m_SkillSlowMotionAttackTime;
+	std::list<CSharedPtr<CBullet>> m_SkillSlowMotionBulletList;
 // Collision
 private :
 	bool CollisionCheck();
@@ -98,17 +100,15 @@ private :
 	Vector2 m_TargetPos;
 public  :
 	void AttackEnd();
+	void BulletFire(float DeltaTime);
 	void Fire();
 	void SetTargetPos(float DeltaTime);
-	void DeleteTargetPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float DeltaTime);
 // Death
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
 public:
-	void Skill1End();
-	void Skill1Enable();
 	virtual void GoOppDirection(Vector2 Dir)
 	{
 		Vector2 Dist = Vector2(Dir.x * 20, Dir.y * 20);
