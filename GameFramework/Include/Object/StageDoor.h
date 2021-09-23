@@ -26,6 +26,8 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CStageDoor* Clone();
+public :
+	void ChangeStage();
 
 };
 
