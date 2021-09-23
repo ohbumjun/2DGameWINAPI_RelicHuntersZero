@@ -1,10 +1,10 @@
 ﻿  Player.cpp
 C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(206,13): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(502,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(574,51): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(597,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(694,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(742,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(748,8): warning C4101: 'ptMouse': unreferenced local variable
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(759,51): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(503,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(575,51): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(598,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(695,52): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(743,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(749,8): warning C4101: 'ptMouse': unreferenced local variable
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(760,51): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe

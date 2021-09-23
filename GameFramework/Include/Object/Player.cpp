@@ -396,8 +396,9 @@ void CPlayer::Move(const Vector2& Dir)
 		// 2) 한편, Move 상에서는 Dash + CollisionCheck() 이면, Move 진행 x ( 이전의 Dash를 통한 Move 를 막아주기 위해 )
 		// 3) (이전의 Move는 멈춘 상태) CollideBounceBack() 함수를 통해, 해당 obj를 뒤로 밀려나게 한다.
 		if (m_DashEnable) return;
+		
 		// 우선 충돌하면 무조건 
-		return;
+		// return;
 	}
 	CCharacter::Move(Dir);
 }
@@ -565,7 +566,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
 	CGameManager::GetInst()->SetTimeScale(0.01f);
-	// SetTimeScale(100.f);
+	SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
 	float DeltaTime = CGameManager::GetInst()->GetTimer()->Update();
