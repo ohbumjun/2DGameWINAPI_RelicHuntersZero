@@ -15,5 +15,8 @@ public:
 private:
 	void LoadAnimationSequence();
 	void LoadSound();
+private :
+	class CAnimation* m_DoorAnimation;
+	void GoBackToWaitingScene();
 };
 

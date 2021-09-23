@@ -170,6 +170,7 @@
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Monster.cpp" />
     <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Object\StageDoor.cpp" />
     <ClCompile Include="Object\TeleportMouse.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Ref.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Resource\Sound.cpp" />
     <ClCompile Include="Resource\Texture.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
+    <ClCompile Include="Scene\HomeScene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneCollision.cpp" />
@@ -190,6 +192,7 @@
     <ClCompile Include="UI\NumberWidget.cpp" />
     <ClCompile Include="UI\ProgressBar.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
+    <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
@@ -222,6 +225,7 @@
     <ClInclude Include="MonsterInfo.h" />
     <ClInclude Include="Object\Bullet.h" />
     <ClInclude Include="Object\Character.h" />
+    <ClInclude Include="Object\StageDoor.h" />
     <ClInclude Include="Object\TeleportMouse.h" />
     <ClInclude Include="Object\DamageFont.h" />
     <ClInclude Include="Object\EffectHit.h" />
@@ -238,6 +242,7 @@
     <ClInclude Include="Resource\Sound.h" />
     <ClInclude Include="Resource\Texture.h" />
     <ClInclude Include="Scene\Camera.h" />
+    <ClInclude Include="Scene\HomeScene.h" />
     <ClInclude Include="Scene\MainScene.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneCollision.h" />
@@ -250,6 +255,7 @@
     <ClInclude Include="UI\NumberWidget.h" />
     <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
+    <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIMain.h" />
     <ClInclude Include="UI\UIStart.h" />

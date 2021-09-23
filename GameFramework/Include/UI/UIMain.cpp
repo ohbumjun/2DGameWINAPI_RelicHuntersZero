@@ -20,6 +20,7 @@ CUIMain::~CUIMain()
 
 bool CUIMain::Init()
 {
+	// Text ---
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
 	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
@@ -38,6 +39,7 @@ bool CUIMain::Init()
 	m_OutputText = 0;
 	m_OutputIndex = 0;
 
+	// Time ---
 	// m_NumberWidget
 	m_NumberWidget = CreateWidget<CNumberWidget>("Number");
 	std::vector<std::wstring>	vecNumberFileName;
@@ -82,6 +84,9 @@ bool CUIMain::Init()
 	Colon->SetPos(530.f, 100.f);
 	Colon->SetSize(29.f, 48.f);
 	m_Time = 0.f;
+
+	// Door ---
+	// m_DoorToStageOne = CreateWidget<CUIStageDoor>("DoorToHome");
 
 	return true;
 }

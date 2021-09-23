@@ -55,3 +55,12 @@ enum class EObject_Type
 	Bullet,
 	Effect
 };
+
+enum class EDoorStage_Type
+{
+	Stage_Default,
+	Stage_Home,
+	Stage_One,
+	Stage_Two,
+	Stage_Three
+};
