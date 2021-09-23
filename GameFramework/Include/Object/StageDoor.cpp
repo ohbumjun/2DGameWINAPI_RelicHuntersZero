@@ -2,6 +2,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/MainScene.h"
+#include "../Scene/StartScene.h"
 #include "../Collision/ColliderBox.h"
 
 CStageDoor::CStageDoor()
