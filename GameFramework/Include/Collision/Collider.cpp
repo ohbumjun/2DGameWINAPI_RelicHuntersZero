@@ -52,6 +52,18 @@ int CCollider::IsCollisionWithMonster()
 	return -1;
 }
 
+CGameObject* CCollider::IsCollisionWithPlayer()
+{
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if((*iter)->GetOwner()->GetObjType() == EObject_Type::Player)
+			return (*iter)->GetOwner();
+	}
+	return nullptr;
+}
+
 void CCollider::SetCollisionProfile(const std::string& Name)
 {
 	m_Profile = CCollisionManager::GetInst()->FindProfile(Name);

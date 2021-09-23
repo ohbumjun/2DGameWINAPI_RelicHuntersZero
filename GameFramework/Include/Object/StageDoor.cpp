@@ -34,7 +34,6 @@ bool CStageDoor::Init()
 	AddAnimation("StageDoor", true, 2.f);
 
 	// Add Collider
-
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(100.f, 80.f);
 	Body->SetOffset(0.f, 25.f);
@@ -44,6 +43,24 @@ bool CStageDoor::Init()
 void CStageDoor::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+
+	// 충돌 목록 중에서 Player가 있는지 확인한다
+	auto iter    = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CGameObject* Player = (*iter)->IsCollisionWithPlayer();
+		// 만약 Player와 충돌했다면
+		if (Player)
+		{
+			// 위로 가기 버튼을 클릭했다면( Dir )
+			Vector2 PlayerDir = Player->GetDir();
+
+			// if (PlayerDir.x == 0 && PlayerDir.y == -1)
+			// ChangeScene();
+
+		}
+	}
 }
 
 void CStageDoor::PostUpdate(float DeltaTime)

@@ -11,23 +11,8 @@ protected:
 
 protected:
 	CharacterInfo m_CharacterInfo;
-	// Dir ¼¼ÆÃ 
-	Vector2   m_Dir;
 
-public:
-	void SetDir(Vector2 Dir)
-	{
-		m_Dir = Dir;
-	}
-	void SetDir(float x, float y)
-	{
-		m_Dir = Vector2(x, y);
-	}
-	void SetDir(float Angle)
-	{
-		m_Dir.x = cosf(DegreeToRadian(Angle));
-		m_Dir.y = sinf(DegreeToRadian(Angle));
-	}
+public :
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance, float DashDistance = 0.f)
