@@ -625,7 +625,7 @@ void CPlayer::SkillDestoryAllAttackEnable()
 	// DestroyAll
 	// monster로부터 오는 모든 bullet 및 공격체들을 사라지게 한다. 
 	// 동시에 사라지는 animation도 적용한다. 
-	m_Scene->
+	m_Scene->DestroyAllAttackObjects();
 
 	// 시야 내에 있는 모든 game obj 들에게 20%의 데미지를 입힌다.
 
