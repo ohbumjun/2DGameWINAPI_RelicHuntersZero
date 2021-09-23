@@ -1,5 +1,2 @@
-﻿  Monster.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(110,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(172,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(173,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+﻿  Scene.cpp
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe

@@ -73,6 +73,7 @@ public:
 	{
 		return m_hInst;
 	}
+	CTimer* GetTimer() const { return m_Timer; }
 
 public:
 	void SetTimeScale(float TimeScale)

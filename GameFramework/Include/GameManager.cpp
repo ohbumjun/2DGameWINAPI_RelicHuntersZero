@@ -150,7 +150,6 @@ void CGameManager::Logic()
 
 	CResourceManager::GetInst()->Update();
 
-	// �Է� ������Ʈ
 	CInput::GetInst()->Update(DeltaTime);
 
 	if (Update(DeltaTime))
@@ -182,12 +181,10 @@ bool CGameManager::Collision(float DeltaTime)
 
 void CGameManager::Render(float DeltaTime)
 {
-	// �ӽ÷� ȭ���� ����� ���� Rect�� �׷��ش�.
 	Rectangle(m_hBackDC, -1, -1, m_RS.Width + 1, m_RS.Height + 1);
 
 	CSceneManager::GetInst()->Render(m_hBackDC);
 
-	// ���������� ���콺�� ����Ѵ�.
 	CInput::GetInst()->Render(m_hBackDC);
 
 	BitBlt(m_hDC, 0, 0, m_RS.Width, m_RS.Height, m_hBackDC, 0, 0, SRCCOPY);
@@ -199,11 +196,8 @@ ATOM CGameManager::Register()
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
 
-	// �۾������� �ٲ� �ٽ� �׸��Բ� ���ش�. ���ο� ���� ��� �ٽ� �׸���.
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 
-	// �޼����� ť�� �������� �ش� �޼����� �������� ������ �޼����� ���ڷ� �����ؼ�
-	// ȣ������ �Լ��� �����Ѵ�.
 	wcex.lpfnWndProc = WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
@@ -211,15 +205,11 @@ ATOM CGameManager::Register()
 	// Window Instance�� �����Ѵ�.
 	wcex.hInstance = m_hInst;
 
-	// ���������� ��������� ����� ������ �̹����� �����Ѵ�.
 	wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON1));
 
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = nullptr;
-	// �����ڵ� ���ڿ��� ����Ҷ� L"" �� �ٿ��� ����� �Ѵ�.
-	// TEXT ��ũ�δ� "" �տ� L �� �ٿ��� L"" �� ������ش�.
-	// �����ڵ��϶��� �̷��� ���ְ� multibyte  �϶��� �׳� "" �� ������ش�.
 	wcex.lpszClassName = TEXT("GameFramework");
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
@@ -236,26 +226,16 @@ BOOL CGameManager::Create()
 		return FALSE;
 	}
 
-	// Ŭ���̾�Ʈ ������ 1280, 720���� ������ش�.
-	// RECT : �簢���� ǥ���ϴ� ����ü�̴�.
-	// left, top, right, bottom 4���� ������ �����Ǿ� �ִ�.
 	RECT rc = {0, 0, m_RS.Width, m_RS.Height};
 
-	// 1������ : Ŭ���̾�Ʈ ������ ũ�⸦ �����Ѵ�.
-	// �� �Լ��� �Ϸ�Ǹ� rc���� ���� Ŭ���̾�Ʈ ������ ���ϴ� ũ�� �� �� �ִ�
-	// ��ü �������� left, top, right, bottom ������ ������ �ȴ�.
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-	// ������ ���� Rect�� �̿��ؼ� ������ ũ�⸦ �����Ѵ�.
 	SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 100, rc.right - rc.left,
 				 rc.bottom - rc.top,
 				 SWP_NOZORDER);
 
-	// SW_SHOW : ������â�� ȭ�鿡 �����ش�.
-	// SW_HIDE : â�� ����� ������ ȭ�鿡 �����ִ°� �ƴϴ�.
 	ShowWindow(m_hWnd, SW_SHOW);
 
-	// UpdateWindow �Լ��� ������ �κ��� �ִٸ� �����϶�� ������ �����ִ� �Լ��̴�.
 	UpdateWindow(m_hWnd);
 
 	return TRUE;
@@ -269,7 +249,6 @@ LRESULT CGameManager::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	{
 		PAINTSTRUCT ps;
 
-		// HDC : ȭ�鿡 ����ϱ� ���� �׸��� �����̴�.
 		HDC hdc = BeginPaint(hWnd, &ps);
 
 		EndPaint(hWnd, &ps);
