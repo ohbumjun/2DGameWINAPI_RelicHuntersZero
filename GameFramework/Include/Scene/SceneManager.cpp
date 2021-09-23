@@ -20,37 +20,31 @@ CSceneManager::~CSceneManager()
 bool CSceneManager::Init()
 {
 	m_Scene = new CScene;
-
 	m_Scene->Init();
-
 	return true;
 }
 
 bool CSceneManager::Update(float DeltaTime)
 {
 	m_Scene->Update(DeltaTime);
-
 	return ChangeScene();
 }
 
 bool CSceneManager::PostUpdate(float DeltaTime)
 {
 	m_Scene->PostUpdate(DeltaTime);
-
 	return ChangeScene();
 }
 
 bool CSceneManager::Collision(float DeltaTime)
 {
 	m_Scene->Collision(DeltaTime);
-
 	return ChangeScene();
 }
 
 bool CSceneManager::Render(HDC hDC)
 {
 	m_Scene->Render(hDC);
-
 	return ChangeScene();
 }
 
