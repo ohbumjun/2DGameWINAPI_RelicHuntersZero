@@ -10,18 +10,22 @@ private:
 	virtual ~CUIMain();
 
 private:
+	// Main Bar Text 
 	class CUIText* m_Text;
 	float	m_TextTime;
 
 	int		m_OutputText;
 	int		m_OutputIndex;
 
+	// Time 
 	float   m_Time;
 	int     m_Minute;
 	class   CNumberWidget* m_NumberWidget;
 	class   CNumberWidget* m_Number1Widget;
 	class   CNumberWidget* m_MinuteWidget;
 
+	// Door
+	class CStageDoor* m_DoorToStageOne;
 
 public:
 	virtual bool Init();

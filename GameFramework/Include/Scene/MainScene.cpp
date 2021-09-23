@@ -1,11 +1,16 @@
+// Scene
 #include "MainScene.h"
+#include "SceneResource.h"
+#include "SceneManager.h"
+#include "HomeScene.h"
+// Object
 #include "../MonsterInfo.h"
 #include "../Object/Player.h"
 #include "../Object/Bullet.h"
 #include "../Object/Monster.h"
-#include "SceneResource.h"
 #include "../Object/EffectHit.h"
 #include "../Object/TeleportMouse.h"
+// UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
@@ -294,14 +299,19 @@ void CMainScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("BGM", true, "MainBGM", "MainBgm.mp3");
 	GetSceneResource()->SoundPlay("MainBGM");
-	GetSceneResource()->SetVolume("MainBGM", 2);
+	GetSceneResource()->SetVolume("MainBGM", 1);
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
-	GetSceneResource()->SetVolume("Effect", 2);
+	GetSceneResource()->SetVolume("Effect", 1);
 
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
 
 	// Player --> run, dash
 	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
+}
+
+void CMainScene::GoBackToWaitingScene()
+{
+	CSceneManager::GetInst()->CreateScene<CHomeScene>();
 }
