@@ -14,6 +14,7 @@
 #include "../Scene/SceneResource.h"
 #include "../Scene/Camera.h"
 #include "DamageFont.h"
+#include "../Timer.h"
 
 CPlayer::CPlayer() : 
 	m_SkillSlowMotionAttackEnable(false),
@@ -528,6 +529,7 @@ void CPlayer::CollideBounceBack()
 	CGameObject* Player = m_Scene->GetPlayer();
 	SetStunDir(OppDir);
 	DashEnd();
+
 	// 자기 크기만큼 bounce back
 	Stun();
 }
@@ -563,14 +565,13 @@ void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
 	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(100.f);
+	// SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
-	// Bullet Create Delay Time;
-	float m_BulletCreateDelayTime = 0.05f * m_TimeScale;
+	float DeltaTime = CGameManager::GetInst()->GetTimer()->Update();
+	float m_BulletDelayTime = 10.f;
 
-	// Bullet Setting
-	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 6.0) // 6.0 으로 나눈다는 것은 60씩 증가시킨다 --> 12개
+	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",
@@ -584,7 +585,6 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		BulletBody->SetCollisionProfile("PlayerAttack");
 
 		CGameObject* ClosestMonster = FindClosestTarget(Bullet->GetPos());
-
 		if (ClosestMonster)
 		{
 			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
@@ -596,7 +596,6 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		}
 		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
-
 	}
 }
 
@@ -671,14 +670,7 @@ void CPlayer::StunEnd()
 
 void CPlayer::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
-	/*
-	bool Result = CollisionCheck();
-	if (Result && m_DashEnable)
-	{
-		m_Pos = GetColliderPos();
-		m_Pos -= Vector2(GetSize());
-	}
-	*/
+
 }
 
 void CPlayer::Teleport(float DeltaTime)

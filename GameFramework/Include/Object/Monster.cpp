@@ -13,8 +13,9 @@ CMonster::CMonster()	:
 	m_Count(0),
 	m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
 {
-	m_Dir.x = 0.f;
-	m_Dir.y = 1.f;
+
+	m_Dir.x = rand() % 2;
+	m_Dir.y = rand() % 2;
 	m_ObjType = EObject_Type::Monster;
 	/// m_MoveTargetPos = SetRandomTargetPos();
 	// SetRandomTargetDir();
