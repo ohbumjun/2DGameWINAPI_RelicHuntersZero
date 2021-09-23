@@ -99,6 +99,18 @@ CGameObject* CScene::FindClosedMonsterToPlayer(Vector2 PlayerPos)
 	return ClosestObj;
 }
 
+void CScene::DestroyAllAttackObjects()
+{
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+	for (; iter != iterEnd;++iter)
+	{
+		if ((*iter)->GetObjType() == EObject_Type::Bullet)
+			(*iter)->Destroy();
+
+	}
+}
+
 void CScene::SetPlayer(const std::string& Name)
 {
 	CGameObject* Player = FindObject(Name);
