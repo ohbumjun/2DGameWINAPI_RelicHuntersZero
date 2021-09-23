@@ -16,8 +16,10 @@ bool CHomeScene::Init()
 {
 	// Sound 
 	LoadSound();
+
 	// Animation
 	LoadAnimationSequence();
+
 	// Objects
 	CPlayer* Player = CreateObject<CPlayer>("Player");
 	Player->SetCharacterInfo(60, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX,
@@ -29,7 +31,7 @@ bool CHomeScene::Init()
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
-		Vector2(300.f + rand() % 700, rand() % 100),
+		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
 

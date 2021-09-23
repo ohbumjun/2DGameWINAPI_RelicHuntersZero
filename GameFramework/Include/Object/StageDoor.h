@@ -27,7 +27,7 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CStageDoor* Clone();
 public :
-	void ChangeStage();
+	void ChangeScene();
 
 };
 

@@ -1,7 +1,5 @@
-﻿  HomeScene.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\HomeScene.cpp(32,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  MainScene.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(57,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(63,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  CollisionManager.cpp
+  StageDoor.cpp
   Generating Code...
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\StageDoor.cpp(42): warning C4715: 'CStageDoor::Init': not all control paths return a value
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
