@@ -253,6 +253,10 @@ public:
 	{
 		m_ImageStart = ImageStart;
 	}
+	void SetObjectType(EObject_Type Type)
+	{
+		m_ObjType = Type;
+	}
 
 // Texture
 public:

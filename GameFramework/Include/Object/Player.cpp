@@ -54,6 +54,8 @@ void CPlayer::Start()
 	// 1) Slow Motion
 	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
 		this, &CPlayer::SkillSlowMotionAttack);
+	CInput::GetInst()->SetCallback<CPlayer>("SkillDestoryAll", KeyState_Down,
+		this, &CPlayer::SkillDestroyAllAttack);
 
 	// Move
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
@@ -101,12 +103,15 @@ bool CPlayer::Init()
 	SetPivot(0.5f, 1.f);
 
 	// Animation ---
+	// Skill
+	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
+	AddAnimation("SkillDestoryAll", false, 0.5f);
+
 	// Right 
 	CreateAnimation();
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
 	AddAnimation("LucidNunNaRightAttack", false, 0.2f);
-	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
 	AddAnimation("LucidNunNaRightRun", true, 0.6f);
 
 	// Left
@@ -140,6 +145,10 @@ bool CPlayer::Init()
 	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
 	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
 
+	AddAnimationNotify<CPlayer>("SkillDestoryAll", 2, this, &CPlayer::SkillDestoryAllAttackEnable);
+	SetAnimationEndNotify<CPlayer>("SkillDestoryAll", this, &CPlayer::SkillDestroyAllAttackEnd);
+
+	
 	// Collider ---
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
 	Head->SetRadius(20.f);
@@ -580,6 +589,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f) 
 				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
 			Vector2(m_Size.x,m_Size.y));
+		Bullet->SetObjectType(EObject_Type::Bullet);
 
 		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
 		CCollider* BulletBody = Bullet->FindCollider("Body");
@@ -598,6 +608,27 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
 	}
+}
+
+void CPlayer::SkillDestroyAllAttack(float DeltaTime)
+{
+	ChangeAnimation("SkillDestoryAll");
+}
+
+void CPlayer::SkillDestroyAllAttackEnd()
+{
+	ChangeIdleAnimation();
+}
+
+void CPlayer::SkillDestoryAllAttackEnable()
+{
+	// DestroyAll
+	// monster로부터 오는 모든 bullet 및 공격체들을 사라지게 한다. 
+	// 동시에 사라지는 animation도 적용한다. 
+	m_Scene->
+
+	// 시야 내에 있는 모든 game obj 들에게 20%의 데미지를 입힌다.
+
 }
 
 CGameObject* CPlayer::FindClosestTarget(Vector2 PlayerPos)
@@ -741,6 +772,7 @@ void CPlayer::Fire()
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
 	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+	Bullet->SetObjectType(EObject_Type::Bullet);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -763,6 +795,7 @@ void CPlayer::FireTarget()
 		"PlayerBullet",
 		Vector2(m_Pos + Vector2(75.f, 0.f)),
 		Vector2(50.f, 50.f));
+	Bullet->SetObjectType(EObject_Type::Bullet);
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
 
 	Bullet->SetDir(Angle);
