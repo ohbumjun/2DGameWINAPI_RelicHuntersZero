@@ -1,4 +1,3 @@
-
 #include "MainScene.h"
 #include "../MonsterInfo.h"
 #include "../Object/Player.h"
@@ -55,6 +54,12 @@ bool CMainScene::Init()
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	Monster->SetPlayer(Player);
+
+	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, rand() % 100));
+	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	Monster2->SetPlayer(Player);
 	
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
@@ -103,7 +108,6 @@ void CMainScene::LoadAnimationSequence()
 	// Slow Motion Skill
 	GetSceneResource()->CreateAnimationSequence("SkillSlowMotionAttack",
 												"SkillSlowMotionAttack", TEXT("Player/Right/ashoot1.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("SkillSlowMotionAttack",
 										   255, 0, 255);
 
