@@ -265,6 +265,7 @@ void CGameObject::SetScene(CScene* Scene)
 void CGameObject::Move(const Vector2& Dir)
 {
 	if (m_StunEnable) return;
+	SetDir(Dir);
 	Vector2	CurrentMove = Dir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity	+= CurrentMove;
 	m_Pos += CurrentMove;
@@ -273,6 +274,7 @@ void CGameObject::Move(const Vector2& Dir)
 void CGameObject::Move(const Vector2& Dir, float Speed)
 {
 	if(m_StunEnable) return;
+	SetDir(Dir);
 	Vector2	CurrentMove = Dir * Speed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;

@@ -223,7 +223,7 @@ void CPlayer::Update(float DeltaTime)
 
 	// MP 자동 충전 
 	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP += 0.5 * DeltaTime;
+		m_CharacterInfo.MP +=  DeltaTime;
 
 	// Run
 	if (m_RunEnable)
@@ -765,7 +765,7 @@ void CPlayer::FireTarget()
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
 
 	Bullet->SetDir(Angle);
-	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 }
 
 void CPlayer::BulletFireTarget(float DeltaTime)

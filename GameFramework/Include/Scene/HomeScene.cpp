@@ -3,6 +3,8 @@
 #include "../Object/Player.h"
 #include "../Scene/Camera.h"
 #include "../Object/StageDoor.h"
+#include "../Object/EffectHit.h"
+#include "../UI/UICharacterStateHUD.h"
 
 CHomeScene::CHomeScene()
 {
@@ -34,6 +36,22 @@ bool CHomeScene::Init()
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
+
+
+	// Prototypes
+	CEffectHit* EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
+
+	// Teleport
+	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
+	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
+	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
+
+	CCollider* Collider = PlayerBullet->FindCollider("Body");
+	if (Collider)
+		Collider->SetCollisionProfile("PlayerAttack");
+
+	// Window
+	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	return true;
 }
@@ -235,6 +253,46 @@ void CHomeScene::LoadAnimationSequence()
 				j * 192.f, i *192.f, 192.f, 192.f);
 		}
 	}
+
+	// 그외 애니메이션 ---
+	// 충돌 효과 애니메이션 
+	GetSceneResource()->CreateAnimationSequence("HitRight",
+		"HitRight", TEXT("Hit2.bmp"));
+	GetSceneResource()->SetTextureColorKey("HitRight",
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("HitRight",
+			i * 178.f, 0.f, 178.f, 164.f);
+	}
+
+	// 총알
+	GetSceneResource()->CreateAnimationSequence("Bullet",
+		"Bullet", TEXT("Smoke.bmp"));
+	GetSceneResource()->SetTextureColorKey("Bullet",
+		255, 0, 255);
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData("Bullet",
+				j * 92.f, i * 92.f, 92.f, 92.f);
+		}
+	}
+
+	// 텔리포트 마우스 
+	GetSceneResource()->CreateAnimationSequence("TeleportMouseDisplay",
+		"TeleportMouseDisplay", TEXT("Mouse/h.bmp"));
+	GetSceneResource()->SetTextureColorKey("TeleportMouseDisplay", 255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData("TeleportMouseDisplay",
+				j * 61.f, i * 61.f, 61.f, 61.f);
+		}
+	}
 }
 
 void CHomeScene::LoadSound()
@@ -242,6 +300,16 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
 	GetSceneResource()->SoundPlay("StartBGM");
 	GetSceneResource()->SetVolume("StartBGM", 1);
+
+
+	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
+	GetSceneResource()->SetVolume("Effect", 1);
+
+	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
+
+	// Player --> run, dash
+	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
+	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
 
 // DoorToNextStage

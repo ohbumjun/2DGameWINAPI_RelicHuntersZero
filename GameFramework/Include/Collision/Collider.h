@@ -90,13 +90,13 @@ public:
 	{
 		return m_Profile;
 	}
+
 	// 나중에 가서 디자인 패턴을 적용할 수 있으면 적용하기 
 	// 우선 구현 + 디자인 패턴 적용 
 	bool IsCollisionListEmpty() const
 	{
 		return m_CollisionList.empty();
 	}
-	int IsCollisionWithMonster();
 
 public:
 	void SetCollisionProfile(const std::string& Name);
@@ -108,6 +108,10 @@ public:
 	void CallCollisionEnd(CCollider* Dest, float DeltaTime);
 	void CallMouseCollisionBegin(const Vector2& MousePos, float DeltaTime);
 	void CallMouseCollisionEnd(const Vector2& MousePos, float DeltaTime);
+	// Damage를 얻어온다
+	int IsCollisionWithMonster();
+	CGameObject* IsCollisionWithPlayer();
+
 
 public:
 	virtual bool Init();

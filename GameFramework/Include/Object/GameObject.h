@@ -26,6 +26,7 @@ protected:
 	Vector2		m_Pivot;
 	Vector2		m_Velocity;
 	Vector2		m_Offset;
+	Vector2     m_Dir;
 	float		m_MoveSpeed;
 	float		m_TimeScale;
 	CSharedPtr<CTexture>	m_Texture;
@@ -36,6 +37,7 @@ protected:
 	EObject_Type	m_ObjType;
 	bool			m_DamageEnable;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
+	
 
 // ¹°¸®
 private :
@@ -140,6 +142,11 @@ public:
 		return m_Pos;
 	}
 
+	Vector2 GetDir() const
+	{
+		return m_Dir;
+	}
+
 	Vector2 GetSize()	const
 	{
 		return m_Size;
@@ -170,7 +177,19 @@ public:
 	virtual int GetAttack()const;
 public:
 	void SetScene(class CScene* Scene);
-
+	void SetDir(Vector2 Dir)
+	{
+		m_Dir = Dir;
+	}
+	void SetDir(float x, float y)
+	{
+		m_Dir = Vector2(x, y);
+	}
+	void SetDir(float Angle)
+	{
+		m_Dir.x = cosf(DegreeToRadian(Angle));
+		m_Dir.y = sinf(DegreeToRadian(Angle));
+	}
 	void SetOffset(float x, float y)
 	{
 		m_Offset.x = x;
