@@ -3,6 +3,7 @@
 #include "SceneResource.h"
 #include "SceneCollision.h"
 #include "Camera.h"
+#include "../Object/EffectHit.h"
 
 CScene::CScene()
 {
@@ -106,7 +107,13 @@ void CScene::DestroyAllAttackObjects()
 	for (; iter != iterEnd;++iter)
 	{
 		if ((*iter)->GetObjType() == EObject_Type::Bullet)
+		{
+			Vector2 ObjPos = (*iter)->GetPos();
 			(*iter)->Destroy();
+			CEffectHit* Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
+				ObjPos, Vector2(178.f, 164.f));
+			GetSceneResource()->SoundPlay("Fire");
+		}
 
 	}
 }
