@@ -1,4 +1,7 @@
 #include "StageDoor.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/HomeScene.h"
+#include "../Scene/MainScene.h"
 
 CStageDoor::CStageDoor()
 {
@@ -26,7 +29,7 @@ bool CStageDoor::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation("StageDoor", true, 0.3f);
+	AddAnimation("StageDoor", true, 2.f);
 }
 
 void CStageDoor::Update(float DeltaTime)
@@ -52,4 +55,23 @@ void CStageDoor::Render(HDC hDC)
 CStageDoor* CStageDoor::Clone()
 {
 	return new CStageDoor(*this);
+}
+
+void CStageDoor::ChangeStage()
+{
+	switch (m_DoorStageType)
+	{
+	case EDoorStage_Type::Stage_Home:
+		CSceneManager::GetInst()->CreateScene<CHomeScene>();
+		break;
+	case EDoorStage_Type::Stage_One:
+		CSceneManager::GetInst()->CreateScene<CMainScene>();
+		break;
+	case EDoorStage_Type::Stage_Two:
+		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
+		break;
+	case EDoorStage_Type::Stage_Three:
+		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
+		break;
+	}
 }
