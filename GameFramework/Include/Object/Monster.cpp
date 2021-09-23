@@ -124,7 +124,10 @@ void CMonster::Update(float DeltaTime)
 	}
 
 	// HP 0ÀÌ µÇ¸י destroy
-	if (m_CharacterInfo.HP <= 0) Destroy();
+	if (m_CharacterInfo.HP <= 0)
+	{
+		Destroy();
+	}
 }
 
 void CMonster::PostUpdate(float DeltaTime)

@@ -545,6 +545,7 @@ void CGameObject::Collision(float DeltaTime)
 	{
 		m_Scene->GetSceneCollision()->AddCollider(*iter);
 	}
+
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();

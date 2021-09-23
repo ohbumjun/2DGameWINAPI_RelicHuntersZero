@@ -134,7 +134,6 @@ int CGameManager::Run()
 			DispatchMessage(&msg);
 		}
 
-		// �����찡 ����Ÿ���� ��� ����� ������ �ȴ�.
 		else
 		{
 			Logic();

@@ -60,15 +60,12 @@ bool CSceneManager::ChangeScene()
 	{
 		// 기존 장면을 제거한다.
 		SAFE_DELETE(m_Scene);
-
 		CInput::GetInst()->ClearCallback();
 
 		// 생성되어 있는 다음 장면을 기존 장면으로 지정한다.
 		m_Scene = m_NextScene;
-
 		// 변수를 초기화한다.
 		m_NextScene = nullptr;
-
 		return true;
 	}
 
