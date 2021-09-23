@@ -98,22 +98,7 @@ void CMonster::Update(float DeltaTime)
 		}
 	}
 
-	// 랜덤한 위치로 이동
-	// 위아래 이동 
-	/*
-	* if (m_Pos.y >= 720.f)
-	{
-		m_Pos.y = 720.f;
-		m_Dir.y = -1.f;
-	}
-	else if (m_Pos.y - m_Size.y <= 0.f)
-	{
-		m_Pos.y = m_Size.y;
-		m_Dir.y = 1.f;
-	}
-	*/
-	
-
+	// 공격 
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
 	{
@@ -136,6 +121,9 @@ void CMonster::Update(float DeltaTime)
 			Bullet->SetDir(Angle);
 		}
 	}
+
+	// HP 0이 되면 destroy
+	if (m_CharacterInfo.HP <= 0) Destroy();
 }
 
 void CMonster::PostUpdate(float DeltaTime)

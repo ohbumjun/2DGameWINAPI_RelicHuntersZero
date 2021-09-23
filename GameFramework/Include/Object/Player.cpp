@@ -566,6 +566,9 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
+	// Bullet Create Delay Time;
+	float m_BulletCreateDelayTime = 0.05f * m_TimeScale;
+
 	// Bullet Setting
 	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 6.0) // 6.0 으로 나눈다는 것은 60씩 증가시킨다 --> 12개
 	{
@@ -593,6 +596,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		}
 		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
+
 	}
 }
 
