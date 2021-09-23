@@ -22,11 +22,14 @@ CCollisionManager::~CCollisionManager()
 
 bool CCollisionManager::Init()
 {
-	CreateProfile("Default", Channel_Object, true);
+	CreateProfile("Default", Channel_Object, false);
 	CreateProfile("Player", Channel_Player, true);
 	CreateProfile("Monster", Channel_Monster, true);
 	CreateProfile("PlayerAttack", Channel_PlayerAttack, true);
 	CreateProfile("MonsterAttack", Channel_MonsterAttack, true);
+
+	// Default 의 경우 : Player와만 충돌처리를 인정해준다 
+	SetCollisionState("Default", Channel_Player, ECollision_State::Collision);
 
 	SetCollisionState("Player", Channel_Player, ECollision_State::Ignore);
 	SetCollisionState("Player", Channel_PlayerAttack, ECollision_State::Ignore);

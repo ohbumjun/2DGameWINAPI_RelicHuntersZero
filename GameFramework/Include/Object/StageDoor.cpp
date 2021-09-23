@@ -2,6 +2,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/MainScene.h"
+#include "../Collision/ColliderBox.h"
 
 CStageDoor::CStageDoor()
 {
@@ -26,10 +27,18 @@ bool CStageDoor::Init()
 {
 	if (!CGameObject::Init())
 		return false;
-
+	
+	// Add Animation
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
 	AddAnimation("StageDoor", true, 2.f);
+
+	// Add Collider
+
+	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	Body->SetExtent(100.f, 80.f);
+	Body->SetOffset(0.f, 25.f);
+	Body->SetCollisionProfile("Default");
 }
 
 void CStageDoor::Update(float DeltaTime)
@@ -57,7 +66,7 @@ CStageDoor* CStageDoor::Clone()
 	return new CStageDoor(*this);
 }
 
-void CStageDoor::ChangeStage()
+void CStageDoor::ChangeScene()
 {
 	switch (m_DoorStageType)
 	{
