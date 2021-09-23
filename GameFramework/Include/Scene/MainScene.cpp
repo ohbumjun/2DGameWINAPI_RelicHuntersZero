@@ -124,6 +124,17 @@ void CMainScene::LoadAnimationSequence()
 			i * 70.f, 0.f, 70.f, 81.f);
 	}
 
+	// DestoryAll
+	GetSceneResource()->CreateAnimationSequence("SkillDestoryAll",
+		"SkillDestoryAll", TEXT("Player/Right/ashoot1.bmp"));
+	GetSceneResource()->SetTextureColorKey("SkillDestoryAll",
+		255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("SkillDestoryAll",
+			i * 70.f, 0.f, 70.f, 81.f);
+	}
+
 	// 텔레포트 캐릭터
 	/* 1번째 버전
 		GetSceneResource()->CreateAnimationSequence("LucidNunNaTeleport",

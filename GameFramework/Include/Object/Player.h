@@ -68,13 +68,18 @@ private:
 private:
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
+	// Slow Motion Attack 
 	void SkillSlowMotionAttack(float DeltaTime);
 	void SkillSlowMotionAttackEnd();
 	void SkillSlowMotionAttackEnable();
 	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
-	std::list<CSharedPtr<CBullet>> m_SkillSlowMotionBulletList;
-	CGameObject* FindClosestTarget(Vector2 PlayerPos);
+	// Destory All
+	void SkillDestroyAllAttack(float DeltaTime);
+	void SkillDestroyAllAttackEnd();
+	void SkillDestoryAllAttackEnable();
+	bool m_SkillDestoryAllAttackEnable;
+	float m_SkillDestoryAllAttackTime;
 // Collision
 private :
 	bool CollisionCheck();
@@ -106,6 +111,8 @@ public  :
 	void SetTargetPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float DeltaTime);
+	CGameObject* FindClosestTarget(Vector2 PlayerPos);
+
 // Death
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
