@@ -26,13 +26,27 @@ CPlayer::CPlayer() :
 	m_TelePortTime(0.f),
 	m_TeleportObj{},
 	m_TeleportPos(Vector2(0.f,0.f)),
-	m_DeathAnimationTime(0.f)
+	m_DeathAnimationTime(0.f),
+	m_SkillDestoryAllAttackEnable(false),
+	m_SkillDestoryAllAttackTime(0.f)
 {
 	m_ObjType = EObject_Type::Player;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 {
+	m_SkillSlowMotionAttackTime = obj.m_SkillSlowMotionAttackTime;
+	m_SkillSlowMotionAttackEnable = false;
+	m_TeleportEnable = false;
+	m_RunEnable = false;
+	m_DashEnable = false;
+	m_DashTime = 0.f;
+	m_TelePortTime = 0.f;
+	m_TeleportObj = obj.m_TeleportObj;
+	m_TeleportPos = obj.m_TeleportPos;
+	m_DeathAnimationTime = 0.f;
+	m_SkillDestoryAllAttackEnable = false;
+	m_SkillDestoryAllAttackTime = 0.f;
 }
 
 CPlayer::~CPlayer()
@@ -50,10 +64,10 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
 		this, &CPlayer::Resume);
 
-	// Skill 
 	// 1) Slow Motion
 	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
 		this, &CPlayer::SkillSlowMotionAttack);
+	// 2) Destroy All
 	CInput::GetInst()->SetCallback<CPlayer>("SkillDestoryAll", KeyState_Down,
 		this, &CPlayer::SkillDestroyAllAttack);
 
@@ -110,13 +124,13 @@ bool CPlayer::Init()
 	// Right 
 	CreateAnimation();
 	AddAnimation("LucidNunNaRightIdle");
-	AddAnimation("LucidNunNaRightWalk", true, 0.6f);
+	AddAnimation("LucidNunNaRightWalk", true, 1.f);
 	AddAnimation("LucidNunNaRightAttack", false, 0.2f);
 	AddAnimation("LucidNunNaRightRun", true, 0.6f);
 
 	// Left
 	AddAnimation("LucidNunNaLeftIdle");
-	AddAnimation("LucidNunNaLeftWalk", true, 0.6f);
+	AddAnimation("LucidNunNaLeftWalk", true, 1.f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
 	// Target
@@ -147,7 +161,6 @@ bool CPlayer::Init()
 
 	AddAnimationNotify<CPlayer>("SkillDestoryAll", 2, this, &CPlayer::SkillDestoryAllAttackEnable);
 	SetAnimationEndNotify<CPlayer>("SkillDestoryAll", this, &CPlayer::SkillDestroyAllAttackEnd);
-
 	
 	// Collider ---
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
@@ -299,6 +312,7 @@ void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
 
+	// Walk 이후 pos
 	if (CheckCurrentAnimation("LucidNunNaRightWalk") &&
 		m_Velocity.Length() == 0.f)
 	{
@@ -310,6 +324,7 @@ void CPlayer::PostUpdate(float DeltaTime)
 		ChangeAnimation("LucidNunNaLeftIdle");
 	}
 
+	// Run 이후 pos
 	if (CheckCurrentAnimation("LucidNunNaRightRun") &&
 		m_Velocity.Length() == 0.f)
 	{
@@ -562,7 +577,6 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	// Fire();
 	ChangeAnimation("SkillSlowMotionAttack");
 }
 
@@ -589,6 +603,39 @@ void CPlayer::SkillSlowMotionAttackEnable()
 			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f) 
 				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
 			Vector2(m_Size.x,m_Size.y));
+		Bullet->SetObjectType(EObject_Type::Bullet);
+
+		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
+		CCollider* BulletBody = Bullet->FindCollider("Body");
+		BulletBody->SetCollisionProfile("PlayerAttack");
+
+		CGameObject* ClosestMonster = FindClosestTarget(Bullet->GetPos());
+		if (ClosestMonster)
+		{
+			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
+			Bullet->SetDir(AngleBtwBulletMonster);
+		}
+		else
+		{
+			Bullet->SetDir(m_Dir);
+		}
+		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+		Bullet->SetTimeScale(m_TimeScale);
+	}
+
+	while (m_BulletDelayTime)
+	{
+		m_BulletDelayTime -= DeltaTime;
+		if (m_BulletDelayTime < 0.f) break;
+	}
+	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
+	{
+		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
+			"SkillSlowMotionAttackBullet",
+			// 중점 + 반지름 길이 * 함수
+			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f)
+				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
+			Vector2(m_Size.x, m_Size.y));
 		Bullet->SetObjectType(EObject_Type::Bullet);
 
 		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
