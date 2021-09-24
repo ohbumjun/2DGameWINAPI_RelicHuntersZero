@@ -225,7 +225,7 @@ void CPlayer::Update(float DeltaTime)
 		MonsterDamage -= m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber(MonsterDamage);
-		SetDamage(MonsterDamage);
+		SetDamage((float)MonsterDamage);
 		CollideBounceBack();
 	}
 
@@ -523,8 +523,8 @@ void CPlayer::Dash(float DelatTime)
 	SetMoveSpeed(DASH_SPEED);
 
 	// MP 감소
-	if (m_CharacterInfo.MP >= 0.5 * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.5 * m_CharacterInfo.MPMax;
+	if (m_CharacterInfo.MP >= 0.5f * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.5f * m_CharacterInfo.MPMax;
 
 	// Effect 효과
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
@@ -595,7 +595,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	float DeltaTime = CGameManager::GetInst()->GetTimer()->Update();
 	float m_BulletDelayTime = 10.f;
 
-	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
+	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",
@@ -619,7 +619,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		{
 			Bullet->SetDir(m_Dir);
 		}
-		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
 	}
 
@@ -628,7 +628,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		m_BulletDelayTime -= DeltaTime;
 		if (m_BulletDelayTime < 0.f) break;
 	}
-	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
+	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",
@@ -652,7 +652,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		{
 			Bullet->SetDir(m_Dir);
 		}
-		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
 	}
 }
@@ -680,7 +680,7 @@ void CPlayer::SkillDestoryAllAttackEnable()
 
 CGameObject* CPlayer::FindClosestTarget(Vector2 PlayerPos)
 {
-	return m_Scene->FindClosedMonsterToPlayer(PlayerPos);
+	return m_Scene->FindClosestMonsterToPlayer(PlayerPos);
 }
 
 // 참고 : Bullet의 경우, Collision을 고려할 필요가 없다
@@ -769,8 +769,8 @@ void CPlayer::Teleport(float DeltaTime)
 	m_TeleportEnable = false;
 
 	// MP 90% 감소
-	if (m_CharacterInfo.MP >= 0.9 * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.9 * m_CharacterInfo.MPMax;
+	if (m_CharacterInfo.MP >= 0.9f * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.9f * m_CharacterInfo.MPMax;
 	
 	// TeleportMouse Cursor Animation 지워주기
 	DeleteTeleportObj();
@@ -818,7 +818,7 @@ void CPlayer::Fire()
 																"PlayerBullet",
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
-	Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 	Bullet->SetObjectType(EObject_Type::Bullet);
 }
 
@@ -835,8 +835,8 @@ void CPlayer::SetTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget() 
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
-	m_CharacterInfo.MP -= 0.2 * m_CharacterInfo.MPMax;
+	if (m_CharacterInfo.MP <= 0.2f * m_CharacterInfo.MPMax) return;
+	m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
 
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 		"PlayerBullet",

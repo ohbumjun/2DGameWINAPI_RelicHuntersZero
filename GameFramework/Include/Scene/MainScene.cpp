@@ -10,6 +10,7 @@
 #include "../Object/Monster.h"
 #include "../Object/EffectHit.h"
 #include "../Object/TeleportMouse.h"
+#include "../Object/StageDoor.h"
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
@@ -54,6 +55,7 @@ bool CMainScene::Init()
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
+	// Monsters
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, rand() % 100));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
@@ -67,6 +69,13 @@ bool CMainScene::Init()
 	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	Monster2->SetPlayer(Player);
 
+	// Stage Door
+	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor",
+		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
+		Vector2(50.f, 50.f));
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
+
+	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
@@ -75,6 +84,22 @@ bool CMainScene::Init()
 
 void CMainScene::LoadAnimationSequence()
 {
+	// Stage Door
+	// Door ---
+	GetSceneResource()->CreateAnimationSequence("StageDoor",
+		"StageDoor", TEXT("DoorToNextStage.bmp"));
+	GetSceneResource()->SetTextureColorKey("StageDoor",
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData("StageDoor",
+				j * 192.f, i * 192.f, 192.f, 192.f);
+		}
+	}
+
 	// Player ---
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightIdle",
 		"LucidNunNaRightIdle", TEXT("Player/Right/astand.bmp"));

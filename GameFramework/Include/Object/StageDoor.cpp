@@ -40,6 +40,8 @@ bool CStageDoor::Init()
 	Body->SetExtent(100.f, 80.f);
 	Body->SetOffset(0.f, 25.f);
 	Body->SetCollisionProfile("Default");
+
+	return true;
 }
 
 void CStageDoor::Update(float DeltaTime)
@@ -68,7 +70,6 @@ void CStageDoor::Collision(float DeltaTime)
 		{
 			// 위로 가기 버튼을 클릭했다면( Dir )
 			Vector2 PlayerDir = Player->GetDir();
-
 			if (PlayerDir.x == 0 && PlayerDir.y == -1)
 				ChangeScene();
 		}
