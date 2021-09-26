@@ -249,7 +249,7 @@ void CPlayer::Update(float DeltaTime)
 			
 			// Damage Font Test 출력  
 			// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-			// DamageFont->SetDamageNumber(DeltaTime * 100000);
+			// DamageFont->SetDamageNumber(DeltaTime * 10000000);
 
 		}
 	}
@@ -562,7 +562,6 @@ void CPlayer::CollideBounceBack()
 	// 이동 방향 반대로 이동시키기
 	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
 	OppDir.Normalize();
-	CGameObject* Player = m_Scene->GetPlayer();
 	SetStunDir(OppDir);
 	DashEnd();
 

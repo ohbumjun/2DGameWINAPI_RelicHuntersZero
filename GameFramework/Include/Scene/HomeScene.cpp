@@ -298,7 +298,7 @@ void CHomeScene::LoadAnimationSequence()
 void CHomeScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
-	// GetSceneResource()->SoundPlay("StartBGM");
+	GetSceneResource()->SoundPlay("StartBGM");
 	GetSceneResource()->SetVolume("BGM", 1);
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");

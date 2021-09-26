@@ -92,10 +92,13 @@ void CStageDoor::ChangeScene()
 	{
 	case EDoorStage_Type::Stage_Home:
 		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
-		CSceneManager::GetInst()->CreateScene<CStartScene>();
+		// CSceneManager::GetInst()->CreateScene<CStartScene>();
+		CSceneManager::GetInst()->CreateScene<CMainScene>();
 		break;
 	case EDoorStage_Type::Stage_One:
-		CSceneManager::GetInst()->CreateScene<CMainScene>();
+		// CSceneManager::GetInst()->CreateScene<CMainScene>();
+		CSceneManager::GetInst()->CreateScene<CHomeScene>();
+		// CSceneManager::GetInst()->CreateScene<CStartScene>();
 		break;
 	case EDoorStage_Type::Stage_Two:
 		// CSceneManager::GetInst()->CreateScene<CHomeScene>();

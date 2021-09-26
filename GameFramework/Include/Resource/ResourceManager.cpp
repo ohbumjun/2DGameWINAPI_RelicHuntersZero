@@ -183,8 +183,7 @@ bool CResourceManager::CreateAnimationSequence(
 {
 	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
 
-	if (Sequence)
-		return true;
+	if (Sequence) return true;
 
 	Sequence = new CAnimationSequence;
 
@@ -283,7 +282,6 @@ void CResourceManager::AddAnimationFrameData(
 void CResourceManager::ReleaseAnimationSequence(const std::string& Name)
 {
 	auto	iter = m_mapAnimationSequence.find(Name);
-
 	if (iter->second->GetRefCount() == 1)
 		m_mapAnimationSequence.erase(iter);
 }

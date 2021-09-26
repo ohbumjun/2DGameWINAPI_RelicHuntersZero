@@ -2,6 +2,7 @@
 #include "Animation.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../Object/DamageFont.h"
 
 CAnimation::CAnimation()	:
 	m_CurrentAnimation(nullptr)
@@ -19,12 +20,12 @@ CAnimation::CAnimation(const CAnimation& Anim)
 	{
 		AnimationInfo* Info = new AnimationInfo;
 
-		Info->Sequence = iter->second->Sequence;
+		Info->Sequence  = iter->second->Sequence;
 		Info->FrameTime = iter->second->FrameTime;
-		Info->PlayTime = iter->second->PlayTime;
+		Info->PlayTime  = iter->second->PlayTime;
 		Info->PlayScale = iter->second->PlayScale;
-		Info->Loop = iter->second->Loop;
-		Info->Reverse = iter->second->Reverse;
+		Info->Loop      = iter->second->Loop;
+		Info->Reverse   = iter->second->Reverse;
 
 		if (Anim.m_CurrentAnimation->Sequence->GetName() == Info->Sequence->GetName())
 			m_CurrentAnimation = Info;
@@ -47,10 +48,13 @@ CAnimation::~CAnimation()
 void CAnimation::AddAnimation(const std::string& SequenceName, 
 	bool Loop, float PlayTime, float PlayScale, bool Reverse)
 {
+	// 애니메이션 제작에 필요한 이미지가 없다면 return;
 	CAnimationSequence* Sequence = m_Scene->GetSceneResource()->FindAnimationSequence(SequenceName);
-
 	if (!Sequence)
 		return;
+
+	// 이미 같은 이름의 AnimationInfo 정보가 있다면 return
+	if (FindInfo(SequenceName)) return;
 
 	AnimationInfo* Info = new AnimationInfo;
 
@@ -155,12 +159,17 @@ void CAnimation::Update(float DeltaTime)
 	m_CurrentAnimation->Time += DeltaTime * m_CurrentAnimation->PlayScale;
 
 	bool	AnimEnd = false;
+	// m_CurrentAnimation->FrameTime = 0.5f;
 
 	// 증가된 시간이 1프레임당 흘러야 할 시간을 지났다면 프레임을 증가시켜줘야 한다.
 	if (m_CurrentAnimation->Time >= m_CurrentAnimation->FrameTime)
 	{
+		// Damage Font 
+		// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", Vector2(100.f,100.f));
+		// DamageFont->SetDamageNumber(m_CurrentAnimation->Sequence->GetFrameCount());
 		// 1프레임당 흘러야 할 시간을 빼준다.
 		m_CurrentAnimation->Time -= m_CurrentAnimation->FrameTime;
+
 
 		if (m_CurrentAnimation->Reverse)
 		{

@@ -6,6 +6,7 @@
 #include "../Scene/SceneCollision.h"
 #include "../Resource/AnimationSequence.h"
 #include "../Scene/Camera.h"
+#include "DamageFont.h"
 
 CGameObject::CGameObject()	:
 	m_Scene(nullptr),
@@ -592,9 +593,7 @@ void CGameObject::Render(HDC hDC)
 	if (m_Animation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
-
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
-
 		Vector2	LT = m_RenderPos - m_Pivot * FrameData.Size + m_Offset;
 
 		if (AnimInfo->Sequence->GetTextureType() == ETexture_Type::Atlas)
