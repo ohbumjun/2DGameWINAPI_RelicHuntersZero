@@ -588,12 +588,11 @@ void CPlayer::SkillSlowMotionAttackEnd()
 void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
-	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(100.f);
+	CGameManager::GetInst()->SetTimeScale(1.f);
+	SetTimeScale(1.f);
 	m_SkillSlowMotionAttackEnable = true;
 
 	float DeltaTime = CGameManager::GetInst()->GetTimer()->Update();
-	float m_BulletDelayTime = 10.f;
 
 	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
@@ -603,39 +602,6 @@ void CPlayer::SkillSlowMotionAttackEnable()
 			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f) 
 				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
 			Vector2(m_Size.x,m_Size.y));
-		Bullet->SetObjectType(EObject_Type::Bullet);
-
-		// Bullet 충돌체 : PlayerAttack 으로 처리하기 
-		CCollider* BulletBody = Bullet->FindCollider("Body");
-		BulletBody->SetCollisionProfile("PlayerAttack");
-
-		CGameObject* ClosestMonster = FindClosestTarget(Bullet->GetPos());
-		if (ClosestMonster)
-		{
-			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
-			Bullet->SetDir(AngleBtwBulletMonster);
-		}
-		else
-		{
-			Bullet->SetDir(m_Dir);
-		}
-		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-		Bullet->SetTimeScale(m_TimeScale);
-	}
-
-	while (m_BulletDelayTime)
-	{
-		m_BulletDelayTime -= DeltaTime;
-		if (m_BulletDelayTime < 0.f) break;
-	}
-	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
-	{
-		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-			"SkillSlowMotionAttackBullet",
-			// 중점 + 반지름 길이 * 함수
-			Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f)
-				, (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
-			Vector2(m_Size.x, m_Size.y));
 		Bullet->SetObjectType(EObject_Type::Bullet);
 
 		// Bullet 충돌체 : PlayerAttack 으로 처리하기 

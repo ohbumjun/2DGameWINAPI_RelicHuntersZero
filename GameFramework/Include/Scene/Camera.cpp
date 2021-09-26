@@ -13,7 +13,7 @@ CCamera::~CCamera()
 
 bool CCamera::Init()
 {
-	return false;
+	return true;
 }
 
 void CCamera::Update(float DeltaTime)

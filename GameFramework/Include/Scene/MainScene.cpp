@@ -351,9 +351,18 @@ void CMainScene::LoadAnimationSequence()
 
 void CMainScene::LoadSound()
 {
-	GetSceneResource()->LoadSound("BGM", true, "MainBGM", "MainBgm.mp3");
-	GetSceneResource()->SoundPlay("MainBGM");
-	GetSceneResource()->SetVolume("MainBGM", 1);
+	GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
+	GetSceneResource()->SoundPlay("StartBGM");
+	GetSceneResource()->SetVolume("StartBGM", 1);
+
+	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
+	GetSceneResource()->SetVolume("Effect", 1);
+
+	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
+
+	// Player --> run, dash
+	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
+	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
 
 void CMainScene::GoBackToWaitingScene()
