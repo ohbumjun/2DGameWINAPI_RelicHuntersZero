@@ -4,7 +4,6 @@
 #include "UIImage.h"
 #include "../GameManager.h"
 #include "../Scene/MainScene.h"
-#include "../Scene/HomeScene.h"
 #include "../Scene/SceneManager.h"
 #include "UIText.h"
 
@@ -71,8 +70,7 @@ bool CUIStart::Init()
 
 void CUIStart::StartClick()
 {
-	// CSceneManager::GetInst()->CreateScene<CMainScene>();
-	CSceneManager::GetInst()->CreateScene<CHomeScene>();
+	CSceneManager::GetInst()->CreateScene<CMainScene>();
 }
 
 void CUIStart::ExitClick()

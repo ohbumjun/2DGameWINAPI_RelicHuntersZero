@@ -63,9 +63,7 @@ void CSound::Stop()
 	if (m_Channel)
 	{
 		bool	Playing = false;
-
 		m_Channel->isPlaying(&Playing);
-
 		if (Playing)
 		{
 			m_Channel->stop();

@@ -41,7 +41,7 @@ CSceneResource::~CSceneResource()
 			CResourceManager::GetInst()->ReleaseTexture(Name);
 		}
 	}
-	\
+	
 	{
 		auto	iter = m_mapSound.begin();
 		auto	iterEnd = m_mapSound.end();

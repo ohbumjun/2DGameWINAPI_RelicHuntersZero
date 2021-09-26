@@ -357,6 +357,7 @@ bool CResourceManager::SetVolume(const std::string& GroupName, int Volume)
 {
 	FMOD::ChannelGroup* Group = FindSoundChannelGroup(GroupName);
 
+
 	if (!Group)
 		return false;
 
@@ -416,9 +417,13 @@ bool CResourceManager::SoundResume(const std::string& Name)
 void CResourceManager::ReleaseSound(const std::string& Name)
 {
 	auto	iter = m_mapSound.find(Name);
-
+	
 	if (iter->second->GetRefCount() == 1)
+	{
+		// ¼Ò¸® Àç»ýÀ» ¸ØÃá´Ù.
+		iter->second->Stop();
 		m_mapSound.erase(iter);
+	}
 }
 
 FMOD::ChannelGroup* CResourceManager::FindSoundChannelGroup(
