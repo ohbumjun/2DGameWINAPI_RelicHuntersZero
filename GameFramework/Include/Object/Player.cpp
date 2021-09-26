@@ -118,12 +118,9 @@ bool CPlayer::Init()
 	SetPivot(0.5f, 1.f);
 
 	// Animation ---
-	// Skill
-	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
-	AddAnimation("SkillDestoryAll", false, 0.5f);
+	CreateAnimation();
 
 	// Right 
-	CreateAnimation();
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 1.f);
 	AddAnimation("LucidNunNaRightAttack", false, 0.2f);
@@ -133,6 +130,10 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaLeftIdle");
 	AddAnimation("LucidNunNaLeftWalk", true, 1.f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
+
+	// Skill
+	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
+	AddAnimation("SkillDestoryAll", false, 0.5f);
 
 	// Target
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
@@ -261,7 +262,7 @@ void CPlayer::Update(float DeltaTime)
 	if (m_RunEnable)
 	{
 		if (m_CharacterInfo.MP >= 0)
-			m_CharacterInfo.MP -= 2*DeltaTime;
+			m_CharacterInfo.MP -= 3 * DeltaTime;
 		if (m_CharacterInfo.MP <= 0)
 		{
 			RunEnd();
