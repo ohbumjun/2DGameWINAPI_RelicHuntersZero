@@ -177,11 +177,12 @@ void CMainScene::LoadAnimationSequence()
 			}
 		}
 	*/
+
 	// 3번째 버전
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaTeleport",
 		"LucidNunNaTeleport", TEXT("Player/teleport2.bmp"));
 
-	// 임시적으로 SetTexture 키 방지 ( 배경화면색도 하얀색 )
+	// 임시적으로 SetTexture 키 방지 ( 배경화면색도 하얀색 )attack
 	// GetSceneResource()->SetTextureColorKey("LucidNunNaTeleport",
 		// 255, 0, 255);
 
@@ -208,7 +209,6 @@ void CMainScene::LoadAnimationSequence()
 	// Left  Walk
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftWalk",
 		"LucidNunNaLeftWalk", TEXT("Player/Left/awalk_left.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftWalk",
 		255, 0, 255);
 
@@ -221,7 +221,6 @@ void CMainScene::LoadAnimationSequence()
 	// Run
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftRun",
 		"LucidNunNaLeftRun", TEXT("Player/Left/alert_left.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftRun",
 		255, 0, 255);
 
@@ -234,7 +233,6 @@ void CMainScene::LoadAnimationSequence()
 	// right run
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightRun",
 		"LucidNunNaRightRun", TEXT("Player/Right/alert.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("LucidNunNaRightRun",
 		255, 0, 255);
 
@@ -247,7 +245,6 @@ void CMainScene::LoadAnimationSequence()
 	// Stun
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaStun",
 		"LucidNunNaStun", TEXT("Player.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("LucidNunNaStun",
 		255, 0, 255);
 	for (int i = 0; i < 3; ++i)
@@ -259,7 +256,6 @@ void CMainScene::LoadAnimationSequence()
 	// Target Attack 
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaTargetAttack",
 		"LucidNunNaTargetAttack", TEXT("Player/TargetAttack.bmp"));
-
 	GetSceneResource()->SetTextureColorKey("LucidNunNaTargetAttack",
 		255, 0, 255);
 

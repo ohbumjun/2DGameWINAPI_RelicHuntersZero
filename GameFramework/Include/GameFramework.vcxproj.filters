@@ -70,12 +70,6 @@
     <Filter Include="07. UI\02. Window">
       <UniqueIdentifier>{71c3dace-6565-45df-b110-bda8b3b78f88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Resource\03. Sound">
-      <UniqueIdentifier>{5828544e-8b92-4525-b850-6e4de9ea3b25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Resource\03. Sound\01. FMOD">
-      <UniqueIdentifier>{2457672f-99e8-4d6e-903d-25fdadb0f577}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Resource\04. Font">
       <UniqueIdentifier>{b51b5ea3-1626-494e-9164-8a08012498b7}</UniqueIdentifier>
     </Filter>
@@ -93,6 +87,12 @@
     </Filter>
     <Filter Include="01. GameManager\02. Scene\03. Camera">
       <UniqueIdentifier>{468fd452-dfd8-4c75-8ffb-b93fbd31248d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\03. Sound">
+      <UniqueIdentifier>{5828544e-8b92-4525-b850-6e4de9ea3b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Resource\03. Sound\01. FMOD">
+      <UniqueIdentifier>{2457672f-99e8-4d6e-903d-25fdadb0f577}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

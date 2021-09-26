@@ -52,11 +52,13 @@ public:
 	{
 		m_NextScene = new T;
 
+		/*
 		if (!m_NextScene->Init())
 		{
 			SAFE_DELETE(m_NextScene);
 			return false;
 		}
+		*/
 
 		return true;
 	}

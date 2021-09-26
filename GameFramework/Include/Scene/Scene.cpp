@@ -28,10 +28,6 @@ CScene::CScene()
 
 CScene::~CScene()
 {
-	// Damage Font 
-	CDamageFont* DamageFont = CreateObject<CDamageFont>("DamageFont", Vector2(50.f,50.f));
-	DamageFont->SetDamageNumber(15);
-
 	SAFE_DELETE(m_Camera);
 	SAFE_DELETE_ARRAY(m_RenderArray);
 
@@ -42,14 +38,11 @@ CScene::~CScene()
 	SAFE_DELETE_ARRAY(m_UIArray);
 
 	m_ObjList.clear();
-
 	m_mapPrototype.clear();
-
 	m_Player = nullptr;
 
 	SAFE_DELETE(m_Collision);
 	SAFE_DELETE(m_Resource);
-
 }
 
 CSceneResource* CScene::GetSceneResource() const
@@ -172,7 +165,6 @@ bool CScene::Update(float DeltaTime)
 				continue;
 			}
 			(*iter)->Update(DeltaTime * (*iter)->m_TimeScale);
-			// (*iter)->Update(DeltaTime );
 			++iter;
 		}
 	}

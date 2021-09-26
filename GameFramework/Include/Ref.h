@@ -25,6 +25,11 @@ public:
 		++m_RefCount;
 	}
 
+	void MinusRef()
+	{
+		--m_RefCount;
+	}
+
 	int GetRefCount()	const
 	{
 		return m_RefCount;
