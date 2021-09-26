@@ -301,7 +301,6 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->SoundPlay("StartBGM");
 	GetSceneResource()->SetVolume("StartBGM", 1);
 
-
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
 	GetSceneResource()->SetVolume("Effect", 1);
 
