@@ -80,6 +80,7 @@ public:
 	{
 		m_TimeScale = TimeScale;
 	}
+	float GetTimeScale();
 
 public:
 	float GetDeltaTime()	const;

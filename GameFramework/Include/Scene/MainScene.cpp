@@ -352,8 +352,8 @@ void CMainScene::LoadAnimationSequence()
 void CMainScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
-	GetSceneResource()->SoundPlay("StartBGM");
-	GetSceneResource()->SetVolume("StartBGM", 1);
+	// GetSceneResource()->SoundPlay("StartBGM");
+	GetSceneResource()->SetVolume("BGM", 1);
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
 	GetSceneResource()->SetVolume("Effect", 1);

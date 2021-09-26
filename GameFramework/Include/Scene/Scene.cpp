@@ -4,6 +4,7 @@
 #include "SceneCollision.h"
 #include "Camera.h"
 #include "../Object/EffectHit.h"
+#include "../Object/DamageFont.h"
 
 CScene::CScene()
 {
@@ -27,6 +28,10 @@ CScene::CScene()
 
 CScene::~CScene()
 {
+	// Damage Font 
+	CDamageFont* DamageFont = CreateObject<CDamageFont>("DamageFont", Vector2(50.f,50.f));
+	DamageFont->SetDamageNumber(15);
+
 	SAFE_DELETE(m_Camera);
 	SAFE_DELETE_ARRAY(m_RenderArray);
 
@@ -44,6 +49,7 @@ CScene::~CScene()
 
 	SAFE_DELETE(m_Collision);
 	SAFE_DELETE(m_Resource);
+
 }
 
 CSceneResource* CScene::GetSceneResource() const
@@ -121,7 +127,6 @@ void CScene::DestroyAllAttackObjects()
 void CScene::SetPlayer(const std::string& Name)
 {
 	CGameObject* Player = FindObject(Name);
-
 	SetPlayer(Player);
 }
 
@@ -151,13 +156,7 @@ bool CScene::Update(float DeltaTime)
 {
 	if (m_Player)
 	{
-		if (m_Player->IsActive())
-			m_Player->Update(DeltaTime);
-		else
-		{
-			// delete m_Player;
-			// m_Player = nullptr;
-		}
+		m_Player->Update(DeltaTime);
 	}
 
 	{
@@ -172,8 +171,8 @@ bool CScene::Update(float DeltaTime)
 				iterEnd = m_ObjList.end();
 				continue;
 			}
-
 			(*iter)->Update(DeltaTime * (*iter)->m_TimeScale);
+			// (*iter)->Update(DeltaTime );
 			++iter;
 		}
 	}
@@ -184,12 +183,10 @@ bool CScene::Update(float DeltaTime)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
-
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
 				}
-
 				continue;
 			}
 
@@ -211,8 +208,7 @@ bool CScene::PostUpdate(float DeltaTime)
 {
 	if (m_Player)
 	{
-		if(m_Player->IsActive())
-			m_Player->PostUpdate(DeltaTime);
+		m_Player->PostUpdate(DeltaTime);
 	}
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
@@ -267,8 +263,7 @@ bool CScene::Collision(float DeltaTime)
 {
 	if (m_Player)
 	{
-		if (m_Player->IsActive())
-			m_Player->Collision(DeltaTime);
+		m_Player->Collision(DeltaTime);
 	}
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
@@ -333,8 +328,7 @@ bool CScene::Render(HDC hDC)
 {
 	if (m_Player)
 	{
-		if(m_Player->IsActive())
-			m_Player->PrevRender();
+		m_Player->PrevRender();
 	}
 
 	{

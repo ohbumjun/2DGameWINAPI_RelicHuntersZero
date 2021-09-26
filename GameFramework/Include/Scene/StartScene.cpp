@@ -32,9 +32,10 @@ void CStartScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
 	GetSceneResource()->SoundPlay("StartBGM");
+	GetSceneResource()->SetVolume("BGM", 10);
 
 	GetSceneResource()->LoadSound("UI", false, "ButtonMouseOn", "TeemoSmile.mp3");
 	GetSceneResource()->LoadSound("UI", false, "ButtonClick", "TeemoStartClicck.mp3");
 
-	GetSceneResource()->SetVolume("UI", 30);
+	GetSceneResource()->SetVolume("UI", 3);
 }

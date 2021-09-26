@@ -46,6 +46,11 @@ CGameManager::~CGameManager()
 	ReleaseDC(m_hWnd, m_hDC);
 }
 
+float CGameManager::GetTimeScale()
+{
+	return m_TimeScale;
+}
+
 float CGameManager::GetDeltaTime() const
 {
 	return m_Timer->GetDeltaTime() * m_TimeScale;

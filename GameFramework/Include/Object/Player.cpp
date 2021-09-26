@@ -57,6 +57,7 @@ void CPlayer::Start()
 {
 	CCharacter::Start();
 
+	// Fire, Pause, Resume
 	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
 		this, &CPlayer::BulletFire);
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
@@ -221,11 +222,14 @@ void CPlayer::Update(float DeltaTime)
 	int MonsterDamage = MonsterCollisionCheck();
 	if (MonsterDamage !=- 1)
 	{
+		// Damage Font 
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 		MonsterDamage -= m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber(MonsterDamage);
 		SetDamage((float)MonsterDamage);
+
+		// 튕겨져 나가기 
 		CollideBounceBack();
 	}
 
@@ -240,6 +244,12 @@ void CPlayer::Update(float DeltaTime)
 			CGameManager::GetInst()->SetTimeScale(1.f);
 			m_SkillSlowMotionAttackEnable = false;
 			m_SkillSlowMotionAttackTime = 0.f;
+
+			
+			// Damage Font Test 출력  
+			// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+			// DamageFont->SetDamageNumber(DeltaTime * 100000);
+
 		}
 	}
 
@@ -577,6 +587,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
+	if (m_CharacterInfo.MP <= 0.95 * m_CharacterInfo.MPMax) return;
 	ChangeAnimation("SkillSlowMotionAttack");
 }
 
@@ -588,11 +599,13 @@ void CPlayer::SkillSlowMotionAttackEnd()
 void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
-	CGameManager::GetInst()->SetTimeScale(1.f);
-	SetTimeScale(1.f);
+	CGameManager::GetInst()->SetTimeScale(0.01f);
+	SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
-	float DeltaTime = CGameManager::GetInst()->GetTimer()->Update();
+	// MP Decrease
+	m_CharacterInfo.MP = 0.f;
+
 
 	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{

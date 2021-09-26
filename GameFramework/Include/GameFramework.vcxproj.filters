@@ -19,9 +19,6 @@
     <Filter Include="01. GameManager\01. Timer">
       <UniqueIdentifier>{c6c5801c-2376-4835-a0f7-5800d4a8b697}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scene">
-      <UniqueIdentifier>{170056df-9e23-4991-8865-6fef37aaa732}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Object">
       <UniqueIdentifier>{95af14b8-4dd6-40c8-a68f-4c7985007cb9}</UniqueIdentifier>
     </Filter>
@@ -52,9 +49,6 @@
     <Filter Include="04. Resource\01. Texture">
       <UniqueIdentifier>{a426a367-2837-4ac2-a67a-da2acb66c209}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scene\01. Resource">
-      <UniqueIdentifier>{7d3c2d64-ccf1-4608-bc6f-a4107971b044}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Animation">
       <UniqueIdentifier>{0af40e7d-936a-4103-b44c-2b31e927a13c}</UniqueIdentifier>
     </Filter>
@@ -64,9 +58,6 @@
     <Filter Include="06. Collision">
       <UniqueIdentifier>{e1d12d41-3134-4f77-a70c-0a978e359426}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Scene\02. Collision">
-      <UniqueIdentifier>{c975fe94-06ec-4ed9-98fe-a328b275e69e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Object\03. Effect">
       <UniqueIdentifier>{a04ee459-4890-450e-a661-11adc359d743}</UniqueIdentifier>
     </Filter>
@@ -75,9 +66,6 @@
     </Filter>
     <Filter Include="07. UI\01. Widget">
       <UniqueIdentifier>{edf4b607-d82c-4f35-bed8-4a822f240963}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Scene\03. Camera">
-      <UniqueIdentifier>{468fd452-dfd8-4c75-8ffb-b93fbd31248d}</UniqueIdentifier>
     </Filter>
     <Filter Include="07. UI\02. Window">
       <UniqueIdentifier>{71c3dace-6565-45df-b110-bda8b3b78f88}</UniqueIdentifier>
@@ -93,6 +81,18 @@
     </Filter>
     <Filter Include="03. Object\04. Door">
       <UniqueIdentifier>{2dc746a1-6b47-460b-95f3-f40578493cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GameManager\02. Scene">
+      <UniqueIdentifier>{170056df-9e23-4991-8865-6fef37aaa732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GameManager\02. Scene\01. Resource">
+      <UniqueIdentifier>{7d3c2d64-ccf1-4608-bc6f-a4107971b044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GameManager\02. Scene\02. Collision">
+      <UniqueIdentifier>{c975fe94-06ec-4ed9-98fe-a328b275e69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. GameManager\02. Scene\03. Camera">
+      <UniqueIdentifier>{468fd452-dfd8-4c75-8ffb-b93fbd31248d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -124,13 +124,13 @@
       <Filter>03. Object\02. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\MainScene.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Object\Monster.cpp">
       <Filter>03. Object\01. Character</Filter>
@@ -148,7 +148,7 @@
       <Filter>04. Resource\01. Texture</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneResource.cpp">
-      <Filter>02. Scene\01. Resource</Filter>
+      <Filter>01. GameManager\02. Scene\01. Resource</Filter>
     </ClCompile>
     <ClCompile Include="Animation\Animation.cpp">
       <Filter>05. Animation</Filter>
@@ -166,7 +166,7 @@
       <Filter>06. Collision</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneCollision.cpp">
-      <Filter>02. Scene\02. Collision</Filter>
+      <Filter>01. GameManager\02. Scene\02. Collision</Filter>
     </ClCompile>
     <ClCompile Include="Collision\Collision.cpp">
       <Filter>06. Collision</Filter>
@@ -187,13 +187,13 @@
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Camera.cpp">
-      <Filter>02. Scene\03. Camera</Filter>
+      <Filter>01. GameManager\02. Scene\03. Camera</Filter>
     </ClCompile>
     <ClCompile Include="UI\Button.cpp">
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
     <ClCompile Include="Scene\StartScene.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="UI\UIStart.cpp">
       <Filter>07. UI\02. Window</Filter>
@@ -229,7 +229,7 @@
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
     <ClCompile Include="Scene\HomeScene.cpp">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="UI\UIHome.cpp">
       <Filter>07. UI\02. Window</Filter>
@@ -270,13 +270,13 @@
       <Filter>03. Object\02. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Scene.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\MainScene.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Object\Monster.h">
       <Filter>03. Object\01. Character</Filter>
@@ -300,7 +300,7 @@
       <Filter>04. Resource\01. Texture</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneResource.h">
-      <Filter>02. Scene\01. Resource</Filter>
+      <Filter>01. GameManager\02. Scene\01. Resource</Filter>
     </ClInclude>
     <ClInclude Include="Animation\Animation.h">
       <Filter>05. Animation</Filter>
@@ -321,7 +321,7 @@
       <Filter>06. Collision</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneCollision.h">
-      <Filter>02. Scene\02. Collision</Filter>
+      <Filter>01. GameManager\02. Scene\02. Collision</Filter>
     </ClInclude>
     <ClInclude Include="Collision\Collision.h">
       <Filter>06. Collision</Filter>
@@ -342,13 +342,13 @@
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Camera.h">
-      <Filter>02. Scene\03. Camera</Filter>
+      <Filter>01. GameManager\02. Scene\03. Camera</Filter>
     </ClInclude>
     <ClInclude Include="UI\Button.h">
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
     <ClInclude Include="Scene\StartScene.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIStart.h">
       <Filter>07. UI\02. Window</Filter>
@@ -414,7 +414,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\HomeScene.h">
-      <Filter>02. Scene</Filter>
+      <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIHome.h">
       <Filter>07. UI\02. Window</Filter>
