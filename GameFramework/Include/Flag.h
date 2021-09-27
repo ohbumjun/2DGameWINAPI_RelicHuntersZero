@@ -56,6 +56,18 @@ enum class EObject_Type
 	Effect
 };
 
+enum class EPotionType
+{
+	HP,
+	MP
+};
+
+enum class EEquipType
+{
+	Attack,
+	Armor
+};
+
 enum class EDoorStage_Type
 {
 	Stage_Default,

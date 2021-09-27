@@ -1,0 +1,49 @@
+#include "MPPotion.h"
+
+CMPPotion::CMPPotion()
+{
+}
+
+CMPPotion::CMPPotion(const CPotion& Potion)
+{
+}
+
+CMPPotion::~CMPPotion()
+{
+}
+
+void CMPPotion::Start()
+{
+	CPotion::Start();
+}
+
+bool CMPPotion::Init()
+{
+	if (!CPotion::Init()) return false;
+	return true;
+}
+
+void CMPPotion::Update(float DeltaTime)
+{
+	CPotion::Update(DeltaTime);
+}
+
+void CMPPotion::PostUpdate(float DeltaTime)
+{
+	CPotion::PostUpdate(DeltaTime);
+}
+
+void CMPPotion::Collision(float DeltaTime)
+{
+	CMPPotion::Collision(DeltaTime);
+}
+
+void CMPPotion::Render(HDC hDC)
+{
+	CPotion::Render(hDC);
+}
+
+CMPPotion* CMPPotion::Clone()
+{
+	return nullptr;
+}

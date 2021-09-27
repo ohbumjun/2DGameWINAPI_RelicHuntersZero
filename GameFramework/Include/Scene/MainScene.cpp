@@ -1,3 +1,6 @@
+// Gamae
+#include "../GameManager.h"
+
 // Scene
 #include "MainScene.h"
 #include "SceneResource.h"
@@ -11,6 +14,8 @@
 #include "../Object/EffectHit.h"
 #include "../Object/TeleportMouse.h"
 #include "../Object/StageDoor.h"
+#include "../Object/Potion.h"
+#include "../Object/HPPotion.h"
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
@@ -30,6 +35,7 @@ bool CMainScene::Init()
 	LoadAnimationSequence();
 	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
+	// Effect 
 	CEffectHit* EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
 
 	// Teleport
@@ -48,7 +54,7 @@ bool CMainScene::Init()
 
 	// Player
 	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX,
+	Player->SetCharacterInfo(60, 10, CPlayer::GetPlayerStaticHP(), CPlayer::GetPlayerStaticMP(),
 		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
 
 	SetPlayer(Player);
@@ -78,6 +84,14 @@ bool CMainScene::Init()
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+
+	// Potion
+	Resolution	RS = CGameManager::GetInst()->GetResolution();
+	CHPPotion* HPPotion  = CreatePrototype<CHPPotion>("HPPotion");
+	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1","HPPotion");
+
+	HPPotion->SetTexture("HPPotion1", TEXT("DoorToNextStage.bmp"));
+	HPPotion->SetPos(50.f,100.f);
 
 	return true;
 }
