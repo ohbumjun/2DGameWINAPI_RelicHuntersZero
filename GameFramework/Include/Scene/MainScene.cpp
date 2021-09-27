@@ -20,6 +20,7 @@
 #include "Camera.h"
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIImage.h"
 
 CMainScene::CMainScene()
 {
@@ -90,8 +91,9 @@ bool CMainScene::Init()
 	CHPPotion* HPPotion  = CreatePrototype<CHPPotion>("HPPotion");
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1","HPPotion");
 
-	HPPotion->SetTexture("HPPotion1", TEXT("DoorToNextStage.bmp"));
-	HPPotion->SetPos(50.f,100.f);
+	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
+	HPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
+	HPPotion1->SetTextureColorKey(255, 0, 255);
 
 	return true;
 }
