@@ -88,12 +88,13 @@ bool CMainScene::Init()
 
 	// Potion
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
-	CHPPotion* HPPotion  = CreatePrototype<CHPPotion>("HPPotion");
+	CHPPotion* HPPotionPrototype  = CreatePrototype<CHPPotion>("HPPotion");
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1","HPPotion");
 
 	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
 	HPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
+	
 
 	return true;
 }
