@@ -15,56 +15,6 @@ CPotion::~CPotion()
 {
 }
 
-void CPotion::SetTexture(const std::string& Name)
-{
-	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
-
-	if (m_Texture)
-	{
-		m_Size.x = (float)m_Texture->GetWidth();
-		m_Size.y = (float)m_Texture->GetHeight();
-	}
-}
-
-void CPotion::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
-{
-	m_Scene->GetSceneResource()->LoadTexture(Name, FileName, PathName);
-	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
-	if (m_Texture)
-	{
-		m_Size.x = (float)m_Texture->GetWidth();
-		m_Size.y = (float)m_Texture->GetHeight();
-	}
-}
-
-void CPotion::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
-{
-	m_Scene->GetSceneResource()->LoadTexture(Name, FullPath);
-	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
-	if (m_Texture)
-	{
-		m_Size.x = (float)m_Texture->GetWidth();
-		m_Size.y = (float)m_Texture->GetHeight();
-	}
-}
-
-void CPotion::SetTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName, const std::string& PathName)
-{
-	m_Scene->GetSceneResource()->LoadTexture(Name, vecFileName, PathName);
-	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
-	if (m_Texture)
-	{
-		m_Size.x = (float)m_Texture->GetWidth();
-		m_Size.y = (float)m_Texture->GetHeight();
-	}
-}
-
-void CPotion::SetTextureColorKey(unsigned char r, unsigned char g, unsigned char b, int Index)
-{
-	if (!m_Texture) return;
-	m_Texture->SetColorKey(r, g, b, Index);
-}
-
 void CPotion::Start()
 {
 }
