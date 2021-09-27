@@ -14,8 +14,8 @@ CMonster::CMonster()	:
 	m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
 {
 
-	m_Dir.x = rand() % 2;
-	m_Dir.y = rand() % 2;
+	m_Dir.x = (float)(rand() % 2);
+	m_Dir.y = (float)(rand() % 2);
 	m_ObjType = EObject_Type::Monster;
 	/// m_MoveTargetPos = SetRandomTargetPos();
 	// SetRandomTargetDir();
@@ -108,7 +108,7 @@ void CMonster::Update(float DeltaTime)
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
 			Vector2(50.f, 50.f));
-		Bullet->SetBulletDamage(m_CharacterInfo.Attack);
+		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetObjectType(EObject_Type::Bullet);
 
 		if (m_Count % 3 != 0)
@@ -173,8 +173,8 @@ void CMonster::SetRandomTargetDir()
 Vector2 CMonster::SetRandomTargetPos()
 {
 	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
-	float x = rand() % (int)WorldResolution.x;
-	float y = rand() % (int)WorldResolution.y;
+	float x = (float)(rand() % (int)WorldResolution.x);
+	float y = (float)(rand() % (int)WorldResolution.y);
 	m_MoveTargetPos = Vector2(x, y);
 	return m_MoveTargetPos;
 }

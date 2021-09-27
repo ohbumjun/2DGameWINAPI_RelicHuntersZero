@@ -16,6 +16,11 @@
 #include "DamageFont.h"
 #include "../Timer.h"
 
+// Static
+float CPlayer::m_PlayerStaticHP = STATIC_INIT_HP;
+float CPlayer::m_PlayerStaticMP = STATIC_INIT_MP;
+float CPlayer::m_PlayerStaticStemina = STATIC_INIT_STEMINA;
+
 CPlayer::CPlayer() : 
 	m_SkillSlowMotionAttackEnable(false),
 	m_SkillSlowMotionAttackTime(0.f),
@@ -317,12 +322,14 @@ void CPlayer::Update(float DeltaTime)
 		else				 // Player가 마우스보다 왼쪽에 있음 --> 오른쪽을 보게 하기
 			ChangeAnimation("LucidNunNaRightIdle");
 	}
+
+	// Player Static Info Setting
+	SetPlayerStaticInfo(m_CharacterInfo.HP,m_CharacterInfo.MP);
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
-
 	// Walk 이후 pos
 	if (CheckCurrentAnimation("LucidNunNaRightWalk") &&
 		m_Velocity.Length() == 0.f)

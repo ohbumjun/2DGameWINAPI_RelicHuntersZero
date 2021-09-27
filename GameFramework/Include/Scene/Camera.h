@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../GameInfo.h"
 #include "../Object/GameObject.h"
 

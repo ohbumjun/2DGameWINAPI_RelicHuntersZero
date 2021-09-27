@@ -24,7 +24,7 @@ bool CHomeScene::Init()
 
 	// Objects
 	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, NORMAL_MONSTER_HP_MAX, NORMAL_MONSTER_MP_MAX,
+	Player->SetCharacterInfo(60, 10, CPlayer::GetPlayerStaticHP(), CPlayer::GetPlayerStaticMP(),
 		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
 
 	SetPlayer(Player);

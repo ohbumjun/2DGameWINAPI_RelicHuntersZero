@@ -1,45 +1,5 @@
-﻿  Animation.cpp
-  Collider.cpp
-  ColliderBox.cpp
-  ColliderSphere.cpp
-  GameManager.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\GameManager.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
-  Bullet.cpp
-  Character.cpp
-  DamageFont.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\DamageFont.cpp(21,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  EffectHit.cpp
-  GameObject.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(31,1): warning C4305: 'initializing': truncation from 'int' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(454,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Monster.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(17,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(18,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(111,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(176,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Monster.cpp(177,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Player.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(610,52): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(807,8): warning C4101: 'ptMouse': unreferenced local variable
-  StageDoor.cpp
-  HomeScene.cpp
-  MainScene.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(60,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(66,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Scene.cpp
-  SceneCollision.cpp
-  SceneManager.cpp
-  StartScene.cpp
-  Button.cpp
-  Generating Code...
-  Compiling...
-  NumberWidget.cpp
-  ProgressBar.cpp
-  UICharacterStateHUD.cpp
-  UIImage.cpp
-  UIMain.cpp
-  UIStart.cpp
-  UIText.cpp
-  WidgetComponent.cpp
-  Generating Code...
+﻿  MainScene.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(57,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(66,93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\MainScene.cpp(72,94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe

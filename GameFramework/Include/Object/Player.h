@@ -18,11 +18,28 @@ protected:
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 
+	// Static Infos
 public:
-	virtual void SetAttackSpeed(float Speed)
+	static float m_PlayerStaticHP;
+	static float m_PlayerStaticMP;
+	static float m_PlayerStaticStemina;
+	static void SetPlayerStaticInfo(float HP, float MP,float Stemina = 0)
 	{
-		CCharacter::SetAttackSpeed(Speed);
-		SetAnimationPlayScale("LucidNunNaRightAttack", Speed);
+		m_PlayerStaticHP = HP;
+		m_PlayerStaticMP = MP;
+		m_PlayerStaticStemina = Stemina;
+	}
+	static float GetPlayerStaticMP()
+	{
+		return m_PlayerStaticMP;
+	}
+	static float GetPlayerStaticHP()
+	{
+		return m_PlayerStaticHP;
+	}
+	static float GetPlayerStaticStemina()
+	{
+		return m_PlayerStaticMP;
 	}
 
 public:
@@ -35,11 +52,11 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
-// Idle
+// Idle ---
 private :
 	void ChangeIdleAnimation();
 	
-// Move
+// Move ---
 private:
 	void MoveUp(float DeltaTime);
 	void MoveDown(float DeltaTime);
@@ -48,7 +65,8 @@ private:
 	void Move(const Vector2& Dir);
 	void Move(const Vector2& Dir, float Speed);
 	void ChangeMoveAnimation(); // 오른쪽,왼쪽 only
-// Run
+
+// Run ---
 private:
 	void RunLeft(float DeltaTime);
 	void RunRight(float DeltaTime);
@@ -58,13 +76,15 @@ private:
 	void RunStart();
 	void RunEnd();
 	void ChangeRunAnimation(); // 오른쪽 왼쪽 only
-// Dash
+
+// Dash ---
 private:
 	void Dash(float DeltaTime);
 	void DashEnd();
 	bool m_DashEnable;
 	float m_DashTime;
-// Other Skills
+
+// Other Skills ---
 private:
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
@@ -80,18 +100,28 @@ private:
 	void SkillDestoryAllAttackEnable();
 	bool m_SkillDestoryAllAttackEnable;
 	float m_SkillDestoryAllAttackTime;
-// Collision
+	// Attack Speed 
+	virtual void SetAttackSpeed(float Speed)
+	{
+		CCharacter::SetAttackSpeed(Speed);
+		SetAnimationPlayScale("LucidNunNaRightAttack", Speed);
+	}
+
+// Collision ---
 private :
 	bool CollisionCheck();
 	int MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
 	void CollideBounceBack();
-// Stun
+
+
+// Stun ---
 private :
 	virtual void Stun();
 	virtual void StunEnd();
-// 순간 이동
+
+// Teleport ---
 private :
 	bool    m_TeleportEnable;
 	Vector2 m_TeleportPos;
@@ -101,7 +131,8 @@ private:
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
 	void DeleteTeleportObj();
-// 공격
+
+// Attack ---
 private :
 	Vector2 m_TargetPos;
 public  :
@@ -113,7 +144,7 @@ public  :
 	void BulletFireTarget(float DeltaTime);
 	CGameObject* FindClosestTarget(Vector2 PlayerPos);
 
-// Death
+// Death ---
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
 public:
