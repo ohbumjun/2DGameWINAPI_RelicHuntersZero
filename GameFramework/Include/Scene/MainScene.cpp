@@ -16,6 +16,7 @@
 #include "../Object/StageDoor.h"
 #include "../Object/Potion.h"
 #include "../Object/HPPotion.h"
+#include "../Object/MPPotion.h"
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
@@ -87,13 +88,19 @@ bool CMainScene::Init()
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	// Potion
-	Resolution	RS = CGameManager::GetInst()->GetResolution();
 	CHPPotion* HPPotionPrototype  = CreatePrototype<CHPPotion>("HPPotion");
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1","HPPotion");
 
 	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
 	HPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
+
+	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
+	CMPPotion* MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
+
+	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
+	MPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
+	// MPPotion1->SetTextureColorKey(255, 0, 255);
 	
 
 	return true;

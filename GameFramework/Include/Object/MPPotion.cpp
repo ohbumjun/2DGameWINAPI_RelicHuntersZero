@@ -37,7 +37,7 @@ void CMPPotion::PostUpdate(float DeltaTime)
 
 void CMPPotion::Collision(float DeltaTime)
 {
-	CMPPotion::Collision(DeltaTime);
+	CPotion::Collision(DeltaTime);
 }
 
 void CMPPotion::Render(HDC hDC)
@@ -47,5 +47,5 @@ void CMPPotion::Render(HDC hDC)
 
 CMPPotion* CMPPotion::Clone()
 {
-	return nullptr;
+	return new CMPPotion(*this);
 }
