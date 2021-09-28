@@ -100,7 +100,6 @@ bool CMainScene::Init()
 
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
-	// MPPotion1->SetTextureColorKey(255, 0, 255);
 	
 
 	return true;
