@@ -72,11 +72,17 @@ void CPotion::Collision(float DeltaTime)
 		{
 			// 위로 가기 버튼을 클릭했다면( Dir )
 			EPotion_Type PotionType = GetPotionType();
-			if (PotionType == EPotion_Type::MP)
+			if (m_PotionType == EPotion_Type::HP)
 			{
 				CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 				DamageFont->SetDamageNumber(7);
-				Player->SetHP(1);
+				Player->SetHP(Player->GetHP() + (int)m_PotionAmount);
+			}
+			else 
+			{
+				CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+				DamageFont->SetDamageNumber(9);
+				// Player->SetMP(Player->GetMP() + m_PotionAmount);
 			}
 		}
 	}

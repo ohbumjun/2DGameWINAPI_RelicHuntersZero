@@ -3,7 +3,7 @@
 CMPPotion::CMPPotion()
 {
 	m_PotionType = EPotion_Type::MP;
-	m_PotionAmount = 50;
+	m_PotionAmount = 1;
 }
 
 CMPPotion::~CMPPotion()

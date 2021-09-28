@@ -65,15 +65,17 @@ bool CMainScene::Init()
 
 	// Monsters
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, rand() % 100));
+	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
-	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, rand() % 100));
+	/*
+	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	*/
 
 	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor",
@@ -97,7 +99,7 @@ bool CMainScene::Init()
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
 
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
-	MPPotion1->SetPos(Vector2(210.f,230.f));
+	MPPotion1->SetPos(Vector2(300.f,230.f));
 
 	return true;
 }
