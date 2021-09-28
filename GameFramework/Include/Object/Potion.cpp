@@ -3,6 +3,8 @@
 #include "../Collision/ColliderSphere.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "Player.h"
+#include "DamageFont.h"
 
 CPotion::CPotion()
 {
@@ -13,6 +15,10 @@ CPotion::CPotion(const CPotion& Potion) : CGameObject(Potion)
 }
 
 CPotion::~CPotion()
+{
+}
+
+void CPotion::AddPotionToPlayer()
 {
 }
 
@@ -31,7 +37,6 @@ bool CPotion::Init()
 	Body->SetRadius(30.f);
 	Body->SetOffset(25.f, 25.f);
 	Body->SetCollisionProfile("Default");
-
 
 	return true;
 }
@@ -55,14 +60,16 @@ void CPotion::Collision(float DeltaTime)
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		CGameObject* Player = (*iter)->IsCollisionWithPlayer();
+		CPlayer* Player = (*iter)->IsCollisionWithPlayer();
 		// 만약 Player와 충돌했다면
 		if (Player)
 		{
+			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+			DamageFont->SetDamageNumber(7);
 			// 위로 가기 버튼을 클릭했다면( Dir )
-			Vector2 PlayerDir = Player->GetDir();
-			// if (PlayerDir.x == 0 && PlayerDir.y == -1)
-				// ChangeScene();
+			EPotion_Type PotionType = GetPotionType();
+			if (PotionType == EPotion_Type::HP)
+				Player->SetHP(1);
 		}
 	}
 }

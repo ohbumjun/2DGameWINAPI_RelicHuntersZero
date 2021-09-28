@@ -5,8 +5,7 @@ class CHPPotion :
 {
 public:
 	CHPPotion();
-	const CHPPotion(const CPotion& Potion);
-	~CHPPotion();
+	virtual ~CHPPotion();
 public:
 	virtual void Start();
 	virtual bool Init();

@@ -52,14 +52,14 @@ int CCollider::IsCollisionWithMonster()
 	return -1;
 }
 
-CGameObject* CCollider::IsCollisionWithPlayer()
+CPlayer* CCollider::IsCollisionWithPlayer()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
 		if((*iter)->GetOwner()->GetObjType() == EObject_Type::Player)
-			return (*iter)->GetOwner();
+			return (CPlayer*)(*iter)->GetOwner();
 	}
 	return nullptr;
 }

@@ -13,12 +13,12 @@ protected:
 	virtual ~CPlayer();
 
 protected:
-	// Widget
+// Widget ---
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 
-	// Static Infos
+// Static Infos --- 
 public:
 	static float m_PlayerStaticHP;
 	static float m_PlayerStaticMP;
@@ -145,12 +145,17 @@ public  :
 	CGameObject* FindClosestTarget(Vector2 PlayerPos);
 
 // Death ---
+public:
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
-public:
 	virtual void GoOppDirection(Vector2 Dir)
 	{
 		Vector2 Dist = Vector2(Dir.x * 20, Dir.y * 20);
 		m_Pos += Dist;
 	};
+
+// Item -- 
+public :
+	virtual void AcquireItem();
+
 };

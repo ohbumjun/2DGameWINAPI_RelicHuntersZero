@@ -4,6 +4,7 @@
 #include "../Scene/MainScene.h"
 #include "../Scene/StartScene.h"
 #include "../Collision/ColliderBox.h"
+#include "Player.h"
 
 CStageDoor::CStageDoor()
 {
@@ -62,7 +63,7 @@ void CStageDoor::Collision(float DeltaTime)
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		CGameObject* Player = (*iter)->IsCollisionWithPlayer();
+		CPlayer* Player = (*iter)->IsCollisionWithPlayer();
 		// 만약 Player와 충돌했다면
 		if (Player)
 		{

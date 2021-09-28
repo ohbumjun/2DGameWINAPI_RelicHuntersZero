@@ -8,6 +8,6 @@ public :
 	virtual ~CEquipment();
 
 protected :
-	EEquipType EquipType;
+	EEquip_Type EquipType;
 };
 

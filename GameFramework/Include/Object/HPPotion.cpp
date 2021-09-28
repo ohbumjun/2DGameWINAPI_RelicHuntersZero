@@ -3,13 +3,9 @@
 
 CHPPotion::CHPPotion()
 {
-	PotionType = EPotionType::HP;
-	PlusAmount = 50;
+	m_PotionType = EPotion_Type::HP;
+	m_PotionAmount = 50;
 };
-
-CHPPotion::CHPPotion(const CPotion& Potion)
-{
-}
 
 CHPPotion::~CHPPotion()
 {

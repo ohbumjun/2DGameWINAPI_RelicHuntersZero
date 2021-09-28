@@ -851,4 +851,9 @@ void CPlayer::CharacterDestroy()
 	else ChangeAnimation("LucidNunNaRightDeath");
 }
 
+void CPlayer::AcquireItem()
+{
+	
+}
+
 

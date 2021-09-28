@@ -52,17 +52,19 @@ enum class EObject_Type
 	Character,
 	Monster,
 	Player,
+	Potion,
+	Equipment,
 	Bullet,
 	Effect
 };
 
-enum class EPotionType
+enum class EPotion_Type
 {
 	HP,
 	MP
 };
 
-enum class EEquipType
+enum class EEquip_Type
 {
 	Attack,
 	Armor

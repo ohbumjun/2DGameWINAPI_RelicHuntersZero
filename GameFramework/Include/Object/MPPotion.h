@@ -5,8 +5,7 @@ class CMPPotion :
 {
 public:
 	CMPPotion();
-	const CMPPotion(const CPotion& Potion);
-	~CMPPotion();
+	virtual ~CMPPotion();
 public:
 	virtual void Start();
 	virtual bool Init();
