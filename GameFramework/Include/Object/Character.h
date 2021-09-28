@@ -13,7 +13,7 @@ protected:
 	CharacterInfo m_CharacterInfo;
 
 public :
-	void SetCharacterInfo(int Attack, int Armor, float HP, float MP, int Level,
+	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance, float DashDistance = 0.f)
 	{
@@ -35,7 +35,7 @@ public :
 	{
 		m_CharacterInfo.AttackSpeed = Speed;
 	}
-	void SetHP(float newHP)
+	void SetHP(int newHP)
 	{
 		m_CharacterInfo.HP = newHP;
 	}

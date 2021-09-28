@@ -24,7 +24,7 @@ bool CHomeScene::Init()
 
 	// Objects
 	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, CPlayer::GetPlayerStaticHP(), CPlayer::GetPlayerStaticMP(),
+	Player->SetCharacterInfo(60, 10, PLAYER_INIT_HP, PLAYER_INIT_MP,
 		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
 
 	SetPlayer(Player);

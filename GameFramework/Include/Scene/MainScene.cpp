@@ -56,7 +56,7 @@ bool CMainScene::Init()
 
 	// Player
 	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, CPlayer::GetPlayerStaticHP(), CPlayer::GetPlayerStaticMP(),
+	Player->SetCharacterInfo(60, 10, PLAYER_INIT_HP, PLAYER_INIT_MP,
 		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
 
 	SetPlayer(Player);
@@ -90,14 +90,14 @@ bool CMainScene::Init()
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1","HPPotion");
 
 	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
-	HPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
+	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 
 	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
 
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
-	MPPotion1->SetPos(Vector2(300.f + rand() % 700, 30.f + rand() % 100));
+	MPPotion1->SetPos(Vector2(210.f,230.f));
 
 	return true;
 }

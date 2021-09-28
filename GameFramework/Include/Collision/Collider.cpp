@@ -9,7 +9,8 @@ CCollider::CCollider()	:
 	m_Owner(nullptr),
 	m_Enable(true),
 	m_Profile(nullptr),
-	m_MouseCollision(false)
+	m_MouseCollision(false),
+	m_Type(ECollider_Type::Box)
 {
 }
 

@@ -6,9 +6,9 @@
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
 // MP,HP,Stemina
-#define STATIC_INIT_HP      500.f
-#define STATIC_INIT_MP      500.f
-#define STATIC_INIT_STEMINA 500.f
+#define PLAYER_INIT_HP      500
+#define PLAYER_INIT_MP      50.f
+#define PLAYER_INIT_STEMINA 500.f
 
 // Skill Time
 #define SLOW_MOTION_ATTACK_TIME 1.5f
