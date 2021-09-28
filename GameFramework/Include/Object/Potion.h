@@ -8,8 +8,12 @@ public:
     CPotion(const CPotion& Potion);
     virtual ~CPotion();
 protected :
-    EPotionType PotionType;
-    float PlusAmount;
+    EPotion_Type m_PotionType;
+    float m_PotionAmount;
+	EPotion_Type GetPotionType() { return m_PotionType; }
+	float GetPotionAmount() { return m_PotionAmount; }
+public :
+	void AddPotionToPlayer();
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -18,5 +22,6 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CPotion* Clone();
+
 };
 

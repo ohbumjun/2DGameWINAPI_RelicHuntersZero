@@ -87,9 +87,10 @@ void CMonster::Update(float DeltaTime)
 	}
 
 	// 그러다가, 범위내에 player가 들어오면, 해당 쪽으로 이동
-	if (m_Player)
+	CGameObject* Player = m_Scene->GetPlayer();
+	if (Player)
 	{
-		Vector2 PlayerPos = m_Player->GetPos();
+		Vector2 PlayerPos = Player->GetPos();
 		float DistToPlayer = (m_Pos - PlayerPos).Length();
 		if (DistToPlayer <= m_CharacterInfo.DashDistance)
 		{

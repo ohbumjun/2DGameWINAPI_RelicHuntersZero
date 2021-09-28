@@ -13,7 +13,7 @@ protected:
 	CharacterInfo m_CharacterInfo;
 
 public :
-	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
+	void SetCharacterInfo(int Attack, int Armor, float HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance, float DashDistance = 0.f)
 	{
@@ -30,15 +30,27 @@ public :
 		m_CharacterInfo.AttackDistance = AttackDistance;
 		m_CharacterInfo.DashDistance = DashDistance;
 	}
-	virtual void SetAttackSpeed(float Speed)
+	// Get
+	void SetAttackSpeed(float Speed)
 	{
 		m_CharacterInfo.AttackSpeed = Speed;
 	}
-	virtual int GetArmor()const 
+	void SetHP(float newHP)
+	{
+		m_CharacterInfo.HP = newHP;
+	}
+	void SetMP(float newMP)
+	{
+		m_CharacterInfo.MP = newMP;
+	}
+	// Get 
+	int GetHP() { return m_CharacterInfo.HP; }
+	float GetMP() { return m_CharacterInfo.MP; }
+	int GetArmor()const 
 	{
 		return m_CharacterInfo.Armor;
 	}
-	virtual int GetAttack()const
+	int GetAttack()const
 	{
 		return m_CharacterInfo.Attack;
 	}

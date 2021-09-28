@@ -2,12 +2,8 @@
 
 CMPPotion::CMPPotion()
 {
-	PotionType = EPotionType::MP;
-	PlusAmount = 50;
-}
-
-CMPPotion::CMPPotion(const CPotion& Potion) : CPotion(Potion)
-{
+	m_PotionType = EPotion_Type::MP;
+	m_PotionAmount = 50;
 }
 
 CMPPotion::~CMPPotion()

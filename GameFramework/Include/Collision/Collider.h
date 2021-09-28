@@ -110,7 +110,7 @@ public:
 	void CallMouseCollisionEnd(const Vector2& MousePos, float DeltaTime);
 	// Damage를 얻어온다
 	int IsCollisionWithMonster();
-	CGameObject* IsCollisionWithPlayer();
+	class CPlayer* IsCollisionWithPlayer();
 
 
 public:
