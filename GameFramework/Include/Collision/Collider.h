@@ -110,8 +110,9 @@ public:
 	void CallMouseCollisionEnd(const Vector2& MousePos, float DeltaTime);
 	// Damage를 얻어온다
 	int IsCollisionWithMonster();
+public :
 	class CPlayer* IsCollisionWithPlayer();
-
+	class CPotion* IsCollisionWithPotion();
 
 public:
 	virtual bool Init();

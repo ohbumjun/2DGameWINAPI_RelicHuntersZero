@@ -10,6 +10,7 @@ public:
 protected :
     EPotion_Type m_PotionType;
     float m_PotionAmount;
+public :
 	EPotion_Type GetPotionType() { return m_PotionType; }
 	float GetPotionAmount() { return m_PotionAmount; }
 public :

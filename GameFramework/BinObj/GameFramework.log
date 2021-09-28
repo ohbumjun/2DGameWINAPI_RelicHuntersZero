@@ -1,2 +1,41 @@
-﻿  Player.cpp
+﻿  Collider.cpp
+  ColliderBox.cpp
+  ColliderSphere.cpp
+  Collision.cpp
+  GameManager.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\GameManager.cpp(1,1): warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss
+  Bullet.cpp
+  Character.cpp
+  DamageFont.cpp
+  EffectHit.cpp
+  Equipment.cpp
+  GameObject.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(31,1): warning C4305: 'initializing': truncation from 'int' to 'float'
+  HPPotion.cpp
+  MPPotion.cpp
+  Monster.cpp
+  Player.cpp
+  Potion.cpp
+  StageDoor.cpp
+  TeleportMouse.cpp
+  Camera.cpp
+  HomeScene.cpp
+  Generating Code...
+  Compiling...
+  MainScene.cpp
+  Scene.cpp
+  SceneCollision.cpp
+  SceneManager.cpp
+  StartScene.cpp
+  Button.cpp
+  NumberWidget.cpp
+  ProgressBar.cpp
+  UICharacterStateHUD.cpp
+  UIHome.cpp
+  UIImage.cpp
+  UIMain.cpp
+  UIStart.cpp
+  UIText.cpp
+  WidgetComponent.cpp
+  Generating Code...
   GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe

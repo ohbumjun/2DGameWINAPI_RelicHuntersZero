@@ -137,7 +137,6 @@ bool CInput::Init(HWND hWnd)
 	// Skill
 	CreateKey("SkillSlowMotionAttack", 'U');
 	CreateKey("SkillDestoryAll", 'N');
-	// SetShiftKey("SkillSlowMotionAttack", true);
 
 	// Run
 	CreateKey("RunUp", 'W');
@@ -162,6 +161,9 @@ bool CInput::Init(HWND hWnd)
 	SetCtrlKey("TargetPos", true);
 	CreateKey("TargetFire", VK_SPACE);
 	SetCtrlKey("TargetFire", true);
+
+	// Item
+	CreateKey("GetItem",'Z');
 
 
 	ShowCursor(FALSE);
