@@ -100,6 +100,9 @@
     <Filter Include="03. Object\04. Items\2. Equipment">
       <UniqueIdentifier>{cb12c7b8-b7eb-4e93-b253-5a9709fd6ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. GameManager\02. Scene\04. SubScenes">
+      <UniqueIdentifier>{dfc24fbd-0e07-4a91-ae84-f0f29e37f06f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -133,9 +136,6 @@
       <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\MainScene.cpp">
       <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Object\Monster.cpp">
@@ -198,9 +198,6 @@
     <ClCompile Include="UI\Button.cpp">
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\StartScene.cpp">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="UI\UIStart.cpp">
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
@@ -234,9 +231,6 @@
     <ClCompile Include="Object\TeleportMouse.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\HomeScene.cpp">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="UI\UIHome.cpp">
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
@@ -260,6 +254,15 @@
     </ClCompile>
     <ClCompile Include="Object\MPPotion.cpp">
       <Filter>03. Object\04. Items\1.Portions</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\HomeScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MainScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StartScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +300,6 @@
       <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\MainScene.h">
       <Filter>01. GameManager\02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Object\Monster.h">
@@ -371,9 +371,6 @@
     <ClInclude Include="UI\Button.h">
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\StartScene.h">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="UI\UIStart.h">
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
@@ -437,9 +434,6 @@
     <ClInclude Include="PlayerInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\HomeScene.h">
-      <Filter>01. GameManager\02. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="UI\UIHome.h">
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
@@ -463,6 +457,15 @@
     </ClInclude>
     <ClInclude Include="Object\MPPotion.h">
       <Filter>03. Object\04. Items\1.Portions</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\HomeScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MainScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StartScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

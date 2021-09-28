@@ -22,6 +22,7 @@ void CMPPotion::Start()
 bool CMPPotion::Init()
 {
 	if (!CPotion::Init()) return false;
+
 	return true;
 }
 

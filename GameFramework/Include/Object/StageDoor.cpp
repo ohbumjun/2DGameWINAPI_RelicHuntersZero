@@ -39,7 +39,6 @@ bool CStageDoor::Init()
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(100.f, 80.f);
 	Body->SetOffset(0.f, 25.f);
-	Body->SetCollisionProfile("Default");
 
 	return true;
 }
@@ -47,7 +46,6 @@ bool CStageDoor::Init()
 void CStageDoor::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-
 }
 
 void CStageDoor::PostUpdate(float DeltaTime)
