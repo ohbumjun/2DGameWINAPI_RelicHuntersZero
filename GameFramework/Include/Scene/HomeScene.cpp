@@ -35,7 +35,7 @@ bool CHomeScene::Init()
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
 
 	// Prototypes

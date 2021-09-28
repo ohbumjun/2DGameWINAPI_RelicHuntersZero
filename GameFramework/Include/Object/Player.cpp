@@ -871,8 +871,8 @@ void CPlayer::AcquireItem(float DeltaTime)
 				m_CharacterInfo.HP += (int)PotionAmount;
 			else
 				m_CharacterInfo.MP += PotionAmount;
+			Potion->Destroy();
 		}
-		Potion->Destroy();
 	}
 }
 
