@@ -2,12 +2,19 @@
 #include "Bullet.h"
 #include "../Scene/Scene.h"
 
-CDamageFont::CDamageFont()
+CDamageFont::CDamageFont() :
+	m_DirX(0),
+	m_SpeedX(0),
+	m_NumberWidget(nullptr)
 {
 }
 
-CDamageFont::CDamageFont(const CDamageFont& obj)
+CDamageFont::CDamageFont(const CDamageFont& obj) :
+	CGameObject(obj)
 {
+	m_DirX = obj.m_DirX;
+	m_SpeedX = obj.m_SpeedX;
+	m_NumberWidget = nullptr;
 }
 
 CDamageFont::~CDamageFont()
@@ -18,7 +25,7 @@ void CDamageFont::Start()
 {
 	CGameObject::Start();
 	m_DirX = rand() % 2 == 0 ? 1.f : -1.f;
-	m_SpeedX = rand() % 300;
+	m_SpeedX = (float)(rand() % 300);
 }
 
 bool CDamageFont::Init()

@@ -17,10 +17,6 @@
 #include "../Timer.h"
 
 // Static
-float CPlayer::m_PlayerStaticHP = STATIC_INIT_HP;
-float CPlayer::m_PlayerStaticMP = STATIC_INIT_MP;
-float CPlayer::m_PlayerStaticStemina = STATIC_INIT_STEMINA;
-
 CPlayer::CPlayer() : 
 	m_SkillSlowMotionAttackEnable(false),
 	m_SkillSlowMotionAttackTime(0.f),
@@ -323,8 +319,6 @@ void CPlayer::Update(float DeltaTime)
 			ChangeAnimation("LucidNunNaRightIdle");
 	}
 
-	// Player Static Info Setting
-	SetPlayerStaticInfo(m_CharacterInfo.HP,m_CharacterInfo.MP);
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -614,7 +608,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_CharacterInfo.MP = 0.f;
 
 
-	for (float f = 0.0; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
+	for (float f = 0.0f; f < 2.f * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",
@@ -811,8 +805,6 @@ void CPlayer::Fire()
 void CPlayer::SetTargetPos(float DeltaTime)
 {
 	// m_TargetPos에 세팅 
-	POINT ptMouse;
-	HWND hwnd = CGameManager::GetInst()->GetWindowHandle();
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));

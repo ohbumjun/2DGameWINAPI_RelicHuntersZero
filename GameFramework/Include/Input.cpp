@@ -3,13 +3,12 @@
 
 CInput *CInput::m_Inst = nullptr;
 
-CInput::CInput()
+CInput::CInput() :
+	m_MouseDown(false),
+	m_MousePush(false),
+	m_MouseUp(false),
+	m_hWnd(0)
 {
-	// vector�� size�� capacity�� �ִ�.
-	// capacity �� ���� �迭�� �Ҵ�� �����̴�.
-	// size �� ���� �߰��� �����̴�.
-	// vector resize �Լ� : �� �Լ��� ���ϴ� ������ �����صθ�
-	// �ش� ������ŭ�� �̸� �Ҵ��صд�.
 	m_vecKeyState.resize(KEYCOUNT_MAX);
 
 	for (int i = 0; i < KEYCOUNT_MAX; ++i)
@@ -17,7 +16,6 @@ CInput::CInput()
 		m_vecKeyState[i].Key = i;
 	}
 
-	// vector reserve �Լ� : capacity�� ���ϴ� ������ŭ �����صд�.
 
 	m_Ctrl = false;
 	m_Alt = false;
@@ -59,14 +57,11 @@ bool CInput::CreateKey(const std::string &Name, int Key)
 	{
 		if (m_vecAddKey[i] == Key)
 		{
-			// �̹� ���� Ű�� �߰��� �Ǿ��ִ� �����
-			// Add�� true�� ������ش�.
 			Add = true;
 			break;
 		}
 	}
 
-	// �̹� ���� Ű�� �߰��� �Ǿ� �ִٸ� AddKey�� ����� ���Ѵ�.
 	if (!Add)
 		m_vecAddKey.push_back(Key);
 
@@ -113,7 +108,6 @@ KeyInfo *CInput::FindKeyInfo(const std::string &Name)
 {
 	std::unordered_map<std::string, KeyInfo *>::iterator iter = m_mapInfo.find(Name);
 
-	// ��ã���� ��� end�� �����Ѵ�.
 	if (iter == m_mapInfo.end())
 		return nullptr;
 
@@ -128,7 +122,6 @@ bool CInput::Init(HWND hWnd)
 	m_MousePush = false;
 	m_MouseUp = false;
 
-	// ���ӿ��� ����ϴ� Ű�� �����Ѵ�.
 	CreateKey("MoveUp", 'W');
 	CreateKey("MoveDown", 'S');
 	CreateKey("MoveLeft", 'A');
@@ -211,13 +204,10 @@ bool CInput::Init(HWND hWnd)
 
 void CInput::Update(float DeltaTime)
 {
-	// Ű ���¸� ������Ʈ ���ش�.
 	UpdateKeyState();
 
-	// ���콺 ������Ʈ
 	UpdateMouse(DeltaTime);
 
-	// ������ ������Ʈ�� ���� ���¸� �̿��ؼ� ���� Ű ������ ������Ʈ�Ѵ�.
 	UpdateKeyInfo(DeltaTime);
 
 	m_vecMouseImage[m_MouseType]->Update(DeltaTime);
@@ -272,7 +262,6 @@ void CInput::UpdateMouse(float DeltaTime)
 
 void CInput::UpdateKeyState()
 {
-	// ��ϵ� Ű ����ŭ �ݺ��ϸ� �ش� Ű�� ������������ �Ǵ��س��´�.
 	size_t Size = m_vecAddKey.size();
 
 	for (size_t i = 0; i < Size; ++i)
@@ -281,8 +270,6 @@ void CInput::UpdateKeyState()
 
 		if (GetAsyncKeyState(Key) & 0x8000)
 		{
-			// ���� �� �������� �ƴϸ� ���� �����Ӻ��� ��� ������ �ִ�������
-			// �Ǵ��Ѵ�.
 			if (!m_vecKeyState[Key].State[KeyState_Down] &&
 				!m_vecKeyState[Key].State[KeyState_Push])
 			{

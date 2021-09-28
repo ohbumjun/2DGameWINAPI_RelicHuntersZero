@@ -452,7 +452,7 @@ void CGameObject::Update(float DeltaTime)
 		// 정리 : 위치 or 이동거리(S) = 최조 속도 * 시간 + 0.5 * 가속도 * 시간 * 시간  
 		// Velocity : 최초 속도 * 시간 
 		// (0.5 * GRAVITY * m_FallTime * m_FallTime)  :  0.5 * 가속도 * 시간 * 시간
-		m_Pos.y = m_FallStartY - (Velocity - (0.5 * GRAVITY * m_FallTime * m_FallTime));
+		m_Pos.y = (float)(m_FallStartY - (Velocity - (0.5 * GRAVITY * m_FallTime * m_FallTime)));
 	}
 
 	if (m_Animation)

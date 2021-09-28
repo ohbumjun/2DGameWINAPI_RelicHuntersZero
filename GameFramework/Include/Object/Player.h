@@ -18,30 +18,6 @@ protected:
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 
-// Static Infos --- 
-public:
-	static float m_PlayerStaticHP;
-	static float m_PlayerStaticMP;
-	static float m_PlayerStaticStemina;
-	static void SetPlayerStaticInfo(float HP, float MP,float Stemina = 0)
-	{
-		m_PlayerStaticHP = HP;
-		m_PlayerStaticMP = MP;
-		m_PlayerStaticStemina = Stemina;
-	}
-	static float GetPlayerStaticMP()
-	{
-		return m_PlayerStaticMP;
-	}
-	static float GetPlayerStaticHP()
-	{
-		return m_PlayerStaticHP;
-	}
-	static float GetPlayerStaticStemina()
-	{
-		return m_PlayerStaticMP;
-	}
-
 public:
 	virtual void Start();
 	virtual bool Init();

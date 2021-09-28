@@ -8,10 +8,16 @@
 
 CPotion::CPotion()
 {
+	m_PotionType = EPotion_Type::HP;
+	m_ObjType = EObject_Type::GameObject;
+	m_PotionAmount = 0.f;
 }
 
 CPotion::CPotion(const CPotion& Potion) : CGameObject(Potion)
 {
+	m_PotionType = Potion.m_PotionType;
+	m_ObjType = Potion.m_ObjType;
+	m_PotionAmount = Potion.m_PotionAmount;
 }
 
 CPotion::~CPotion()
@@ -64,12 +70,14 @@ void CPotion::Collision(float DeltaTime)
 		// 만약 Player와 충돌했다면
 		if (Player)
 		{
-			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-			DamageFont->SetDamageNumber(7);
 			// 위로 가기 버튼을 클릭했다면( Dir )
 			EPotion_Type PotionType = GetPotionType();
-			if (PotionType == EPotion_Type::HP)
+			if (PotionType == EPotion_Type::MP)
+			{
+				CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+				DamageFont->SetDamageNumber(7);
 				Player->SetHP(1);
+			}
 		}
 	}
 }

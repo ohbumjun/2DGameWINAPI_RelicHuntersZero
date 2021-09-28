@@ -15,6 +15,7 @@ CStageDoor::CStageDoor()
 CStageDoor::CStageDoor(const CStageDoor& obj) :
     CGameObject(obj)
 {
+	m_DoorStageType = obj.m_DoorStageType;
 }
 
 CStageDoor::~CStageDoor()

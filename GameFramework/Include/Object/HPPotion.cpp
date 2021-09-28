@@ -18,6 +18,7 @@ void CHPPotion::Start()
 bool CHPPotion::Init()
 {
     if (!CPotion::Init()) return false;
+	return true;
 }
 
 void CHPPotion::Update(float DeltaTime)
