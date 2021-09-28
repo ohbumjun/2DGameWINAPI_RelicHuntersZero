@@ -132,6 +132,6 @@ public:
 
 // Item -- 
 public :
-	virtual void AcquireItem();
+	virtual void AcquireItem(float);
 
 };

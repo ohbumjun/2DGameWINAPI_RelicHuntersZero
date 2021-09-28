@@ -1,20 +1,24 @@
-
-#include "Player.h"
-#include "../Scene/Scene.h"
+#include "../Timer.h"
 #include "../Input.h"
 #include "../GameManager.h"
-#include "../Collision/ColliderBox.h"
-#include "../Collision/ColliderSphere.h"
-#include "../UI/UICharacterStateHUD.h"
-#include "../UI/ProgressBar.h"
-#include "../UI/UIText.h"
+// Object
+#include "Player.h"
 #include "EffectHit.h"
 #include "TeleportMouse.h"
+#include "Potion.h"
+#include "DamageFont.h"
+// Scene
+#include "../Scene/Scene.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Scene/Camera.h"
-#include "DamageFont.h"
-#include "../Timer.h"
+// Collision 
+#include "../Collision/ColliderBox.h"
+#include "../Collision/ColliderSphere.h"
+// UI
+#include "../UI/UICharacterStateHUD.h"
+#include "../UI/ProgressBar.h"
+#include "../UI/UIText.h"
 
 // Static
 CPlayer::CPlayer() : 
@@ -57,6 +61,10 @@ CPlayer::~CPlayer()
 void CPlayer::Start()
 {
 	CCharacter::Start();
+
+	// Item
+	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
+		this, &CPlayer::AcquireItem);
 
 	// Fire, Pause, Resume
 	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
@@ -848,9 +856,23 @@ void CPlayer::CharacterDestroy()
 	else ChangeAnimation("LucidNunNaRightDeath");
 }
 
-void CPlayer::AcquireItem()
+void CPlayer::AcquireItem(float DeltaTime)
 {
-	
+	auto iter    = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CPotion* Potion = (*iter)->IsCollisionWithPotion();
+		if (Potion)
+		{
+			EPotion_Type PType = Potion->GetPotionType();
+			float PotionAmount = Potion->GetPotionAmount();
+			if (PType == EPotion_Type::HP)
+				m_CharacterInfo.HP += (int)PotionAmount;
+			else
+				m_CharacterInfo.MP += PotionAmount;
+		}
+	}
 }
 
 

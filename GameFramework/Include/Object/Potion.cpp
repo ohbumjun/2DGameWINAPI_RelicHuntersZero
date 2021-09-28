@@ -9,7 +9,7 @@
 CPotion::CPotion()
 {
 	m_PotionType = EPotion_Type::HP;
-	m_ObjType = EObject_Type::GameObject;
+	m_ObjType = EObject_Type::Potion;
 	m_PotionAmount = 0.f;
 }
 
@@ -62,6 +62,9 @@ void CPotion::Collision(float DeltaTime)
 	CGameObject::Collision(DeltaTime);
 
 	// 충돌 목록 중에서 Player가 있는지 확인한다
+	/*
+	
+	
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
@@ -86,6 +89,7 @@ void CPotion::Collision(float DeltaTime)
 			}
 		}
 	}
+	*/
 }
 
 void CPotion::Render(HDC hDC)
