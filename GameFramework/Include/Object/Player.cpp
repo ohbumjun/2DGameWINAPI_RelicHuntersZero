@@ -291,12 +291,16 @@ void CPlayer::Update(float DeltaTime)
 			DeleteTeleportObj();
 	}
 	
-	// MPBar
+	// MPBar , HPBar
 	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
+	{
 		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	}
 	CProgressBar* MPBar = (CProgressBar*)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+
 
 	// Character Offset
 	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
@@ -318,7 +322,6 @@ void CPlayer::Update(float DeltaTime)
 		else				 // Player가 마우스보다 왼쪽에 있음 --> 오른쪽을 보게 하기
 			ChangeAnimation("LucidNunNaRightIdle");
 	}
-
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -608,7 +611,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_CharacterInfo.MP = 0.f;
 
 
-	for (float f = 0.0f; f < 2.f * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) // 9.0 으로 나눈다는 것은 20씩 증가시킨다 --> 18개
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			"SkillSlowMotionAttackBullet",

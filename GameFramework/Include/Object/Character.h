@@ -37,6 +37,7 @@ public :
 	}
 	void SetHP(int newHP)
 	{
+		if (newHP > m_CharacterInfo.HPMax) newHP = m_CharacterInfo.HPMax;
 		m_CharacterInfo.HP = newHP;
 	}
 	void SetMP(float newMP)
