@@ -15,5 +15,6 @@ public:
 public:
 	void StartClick();
 	void ExitClick();
+	void EditorClick();
 };
 

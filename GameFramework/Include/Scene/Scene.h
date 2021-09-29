@@ -3,6 +3,7 @@
 #include "../GameInfo.h"
 #include "../Object/GameObject.h"
 #include "../UI/UIWindow.h"
+#include "../Object/Player.h"
 
 class CScene
 {
@@ -23,6 +24,8 @@ public:
 	class CCamera* GetCamera()	const;
 
 private:
+	// ¸Ê ¸ñ·Ï 
+	std::list<class CMapBase*> m_MapList;
 	CSharedPtr<CGameObject>	m_Player;
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
 	CGameObject** m_RenderArray;
@@ -38,8 +41,8 @@ public:
 	CGameObject* FindObject(const std::string& Name);
 	CGameObject* FindClosestMonsterToPlayer(Vector2 PlayerPos);
 	void DestroyAllAttackObjects();
-	void SetPlayer(const std::string& Name);
-	void SetPlayer(CGameObject* Player);
+	CGameObject* SetPlayer(const std::string& Name);
+	CGameObject* SetPlayer(CGameObject* Player);
 	CGameObject* GetPlayer()	const
 	{
 		return m_Player;
@@ -60,6 +63,10 @@ private:
 	CGameObject* FindPrototype(const std::string& Name);
 
 public:
+	class CPlayer* CreatePlayer(const std::string& Name,
+		const Vector2& Pos = Vector2(0.f, 0.f),
+		const Vector2& Size = Vector2(100.f, 100.f));
+
 	template <typename T>
 	T* CreateObject(const std::string& Name,
 		const Vector2& Pos = Vector2(0.f, 0.f),

@@ -6,6 +6,7 @@
 class CPlayer : public CCharacter
 {
 	friend class CScene;
+	friend class CSceneManager;
 
 protected:
 	CPlayer();

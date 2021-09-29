@@ -1,6 +1,6 @@
 #pragma once
 
-// Monster Target Pos Time
+// Monster Move Direction Limit Time
 #define MONSTER_TARGET_POS_LIMIT_TIME 5.f
 
 // Monster Attack

@@ -1,5 +1,6 @@
 #include "HomeScene.h"
 #include "SceneResource.h"
+#include "SceneManager.h"
 #include "../Object/Player.h"
 #include "../Scene/Camera.h"
 #include "../Object/StageDoor.h"
@@ -23,13 +24,9 @@ bool CHomeScene::Init()
 	LoadAnimationSequence();
 
 	// Objects
-	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, PLAYER_INIT_HP, PLAYER_INIT_MP,
-		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
-
+	CPlayer* Player = CreatePlayer("Player",Vector2(400.f,200.f));
 	SetPlayer(Player);
-	GetCamera()->SetTarget(Player);
-	GetCamera()->SetTargetPivot(0.5f, 0.5f);
+
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 

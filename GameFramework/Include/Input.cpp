@@ -127,7 +127,6 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("MoveLeft", 'A');
 	CreateKey("MoveRight", 'D');
 	CreateKey("Fire", VK_SPACE);
-	//SetCtrlKey("Fire", true);
 
 	CreateKey("Pause", 'P');
 	SetCtrlKey("Pause", true);
@@ -165,6 +164,8 @@ bool CInput::Init(HWND hWnd)
 	// Item
 	CreateKey("GetItem",'Z');
 
+	// Edit
+	CreateKey("Editor", VK_F1);
 
 	ShowCursor(FALSE);
 

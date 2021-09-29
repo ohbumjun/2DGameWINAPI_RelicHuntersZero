@@ -25,9 +25,6 @@
     <Filter Include="01. GameManager\02. Ref">
       <UniqueIdentifier>{b3444e1d-3c19-4b9f-8417-92f0651fb321}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. GameManager\03. Math">
-      <UniqueIdentifier>{bc125f9e-b9c6-48de-9d3a-5ee56b945819}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Object\01. Character">
       <UniqueIdentifier>{b7d3bdef-e0ee-4938-bd99-bb4d744e3aac}</UniqueIdentifier>
     </Filter>
@@ -103,6 +100,12 @@
     <Filter Include="01. GameManager\02. Scene\04. SubScenes">
       <UniqueIdentifier>{dfc24fbd-0e07-4a91-ae84-f0f29e37f06f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. GameManager\02. Scene\03. Math">
+      <UniqueIdentifier>{bc125f9e-b9c6-48de-9d3a-5ee56b945819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Map">
+      <UniqueIdentifier>{390a2718-8113-4ce9-9185-3980b10ac5bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,7 +124,7 @@
       <Filter>03. Object</Filter>
     </ClCompile>
     <ClCompile Include="Math.cpp">
-      <Filter>01. GameManager\03. Math</Filter>
+      <Filter>01. GameManager\02. Scene\03. Math</Filter>
     </ClCompile>
     <ClCompile Include="Object\Character.cpp">
       <Filter>03. Object\01. Character</Filter>
@@ -264,6 +267,18 @@
     <ClCompile Include="Scene\StartScene.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClCompile>
+    <ClCompile Include="Map\MapBase.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\TileMap.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\Tile.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\EditorScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -285,7 +300,7 @@
       <Filter>03. Object</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
-      <Filter>01. GameManager\03. Math</Filter>
+      <Filter>01. GameManager\02. Scene\03. Math</Filter>
     </ClInclude>
     <ClInclude Include="Object\Character.h">
       <Filter>03. Object\01. Character</Filter>
@@ -465,6 +480,18 @@
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClInclude>
     <ClInclude Include="Scene\StartScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapBase.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\TileMap.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Tile.h">
+      <Filter>08. Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EditorScene.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClInclude>
   </ItemGroup>

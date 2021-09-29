@@ -7,7 +7,8 @@ CSceneManager* CSceneManager::m_Inst = nullptr;
 
 CSceneManager::CSceneManager()	:
 	m_Scene(nullptr),
-	m_NextScene(nullptr)
+	m_NextScene(nullptr),
+	m_StaticPlayer(nullptr)
 {
 }
 
@@ -52,6 +53,11 @@ bool CSceneManager::ChangeScene()
 {
 	if (m_NextScene)
 	{
+		// 현재 player 정보로 static 정보를 update 해준다
+		// CGameObject* CurPlayer = m_Scene->GetPlayer();
+		// if(CurPlayer)
+			// UpdateStaticPlayer(m_Scene->GetPlayer());
+
 		// 기존 장면을 제거한다.
 		SAFE_DELETE(m_Scene);
 		CInput::GetInst()->ClearCallback();
@@ -63,6 +69,8 @@ bool CSceneManager::ChangeScene()
 		m_Scene = m_NextScene;
 		// 변수를 초기화한다.
 		m_NextScene = nullptr;
+
+
 		return true;
 	}
 

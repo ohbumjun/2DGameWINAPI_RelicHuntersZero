@@ -1,6 +1,7 @@
 
 #include "Scene.h"
 #include "SceneResource.h"
+#include "SceneManager.h"
 #include "SceneCollision.h"
 #include "Camera.h"
 #include "../Object/EffectHit.h"
@@ -24,6 +25,8 @@ CScene::CScene()
 	m_Camera = new CCamera;
 
 	m_Camera->Init();
+
+
 }
 
 CScene::~CScene()
@@ -117,14 +120,17 @@ void CScene::DestroyAllAttackObjects()
 	}
 }
 
-void CScene::SetPlayer(const std::string& Name)
+CGameObject* CScene::SetPlayer(const std::string& Name)
 {
 	CGameObject* Player = FindObject(Name);
-	SetPlayer(Player);
+	return SetPlayer(Player);
 }
 
-void CScene::SetPlayer(CGameObject* Player)
+CGameObject* CScene::SetPlayer(CGameObject* Player)
 {
+	if (!Player) return nullptr;
+
+	// Scene내의 player 세팅
 	m_Player = Player;
 
 	auto	iter = m_ObjList.begin();
@@ -138,6 +144,7 @@ void CScene::SetPlayer(CGameObject* Player)
 			break;
 		}
 	}
+	return m_Player;
 }
 
 bool CScene::Init()
@@ -476,4 +483,39 @@ CGameObject* CScene::FindPrototype(const std::string& Name)
 		return nullptr;
 
 	return iter->second;
+}
+
+CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const Vector2& Size)
+{
+	CPlayer* Player = (CPlayer*)CSceneManager::GetInst()->GetPlayer();
+
+	if (!Player)
+	{
+		Player = CreateObject<CPlayer>("Player",Pos,Size);
+		Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP,
+			PLAYER_INIT_MP, 1, 1, 1, NORMAL_SPEED,
+			NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
+		return Player;
+	}
+
+	Player->SetScene(this);
+	Player->SetPos(Pos);
+	Player->SetSize(Size);
+	Player->SetName(Name);
+
+	Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP,
+		PLAYER_INIT_MP, 1, 1, 1, NORMAL_SPEED,
+		NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
+
+	/*
+	if (!Player->Init())
+	{
+		SAFE_DELETE(Player);
+		return nullptr;
+	}
+	*/
+
+	m_ObjList.push_back(Player);
+
+	return Player;
 }
