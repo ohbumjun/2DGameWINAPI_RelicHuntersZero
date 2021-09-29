@@ -102,6 +102,7 @@ bool CMainScene::Init()
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f,230.f));
 
+
 	return true;
 }
 
