@@ -45,6 +45,9 @@ bool CMainScene::Init()
 	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
 	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
 
+	// Monster
+	CMonster* MonsterPrototype = CreatePrototype<CMonster>("MonsterProto");
+
 	CCollider* Collider = PlayerBullet->FindCollider("Body");
 	if (Collider)
 		Collider->SetCollisionProfile("PlayerAttack");
@@ -55,27 +58,25 @@ bool CMainScene::Init()
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	// Player
-	CPlayer* Player = CreateObject<CPlayer>("Player");
-	Player->SetCharacterInfo(60, 10, PLAYER_INIT_HP, PLAYER_INIT_MP,
-		1, 100, 100, 100, NORMAL_ATTACK_DISTANCE);
-
+	/*
+	CPlayer* Player = CreatePlayer("Player",Vector2(230.f,230.f));
 	SetPlayer(Player);
-	GetCamera()->SetTarget(Player);
-	GetCamera()->SetTargetPivot(0.5f, 0.5f);
+	*/
 
 	// Monsters
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	CMonster* Monster = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	CMonster* Monster = CreateObject<CMonster>("Monster", "MonsterProto", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-
 	/*
+
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	*/
+
 
 	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor",

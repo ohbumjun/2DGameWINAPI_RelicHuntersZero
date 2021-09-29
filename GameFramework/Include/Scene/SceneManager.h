@@ -12,11 +12,14 @@ private:
 private:
 	CScene* m_Scene;
 	CScene* m_NextScene;
+	class CGameObject*m_StaticPlayer;
 
 public:
-	CScene* GetScene()
+	CScene* GetScene(){	return m_Scene;	}
+	class CGameObject* GetPlayer() { return m_StaticPlayer; }
+	void UpdateStaticPlayer(CGameObject* Player)
 	{
-		return m_Scene;
+		m_StaticPlayer = Player->Clone();
 	}
 
 public:

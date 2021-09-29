@@ -162,6 +162,9 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map\MapBase.cpp" />
+    <ClCompile Include="Map\Tile.cpp" />
+    <ClCompile Include="Map\TileMap.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Object\Armor.cpp" />
     <ClCompile Include="Object\Bullet.cpp" />
@@ -186,6 +189,7 @@
     <ClCompile Include="Resource\Sound.cpp" />
     <ClCompile Include="Resource\Texture.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
+    <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Scene\HomeScene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
@@ -227,6 +231,9 @@
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Map\MapBase.h" />
+    <ClInclude Include="Map\Tile.h" />
+    <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MonsterInfo.h" />
     <ClInclude Include="Object\Armor.h" />
@@ -254,6 +261,7 @@
     <ClInclude Include="Resource\Sound.h" />
     <ClInclude Include="Resource\Texture.h" />
     <ClInclude Include="Scene\Camera.h" />
+    <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Scene\HomeScene.h" />
     <ClInclude Include="Scene\MainScene.h" />
     <ClInclude Include="Scene\Scene.h" />
