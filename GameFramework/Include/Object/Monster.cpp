@@ -119,8 +119,13 @@ void CMonster::Update(float DeltaTime)
 		{
 			//CGameObject* Player = m_Scene->FindObject("Player");
 			CGameObject* Player = m_Scene->GetPlayer();
-			float	Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
-			Bullet->SetDir(Angle);
+			if (Player)
+			{
+				float	Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
+				Bullet->SetDir(Angle);
+			}
+			else
+				Bullet->SetDir(-1.f, 0.f);
 		}
 	}
 
