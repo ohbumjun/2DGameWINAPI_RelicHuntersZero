@@ -63,20 +63,24 @@ private:
 
 // Other Skills ---
 private:
+	// Pause, Resume
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
+
 	// Slow Motion Attack 
 	void SkillSlowMotionAttack(float DeltaTime);
 	void SkillSlowMotionAttackEnd();
 	void SkillSlowMotionAttackEnable();
 	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
+
 	// Destory All
 	void SkillDestroyAllAttack(float DeltaTime);
 	void SkillDestroyAllAttackEnd();
 	void SkillDestoryAllAttackEnable();
 	bool m_SkillDestoryAllAttackEnable;
 	float m_SkillDestoryAllAttackTime;
+
 	// Attack Speed 
 	virtual void SetAttackSpeed(float Speed)
 	{

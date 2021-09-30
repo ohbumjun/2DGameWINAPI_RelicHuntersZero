@@ -42,7 +42,7 @@ CScene::~CScene()
 
 	m_ObjList.clear();
 	m_mapPrototype.clear();
-	m_Player = nullptr;
+	m_Player = nullptr; // m_Player = nullptr;
 
 	SAFE_DELETE(m_Collision);
 	SAFE_DELETE(m_Resource);
@@ -503,17 +503,26 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 	Player->SetSize(Size);
 	Player->SetName(Name);
 
-	Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP,
-		PLAYER_INIT_MP, 1, 1, 1, NORMAL_SPEED,
-		NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
-
-	/*
-	if (!Player->Init())
 	{
-		SAFE_DELETE(Player);
-		return nullptr;
+		auto iter    = Player->m_ColliderList.begin();
+		auto iterEnd = Player->m_ColliderList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SetScene(this);
+		}
 	}
-	*/
+	{
+		auto iter = Player->m_WidgetComponentList.begin();
+		auto iterEnd = Player->m_WidgetComponentList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SetScene(this);
+		}
+
+		Player->m_HPBarWidget   = Player->FindWidgetComponent(PLAYER_HPWIDGET_COMPONENET);
+		Player->m_MPBarWidget   = Player->FindWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
+		Player->m_NameWidget    = Player->FindWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
+	}
 
 	m_ObjList.push_back(Player);
 

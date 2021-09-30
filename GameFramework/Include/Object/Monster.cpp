@@ -114,7 +114,6 @@ void CMonster::Update(float DeltaTime)
 
 		if (m_Count % 3 != 0)
 			Bullet->SetDir(-1.f, 0.f);
-
 		else
 		{
 			//CGameObject* Player = m_Scene->FindObject("Player");

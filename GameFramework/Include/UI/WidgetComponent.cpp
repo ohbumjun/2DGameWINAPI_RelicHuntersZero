@@ -19,7 +19,7 @@ CWidgetComponent::CWidgetComponent(const CWidgetComponent& widget)
 	m_Widget = widget.m_Widget->Clone();
 }
 
-CWidgetComponent::~CWidgetComponent()
+CWidgetComponent::~CWidgetComponent() 
 {
 }
 
