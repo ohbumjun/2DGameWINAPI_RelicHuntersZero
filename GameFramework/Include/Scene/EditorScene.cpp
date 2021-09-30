@@ -6,10 +6,12 @@
 #include "../UI/UIStart.h"
 #include "../Input.h"
 #include "EditorDlg.h"
+#include "../Map/TileMap.h"
 
 CEditorScene::CEditorScene() :
 	m_Dlg(nullptr),
-	m_Start(false)
+	m_Start(false),
+	m_TileMap(nullptr)
 {
 }
 
@@ -20,21 +22,23 @@ CEditorScene::~CEditorScene()
 
 bool CEditorScene::Init()
 {
+	if (!CScene::Init()) return false;
 	LoadSound();
 
 	LoadAnimationSequence();
 
 	m_Dlg = new CEditorDlg;
+	m_Dlg->SetScene(this);
 	// 아래의 id는 resource.h에 들어있다 
 	// Editor Scene이 만들어지자마자, Dialog도 만들어놓는다
 	m_Dlg->Init(IDD_DIALOG_EDITOR);
-
 
 	return true;
 }
 
 bool CEditorScene::Update(float DeltaTime)
 {
+	CScene::Update(DeltaTime);
 	if (!m_Start)
 	{
 		m_Start = true;
@@ -79,12 +83,35 @@ bool CEditorScene::Update(float DeltaTime)
 
 bool CEditorScene::PostUpdate(float DeltaTime)
 {
+	CScene::PostUpdate(DeltaTime);
 	return false;
 }
 
 void CEditorScene::OnEditor(float DeltaTime)
 {
 	
+}
+
+void CEditorScene::CreateTileMap()
+{
+	// 이미 TileMap 있으면 return;
+	if (m_TileMap) return;
+
+	// TileMap이 없으면 생성 
+	// 이렇게 Map만 만들어주는 것이다 
+	m_TileMap = CreateMap<CTileMap>("TileMap");
+
+}
+
+void CEditorScene::SetTileInfo(int CountX, int CountY, int SizeX, int SizeY)
+{
+	m_TileMap->CreateTile(CountX, CountY, 
+		Vector2((float)SizeX, (float)SizeY));
+}
+
+void CEditorScene::SetTileTexture(CTexture* Texture)
+{
+	m_TileMap->SetTileTexture(Texture);
 }
 
 void CEditorScene::LoadAnimationSequence()

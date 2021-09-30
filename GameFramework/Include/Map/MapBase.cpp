@@ -1,6 +1,10 @@
 #include "MapBase.h"
 
-CMapBase::CMapBase()
+CMapBase::CMapBase() :
+	m_Scene(nullptr),
+	m_ZOrder(0),
+	m_Enable(true),
+	m_Active(true)
 {
 }
 
@@ -14,7 +18,7 @@ void CMapBase::Start()
 
 bool CMapBase::Init()
 {
-	return false;
+	return true;
 }
 
 void CMapBase::Update(float DeltaTime)

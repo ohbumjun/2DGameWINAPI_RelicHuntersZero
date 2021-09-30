@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "../Object/EffectHit.h"
 #include "../Object/DamageFont.h"
+#include "../Map/MapBase.h"
 
 CScene::CScene()
 {
@@ -39,6 +40,16 @@ CScene::~CScene()
 		SAFE_RELEASE(m_UIArray[i]);
 	}
 	SAFE_DELETE_ARRAY(m_UIArray);
+
+	{
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE((*iter));
+		}
+		m_MapList.clear();
+	}
 
 	m_ObjList.clear();
 	m_mapPrototype.clear();
@@ -255,6 +266,52 @@ bool CScene::PostUpdate(float DeltaTime)
 
 	m_Camera->Update(DeltaTime);
 
+	// TileMap Update는 PostUpdate에서 하자.
+	// 단, Render는 반드시 Map을 먼저 시켜야 한다
+	// 왜냐하면, 여기서 카메라가 update 되기 때문이다 
+	{
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
+		for (; iter != iterEnd;)
+		{
+			if (!(*iter)->IsActive())
+			{
+				SAFE_DELETE((*iter));
+				iter = m_MapList.erase(iter);
+				iterEnd = m_MapList.end();
+				continue;
+			}
+			else if ((*iter)->IsEnable())
+			{
+				++iter;
+				continue;
+			}
+			(*iter)->Update(DeltaTime);
+			++iter;
+		}
+	}
+	{
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
+		for (; iter != iterEnd;)
+		{
+			if (!(*iter)->IsActive())
+			{
+				SAFE_DELETE((*iter));
+				iter = m_MapList.erase(iter);
+				iterEnd = m_MapList.end();
+				continue;
+			}
+			else if ((*iter)->IsEnable())
+			{
+				++iter;
+				continue;
+			}
+			(*iter)->PostUpdate(DeltaTime);
+			++iter;
+		}
+	}
+
 	return false;
 }
 
@@ -325,6 +382,28 @@ bool CScene::Collision(float DeltaTime)
 
 bool CScene::Render(HDC hDC)
 {
+	{
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
+		for (; iter != iterEnd;)
+		{
+			if (!(*iter)->IsActive())
+			{
+				SAFE_DELETE((*iter));
+				iter = m_MapList.erase(iter);
+				iterEnd = m_MapList.end();
+				continue;
+			}
+			else if ((*iter)->IsEnable())
+			{
+				++iter;
+				continue;
+			}
+			(*iter)->Render(hDC);
+			++iter;
+		}
+	}
+
 	if (m_Player)
 	{
 		m_Player->PrevRender();

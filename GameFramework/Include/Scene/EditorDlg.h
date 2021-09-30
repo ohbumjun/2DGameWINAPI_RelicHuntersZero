@@ -1,6 +1,7 @@
 #pragma once
 
 #include"../GameInfo.h"
+#include "../Resource/Texture.h"
 
 class CEditorDlg
 {
@@ -13,6 +14,19 @@ private :
 	HWND m_hDlg;
 	int  m_ID;
 	bool m_Open;
+	// 자기가 열려있는 scene이 어디인지 알고 있게 하기
+	class CEditorScene* m_Scene;
+
+	// Button, ListBos 등 하나하나가 다 window 이다
+	// 즉, 각각마다 window handle이 나온다
+	// 따라서, 해당 window handle들을 통해
+	// dialog 내 각각의 요소를 constrol할 수 있다.
+	HWND  m_TextureListBox;
+	int   m_SelectTextureListIndex;
+	TCHAR m_SelectTextureListText[256];
+
+	// 선택한 Texture 정보
+	CSharedPtr<CTexture> m_SelectTileTexture;
 
 public :
 	bool IsOpen() const
@@ -26,6 +40,10 @@ public :
 		GetWindowRect(m_hDlg, &rc);
 		return rc;
 	}
+	void SetScene(class CEditorScene* Scene)
+	{
+		m_Scene = Scene;
+	}
 
 public :
 	// 이 녀석도 window
@@ -33,6 +51,11 @@ public :
 	// 따라서 message procedure가 필요하다 
 	bool Init(int ID);
 	void Show();
+	void CreateMap();
+	void LoadTileTexture();
+	void SelectTexture();
+	// ListBox에서 선택한 것을 저장해둘 것이다
+	void SelectList();
 	
 private :
 	// WindowProc is a user-defined callback function 
