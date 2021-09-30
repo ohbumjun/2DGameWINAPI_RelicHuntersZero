@@ -204,6 +204,7 @@ void CEditorDlg::SelectTexture()
 		// TextureName에 해당하는 Texture를 가져온다 
 		m_SelectTileTexture = m_Scene->GetSceneResource()->FindTexture(TextureName);
 	
+		//
 		m_Scene->CreateTileMap();
 		m_Scene->SetTileTexture(m_SelectTileTexture);
 	
