@@ -663,7 +663,7 @@ void CGameObject::Render(HDC hDC)
 
 CGameObject* CGameObject::Clone()
 {
-	return nullptr;
+	return new CGameObject(*this);
 }
 
 float CGameObject::SetDamage(float Damage)

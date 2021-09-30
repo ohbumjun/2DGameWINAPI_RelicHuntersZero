@@ -299,6 +299,7 @@ public:
 	template <typename T>
 	T* AddCollider(const std::string& Name)
 	{
+
 		T* Collider = new T;
 
 		Collider->SetName(Name);

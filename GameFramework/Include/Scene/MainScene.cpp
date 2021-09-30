@@ -58,19 +58,16 @@ bool CMainScene::Init()
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	// Player
-	/*
 	CPlayer* Player = CreatePlayer("Player",Vector2(230.f,230.f));
 	SetPlayer(Player);
-	*/
 
-	// Monsters
+	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster* Monster = CreateObject<CMonster>("Monster", "MonsterProto", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	/*
-
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);

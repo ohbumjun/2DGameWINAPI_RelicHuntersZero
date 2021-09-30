@@ -52,10 +52,28 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_DeathAnimationTime = 0.f;
 	m_SkillDestoryAllAttackEnable = false;
 	m_SkillDestoryAllAttackTime = 0.f;
+
+	// CGAmeObject에서 m_WidgetComponentList들이 모두 복사되어 있을 것이다
+	// 아래의 Widget들은 CShared Ptr이기 때문에, m_WidgetComponentList들과 공유된 형태여야 한다
+	// 따라서, m_WidgetComponentList들을 돌면서, 해당 Widget 사항에 세팅해준다
+	auto iter = obj.m_WidgetComponentList.begin();
+	auto iterEnd = obj.m_WidgetComponentList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+			m_HPBarWidget = (*iter);
+		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+			m_MPBarWidget = (*iter);
+		if ((*iter)->GetName() == PLAYER_NAMEWIDGET_COMPONENET)
+			m_NameWidget = (*iter);
+	}
+
 }
 
 CPlayer::~CPlayer()
 {
+	SAFE_DELETE(m_TeleportObj);
 }
 
 void CPlayer::Start()
@@ -192,27 +210,21 @@ bool CPlayer::Init()
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 
 	// MPBar
-	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
+	m_MPBarWidget = CreateWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
 	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -85.f);
 
-	CWidgetComponent *NameWidget = CreateWidgetComponent("NameWidget");
+	auto iter = m_WidgetComponentList.begin();
 
-	CUIText *NameText = NameWidget->CreateWidget<CUIText>("NameText");
+	m_NameWidget = CreateWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
+
+	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
 
 	NameText->SetText(TEXT("Lucid"));
 	NameText->SetTextColor(255, 0, 0);
 
-	NameWidget->SetPos(-25.f, -115.f);
-
-	// Info ---
-	// MP,HP Setting
-	m_CharacterInfo.MP = 5;
-	m_CharacterInfo.MPMax = 5;
-
-	m_CharacterInfo.HP = 1000;
-	m_CharacterInfo.HPMax = 1000;
+	m_NameWidget->SetPos(-25.f, -115.f);
 
 	return true;
 }
