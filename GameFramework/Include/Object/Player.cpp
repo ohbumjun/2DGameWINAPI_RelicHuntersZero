@@ -242,9 +242,10 @@ void CPlayer::Update(float DeltaTime)
 	MoveWithinWorldResolution();
 
 	// 몬스터와의 충돌 여부 파악
-	int MonsterDamage = MonsterCollisionCheck();
-	if (MonsterDamage !=- 1)
+	CGameObject* CollideMonster = MonsterCollisionCheck();
+	if (CollideMonster)
 	{
+		float MonsterDamage = CollideMonster->GetAttack();
 		// Damage Font 
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 		MonsterDamage -= m_CharacterInfo.Armor;
@@ -253,7 +254,8 @@ void CPlayer::Update(float DeltaTime)
 		SetDamage((float)MonsterDamage);
 
 		// 튕겨져 나가기 
-		CollideBounceBack();
+		Vector2 MonsterDir = CollideMonster->GetDir();
+		CollideBounceBack(Vector2(MonsterDir.x,MonsterDir.y));
 	}
 
 	if (m_SkillSlowMotionAttackEnable)
@@ -295,7 +297,7 @@ void CPlayer::Update(float DeltaTime)
 	if (m_DashEnable)
 	{
 		if (ObstacleCollisionCheck())
-			CollideBounceBack();
+			CollideBounceBack(Vector2(-m_Dir.x,-m_Dir.y));
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
 		if (m_DashTime <= 0)
@@ -580,7 +582,7 @@ void CPlayer::DashEnd()
 	SetMoveSpeed(NORMAL_SPEED);
 }
 
-void CPlayer::CollideBounceBack()
+void CPlayer::CollideBounceBack(Vector2 Dir)
 {
 	// 벽에 대시한 경우( 어떤 충돌체와 충돌하던 뒤로 밀려난다 ) + 해당 collider가 mouse type이 아니어야 한다
 	// 대시중 충돌 여부 확인
@@ -588,7 +590,7 @@ void CPlayer::CollideBounceBack()
 	// 충돌한 대상이 몬스터인지, 장애물인지, 등등 
 	// 지금은 우선 이렇게 단순하게 세팅하자.
 	// 이동 방향 반대로 이동시키기
-	Vector2 OppDir = Vector2(-m_Dir.x, -m_Dir.y);
+	Vector2 OppDir = Dir;
 	OppDir.Normalize();
 	SetStunDir(OppDir);
 	DashEnd();
@@ -719,19 +721,19 @@ bool CPlayer::ObstacleCollisionCheck() const
 	return false;
 }
 
-int CPlayer::MonsterCollisionCheck()
+CGameObject* CPlayer::MonsterCollisionCheck()
 {
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		int MonsterDamage = (*iter)->IsCollisionWithMonster();
-		if (MonsterDamage != -1)
+		CGameObject* Monster = (*iter)->IsCollisionWithMonster();
+		if (Monster)
 		{
-			return MonsterDamage;
+			return Monster;
 		}
 	}
-	return -1;
+	return nullptr;
 }
 
 Vector2 CPlayer::GetColliderPos()
