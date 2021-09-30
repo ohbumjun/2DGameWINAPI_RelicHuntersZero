@@ -63,7 +63,7 @@ public:
 
 	CUIWidget* GetWidget()	const
 	{
-		return m_Widget;	
+		return m_Widget;
 	}
 
 public:
