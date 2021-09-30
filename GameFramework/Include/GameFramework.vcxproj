@@ -189,6 +189,7 @@
     <ClCompile Include="Resource\Sound.cpp" />
     <ClCompile Include="Resource\Texture.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
+    <ClCompile Include="Scene\EditorDlg.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Scene\HomeScene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Resource\Sound.h" />
     <ClInclude Include="Resource\Texture.h" />
     <ClInclude Include="Scene\Camera.h" />
+    <ClInclude Include="Scene\EditorDlg.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Scene\HomeScene.h" />
     <ClInclude Include="Scene\MainScene.h" />
