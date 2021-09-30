@@ -205,7 +205,7 @@ bool CPlayer::Init()
 
 	// Widget --- 
 	// HPBar 
-	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
+	m_HPBarWidget = CreateWidgetComponent(PLAYER_HPWIDGET_COMPONENET);
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
