@@ -270,8 +270,9 @@ bool CScene::PostUpdate(float DeltaTime)
 	// 단, Render는 반드시 Map을 먼저 시켜야 한다
 	// 왜냐하면, 여기서 카메라가 update 되기 때문이다 
 	{
-		auto iter = m_MapList.begin();
-		auto iterEnd = m_MapList.end();
+		auto	iter = m_MapList.begin();
+		auto	iterEnd = m_MapList.end();
+
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())
@@ -281,18 +282,22 @@ bool CScene::PostUpdate(float DeltaTime)
 				iterEnd = m_MapList.end();
 				continue;
 			}
-			else if ((*iter)->IsEnable())
+
+			else if (!(*iter)->IsEnable())
 			{
 				++iter;
 				continue;
 			}
+
 			(*iter)->Update(DeltaTime);
 			++iter;
 		}
 	}
+
 	{
-		auto iter = m_MapList.begin();
-		auto iterEnd = m_MapList.end();
+		auto	iter = m_MapList.begin();
+		auto	iterEnd = m_MapList.end();
+
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())
@@ -302,11 +307,13 @@ bool CScene::PostUpdate(float DeltaTime)
 				iterEnd = m_MapList.end();
 				continue;
 			}
-			else if ((*iter)->IsEnable())
+
+			else if (!(*iter)->IsEnable())
 			{
 				++iter;
 				continue;
 			}
+
 			(*iter)->PostUpdate(DeltaTime);
 			++iter;
 		}
@@ -383,8 +390,9 @@ bool CScene::Collision(float DeltaTime)
 bool CScene::Render(HDC hDC)
 {
 	{
-		auto iter = m_MapList.begin();
-		auto iterEnd = m_MapList.end();
+		auto	iter = m_MapList.begin();
+		auto	iterEnd = m_MapList.end();
+
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())
@@ -394,11 +402,13 @@ bool CScene::Render(HDC hDC)
 				iterEnd = m_MapList.end();
 				continue;
 			}
-			else if ((*iter)->IsEnable())
+
+			else if (!(*iter)->IsEnable())
 			{
 				++iter;
 				continue;
 			}
+
 			(*iter)->Render(hDC);
 			++iter;
 		}
