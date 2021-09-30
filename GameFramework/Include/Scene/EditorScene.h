@@ -11,7 +11,7 @@ private:
 
 private:
 	bool m_Start;
-	bool m_OpenEditor;
+	class CEditorDlg* m_Dlg;
 
 public :
 	virtual bool Init();
