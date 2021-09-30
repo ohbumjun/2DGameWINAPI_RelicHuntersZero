@@ -175,5 +175,28 @@ public:
 
 		return nullptr;
 	}
+
+	template <typename T>
+	T* CreateMap(const std::string& Name,
+		const Vector2& Pos = Vector2(0.f, 0.f),
+		const Vector2& Size = Vector2(1000.f, 1000.f))
+	{
+		T* Map = new T;
+
+		Map->SetScene(this);
+		Map->SetPos(Pos);
+		Map->SetSize(Size);
+		Map->SetName(Name);
+
+		if (!Map->Init())
+		{
+			SAFE_DELETE(Map);
+			return nullptr;
+		}
+
+		m_MapList.push_back(Map);
+
+		return Map;
+	}
 };
 

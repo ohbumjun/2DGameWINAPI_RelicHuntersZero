@@ -242,7 +242,7 @@ void CInput::Update(float DeltaTime)
 	}
 	else
 	{
-		// 안에 안들어왔는데 안보이고 있다면 
+		// 안에 "안"들어왔는데 안보이고 있다면 
 		if (!IsShowCursor())
 		{
 			// 보이게 처리하기
@@ -252,9 +252,7 @@ void CInput::Update(float DeltaTime)
 	}
 
 	UpdateKeyState();
-
 	UpdateMouse(DeltaTime);
-
 	UpdateKeyInfo(DeltaTime);
 
 	m_vecMouseImage[m_MouseType]->Update(DeltaTime);
