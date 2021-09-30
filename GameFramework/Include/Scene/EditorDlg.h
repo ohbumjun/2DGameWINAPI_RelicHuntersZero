@@ -12,6 +12,20 @@ private :
 	// 있어야 한다 
 	HWND m_hDlg;
 	int  m_ID;
+	bool m_Open;
+
+public :
+	bool IsOpen() const
+	{
+		return m_Open;
+	}
+	RECT GetRect() const 
+	{
+		RECT rc;
+		// Dialog 크기만큼의 RECT 를 얻어온다 
+		GetWindowRect(m_hDlg, &rc);
+		return rc;
+	}
 
 public :
 	// 이 녀석도 window

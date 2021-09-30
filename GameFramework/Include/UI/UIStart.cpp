@@ -4,6 +4,7 @@
 #include "UIImage.h"
 #include "../GameManager.h"
 #include "../Scene/HomeScene.h"
+#include "../Scene/EditorScene.h"
 #include "../Scene/SceneManager.h"
 #include "UIText.h"
 
@@ -105,4 +106,5 @@ void CUIStart::ExitClick()
 
 void CUIStart::EditorClick()
 {
+	CSceneManager::GetInst()->CreateScene<CEditorScene>();
 }

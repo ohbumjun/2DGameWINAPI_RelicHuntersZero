@@ -3,7 +3,8 @@
 
 CEditorDlg::CEditorDlg() :
 	m_ID(0),
-	m_hDlg(0)
+	m_hDlg(0),
+	m_Open(false)
 {
 }
 
@@ -45,15 +46,43 @@ bool CEditorDlg::Init(int ID)
 	부모 윈도우의 핸들
 
 	*/
+
+
+	// 다이얼로그를 나오게 하기
+	ShowWindow(m_hDlg, SW_SHOW);
 	
 	return true;
 }
 
 void CEditorDlg::Show()
 {
+	if (m_Open)
+	{
+		m_Open = false;
+		ShowWindow(m_hDlg, SW_HIDE);
+	}
+	else
+	{
+		m_Open = true;
+		ShowWindow(m_hDlg, SW_SHOW);
+	}
 }
+
 
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	switch (message)
+	{
+	case WM_CLOSE :
+		DestroyWindow(hWnd);
+		break;
+
+	case WM_DESTROY : // 윈도우를 지웠다면 아에 종료시키기
+		PostQuitMessage(0);
+		break;
+	default:
+		break;
+	}
+
+	return 0;
 }
