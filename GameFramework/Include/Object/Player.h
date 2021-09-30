@@ -92,10 +92,10 @@ private:
 private :
 	bool CollisionCheck();
 	bool ObstacleCollisionCheck() const ;
-	int MonsterCollisionCheck();
+	CGameObject* MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();
-	void CollideBounceBack();
+	void CollideBounceBack(Vector2 Dir);
 
 
 // Stun ---

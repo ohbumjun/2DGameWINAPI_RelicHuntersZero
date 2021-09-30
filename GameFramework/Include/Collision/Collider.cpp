@@ -38,7 +38,7 @@ CCollider::~CCollider()
 	}
 }
 
-int CCollider::IsCollisionWithMonster()
+CGameObject* CCollider::IsCollisionWithMonster()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
@@ -47,10 +47,10 @@ int CCollider::IsCollisionWithMonster()
 		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster)
 		{
 			// Damage를 얻어온다 
-			return (*iter)->GetOwner()->GetAttack();
+			return (*iter)->GetOwner();
 		}
 	}
-	return -1;
+	return nullptr;
 }
 
 CPlayer* CCollider::IsCollisionWithPlayer()
