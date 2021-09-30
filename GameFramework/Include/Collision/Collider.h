@@ -97,6 +97,7 @@ public:
 	{
 		return m_CollisionList.empty();
 	}
+	bool DidCollideWithObstacles() const;
 
 public:
 	void SetCollisionProfile(const std::string& Name);

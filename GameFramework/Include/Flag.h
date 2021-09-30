@@ -53,6 +53,7 @@ enum class EObject_Type
 	Monster,
 	Player,
 	Potion,
+	Obstacle,
 	Equipment,
 	Bullet,
 	Effect

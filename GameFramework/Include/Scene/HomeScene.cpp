@@ -24,7 +24,7 @@ bool CHomeScene::Init()
 	LoadAnimationSequence();
 
 	// Objects
-	CPlayer* Player = CreatePlayer("Player",Vector2(400.f,200.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
 
 
