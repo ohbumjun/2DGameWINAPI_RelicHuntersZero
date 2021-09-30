@@ -517,11 +517,18 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->SetScene(this);
+			if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+				Player->m_HPBarWidget = (*iter);
+			if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+				Player->m_MPBarWidget = (*iter);
+			if ((*iter)->GetName() == PLAYER_NAMEWIDGET_COMPONENET)
+				Player->m_NameWidget = (*iter);
 		}
-
+		/*
 		Player->m_HPBarWidget   = Player->FindWidgetComponent(PLAYER_HPWIDGET_COMPONENET);
 		Player->m_MPBarWidget   = Player->FindWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
 		Player->m_NameWidget    = Player->FindWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
+		*/
 	}
 
 	m_ObjList.push_back(Player);
