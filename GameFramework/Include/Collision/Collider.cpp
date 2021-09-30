@@ -77,6 +77,19 @@ CPotion* CCollider::IsCollisionWithPotion()
 	return nullptr;
 }
 
+bool CCollider::DidCollideWithObstacles() const
+{
+	auto iter   = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		EObject_Type OwnerObjType = (*iter)->GetOwner()->GetObjType();
+		if (OwnerObjType == EObject_Type::Monster ||OwnerObjType == EObject_Type::Obstacle) 
+			return true;
+	}
+	return false;
+}
+
 void CCollider::SetCollisionProfile(const std::string& Name)
 {
 	m_Profile = CCollisionManager::GetInst()->FindProfile(Name);

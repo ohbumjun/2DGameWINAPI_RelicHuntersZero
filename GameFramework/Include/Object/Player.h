@@ -91,6 +91,7 @@ private:
 // Collision ---
 private :
 	bool CollisionCheck();
+	bool ObstacleCollisionCheck() const ;
 	int MonsterCollisionCheck();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 	Vector2 GetColliderPos();

@@ -294,7 +294,7 @@ void CPlayer::Update(float DeltaTime)
 	// Dash
 	if (m_DashEnable)
 	{
-		if (CollisionCheck())
+		if (ObstacleCollisionCheck())
 			CollideBounceBack();
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
@@ -449,7 +449,7 @@ void CPlayer::MoveRight(float DeltaTime)
 
 void CPlayer::Move(const Vector2& Dir)
 {
-	if (CollisionCheck())
+	if (ObstacleCollisionCheck())
 	{
 		// 그외 충돌시 효과 추가하기 
 		// 이렇게 하면, Dash중에 충돌 날시, Move를 멈춘다
@@ -467,7 +467,7 @@ void CPlayer::Move(const Vector2& Dir)
 
 void CPlayer::Move(const Vector2& Dir, float Speed)
 {
-	if (CollisionCheck())
+	if (ObstacleCollisionCheck())
 	{
 		// 그외 충돌시 효과 추가하기 
 		if (m_DashEnable) return;
@@ -527,6 +527,7 @@ void CPlayer::RunEnd()
 {
 	if (!m_RunEnable)
 		return;
+
 	m_RunEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
 
@@ -702,6 +703,19 @@ bool CPlayer::CollisionCheck()
 			return true;
 		}
 	}
+	return false;
+}
+
+bool CPlayer::ObstacleCollisionCheck() const
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->DidCollideWithObstacles()) return true;
+	}
+
 	return false;
 }
 
