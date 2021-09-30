@@ -61,7 +61,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 	for (; iter != iterEnd; ++iter)
 	{
-		// 
 		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
 			m_HPBarWidget = (*iter);
 		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
