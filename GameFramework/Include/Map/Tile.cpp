@@ -65,11 +65,15 @@ void CTile::Render(HDC hDC)
 
 	}
 
+		CCamera* Camera = CSceneManager::GetInst()->GetScene()->GetCamera();
+		Vector2 CameraPos = Camera->GetPos();
+
+
 		RECT rc;
-		rc.left   = (LONG)m_Pos.x;
-		rc.top    = (LONG)m_Pos.y;
-		rc.right  = (LONG)m_Pos.x + (LONG)m_Size.x;
-		rc.bottom = (LONG)m_Pos.x + (LONG)m_Size.y;
+		rc.left   = (LONG)m_Pos.x - (LONG)CameraPos.x;
+		rc.top    = (LONG)m_Pos.y - (LONG)CameraPos.y;
+		rc.right  = (LONG)m_Pos.x + (LONG)m_Size.x - (LONG)CameraPos.x;
+		rc.bottom = (LONG)m_Pos.x + (LONG)m_Size.y - (LONG)CameraPos.y;
 
 		FrameRect(hDC,&rc,Brush);
 
