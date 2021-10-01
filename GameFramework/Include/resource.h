@@ -16,6 +16,17 @@
 #define IDC_LIST_TILETEXTURE            1011
 #define IDC_BUTTON_SETTEXTURE           1012
 #define IDC_COMBO_EDITMODE              1014
+#define IDC_COMBO_TILEOPTION            1015
+#define IDC_LIST_TEXTUREFRAME           1016
+#define IDC_BUTTON_ADDFRAME             1017
+#define IDC_EDIT_STARTFRAMEX            1018
+#define IDC_EDIT_ENDFRAMEX              1019
+#define IDC_EDIT_STARTFRAMEY            1020
+#define IDC_EDIT_ENDFRAMEY              1021
+#define IDC_BUTTON_DELETEFRAME          1022
+#define IDC_BUTTON_DELETEFRAME2         1023
+#define IDC_BUTTON_EDITFRAME            1023
+#define IDC_BUTTON_MODIFYFRAME          1023
 
 // Next default values for new objects
 // 
@@ -23,7 +34,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        110
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1015
+#define _APS_NEXT_CONTROL_VALUE         1018
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -40,5 +40,7 @@ public :
 	void CameraMoveRight(float DeltaTime);
 	void CameraMoveLeft(float DeltaTime);
 
+	void MouseLButton(float DeltaTime);
+	void MouseRButton(float DeltaTime);
 };
 

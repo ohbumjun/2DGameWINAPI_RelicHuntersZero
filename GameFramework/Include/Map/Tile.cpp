@@ -40,7 +40,7 @@ void CTile::Render(HDC hDC)
 		CCamera* Camera = CSceneManager::GetInst()->GetScene()->GetCamera();
 		Vector2 CameraPos = Camera->GetPos();
 
-		// World 상 위치 
+		// World 상 위치 x --> 현재 창 내의 위치 
 		m_Texture->Render(hDC,
 			m_Pos-CameraPos,
 			Vector2(0.f,0.f),
@@ -50,7 +50,6 @@ void CTile::Render(HDC hDC)
 	if (CGameManager::GetInst()->IsEditorMode())
 	{
 		HBRUSH Brush = 0;
-
 		switch (m_Option)
 		{
 		case ETileOption::Normal:
@@ -67,7 +66,6 @@ void CTile::Render(HDC hDC)
 
 		CCamera* Camera = CSceneManager::GetInst()->GetScene()->GetCamera();
 		Vector2 CameraPos = Camera->GetPos();
-
 
 		RECT rc;
 		rc.left   = (LONG)m_Pos.x - (LONG)CameraPos.x;

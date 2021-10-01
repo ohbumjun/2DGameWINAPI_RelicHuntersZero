@@ -108,6 +108,23 @@ bool CTileMap::SetTileTexture(CTexture* Texture, int IndexX, int IndexY)
     return true;
 }
 
+void CTileMap::ChangeTileOption(const Vector2& Pos, ETileOption Option)
+{
+    CTile* Tile = GetTile(Pos);
+    if (!Tile) return;
+    Tile->SetTileOption(Option);
+}
+
+CTile* CTileMap::GetTile(const Vector2& Pos)
+{
+    // 해당 위치에 있는 Tile 정보를 가져온다 
+    int IndexX = (int)(Pos.x / m_TileSize.x);
+    int IndexY = (int)(Pos.y / m_TileSize.y);
+    if (IndexX < 0 || IndexX >= m_TileCountX) return nullptr;
+    if (IndexY < 0 || IndexY >= m_TileCountY) return nullptr;
+    return m_vecTile[IndexY * m_TileCountX + IndexX];
+}
+
 void CTileMap::Start()
 {
     CMapBase::Start();

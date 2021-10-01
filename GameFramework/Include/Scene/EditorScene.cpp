@@ -59,12 +59,18 @@ bool CEditorScene::Update(float DeltaTime)
 			this, &CEditorScene::CameraMoveLeft);
 		CInput::GetInst()->SetCallback<CEditorScene>("MoveRight", KeyState_Push,
 			this, &CEditorScene::CameraMoveRight);
+		
+		CInput::GetInst()->SetCallback<CEditorScene>("MouseLButton", KeyState_Push,
+			this, &CEditorScene::MouseLButton);
+		CInput::GetInst()->SetCallback<CEditorScene>("MouseRButton", KeyState_Push,
+			this, &CEditorScene::MouseRButton);
 
 	}
 
 	// Dialog 창 안에서도, 마우스 커서 보이게 하기 
 	RECT rc = m_Dlg->GetRect();
 	POINT ptMouse;
+
 	// Screen 좌표로 나온다
 	GetCursorPos(&ptMouse);
 
@@ -150,6 +156,53 @@ void CEditorScene::CameraMoveLeft(float DeltaTime)
 {
 	CCamera* Camera = GetCamera();
 	Camera->Move(Vector2(01.f, 0.f) * m_ScrollSpeed * DeltaTime);
+}
+
+void CEditorScene::MouseLButton(float DeltaTime)
+{
+	if (!m_TileMap) return;
+
+	// Tile 각각과 마우스간의 Z 충돌을 해야 한다 
+	// Tile 각각의 idx X,Y를 구해야 한다
+	// 하나TileSize 로 해당 Tile의 World 위치를 나누면 나온다
+	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
+	
+	// Mouse Pos
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	
+	// 카메라 Pos를 더해줘서 World 상 위치를 구한다.
+	CCamera* Camera = GetCamera();
+	MousePos += Camera->GetPos();
+
+	switch (EditMode)
+	{
+		// 옵션 편집 
+	case ETileEditMode::Option:
+	{
+		// 어떤 Tile Option을 선택했는지
+		ETileOption Option = m_Dlg->GetTileOption();
+		m_TileMap->ChangeTileOption(MousePos, Option);
+	}
+		break;
+	case ETileEditMode::Image:
+		break;
+	case ETileEditMode::End:
+		break;
+	default:
+		break;
+	}
+}
+
+void CEditorScene::MouseRButton(float DeltaTime)
+{
+	if (!m_TileMap) return;
+	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	CCamera* Camera = GetCamera();
+	MousePos += Camera->GetPos();
+
+	// 되돌리기 기능
+	m_TileMap->ChangeTileOption(MousePos,ETileOption::Normal);
 }
 
 void CEditorScene::LoadAnimationSequence()
