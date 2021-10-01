@@ -3,6 +3,17 @@
 #include"../GameInfo.h"
 #include "../Resource/Texture.h"
 
+struct TileFrameData
+{
+	Vector2 Start;
+	Vector2 End;
+};
+
+struct TileTextureFrameData
+{
+	std::vector<TileFrameData> vecData;
+};
+
 class CEditorDlg
 {
 public :
@@ -24,18 +35,33 @@ private :
 	HWND  m_TextureListBox;
 	int   m_SelectTextureListIndex;
 	TCHAR m_SelectTextureListText[256];
-
 	// 선택한 Texture 정보
 	CSharedPtr<CTexture> m_SelectTileTexture;
+	// Texture가 추가될때마다, 얘가 하나씩 추가된다
+	std::vector<TileTextureFrameData> m_vecTextureFrameData;
+
 
 	// ComboBox용 핸들
 	// Dialog 안의 각 요소들도 Window !
 	HWND m_EditModeCombo;
-
 	// 현재 어떤 Edit의 편집 Mode 가 선택되어 있는지
 	ETileEditMode m_TileEditMode;
 
+	HWND m_TileOptionCombo;
+	ETileOption m_TileOption;
+
+	// ListBox를 하나 들고 있게 한다
+	HWND m_FrameListBox;
+	// 현재 선택한 Frame 번호
+	int m_SelectFrameIndex;
+
+
 public :
+	ETileOption GetTileOption() const
+	{
+		// 선택한 idx를 return 해준다 
+		return (ETileOption)SendMessage(m_TileOptionCombo, CB_GETCURSEL, 0, 0);
+	}
 	ETileEditMode GetTileEditMode() const
 	{
 		return m_TileEditMode;
@@ -69,7 +95,12 @@ public :
 	void SelectTexture();
 	// ListBox에서 선택한 것을 저장해둘 것이다
 	void SelectList();
-	
+
+	void AddFrame();
+	void DeleteFrame();
+	void ModifyFrame();
+	void ChangeFrame();
+
 private :
 	// WindowProc is a user-defined callback function 
 	// that processes messages sent to a window

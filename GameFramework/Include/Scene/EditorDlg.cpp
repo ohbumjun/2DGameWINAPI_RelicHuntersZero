@@ -15,7 +15,8 @@ CEditorDlg::CEditorDlg() :
 	m_hDlg(0),
 	m_Open(false),
 	m_Scene(nullptr),
-	m_SelectTextureListText{}
+	m_SelectTextureListText{},
+	m_SelectFrameIndex(-1)
 {
 	g_Dlg = this;
 }
@@ -72,8 +73,18 @@ bool CEditorDlg::Init(int ID)
 	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEX,40,TRUE);
 	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEY,53,TRUE);
 
-	// 해당 ListBox의 핸들을 얻어온 것이다
+	// TileFrameData Setting
+	SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEX, 0, TRUE);
+	SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEY, 0, TRUE);
+
+	// 타일 하나당 40 * 53 
+	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, 40, TRUE);
+	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, 53, TRUE);
+
+	// 해당 ListBox의 핸들을 얻어온 것이다(왼쪽)
 	m_TextureListBox = GetDlgItem(m_hDlg,IDC_LIST_TILETEXTURE);
+	// 오른쪽
+	m_FrameListBox = GetDlgItem(m_hDlg, IDC_LIST_TEXTUREFRAME);
 
 	// 처음에는 ListBox에 load 된 texture 중 어떤 것도
 	// 선택되어 있지 않다
@@ -82,8 +93,8 @@ bool CEditorDlg::Init(int ID)
 
 	// Dialog 받아놓기
 	m_EditModeCombo = GetDlgItem(m_hDlg, IDC_COMBO_EDITMODE);
-	
-	TCHAR TileEditMode[(int)ETileEditMode::End][30] =
+
+	TCHAR	TileEditMode[(int)ETileEditMode::End][30] =
 	{
 		TEXT("타일옵션"),
 		TEXT("타일이미지")
@@ -91,15 +102,31 @@ bool CEditorDlg::Init(int ID)
 
 	for (int i = 0; i < (int)ETileEditMode::End; ++i)
 	{
-		// CB_ADDSTRING : 콤보 박스에 string을 추가하겠다
-		SendMessage(m_EditModeCombo, CB_ADDSTRING,
-			0, (LPARAM)TileEditMode[i]);
+		SendMessage(m_EditModeCombo, CB_ADDSTRING, 0, (LPARAM)TileEditMode[i]);
 	}
 
-	// 기본적으로 0번이 선택되어 있게 해라
-	SendMessage(m_EditModeCombo,CB_SETCURSEL,0,0);
+	SendMessage(m_EditModeCombo, CB_SETCURSEL, 0, 0);
 
 	m_TileEditMode = ETileEditMode::Option;
+
+
+	m_TileOptionCombo = GetDlgItem(m_hDlg, IDC_COMBO_TILEOPTION);
+
+	TCHAR	TileOptionText[(int)ETileOption::End][30] =
+	{
+		TEXT("Normal"),
+		TEXT("Wall"),
+		TEXT("Slow")
+	};
+
+	for (int i = 0; i < (int)ETileOption::End; ++i)
+	{
+		SendMessage(m_TileOptionCombo, CB_ADDSTRING, 0, (LPARAM)TileOptionText[i]);
+	}
+
+	SendMessage(m_TileOptionCombo, CB_SETCURSEL, 0, 0);
+
+	m_TileOption = ETileOption::Normal;
 
 	return true;
 }
@@ -195,6 +222,8 @@ void CEditorDlg::LoadTileTexture()
 		SendMessage(m_TextureListBox, LB_ADDSTRING,
 			0,(LPARAM)FileName);
 	
+		TileTextureFrameData data;
+		m_vecTextureFrameData.push_back(data);
 	}
 
 }
@@ -235,7 +264,7 @@ void CEditorDlg::SelectTexture()
 
 void CEditorDlg::SelectList()
 {
-	// m_TextureListBox : Listbox의 handle 정보가 들어있다.
+	// m_TextureListBox : TextureListbox의 handle 정보가 들어있다.
 	// LB_GETCURSEL : idx 얻어오기
 	// 선택한 애를 얻어오겠다 
 	m_SelectTextureListIndex = SendMessage(m_TextureListBox,
@@ -255,10 +284,98 @@ void CEditorDlg::SelectList()
 		SendMessage(m_TextureListBox, LB_GETTEXT, m_SelectTextureListIndex,
 			(LPARAM)m_SelectTextureListText);
 	
+		// 새로운 Texture를 선택할 때마다
+		// FrameListBox 안에 있는 녀석들을 싸그리 모두 지워버려야 한다
+
+		// LB_GETCOUNT : 항목이 몇개인가
+		int Count = (int)SendMessage(m_FrameListBox, LB_GETCOUNT, 0, 0);
+		// 항목 수만큼 m_FrameListBox 안에 들어있는 내용들을 지워준다 
+		for (int i = 0; i < Count; i++)
+		{
+			SendMessage(m_FrameListBox,LB_DELETESTRING,0,0);
+		}
+
+		// 새로운 항목들로 FrameListBox를 채운다
+		// 즉, Texture를 교체하면, 그에 맞는
+		// FrameData가 m_FrameListBox에 채워지게 해준다
+		size_t FrameBoxDataSize = m_vecTextureFrameData[m_SelectTextureListIndex].vecData.size();
+		for (size_t i = 0; i < FrameBoxDataSize; ++i)
+		{
+			TCHAR Text[32] = {};
+			wsprintf(Text, TEXT("%d"),(int)i);
+			SendMessage(m_FrameListBox, LB_ADDSTRING, 0, (LPARAM)Text);
+		}
+
+		// 새로운 Texture를 선택하면
+		// 해당 Texture의 새로운 FrameData 목록이
+		// 오른쪽 Frame List Box에 들어오게 될 것이고
+		// 현재 선택한 Frame 번호에 대한 정보를 담은
+		// m_SelectFrameIndex는 -1로 다시 초기화 해준다
+		m_SelectFrameIndex = -1;
 	}
 
 }
 
+void CEditorDlg::AddFrame()
+{
+	// 선택된 Texture가 없다면 return;
+	if (m_SelectTextureListIndex == -1) return;
+	
+	BOOL Transfer = FALSE;
+
+	// 입력한 시작,끝 프레임 정보를 가져온다 
+	int	StartFrameX = GetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEX, &Transfer, TRUE);
+	int	StartFrameY = GetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEY, &Transfer, TRUE);
+	int	EndFrameX = GetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, &Transfer, TRUE);
+	int	EndFrameY = GetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, &Transfer, TRUE);
+
+	TileFrameData Data;
+	Data.Start.x = (float)StartFrameX;
+	Data.Start.y = (float)StartFrameY;
+	Data.End.x = (float)EndFrameX;
+	Data.End.y = (float)EndFrameY;
+
+	TCHAR Text[32] = {};
+	// list에 0,1,2,3 차례대로 들어가게 된다
+	wsprintf(Text, TEXT("%d"), (int)m_vecTextureFrameData[m_SelectTextureListIndex].vecData.size());
+	SendMessage(m_FrameListBox,
+		LB_ADDSTRING, 0, (LPARAM)Text);
+	m_vecTextureFrameData[m_SelectTextureListIndex].vecData.push_back(Data);
+
+
+}
+
+void CEditorDlg::DeleteFrame()
+{
+}
+
+void CEditorDlg::ModifyFrame()
+{
+}
+
+void CEditorDlg::ChangeFrame()
+{
+	// m_TextureListBox : TextureListbox의 handle 정보가 들어있다.
+	// LB_GETCURSEL : idx 얻어오기
+	// 선택한 애를 얻어오겠다 
+	m_SelectTextureListIndex = SendMessage(m_TextureListBox,LB_GETCURSEL,0, 0);
+
+	if (m_SelectFrameIndex != -1)
+	{
+		// 선택한 Tile Frame Data를 가지고 온다.
+		TileFrameData Data = m_vecTextureFrameData[m_SelectTextureListIndex].vecData[m_SelectFrameIndex];
+
+		// TileFrameData Setting
+		SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEX, (int)Data.Start.x, TRUE);
+		SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEY, (int)Data.Start.y, TRUE);
+
+		// 타일 하나당 40 * 53 
+		SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, (int)Data.End.x, TRUE);
+		SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, (int)Data.End.y, TRUE);
+	}
+
+	
+}
 
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -289,6 +406,17 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 				break;
 			}
 			break;
+		case IDC_LIST_TEXTUREFRAME : // FrameListBox 
+			// cell이 바뀔때마다 들어온다 
+			switch (HIWORD(wParam))
+			{
+				// cell이 바뀔때마다 들어온다 
+			case LBN_SELCHANGE:
+			{
+				g_Dlg->ChangeFrame();
+			}
+			break;
+			}
 		case IDOK :
 			break;
 		case IDCANCEL:
@@ -305,6 +433,11 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		// 불러온 파일 중 선택하기
 		case IDC_BUTTON_SETTEXTURE:
 			g_Dlg->SelectTexture();
+			break;
+		// 프레임 추가 하기
+		case IDC_BUTTON_ADDFRAME:
+			g_Dlg->AddFrame();
+			break;
 		default:
 			break;
 		}

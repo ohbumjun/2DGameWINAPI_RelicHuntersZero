@@ -168,6 +168,8 @@ bool CInput::Init(HWND hWnd)
 
 	// Edit
 	CreateKey("Editor", VK_F1);
+	CreateKey("MouseLButton", VK_LBUTTON);
+	CreateKey("MouseRButton", VK_RBUTTON);
 
 	ShowCursor(FALSE);
 
