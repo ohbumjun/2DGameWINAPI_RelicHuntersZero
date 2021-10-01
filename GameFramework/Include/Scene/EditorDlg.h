@@ -50,7 +50,7 @@ private :
 	HWND m_TileOptionCombo;
 	ETileOption m_TileOption;
 
-	// ListBox를 하나 들고 있게 한다
+	// FrameData 목록이 들어있는 ListBox
 	HWND m_FrameListBox;
 	// 현재 선택한 Frame 번호
 	int m_SelectFrameIndex;
@@ -62,9 +62,19 @@ public :
 		// 선택한 idx를 return 해준다 
 		return (ETileOption)SendMessage(m_TileOptionCombo, CB_GETCURSEL, 0, 0);
 	}
+	TileFrameData GetTileFrameData()	const
+	{
+		// Texture가 선택되지 않았거나, 
+		// 선택한 Texture의 Frame을 선택하지 않았다면
+		if (m_SelectTextureListIndex == -1 ||
+			m_SelectFrameIndex == -1)
+			return TileFrameData(); // Default 생성자로 0,0 return;
+		return m_vecTextureFrameData[m_SelectTextureListIndex].vecData[m_SelectFrameIndex];
+	}
 	ETileEditMode GetTileEditMode() const
 	{
-		return m_TileEditMode;
+		// 현재 Dialogue 창에서 선택된 것을 바로 return 시킨다.
+		return (ETileEditMode)SendMessage(m_EditModeCombo, CB_GETCURSEL, 0, 0);
 	}
 
 public :

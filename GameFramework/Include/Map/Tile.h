@@ -19,6 +19,27 @@ private:
 	int		m_Index;
 	CSharedPtr<CTexture>	m_Texture;
 	ETileOption m_Option;
+	Vector2 m_StartFrame;
+	Vector2 m_EndFrame;
+
+public :
+	Vector2 GetStartFrame() const
+	{
+		return m_StartFrame;
+	}
+	Vector2 GetEndFrame() const
+	{
+		return m_EndFrame;
+	}
+	void SetStartFrame(const Vector2& Frame)
+	{
+		m_StartFrame = Frame;
+	}
+	void SetEndFrame(const Vector2& Frame)
+	{
+		m_EndFrame = Frame;
+	}
+
 public :
 	ETileOption GetTileOption() const
 	{
@@ -39,6 +60,8 @@ public:
 		m_IndexY = IndexY;
 		m_Index = Index;
 		m_Texture = Texture;
+
+		m_EndFrame = Size;
 	}
 
 	void SetTileTexture(CTexture* Texture)
