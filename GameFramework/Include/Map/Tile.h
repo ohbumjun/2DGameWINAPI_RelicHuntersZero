@@ -18,6 +18,16 @@ private:
 	int		m_IndexY;
 	int		m_Index;
 	CSharedPtr<CTexture>	m_Texture;
+	ETileOption m_Option;
+public :
+	ETileOption GetTileOption() const
+	{
+		return m_Option;
+	}
+	void SetTileOption(ETileOption Option)
+	{
+		m_Option = Option;
+	}
 
 public:
 	void SetTileInfo(const Vector2& Pos, const Vector2& Size,

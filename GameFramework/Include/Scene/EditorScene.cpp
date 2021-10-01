@@ -7,16 +7,20 @@
 #include "../Input.h"
 #include "EditorDlg.h"
 #include "../Map/TileMap.h"
+#include "../GameManager.h"
 
 CEditorScene::CEditorScene() :
 	m_Dlg(nullptr),
 	m_Start(false),
-	m_TileMap(nullptr)
+	m_TileMap(nullptr),
+	m_ScrollSpeed(500.f)
 {
+	CGameManager::GetInst()->SetEditorMode(true);
 }
 
 CEditorScene::~CEditorScene()
 {
+	CGameManager::GetInst()->SetEditorMode(false);
 	SAFE_DELETE(m_Dlg);
 }
 
@@ -46,6 +50,16 @@ bool CEditorScene::Update(float DeltaTime)
 		// Dialog 상에서 타일 생성하기 
 		CInput::GetInst()->SetCallback<CEditorScene>("Editor", KeyState_Down,
 			this, &CEditorScene::OnEditor);
+
+		CInput::GetInst()->SetCallback<CEditorScene>("MoveUp", KeyState_Push,
+			this, &CEditorScene::CameraMoveUp);
+		CInput::GetInst()->SetCallback<CEditorScene>("MoveDown", KeyState_Push,
+			this, &CEditorScene::CameraMoveDown);
+		CInput::GetInst()->SetCallback<CEditorScene>("MoveLeft", KeyState_Push,
+			this, &CEditorScene::CameraMoveLeft);
+		CInput::GetInst()->SetCallback<CEditorScene>("MoveRight", KeyState_Push,
+			this, &CEditorScene::CameraMoveRight);
+
 	}
 
 	// Dialog 창 안에서도, 마우스 커서 보이게 하기 
@@ -114,6 +128,30 @@ void CEditorScene::SetTileTexture(CTexture* Texture)
 	m_TileMap->SetTileTexture(Texture);
 }
 
+void CEditorScene::CameraMoveUp(float DeltaTime)
+{
+	CCamera* Camera = GetCamera();
+	Camera->Move(Vector2(-1.f, 0.f) * m_ScrollSpeed * DeltaTime);
+}
+
+void CEditorScene::CameraMoveDown(float DeltaTime)
+{
+	CCamera* Camera = GetCamera();
+	Camera->Move(Vector2(0.f, -1.f)*m_ScrollSpeed * DeltaTime);
+}
+
+void CEditorScene::CameraMoveRight(float DeltaTime)
+{
+	CCamera* Camera = GetCamera();
+	Camera->Move(Vector2(1.f, 0.f) * m_ScrollSpeed * DeltaTime);
+}
+
+void CEditorScene::CameraMoveLeft(float DeltaTime)
+{
+	CCamera* Camera = GetCamera();
+	Camera->Move(Vector2(01.f, 0.f) * m_ScrollSpeed * DeltaTime);
+}
+
 void CEditorScene::LoadAnimationSequence()
 {
 }
@@ -122,6 +160,5 @@ void CEditorScene::LoadSound()
 {
 	GetSceneResource()->LoadSound("UI", false, "ButtonMouseOn", "TeemoSmile.mp3");
 	GetSceneResource()->LoadSound("UI", false, "ButtonClick", "TeemoEditorClicck.mp3");
-
 	GetSceneResource()->SetVolume("UI", 3);
 }

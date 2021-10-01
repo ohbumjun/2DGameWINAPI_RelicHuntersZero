@@ -28,6 +28,19 @@ private :
 	// 선택한 Texture 정보
 	CSharedPtr<CTexture> m_SelectTileTexture;
 
+	// ComboBox용 핸들
+	// Dialog 안의 각 요소들도 Window !
+	HWND m_EditModeCombo;
+
+	// 현재 어떤 Edit의 편집 Mode 가 선택되어 있는지
+	ETileEditMode m_TileEditMode;
+
+public :
+	ETileEditMode GetTileEditMode() const
+	{
+		return m_TileEditMode;
+	}
+
 public :
 	bool IsOpen() const
 	{
