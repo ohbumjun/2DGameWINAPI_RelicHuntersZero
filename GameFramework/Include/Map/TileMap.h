@@ -37,6 +37,9 @@ public :
 		int IndexX, int IndexY);
 	void ChangeTileOption(const Vector2& Pos,
 		ETileOption Option);
+	void SetTileFrame(
+		const Vector2& Pos,
+		const Vector2& Start, const Vector2& End);
 	CTile* GetTile(const Vector2& Pos);
 public :
 	virtual void Start();

@@ -185,8 +185,13 @@ void CEditorScene::MouseLButton(float DeltaTime)
 	}
 		break;
 	case ETileEditMode::Image:
-		break;
-	case ETileEditMode::End:
+	{
+		// 해당 Texture의 Frame 정보를 가져와야 한다
+		TileFrameData FrameData = m_Dlg->GetTileFrameData();
+
+		m_TileMap->SetTileFrame(MousePos, FrameData.Start, FrameData.End);
+
+	}
 		break;
 	default:
 		break;

@@ -115,6 +115,14 @@ void CTileMap::ChangeTileOption(const Vector2& Pos, ETileOption Option)
     Tile->SetTileOption(Option);
 }
 
+void CTileMap::SetTileFrame(const Vector2& Pos,const Vector2& Start, const Vector2& End)
+{
+    CTile* Tile = GetTile(Pos);
+    if (!Tile) return;
+    Tile->SetStartFrame(Start);
+    Tile->SetEndFrame(End);
+}
+
 CTile* CTileMap::GetTile(const Vector2& Pos)
 {
     // 해당 위치에 있는 Tile 정보를 가져온다 

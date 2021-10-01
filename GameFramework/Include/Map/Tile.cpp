@@ -43,7 +43,7 @@ void CTile::Render(HDC hDC)
 		// World 상 위치 x --> 현재 창 내의 위치 
 		m_Texture->Render(hDC,
 			m_Pos-CameraPos,
-			Vector2(0.f,0.f),
+			m_StartFrame,
 			m_Size);
 	}
 
