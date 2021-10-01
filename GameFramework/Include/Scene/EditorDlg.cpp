@@ -79,7 +79,28 @@ bool CEditorDlg::Init(int ID)
 	// 선택되어 있지 않다
 	// -1로 초기화한다
 	m_SelectTextureListIndex = -1;
+
+	// Dialog 받아놓기
+	m_EditModeCombo = GetDlgItem(m_hDlg, IDC_COMBO_EDITMODE);
 	
+	TCHAR TileEditMode[(int)ETileEditMode::End][30] =
+	{
+		TEXT("타일옵션"),
+		TEXT("타일이미지")
+	};
+
+	for (int i = 0; i < (int)ETileEditMode::End; ++i)
+	{
+		// CB_ADDSTRING : 콤보 박스에 string을 추가하겠다
+		SendMessage(m_EditModeCombo, CB_ADDSTRING,
+			0, (LPARAM)TileEditMode[i]);
+	}
+
+	// 기본적으로 0번이 선택되어 있게 해라
+	SendMessage(m_EditModeCombo,CB_SETCURSEL,0,0);
+
+	m_TileEditMode = ETileEditMode::Option;
+
 	return true;
 }
 
@@ -165,7 +186,8 @@ void CEditorDlg::LoadTileTexture()
 
 		// Texture를 읽어옴 
 		CTexture* Texture = m_Scene->GetSceneResource()->FindTexture(TextureName);
-		
+		Texture->SetColorKey(255, 0, 255);
+
 		// 우리가 만든 ListBos ( Dialog )에 넣기
 		// SendMessage 라는 방식을 활용한다 
 		// (2번째 인자 ) LB_ADDSTRING : 문자를 추가하겠다 

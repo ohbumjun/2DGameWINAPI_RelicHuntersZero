@@ -14,8 +14,8 @@
 #define IDC_BUTTON_CREATEMAP            1009
 #define IDC_BUTTON_TILETEXTURELOAD      1010
 #define IDC_LIST_TILETEXTURE            1011
-#define IDC_BUTTON_TILETEXTURELOAD2     1012
 #define IDC_BUTTON_SETTEXTURE           1012
+#define IDC_COMBO_EDITMODE              1014
 
 // Next default values for new objects
 // 
@@ -23,7 +23,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        110
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

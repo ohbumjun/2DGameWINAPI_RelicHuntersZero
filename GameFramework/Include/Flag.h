@@ -79,3 +79,19 @@ enum class EDoorStage_Type
 	Stage_Two,
 	Stage_Three
 };
+
+enum class ETileOption
+{
+	// 원하는 대로 확장해서 사용
+	Normal,
+	Wall,
+	Slow,
+	End
+};
+
+enum class ETileEditMode
+{
+	Option,
+	Image,
+	End
+};
