@@ -123,7 +123,7 @@ public  :
 	void Fire();
 	void SetLaserPos(float DeltaTime);
 	void FireTarget();
-	void BulletFireTarget(float DeltaTime);
+	void BulletFireTarget(float);
 	CGameObject* FindClosestTarget(Vector2 PlayerPos);
 
 // Death ---
