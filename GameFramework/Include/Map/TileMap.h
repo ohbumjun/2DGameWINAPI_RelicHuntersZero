@@ -48,5 +48,7 @@ public :
 	virtual void PostUpdate(float DeltaTime);
 	virtual void PrevRender();
 	virtual void Render(HDC hDC);
+	virtual void Save(FILE* File);
+	virtual void Load(FILE* File);
 };
 

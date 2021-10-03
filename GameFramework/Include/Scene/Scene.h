@@ -187,6 +187,7 @@ public:
 		Map->SetPos(Pos);
 		Map->SetSize(Size);
 		Map->SetName(Name);
+		
 
 		if (!Map->Init())
 		{

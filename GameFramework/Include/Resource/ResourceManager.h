@@ -37,6 +37,8 @@ public:
 	void SetTextureColorKey(const std::string& Name, 
 		const unsigned char r, const unsigned char g,
 		const unsigned char b, int Index = 0);
+	void SetTextureColorKey(const std::string& Name,
+		unsigned int ColorKey, int Index = 0);
 
 	void ReleaseTexture(const std::string& Name);
 

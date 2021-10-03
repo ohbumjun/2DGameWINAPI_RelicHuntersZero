@@ -111,6 +111,9 @@ public :
 	void ModifyFrame();
 	void ChangeFrame();
 
+	void Save();
+	void Load();
+
 private :
 	// WindowProc is a user-defined callback function 
 	// that processes messages sent to a window

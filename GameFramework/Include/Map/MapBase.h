@@ -79,5 +79,13 @@ public :
 	virtual void PostUpdate(float DeltaTime);
 	virtual void PrevRender();
 	virtual void Render(HDC hDC);
+	virtual void Save(const char* FileName, 
+		const std::string& PathName = MAP_PATH);
+	virtual void Save(FILE* File);
+	virtual void SaveFullPath(const char* FullPath);
+	virtual void Load(const char* FileName,
+		const std::string& PathName = MAP_PATH);
+	virtual void Load(FILE* File);
+	virtual void LoadFullPath(const char* FullPath);
 };
 

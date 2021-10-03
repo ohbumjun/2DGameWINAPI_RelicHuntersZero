@@ -69,8 +69,7 @@ bool CTileMap::CreateTile(int CountX, int CountY, const Vector2& TileSize)
             // i : 세로 idx ( 행 )
             // i*m_TileCountX+j : 총 idx 
             Tile->SetTileInfo(Pos,m_TileSize,
-                j,i,
-                i*m_TileCountX+j, m_TileTexture);
+                j, i, i * m_TileCountX + j , m_TileTexture);
             m_vecTile.push_back(Tile);
         }
     }
@@ -185,7 +184,6 @@ void CTileMap::Update(float DeltaTime)
                 m_vecTile[i * m_TileCountX + j]->Update(DeltaTime);
             }
         }
-
     }
 }
 
@@ -241,4 +239,84 @@ void CTileMap::Render(HDC hDC)
             }
         }
     }
+}
+
+void CTileMap::Save(FILE* pFile)
+{
+    CMapBase::Save(pFile);
+
+    fwrite(&m_TileCountX, sizeof(int), 1, pFile);
+    fwrite(&m_TileCountY, sizeof(int), 1, pFile);
+    fwrite(&m_TileSize, sizeof(Vector2), 1, pFile);
+    fwrite(&m_StartX, sizeof(int), 1, pFile);
+    fwrite(&m_StartY, sizeof(int), 1, pFile);
+    fwrite(&m_EndX, sizeof(int), 1, pFile);
+    fwrite(&m_EndY, sizeof(int), 1, pFile);
+
+    if (m_TileTexture)
+    {
+        // Texture 존재 여부를 저장한다 
+        bool Tex = true;
+        fwrite(&Tex, sizeof(bool), 1, pFile);
+        m_TileTexture->Save(pFile);
+    }
+    else
+    {
+        bool Tex = false;
+        fwrite(&Tex, sizeof(bool), 1, pFile);
+    }
+
+    int TileCount = (int)m_vecTile.size();
+    fwrite(&TileCount, sizeof(int), 1, pFile);
+
+    for (int i = 0; i < TileCount; ++i)
+    {
+        m_vecTile[i]->Save(pFile);
+    }
+}
+
+void CTileMap::Load(FILE* pFile)
+{
+    // Load시, 기존에 혹여나 Tile 관련 정보가 있었다면
+    // 모두 해제해준다 
+
+    CMapBase::Load(pFile);
+
+    fread(&m_TileCountX, sizeof(int), 1, pFile);
+    fread(&m_TileCountY, sizeof(int), 1, pFile);
+    fread(&m_TileSize, sizeof(Vector2), 1, pFile);
+    fread(&m_StartX, sizeof(int), 1, pFile);
+    fread(&m_StartY, sizeof(int), 1, pFile);
+    fread(&m_EndX, sizeof(int), 1, pFile);
+    fread(&m_EndY, sizeof(int), 1, pFile);
+
+    // Texture의 존재여부 파악하기 
+    bool Tex = true;
+    fread(&Tex, sizeof(bool), 1, pFile);
+
+    if (Tex)
+    {
+        m_TileTexture = CTexture::LoadStatic(pFile,m_Scene);
+    }
+
+    int TileCount = 0;
+    fread(&TileCount, sizeof(int), 1, pFile);
+
+    // 기존에 저장되었던 Tile 정보를 다 지운다
+    size_t  TileSize = m_vecTile.size();
+    for (size_t i = 0; i < TileSize; i++)
+    {
+        SAFE_DELETE(m_vecTile[i]);
+    }
+    m_vecTile.clear();
+
+    // 다 날려버린 이후, 새로 생성하기 
+    for (int i = 0; i < TileCount; ++i)
+    {
+        // 새로운 Tile 만들어서 Load 해주기
+        CTile* Tile = new CTile;
+        m_vecTile.push_back(Tile);
+        m_vecTile[i]->Load(pFile);
+    }
+
 }
