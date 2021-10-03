@@ -80,6 +80,7 @@ void CHomeScene::LoadAnimationSequence()
 			i * 85.f, 0.f, 85.f, 75.f);
 	}
 
+	// Right Attack
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightAttack",
 		"LucidNunNaRightAttack", TEXT("Player/Right/aswing.bmp"));
 
@@ -89,6 +90,19 @@ void CHomeScene::LoadAnimationSequence()
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightAttack",
+			i * 176.f, 0.f, 176.f, 89.f);
+	}
+
+	// Left Attack
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftAttack",
+		"LucidNunNaLeftAttack", TEXT("Player/Left/aswing_left.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftAttack",
+		255, 0, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaLeftAttack",
 			i * 176.f, 0.f, 176.f, 89.f);
 	}
 

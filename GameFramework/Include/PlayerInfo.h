@@ -7,7 +7,7 @@
 
 // MP,HP,Stemina
 #define PLAYER_INIT_HP      500
-#define PLAYER_INIT_MP      50.f
+#define PLAYER_INIT_MP      5.f
 #define PLAYER_INIT_STEMINA 500.f
 
 // Skill Time

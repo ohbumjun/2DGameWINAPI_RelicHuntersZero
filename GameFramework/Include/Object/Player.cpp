@@ -130,9 +130,9 @@ void CPlayer::Start()
 		this, &CPlayer::SetTeleportPos);
 
 	// Target
-	CInput::GetInst()->SetCallback<CPlayer>("TargetPos", KeyState_Push,
-		this, &CPlayer::SetTargetPos);
-	CInput::GetInst()->SetCallback<CPlayer>("TargetFire", KeyState_Down,
+	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Push,
+		this, &CPlayer::SetLaserPos);
+	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Push,
 		this, &CPlayer::BulletFireTarget);
 	
 }
@@ -150,12 +150,13 @@ bool CPlayer::Init()
 	// Right 
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 1.f);
-	AddAnimation("LucidNunNaRightAttack", false, 0.2f);
+	AddAnimation("LucidNunNaRightAttack", false, 0.05f);
 	AddAnimation("LucidNunNaRightRun", true, 0.6f);
 
 	// Left
 	AddAnimation("LucidNunNaLeftIdle");
 	AddAnimation("LucidNunNaLeftWalk", true, 1.f);
+	AddAnimation("LucidNunNaLeftAttack", false, 0.05f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
 	// Skill
@@ -329,7 +330,7 @@ void CPlayer::Update(float DeltaTime)
 
 
 	// Character Offset
-	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
+	if (CheckCurrentAnimation("LucidNunNaRightAttack") || CheckCurrentAnimation("LucidNunNaLeftAttack"))
 		SetOffset(0.f, 20.f);
 	else
 		SetOffset(0.f, 0.f);
@@ -845,7 +846,7 @@ void CPlayer::Fire()
 	Bullet->SetObjectType(EObject_Type::Bullet);
 }
 
-void CPlayer::SetTargetPos(float DeltaTime)
+void CPlayer::SetLaserPos(float DeltaTime)
 {
 	// m_TargetPos¿¡ ¼¼ÆÃ 
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
