@@ -46,5 +46,6 @@ public :
 public :
 	void Save(const char* FullPath);
 	void Load(const char* FullPath);
+	void TileImageAllClear();
 };
 

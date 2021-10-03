@@ -113,6 +113,7 @@ public :
 
 	void Save();
 	void Load();
+	void TileImageAllClear();
 
 private :
 	// WindowProc is a user-defined callback function 
