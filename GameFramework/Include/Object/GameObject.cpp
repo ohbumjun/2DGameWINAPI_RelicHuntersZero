@@ -74,7 +74,6 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	}
 	
 	m_WidgetComponentList.clear();
-
 	{
 		auto	iter = obj.m_WidgetComponentList.begin();
 		auto	iterEnd = obj.m_WidgetComponentList.end();
