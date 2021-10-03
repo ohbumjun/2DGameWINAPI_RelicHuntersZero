@@ -59,6 +59,7 @@ bool CTileMap::CreateTile(int CountX, int CountY, const Vector2& TileSize)
         for (int j = 0; j < m_TileCountX; ++j)
         {
             CTile* Tile = new CTile;
+            Tile->m_Scene = m_Scene;
             Tile->Init();
 
             // 현재 Tile Map 위치
@@ -315,6 +316,7 @@ void CTileMap::Load(FILE* pFile)
     {
         // 새로운 Tile 만들어서 Load 해주기
         CTile* Tile = new CTile;
+        Tile->m_Scene = m_Scene;
         m_vecTile.push_back(Tile);
         m_vecTile[i]->Load(pFile);
     }
