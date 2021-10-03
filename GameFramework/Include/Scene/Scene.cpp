@@ -579,8 +579,8 @@ int CScene::SortZOrderMap(const void* Src, const void* Dest)
 	int SrcZ  = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 
-	if (SrcZ < DestZ) return 1;
-	else if (SrcZ >= DestZ) return -1;
+	if (SrcZ > DestZ) return 1;
+	else if (SrcZ < DestZ) return -1;
 
 	return 0;
 }

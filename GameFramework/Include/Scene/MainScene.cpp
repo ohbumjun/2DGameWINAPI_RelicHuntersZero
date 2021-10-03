@@ -38,7 +38,6 @@ bool CMainScene::Init()
 {
 	LoadSound();
 	LoadAnimationSequence();
-	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
 	// Effect 
 	CEffectHit* EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
@@ -107,20 +106,37 @@ bool CMainScene::Init()
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f,230.f));
 
+	
+	// Scroll 비율 조정 
+	GetCamera()->SetWorldResolution(2000.f, 2000.f);
+	float ScrollWidth  = 1500.f - GetCamera()->GetResolution().x; // ScrollMap 크기가 1500.f, 1200.f
+	float ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	float TileMapWidth  = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
+	float TileMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
+
 	// Scroll Map
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-
 	// 실제 image 중에서 화면에 출력될 부분의 크기 ( 만약 원본 이미지 크기보다 작다면 이미지가 잘려나올 것 )
 	// 우리의 게임 해상도로 맞춰주는 것이 중요하다 
 	Map->SetSize(1280.f,720.f); 
 	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
-	Map->SetScrollRatio(0.5f,1.0f);
-	Map->SetZOrder(1);
+	
+	// Scroll 비율을, ScrollMap, TileMap 비율로 조정한다
+	Map->SetScrollRatio(ScrollWidth / TileMapWidth,ScrollHeight / TileMapHeight);
+	Map->SetZOrder(0);
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("MainMap.map");
-	// TileMap->Set
+	TileMap->SetZOrder(1);
+
+	// 원하는 크기의 World Resolution은, 
+	// TileMap 생성 이후 해줘야 한다
+	// 안 그러면,위애서 생성한 TileMap 크기에 맞춰서 
+	// World Resolution이 만들어질 것이다 
+	GetCamera()->SetWorldResolution(2000.f, 2000.f);
+
 
 	return true;
 }
