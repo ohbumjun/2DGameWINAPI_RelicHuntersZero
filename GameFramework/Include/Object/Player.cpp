@@ -85,8 +85,8 @@ void CPlayer::Start()
 		this, &CPlayer::AcquireItem);
 
 	// Fire, Pause, Resume
-	CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
-		this, &CPlayer::BulletFire);
+	// CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
+		// this, &CPlayer::BulletFire);
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 		this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
@@ -150,13 +150,13 @@ bool CPlayer::Init()
 	// Right 
 	AddAnimation("LucidNunNaRightIdle");
 	AddAnimation("LucidNunNaRightWalk", true, 1.f);
-	AddAnimation("LucidNunNaRightAttack", false, 0.05f);
+	AddAnimation("LucidNunNaRightAttack", false, 0.1f);
 	AddAnimation("LucidNunNaRightRun", true, 0.6f);
 
 	// Left
 	AddAnimation("LucidNunNaLeftIdle");
 	AddAnimation("LucidNunNaLeftWalk", true, 1.f);
-	AddAnimation("LucidNunNaLeftAttack", false, 0.05f);
+	AddAnimation("LucidNunNaLeftAttack", false, 0.1f);
 	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
 
 	// Skill
@@ -837,7 +837,10 @@ void CPlayer::DeleteTeleportObj()
 
 void CPlayer::AttackEnd()
 {
-	ChangeAnimation("LucidNunNaRightIdle");
+	if(CheckCurrentAnimation("LucidNunNaRightAttack"))  
+		ChangeAnimation("LucidNunNaRightIdle");
+	else  
+		ChangeAnimation("LucidNunNaLeftIdle");
 }
 
 void CPlayer::Fire()
