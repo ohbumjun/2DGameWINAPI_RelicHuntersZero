@@ -35,6 +35,8 @@ public :
 	// 내가 원하는 특정 idx 에만 
 	bool SetTileTexture(CTexture* Texture,
 		int IndexX, int IndexY);
+	void SetTileTexture(const Vector2& Pos,
+		CTexture* Texture);
 	void ChangeTileOption(const Vector2& Pos,
 		ETileOption Option);
 	void SetTileFrame(

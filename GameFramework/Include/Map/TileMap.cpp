@@ -108,6 +108,13 @@ bool CTileMap::SetTileTexture(CTexture* Texture, int IndexX, int IndexY)
     return true;
 }
 
+void CTileMap::SetTileTexture(const Vector2& Pos, CTexture* Texture)
+{
+    CTile* Tile = GetTile(Pos);
+    if (!Tile) return;
+    Tile->SetTileTexture(Texture);
+}
+
 void CTileMap::ChangeTileOption(const Vector2& Pos, ETileOption Option)
 {
     CTile* Tile = GetTile(Pos);
@@ -119,6 +126,7 @@ void CTileMap::SetTileFrame(const Vector2& Pos,const Vector2& Start, const Vecto
 {
     CTile* Tile = GetTile(Pos);
     if (!Tile) return;
+    Tile->SetTileTexture(m_TileTexture);
     Tile->SetStartFrame(Start);
     Tile->SetEndFrame(End);
 }
@@ -317,8 +325,9 @@ void CTileMap::Load(FILE* pFile)
         // 새로운 Tile 만들어서 Load 해주기
         CTile* Tile = new CTile;
         Tile->m_Scene = m_Scene;
-        m_vecTile.push_back(Tile);
+        m_vecTile.push_back(Tile); // v
         m_vecTile[i]->Load(pFile);
     }
+
 
 }
