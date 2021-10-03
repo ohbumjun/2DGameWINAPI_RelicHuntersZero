@@ -329,5 +329,18 @@ void CTileMap::Load(FILE* pFile)
         m_vecTile[i]->Load(pFile);
     }
 
+    // Load 시 World Resolution 만들기
+    m_Size = m_TileSize * Vector2((float)m_TileCountX, (float)m_TileCountY);
+    CCamera* Camera = m_Scene->GetCamera();
+    Camera->SetWorldResolution(m_Size);
 
+}
+
+void CTileMap::TileImageAllClear()
+{
+    size_t Size = m_vecTile.size();
+    for (size_t i = 0; i < Size; i++)
+    {
+        m_vecTile[i]->SetTileTexture(nullptr);
+    }
 }

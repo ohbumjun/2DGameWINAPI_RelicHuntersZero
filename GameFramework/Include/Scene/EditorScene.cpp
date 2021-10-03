@@ -162,16 +162,20 @@ void CEditorScene::MouseLButton(float DeltaTime)
 {
 	if (!m_TileMap) return;
 
+	// Mouse Pos
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	
+	CCamera* Camera = GetCamera();
+	if (MousePos.x < 0.f || MousePos.x > Camera->GetResolution().x ||
+		MousePos.y < 0.f || MousePos.y > Camera->GetResolution().y)
+		return;
+
 	// Tile 각각과 마우스간의 Z 충돌을 해야 한다 
 	// Tile 각각의 idx X,Y를 구해야 한다
 	// 하나TileSize 로 해당 Tile의 World 위치를 나누면 나온다
 	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
 	
-	// Mouse Pos
-	Vector2 MousePos = CInput::GetInst()->GetMousePos();
-	
 	// 카메라 Pos를 더해줘서 World 상 위치를 구한다.
-	CCamera* Camera = GetCamera();
 	MousePos += Camera->GetPos();
 
 	switch (EditMode)
@@ -198,10 +202,15 @@ void CEditorScene::MouseLButton(float DeltaTime)
 void CEditorScene::MouseRButton(float DeltaTime)
 {
 	if (!m_TileMap) return;
-	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
+	// Mouse Pos
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
-	// 카메라 Pos를 더해줘서 World 상 위치를 구한다.
 	CCamera* Camera = GetCamera();
+	if (MousePos.x < 0.f || MousePos.x > Camera->GetResolution().x ||
+		MousePos.y < 0.f || MousePos.y > Camera->GetResolution().y)
+		return;
+
+	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
+	// 카메라 Pos를 더해줘서 World 상 위치를 구한다.
 	MousePos += Camera->GetPos();
 
 	switch (EditMode)
@@ -241,6 +250,12 @@ void CEditorScene::Load(const char* FullPath)
 		m_TileMap = CreateMap<CTileMap>("TileMap");
 	}
 	m_TileMap->LoadFullPath(FullPath);
+}
+
+void CEditorScene::TileImageAllClear()
+{
+	if (!m_TileMap) return;
+	m_TileMap->TileImageAllClear();
 }
 
 void CEditorScene::LoadAnimationSequence()

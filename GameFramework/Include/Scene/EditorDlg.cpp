@@ -453,6 +453,12 @@ void CEditorDlg::Load()
 	}
 }
 
+void CEditorDlg::TileImageAllClear()
+{
+	// 전체 tile 개수만큼 반복
+	m_Scene->TileImageAllClear();
+}
+
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -529,6 +535,9 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		// Map Load 하기
 		case IDC_BUTTON_LOAD:
 			g_Dlg->Load();
+			break;// Map Load 하기
+		case IDC_BUTTON_IMAGECLEAR:
+			g_Dlg->TileImageAllClear();
 			break;
 		default:
 			break;
