@@ -34,8 +34,7 @@ void CCamera::Update(float DeltaTime)
 			Vector2	MouseWorldPos = MousePos + m_Pos;
 
 			Vector2 RenderPos = (TargetPos + MouseWorldPos) / 2;
-			m_Pos = RenderPos - m_TargetPivot * m_Resolution +
-				m_TargetOffset;
+			m_Pos = RenderPos - m_TargetPivot * m_Resolution + m_TargetOffset;
 		}
 	}
 
