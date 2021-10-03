@@ -163,6 +163,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\MapBase.cpp" />
+    <ClCompile Include="Map\ScrollMap.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Map\MapBase.h" />
+    <ClInclude Include="Map\ScrollMap.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="Math.h" />

@@ -22,6 +22,8 @@
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIImage.h"
+// Map
+#include "../Map/ScrollMap.h"
 
 CMainScene::CMainScene()
 {
@@ -99,6 +101,10 @@ bool CMainScene::Init()
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f,230.f));
 
+	// Scroll Map
+	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+	Map->SetSize(1280.f,720.f); // 실제 출력될 크기
+	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
 
 	return true;
 }

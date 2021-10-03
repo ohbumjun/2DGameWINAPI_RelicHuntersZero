@@ -282,6 +282,9 @@
     <ClCompile Include="Scene\EditorDlg.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClCompile>
+    <ClCompile Include="Map\ScrollMap.cpp">
+      <Filter>08. Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="Scene\EditorDlg.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\ScrollMap.h">
+      <Filter>08. Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

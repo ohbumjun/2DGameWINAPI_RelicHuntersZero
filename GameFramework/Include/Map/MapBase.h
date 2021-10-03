@@ -87,5 +87,6 @@ public :
 		const std::string& PathName = MAP_PATH);
 	virtual void Load(FILE* File);
 	virtual void LoadFullPath(const char* FullPath);
+
 };
 
