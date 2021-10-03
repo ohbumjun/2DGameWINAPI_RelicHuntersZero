@@ -143,7 +143,7 @@ void CEditorScene::CameraMoveUp(float DeltaTime)
 void CEditorScene::CameraMoveDown(float DeltaTime)
 {
 	CCamera* Camera = GetCamera();
-	Camera->Move(Vector2(0.f, 1.f)*m_ScrollSpeed * DeltaTime);
+	Camera->Move(Vector2(0.f, -1.f)*m_ScrollSpeed * DeltaTime);
 }
 
 void CEditorScene::CameraMoveRight(float DeltaTime)
@@ -155,7 +155,7 @@ void CEditorScene::CameraMoveRight(float DeltaTime)
 void CEditorScene::CameraMoveLeft(float DeltaTime)
 {
 	CCamera* Camera = GetCamera();
-	Camera->Move(Vector2(-1.f, 0.f) * m_ScrollSpeed * DeltaTime);
+	Camera->Move(Vector2(1.f, 0.f) * m_ScrollSpeed * DeltaTime);
 }
 
 void CEditorScene::MouseLButton(float DeltaTime)
@@ -177,23 +177,21 @@ void CEditorScene::MouseLButton(float DeltaTime)
 	switch (EditMode)
 	{
 		// 옵션 편집 
-	case ETileEditMode::Option:
-	{
-		// 어떤 Tile Option을 선택했는지
-		ETileOption Option = m_Dlg->GetTileOption();
-		m_TileMap->ChangeTileOption(MousePos, Option);
-	}
-		break;
-	case ETileEditMode::Image:
-	{
-		// 해당 Texture의 Frame 정보를 가져와야 한다
-		TileFrameData FrameData = m_Dlg->GetTileFrameData();
-		// 선택한 FrameData 세팅
-		m_TileMap->SetTileFrame(MousePos, FrameData.Start, FrameData.End);
-	}
-		break;
-	default:
-		break;
+		case ETileEditMode::Option:
+		{
+			// 어떤 Tile Option을 선택했는지
+			ETileOption Option = m_Dlg->GetTileOption();
+			m_TileMap->ChangeTileOption(MousePos, Option);
+		}
+			break;
+		case ETileEditMode::Image:
+		{
+			// 해당 Texture의 Frame 정보를 가져와야 한다
+			TileFrameData FrameData = m_Dlg->GetTileFrameData();
+			// 선택한 FrameData 세팅
+			m_TileMap->SetTileFrame(MousePos, FrameData.Start, FrameData.End);
+		}
+			break;
 	}
 }
 
@@ -202,11 +200,25 @@ void CEditorScene::MouseRButton(float DeltaTime)
 	if (!m_TileMap) return;
 	ETileEditMode EditMode = m_Dlg->GetTileEditMode();
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	// 카메라 Pos를 더해줘서 World 상 위치를 구한다.
 	CCamera* Camera = GetCamera();
 	MousePos += Camera->GetPos();
 
-	// 되돌리기 기능
-	m_TileMap->ChangeTileOption(MousePos,ETileOption::Normal);
+	switch (EditMode)
+	{
+		// 옵션 편집 
+	case ETileEditMode::Option:
+	{
+		m_TileMap->ChangeTileOption(MousePos, ETileOption::Normal);
+	}
+	break;
+	case ETileEditMode::Image:
+	{
+		m_TileMap->SetTileTexture(MousePos,nullptr);
+	}
+	break;
+	}
+
 }
 
 void CEditorScene::Save(const char* FullPath)
