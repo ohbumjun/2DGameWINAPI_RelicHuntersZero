@@ -19,6 +19,11 @@ public :
 	bool SetTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName,
 		const std::string& PathName = TEXTURE_PATH);
 	bool SetTexture(const std::string& Name);
+	void SetTextureColorKey(
+		const unsigned char r,
+		const unsigned char g,
+		const unsigned char b
+	);
 public :
 	void SetScrollRatio(float xR, float yR)
 	{

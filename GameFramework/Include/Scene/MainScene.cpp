@@ -125,6 +125,8 @@ bool CMainScene::Init()
 	// Scroll 비율을, ScrollMap, TileMap 비율로 조정한다
 	Map->SetScrollRatio(ScrollWidth / TileMapWidth,ScrollHeight / TileMapHeight);
 	Map->SetZOrder(0);
+	Map->SetTextureColorKey(255, 0, 255);
+
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");

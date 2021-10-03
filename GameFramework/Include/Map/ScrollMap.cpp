@@ -42,6 +42,12 @@ bool CScrollMap::SetTexture(const std::string& Name)
 	return true;
 }
 
+void CScrollMap::SetTextureColorKey(const unsigned char r, const unsigned char g, const unsigned char b)
+{
+	if (m_ScrollTexture)
+		m_ScrollTexture->SetColorKey(r, g, b);
+}
+
 void CScrollMap::Start()
 {
 	CMapBase::Start();
