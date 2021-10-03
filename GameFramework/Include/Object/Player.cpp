@@ -177,9 +177,13 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaTeleport", false, 0.3f);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
 
-	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::Fire);
+	// Attack
+	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::FireTarget);
+	AddAnimationNotify<CPlayer>("LucidNunNaLeftAttack", 2, this, &CPlayer::FireTarget);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftAttack", this, &CPlayer::AttackEnd);
 
+	// Death
 	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
 
@@ -857,9 +861,6 @@ void CPlayer::SetLaserPos(float DeltaTime)
 
 void CPlayer::FireTarget() 
 {
-	if (m_CharacterInfo.MP <= 0.2f * m_CharacterInfo.MPMax) return;
-	m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
-
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 		"PlayerBullet",
 		Vector2(m_Pos + Vector2(75.f, 0.f)),
@@ -873,9 +874,12 @@ void CPlayer::FireTarget()
 
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax) return;
-	ChangeAnimation("LucidNunNaTargetAttack");
+	Vector2 PlayerDir = m_Dir;
+	SetLaserPos(DeltaTime);
+	if (m_Dir.x > 0) ChangeAnimation("LucidNunNaRightAttack");
+	else ChangeAnimation("LucidNunNaLeftAttack");
 }
+
 
 void CPlayer::CharacterDestroy()
 {

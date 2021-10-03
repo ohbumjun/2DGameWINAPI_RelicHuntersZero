@@ -17,7 +17,7 @@
 #define NORMAL_SPEED 200.f
 #define STUN_SPEED 250.f
 #define FAST_SPEED 400.f
-#define BULLET_SPEED 500.f
+#define BULLET_SPEED 3000.f
 #define DASH_SPEED 1600.f
 
 // Attack Distance
