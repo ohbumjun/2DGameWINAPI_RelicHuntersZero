@@ -188,9 +188,8 @@ void CEditorScene::MouseLButton(float DeltaTime)
 	{
 		// 해당 Texture의 Frame 정보를 가져와야 한다
 		TileFrameData FrameData = m_Dlg->GetTileFrameData();
-
+		// 선택한 FrameData 세팅
 		m_TileMap->SetTileFrame(MousePos, FrameData.Start, FrameData.End);
-
 	}
 		break;
 	default:
@@ -208,6 +207,28 @@ void CEditorScene::MouseRButton(float DeltaTime)
 
 	// 되돌리기 기능
 	m_TileMap->ChangeTileOption(MousePos,ETileOption::Normal);
+}
+
+void CEditorScene::Save(const char* FullPath)
+{
+	// 타일맵을 저장해야 하는데 타일맵이 없다면 return
+	if (!m_TileMap)
+	{
+		MessageBox(0, TEXT("맵을 생성하세요"),TEXT("Error"),MB_OK);
+		return;
+	}
+	m_TileMap->SaveFullPath(FullPath);
+}
+
+void CEditorScene::Load(const char* FullPath)
+{
+	// 없으면 만들고, 있으면, 지우고 만들기 
+	if (!m_TileMap)
+	{
+		// 없으면 새로 !
+		m_TileMap = CreateMap<CTileMap>("TileMap");
+	}
+	m_TileMap->LoadFullPath(FullPath);
 }
 
 void CEditorScene::LoadAnimationSequence()

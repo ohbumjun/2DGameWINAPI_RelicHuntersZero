@@ -160,6 +160,16 @@ void CResourceManager::SetTextureColorKey(const std::string& Name,
 	Texture->SetColorKey(r, g, b, Index);
 }
 
+void CResourceManager::SetTextureColorKey(const std::string& Name, unsigned int ColorKey, int Index)
+{
+	CTexture* Texture = FindTexture(Name);
+
+	if (!Texture)
+		return;
+
+	Texture->SetColorKey(ColorKey, Index);
+}
+
 void CResourceManager::ReleaseTexture(const std::string& Name)
 {
 	auto	iter = m_mapTexture.find(Name);

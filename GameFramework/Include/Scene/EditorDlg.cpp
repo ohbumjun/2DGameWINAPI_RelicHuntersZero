@@ -161,7 +161,6 @@ void CEditorDlg::CreateMap()
 	// Tile 정보를 새롭게 만들어낸다 
 	m_Scene->SetTileInfo(
 		TileCountX, TileCountY,TileSizeX,TileSizeY);
-
 }
 
 void CEditorDlg::LoadTileTexture()
@@ -172,11 +171,14 @@ void CEditorDlg::LoadTileTexture()
 	OPENFILENAME OpenFile = {};
 	OpenFile.lStructSize = sizeof(OPENFILENAME);
 	OpenFile.hwndOwner = m_hDlg;
+
 	// 어떤 형식의 파일들을 읽을 것인가
 	OpenFile.lpstrFilter = TEXT("모든파일\0*.*\0BmpFile\0.bmp");
+
 	// 열려는 파일의 풀 경로가 들어온다
 	OpenFile.lpstrFile = FilePath;
 	OpenFile.nMaxFile = MAX_PATH;
+
 	// Texture Path를 기본 Path로 세팅하면
 	// 바로 해당 경로의 파일을 열 수 있게 된다 
 	OpenFile.lpstrInitialDir = CPathManager::GetInst()->FindPath(TEXTURE_PATH)->Path;
@@ -189,11 +191,9 @@ void CEditorDlg::LoadTileTexture()
 
 		// 위에서 OpenFile을 통해 선택해서 얻어온 파일정보에서, 이름만 빼내오는 코드 
 		// FileNAme이라는 변수에 정보를 넣는다 
-		_wsplitpath_s(FilePath, nullptr, 0, nullptr, 0, FileName, 128,
-			nullptr, 0);
+		_wsplitpath_s(FilePath, nullptr, 0, nullptr, 0, FileName, 128, nullptr, 0);
 
 		char	TextureName[256] = {};
-
 #ifdef UNICODE
 		// 유니코드라면, 멀티바이트로 변환해준다
 		// 유니코드 문자열을 멀티바이트 문자열로 변환한다.
@@ -207,7 +207,7 @@ void CEditorDlg::LoadTileTexture()
 		strcpy_s(TextureName, FileName);
 #endif // UNICODE
 
-		// TextureName 으로 된, Texture를 Load 시킨다 
+		// TextureName 으로 된, Texture를 Load 시킨다. 
 		if (!m_Scene->GetSceneResource()->LoadTextureFullPath(TextureName,FilePath))
 			return;
 
@@ -255,9 +255,9 @@ void CEditorDlg::SelectTexture()
 		// TextureName에 해당하는 Texture를 가져온다 
 		m_SelectTileTexture = m_Scene->GetSceneResource()->FindTexture(TextureName);
 	
-		//
 		m_Scene->CreateTileMap();
-		m_Scene->SetTileTexture(m_SelectTileTexture);
+
+		// m_Scene->SetTileTexture(m_SelectTileTexture);
 	
 	}
 }
@@ -307,6 +307,7 @@ void CEditorDlg::SelectList()
 		}
 
 		// 새로운 Texture를 선택하면
+		// 해당 Texture의 새로운 FrameData 목록이
 		// 해당 Texture의 새로운 FrameData 목록이
 		// 오른쪽 Frame List Box에 들어오게 될 것이고
 		// 현재 선택한 Frame 번호에 대한 정보를 담은
@@ -376,6 +377,82 @@ void CEditorDlg::ChangeFrame()
 	
 }
 
+void CEditorDlg::Save()
+{
+	TCHAR FilePath[MAX_PATH] = {};
+
+	// 파일을 열 때 사용하는 구조체
+	OPENFILENAME OpenFile = {};
+	OpenFile.lStructSize = sizeof(OPENFILENAME);
+	OpenFile.hwndOwner = m_hDlg;
+	// 어떤 형식의 파일들을 읽을 것인가
+	OpenFile.lpstrFilter = TEXT("모든파일\0*.*\0MapFile\0.map");
+	// 열려는 파일의 풀 경로가 들어온다
+	OpenFile.lpstrFile = FilePath;
+	OpenFile.nMaxFile = MAX_PATH;
+	// Map Path를 기본 Path로 세팅하면
+	// 바로 해당 경로의 파일을 열 수 있게 된다 
+	OpenFile.lpstrInitialDir = CPathManager::GetInst()->FindPath(MAP_PATH)->Path;
+
+	if (GetSaveFileName(&OpenFile) != 0)
+	{
+
+		char	FullPath[MAX_PATH] = {};
+
+#ifdef UNICODE
+		// 유니코드라면, 멀티바이트로 변환해준다
+		// 유니코드 문자열을 멀티바이트 문자열로 변환한다.
+		int ConvertLength = WideCharToMultiByte(CP_ACP, 0,
+			FilePath, -1, nullptr, 0, 0, 0);
+
+		// FileName을 TextureName에 변환해서 넣어라 
+		WideCharToMultiByte(CP_ACP, 0, FilePath, -1,
+			FullPath, ConvertLength, 0, 0);
+#else
+		strcpy_s(FullPath, FilePath);
+#endif // UNICODE
+		m_Scene->Save(FullPath);
+	}
+}
+
+void CEditorDlg::Load()
+{
+	TCHAR FilePath[MAX_PATH] = {};
+
+	// 파일을 열 때 사용하는 구조체
+	OPENFILENAME OpenFile = {};
+	OpenFile.lStructSize = sizeof(OPENFILENAME);
+	OpenFile.hwndOwner = m_hDlg;
+	// 어떤 형식의 파일들을 읽을 것인가
+	OpenFile.lpstrFilter = TEXT("모든파일\0*.*\0MapFile\0.map");
+	// 열려는 파일의 풀 경로가 들어온다
+	OpenFile.lpstrFile = FilePath;
+	OpenFile.nMaxFile = MAX_PATH;
+	// Map Path를 기본 Path로 세팅하면
+	// 바로 해당 경로의 파일을 열 수 있게 된다 
+	OpenFile.lpstrInitialDir = CPathManager::GetInst()->FindPath(MAP_PATH)->Path;
+
+	if (GetOpenFileName(&OpenFile) != 0)
+	{
+
+		char	FullPath[MAX_PATH] = {};
+
+#ifdef UNICODE
+		// 유니코드라면, 멀티바이트로 변환해준다
+		// 유니코드 문자열을 멀티바이트 문자열로 변환한다.
+		int ConvertLength = WideCharToMultiByte(CP_ACP, 0,
+			FilePath, -1, nullptr, 0, 0, 0);
+
+		// FileName을 TextureName에 변환해서 넣어라 
+		WideCharToMultiByte(CP_ACP, 0, FilePath, -1,
+			FullPath, ConvertLength, 0, 0);
+#else
+		strcpy_s(FullPath, FilePath);
+#endif // UNICODE
+		m_Scene->Load(FullPath);
+	}
+}
+
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -436,6 +513,22 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		// 프레임 추가 하기
 		case IDC_BUTTON_ADDFRAME:
 			g_Dlg->AddFrame();
+			break;
+		// 프레임 삭제 하기
+		case IDC_BUTTON_DELETEFRAME:
+			g_Dlg->DeleteFrame();
+			break;
+		// 프레임 수정 하기
+		case IDC_BUTTON_MODIFYFRAME:
+			g_Dlg->ModifyFrame();
+			break;
+		// Map 저장 하기
+		case IDC_BUTTON_SAVE:
+			g_Dlg->Save();
+			break;
+		// Map Load 하기
+		case IDC_BUTTON_LOAD:
+			g_Dlg->Load();
 			break;
 		default:
 			break;
