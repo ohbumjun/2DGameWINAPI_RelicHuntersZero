@@ -257,7 +257,7 @@ void CEditorDlg::SelectTexture()
 	
 		m_Scene->CreateTileMap();
 
-		// m_Scene->SetTileTexture(m_SelectTileTexture);
+		m_Scene->SetTileTexture(m_SelectTileTexture);
 	
 	}
 }

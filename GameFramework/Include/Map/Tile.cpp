@@ -61,7 +61,6 @@ void CTile::Render(HDC hDC)
 		case ETileOption::Slow:
 			Brush = CGameManager::GetInst()->GetYellowBrush();
 			break;
-
 	}
 
 		CCamera* Camera = CSceneManager::GetInst()->GetScene()->GetCamera();
