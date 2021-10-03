@@ -50,18 +50,23 @@ bool CMainScene::Init()
 	// Monster
 	CMonster* MonsterPrototype = CreatePrototype<CMonster>("MonsterProto");
 
+	// Collider
 	CCollider* Collider = PlayerBullet->FindCollider("Body");
 	if (Collider)
 		Collider->SetCollisionProfile("PlayerAttack");
-
 	CBullet* MonsterBullet = CreatePrototype<CBullet>("MonsterBullet");
 	Collider = MonsterBullet->FindCollider("Body");
 	if (Collider)
 		Collider->SetCollisionProfile("MonsterAttack");
 
+
 	// Player
 	CPlayer* Player = CreatePlayer("Player",Vector2(230.f,230.f));
 	SetPlayer(Player);
+
+	// Camera
+	GetCamera()->SetTarget(Player);
+	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
@@ -102,9 +107,10 @@ bool CMainScene::Init()
 	MPPotion1->SetPos(Vector2(300.f,230.f));
 
 	// Scroll Map
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-	Map->SetSize(1280.f,720.f); // 실제 출력될 크기
-	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
+	// CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+	// Map->SetSize(1280.f,720.f); // 실제 출력될 크기
+	// Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
+	// Map->SetScrollRatio(0.5f,0.0f);
 
 	return true;
 }
