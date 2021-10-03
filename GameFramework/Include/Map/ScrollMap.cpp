@@ -65,6 +65,7 @@ void CScrollMap::PostUpdate(float DeltaTime)
 
 void CScrollMap::PrevRender()
 {
+	CMapBase::PrevRender();
 }
 
 void CScrollMap::Render(HDC hDC)
@@ -74,6 +75,12 @@ void CScrollMap::Render(HDC hDC)
 	{
 		CCamera* Camera     = m_Scene->GetCamera();
 		Vector2 Resolution  = Camera->GetResolution();
+		// 예를 들어, 윈도우 해상도가 2000
+		// 이미지가, 1000
+		// scroll ratio가 0.5
+		// 카메라가 윈도우 해상도 상으로, 20을 움직일때
+		// 이미지상에서의 움직임은 10이 될 것이다
+		// 즉, 실제 움직임보다, 배경은 0.5 배 로 움직이는 것처럼 보일 것이다 
 		Vector2 ImagePos    = Camera->GetPos() * m_ScrollRatio;
 		unsigned int Width  = m_ScrollTexture->GetWidth();
 		unsigned int Height = m_ScrollTexture->GetHeight();
@@ -84,8 +91,7 @@ void CScrollMap::Render(HDC hDC)
 		ImagePos.y = ImagePos.y < 0.f ? 0.f : ImagePos.y;
 		ImagePos.y = ImagePos.y + Resolution.y > Height? Height - Resolution.y :ImagePos.y;
 		
-		m_ScrollTexture->Render(hDC, m_Pos,
-			ImagePos, m_Size);
+		m_ScrollTexture->Render(hDC, m_Pos, ImagePos, m_Size);
 	}
 }
 

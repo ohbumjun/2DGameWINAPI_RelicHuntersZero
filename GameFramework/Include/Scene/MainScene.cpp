@@ -107,10 +107,13 @@ bool CMainScene::Init()
 	MPPotion1->SetPos(Vector2(300.f,230.f));
 
 	// Scroll Map
-	// CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-	// Map->SetSize(1280.f,720.f); // 실제 출력될 크기
-	// Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
-	// Map->SetScrollRatio(0.5f,0.0f);
+	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+
+	// 실제 image 중에서 화면에 출력될 부분의 크기 ( 만약 원본 이미지 크기보다 작다면 이미지가 잘려나올 것 )
+	// 우리의 게임 해상도로 맞춰주는 것이 중요하다 
+	Map->SetSize(1280.f,720.f); 
+	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
+	Map->SetScrollRatio(0.5f,0.0f);
 
 	return true;
 }
