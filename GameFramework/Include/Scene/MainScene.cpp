@@ -24,6 +24,7 @@
 #include "../UI/UIImage.h"
 // Map
 #include "../Map/ScrollMap.h"
+#include "../Map/TileMap.h"
 
 CMainScene::CMainScene()
 {
@@ -113,7 +114,13 @@ bool CMainScene::Init()
 	// 우리의 게임 해상도로 맞춰주는 것이 중요하다 
 	Map->SetSize(1280.f,720.f); 
 	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
-	Map->SetScrollRatio(0.5f,0.0f);
+	Map->SetScrollRatio(0.5f,1.0f);
+	Map->SetZOrder(1);
+
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("MainMap.map");
+	// TileMap->Set
 
 	return true;
 }

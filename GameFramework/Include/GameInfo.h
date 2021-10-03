@@ -47,8 +47,8 @@ stl : standard template library�̴�.
 #define NORMAL_BULLET_DISTANCE 800.f;
 
 // Widget Componenet Names 
-#define PLAYER_HPWIDGET_COMPONENET "HPBarWidget"
-#define PLAYER_MPWIDGET_COMPONENET "MPBarWidget"
+#define PLAYER_HPWIDGET_COMPONENET   "HPBarWidget"
+#define PLAYER_MPWIDGET_COMPONENET   "MPBarWidget"
 #define PLAYER_NAMEWIDGET_COMPONENET "NameWidget"
 
 struct Resolution

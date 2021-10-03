@@ -389,6 +389,12 @@ bool CScene::Collision(float DeltaTime)
 
 bool CScene::Render(HDC hDC)
 {
+	// ZOrder에 따라 정렬한다
+	if (m_MapList.size() >= 2)
+	{
+		qsort(&m_MapList[0], (size_t)m_MapList.size(),
+			sizeof(CMapBase*),CScene::SortZOrderMap);
+	}
 	{
 		auto	iter = m_MapList.begin();
 		auto	iterEnd = m_MapList.end();
@@ -560,6 +566,21 @@ int CScene::SortZOrder(const void* Src, const void* Dest)
 
 	else if (SrcZ < DestZ)
 		return 1;
+
+	return 0;
+}
+
+int CScene::SortZOrderMap(const void* Src, const void* Dest)
+{
+	CMapBase* SrcObj  = *(CMapBase**)Src;
+	CMapBase* DestObj = *(CMapBase**)Dest;
+
+	// Bottom 값을 구한다
+	int SrcZ  = SrcObj->GetZOrder();
+	int DestZ = DestObj->GetZOrder();
+
+	if (SrcZ < DestZ) return 1;
+	else if (SrcZ >= DestZ) return -1;
 
 	return 0;
 }

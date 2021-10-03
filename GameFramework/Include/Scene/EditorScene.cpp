@@ -143,7 +143,7 @@ void CEditorScene::CameraMoveUp(float DeltaTime)
 void CEditorScene::CameraMoveDown(float DeltaTime)
 {
 	CCamera* Camera = GetCamera();
-	Camera->Move(Vector2(0.f, -1.f)*m_ScrollSpeed * DeltaTime);
+	Camera->Move(Vector2(0.f, 1.f)*m_ScrollSpeed * DeltaTime);
 }
 
 void CEditorScene::CameraMoveRight(float DeltaTime)
@@ -155,7 +155,7 @@ void CEditorScene::CameraMoveRight(float DeltaTime)
 void CEditorScene::CameraMoveLeft(float DeltaTime)
 {
 	CCamera* Camera = GetCamera();
-	Camera->Move(Vector2(1.f, 0.f) * m_ScrollSpeed * DeltaTime);
+	Camera->Move(Vector2(-1.f, 0.f) * m_ScrollSpeed * DeltaTime);
 }
 
 void CEditorScene::MouseLButton(float DeltaTime)

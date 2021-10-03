@@ -38,7 +38,7 @@ void CMapBase::Render(HDC hDC)
 {
 }
 
-void CMapBase::Save(const char* FileName, const std::string& PathName)
+void CMapBase::SaveFile(const char* FileName, const std::string& PathName)
 {
 	char FullPath[MAX_PATH] = {};
 	const PathInfo* Info = CPathManager::GetInst()->FindPath(PathName);
@@ -74,7 +74,7 @@ void CMapBase::SaveFullPath(const char* FullPath)
 	fclose(pFile);
 }
 
-void CMapBase::Load(const char* FileName, const std::string& PathName)
+void CMapBase::LoadFile(const char* FileName, const std::string& PathName)
 {
 	char FullPath[MAX_PATH] = {};
 	const PathInfo* Info = CPathManager::GetInst()->FindPath(PathName);

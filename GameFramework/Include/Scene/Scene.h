@@ -25,7 +25,7 @@ public:
 
 private:
 	// ¸Ê ¸ñ·Ï 
-	std::list<class CMapBase*> m_MapList;
+	std::vector<class CMapBase*> m_MapList;
 	CSharedPtr<CGameObject>	m_Player;
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
 	CGameObject** m_RenderArray;
@@ -58,7 +58,7 @@ public:
 public:
 	static int SortY(const void* Src, const void* Dest);
 	static int SortZOrder(const void* Src, const void* Dest);
-
+	static int SortZOrderMap(const void* Src, const void* Dest);
 private:
 	CGameObject* FindPrototype(const std::string& Name);
 
