@@ -121,7 +121,7 @@ public  :
 	void AttackEnd();
 	void BulletFire(float DeltaTime);
 	void Fire();
-	void SetTargetPos(float DeltaTime);
+	void SetLaserPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float DeltaTime);
 	CGameObject* FindClosestTarget(Vector2 PlayerPos);
