@@ -602,9 +602,8 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 	if (!Player)
 	{
 		Player = CreateObject<CPlayer>("Player",Pos,Size);
-		Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP,
-			PLAYER_INIT_MP, 1, 1, 1, NORMAL_SPEED,
-			NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
+		Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, 1, 1, 1, 
+			NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
 		return Player;
 	}
 
@@ -621,24 +620,14 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 			(*iter)->SetScene(this);
 		}
 	}
+
 	{
 		auto iter = Player->m_WidgetComponentList.begin();
 		auto iterEnd = Player->m_WidgetComponentList.end();
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->SetScene(this);
-			if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
-				Player->m_HPBarWidget = (*iter);
-			if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
-				Player->m_MPBarWidget = (*iter);
-			if ((*iter)->GetName() == PLAYER_NAMEWIDGET_COMPONENET)
-				Player->m_NameWidget = (*iter);
 		}
-		/*
-		Player->m_HPBarWidget   = Player->FindWidgetComponent(PLAYER_HPWIDGET_COMPONENET);
-		Player->m_MPBarWidget   = Player->FindWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
-		Player->m_NameWidget    = Player->FindWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
-		*/
 	}
 
 	m_ObjList.push_back(Player);

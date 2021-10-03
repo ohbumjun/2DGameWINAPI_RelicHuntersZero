@@ -44,7 +44,7 @@ void CUIWidget::Render(const Vector2& Pos, HDC hDC)
 
 CUIWidget* CUIWidget::Clone()
 {
-	return nullptr;
+	return new CUIWidget(*this);
 }
 
 bool CUIWidget::CollisionMouse(const Vector2& MousePos, float DeltaTime)

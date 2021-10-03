@@ -61,7 +61,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 	for (; iter != iterEnd; ++iter)
 	{
-		// 
 		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
 			m_HPBarWidget = (*iter);
 		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
@@ -321,8 +320,10 @@ void CPlayer::Update(float DeltaTime)
 		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	}
+	// this
 	CProgressBar* MPBar = (CProgressBar*)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+
 	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
