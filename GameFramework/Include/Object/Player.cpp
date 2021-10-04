@@ -53,9 +53,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillDestoryAllAttackEnable = false;
 	m_SkillDestoryAllAttackTime = 0.f;
 
-	// CGAmeObject���� m_WidgetComponentList���� ��� ����Ǿ� ���� ���̴�
-	// �Ʒ��� Widget���� CShared Ptr�̱� ������, m_WidgetComponentList��� ������ ���¿��� �Ѵ�
-	// ����, m_WidgetComponentList���� ���鼭, �ش� Widget ���׿� �������ش�
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
 
@@ -410,10 +407,13 @@ void CPlayer::Render(HDC hDC)
 		HBRUSH Brush = CGameManager::GetInst()->GetRedBrush();
 		HGDIOBJ PrevBrush = SelectObject(hDC, Brush);
 
-		MoveToEx(hDC, (int)m_Pos.x, (int)m_Pos.y, nullptr);
-		LineTo(hDC, (int)m_TargetPos.x, (int)m_TargetPos.y);
-		Ellipse(hDC, (int)(m_TargetPos.x - 5), (int)(m_TargetPos.y - 5),
-				(int)(m_TargetPos.x + 5), (int)(m_TargetPos.y + 5)); //  L, T, R, B
+		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+		Vector2 ScreenPlayerPos = m_Pos - CameraPos; 
+		Vector2 ScreenTargetPos = m_TargetPos - CameraPos;
+		MoveToEx(hDC, (int)ScreenPlayerPos.x, (int)ScreenPlayerPos.y, nullptr);
+		LineTo(hDC, (int)ScreenTargetPos.x, (int)ScreenTargetPos.y);
+		Ellipse(hDC, (int)(ScreenTargetPos.x - 5), (int)(ScreenTargetPos.y - 5),
+				(int)(ScreenTargetPos.x + 5), (int)(ScreenTargetPos.y + 5)); //  L, T, R, B
 
 		SelectObject(hDC, PrevPen);
 		SelectObject(hDC, PrevBrush);
@@ -487,17 +487,8 @@ void CPlayer::Move(const Vector2 &Dir)
 {
 	if (ObstacleCollisionCheck())
 	{
-		// �׿� �浹�� ȿ�� �߰��ϱ�
-		// �̷��� �ϸ�, Dash�߿� �浹 ����, Move�� �����
-		// < Dash �浹 ���� >
-		// 1) Update --> Dash + CollsionCheck() : CollideBounceBack �Լ� ����
-		// 2) ����, Move �󿡼��� Dash + CollisionCheck() �̸�, Move ���� x ( ������ Dash�� ���� Move �� �����ֱ� ���� )
-		// 3) (������ Move�� ���� ����) CollideBounceBack() �Լ��� ����, �ش� obj�� �ڷ� �з����� �Ѵ�.
 		if (m_DashEnable)
 			return;
-
-		// �켱 �浹�ϸ� ������
-		// return;
 	}
 	CCharacter::Move(Dir);
 }
@@ -628,18 +619,11 @@ void CPlayer::DashEnd()
 
 void CPlayer::CollideBounceBack(Vector2 Dir)
 {
-	// ���� ����� ���( � �浹ü�� �浹�ϴ� �ڷ� �з����� ) + �ش� collider�� mouse type�� �ƴϾ�� �Ѵ�
-	// ����� �浹 ���� Ȯ��
-	// ���߿� üũ�ؾ� �Ѵ�.
-	// �浹�� ����� ��������, ��ֹ�����, ���
-	// ������ �켱 �̷��� �ܼ��ϰ� ��������.
-	// �̵� ���� �ݴ�� �̵���Ű��
 	Vector2 OppDir = Dir;
 	OppDir.Normalize();
 	SetStunDir(OppDir);
 	DashEnd();
 
-	// �ڱ� ũ�⸸ŭ bounce back
 	Stun();
 }
 
@@ -720,12 +704,8 @@ void CPlayer::SkillDestroyAllAttackEnd()
 
 void CPlayer::SkillDestoryAllAttackEnable()
 {
-	// DestroyAll
-	// monster�κ��� ���� ��� bullet �� ����ü���� ������� �Ѵ�.
-	// ���ÿ� ������� animation�� �����Ѵ�.
 	m_Scene->DestroyAllAttackObjects();
 
-	// �þ� ���� �ִ� ��� game obj �鿡�� 20%�� �������� ������.
 }
 
 CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
@@ -733,8 +713,6 @@ CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
 	return m_Scene->FindClosestMonsterToPlayer(PlayerPos);
 }
 
-// ���� : Bullet�� ���, Collision�� ������ �ʿ䰡 ����
-// �ֳ��ϸ� �浹�ϴ� ���� Bullet�� �ڱ� ȥ�� �ٷ� ����� ������ �����̴�
 bool CPlayer::CollisionCheck()
 {
 	auto iter = m_ColliderList.begin();
@@ -889,15 +867,6 @@ void CPlayer::Fire()
 	Bullet->SetObjectType(EObject_Type::Bullet);
 }
 
-void CPlayer::SetTargetPos(float DeltaTime)
-{
-	m_TargetEnable = true;
-	// m_TargetPos�� ����
-	Vector2 MousePos = CInput::GetInst()->GetMousePos();
-	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
-	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
-}
-
 void CPlayer::RemoveTargetPos(float DeltaTime)
 {
 	m_TargetEnable = false;
@@ -917,10 +886,36 @@ void CPlayer::FireTarget()
 	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 }
 
+void CPlayer::SetTargetPos(float DeltaTime)
+{
+	// m_TargetPos�� ����
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	Vector2 Resolution = m_Scene->GetCamera()->GetResolution();
+
+	/*
+	if (MousePos.x < 0.f || MousePos.x > Resolution.x ||
+		MousePos.y < 0.f || MousePos.y > Resolution.y)
+	{
+		// MousePos = m_Pos;
+		return;
+	}
+	*/
+
+	m_TargetEnable = true;
+	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
+}
+
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
 	Vector2 PlayerDir = m_Dir;
-	SetTargetPos(DeltaTime);
+
+	// SetTargetPos(DeltaTime);
+	// Laser 표시 없이 Target 만 세팅하기
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
+
 	if (m_Dir.x > 0)
 		ChangeAnimation("LucidNunNaRightAttack");
 	else

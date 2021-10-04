@@ -209,8 +209,7 @@ void CSceneCollision::Collision(float DeltaTime)
 	m_vecUIWindow.clear();
 }
 
-/*
-Vector2 CSceneCollision::CollisionLaser(Vector2 LaserPos)
+bool CSceneCollision::CollisionLaser(Vector2 LaserPos)
 {
 	CGameObject* Player   = m_Scene->GetPlayer();
 	Vector2 PlayerPos     = Player->GetPos();
@@ -221,12 +220,11 @@ Vector2 CSceneCollision::CollisionLaser(Vector2 LaserPos)
 		{
 			CCollider* Src = m_vecCollider[i];
 			if (Src->GetOwner() == Player) continue;
-			if (Src->IsCollisionWithLaser(LaserPos)) return;
+			if (Src->IsCollisionWithLaser(LaserPos)) return true;
 		}
 	}
-
+	return false;
 }
-*/
 
 int CSceneCollision::SortY(const void* Src, const void* Dest)
 {

@@ -18,6 +18,7 @@
 #define STUN_SPEED 250.f
 #define FAST_SPEED 400.f
 #define BULLET_SPEED 3000.f
+#define LASER_SPEED 100000.f
 #define DASH_SPEED 1600.f
 
 // Attack Distance
@@ -28,3 +29,6 @@
 
 // Death Time
 #define DEATH_TIME 5.f
+
+// Laser Dist
+#define LASER_DISTANCE 10000.f

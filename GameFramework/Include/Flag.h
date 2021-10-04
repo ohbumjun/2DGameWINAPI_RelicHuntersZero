@@ -49,6 +49,7 @@ enum class EButton_State
 enum class EObject_Type
 {
 	GameObject,
+	Laser,
 	Character,
 	Monster,
 	Player,

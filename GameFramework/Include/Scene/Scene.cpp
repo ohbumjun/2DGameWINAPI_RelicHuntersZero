@@ -17,17 +17,15 @@ CScene::CScene()
 
 	m_RenderCount = 0;
 	m_RenderCapacity = 100;
-	m_RenderArray = new CGameObject * [m_RenderCapacity];
+	m_RenderArray = new CGameObject *[m_RenderCapacity];
 
 	m_UICount = 0;
 	m_UICapacity = 10;
-	m_UIArray = new CUIWindow * [m_UICapacity];
+	m_UIArray = new CUIWindow *[m_UICapacity];
 
 	m_Camera = new CCamera;
 
 	m_Camera->Init();
-
-
 }
 
 CScene::~CScene()
@@ -59,25 +57,25 @@ CScene::~CScene()
 	SAFE_DELETE(m_Resource);
 }
 
-CSceneResource* CScene::GetSceneResource() const
+CSceneResource *CScene::GetSceneResource() const
 {
 	return m_Resource;
 }
 
-CSceneCollision* CScene::GetSceneCollision() const
+CSceneCollision *CScene::GetSceneCollision() const
 {
 	return m_Collision;
 }
 
-CCamera* CScene::GetCamera() const
+CCamera *CScene::GetCamera() const
 {
 	return m_Camera;
 }
 
-CGameObject* CScene::FindObject(const std::string& Name)
+CGameObject *CScene::FindObject(const std::string &Name)
 {
-	auto	iter = m_ObjList.begin();
-	auto	iterEnd = m_ObjList.end();
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -88,19 +86,19 @@ CGameObject* CScene::FindObject(const std::string& Name)
 	return nullptr;
 }
 
-CGameObject* CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
+CGameObject *CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
 {
-	auto	iter = m_ObjList.begin();
-	auto	iterEnd = m_ObjList.end();
-	float   MinLength = (float)INT_MAX;
-	float   FLOAT_MAX = (float)INT_MAX;
-	CGameObject* ClosestObj = nullptr;
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+	float MinLength = (float)INT_MAX;
+	float FLOAT_MAX = (float)INT_MAX;
+	CGameObject *ClosestObj = nullptr;
 
 	for (; iter != iterEnd; ++iter)
 	{
-		// Monster TypeÀÌ ¾Æ´Ï¸é °Ç³Ê¶Ú´Ù 
-		if ((*iter)->GetObjType() != EObject_Type::Monster) continue;
-<<<<<<< HEAD
+		// Monster Typeï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½Ç³Ê¶Ú´ï¿½
+		if ((*iter)->GetObjType() != EObject_Type::Monster)
+			continue;
 
 		float LengthToObj = Vector2((*iter)->GetPos() - PlayerPos).Length();
 		if (LengthToObj < MinLength)
@@ -118,68 +116,35 @@ void CScene::DestroyAllAttackObjects()
 {
 	auto iter = m_ObjList.begin();
 	auto iterEnd = m_ObjList.end();
-	for (; iter != iterEnd;++iter)
+	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetObjType() == EObject_Type::Bullet)
 		{
 			Vector2 ObjPos = (*iter)->GetPos();
 			(*iter)->Destroy();
-			CEffectHit* Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
-				ObjPos, Vector2(178.f, 164.f));
+			CEffectHit *Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
+													   ObjPos, Vector2(178.f, 164.f));
 			GetSceneResource()->SoundPlay("Fire");
 		}
-
 	}
 }
 
-=======
-
-		float LengthToObj = Vector2((*iter)->GetPos() - PlayerPos).Length();
-		if (LengthToObj < MinLength)
-		{
-			MinLength = LengthToObj;
-			ClosestObj = (*iter);
-		}
-	}
-	if (MinLength == FLOAT_MAX)
-		return nullptr;
-	return ClosestObj;
-}
-
-void CScene::DestroyAllAttackObjects()
+CGameObject *CScene::SetPlayer(const std::string &Name)
 {
-	auto iter = m_ObjList.begin();
-	auto iterEnd = m_ObjList.end();
-	for (; iter != iterEnd;++iter)
-	{
-		if ((*iter)->GetObjType() == EObject_Type::Bullet)
-		{
-			Vector2 ObjPos = (*iter)->GetPos();
-			(*iter)->Destroy();
-			CEffectHit* Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
-				ObjPos, Vector2(178.f, 164.f));
-			GetSceneResource()->SoundPlay("Fire");
-		}
-
-	}
-}
-
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
-CGameObject* CScene::SetPlayer(const std::string& Name)
-{
-	CGameObject* Player = FindObject(Name);
+	CGameObject *Player = FindObject(Name);
 	return SetPlayer(Player);
 }
 
-CGameObject* CScene::SetPlayer(CGameObject* Player)
+CGameObject *CScene::SetPlayer(CGameObject *Player)
 {
-	if (!Player) return nullptr;
+	if (!Player)
+		return nullptr;
 
-	// Scene³»ÀÇ player ¼¼ÆÃ
+	// Sceneï¿½ï¿½ï¿½ï¿½ player ï¿½ï¿½ï¿½ï¿½
 	m_Player = Player;
 
-	auto	iter = m_ObjList.begin();
-	auto	iterEnd = m_ObjList.end();
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -205,8 +170,8 @@ bool CScene::Update(float DeltaTime)
 	}
 
 	{
-		auto	iter = m_ObjList.begin();
-		auto	iterEnd = m_ObjList.end();
+		auto iter = m_ObjList.begin();
+		auto iterEnd = m_ObjList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -255,8 +220,8 @@ bool CScene::PostUpdate(float DeltaTime)
 		m_Player->PostUpdate(DeltaTime);
 	}
 	{
-		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
-		std::list<CSharedPtr<CGameObject>>::iterator	iterEnd = m_ObjList.end();
+		std::list<CSharedPtr<CGameObject>>::iterator iter = m_ObjList.begin();
+		std::list<CSharedPtr<CGameObject>>::iterator iterEnd = m_ObjList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -300,12 +265,12 @@ bool CScene::PostUpdate(float DeltaTime)
 
 	m_Camera->Update(DeltaTime);
 
-	// TileMap Update´Â PostUpdate¿¡¼­ ÇÏÀÚ.
-	// ´Ü, Render´Â ¹Ýµå½Ã MapÀ» ¸ÕÀú ½ÃÄÑ¾ß ÇÑ´Ù
-	// ¿Ö³ÄÇÏ¸é, ¿©±â¼­ Ä«¸Þ¶ó°¡ update µÇ±â ¶§¹®ÀÌ´Ù 
+	// TileMap Updateï¿½ï¿½ PostUpdateï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+	// ï¿½ï¿½, Renderï¿½ï¿½ ï¿½Ýµï¿½ï¿½ Mapï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ¾ï¿½ ï¿½Ñ´ï¿½
+	// ï¿½Ö³ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½â¼­ Ä«ï¿½Þ¶ï¿½ update ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 	{
-		auto	iter = m_MapList.begin();
-		auto	iterEnd = m_MapList.end();
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -329,8 +294,8 @@ bool CScene::PostUpdate(float DeltaTime)
 	}
 
 	{
-		auto	iter = m_MapList.begin();
-		auto	iterEnd = m_MapList.end();
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -363,8 +328,8 @@ bool CScene::Collision(float DeltaTime)
 		m_Player->Collision(DeltaTime);
 	}
 	{
-		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
-		std::list<CSharedPtr<CGameObject>>::iterator	iterEnd = m_ObjList.end();
+		std::list<CSharedPtr<CGameObject>>::iterator iter = m_ObjList.begin();
+		std::list<CSharedPtr<CGameObject>>::iterator iterEnd = m_ObjList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -383,8 +348,8 @@ bool CScene::Collision(float DeltaTime)
 	{
 		if (m_UICount >= 2)
 		{
-			qsort(m_UIArray, (size_t)m_UICount, sizeof(CUIWindow*),
-				CScene::SortZOrder);
+			qsort(m_UIArray, (size_t)m_UICount, sizeof(CUIWindow *),
+				  CScene::SortZOrder);
 		}
 
 		for (int i = 0; i < m_UICount;)
@@ -423,15 +388,15 @@ bool CScene::Collision(float DeltaTime)
 
 bool CScene::Render(HDC hDC)
 {
-	// ZOrder¿¡ µû¶ó Á¤·ÄÇÑ´Ù
+	// ZOrderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	if (m_MapList.size() >= 2)
 	{
 		qsort(&m_MapList[0], (size_t)m_MapList.size(),
-			sizeof(CMapBase*),CScene::SortZOrderMap);
+			  sizeof(CMapBase *), CScene::SortZOrderMap);
 	}
 	{
-		auto	iter = m_MapList.begin();
-		auto	iterEnd = m_MapList.end();
+		auto iter = m_MapList.begin();
+		auto iterEnd = m_MapList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -460,8 +425,8 @@ bool CScene::Render(HDC hDC)
 	}
 
 	{
-		std::list<CSharedPtr<CGameObject>>::iterator	iter = m_ObjList.begin();
-		std::list<CSharedPtr<CGameObject>>::iterator	iterEnd = m_ObjList.end();
+		std::list<CSharedPtr<CGameObject>>::iterator iter = m_ObjList.begin();
+		std::list<CSharedPtr<CGameObject>>::iterator iterEnd = m_ObjList.end();
 
 		for (; iter != iterEnd;)
 		{
@@ -480,11 +445,11 @@ bool CScene::Render(HDC hDC)
 				{
 					m_RenderCapacity *= 2;
 
-					CGameObject** Array = new CGameObject * [m_RenderCapacity];
+					CGameObject **Array = new CGameObject *[m_RenderCapacity];
 
-					memcpy(Array, m_RenderArray, sizeof(CGameObject*) * m_RenderCount);
+					memcpy(Array, m_RenderArray, sizeof(CGameObject *) * m_RenderCount);
 
-					delete[]	m_RenderArray;
+					delete[] m_RenderArray;
 
 					m_RenderArray = Array;
 				}
@@ -501,11 +466,11 @@ bool CScene::Render(HDC hDC)
 	{
 		m_RenderCapacity *= 2;
 
-		CGameObject** Array = new CGameObject * [m_RenderCapacity];
+		CGameObject **Array = new CGameObject *[m_RenderCapacity];
 
-		memcpy(Array, m_RenderArray, sizeof(CGameObject*) * m_RenderCount);
+		memcpy(Array, m_RenderArray, sizeof(CGameObject *) * m_RenderCount);
 
-		delete[]	m_RenderArray;
+		delete[] m_RenderArray;
 
 		m_RenderArray = Array;
 	}
@@ -519,10 +484,10 @@ bool CScene::Render(HDC hDC)
 		}
 	}
 
-	// Ãâ·Â ¸ñ·ÏÀ» Á¤·ÄÇÑ´Ù.
-	qsort(m_RenderArray, (size_t)m_RenderCount, sizeof(CGameObject*),
-		CScene::SortY);
-	
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	qsort(m_RenderArray, (size_t)m_RenderCount, sizeof(CGameObject *),
+		  CScene::SortY);
+
 	for (int i = 0; i < m_RenderCount; ++i)
 	{
 		m_RenderArray[i]->Render(hDC);
@@ -531,7 +496,7 @@ bool CScene::Render(HDC hDC)
 	m_RenderCount = 0;
 
 	{
-		for(int i = 0 ;i < m_UICount; )
+		for (int i = 0; i < m_UICount;)
 		{
 			if (!m_UIArray[i]->IsActive())
 			{
@@ -560,40 +525,40 @@ bool CScene::Render(HDC hDC)
 	return false;
 }
 
-int CScene::SortY(const void* Src, const void* Dest)
+int CScene::SortY(const void *Src, const void *Dest)
 {
-	CGameObject* SrcObj = *(CGameObject**)Src;
-	CGameObject* DestObj = *(CGameObject**)Dest;
+	CGameObject *SrcObj = *(CGameObject **)Src;
+	CGameObject *DestObj = *(CGameObject **)Dest;
 
-	// Bottom °ªÀ» ±¸ÇÑ´Ù.
-	float	SrcY = SrcObj->GetBottom();
-	float	DestY = DestObj->GetBottom();
+	// Bottom ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+	float SrcY = SrcObj->GetBottom();
+	float DestY = DestObj->GetBottom();
 
 	if (SrcY < DestY)
 		return -1;
-	// ¿©±â¼­´Â Y°¡ Å¬¼ö·Ï, ¾Æ·¡¿¡ ÀÖ´Ù´Â °ÍÀÌ°í
-	// Y°¡ ÀÛÀ» ¼ö·Ï, À§¿¡ ÀÖ´Ù´Â °ÍÀÌ´Ù
-	// ¿ì¸®´Â ¾Æ·¡¿¡ ÀÖ´Â Y¸¦ È­¸é ¾Õ¿¡´Ù°¡ ±×¸®°í ½ÍÀº °Í
-	// Áï, Y°ªÀÌ Å«¾Ö¸¦ È­¸é ¾Õ¿¡´Ù°¡ ±×¸®°í ½ÍÀº °Í
-	// µû¶ó¼­, ¸ÕÀú SortY¸¦ ÅëÇØ, Y°¡ ÀÛÀº ¾Öµé, 
-	// Áï, ´õ À§¿¡ÀÖ´Â ¾ÖµéÀÌ ¾Õ¿¡¿À°Ô Á¤·ÄÇÑ ´ÙÀ½
-	// Render¿¡¼­, ¹è¿­ ¾Õ¿¡¼­ºÎÅÍ ±×¸²À¸·Î½á
-	// ¹è¿­ »ó µÚ·Î °¥¼ö·Ï, ¾Æ·¡¿¡ À§Ä¡ÇØÀÖ´Â ¾ÖµéÀ»
-	// ³ªÁß¿¡ ±×¸®°Ô ÇÏ°í, ÀÌ¸¦ ÅëÇØ, È­¸é ¾ÕÂÊ¿¡ ±×¸± ¼ö ÀÖ°Ô ¼³Á¤ÇÏ´Â °ÍÀÌ´Ù 
+	// ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ Yï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½
+	// Yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½
+	// ï¿½ì¸®ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Yï¿½ï¿½ È­ï¿½ï¿½ ï¿½Õ¿ï¿½ï¿½Ù°ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	// ï¿½ï¿½, Yï¿½ï¿½ï¿½ï¿½ Å«ï¿½Ö¸ï¿½ È­ï¿½ï¿½ ï¿½Õ¿ï¿½ï¿½Ù°ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ SortYï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½,
+	// ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// Renderï¿½ï¿½ï¿½ï¿½, ï¿½è¿­ ï¿½Õ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ï¿½Î½ï¿½
+	// ï¿½è¿­ ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Öµï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½, È­ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½
 	else if (SrcY > DestY)
 		return 1;
 
 	return 0;
 }
 
-int CScene::SortZOrder(const void* Src, const void* Dest)
+int CScene::SortZOrder(const void *Src, const void *Dest)
 {
-	CUIWindow* SrcObj = *(CUIWindow**)Src;
-	CUIWindow* DestObj = *(CUIWindow**)Dest;
+	CUIWindow *SrcObj = *(CUIWindow **)Src;
+	CUIWindow *DestObj = *(CUIWindow **)Dest;
 
-	// Bottom °ªÀ» ±¸ÇÑ´Ù.
-	int	SrcZ = SrcObj->GetZOrder();
-	int	DestZ = DestObj->GetZOrder();
+	// Bottom ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
+	int SrcZ = SrcObj->GetZOrder();
+	int DestZ = DestObj->GetZOrder();
 
 	if (SrcZ > DestZ)
 		return -1;
@@ -604,24 +569,26 @@ int CScene::SortZOrder(const void* Src, const void* Dest)
 	return 0;
 }
 
-int CScene::SortZOrderMap(const void* Src, const void* Dest)
+int CScene::SortZOrderMap(const void *Src, const void *Dest)
 {
-	CMapBase* SrcObj  = *(CMapBase**)Src;
-	CMapBase* DestObj = *(CMapBase**)Dest;
+	CMapBase *SrcObj = *(CMapBase **)Src;
+	CMapBase *DestObj = *(CMapBase **)Dest;
 
-	// Bottom °ªÀ» ±¸ÇÑ´Ù
-	int SrcZ  = SrcObj->GetZOrder();
+	// Bottom ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½
+	int SrcZ = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 
-	if (SrcZ > DestZ) return 1;
-	else if (SrcZ < DestZ) return -1;
+	if (SrcZ > DestZ)
+		return 1;
+	else if (SrcZ < DestZ)
+		return -1;
 
 	return 0;
 }
 
-CGameObject* CScene::FindPrototype(const std::string& Name)
+CGameObject *CScene::FindPrototype(const std::string &Name)
 {
-	auto	iter = m_mapPrototype.find(Name);
+	auto iter = m_mapPrototype.find(Name);
 
 	if (iter == m_mapPrototype.end())
 		return nullptr;
@@ -629,15 +596,15 @@ CGameObject* CScene::FindPrototype(const std::string& Name)
 	return iter->second;
 }
 
-CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const Vector2& Size)
+CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {
-	CPlayer* Player = (CPlayer*)CSceneManager::GetInst()->GetPlayer();
+	CPlayer *Player = (CPlayer *)CSceneManager::GetInst()->GetPlayer();
 
 	if (!Player)
 	{
-		Player = CreateObject<CPlayer>("Player",Pos,Size);
-		Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, 1, 1, 1, 
-			NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
+		Player = CreateObject<CPlayer>("Player", Pos, Size);
+		Player->SetCharacterInfo(100, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, 1, 1, 1,
+								 NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
 		return Player;
 	}
 
@@ -647,7 +614,7 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 	Player->SetName(Name);
 
 	{
-		auto iter    = Player->m_ColliderList.begin();
+		auto iter = Player->m_ColliderList.begin();
 		auto iterEnd = Player->m_ColliderList.end();
 		for (; iter != iterEnd; ++iter)
 		{
@@ -663,11 +630,7 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 			(*iter)->SetScene(this);
 		}
 	}
-<<<<<<< HEAD
 	Player->SetNotifyFunctions();
-=======
-
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 	m_ObjList.push_back(Player);
 
 	return Player;
