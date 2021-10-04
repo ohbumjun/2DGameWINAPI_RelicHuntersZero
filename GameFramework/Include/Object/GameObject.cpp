@@ -144,10 +144,10 @@ bool CGameObject::IsCollisionCheck()
 		// if collidede with sth
 		if (!(*iter)->IsCollisionListEmpty())
 		{
-			return m_Pos;
+			return true;
 		}
 	}
-	return Vector2(-1.f,-1.f);
+	return false;
 }
 
 void CGameObject::SetStunDir(Vector2 Dir)
