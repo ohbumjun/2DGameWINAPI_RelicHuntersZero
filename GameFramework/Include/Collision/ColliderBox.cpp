@@ -114,3 +114,16 @@ bool CColliderBox::CollisionMouse(const Vector2& MousePos)
 
 	return true;
 }
+
+bool CColliderBox::IsCollisionWithLaser(const Vector2& LaserPos)
+{
+	Vector2	Pos = m_Owner->GetPos();
+
+	float LaserX = LaserPos.x;
+	float LaserY = LaserPos.y;
+	if (LaserX < m_Info.Left) return false ;
+	if (LaserX > m_Info.Right) return false ;
+	if (LaserY < m_Info.Bottom) return false ;
+	if (LaserY > m_Info.Top) return false ;
+	return true;
+}

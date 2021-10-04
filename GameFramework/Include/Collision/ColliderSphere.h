@@ -37,5 +37,6 @@ public:
 	virtual CColliderSphere* Clone();
 	virtual bool Collision(CCollider* Dest);
 	virtual bool CollisionMouse(const Vector2& MousePos);
+	virtual bool IsCollisionWithLaser(const Vector2& LaserPos);
 };
 

@@ -129,6 +129,7 @@ void CPlayer::Start()
 		this, &CPlayer::Teleport);
 	CInput::GetInst()->SetCallback<CPlayer>("TeleportPositionSet", KeyState_Down,
 		this, &CPlayer::SetTeleportPos);
+	 
 
 	// Target
 	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Push,

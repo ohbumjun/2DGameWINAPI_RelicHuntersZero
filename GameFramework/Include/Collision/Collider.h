@@ -122,6 +122,7 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CCollider* Clone();
 	virtual bool Collision(CCollider* Dest) = 0;
+	virtual bool IsCollisionWithLaser(const Vector2& LaserPos) = 0;
 	virtual bool CollisionMouse(const Vector2& MousePos) = 0;
 
 public:

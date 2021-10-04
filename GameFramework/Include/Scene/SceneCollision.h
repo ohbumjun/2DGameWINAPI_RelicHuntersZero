@@ -35,6 +35,7 @@ public:
 	void AddUIWindow(class CUIWindow* Window);
 	void CollisionMouse(float DeltaTime);
 	void Collision(float DeltaTime);
+	Vector2 CollisionLaser(Vector2 LaserPos);
 
 private:
 	static int SortY(const void* Src, const void* Dest);

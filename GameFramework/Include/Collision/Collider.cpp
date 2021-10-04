@@ -77,6 +77,7 @@ CPotion* CCollider::IsCollisionWithPotion()
 	return nullptr;
 }
 
+
 bool CCollider::DidCollideWithObstacles() const
 {
 	auto iter   = m_CollisionList.begin();

@@ -1,4 +1,15 @@
-﻿  Player.cpp
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(266,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(271,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  GameFramework.vcxproj -> C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Bin\GameFramework_Debug.exe
+﻿  Animation.cpp
+  Collider.cpp
+  GameObject.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\GameObject.cpp(31,1): warning C4305: 'initializing': truncation from 'int' to 'float'
+  Player.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(267,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Object\Player.cpp(272,31): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  StageDoor.cpp
+  Scene.cpp
+  SceneCollision.cpp
+C:\Users\user.DESKTOP-3NN2QR0\Desktop\CodingStudyStuff\gameStudy\C++ Code\WIn\WinAPI_Project\GameFramework\Include\Scene\SceneCollision.cpp(224,3): error C2059: syntax error: '}'
+  SceneManager.cpp
+  UIStart.cpp
+  WidgetComponent.cpp
+  Generating Code...
