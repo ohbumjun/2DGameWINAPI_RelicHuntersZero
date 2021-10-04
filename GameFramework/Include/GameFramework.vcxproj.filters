@@ -106,12 +106,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-<<<<<<< HEAD
     <Filter Include="03. Object\05. LaserObj">
       <UniqueIdentifier>{ca1426ba-360f-4c06-8ad5-57b28780b0b5}</UniqueIdentifier>
     </Filter>
-=======
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -291,12 +288,9 @@
     <ClCompile Include="Map\ScrollMap.cpp">
       <Filter>08. Map</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Object\LaserObj.cpp">
       <Filter>03. Object\05. LaserObj</Filter>
     </ClCompile>
-=======
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -518,12 +512,9 @@
     <ClInclude Include="Map\ScrollMap.h">
       <Filter>08. Map</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Object\LaserObj.h">
       <Filter>03. Object\05. LaserObj</Filter>
     </ClInclude>
-=======
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameFramework.rc">

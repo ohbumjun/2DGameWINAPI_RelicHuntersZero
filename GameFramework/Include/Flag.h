@@ -83,7 +83,6 @@ enum class EDoorStage_Type
 
 enum class ETileOption
 {
-	// ���ϴ� ��� Ȯ���ؼ� ���
 	Normal,
 	Wall,
 	Slow,

@@ -15,10 +15,6 @@ protected:
 	float		m_Distance;
 
 public:
-	void SetLaserObjDamage(float Damage)
-	{
-		m_Damage = Damage;
-	}
 	void SetDir(float x, float y)
 	{
 		m_Dir.x = x;

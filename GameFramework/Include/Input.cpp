@@ -3,11 +3,10 @@
 
 CInput *CInput::m_Inst = nullptr;
 
-CInput::CInput() :
-	m_MouseDown(false),
-	m_MousePush(false),
-	m_MouseUp(false),
-	m_hWnd(0)
+CInput::CInput() : m_MouseDown(false),
+				   m_MousePush(false),
+				   m_MouseUp(false),
+				   m_hWnd(0)
 {
 	m_vecKeyState.resize(KEYCOUNT_MAX);
 
@@ -16,11 +15,10 @@ CInput::CInput() :
 		m_vecKeyState[i].Key = i;
 	}
 
-
 	m_Ctrl = false;
 	m_Alt = false;
 	m_Shift = false;
-	
+
 	m_ShowCursor = false;
 
 	m_MouseType = Mouse_Default;
@@ -153,7 +151,7 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("Dash", VK_TAB);
 
 	// Teleport
-	CreateKey("Teleport",'T');
+	CreateKey("Teleport", 'T');
 	CreateKey("TeleportPositionSet", VK_RBUTTON);
 	SetCtrlKey("TeleportPositionSet", true);
 
@@ -164,7 +162,7 @@ bool CInput::Init(HWND hWnd)
 	SetCtrlKey("TargetFire", true);
 
 	// Item
-	CreateKey("GetItem",'Z');
+	CreateKey("GetItem", 'Z');
 
 	// Edit
 	CreateKey("Editor", VK_F1);
@@ -214,7 +212,7 @@ void CInput::Update(float DeltaTime)
 	// Title 바에서도 마우스 커서 보이게 하기
 	RECT rc;
 	GetClientRect(m_hWnd, &rc); // Title바 제외
-	// GetWindowRect() : Title 바 포함 
+	// GetWindowRect() : Title 바 포함
 
 	POINT ptMouse;
 	// Screen 좌표 (일반 좌표 )로 나온다
@@ -226,16 +224,15 @@ void CInput::Update(float DeltaTime)
 	// 안에 안들어오면 보이게
 	// 이렇게 해주는 이유는, title 바는
 	// rc 범위 (GetClientRect : Title바 제외) 밖에 있다
-	// 따라서, rc 범위 밖에 있을 때는 
+	// 따라서, rc 범위 밖에 있을 때는
 	// animation이 없는 원래의 마우스 커서가 보이게
 	// rc 범위 안에 있을 때는, 원래의 마우스 커서 안보이게
-	if (rc.left <= ptMouse.x
-		&& ptMouse.x <= rc.right &&
+	if (rc.left <= ptMouse.x && ptMouse.x <= rc.right &&
 		rc.top <= ptMouse.y &&
 		ptMouse.y <= rc.bottom)
 	{
-		// 들어왔을 때는, 
-		// 보이는 경우, 안보이게 해야 한다 
+		// 들어왔을 때는,
+		// 보이는 경우, 안보이게 해야 한다
 		if (IsShowCursor())
 		{
 			SetShowCursor(false);
@@ -244,7 +241,7 @@ void CInput::Update(float DeltaTime)
 	}
 	else
 	{
-		// 안에 "안"들어왔는데 안보이고 있다면 
+		// 안에 "안"들어왔는데 안보이고 있다면
 		if (!IsShowCursor())
 		{
 			// 보이게 처리하기
@@ -277,10 +274,6 @@ void CInput::UpdateMouse(float DeltaTime)
 	Pos.y = (float)ptMouse.y;
 
 	m_MouseMove = Pos - m_MousePos;
-<<<<<<< HEAD
-=======
-
->>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 	m_MousePos = Pos;
 
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
