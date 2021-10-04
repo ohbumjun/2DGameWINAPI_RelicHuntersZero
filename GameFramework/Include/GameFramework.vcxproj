@@ -175,7 +175,10 @@
     <ClCompile Include="Object\Equipment.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\HPPotion.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Object\LaserObj.cpp" />
+=======
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
     <ClCompile Include="Object\Potion.cpp" />
     <ClCompile Include="Object\Monster.cpp" />
     <ClCompile Include="Object\MPPotion.cpp" />
@@ -245,7 +248,10 @@
     <ClInclude Include="Object\Character.h" />
     <ClInclude Include="Object\Equipment.h" />
     <ClInclude Include="Object\HPPotion.h" />
+<<<<<<< HEAD
     <ClInclude Include="Object\LaserObj.h" />
+=======
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
     <ClInclude Include="Object\Potion.h" />
     <ClInclude Include="Object\MPPotion.h" />
     <ClInclude Include="Object\StageDoor.h" />

@@ -13,8 +13,7 @@ CColliderSphere::CColliderSphere()
 	m_Type = ECollider_Type::Sphere;
 }
 
-CColliderSphere::CColliderSphere(const CColliderSphere& collider) :
-	CCollider(collider)
+CColliderSphere::CColliderSphere(const CColliderSphere &collider) : CCollider(collider)
 {
 	m_Info = collider.m_Info;
 }
@@ -48,50 +47,49 @@ void CColliderSphere::Render(HDC hDC)
 	CCollider::Render(hDC);
 
 #ifdef _DEBUG
-	HPEN	Pen = CGameManager::GetInst()->GetGreenPen();
+	HPEN Pen = CGameManager::GetInst()->GetGreenPen();
 
 	if (!m_CollisionList.empty() || m_MouseCollision)
 		Pen = CGameManager::GetInst()->GetRedPen();
 
-	CCamera* Camera = m_Scene->GetCamera();
+	CCamera *Camera = m_Scene->GetCamera();
 
-	SphereInfo	RenderInfo = m_Info;
+	SphereInfo RenderInfo = m_Info;
 
 	RenderInfo.Center -= Camera->GetPos();
-	
-	HGDIOBJ	Prev = SelectObject(hDC, Pen);
+
+	HGDIOBJ Prev = SelectObject(hDC, Pen);
 
 	MoveToEx(hDC, (int)(RenderInfo.Center.x + RenderInfo.Radius), (int)RenderInfo.Center.y, nullptr);
 
 	for (int i = 0; i < 12; ++i)
 	{
-		float	Radian = DegreeToRadian((i + 1) * (360.f / 12.f));
+		float Radian = DegreeToRadian((i + 1) * (360.f / 12.f));
 
-		float	x = RenderInfo.Center.x + cosf(Radian) * RenderInfo.Radius;
-		float	y = RenderInfo.Center.y + sinf(Radian) * RenderInfo.Radius;
+		float x = RenderInfo.Center.x + cosf(Radian) * RenderInfo.Radius;
+		float y = RenderInfo.Center.y + sinf(Radian) * RenderInfo.Radius;
 
 		LineTo(hDC, (int)x, (int)y);
 	}
 
 	SelectObject(hDC, Prev);
 #endif // _DEBUG
-
 }
 
-CColliderSphere* CColliderSphere::Clone()
+CColliderSphere *CColliderSphere::Clone()
 {
 	return new CColliderSphere(*this);
 }
 
-bool CColliderSphere::Collision(CCollider* Dest)
+bool CColliderSphere::Collision(CCollider *Dest)
 {
 	switch (Dest->GetColliderType())
 	{
 	case ECollider_Type::Box:
-		return CCollision::CollisionBoxToSphere((CColliderBox*)Dest, this);
+		return CCollision::CollisionBoxToSphere((CColliderBox *)Dest, this);
 		break;
 	case ECollider_Type::Sphere:
-		return CCollision::CollisionSphereToSphere(this, (CColliderSphere*)Dest);
+		return CCollision::CollisionSphereToSphere(this, (CColliderSphere *)Dest);
 	case ECollider_Type::Point:
 		break;
 	}
@@ -99,20 +97,21 @@ bool CColliderSphere::Collision(CCollider* Dest)
 	return false;
 }
 
-bool CColliderSphere::CollisionMouse(const Vector2& MousePos)
+bool CColliderSphere::CollisionMouse(const Vector2 &MousePos)
 {
-	float	Dist = Distance(m_Info.Center, MousePos);
+	float Dist = Distance(m_Info.Center, MousePos);
 
 	return Dist <= m_Info.Radius;
 }
 
-bool CColliderSphere::IsCollisionWithLaser(const Vector2& LaserPos)
+bool CColliderSphere::IsCollisionWithLaser(const Vector2 &LaserPos)
 {
-	// Ãæµ¹ ÁöÁ¡À» return ÇØÁØ´Ù 
-	float Dist  = Distance(m_Info.Center, LaserPos);
+	// ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ return ï¿½ï¿½ï¿½Ø´ï¿½
+	float Dist = Distance(m_Info.Center, LaserPos);
 	float Angle = GetAngle(m_Info.Center, LaserPos);
 
-	// Ãæµ¹ ¹üÀ§ ¾È¿¡ Á¸ÀçÇÏÁö ¾ÊÀ½ 
-	if (Dist > m_Info.Radius) return false;
+	// ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	if (Dist > m_Info.Radius)
+		return false;
 	return true;
 }

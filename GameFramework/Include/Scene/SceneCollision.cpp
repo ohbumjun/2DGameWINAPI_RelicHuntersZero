@@ -35,10 +35,10 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 	Vector2	MousePos = CInput::GetInst()->GetMousePos();
 	Vector2	MouseWorldPos = MousePos + m_Scene->GetCamera()->GetPos();
 
-	// ¸ÕÀú ¸¶¿ì½º¿Í UI¸¦ Ãæµ¹Ã³¸®ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ UIï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 	int	WidgetCount = 0;
 
-	// ¸ðµç À©µµ¿ì°¡ °¡Áö°í ÀÖ´Â ÀüÃ¼ À§Á¬ÀÇ ¼ö¸¦ ±¸ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ì°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	size_t	WindowCount = m_vecUIWindow.size();
 	for (size_t i = 0; i < WindowCount; ++i)
 	{
@@ -50,7 +50,7 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 
 	int	WidgetOffset = 0;
 
-	// ÀÌ¹Ì ¼±ÅÃµÈ WidgetÀÌ ÀÖ´Ù¸é ¸ÕÀú ¼¼ÆÃÇØÁØ´Ù 
+	// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ Widgetï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ 
 	if (m_SelectWidget)
 	{
 		vecWidget[WidgetOffset] = m_SelectWidget;
@@ -72,8 +72,8 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 		}
 	}
 
-	// ¸¶¿ì½º¿Í UIÀÇ Ãæµ¹À» ½ÃÀÛÇÑ´Ù.
-	// ¸¸¾à ÇÏ³ª¶óµµ Ãæµ¹ÀÌ µÈ´Ù¸é ´õÀÌ»ó Ãæµ¹À» ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+	// ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ UIï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½È´Ù¸ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½.
 	bool	EnableCollision = false;
 
 	for (int i = 0; i < WidgetCount; ++i)
@@ -99,8 +99,8 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 		}
 	}
 
-	// ¸¶¿ì½º¿Í ¿ùµå¿¡ ¹èÄ¡µÈ ¹°Ã¼¿ÍÀÇ Ãæµ¹À» ÁøÇàÇÑ´Ù.
-	// ´Ü, À§¿¡¼­ UI¿Í Ãæµ¹ÀÌ µÇ¾ú´Ù¸é Ãæµ¹À» ¾ÈÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (!EnableCollision)
 	{
 		if (m_MouseHoveredWidget)
@@ -112,9 +112,9 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 		if (m_SelectWidget)
 			m_SelectWidget = nullptr;
 
-		// ¿ùµå»óÀÇ Ãæµ¹Ã¼¿Í ¸¶¿ì½º¿ÍÀÇ Ãæµ¹Ã³¸®¸¦ ÇÑ´Ù.
-		// Ãæµ¹Ã¼µéÀ» È­¸é¿¡ ³ª¿À´Â Ãæµ¹Ã¼µé¸¸ °É·¯³»°í Ãæµ¹Ã¼ÀÇ ¹Ù´Ú ±âÁØÀ¸·Î
-		// Á¤·ÄÀ» ½ÃÄÑÁØ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+		// ï¿½æµ¹Ã¼ï¿½ï¿½ï¿½ï¿½ È­ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½é¸¸ ï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½ï¿½ ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		size_t	Size = m_vecCollider.size();
 
 		if (Size > 1)
@@ -163,27 +163,27 @@ void CSceneCollision::Collision(float DeltaTime)
 			{
 				CCollider* Dest = m_vecCollider[j];
 
-				// µÎ Ãæµ¹Ã¼°¡ °°Àº ¿ÀºêÁ§Æ®¿¡ ¼Ò¼ÓµÇ¾î ÀÖ´Ù¸é Ãæµ¹À» ¾ÈÇÑ´Ù.
+				// ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ò¼ÓµÇ¾ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if (Src->GetOwner() == Dest->GetOwner())
 					continue;
 
 				CollisionProfile* SrcProfile = Src->GetProfile();
 				CollisionProfile* DestProfile = Dest->GetProfile();
 
-				// ¼­·Î »ó´ë¹æ¿¡ ´ëÇÑ CollisionState¸¦ ¾ò¾î¿Â´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½æ¿¡ ï¿½ï¿½ï¿½ï¿½ CollisionStateï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
 				ECollision_State	SrcState = SrcProfile->vecState[DestProfile->Channel];
 				ECollision_State	DestState = DestProfile->vecState[SrcProfile->Channel];
 
-				if (SrcState == ECollision_State::Ignore || // ÆòÈ­ÁÖÀÇ &&(Æø·ÂÁÖÀÇ)
+				if (SrcState == ECollision_State::Ignore || // ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ &&(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 					DestState == ECollision_State::Ignore)
 					continue;
 
 				if (Src->Collision(Dest))
 				{
-					// ÀÌÀü¿¡ Ãæµ¹µÇ°í ÀÖ¾ú´ÂÁö¸¦ ÆÇ´ÜÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½Ç°ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 					if (!Src->CheckCollisionList(Dest))
 					{
-						// ¼­·Î »ó´ë¹æÀ» Ãæµ¹¸ñ·Ï¿¡ ÁöÁ¤ÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						Src->AddCollisionList(Dest);
 						Dest->AddCollisionList(Src);
 
@@ -192,7 +192,7 @@ void CSceneCollision::Collision(float DeltaTime)
 					}
 				}
 
-				// Ãæµ¹ÀÌ ¾ÈµÇ¾úÀ» °æ¿ì ÀÌÀü¿¡ Ãæµ¹ÇÏ´ø ¹°Ã¼ÀÎÁö¸¦ ÆÇ´ÜÇÑ´Ù.
+				// ï¿½æµ¹ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½Ï´ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½Ñ´ï¿½.
 				else if (Src->CheckCollisionList(Dest))
 				{
 					Src->DeleteCollisionList(Dest);
@@ -219,7 +219,7 @@ bool CSceneCollision::CollisionLaser(Vector2 LaserPos)
 		for (size_t i = 0; i < Size - 1; ++i)
 		{
 			CCollider* Src = m_vecCollider[i];
-			// Player º»Ã¼ È¤Àº Player°¡ ½ð Bullet µîÀÇ Ãæµ¹Ã¼´Â °Å¸¥´Ù 
+			// Player ï¿½ï¿½Ã¼ È¤ï¿½ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ Bullet ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 
 			if (Src->GetOwner() == Player) continue;
 			if (Src->IsCollisionWithLaser(LaserPos)) return true;
 		}
@@ -232,7 +232,7 @@ int CSceneCollision::SortY(const void* Src, const void* Dest)
 	CCollider* SrcObj = *(CCollider**)Src;
 	CCollider* DestObj = *(CCollider**)Dest;
 
-	// Bottom °ªÀ» ±¸ÇÑ´Ù.
+	// Bottom ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	float	SrcY = SrcObj->GetBottom();
 	float	DestY = DestObj->GetBottom();
 

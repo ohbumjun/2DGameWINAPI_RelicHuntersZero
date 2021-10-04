@@ -5,7 +5,6 @@
 #include "../Animation/Animation.h"
 #include "../Collision/Collider.h"
 #include "../UI/WidgetComponent.h"
-#include "../SharedPtr.h"
 
 class CGameObject	:
 	public CRef
@@ -40,11 +39,11 @@ protected:
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 	
 
-// ¹°¸®
+// ï¿½ï¿½ï¿½ï¿½
 private :
 	bool m_PhysicsSimulate;
-	float m_FallTime; // ¶³¾îÁö´Â ½Ã°£
-	float m_FallStartY; // Á¡ÇÁ ½ÃÁ¡ ( Á¡ÇÁ ½ÃÀÛÀÇ yÁÂÇ¥ )
+	float m_FallTime; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+	float m_FallStartY; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ yï¿½ï¿½Ç¥ )
 	bool m_Jump;
 	float m_JumpVelocity;
 	float m_GravityAccel;

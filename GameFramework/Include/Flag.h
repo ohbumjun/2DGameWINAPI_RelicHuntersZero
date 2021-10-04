@@ -83,7 +83,7 @@ enum class EDoorStage_Type
 
 enum class ETileOption
 {
-	// ¿øÇÏ´Â ´ë·Î È®ÀåÇØ¼­ »ç¿ë
+	// ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½
 	Normal,
 	Wall,
 	Slow,

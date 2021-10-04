@@ -277,6 +277,10 @@ void CInput::UpdateMouse(float DeltaTime)
 	Pos.y = (float)ptMouse.y;
 
 	m_MouseMove = Pos - m_MousePos;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 	m_MousePos = Pos;
 
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)

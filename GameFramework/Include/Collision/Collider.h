@@ -1,34 +1,32 @@
 #pragma once
 
 #include "../Ref.h"
-#include "../SharedPtr.h"
 
-class CCollider :
-	public CRef
+class CCollider : public CRef
 {
 	friend class CGameObject;
 
 protected:
 	CCollider();
-	CCollider(const CCollider& collider);
+	CCollider(const CCollider &collider);
 	virtual ~CCollider() = 0;
 
 protected:
-	class CScene* m_Scene;
-	class CGameObject* m_Owner;
-	ECollider_Type  m_Type;
-	Vector2	m_Offset;
-	bool	m_Enable;
-	CollisionProfile* m_Profile;
-	std::function<void(CCollider*, CCollider*, float)>	m_BeginFunction;
-	std::function<void(CCollider*, CCollider*, float)>	m_EndFunction;
+	class CScene *m_Scene;
+	class CGameObject *m_Owner;
+	ECollider_Type m_Type;
+	Vector2 m_Offset;
+	bool m_Enable;
+	CollisionProfile *m_Profile;
+	std::function<void(CCollider *, CCollider *, float)> m_BeginFunction;
+	std::function<void(CCollider *, CCollider *, float)> m_EndFunction;
 
-	std::function<void(CCollider*, const Vector2&, float)>	m_MouseBeginFunction;
-	std::function<void(CCollider*, const Vector2&, float)>	m_MouseEndFunction;
+	std::function<void(CCollider *, const Vector2 &, float)> m_MouseBeginFunction;
+	std::function<void(CCollider *, const Vector2 &, float)> m_MouseEndFunction;
 
-	std::list<CSharedPtr<CCollider>>	m_CollisionList;
+	std::list<CSharedPtr<CCollider>> m_CollisionList;
 
-	bool	m_MouseCollision;
+	bool m_MouseCollision;
 
 public:
 	void SetMouseCollision(bool MouseCollision)
@@ -41,7 +39,7 @@ public:
 		m_Enable = Enable;
 	}
 
-	void SetOffset(const Vector2& Offset)
+	void SetOffset(const Vector2 &Offset)
 	{
 		m_Offset = Offset;
 	}
@@ -51,49 +49,49 @@ public:
 		m_Offset = Vector2(x, y);
 	}
 
-	void SetScene(class CScene* Scene)
+	void SetScene(class CScene *Scene)
 	{
 		m_Scene = Scene;
 	}
 
-	void SetOwner(class CGameObject* Owner)
+	void SetOwner(class CGameObject *Owner)
 	{
 		m_Owner = Owner;
 	}
 
 public:
-	virtual float GetBottom()	const
+	virtual float GetBottom() const
 	{
 		return 0.f;
 	}
 
-	bool GetEnable()	const
+	bool GetEnable() const
 	{
 		return m_Enable;
 	}
 
-	class CGameObject* GetOwner()	const
+	class CGameObject *GetOwner() const
 	{
 		return m_Owner;
 	}
 
-	class CScene* GetScene()	const
+	class CScene *GetScene() const
 	{
 		return m_Scene;
 	}
 
-	ECollider_Type GetColliderType()	const
+	ECollider_Type GetColliderType() const
 	{
 		return m_Type;
 	}
 
-	CollisionProfile* GetProfile()	const
+	CollisionProfile *GetProfile() const
 	{
 		return m_Profile;
 	}
 
-	// ³ªÁß¿¡ °¡¼­ µðÀÚÀÎ ÆÐÅÏÀ» Àû¿ëÇÒ ¼ö ÀÖÀ¸¸é Àû¿ëÇÏ±â 
-	// ¿ì¼± ±¸Çö + µðÀÚÀÎ ÆÐÅÏ Àû¿ë 
+	// ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+	// ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool IsCollisionListEmpty() const
 	{
 		return m_CollisionList.empty();
@@ -101,54 +99,54 @@ public:
 	bool DidCollideWithObstacles() const;
 
 public:
-	void SetCollisionProfile(const std::string& Name);
-	void AddCollisionList(CCollider* Collider);
-	bool CheckCollisionList(CCollider* Collider);
-	void DeleteCollisionList(CCollider* Collider);
+	void SetCollisionProfile(const std::string &Name);
+	void AddCollisionList(CCollider *Collider);
+	bool CheckCollisionList(CCollider *Collider);
+	void DeleteCollisionList(CCollider *Collider);
 	void ClearCollisionList();
-	void CallCollisionBegin(CCollider* Dest, float DeltaTime);
-	void CallCollisionEnd(CCollider* Dest, float DeltaTime);
-	void CallMouseCollisionBegin(const Vector2& MousePos, float DeltaTime);
-	void CallMouseCollisionEnd(const Vector2& MousePos, float DeltaTime);
-	// Damage¸¦ ¾ò¾î¿Â´Ù
-	CGameObject* IsCollisionWithMonster();
-public :
-	class CPlayer* IsCollisionWithPlayer();
-	class CPotion* IsCollisionWithPotion();
+	void CallCollisionBegin(CCollider *Dest, float DeltaTime);
+	void CallCollisionEnd(CCollider *Dest, float DeltaTime);
+	void CallMouseCollisionBegin(const Vector2 &MousePos, float DeltaTime);
+	void CallMouseCollisionEnd(const Vector2 &MousePos, float DeltaTime);
+	// Damageï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
+	CGameObject *IsCollisionWithMonster();
+
+public:
+	class CPlayer *IsCollisionWithPlayer();
+	class CPotion *IsCollisionWithPotion();
 
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CCollider* Clone();
-	virtual bool Collision(CCollider* Dest) = 0;
-	virtual bool IsCollisionWithLaser(const Vector2& LaserPos) = 0;
-	virtual bool CollisionMouse(const Vector2& MousePos) = 0;
+	virtual CCollider *Clone();
+	virtual bool Collision(CCollider *Dest) = 0;
+	virtual bool IsCollisionWithLaser(const Vector2 &LaserPos) = 0;
+	virtual bool CollisionMouse(const Vector2 &MousePos) = 0;
 
 public:
 	template <typename T>
-	void SetCollisionBeginFunction(T* Obj, void(T::* Func)(CCollider*, CCollider*, float))
+	void SetCollisionBeginFunction(T *Obj, void (T::*Func)(CCollider *, CCollider *, float))
 	{
 		m_BeginFunction = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	}
 
 	template <typename T>
-	void SetCollisionEndFunction(T* Obj, void(T::* Func)(CCollider*, CCollider*, float))
+	void SetCollisionEndFunction(T *Obj, void (T::*Func)(CCollider *, CCollider *, float))
 	{
 		m_EndFunction = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	}
 
 	template <typename T>
-	void SetMouseCollisionBeginFunction(T* Obj, void(T::* Func)(CCollider*, const Vector2&, float))
+	void SetMouseCollisionBeginFunction(T *Obj, void (T::*Func)(CCollider *, const Vector2 &, float))
 	{
 		m_MouseBeginFunction = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	}
 
 	template <typename T>
-	void SetCollisionEndFunction(T* Obj, void(T::* Func)(CCollider*, const Vector2&, float))
+	void SetCollisionEndFunction(T *Obj, void (T::*Func)(CCollider *, const Vector2 &, float))
 	{
 		m_MouseEndFunction = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 	}
 };
-
