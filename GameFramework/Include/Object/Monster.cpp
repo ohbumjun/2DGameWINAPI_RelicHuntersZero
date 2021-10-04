@@ -29,6 +29,17 @@ CMonster::CMonster(const CMonster& obj) :
 	m_FireTimeMax = obj.m_FireTimeMax;
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+
+	auto iter = m_WidgetComponentList.begin();
+	auto iterEnd = m_WidgetComponentList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+			m_HPBarWidget = (*iter);
+		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+			m_MPBarWidget = (*iter);
+	}
 }
 
 CMonster::~CMonster()

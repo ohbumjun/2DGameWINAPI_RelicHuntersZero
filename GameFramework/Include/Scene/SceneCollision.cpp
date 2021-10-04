@@ -50,6 +50,7 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 
 	int	WidgetOffset = 0;
 
+	// 이미 선택된 Widget이 있다면 먼저 세팅해준다 
 	if (m_SelectWidget)
 	{
 		vecWidget[WidgetOffset] = m_SelectWidget;
@@ -59,7 +60,6 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 	for (size_t i = 0; i < WindowCount; ++i)
 	{
 		int	Count = m_vecUIWindow[i]->GetWidgetCount();
-
 		for (int j = 0; j < Count; ++j)
 		{
 			CUIWidget* Widget = m_vecUIWindow[i]->GetWidget(j);

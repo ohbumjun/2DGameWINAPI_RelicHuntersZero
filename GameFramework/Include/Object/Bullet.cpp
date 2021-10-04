@@ -16,7 +16,7 @@ CBullet::CBullet()
 	m_Dir.y = 0.f;
 	m_Damage = NORMAL_MONSTER_ATTACK;
 	m_Distance = NORMAL_BULLET_DISTANCE;
-	SetMoveSpeed(BULLET_SPEED);
+	SetMoveSpeed(NORMAL_MONSTER_ATTACK_SPEED);
 }
 
 CBullet::CBullet(const CBullet& obj)	:

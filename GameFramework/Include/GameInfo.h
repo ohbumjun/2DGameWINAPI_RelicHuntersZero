@@ -27,6 +27,12 @@ stl : standard template library�̴�.
 
 #pragma comment(lib, "fmod64_vc.lib")
 
+/*
+#ifdef    _DEBUG
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#endif
+*/
+
 #define GRAVITY 9.8f
 #define M_PI 3.14f
 #define	KEYCOUNT_MAX	256

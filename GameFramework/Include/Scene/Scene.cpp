@@ -629,7 +629,7 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 			(*iter)->SetScene(this);
 		}
 	}
-
+	Player->SetNotifyFunctions();
 	m_ObjList.push_back(Player);
 
 	return Player;

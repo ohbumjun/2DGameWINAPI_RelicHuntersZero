@@ -53,8 +53,7 @@ public:
 	{
 		AnimationInfo* Info = FindInfo(SequenceName);
 
-		if (!Info)
-			return;
+		if (!Info) return;
 
 		AnimationNotify* Notify = new AnimationNotify;
 

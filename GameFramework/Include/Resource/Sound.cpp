@@ -53,9 +53,8 @@ void CSound::Play()
 	m_Play = true;
 
 	char	Test[256] = {};
-	sprintf_s(Test, "Channel : %d\n", (int)m_Channel);
-
-	OutputDebugStringA(Test);
+	// sprintf_s(Test, "Channel : %d\n", (int)m_Channel);
+	// OutputDebugStringA(Test);
 }
 
 void CSound::Stop()

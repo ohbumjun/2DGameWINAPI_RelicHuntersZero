@@ -21,6 +21,7 @@ protected:
 
 public:
 	virtual void Start();
+	virtual void SetNotifyFunctions();
 	virtual bool Init();
 	virtual void Update(float DeltaTime);
 	virtual void PostUpdate(float DeltaTime);
@@ -118,10 +119,12 @@ private:
 private :
 	Vector2 m_TargetPos;
 public  :
+	bool m_TargetEnable;
 	void AttackEnd();
 	void BulletFire(float DeltaTime);
 	void Fire();
-	void SetLaserPos(float DeltaTime);
+	void SetTargetPos(float DeltaTime);
+	void RemoveTargetPos(float DeltaTime);
 	void FireTarget();
 	void BulletFireTarget(float);
 	CGameObject* FindClosestTarget(Vector2 PlayerPos);

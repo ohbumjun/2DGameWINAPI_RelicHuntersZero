@@ -26,6 +26,7 @@ CPlayer::CPlayer() :
 	m_SkillSlowMotionAttackTime(0.f),
 	m_RunEnable(false),
 	m_DashEnable(false),
+	m_TargetEnable(false),
 	m_DashTime(0.f),
 	m_TeleportEnable(false),
 	m_TelePortTime(0.f),
@@ -56,8 +57,8 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	// CGAmeObject에서 m_WidgetComponentList들이 모두 복사되어 있을 것이다
 	// 아래의 Widget들은 CShared Ptr이기 때문에, m_WidgetComponentList들과 공유된 형태여야 한다
 	// 따라서, m_WidgetComponentList들을 돌면서, 해당 Widget 사항에 세팅해준다
-	auto iter = obj.m_WidgetComponentList.begin();
-	auto iterEnd = obj.m_WidgetComponentList.end();
+	auto iter = m_WidgetComponentList.begin();
+	auto iterEnd = m_WidgetComponentList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -131,10 +132,39 @@ void CPlayer::Start()
 
 	// Target
 	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Push,
-		this, &CPlayer::SetLaserPos);
+		this, &CPlayer::SetTargetPos);
+	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Up,
+		this, &CPlayer::RemoveTargetPos);
 	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Push,
 		this, &CPlayer::BulletFireTarget);
+	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Up,
+		this, &CPlayer::RemoveTargetPos);
 	
+}
+
+void CPlayer::SetNotifyFunctions()
+{
+	// Teleport
+	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
+
+	// Attack
+	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::FireTarget);
+	AddAnimationNotify<CPlayer>("LucidNunNaLeftAttack", 2, this, &CPlayer::FireTarget);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftAttack", this, &CPlayer::AttackEnd);
+
+	// Death
+	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
+
+	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
+
+	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
+	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
+
+	AddAnimationNotify<CPlayer>("SkillDestoryAll", 2, this, &CPlayer::SkillDestoryAllAttackEnable);
+	SetAnimationEndNotify<CPlayer>("SkillDestoryAll", this, &CPlayer::SkillDestroyAllAttackEnd);
 }
 
 bool CPlayer::Init()
@@ -175,26 +205,10 @@ bool CPlayer::Init()
 
 	// Teleport
 	AddAnimation("LucidNunNaTeleport", false, 0.3f);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
 
-	// Attack
-	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::FireTarget);
-	AddAnimationNotify<CPlayer>("LucidNunNaLeftAttack", 2, this, &CPlayer::FireTarget);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftAttack", this, &CPlayer::AttackEnd);
-
-	// Death
-	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
-
-	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
-
-	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
-	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
-
-	AddAnimationNotify<CPlayer>("SkillDestoryAll", 2, this, &CPlayer::SkillDestoryAllAttackEnable);
-	SetAnimationEndNotify<CPlayer>("SkillDestoryAll", this, &CPlayer::SkillDestroyAllAttackEnd);
+	// NotifyFunctions
+	SetNotifyFunctions();
+	
 	
 	// Collider ---
 	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
@@ -213,7 +227,7 @@ bool CPlayer::Init()
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
-
+	// this
 	// MPBar
 	m_MPBarWidget = CreateWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
 	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
@@ -393,6 +407,25 @@ void CPlayer::Collision(float DeltaTime)
 void CPlayer::Render(HDC hDC)
 {
 	CCharacter::Render(hDC);
+
+	if (m_TargetEnable)
+	{
+		HPEN Pen          = CGameManager::GetInst()->GetRedPen();
+		HGDIOBJ	PrevPen   = SelectObject(hDC, Pen);
+
+		HBRUSH	Brush     = CGameManager::GetInst()->GetRedBrush();
+		HGDIOBJ	PrevBrush = SelectObject(hDC, Brush);
+
+
+		MoveToEx(hDC, (int)m_Pos.x, (int)m_Pos.y, nullptr);
+		LineTo(hDC, (int)m_TargetPos.x, (int)m_TargetPos.y);
+		Ellipse(hDC, (int)(m_TargetPos.x - 5), (int)(m_TargetPos.y - 5), 
+			(int)(m_TargetPos.x + 5), (int)(m_TargetPos.y + 5)); //  L, T, R, B
+
+		SelectObject(hDC, PrevPen);
+		SelectObject(hDC, PrevBrush);
+	}
+
 }
 
 CPlayer *CPlayer::Clone()
@@ -853,8 +886,9 @@ void CPlayer::Fire()
 	Bullet->SetObjectType(EObject_Type::Bullet);
 }
 
-void CPlayer::SetLaserPos(float DeltaTime)
+void CPlayer::SetTargetPos(float DeltaTime)
 {
+	m_TargetEnable = true;
 	// m_TargetPos에 세팅 
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
@@ -862,11 +896,17 @@ void CPlayer::SetLaserPos(float DeltaTime)
 
 }
 
+void CPlayer::RemoveTargetPos(float DeltaTime)
+{
+	m_TargetEnable = false;
+}
+
 void CPlayer::FireTarget() 
 {
+	Vector2 BulletOffset = CheckCurrentAnimation("LucidNunNaRightAttack") ? Vector2(75.f,0.f) : Vector2(-75.f,0.f);
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 		"PlayerBullet",
-		Vector2(m_Pos + Vector2(75.f, 0.f)),
+		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
 	Bullet->SetObjectType(EObject_Type::Bullet);
 	float	Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
@@ -878,7 +918,7 @@ void CPlayer::FireTarget()
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
 	Vector2 PlayerDir = m_Dir;
-	SetLaserPos(DeltaTime);
+	SetTargetPos(DeltaTime);
 	if (m_Dir.x > 0) ChangeAnimation("LucidNunNaRightAttack");
 	else ChangeAnimation("LucidNunNaLeftAttack");
 }

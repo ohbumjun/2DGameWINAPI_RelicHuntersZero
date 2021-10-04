@@ -5,8 +5,6 @@
 #define IDD_DIALOG_EDITOR               9
 #define IDI_ICON1                       101
 #define IDD_DIALOG1                     108
-#define IDOK                            1003
-#define IDCANCEL                        1004
 #define IDC_EDIT_TILECOUNTX             1005
 #define IDC_EDIT_TILECOUNTY             1006
 #define IDC_EDIT_TILESIZEX              1007
