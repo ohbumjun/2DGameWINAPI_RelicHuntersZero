@@ -219,6 +219,7 @@ bool CSceneCollision::CollisionLaser(Vector2 LaserPos)
 		for (size_t i = 0; i < Size - 1; ++i)
 		{
 			CCollider* Src = m_vecCollider[i];
+			// Player 본체 혹은 Player가 쏜 Bullet 등의 충돌체는 거른다 
 			if (Src->GetOwner() == Player) continue;
 			if (Src->IsCollisionWithLaser(LaserPos)) return true;
 		}
