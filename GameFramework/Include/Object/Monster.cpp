@@ -7,11 +7,10 @@
 #include "../UI/ProgressBar.h"
 #include "Player.h"
 
-CMonster::CMonster()	:
-	m_FireTime(0.f),
-	m_FireTimeMax(1.f),
-	m_Count(0),
-	m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
+CMonster::CMonster() : m_FireTime(0.f),
+					   m_FireTimeMax(1.f),
+					   m_Count(0),
+					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
 {
 
 	m_Dir.x = (float)(rand() % 2);
@@ -21,8 +20,7 @@ CMonster::CMonster()	:
 	// SetRandomTargetDir();
 }
 
-CMonster::CMonster(const CMonster& obj) :
-	CCharacter(obj)
+CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 {
 	m_Dir = obj.m_Dir;
 	m_FireTime = obj.m_FireTime;
@@ -61,20 +59,20 @@ bool CMonster::Init()
 	CreateAnimation();
 	AddAnimation("LucidNunNaLeftIdle");
 
-	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
 	Body->SetOffset(0.f, -36.5f);
 	Body->SetCollisionProfile("Monster");
 
 	// HPBar
 	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
-	CProgressBar* HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
+	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 
 	// MPBar
 	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
-	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
+	CProgressBar *MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -85.f);
 
@@ -86,10 +84,10 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
-	// World »ó ¾È¿¡¼­ ¿òÁ÷ÀÎ´Ù
+	// World ï¿½ï¿½ ï¿½È¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½
 	MoveWithinWorldResolution();
 
-	// Target limit timeÀÌ Áö³ª¸é ´Ù½Ã target pos ÂÊÀ¸·Î dirÀ» ¹Ù²Û´Ù
+	// Target limit timeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ target pos ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dirï¿½ï¿½ ï¿½Ù²Û´ï¿½
 	m_RandomMoveTime -= DeltaTime;
 	if (m_RandomMoveTime <= 0.f)
 	{
@@ -97,8 +95,8 @@ void CMonster::Update(float DeltaTime)
 		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	}
 
-	// ±×·¯´Ù°¡, ¹üÀ§³»¿¡ player°¡ µé¾î¿À¸é, ÇØ´ç ÂÊÀ¸·Î ÀÌµ¿
-	CGameObject* Player = m_Scene->GetPlayer();
+	// ï¿½×·ï¿½ï¿½Ù°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+	CGameObject *Player = m_Scene->GetPlayer();
 	if (Player)
 	{
 		Vector2 PlayerPos = Player->GetPos();
@@ -111,15 +109,15 @@ void CMonster::Update(float DeltaTime)
 		}
 	}
 
-	// °ø°Ý 
+	// ï¿½ï¿½ï¿½ï¿½
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
 	{
 		m_FireTime -= m_FireTimeMax;
 		++m_Count;
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-			"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
-			Vector2(50.f, 50.f));
+																	"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
+																	Vector2(50.f, 50.f));
 		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetObjectType(EObject_Type::Bullet);
 
@@ -128,10 +126,10 @@ void CMonster::Update(float DeltaTime)
 		else
 		{
 			//CGameObject* Player = m_Scene->FindObject("Player");
-			CGameObject* Player = m_Scene->GetPlayer();
+			CGameObject *Player = m_Scene->GetPlayer();
 			if (Player)
 			{
-				float	Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
+				float Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
 				Bullet->SetDir(Angle);
 			}
 			else
@@ -139,7 +137,7 @@ void CMonster::Update(float DeltaTime)
 		}
 	}
 
-	// HP 0ÀÌ µÇ¸é destroy
+	// HP 0ï¿½ï¿½ ï¿½Ç¸ï¿½ destroy
 	if (m_CharacterInfo.HP <= 0)
 	{
 		Destroy();
@@ -161,7 +159,7 @@ void CMonster::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-CMonster* CMonster::Clone()
+CMonster *CMonster::Clone()
 {
 	return new CMonster(*this);
 }
@@ -169,8 +167,8 @@ CMonster* CMonster::Clone()
 float CMonster::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
-	
-	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
+
+	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
 }
@@ -182,7 +180,7 @@ void CMonster::CharacterDestroy()
 void CMonster::SetRandomTargetDir()
 {
 	m_MoveTargetPos = SetRandomTargetPos();
-	float	Angle = GetAngle(m_Pos, m_MoveTargetPos);
+	float Angle = GetAngle(m_Pos, m_MoveTargetPos);
 	SetDir(Angle);
 }
 

@@ -5,6 +5,7 @@
 #include "../Animation/Animation.h"
 #include "../Collision/Collider.h"
 #include "../UI/WidgetComponent.h"
+#include "../SharedPtr.h"
 
 class CGameObject	:
 	public CRef

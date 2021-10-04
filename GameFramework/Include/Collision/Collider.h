@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Ref.h"
+#include "../SharedPtr.h"
 
 class CCollider :
 	public CRef

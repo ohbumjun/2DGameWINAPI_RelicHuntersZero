@@ -4,21 +4,19 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneCollision.h"
 
-CCollider::CCollider()	:
-	m_Scene(nullptr),
-	m_Owner(nullptr),
-	m_Enable(true),
-	m_Profile(nullptr),
-	m_MouseCollision(false),
-	m_Type(ECollider_Type::Box)
+CCollider::CCollider() : m_Scene(nullptr),
+						 m_Owner(nullptr),
+						 m_Enable(true),
+						 m_Profile(nullptr),
+						 m_MouseCollision(false),
+						 m_Type(ECollider_Type::Box)
 {
 }
 
-CCollider::CCollider(const CCollider& collider)	:
-	CRef(collider),
-	m_Scene(nullptr),
-	m_Owner(nullptr),
-	m_Enable(true)
+CCollider::CCollider(const CCollider &collider) : CRef(collider),
+												  m_Scene(nullptr),
+												  m_Owner(nullptr),
+												  m_Enable(true)
 {
 	m_Type = collider.m_Type;
 	m_Offset = collider.m_Offset;
@@ -29,8 +27,8 @@ CCollider::~CCollider()
 {
 	m_Scene->GetSceneCollision()->ClearMouseCollision(this);
 
-	auto	iter = m_CollisionList.begin();
-	auto	iterEnd = m_CollisionList.end();
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -38,7 +36,7 @@ CCollider::~CCollider()
 	}
 }
 
-CGameObject* CCollider::IsCollisionWithMonster()
+CGameObject *CCollider::IsCollisionWithMonster()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
@@ -46,65 +44,64 @@ CGameObject* CCollider::IsCollisionWithMonster()
 	{
 		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster)
 		{
-			// Damage¸¦ ¾ò¾î¿Â´Ù 
+			// Damageï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
 			return (*iter)->GetOwner();
 		}
 	}
 	return nullptr;
 }
 
-CPlayer* CCollider::IsCollisionWithPlayer()
+CPlayer *CCollider::IsCollisionWithPlayer()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if((*iter)->GetOwner()->GetObjType() == EObject_Type::Player)
-			return (CPlayer*)(*iter)->GetOwner();
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Player)
+			return (CPlayer *)(*iter)->GetOwner();
 	}
 	return nullptr;
 }
 
-CPotion* CCollider::IsCollisionWithPotion()
+CPotion *CCollider::IsCollisionWithPotion()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Potion)
-			return (CPotion*)(*iter)->GetOwner();
+			return (CPotion *)(*iter)->GetOwner();
 	}
 	return nullptr;
 }
 
-
 bool CCollider::DidCollideWithObstacles() const
 {
-	auto iter   = m_CollisionList.begin();
+	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
 		EObject_Type OwnerObjType = (*iter)->GetOwner()->GetObjType();
-		if (OwnerObjType == EObject_Type::Monster ||OwnerObjType == EObject_Type::Obstacle) 
+		if (OwnerObjType == EObject_Type::Monster || OwnerObjType == EObject_Type::Obstacle)
 			return true;
 	}
 	return false;
 }
 
-void CCollider::SetCollisionProfile(const std::string& Name)
+void CCollider::SetCollisionProfile(const std::string &Name)
 {
 	m_Profile = CCollisionManager::GetInst()->FindProfile(Name);
 }
 
-void CCollider::AddCollisionList(CCollider* Collider)
+void CCollider::AddCollisionList(CCollider *Collider)
 {
 	m_CollisionList.push_back(Collider);
 }
 
-bool CCollider::CheckCollisionList(CCollider* Collider)
+bool CCollider::CheckCollisionList(CCollider *Collider)
 {
-	auto	iter = m_CollisionList.begin();
-	auto	iterEnd = m_CollisionList.end();
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -115,10 +112,10 @@ bool CCollider::CheckCollisionList(CCollider* Collider)
 	return false;
 }
 
-void CCollider::DeleteCollisionList(CCollider* Collider)
+void CCollider::DeleteCollisionList(CCollider *Collider)
 {
-	auto	iter = m_CollisionList.begin();
-	auto	iterEnd = m_CollisionList.end();
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
@@ -132,36 +129,36 @@ void CCollider::DeleteCollisionList(CCollider* Collider)
 
 void CCollider::ClearCollisionList()
 {
-	auto	iter = m_CollisionList.begin();
-	auto	iterEnd = m_CollisionList.end();
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
 		(*iter)->DeleteCollisionList(this);
 	}
-	
+
 	m_CollisionList.clear();
 }
 
-void CCollider::CallCollisionBegin(CCollider* Dest, float DeltaTime)
+void CCollider::CallCollisionBegin(CCollider *Dest, float DeltaTime)
 {
 	if (m_BeginFunction)
 		m_BeginFunction(this, Dest, DeltaTime);
 }
 
-void CCollider::CallCollisionEnd(CCollider* Dest, float DeltaTime)
+void CCollider::CallCollisionEnd(CCollider *Dest, float DeltaTime)
 {
 	if (m_EndFunction)
 		m_EndFunction(this, Dest, DeltaTime);
 }
 
-void CCollider::CallMouseCollisionBegin(const Vector2& MousePos, float DeltaTime)
+void CCollider::CallMouseCollisionBegin(const Vector2 &MousePos, float DeltaTime)
 {
 	if (m_MouseBeginFunction)
 		m_MouseBeginFunction(this, MousePos, DeltaTime);
 }
 
-void CCollider::CallMouseCollisionEnd(const Vector2& MousePos, float DeltaTime)
+void CCollider::CallMouseCollisionEnd(const Vector2 &MousePos, float DeltaTime)
 {
 	if (m_MouseEndFunction)
 		m_MouseEndFunction(this, MousePos, DeltaTime);
@@ -186,7 +183,7 @@ void CCollider::Render(HDC hDC)
 {
 }
 
-CCollider* CCollider::Clone()
+CCollider *CCollider::Clone()
 {
 	return nullptr;
 }

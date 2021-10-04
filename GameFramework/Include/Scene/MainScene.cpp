@@ -64,7 +64,10 @@ bool CMainScene::Init()
 	CPlayer* Player = CreatePlayer("Player",Vector2(230.f,230.f));
 	SetPlayer(Player);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 	// Camera
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
@@ -328,6 +331,7 @@ void CMainScene::LoadAnimationSequence()
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaStun",
 			i * 32.f, 0.f, 32.f, 32.f);
+<<<<<<< HEAD
 	}
 
 	// Target Attack 
@@ -420,6 +424,100 @@ void CMainScene::LoadAnimationSequence()
 		}
 	}
 
+=======
+	}
+
+	// Target Attack 
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaTargetAttack",
+		"LucidNunNaTargetAttack", TEXT("Player/TargetAttack.bmp"));
+	GetSceneResource()->SetTextureColorKey("LucidNunNaTargetAttack",
+		255, 0, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaTargetAttack",
+			i * 192.f, 0.f, 192.f, 192.f);
+	}
+
+	// Destory
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaLeftDeath",
+		"LucidNunNaLeftDeath", TEXT("Player/Left/dead.bmp"));
+	GetSceneResource()->SetTextureColorKey("LucidNunNaLeftDeath",
+		255, 0, 255);
+	for (int i = 0; i < 1; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaLeftDeath",
+			i * 59.f, 0.f, 59.f, 68.f);
+	}
+
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightDeath",
+		"LucidNunNaRightDeath", TEXT("Player/Right/Right_dead.bmp"));
+
+	GetSceneResource()->SetTextureColorKey("LucidNunNaRightDeath",
+		255, 0, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightDeath",
+			i * 59.f, 0.f, 59.f, 68.f);
+	}
+
+	// Door ---
+	GetSceneResource()->CreateAnimationSequence("StageDoor",
+		"StageDoor", TEXT("DoorToNextStage.bmp"));
+	GetSceneResource()->SetTextureColorKey("StageDoor",
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData("StageDoor",
+				j * 192.f, i * 192.f, 192.f, 192.f);
+		}
+	}
+
+	// 그외 애니메이션 ---
+	// 충돌 효과 애니메이션 
+	GetSceneResource()->CreateAnimationSequence("HitRight",
+		"HitRight", TEXT("Hit2.bmp"));
+	GetSceneResource()->SetTextureColorKey("HitRight",
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("HitRight",
+			i * 178.f, 0.f, 178.f, 164.f);
+	}
+
+	// 총알
+	GetSceneResource()->CreateAnimationSequence("Bullet",
+		"Bullet", TEXT("Smoke.bmp"));
+	GetSceneResource()->SetTextureColorKey("Bullet",
+		255, 0, 255);
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData("Bullet",
+				j * 92.f, i * 92.f, 92.f, 92.f);
+		}
+	}
+
+	// 텔리포트 마우스 
+	GetSceneResource()->CreateAnimationSequence("TeleportMouseDisplay",
+		"TeleportMouseDisplay", TEXT("Mouse/h.bmp"));
+	GetSceneResource()->SetTextureColorKey("TeleportMouseDisplay", 255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData("TeleportMouseDisplay",
+				j * 61.f, i * 61.f, 61.f, 61.f);
+		}
+	}
+
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 }
 
 void CMainScene::LoadSound()

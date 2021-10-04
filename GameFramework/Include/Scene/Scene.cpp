@@ -100,6 +100,7 @@ CGameObject* CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
 	{
 		// Monster Type이 아니면 건너뛴다 
 		if ((*iter)->GetObjType() != EObject_Type::Monster) continue;
+<<<<<<< HEAD
 
 		float LengthToObj = Vector2((*iter)->GetPos() - PlayerPos).Length();
 		if (LengthToObj < MinLength)
@@ -131,6 +132,39 @@ void CScene::DestroyAllAttackObjects()
 	}
 }
 
+=======
+
+		float LengthToObj = Vector2((*iter)->GetPos() - PlayerPos).Length();
+		if (LengthToObj < MinLength)
+		{
+			MinLength = LengthToObj;
+			ClosestObj = (*iter);
+		}
+	}
+	if (MinLength == FLOAT_MAX)
+		return nullptr;
+	return ClosestObj;
+}
+
+void CScene::DestroyAllAttackObjects()
+{
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+	for (; iter != iterEnd;++iter)
+	{
+		if ((*iter)->GetObjType() == EObject_Type::Bullet)
+		{
+			Vector2 ObjPos = (*iter)->GetPos();
+			(*iter)->Destroy();
+			CEffectHit* Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
+				ObjPos, Vector2(178.f, 164.f));
+			GetSceneResource()->SoundPlay("Fire");
+		}
+
+	}
+}
+
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 CGameObject* CScene::SetPlayer(const std::string& Name)
 {
 	CGameObject* Player = FindObject(Name);
@@ -629,7 +663,11 @@ CPlayer* CScene::CreatePlayer(const std::string& Name, const Vector2& Pos, const
 			(*iter)->SetScene(this);
 		}
 	}
+<<<<<<< HEAD
 	Player->SetNotifyFunctions();
+=======
+
+>>>>>>> a1c29f602a9d2b17309d6664e27d89b32dfee792
 	m_ObjList.push_back(Player);
 
 	return Player;

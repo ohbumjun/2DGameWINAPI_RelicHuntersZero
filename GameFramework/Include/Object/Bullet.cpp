@@ -19,8 +19,7 @@ CBullet::CBullet()
 	SetMoveSpeed(NORMAL_MONSTER_ATTACK_SPEED);
 }
 
-CBullet::CBullet(const CBullet& obj)	:
-	CGameObject(obj)
+CBullet::CBullet(const CBullet &obj) : CGameObject(obj)
 {
 	m_Damage = obj.m_Damage;
 	m_Dir = obj.m_Dir;
@@ -34,7 +33,7 @@ CBullet::~CBullet()
 void CBullet::Start()
 {
 	CGameObject::Start();
-	CCollider* Body = FindCollider("Body");
+	CCollider *Body = FindCollider("Body");
 	Body->SetCollisionBeginFunction<CBullet>(this, &CBullet::CollisionBegin);
 }
 
@@ -48,7 +47,7 @@ bool CBullet::Init()
 	CreateAnimation();
 	AddAnimation("Bullet", true, 1.f);
 
-	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
+	CColliderSphere *Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(25.f);
 	Body->SetOffset(0.f, 0.f);
 
@@ -58,7 +57,7 @@ bool CBullet::Init()
 void CBullet::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	Vector2	Dir = m_Dir;
+	Vector2 Dir = m_Dir;
 	Dir.Normalize();
 	Move(Dir);
 	m_Distance -= GetMoveSpeedFrame();
@@ -81,37 +80,36 @@ void CBullet::Render(HDC hDC)
 	CGameObject::Render(hDC);
 }
 
-CBullet* CBullet::Clone()
+CBullet *CBullet::Clone()
 {
 	return new CBullet(*this);
 }
 
-void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
+void CBullet::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 {
 	Destroy();
 
-	// Damage ÁÖ±â 
+	// Damage ï¿½Ö±ï¿½
 	Dest->GetOwner()->SetDamage(m_Damage);
 
-	// Æ¨°Ü³ª°¡°Ô ÇÏ±â ( ÀÚ½ÅÀÇ size ¸¸Å­ )
+	// Æ¨ï¿½Ü³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ( ï¿½Ú½ï¿½ï¿½ï¿½ size ï¿½ï¿½Å­ )
 	Vector2 DestSize = Dest->GetOwner()->GetSize();
 	Vector2 BulletDir = m_Dir;
 
-	// ÃÑ¾Ë ¹Ý´ë ¹æÇâÀ¸·Î ÀÌµ¿½ÃÅ°±â ( Stun °É±â )
+	// ï¿½Ñ¾ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½ ( Stun ï¿½É±ï¿½ )
 	Dest->GetOwner()->SetStunDir(BulletDir);
 	Dest->GetOwner()->Stun();
-	
-	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
-		m_Pos, Vector2(178.f, 164.f));
+
+	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+														m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
-	// Dest targetÀÇ Armor °¡Á®¿À±â
+	// Dest targetï¿½ï¿½ Armor ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int Armor = 0;
 	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
 		Dest->GetOwner()->GetObjType() == EObject_Type::Player)
 		Armor = Dest->GetOwner()->GetArmor();
 
-	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont",m_Pos);
+	CDamageFont *DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 	DamageFont->SetDamageNumber((int)(m_Damage - Armor));
-	
 }

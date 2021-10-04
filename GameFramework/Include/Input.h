@@ -2,6 +2,7 @@
 
 #include "GameInfo.h"
 #include "UI/UIImage.h"
+#include "../SharedPtr.h"
 
 enum EMouse_Type
 {
