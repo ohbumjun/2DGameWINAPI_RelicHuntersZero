@@ -211,7 +211,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_ATTACK,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -224,7 +224,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_RIGHT_DASH, TEXT("images/Character/jimmy/right_dash.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_DASH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -255,7 +255,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_LEFT_WALK, TEXT("images/Character/jimmy/left_walk.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_WALK,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -271,7 +271,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_LEFT_RUN, TEXT("images/Character/jimmy/left_run.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_RUN,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -287,7 +287,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_LEFT_DASH, TEXT("images/Character/jimmy/left_dash.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_DASH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -303,7 +303,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_LEFT_ATTACK, TEXT("Player/Left/aswing_left.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_ATTACK,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -316,7 +316,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_LEFT_DASH, TEXT("images/Character/jimmy/death.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_DEATH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -332,7 +332,7 @@ void CScene::SetPlayerAnimation()
 	GetSceneResource()->CreateAnimationSequence(PLAYER_HIT,
 		PLAYER_HIT, TEXT("images/Character/jimmy/hit.bmp"));
 	GetSceneResource()->SetTextureColorKey(PLAYER_HIT,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(PLAYER_HIT,
@@ -344,7 +344,7 @@ void CScene::SetPlayerAnimation()
 		PLAYER_TELEPORT, TEXT("images/Character/jimmy/teleport.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(PLAYER_TELEPORT,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -465,6 +465,7 @@ void CScene::SetDuck11MonsterAnimation()
 	{
 		for (int j = 0; j < 3; j++)
 		{
+			if (i == 2 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_IDLE,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -504,10 +505,8 @@ void CScene::SetDuck11MonsterAnimation()
 	// Right Attack
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_ATTACK,
 		MONSTER_DUCK1_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_ATTACK,
 		255, 0, 255);
-
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_ATTACK,
@@ -517,10 +516,8 @@ void CScene::SetDuck11MonsterAnimation()
 	// Right Dash
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_DASH,
 		MONSTER_DUCK1_RIGHT_DASH, TEXT("images/Monster/Duck1/right_dash.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_DASH,
 		255, 0, 255);
-
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_DASH,
@@ -537,6 +534,7 @@ void CScene::SetDuck11MonsterAnimation()
 	{
 		for (int j = 0; j < 3; j++)
 		{
+			if (i == 2 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_IDLE,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -601,7 +599,7 @@ void CScene::SetDuck11MonsterAnimation()
 	// Death ---
 	// Left 
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_DEATH,
-		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/left_death.bmp"));
+		MONSTER_DUCK1_LEFT_DEATH, TEXT("images/Monster/Duck1/left_death.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DEATH,
 		255, 0, 255);
@@ -615,9 +613,9 @@ void CScene::SetDuck11MonsterAnimation()
 		}
 	}
 
-	// Right
+	// Right 
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_DEATH,
-		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/right_death.bmp"));
+		MONSTER_DUCK1_RIGHT_DEATH, TEXT("images/Monster/Duck1/right_death.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_DEATH,
 		255, 0, 255);

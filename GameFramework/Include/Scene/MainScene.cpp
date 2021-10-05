@@ -80,13 +80,13 @@ bool CMainScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Monster
-	/*
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster *Monster = CreateObject<CMonster>("Monster", "MonsterProto", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 							  NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
+	/*
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
@@ -140,10 +140,6 @@ bool CMainScene::Init()
 	TileMap->LoadFile("MainMap.map");
 	TileMap->SetZOrder(1);
 
-	// ���ϴ� ũ���� World Resolution��,
-	// TileMap ���� ���� ����� �Ѵ�
-	// �� �׷���,���ּ� ������ TileMap ũ�⿡ ���缭
-	// World Resolution�� ������� ���̴�
 	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
 	return true;
@@ -157,11 +153,8 @@ void CMainScene::LoadAnimationSequence()
 	SetCollideAnimation();
 	SetMouseAnimation();
 	SetPlayerAnimation();
-	SetBulletsAnimation();
-	SetCollideAnimation();
-	SetItemsAnimation();
-	SetMouseAnimation();
-	SetSkillAnimation();
+
+	SetLevel1MonsterAnimation();
 }
 
 void CMainScene::LoadSound()

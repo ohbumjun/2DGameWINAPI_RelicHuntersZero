@@ -257,7 +257,6 @@ void CPlayer::Update(float DeltaTime)
 
 	MoveWithinWorldResolution();
 
-	// ���Ϳ��� �浹 ���� �ľ�
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 	{
@@ -286,9 +285,6 @@ void CPlayer::Update(float DeltaTime)
 			m_SkillSlowMotionAttackEnable = false;
 			m_SkillSlowMotionAttackTime = 0.f;
 
-			// Damage Font Test ���?
-			// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-			// DamageFont->SetDamageNumber(DeltaTime * 10000000);
 		}
 	}
 
@@ -365,7 +361,6 @@ void CPlayer::Update(float DeltaTime)
 void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
-	// Walk ���� pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_WALK) &&
 		m_Velocity.Length() == 0.f)
 	{
@@ -452,7 +447,6 @@ float CPlayer::SetDamage(float Damage)
 
 	if (m_CharacterInfo.HP <= 0)
 	{
-		// CharacterDestroy();
 		Destroy();
 		return -1.f;
 	}
@@ -463,10 +457,8 @@ void CPlayer::ChangeIdleAnimation()
 {
 	if (m_StunEnable)
 		return;
-	// ����
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_IDLE);
-	// ������
 	else
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
 }
@@ -513,7 +505,6 @@ void CPlayer::Move(const Vector2 &Dir, float Speed)
 {
 	if (ObstacleCollisionCheck())
 	{
-		// �׿� �浹�� ȿ�� �߰��ϱ�
 		if (m_DashEnable)
 			return;
 	}
@@ -524,10 +515,8 @@ void CPlayer::ChangeMoveAnimation()
 {
 	if (m_StunEnable)
 		return;
-	// ����
 	if (m_Dir.x < 0.f)
-		ChangeAnimation(PLAYER_LEFT_ATTACK);
-	// ������
+		ChangeAnimation(PLAYER_LEFT_WALK);
 	else
 		ChangeAnimation(PLAYER_RIGHT_WALK);
 }
@@ -633,15 +622,6 @@ void CPlayer::DashEnd()
 	SetMoveSpeed(NORMAL_SPEED);
 }
 
-void CPlayer::CollideBounceBack(Vector2 Dir)
-{
-	Vector2 OppDir = Dir;
-	OppDir.Normalize();
-	SetStunDir(OppDir);
-	DashEnd();
-
-	Stun();
-}
 
 void CPlayer::BulletFire(float DeltaTime)
 {
@@ -727,48 +707,6 @@ CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
 	return m_Scene->FindClosestMonsterToPlayer(PlayerPos);
 }
 
-bool CPlayer::CollisionCheck()
-{
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-	for (; iter != iterEnd; ++iter)
-	{
-		if (!(*iter)->IsCollisionListEmpty())
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-bool CPlayer::ObstacleCollisionCheck() const
-{
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-
-	for (; iter != iterEnd; ++iter)
-	{
-		if ((*iter)->DidCollideWithObstacles())
-			return true;
-	}
-
-	return false;
-}
-
-CGameObject *CPlayer::MonsterCollisionCheck()
-{
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-	for (; iter != iterEnd; ++iter)
-	{
-		CGameObject *Monster = (*iter)->IsCollisionWithMonster();
-		if (Monster)
-		{
-			return Monster;
-		}
-	}
-	return nullptr;
-}
 
 Vector2 CPlayer::GetColliderPos()
 {
@@ -787,6 +725,12 @@ Vector2 CPlayer::GetColliderPos()
 		}
 	}
 	return m_Resolution;
+}
+
+void CPlayer::CollideBounceBack(Vector2 Dir)
+{
+	CCharacter::CollideBounceBack(Dir);
+	DashEnd();
 }
 
 void CPlayer::Stun()

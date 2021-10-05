@@ -44,8 +44,8 @@ private:
 	void MoveDown(float DeltaTime);
 	void MoveLeft(float DeltaTime);
 	void MoveRight(float DeltaTime);
-	void Move(const Vector2 &Dir);
-	void Move(const Vector2 &Dir, float Speed);
+	virtual void Move(const Vector2 &Dir);
+	virtual void Move(const Vector2 &Dir, float Speed);
 	void ChangeMoveAnimation(); // ������,���� only
 
 	// Run ---
@@ -95,13 +95,9 @@ private:
 
 	// Collision ---
 private:
-	bool CollisionCheck();
-	bool ObstacleCollisionCheck() const;
-	CGameObject *MonsterCollisionCheck();
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
 	Vector2 GetColliderPos();
-	void CollideBounceBack(Vector2 Dir);
-
+	virtual void CollideBounceBack(Vector2 Dir);
 	// Stun ---
 private:
 	virtual void Stun();

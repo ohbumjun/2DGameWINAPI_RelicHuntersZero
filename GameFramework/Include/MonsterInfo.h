@@ -1,5 +1,8 @@
 #pragma once
 
+// Monster Types
+
+
 // Monster Move Direction Limit Time
 #define MONSTER_TARGET_POS_LIMIT_TIME 1.f
 

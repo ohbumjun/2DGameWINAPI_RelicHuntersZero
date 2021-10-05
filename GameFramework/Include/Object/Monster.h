@@ -16,9 +16,21 @@ private:
 	float   m_RandomMoveTime;
 	Vector2 m_MoveTargetPos;
 	int		m_Count;
+	EMonster_Type m_MonsterType;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
+private :
+	std::unordered_map<std::string, std::string> m_mapAnimName;
+public :
+	void SetMonsterType(EMonster_Type MonsterType)
+	{
+		m_MonsterType = MonsterType;
+	}
+	EMonster_Type GetMonsterType() const
+	{
+		return m_MonsterType;
+	}
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -30,8 +42,22 @@ public:
 	virtual float SetDamage(float Damage);
 	virtual void CharacterDestroy();
 
+// Move
+public :
+	virtual void Move(const Vector2& Dir);
+	virtual void Move(const Vector2& Dir, float Speed);
+// Animation
+public :
+	void ChangeIdleAnimation();
+	void ChangeWalkAnimation();
+
+// Random Dir Setting
 private :
 	void SetRandomTargetDir();
 	Vector2 SetRandomTargetPos();
+// Set Animation
+private :
+	void SetAnimation();
+	void SetDuck1Animation();
 };
 

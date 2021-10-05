@@ -16,8 +16,7 @@ CMonster::CMonster() : m_FireTime(0.f),
 	m_Dir.x = (float)(rand() % 2);
 	m_Dir.y = (float)(rand() % 2);
 	m_ObjType = EObject_Type::Monster;
-	/// m_MoveTargetPos = SetRandomTargetPos();
-	// SetRandomTargetDir();
+	m_MonsterType = EMonster_Type::Duck1;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
@@ -44,6 +43,7 @@ CMonster::~CMonster()
 {
 	m_HPBarWidget = nullptr;
 	m_MPBarWidget = nullptr;
+	m_mapAnimName.clear();
 }
 
 void CMonster::Start()
@@ -57,9 +57,9 @@ bool CMonster::Init()
 		return false;
 
 	SetPivot(0.5f, 1.f);
-
 	CreateAnimation();
-	AddAnimation(PLAYER_LEFT_IDLE);
+	SetAnimation();
+	
 
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
@@ -86,10 +86,8 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
-	// World �� �ȿ��� �����δ�
 	MoveWithinWorldResolution();
 
-	// Target limit time�� ������ �ٽ� target pos ������ dir�� �ٲ۴�
 	m_RandomMoveTime -= DeltaTime;
 	if (m_RandomMoveTime <= 0.f)
 	{
@@ -97,7 +95,6 @@ void CMonster::Update(float DeltaTime)
 		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	}
 
-	// �׷��ٰ�, �������� player�� ������, �ش� ������ �̵�
 	CGameObject *Player = m_Scene->GetPlayer();
 	if (Player)
 	{
@@ -111,7 +108,6 @@ void CMonster::Update(float DeltaTime)
 		}
 	}
 
-	// ����
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
 	{
@@ -139,7 +135,6 @@ void CMonster::Update(float DeltaTime)
 		}
 	}
 
-	// HP 0�� �Ǹ� destroy
 	if (m_CharacterInfo.HP <= 0)
 	{
 		Destroy();
@@ -179,6 +174,38 @@ void CMonster::CharacterDestroy()
 {
 }
 
+void CMonster::Move(const Vector2& Dir)
+{
+	if (ObstacleCollisionCheck())
+	{
+	}
+	CCharacter::Move(Dir);
+}
+
+void CMonster::Move(const Vector2& Dir, float Speed)
+{
+	if (ObstacleCollisionCheck())
+	{
+	}
+	CCharacter::Move(Dir, Speed);
+}
+
+void CMonster::ChangeIdleAnimation()
+{
+	if (m_Dir.x)
+		ChangeAnimation(m_mapAnimName[MONSTER_LEFT_IDLE]);
+	else
+		ChangeAnimation(m_mapAnimName[MONSTER_RIGHT_IDLE]);
+}
+
+void CMonster::ChangeWalkAnimation()
+{
+	if (m_Dir.x)
+		ChangeAnimation(m_mapAnimName[MONSTER_LEFT_WALK]);
+	else
+		ChangeAnimation(m_mapAnimName[MONSTER_RIGHT_WALK]);
+}
+
 void CMonster::SetRandomTargetDir()
 {
 	m_MoveTargetPos = SetRandomTargetPos();
@@ -193,4 +220,67 @@ Vector2 CMonster::SetRandomTargetPos()
 	float y = (float)(rand() % (int)WorldResolution.y);
 	m_MoveTargetPos = Vector2(x, y);
 	return m_MoveTargetPos;
+}
+
+void CMonster::SetAnimation()
+{
+	switch (m_MonsterType)
+	{
+	case EMonster_Type::Duck1:
+		SetDuck1Animation();
+		break;
+	case EMonster_Type::Duck2:
+		AddAnimation(PLAYER_LEFT_IDLE);
+		break;
+	case EMonster_Type::Duck3:
+		AddAnimation(PLAYER_LEFT_IDLE);
+		break;
+	case EMonster_Type::Turtle1:
+		AddAnimation(PLAYER_LEFT_IDLE);
+		break;
+	case EMonster_Type::Turtle2:
+		AddAnimation(PLAYER_LEFT_IDLE);
+		break;
+	case EMonster_Type::Turtle3:
+		AddAnimation(PLAYER_LEFT_IDLE);
+		break;
+	default:
+		break;
+	}
+}
+
+void CMonster::SetDuck1Animation()
+{
+	m_mapAnimName[MONSTER_RIGHT_IDLE]   = MONSTER_DUCK1_RIGHT_IDLE;
+	m_mapAnimName[MONSTER_RIGHT_WALK]   = MONSTER_DUCK1_RIGHT_WALK;
+	m_mapAnimName[MONSTER_RIGHT_ATTACK] = MONSTER_DUCK1_RIGHT_ATTACK;
+	m_mapAnimName[MONSTER_RIGHT_RUN]    = MONSTER_DUCK1_RIGHT_RUN;
+	m_mapAnimName[MONSTER_RIGHT_DEATH]  = MONSTER_DUCK1_RIGHT_DEATH;
+	m_mapAnimName[MONSTER_RIGHT_HIT]    = MONSTER_DUCK1_RIGHT_HIT;
+	m_mapAnimName[MONSTER_LEFT_IDLE]    = MONSTER_DUCK1_LEFT_IDLE;
+	m_mapAnimName[MONSTER_LEFT_WALK]    = MONSTER_DUCK1_LEFT_WALK;
+	m_mapAnimName[MONSTER_LEFT_ATTACK]  = MONSTER_DUCK1_LEFT_ATTACK;
+	m_mapAnimName[MONSTER_LEFT_RUN]     = MONSTER_DUCK1_LEFT_RUN;
+	m_mapAnimName[MONSTER_LEFT_DEATH]   = MONSTER_DUCK1_LEFT_DEATH;
+	m_mapAnimName[MONSTER_LEFT_HIT]     = MONSTER_DUCK1_LEFT_HIT;
+
+	AddAnimation(MONSTER_DUCK1_RIGHT_IDLE);
+	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
+
+	// Left
+	AddAnimation(MONSTER_DUCK1_LEFT_IDLE);
+	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
+	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
+
+	// Stun
+	AddAnimation(MONSTER_DUCK1_LEFT_DEATH , false, DEATH_TIME);
+	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, DEATH_TIME);
+
+	// Stun
+	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
+
 }

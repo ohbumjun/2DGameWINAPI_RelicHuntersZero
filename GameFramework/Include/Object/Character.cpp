@@ -91,6 +91,57 @@ void CCharacter::MoveWithinWorldResolution()
 	}
 }
 
+bool CCharacter::CollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->IsCollisionListEmpty())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CCharacter::ObstacleCollisionCheck() const
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->DidCollideWithObstacles())
+			return true;
+	}
+
+	return false;
+}
+
+CGameObject* CCharacter::MonsterCollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CGameObject* Monster = (*iter)->IsCollisionWithMonster();
+		if (Monster)
+		{
+			return Monster;
+		}
+	}
+	return nullptr;
+}
+
+void CCharacter::CollideBounceBack(Vector2 Dir)
+{
+	Vector2 OppDir = Dir;
+	OppDir.Normalize();
+	SetStunDir(OppDir);
+	Stun();
+}
+
 void CCharacter::Stun()
 {
 	CGameObject::Stun();

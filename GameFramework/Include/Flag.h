@@ -61,6 +61,16 @@ enum class EObject_Type
 	Effect
 };
 
+enum class EMonster_Type
+{
+	Duck1,
+	Duck2,
+	Duck3,
+	Turtle1,
+	Turtle2,
+	Turtle3
+};
+
 enum class EPotion_Type
 {
 	HP,

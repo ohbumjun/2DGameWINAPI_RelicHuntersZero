@@ -74,6 +74,12 @@ protected :
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
 	void MoveWithinWorldResolution();
+// collision
+protected :
+	bool CollisionCheck();
+	bool ObstacleCollisionCheck() const;
+	CGameObject* MonsterCollisionCheck();
+	virtual void CollideBounceBack(Vector2 Dir);
 protected :
 	virtual void Stun();
 	virtual void StunEnd();
