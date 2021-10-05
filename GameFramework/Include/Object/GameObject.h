@@ -181,7 +181,6 @@ public:
 	virtual int GetAttack()const;
 public:
 	void SetScene(class CScene* Scene);
-	void SetSceneAllResource(class CScene* Scene);
 	void SetDir(Vector2 Dir)
 	{
 		m_Dir = Dir;

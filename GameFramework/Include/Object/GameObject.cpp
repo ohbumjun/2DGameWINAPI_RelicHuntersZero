@@ -34,6 +34,7 @@ CGameObject::CGameObject()	:
 CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
+	// this
 	m_StunDir = obj.m_StunDir;
 	m_StunEnable = obj.m_StunEnable;
 	m_StunTime = obj.m_StunTime;
@@ -286,27 +287,6 @@ void CGameObject::SetScene(CScene* Scene)
 	m_Scene = Scene;
 	if (m_Animation)
 		m_Animation->m_Scene = Scene;
-}
-
-void CGameObject::SetSceneAllResource(CScene* Scene)
-{
-	SetScene(Scene);
-	{
-		auto iter = m_WidgetComponentList.begin();
-		auto iterEnd = m_WidgetComponentList.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			(*iter)->SetScene(Scene);
-		}
-	}
-	{
-		auto citer    = m_ColliderList.begin();
-		auto citerEnd = m_ColliderList.end();
-		for (; citer != citerEnd; ++citer)
-		{
-			(*citer)->m_Scene = Scene;
-		}
-	}
 }
 
 void CGameObject::Move(const Vector2& Dir)

@@ -1,11 +1,10 @@
-
 #include "SceneManager.h"
 #include "Scene.h"
 #include "../Input.h"
 
 CSceneManager* CSceneManager::m_Inst = nullptr;
 
-CSceneManager::CSceneManager()	:
+CSceneManager::CSceneManager() :
 	m_Scene(nullptr),
 	m_NextScene(nullptr),
 	m_CommonPlayer{}
@@ -14,12 +13,6 @@ CSceneManager::CSceneManager()	:
 
 CSceneManager::~CSceneManager()
 {
-	auto iter = m_CommonPlayer.begin();
-	auto iterEnd = m_CommonPlayer.end();
-	for (; iter != iterEnd; ++iter)
-	{
-		(*iter)->SetSceneAllResource(nullptr);
-	}
 	SAFE_DELETE(m_NextScene);
 	SAFE_DELETE(m_Scene);
 }
@@ -61,7 +54,7 @@ bool CSceneManager::ChangeScene()
 	{
 		// 현재 player 정보로 static 정보를 update 해준다
 		CGameObject* CurPlayer = m_Scene->GetPlayer();
-		if(CurPlayer)
+		if (CurPlayer)
 			UpdateStaticObjects(m_Scene->GetPlayer());
 
 		// 기존 장면을 제거한다.
@@ -73,17 +66,6 @@ bool CSceneManager::ChangeScene()
 
 		// 생성되어 있는 다음 장면을 기존 장면으로 지정한다.
 		m_Scene = m_NextScene;
-
-		// CommonPlayer의 변수의 Scene을 m_NextScene으로 세팅
-		auto iter = m_CommonPlayer.begin();
-		auto iterEnd = m_CommonPlayer.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			CGameObject* Player = (*iter);
-			Player->SetSceneAllResource(m_Scene);
-		}
-
-
 		// 변수를 초기화한다.
 		m_NextScene = nullptr;
 

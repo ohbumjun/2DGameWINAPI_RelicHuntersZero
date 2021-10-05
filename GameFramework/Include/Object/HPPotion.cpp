@@ -34,7 +34,6 @@ void CHPPotion::PostUpdate(float DeltaTime)
 void CHPPotion::Collision(float DeltaTime)
 {
 	CPotion::Collision(DeltaTime);
-
 }
 
 void CHPPotion::Render(HDC hDC)

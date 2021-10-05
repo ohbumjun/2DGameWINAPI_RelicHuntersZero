@@ -70,11 +70,11 @@ bool CMainScene::Init()
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	// Player
-	// CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
-	// SetPlayer(Player);
+	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
+	SetPlayer(Player);
 
 	// Camera
-	// GetCamera()->SetTarget(Player);
+	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Monster
@@ -101,18 +101,18 @@ bool CMainScene::Init()
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	// Potion
+	CMPPotion *MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
+	CMPPotion *MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
+
+	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
+	MPPotion1->SetPos(Vector2(300.f, 230.f));
+
 	CHPPotion *HPPotionPrototype = CreatePrototype<CHPPotion>("HPPotion");
 	CHPPotion *HPPotion1 = CreateObject<CHPPotion>("HPPotion1", "HPPotion");
 
 	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
-
-	CMPPotion *MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
-	CMPPotion *MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
-
-	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
-	MPPotion1->SetPos(Vector2(300.f, 230.f));
 
 	// Scroll ���� ����
 	GetCamera()->SetWorldResolution(2000.f, 2000.f);

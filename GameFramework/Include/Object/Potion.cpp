@@ -99,5 +99,5 @@ void CPotion::Render(HDC hDC)
 
 CPotion* CPotion::Clone()
 {
-	return new CPotion();
+	return new CPotion(*this);
 }

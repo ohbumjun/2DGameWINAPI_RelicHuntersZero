@@ -1,6 +1,3 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
 #include "GameManager.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,

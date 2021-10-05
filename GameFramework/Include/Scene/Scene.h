@@ -37,6 +37,8 @@ private:
 	int		m_UICount;
 	int		m_UICapacity;
 
+	// Player Laser 충돌 위치 : Vector2
+	// Vector2 m_LaserCollidePos;
 
 public:
 	CGameObject* FindObject(const std::string& Name);
@@ -48,6 +50,13 @@ public:
 	{
 		return m_Player;
 	}
+	/*
+	Vector2 GetLaserCollidePos() { return m_LaserCollidePos; }
+	void SetLaserCollidePos(const Vector2& Pos)
+	{
+		m_LaserCollidePos = Pos;
+	}
+	*/
 
 public:
 	virtual bool Init();

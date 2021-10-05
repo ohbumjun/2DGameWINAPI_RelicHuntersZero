@@ -4,8 +4,11 @@
 #include "../Scene/SceneResource.h"
 #include "../Object/DamageFont.h"
 
-CAnimation::CAnimation()	:
-	m_CurrentAnimation(nullptr)
+CAnimation::CAnimation() :
+	m_CurrentAnimation(nullptr),
+	m_Owner(nullptr),
+	m_mapAnimation{},
+	m_Scene(nullptr)
 {
 }
 
