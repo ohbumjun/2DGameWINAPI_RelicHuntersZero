@@ -61,7 +61,6 @@ bool CMainScene::Init()
 
 	// Monster
 	CMonster *MonsterPrototype = CreatePrototype<CMonster>("MonsterProto");
-
 	MonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	// Collider
