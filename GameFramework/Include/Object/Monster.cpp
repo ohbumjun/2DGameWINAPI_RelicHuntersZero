@@ -26,6 +26,7 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_FireTimeMax = obj.m_FireTimeMax;
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+	m_MonsterType = obj.m_MonsterType;
 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
@@ -59,6 +60,7 @@ bool CMonster::Init()
 	SetPivot(0.5f, 1.f);
 	CreateAnimation();
 	SetAnimation();
+	SetAnimNames();
 	
 
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
@@ -144,6 +146,16 @@ void CMonster::Update(float DeltaTime)
 void CMonster::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
+
+	// 멈춰있을 때 Idle Animation
+	if (m_Velocity.x == 0 && m_Velocity.y == 0)
+	{
+		// Change Idle Animation
+		ChangeIdleAnimation();
+		return;
+	}
+	// Walk Animation
+	ChangeWalkAnimation();
 }
 
 void CMonster::Collision(float DeltaTime)
@@ -251,19 +263,7 @@ void CMonster::SetAnimation()
 
 void CMonster::SetDuck1Animation()
 {
-	m_mapAnimName[MONSTER_RIGHT_IDLE]   = MONSTER_DUCK1_RIGHT_IDLE;
-	m_mapAnimName[MONSTER_RIGHT_WALK]   = MONSTER_DUCK1_RIGHT_WALK;
-	m_mapAnimName[MONSTER_RIGHT_ATTACK] = MONSTER_DUCK1_RIGHT_ATTACK;
-	m_mapAnimName[MONSTER_RIGHT_RUN]    = MONSTER_DUCK1_RIGHT_RUN;
-	m_mapAnimName[MONSTER_RIGHT_DEATH]  = MONSTER_DUCK1_RIGHT_DEATH;
-	m_mapAnimName[MONSTER_RIGHT_HIT]    = MONSTER_DUCK1_RIGHT_HIT;
-	m_mapAnimName[MONSTER_LEFT_IDLE]    = MONSTER_DUCK1_LEFT_IDLE;
-	m_mapAnimName[MONSTER_LEFT_WALK]    = MONSTER_DUCK1_LEFT_WALK;
-	m_mapAnimName[MONSTER_LEFT_ATTACK]  = MONSTER_DUCK1_LEFT_ATTACK;
-	m_mapAnimName[MONSTER_LEFT_RUN]     = MONSTER_DUCK1_LEFT_RUN;
-	m_mapAnimName[MONSTER_LEFT_DEATH]   = MONSTER_DUCK1_LEFT_DEATH;
-	m_mapAnimName[MONSTER_LEFT_HIT]     = MONSTER_DUCK1_LEFT_HIT;
-
+	// Right
 	AddAnimation(MONSTER_DUCK1_RIGHT_IDLE);
 	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
@@ -283,4 +283,45 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
 	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
 
+}
+
+void CMonster::SetAnimNames()
+{
+	switch (m_MonsterType)
+	{
+	case EMonster_Type::Duck1:
+		SetDuck1AnimName();
+		break;
+	case EMonster_Type::Duck2:
+		SetDuck1AnimName();
+		break;
+	case EMonster_Type::Duck3:
+		SetDuck1AnimName();
+		break;
+	case EMonster_Type::Turtle1:
+		SetDuck1AnimName();
+		break;
+	case EMonster_Type::Turtle2:
+		SetDuck1AnimName();
+		break;
+	case EMonster_Type::Turtle3:
+		SetDuck1AnimName();
+		break;
+	}
+}
+
+void CMonster::SetDuck1AnimName()
+{
+	m_mapAnimName[MONSTER_RIGHT_IDLE] = MONSTER_DUCK1_RIGHT_IDLE;
+	m_mapAnimName[MONSTER_RIGHT_WALK] = MONSTER_DUCK1_RIGHT_WALK;
+	m_mapAnimName[MONSTER_RIGHT_ATTACK] = MONSTER_DUCK1_RIGHT_ATTACK;
+	m_mapAnimName[MONSTER_RIGHT_RUN] = MONSTER_DUCK1_RIGHT_RUN;
+	m_mapAnimName[MONSTER_RIGHT_DEATH] = MONSTER_DUCK1_RIGHT_DEATH;
+	m_mapAnimName[MONSTER_RIGHT_HIT] = MONSTER_DUCK1_RIGHT_HIT;
+	m_mapAnimName[MONSTER_LEFT_IDLE] = MONSTER_DUCK1_LEFT_IDLE;
+	m_mapAnimName[MONSTER_LEFT_WALK] = MONSTER_DUCK1_LEFT_WALK;
+	m_mapAnimName[MONSTER_LEFT_ATTACK] = MONSTER_DUCK1_LEFT_ATTACK;
+	m_mapAnimName[MONSTER_LEFT_RUN] = MONSTER_DUCK1_LEFT_RUN;
+	m_mapAnimName[MONSTER_LEFT_DEATH] = MONSTER_DUCK1_LEFT_DEATH;
+	m_mapAnimName[MONSTER_LEFT_HIT] = MONSTER_DUCK1_LEFT_HIT;
 }

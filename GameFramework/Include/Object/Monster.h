@@ -58,6 +58,8 @@ private :
 // Set Animation
 private :
 	void SetAnimation();
+	void SetAnimNames();
 	void SetDuck1Animation();
+	void SetDuck1AnimName();
 };
 
