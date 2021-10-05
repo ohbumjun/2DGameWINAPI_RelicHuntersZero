@@ -40,9 +40,13 @@ bool CPotion::Init()
 
 	// Add Collider
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
-	Body->SetRadius(30.f);
+	Body->SetRadius(20.f);
 	Body->SetOffset(25.f, 25.f);
 	Body->SetCollisionProfile("Default");
+
+	// Animation
+	CreateAnimation();
+	AddAnimation("Bullet", true, 1.f);
 
 	return true;
 }
@@ -95,9 +99,4 @@ void CPotion::Collision(float DeltaTime)
 void CPotion::Render(HDC hDC)
 {
 	CGameObject::Render(hDC);
-}
-
-CPotion* CPotion::Clone()
-{
-	return new CPotion(*this);
 }

@@ -40,8 +40,3 @@ void CHPPotion::Render(HDC hDC)
 {
 	CPotion::Render(hDC);
 }
-
-CHPPotion* CHPPotion::Clone()
-{
-	return new CHPPotion(*this);
-}

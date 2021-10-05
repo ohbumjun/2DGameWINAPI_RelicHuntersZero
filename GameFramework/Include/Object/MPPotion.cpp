@@ -41,8 +41,3 @@ void CMPPotion::Render(HDC hDC)
 {
 	CPotion::Render(hDC);
 }
-
-CMPPotion* CMPPotion::Clone()
-{
-	return new CMPPotion(*this);
-}

@@ -13,6 +13,6 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CHPPotion* Clone();
+	// virtual CHPPotion* Clone();
 };
 

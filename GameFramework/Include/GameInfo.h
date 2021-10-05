@@ -1,13 +1,10 @@
-
 #pragma once
 
-/*
-#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
 
-#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <stdlib.h>
+#include <crtdbg.h>
 
-#endif // _DEBUG
-*/
 
 #include <Windows.h>
 #include <list>	  
@@ -15,7 +12,7 @@
 #include <stack>
 #include <string>
 #include <unordered_map>
-#include <crtdbg.h>
+// #include <crtdbg.h>
 #include <functional>
 #include "resource.h"
 
@@ -28,6 +25,12 @@
 
 #pragma comment(lib, "msimg32.lib")
 #pragma comment(lib, "fmod64_vc.lib")
+
+#ifdef _DEBUG
+
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
+#endif // _DEBUG
 
 #define GRAVITY 9.8f
 #define M_PI 3.14f

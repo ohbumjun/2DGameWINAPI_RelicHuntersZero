@@ -22,7 +22,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CPotion* Clone();
+	// virtual CPotion* Clone();
 
 };
 

@@ -57,7 +57,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 
 	if(m_Animation)
 		m_Animation->m_Owner = this;
-
+	
 	m_ColliderList.clear();
 	{
 		auto	iter = obj.m_ColliderList.begin();
@@ -184,6 +184,7 @@ void CGameObject::CreateAnimation()
 
 		m_Animation->m_Owner = this;
 		m_Animation->m_Scene = m_Scene;
+		m_Animation->m_CurrentAnimation = nullptr;
 	}
 }
 
