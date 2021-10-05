@@ -42,6 +42,8 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 
 CMonster::~CMonster()
 {
+	m_HPBarWidget = nullptr;
+	m_MPBarWidget = nullptr;
 }
 
 void CMonster::Start()

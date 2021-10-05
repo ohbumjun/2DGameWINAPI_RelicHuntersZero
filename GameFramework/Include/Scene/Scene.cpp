@@ -142,7 +142,6 @@ CGameObject *CScene::SetPlayer(CGameObject *Player)
 	if (!Player)
 		return nullptr;
 
-	// Scene���� player ����
 	m_Player = Player;
 
 	auto iter = m_ObjList.begin();
@@ -600,7 +599,7 @@ CGameObject *CScene::FindPrototype(const std::string &Name)
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {
-	CPlayer *Player = (CPlayer *)CSceneManager::GetInst()->GetPlayer();
+	CPlayer *Player = (CPlayer*)CSceneManager::GetInst()->GetPlayer();
 
 	if (!Player)
 	{
@@ -632,6 +631,7 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 			(*iter)->SetScene(this);
 		}
 	}
+
 	Player->SetNotifyFunctions();
 	m_ObjList.push_back(Player);
 

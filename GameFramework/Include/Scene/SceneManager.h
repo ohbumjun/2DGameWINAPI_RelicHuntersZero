@@ -21,7 +21,7 @@ public:
 			return m_CommonPlayer.back();
 		return nullptr;
 	}
-	void UpdateStaticObjects(CGameObject* Object)
+	void UpdateStaticObjects(CGameObject* &Object)
 	{
 		// 어차피 공유되는 Object는 Player 한명이기 때문이다 
 		m_CommonPlayer.clear();

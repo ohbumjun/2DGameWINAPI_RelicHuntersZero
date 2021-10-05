@@ -338,7 +338,6 @@ public:
 	CWidgetComponent* CreateWidgetComponent(const std::string& Name)
 	{
 		CWidgetComponent* Widget = FindWidgetComponent(Name);
-
 		if (Widget)
 			return nullptr;
 

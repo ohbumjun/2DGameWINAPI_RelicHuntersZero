@@ -110,6 +110,8 @@ CGameObject::~CGameObject()
 	{
 		(*iter)->ClearCollisionList();
 	}
+
+	m_WidgetComponentList.clear();
 }
 
 void CGameObject::Stun()

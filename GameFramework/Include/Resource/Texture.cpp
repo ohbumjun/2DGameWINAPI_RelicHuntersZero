@@ -91,7 +91,6 @@ bool CTexture::LoadTextureFullPath(const std::string& Name,
 			}
 		}
 	}
-
 	TextureInfo* Info = new TextureInfo;
 	lstrcpy(Info->FileName, FileName);
 

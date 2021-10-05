@@ -49,10 +49,12 @@ bool CMainScene::Init()
 	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
 	PlayerBullet->SetCollisionProfile("PlayerAttack");
 
+	/*
 	CBullet* PlayerLaserBullet = CreatePrototype<CBullet>("PlayerLaserProto");
 	PlayerLaserBullet->SetCollisionProfile("PlayerLaser");
 	PlayerLaserBullet->SetMoveSpeed(LASER_SPEED);
 	PlayerLaserBullet->SetDistance(LASER_DISTANCE);
+	*/
 
 	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
 	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
@@ -78,12 +80,13 @@ bool CMainScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Monster
+	/*
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CMonster *Monster = CreateObject<CMonster>("Monster", "MonsterProto", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 							  NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-	/*
+
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
@@ -164,18 +167,53 @@ void CMainScene::LoadAnimationSequence()
 		}
 	}
 
-	// Player ---
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightIdle",
-												"LucidNunNaRightIdle", TEXT("Player/Right/astand.bmp"));
+		"LucidNunNaRightIdle", TEXT("images/Character/jimmy/sample.bmp"));
+	GetSceneResource()->SetTextureColorKey("LucidNunNaRightIdle",255, 255, 255);
 
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData("LucidNunNaRightIdle",
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Player ---
+	/*
+	std::vector<std::wstring> vecFileName;
+	for (int i = 0; i <= 11; ++i)
+	{
+		TCHAR FileName[MAX_PATH] = {};
+		wsprintf(FileName, TEXT("images/Character/jimmy/E_spr_jimmy_idle_%d.bmp"), i);
+		vecFileName.push_back(FileName);
+	}
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightIdle",
+												"LucidNunNaRightIdle", vecFileName);
 	GetSceneResource()->SetTextureColorKey("LucidNunNaRightIdle",
 										   255, 0, 255);
-
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 11; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightIdle",
-												  i * 82.f, 0.f, 82.f, 73.f);
+												  0.f, 0.f, 114.f, 94.f);
 	}
+	CTexture *Texture = CResourceManager::GetInst()->FindTexture("MouseDefault");
+
+	for (int i = 0; i <= 10; ++i)
+	{
+		Texture->SetColorKey(255, 0, 255, i);
+	}
+
+	MouseDefault->SetTexture(Texture);
+
+	for (int i = 0; i <= 10; ++i)
+	{
+		MouseDefault->AddFrameData(Vector2(0.f, 0.f), Vector2(32.f, 31.f));
+	}
+
+	m_vecMouseImage.push_back(MouseDefault);
+	*/
 
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightWalk",
 												"LucidNunNaRightWalk", TEXT("Player/Right/awalk.bmp"));

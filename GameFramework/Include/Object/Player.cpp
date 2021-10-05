@@ -55,23 +55,33 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillDestoryAllAttackEnable = false;
 	m_SkillDestoryAllAttackTime = 0.f;
 
+	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+		{
 			m_HPBarWidget = (*iter);
+		}
 		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+		{
 			m_MPBarWidget = (*iter);
+		}
 		if ((*iter)->GetName() == PLAYER_NAMEWIDGET_COMPONENET)
+		{
 			m_NameWidget = (*iter);
+		}
 	}
 }
 
 CPlayer::~CPlayer()
 {
 	SAFE_DELETE(m_TeleportObj);
+	m_HPBarWidget = nullptr;
+	m_MPBarWidget = nullptr;
+	m_NameWidget = nullptr;
 }
 
 void CPlayer::Start()
@@ -229,7 +239,6 @@ bool CPlayer::Init()
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -85.f);
 
-	auto iter = m_WidgetComponentList.begin();
 	m_NameWidget = CreateWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
 	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
 
@@ -908,8 +917,7 @@ void CPlayer::SetTargetPos(float DeltaTime)
 		// MousePos = m_Pos;
 		return;
 	}
-	*/
-	
+
 	m_LaserBulletObj = m_Scene->CreateObject<CLaserObject>("Laser",
 		"PlayerLaserProto",
 		m_Pos,
@@ -918,6 +926,9 @@ void CPlayer::SetTargetPos(float DeltaTime)
 	float Angle = GetAngle(m_Pos, MousePos);
 	m_LaserBulletObj->SetDir(Angle);
 	m_LaserBulletObj->SetDistance(Distance(m_Pos, MousePos));
+
+	*/
+	
 
 	
 	m_TargetEnable = true;

@@ -69,16 +69,36 @@ void CHomeScene::LoadAnimationSequence()
 {
 	// Player ---
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightIdle",
-		"LucidNunNaRightIdle", TEXT("Player/Right/astand.bmp"));
-
+		"LucidNunNaRightIdle", TEXT("images/Character/jimmy/sample.bmp"));
 	GetSceneResource()->SetTextureColorKey("LucidNunNaRightIdle",
 		255, 0, 255);
 
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData("LucidNunNaRightIdle",
+				j * 134.f, i *114.f, 134.f, 114.f);
+		}
+	}
+	/*
+	std::vector<std::wstring> vecFileName;
+	for (int i = 0; i <= 11; ++i)
+	{
+		TCHAR FileName[MAX_PATH] = {};
+		wsprintf(FileName, TEXT("images/Character/jimmy/E_spr_jimmy_idle_%d.bmp"), i);
+		vecFileName.push_back(FileName);
+	}
+	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightIdle",
+		"LucidNunNaRightIdle", vecFileName);
+	GetSceneResource()->SetTextureColorKey("LucidNunNaRightIdle",
+		255, 0, 255);
+	for (int i = 0; i < 11; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData("LucidNunNaRightIdle",
-			i * 82.f, 0.f, 82.f, 73.f);
+			114.f, 0.f, 114.f, 94.f);
 	}
+	*/
 
 	GetSceneResource()->CreateAnimationSequence("LucidNunNaRightWalk",
 		"LucidNunNaRightWalk", TEXT("Player/Right/awalk.bmp"));
