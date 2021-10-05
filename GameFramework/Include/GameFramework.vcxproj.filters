@@ -512,6 +512,9 @@
     <ClInclude Include="Object\LaserObject.h">
       <Filter>03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="AnimNameInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameFramework.rc">

@@ -20,6 +20,7 @@
 #include "Math.h"
 #include "Flag.h"
 #include "MonsterInfo.h"
+#include "AnimNameInfo.h"
 #include "PlayerInfo.h"
 #include "fmod.hpp"
 

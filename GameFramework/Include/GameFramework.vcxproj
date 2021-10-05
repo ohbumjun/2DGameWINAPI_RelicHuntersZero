@@ -217,6 +217,7 @@
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="Animation\AnimationInfo.h" />
+    <ClInclude Include="AnimNameInfo.h" />
     <ClInclude Include="Collision\Collider.h" />
     <ClInclude Include="Collision\ColliderBox.h" />
     <ClInclude Include="Collision\ColliderSphere.h" />

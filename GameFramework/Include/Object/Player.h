@@ -90,7 +90,7 @@ private:
 	virtual void SetAttackSpeed(float Speed)
 	{
 		CCharacter::SetAttackSpeed(Speed);
-		SetAnimationPlayScale("LucidNunNaRightAttack", Speed);
+		SetAnimationPlayScale(PLAYER_RIGHT_ATTACK, Speed);
 	}
 
 	// Collision ---

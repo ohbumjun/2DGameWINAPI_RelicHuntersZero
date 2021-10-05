@@ -151,20 +151,17 @@ void CPlayer::Start()
 void CPlayer::SetNotifyFunctions()
 {
 	// Teleport
-	SetAnimationEndNotify<CPlayer>("LucidNunNaTeleport", this, &CPlayer::ChangeMoveAnimation);
+	SetAnimationEndNotify<CPlayer>(PLAYER_TELEPORT, this, &CPlayer::ChangeMoveAnimation);
 
 	// Attack
-	AddAnimationNotify<CPlayer>("LucidNunNaRightAttack", 2, this, &CPlayer::FireTarget);
-	AddAnimationNotify<CPlayer>("LucidNunNaLeftAttack", 2, this, &CPlayer::FireTarget);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightAttack", this, &CPlayer::AttackEnd);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftAttack", this, &CPlayer::AttackEnd);
+	AddAnimationNotify<CPlayer>(PLAYER_RIGHT_ATTACK, 2, this, &CPlayer::FireTarget);
+	AddAnimationNotify<CPlayer>(PLAYER_LEFT_ATTACK, 2, this, &CPlayer::FireTarget);
+	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_ATTACK, this, &CPlayer::AttackEnd);
+	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_ATTACK, this, &CPlayer::AttackEnd);
 
 	// Death
 	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
-
-	AddAnimationNotify<CPlayer>("LucidNunNaTargetAttack", 2, this, &CPlayer::FireTarget);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaTargetAttack", this, &CPlayer::AttackEnd);
 
 	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
 	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
@@ -184,16 +181,16 @@ bool CPlayer::Init()
 	CreateAnimation();
 
 	// Right
-	AddAnimation("LucidNunNaRightIdle");
-	AddAnimation("LucidNunNaRightWalk", true, 1.f);
-	AddAnimation("LucidNunNaRightAttack", false, 0.1f);
-	AddAnimation("LucidNunNaRightRun", true, 0.6f);
+	AddAnimation(PLAYER_RIGHT_IDLE);
+	AddAnimation(PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(PLAYER_RIGHT_RUN, true, 0.6f);
 
 	// Left
-	AddAnimation("LucidNunNaLeftIdle");
-	AddAnimation("LucidNunNaLeftWalk", true, 1.f);
-	AddAnimation("LucidNunNaLeftAttack", false, 0.1f);
-	AddAnimation("LucidNunNaLeftRun", true, 0.6f);
+	AddAnimation(PLAYER_LEFT_IDLE);
+	AddAnimation(PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(PLAYER_LEFT_RUN, true, 0.6f);
 
 	// Skill
 	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
@@ -207,10 +204,10 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaLeftDeath", false, DEATH_TIME);
 
 	// Stun
-	AddAnimation("LucidNunNaStun", true, 0.6f);
+	AddAnimation(PLAYER_HIT, true, 0.6f);
 
 	// Teleport
-	AddAnimation("LucidNunNaTeleport", false, 0.3f);
+	AddAnimation(PLAYER_TELEPORT, false, 0.3f);
 
 	// NotifyFunctions
 	SetNotifyFunctions();
@@ -345,12 +342,12 @@ void CPlayer::Update(float DeltaTime)
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	// Character Offset
-	if (CheckCurrentAnimation("LucidNunNaRightAttack") || CheckCurrentAnimation("LucidNunNaLeftAttack"))
+	if (CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) || CheckCurrentAnimation(PLAYER_LEFT_ATTACK))
 		SetOffset(0.f, 20.f);
 	else
 		SetOffset(0.f, 0.f);
 
-	if (CheckCurrentAnimation("LucidNunNaRightIdle") || CheckCurrentAnimation("LucidNunNaLeftIdle"))
+	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
 	{
 		Vector2 MousePos = CInput::GetInst()->GetMousePos();
 		Vector2 MousePlayerPosDiff = m_Pos - MousePos;
@@ -359,9 +356,9 @@ void CPlayer::Update(float DeltaTime)
 		SetDir(Angle);
 		// Animation Change
 		if (MousePlayerPosDiff.x >= 0) // Player�� ���콺���� �����ʿ� ���� --> ������ ���� �ϱ�
-			ChangeAnimation("LucidNunNaLeftIdle");
+			ChangeAnimation(PLAYER_LEFT_IDLE);
 		else // Player�� ���콺���� ���ʿ� ���� --> �������� ���� �ϱ�
-			ChangeAnimation("LucidNunNaRightIdle");
+			ChangeAnimation(PLAYER_RIGHT_IDLE);
 	}
 }
 
@@ -369,29 +366,29 @@ void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
 	// Walk ���� pos
-	if (CheckCurrentAnimation("LucidNunNaRightWalk") &&
+	if (CheckCurrentAnimation(PLAYER_RIGHT_WALK) &&
 		m_Velocity.Length() == 0.f)
 	{
-		ChangeAnimation("LucidNunNaRightIdle");
+		ChangeAnimation(PLAYER_RIGHT_IDLE);
 	}
-	if (CheckCurrentAnimation("LucidNunNaLeftWalk") &&
+	if (CheckCurrentAnimation(PLAYER_LEFT_WALK) &&
 		m_Velocity.Length() == 0.f)
 	{
-		ChangeAnimation("LucidNunNaLeftIdle");
+		ChangeAnimation(PLAYER_LEFT_IDLE);
 	}
 
 	// Run ���� pos
-	if (CheckCurrentAnimation("LucidNunNaRightRun") &&
+	if (CheckCurrentAnimation(PLAYER_RIGHT_RUN) &&
 		m_Velocity.Length() == 0.f)
 	{
 		RunEnd();
-		ChangeAnimation("LucidNunNaRightIdle");
+		ChangeAnimation(PLAYER_RIGHT_IDLE);
 	}
-	if (CheckCurrentAnimation("LucidNunNaLeftRun") &&
+	if (CheckCurrentAnimation(PLAYER_LEFT_RUN) &&
 		m_Velocity.Length() == 0.f)
 	{
 		RunEnd();
-		ChangeAnimation("LucidNunNaLeftIdle");
+		ChangeAnimation(PLAYER_LEFT_IDLE);
 	}
 }
 
@@ -468,10 +465,10 @@ void CPlayer::ChangeIdleAnimation()
 		return;
 	// ����
 	if (m_Dir.x < 0.f)
-		ChangeAnimation("LucidNunNaLeftIdle");
+		ChangeAnimation(PLAYER_LEFT_IDLE);
 	// ������
 	else
-		ChangeAnimation("LucidNunNaRightIdle");
+		ChangeAnimation(PLAYER_RIGHT_IDLE);
 }
 
 void CPlayer::MoveUp(float DeltaTime)
@@ -529,10 +526,10 @@ void CPlayer::ChangeMoveAnimation()
 		return;
 	// ����
 	if (m_Dir.x < 0.f)
-		ChangeAnimation("LucidNunNaLeftWalk");
+		ChangeAnimation(PLAYER_LEFT_ATTACK);
 	// ������
 	else
-		ChangeAnimation("LucidNunNaRightWalk");
+		ChangeAnimation(PLAYER_RIGHT_WALK);
 }
 
 void CPlayer::RunLeft(float DeltaTime)
@@ -582,13 +579,13 @@ void CPlayer::RunEnd()
 	m_RunEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
 
-	if (CheckCurrentAnimation("LucidNunNaRightRun"))
+	if (CheckCurrentAnimation(PLAYER_RIGHT_RUN))
 	{
-		ChangeAnimation("LucidNunNaRightWalk");
+		ChangeAnimation(PLAYER_RIGHT_WALK);
 	}
-	if (CheckCurrentAnimation("LucidNunNaLeftRun"))
+	if (CheckCurrentAnimation(PLAYER_LEFT_RUN))
 	{
-		ChangeAnimation("LucidNunNaLeftWalk");
+		ChangeAnimation(PLAYER_LEFT_WALK);
 	}
 }
 
@@ -598,10 +595,10 @@ void CPlayer::ChangeRunAnimation()
 		return;
 	// ����
 	if (m_Dir.x == -1.f)
-		ChangeAnimation("LucidNunNaLeftRun");
+		ChangeAnimation(PLAYER_LEFT_RUN);
 	// ������
 	else
-		ChangeAnimation("LucidNunNaRightRun");
+		ChangeAnimation(PLAYER_RIGHT_RUN);
 }
 
 void CPlayer::Dash(float DelatTime)
@@ -648,7 +645,7 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 
 void CPlayer::BulletFire(float DeltaTime)
 {
-	ChangeAnimation("LucidNunNaRightAttack");
+	ChangeAnimation(PLAYER_RIGHT_ATTACK);
 }
 
 void CPlayer::Pause(float DeltaTime)
@@ -795,14 +792,14 @@ Vector2 CPlayer::GetColliderPos()
 void CPlayer::Stun()
 {
 	CCharacter::Stun();
-	ChangeAnimation("LucidNunNaStun");
+	ChangeAnimation(PLAYER_HIT);
 }
 
 void CPlayer::StunEnd()
 {
 	CCharacter::StunEnd();
 	// ���⿡ ���� �ٲ��ֱ� ( ���� ���콺 ��ġ�� ���� ���� ������ ���� )
-	ChangeAnimation("LucidNunNaRightIdle");
+	ChangeAnimation(PLAYER_RIGHT_IDLE);
 }
 
 void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
@@ -815,7 +812,7 @@ void CPlayer::Teleport(float DeltaTime)
 		return;
 
 	// Animation �����ϱ�
-	ChangeAnimation("LucidNunNaTeleport");
+	ChangeAnimation(PLAYER_TELEPORT);
 
 	// �̵��ϱ�
 	m_Pos = m_TeleportPos;
@@ -868,10 +865,10 @@ void CPlayer::DeleteTeleportObj()
 
 void CPlayer::AttackEnd()
 {
-	if (CheckCurrentAnimation("LucidNunNaRightAttack"))
-		ChangeAnimation("LucidNunNaRightIdle");
+	if (CheckCurrentAnimation(PLAYER_RIGHT_ATTACK))
+		ChangeAnimation(PLAYER_RIGHT_IDLE);
 	else
-		ChangeAnimation("LucidNunNaLeftIdle");
+		ChangeAnimation(PLAYER_LEFT_IDLE);
 }
 
 void CPlayer::Fire()
@@ -891,7 +888,7 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget()
 {
-	Vector2 BulletOffset = CheckCurrentAnimation("LucidNunNaRightAttack") ? Vector2(75.f, 0.f) : Vector2(-75.f, 0.f);
+	Vector2 BulletOffset = CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(75.f, 0.f) : Vector2(-75.f, 0.f);
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 																"PlayerBullet",
 																Vector2(m_Pos + BulletOffset),
@@ -946,9 +943,9 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 
 	if (m_Dir.x > 0)
-		ChangeAnimation("LucidNunNaRightAttack");
+		ChangeAnimation(PLAYER_RIGHT_ATTACK);
 	else
-		ChangeAnimation("LucidNunNaLeftAttack");
+		ChangeAnimation(PLAYER_LEFT_ATTACK);
 }
 
 void CPlayer::CharacterDestroy()

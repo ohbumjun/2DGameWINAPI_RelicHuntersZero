@@ -59,7 +59,7 @@ bool CMonster::Init()
 	SetPivot(0.5f, 1.f);
 
 	CreateAnimation();
-	AddAnimation("LucidNunNaLeftIdle");
+	AddAnimation(PLAYER_LEFT_IDLE);
 
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);

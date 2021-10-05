@@ -50,13 +50,19 @@ public:
 	{
 		return m_Player;
 	}
-	/*
-	Vector2 GetLaserCollidePos() { return m_LaserCollidePos; }
-	void SetLaserCollidePos(const Vector2& Pos)
-	{
-		m_LaserCollidePos = Pos;
-	}
-	*/
+
+// Animation Setting 
+public :
+	void SetPlayerAnimation();
+	void SetItemsAnimation();
+	void SetBulletsAnimation();
+	void SetCollideAnimation();
+	void SetMouseAnimation();
+	void SetSkillAnimation();
+// Monster Setting 
+public :
+	void SetLevel1MonsterAnimation();
+	void SetDuck11MonsterAnimation();
 
 public:
 	virtual bool Init();
