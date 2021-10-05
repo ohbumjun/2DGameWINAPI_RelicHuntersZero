@@ -1,14 +1,13 @@
 
 #pragma once
 
-/*
-stl : standard template library�̴�.
-�迭, ������ũ�帮��Ʈ �� �ڷᱸ������ �̸� �����س��� ���̺귯���̴�.
-*/
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 #include <Windows.h>
-#include <list>	  // ������ũ�帮��Ʈ ���ø� �ڷᱸ��
-#include <vector> // �����迭 ���ø� �ڷᱸ��
+#include <list>	  
+#include <vector> 
 #include <stack>
 #include <string>
 #include <unordered_map>
@@ -24,14 +23,7 @@ stl : standard template library�̴�.
 #include "fmod.hpp"
 
 #pragma comment(lib, "msimg32.lib")
-
 #pragma comment(lib, "fmod64_vc.lib")
-
-/*
-#ifdef    _DEBUG
-#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#endif
-*/
 
 #define GRAVITY 9.8f
 #define M_PI 3.14f

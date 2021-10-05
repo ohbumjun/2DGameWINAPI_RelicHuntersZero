@@ -18,6 +18,9 @@ private:
 	class CUIWidget* m_SelectWidget;
 	class CCollider* m_MouseCollision;
 
+	// Player Laser 충돌 위치 : Vector2
+	Vector2 m_LaserCollidePos;
+
 public:
 	void SetSelectWidget(class CUIWidget* Widget)
 	{
@@ -28,6 +31,11 @@ public:
 	{
 		if (m_MouseCollision == Collider)
 			m_MouseCollision = nullptr;
+	}
+	Vector2 GetLaserCollidePos() { return m_LaserCollidePos; }
+	void SetLaserCollidePos(const Vector2& Pos)
+	{
+		m_LaserCollidePos = Pos;
 	}
 
 public:

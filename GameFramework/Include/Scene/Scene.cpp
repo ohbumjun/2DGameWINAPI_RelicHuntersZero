@@ -1,4 +1,3 @@
-
 #include "Scene.h"
 #include "SceneResource.h"
 #include "SceneManager.h"
@@ -26,6 +25,8 @@ CScene::CScene()
 	m_Camera = new CCamera;
 
 	m_Camera->Init();
+
+	// m_LaserCollidePos = Vector2(-1.f, -1.f);
 }
 
 CScene::~CScene()
@@ -530,21 +531,11 @@ int CScene::SortY(const void *Src, const void *Dest)
 	CGameObject *SrcObj = *(CGameObject **)Src;
 	CGameObject *DestObj = *(CGameObject **)Dest;
 
-	// Bottom ���� ���Ѵ�.
 	float SrcY = SrcObj->GetBottom();
 	float DestY = DestObj->GetBottom();
 
 	if (SrcY < DestY)
 		return -1;
-	// ���⼭�� Y�� Ŭ����, �Ʒ��� �ִٴ� ���̰�
-	// Y�� ���� ����, ���� �ִٴ� ���̴�
-	// �츮�� �Ʒ��� �ִ� Y�� ȭ�� �տ��ٰ� �׸��� ���� ��
-	// ��, Y���� ū�ָ� ȭ�� �տ��ٰ� �׸��� ���� ��
-	// ����, ���� SortY�� ����, Y�� ���� �ֵ�,
-	// ��, �� �����ִ� �ֵ��� �տ����� ������ ����
-	// Render����, �迭 �տ������� �׸����ν�
-	// �迭 �� �ڷ� ������, �Ʒ��� ��ġ���ִ� �ֵ���
-	// ���߿� �׸��� �ϰ�, �̸� ����, ȭ�� ���ʿ� �׸� �� �ְ� �����ϴ� ���̴�
 	else if (SrcY > DestY)
 		return 1;
 
@@ -556,7 +547,6 @@ int CScene::SortZOrder(const void *Src, const void *Dest)
 	CUIWindow *SrcObj = *(CUIWindow **)Src;
 	CUIWindow *DestObj = *(CUIWindow **)Dest;
 
-	// Bottom ���� ���Ѵ�.
 	int SrcZ = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 
@@ -574,7 +564,6 @@ int CScene::SortZOrderMap(const void *Src, const void *Dest)
 	CMapBase *SrcObj = *(CMapBase **)Src;
 	CMapBase *DestObj = *(CMapBase **)Dest;
 
-	// Bottom ���� ���Ѵ�
 	int SrcZ = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 
@@ -608,28 +597,12 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 		return Player;
 	}
 
-	Player->SetScene(this);
 	Player->SetPos(Pos);
 	Player->SetSize(Size);
 	Player->SetName(Name);
 
-	{
-		auto iter = Player->m_ColliderList.begin();
-		auto iterEnd = Player->m_ColliderList.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			(*iter)->SetScene(this);
-		}
-	}
-
-	{
-		auto iter = Player->m_WidgetComponentList.begin();
-		auto iterEnd = Player->m_WidgetComponentList.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			(*iter)->SetScene(this);
-		}
-	}
+	// ChangeScene에서도 한번 더 
+	Player->SetSceneAllResource(this);
 	Player->SetNotifyFunctions();
 	m_ObjList.push_back(Player);
 

@@ -267,7 +267,7 @@ void CEditorDlg::SelectList()
 	// m_TextureListBox : TextureListbox의 handle 정보가 들어있다.
 	// LB_GETCURSEL : idx 얻어오기
 	// 선택한 애를 얻어오겠다 
-	m_SelectTextureListIndex = SendMessage(m_TextureListBox,
+	m_SelectTextureListIndex = (int)SendMessage(m_TextureListBox,
 		LB_GETCURSEL,
 		0,0
 		);
@@ -358,7 +358,7 @@ void CEditorDlg::ChangeFrame()
 	// m_TextureListBox : TextureListbox의 handle 정보가 들어있다.
 	// LB_GETCURSEL : idx 얻어오기
 	// 선택한 애를 얻어오겠다 
-	m_SelectFrameIndex = SendMessage(m_FrameListBox,LB_GETCURSEL,0, 0);
+	m_SelectFrameIndex = (int)SendMessage(m_FrameListBox,LB_GETCURSEL,0, 0);
 
 	if (m_SelectFrameIndex != -1)
 	{

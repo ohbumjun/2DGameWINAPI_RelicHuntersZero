@@ -141,8 +141,8 @@ bool CGameObject::IsCollisionCheck()
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		// if collidede with sth
-		if (!(*iter)->IsCollisionListEmpty())
+		// if collided with sth
+		if (!((*iter)->IsCollisionListEmpty()))
 		{
 			return true;
 		}
@@ -286,6 +286,27 @@ void CGameObject::SetScene(CScene* Scene)
 	m_Scene = Scene;
 	if (m_Animation)
 		m_Animation->m_Scene = Scene;
+}
+
+void CGameObject::SetSceneAllResource(CScene* Scene)
+{
+	SetScene(Scene);
+	{
+		auto iter = m_WidgetComponentList.begin();
+		auto iterEnd = m_WidgetComponentList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SetScene(Scene);
+		}
+	}
+	{
+		auto citer    = m_ColliderList.begin();
+		auto citerEnd = m_ColliderList.end();
+		for (; citer != citerEnd; ++citer)
+		{
+			(*citer)->m_Scene = Scene;
+		}
+	}
 }
 
 void CGameObject::Move(const Vector2& Dir)

@@ -31,4 +31,4 @@
 #define DEATH_TIME 5.f
 
 // Laser Dist
-#define LASER_DISTANCE 10000.f
+#define LASER_DISTANCE 200000.f

@@ -50,6 +50,7 @@ bool CHomeScene::Init()
 	PlayerLaserBullet->SetCollisionProfile("PlayerLaser");
 	PlayerLaserBullet->SetMoveSpeed(LASER_SPEED);
 	PlayerLaserBullet->SetDistance(LASER_DISTANCE);
+	
 
 	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
 	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");

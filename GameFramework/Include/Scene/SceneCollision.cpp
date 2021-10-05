@@ -14,6 +14,7 @@ CSceneCollision::CSceneCollision()
 	m_SelectWidget = nullptr;
 	m_MouseHoveredWidget = nullptr;
 	m_MouseCollision = nullptr;
+	m_Scene = nullptr;
 }
 
 CSceneCollision::~CSceneCollision()

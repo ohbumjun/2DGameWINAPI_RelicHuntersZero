@@ -70,11 +70,11 @@ bool CMainScene::Init()
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	// Player
-	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
-	SetPlayer(Player);
+	// CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
+	// SetPlayer(Player);
 
 	// Camera
-	GetCamera()->SetTarget(Player);
+	// GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Monster

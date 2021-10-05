@@ -5,6 +5,7 @@
 #include "EffectHit.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../Scene/SceneCollision.h"
 #include "../UI//NumberWidget.h"
 #include "../UI/WidgetComponent.h"
 #include "DamageFont.h"
@@ -44,11 +45,13 @@ bool CLaserObject::Init()
 
 	SetPivot(0.5f, 0.5f);
 
+#ifdef _DEBUG
 	CreateAnimation();
 	AddAnimation("Bullet", true, 1.f);
+#endif // _DEBUG
 
 	CColliderSphere *Body = AddCollider<CColliderSphere>("Body");
-	Body->SetRadius(25.f);
+	Body->SetRadius(0.1f);
 	Body->SetOffset(0.f, 0.f);
 
 	return true;
@@ -87,18 +90,11 @@ CLaserObject *CLaserObject::Clone()
 
 void CLaserObject::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 {
-	// Damage �ֱ�
-	Dest->GetOwner()->SetDamage(m_Damage);
-
-	CGameObject* DestOwner = Dest->GetOwner();
-	Vector2 DestSize = DestOwner->GetSize();
-	Vector2 LaserObjectDir = m_Dir;
-
-	if (DestOwner->GetObjType() == EObject_Type::Player ||
-		DestOwner->GetObjType() == EObject_Type::Monster)
+	Vector2 DestPos = Dest->GetOwner()->GetPos();
+	float Dist      = Distance(DestPos,m_Pos);
+	if (m_Scene)
 	{
-		DestOwner->SetStunDir(LaserObjectDir);
-		DestOwner->Stun();
+		m_Scene->GetSceneCollision()->SetLaserCollidePos(m_Pos);
+		// Destroy();
 	}
-
 }

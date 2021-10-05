@@ -11,6 +11,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../Scene/SceneCollision.h"
 #include "../Scene/Camera.h"
 // Collision
 #include "../Collision/ColliderBox.h"
@@ -254,7 +255,7 @@ void CPlayer::Update(float DeltaTime)
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 	{
-		float MonsterDamage = CollideMonster->GetAttack();
+		float MonsterDamage = (float)CollideMonster->GetAttack();
 		// Damage Font
 		CDamageFont *DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 		MonsterDamage -= m_CharacterInfo.Armor;
@@ -340,7 +341,6 @@ void CPlayer::Update(float DeltaTime)
 	else
 		SetOffset(0.f, 0.f);
 
-	// ������ ���� �� Mouse Pos�� ����, ���� ����( Animation ���� )
 	if (CheckCurrentAnimation("LucidNunNaRightIdle") || CheckCurrentAnimation("LucidNunNaLeftIdle"))
 	{
 		Vector2 MousePos = CInput::GetInst()->GetMousePos();
@@ -409,11 +409,15 @@ void CPlayer::Render(HDC hDC)
 		// LaserObj 가 충돌을 일으켰다면, LaserObj의 위치로 세팅
 		// 그렇지 않다면, MousePos로 세팅 
 		Vector2 ScreenTargetPos = m_TargetPos - CameraPos;
-		bool LaserCollide = m_LaserBulletObj->IsCollisionCheck();
-		if (LaserCollide) // 특정 물체와 충돌했다면 
+		
+		Vector2 LaserCollidePos = m_Scene->GetSceneCollision()->GetLaserCollidePos();
+		if (LaserCollidePos.x != -1.f && 
+			LaserCollidePos.y != -1.f) // 특정 물체와 충돌했다면 
 		{
-			ScreenTargetPos = m_LaserBulletObj->GetPos() - CameraPos;
-			m_LaserBulletObj->Destroy();
+			
+			ScreenTargetPos = LaserCollidePos - CameraPos;
+			// 다시 -1.f, -1.f 로 세팅 
+			// m_Scene->GetSceneCollision()->SetLaserCollidePos(Vector2(-1.f,-1.f));
 		}
 		
 		MoveToEx(hDC, (int)ScreenPlayerPos.x, (int)ScreenPlayerPos.y, nullptr);
@@ -905,17 +909,17 @@ void CPlayer::SetTargetPos(float DeltaTime)
 		return;
 	}
 	*/
-	m_LaserBulletObj = m_Scene->CreateObject<CLaserObject>("Bullet",
+	
+	m_LaserBulletObj = m_Scene->CreateObject<CLaserObject>("Laser",
 		"PlayerLaserProto",
 		m_Pos,
-		m_Size);
+		m_Size * Vector2(0.1f, 0.1f));
 	m_LaserBulletObj->SetCollisionProfile("PlayerLaser");
-
 	float Angle = GetAngle(m_Pos, MousePos);
 	m_LaserBulletObj->SetDir(Angle);
 	m_LaserBulletObj->SetDistance(Distance(m_Pos, MousePos));
 
-
+	
 	m_TargetEnable = true;
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 }

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../Ref.h"
 
 class CCollider : public CRef
@@ -33,32 +32,26 @@ public:
 	{
 		m_MouseCollision = MouseCollision;
 	}
-
 	void SetEnable(bool Enable)
 	{
 		m_Enable = Enable;
 	}
-
 	void SetOffset(const Vector2 &Offset)
 	{
 		m_Offset = Offset;
 	}
-
 	void SetOffset(float x, float y)
 	{
 		m_Offset = Vector2(x, y);
 	}
-
 	void SetScene(class CScene *Scene)
 	{
 		m_Scene = Scene;
 	}
-
 	void SetOwner(class CGameObject *Owner)
 	{
 		m_Owner = Owner;
 	}
-
 public:
 	virtual float GetBottom() const
 	{
@@ -89,9 +82,6 @@ public:
 	{
 		return m_Profile;
 	}
-
-	// ���߿� ���� ������ ������ ������ �� ������ �����ϱ�
-	// �켱 ���� + ������ ���� ����
 	bool IsCollisionListEmpty() const
 	{
 		return m_CollisionList.empty();

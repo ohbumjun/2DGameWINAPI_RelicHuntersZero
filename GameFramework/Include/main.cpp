@@ -1,4 +1,6 @@
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "GameManager.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -6,10 +8,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 					  _In_ LPWSTR lpCmdLine,
 					  _In_ int nCmdShow)
 {
+	// _CrtSetBreakAlloc(2096);
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
 	// Debug ��ġ
-	// _CrtSetBreakAlloc(311);
 	//new char;
 
 	srand((unsigned int)GetTickCount());
@@ -24,6 +25,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	int RetValue = CGameManager::GetInst()->Run();
 
 	CGameManager::DestroyInst();
-
 	return RetValue;
 }

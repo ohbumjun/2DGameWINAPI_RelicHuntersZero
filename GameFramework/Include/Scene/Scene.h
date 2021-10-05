@@ -37,6 +37,7 @@ private:
 	int		m_UICount;
 	int		m_UICapacity;
 
+
 public:
 	CGameObject* FindObject(const std::string& Name);
 	CGameObject* FindClosestMonsterToPlayer(Vector2 PlayerPos);

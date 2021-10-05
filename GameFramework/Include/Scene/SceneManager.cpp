@@ -14,6 +14,12 @@ CSceneManager::CSceneManager()	:
 
 CSceneManager::~CSceneManager()
 {
+	auto iter = m_CommonPlayer.begin();
+	auto iterEnd = m_CommonPlayer.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		(*iter)->SetSceneAllResource(nullptr);
+	}
 	SAFE_DELETE(m_NextScene);
 	SAFE_DELETE(m_Scene);
 }
@@ -67,6 +73,17 @@ bool CSceneManager::ChangeScene()
 
 		// 생성되어 있는 다음 장면을 기존 장면으로 지정한다.
 		m_Scene = m_NextScene;
+
+		// CommonPlayer의 변수의 Scene을 m_NextScene으로 세팅
+		auto iter = m_CommonPlayer.begin();
+		auto iterEnd = m_CommonPlayer.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			CGameObject* Player = (*iter);
+			Player->SetSceneAllResource(m_Scene);
+		}
+
+
 		// 변수를 초기화한다.
 		m_NextScene = nullptr;
 

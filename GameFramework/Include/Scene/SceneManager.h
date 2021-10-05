@@ -12,7 +12,7 @@ private:
 private:
 	CScene* m_Scene;
 	CScene* m_NextScene;
-	std::vector<class CGameObject*> m_CommonPlayer;
+	std::vector<CSharedPtr<CGameObject>> m_CommonPlayer;
 
 public:
 	CScene* GetScene(){	return m_Scene;	}
@@ -24,9 +24,8 @@ public:
 	void UpdateStaticObjects(CGameObject* Object)
 	{
 		// 어차피 공유되는 Object는 Player 한명이기 때문이다 
-		m_CommonPlayer.clear();
+		if (m_CommonPlayer.size() >= 1) SAFE_DELETE(m_CommonPlayer[0]);
 		m_CommonPlayer.push_back(Object->Clone());
-
 	}
 
 public:
