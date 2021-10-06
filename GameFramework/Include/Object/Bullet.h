@@ -11,11 +11,13 @@ protected:
 	virtual ~CBullet();
 
 protected:
+	EBullet_Type m_BulletType;
 	Vector2		m_Dir;
 	float		m_Distance;
 	float		m_Damage;
 
 public:
+	void SetBulletType(EBullet_Type BType);
 	void SetBulletDamage(float Damage)
 	{
 		m_Damage = Damage;

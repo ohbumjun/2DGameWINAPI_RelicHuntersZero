@@ -712,7 +712,6 @@ void CPlayer::SkillSlowMotionAttackEnable()
 																	"SkillSlowMotionAttackBullet",
 																	Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f), (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
 																	Vector2(m_Size.x, m_Size.y));
-		Bullet->SetObjectType(EObject_Type::Bullet);
 
 		CCollider *BulletBody = Bullet->FindCollider("Body");
 		BulletBody->SetCollisionProfile("PlayerAttack");
@@ -860,7 +859,6 @@ void CPlayer::AttackEnd()
 void CPlayer::Fire()
 {
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-																"PlayerBullet",
 																Vector2(m_Pos + Vector2(75.f, 0.f)),
 																Vector2(50.f, 50.f));
 	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
@@ -879,10 +877,7 @@ void CPlayer::FireTarget()
 																"PlayerBullet",
 																Vector2(m_Pos + BulletOffset),
 																Vector2(50.f, 50.f));
-	Bullet->SetTimeScale(1.f);
-	Bullet->SetObjectType(EObject_Type::Bullet);
 	float Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
-
 	Bullet->SetDir(Angle);
 	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 }

@@ -571,6 +571,7 @@ void CGameObject::PostUpdate(float DeltaTime)
 
 
 	// 수업용 : 중력 적용하기 
+
 	CTileMap* TileMap = m_Scene->GetTileMap();
 	if (TileMap && !m_IsGround && m_Pos.y - m_PrevPos.y > 0.f)
 	{
@@ -654,7 +655,6 @@ void CGameObject::Collision(float DeltaTime)
 	{
 		m_Scene->GetSceneCollision()->AddCollider(*iter);
 	}
-
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
@@ -708,7 +708,6 @@ void CGameObject::Render(HDC hDC)
 			AnimInfo->Sequence->GetTexture()->Render(hDC, LT,
 				FrameData.StartPos, FrameData.Size);
 		}
-
 		else
 		{
 			AnimInfo->Sequence->GetTexture()->Render(hDC, LT,
@@ -724,7 +723,6 @@ void CGameObject::Render(HDC hDC)
 			// 이미지를 이용해서 출력한다.
 			m_Texture->Render(hDC, LT, m_ImageStart, m_Size);
 		}
-
 		else
 		{
 			// Rectangle(hDC, (int)LT.x, (int)LT.y,

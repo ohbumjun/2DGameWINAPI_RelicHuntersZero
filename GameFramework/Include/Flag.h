@@ -21,6 +21,13 @@ enum class ECollider_Type
 	Point
 };
 
+enum class EBullet_Type
+{
+	Light,
+	Medium,
+	Heavy
+};
+
 enum ECollision_Channel
 {
 	Channel_Object,

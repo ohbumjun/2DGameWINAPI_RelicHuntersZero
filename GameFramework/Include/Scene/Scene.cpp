@@ -405,6 +405,39 @@ void CScene::SetBulletsAnimation()
 				j * 92.f, i * 92.f, 92.f, 92.f);
 		}
 	}
+
+	// 총알
+	GetSceneResource()->CreateAnimationSequence(BULLET_LIGHT,
+		BULLET_LIGHT, TEXT("images/Weapon/Gun/Bullet/spr_bullet_light.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_LIGHT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLET_LIGHT,
+			i * 66.f, 0, 66.f, 50.f);
+	}
+
+	// 총알
+	GetSceneResource()->CreateAnimationSequence(BULLET_MEDIUM,
+		BULLET_MEDIUM, TEXT("images/Weapon/Gun/Bullet/spr_bullet_medium.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_MEDIUM,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLET_MEDIUM,
+			i * 66.f, 0, 66.f, 50.f);
+	}
+
+	// 총알
+	GetSceneResource()->CreateAnimationSequence(BULLET_HEAVY,
+		BULLET_HEAVY, TEXT("images/Weapon/Gun/Bullet/spr_bullet_heavy.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_HEAVY,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLET_HEAVY,
+			i * 66.f, 0, 66.f, 50.f);
+	}
 }
 
 void CScene::SetCollideAnimation()

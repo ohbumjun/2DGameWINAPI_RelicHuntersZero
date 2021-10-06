@@ -1,7 +1,13 @@
 #pragma once
+
 // Effect ---
 #define DASH_EFFECT   "DashEffect"
-#define HIT_EFFECT    EFFECT_HIT_PROTO
+#define HIT_EFFECT    "HitEffect"
+
+// Bullet 
+#define BULLET_LIGHT  "BulletLight"
+#define BULLET_MEDIUM "BulletMedium"
+#define BULLET_HEAVY  "BulletHeavy"
 
 // Player  ---
 #define PLAYER_RIGHT_IDLE   "RightIdle"

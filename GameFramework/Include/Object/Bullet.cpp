@@ -11,11 +11,12 @@
 CBullet::CBullet()
 {
 	m_ObjType   = EObject_Type::Bullet;
+	m_BulletType = EBullet_Type::Light;
 	m_Dir.x     = 1.f;
 	m_Dir.y     = 0.f;
 	m_Damage    = NORMAL_MONSTER_ATTACK;
 	m_Distance  = NORMAL_BULLET_DISTANCE;
-	m_MoveSpeed = NORMAL_MONSTER_ATTACK_SPEED;
+	m_MoveSpeed = BULLET_SPEED;
 }
 
 CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
@@ -23,10 +24,28 @@ CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
 	m_Damage = obj.m_Damage;
 	m_Dir = obj.m_Dir;
 	m_Distance = obj.m_Distance;
+	m_TimeScale = obj.m_TimeScale;
 }
 
 CBullet::~CBullet()
 {
+}
+
+void CBullet::SetBulletType(EBullet_Type BType)
+{
+	m_BulletType = BType;
+	switch (m_BulletType)
+	{
+	case EBullet_Type::Light:
+		SetCurrentAnimation(BULLET_LIGHT);
+		break;
+	case EBullet_Type::Medium:
+		SetCurrentAnimation(BULLET_MEDIUM);
+		break;
+	case EBullet_Type::Heavy:
+		SetCurrentAnimation(BULLET_HEAVY);
+		break;
+	}
 }
 
 void CBullet::Start()
@@ -43,13 +62,14 @@ bool CBullet::Init()
 
 	SetPivot(0.5f, 0.5f);
 
-	CreateAnimation();
-	AddAnimation("Bullet", true, 1.f);
-
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(25.f);
 	Body->SetOffset(0.f, 0.f);
 
+	CreateAnimation();
+	AddAnimation(BULLET_LIGHT);
+	AddAnimation(BULLET_MEDIUM);
+	AddAnimation(BULLET_HEAVY);
 	return true;
 }
 
@@ -62,6 +82,7 @@ void CBullet::Update(float DeltaTime)
 	m_Distance -= GetMoveSpeedFrame();
 	if (m_Distance <= 0.f)
 		Destroy();
+
 }
 
 void CBullet::PostUpdate(float DeltaTime)
@@ -101,7 +122,7 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		DestOwner->Stun();
 	}
 
-	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>(EFFECT_HIT_PROTO, EFFECT_HIT_PROTO,
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 		m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
