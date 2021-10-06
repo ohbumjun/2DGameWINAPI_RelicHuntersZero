@@ -63,7 +63,9 @@ public :
 public :
 	void SetLevel1MonsterAnimation();
 	void SetDuck11MonsterAnimation();
-
+// Proto Setting
+public :
+	void SetBasicProtoTypes();
 public:
 	virtual bool Init();
 	virtual bool Update(float DeltaTime);

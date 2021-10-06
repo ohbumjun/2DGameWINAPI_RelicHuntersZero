@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include "GameManager.h"
 
 CTimer::CTimer()	:
 	m_FPS(0.f),
@@ -34,6 +35,12 @@ float CTimer::Update()
 		m_FPS = 60 / m_FPSTime;
 		m_FPSTime = 0.f;
 		m_Tick = 0;
+
+#ifdef _DEBUG
+		wchar_t buff[101];
+		swprintf_s(buff,L"FPS : %zu, DT : %.10f",m_FPS,m_DeltaTime);
+		SetWindowText(CGameManager::GetInst()->GetWindowHandle(),buff);
+#endif 
 	}
 
 	return m_DeltaTime;

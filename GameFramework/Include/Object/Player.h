@@ -34,11 +34,11 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
-	// Idle ---
+// Idle ---
 private:
 	void ChangeIdleAnimation();
-
-	// Move ---
+	void ChangeDashAnimation();
+// Move ---
 private:
 	void MoveUp(float DeltaTime);
 	void MoveDown(float DeltaTime);
@@ -46,9 +46,9 @@ private:
 	void MoveRight(float DeltaTime);
 	virtual void Move(const Vector2 &Dir);
 	virtual void Move(const Vector2 &Dir, float Speed);
-	void ChangeMoveAnimation(); // ������,���� only
+	void ChangeMoveAnimation(); 
 
-	// Run ---
+// Run ---
 private:
 	void RunLeft(float DeltaTime);
 	void RunRight(float DeltaTime);
@@ -57,16 +57,20 @@ private:
 	bool m_RunEnable;
 	void RunStart();
 	void RunEnd();
-	void ChangeRunAnimation(); // ������ ���� only
+	void ChangeRunAnimation();
 
-	// Dash ---
+// Dash ---
 private:
-	void Dash(float DeltaTime);
+	void DashStart();
+	void DashLeft(float DeltaTime);
+	void DashRight(float DeltaTime);
+	void DashUp(float DeltaTime);
+	void DashDown(float DeltaTime);
 	void DashEnd();
 	bool m_DashEnable;
 	float m_DashTime;
 
-	// Other Skills ---
+// Other Skills ---
 private:
 	// Pause, Resume
 	void Pause(float DeltaTime);
@@ -122,7 +126,6 @@ private:
 public:
 	bool m_TargetEnable;
 	void AttackEnd();
-	void BulletFire(float DeltaTime);
 	void Fire();
 	void SetTargetPos(float DeltaTime);
 	void RemoveTargetPos(float DeltaTime);

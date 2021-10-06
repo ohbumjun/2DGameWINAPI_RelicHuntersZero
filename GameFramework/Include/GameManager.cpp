@@ -173,6 +173,7 @@ void CGameManager::Logic()
 
 bool CGameManager::Update(float DeltaTime)
 {
+	m_Timer->Update();
 	return CSceneManager::GetInst()->Update(DeltaTime);
 }
 

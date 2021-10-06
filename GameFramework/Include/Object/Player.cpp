@@ -79,7 +79,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 CPlayer::~CPlayer()
 {
-	SAFE_DELETE(m_TeleportObj);
+	DeleteTeleportObj();
 	m_HPBarWidget = nullptr;
 	m_MPBarWidget = nullptr;
 	m_NameWidget = nullptr;
@@ -92,7 +92,6 @@ void CPlayer::Start()
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
 											this, &CPlayer::AcquireItem);
-
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 											this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
@@ -126,8 +125,14 @@ void CPlayer::Start()
 											this, &CPlayer::RunRight);
 
 	// Dash
-	CInput::GetInst()->SetCallback<CPlayer>("Dash", KeyState_Down,
-											this, &CPlayer::Dash);
+	CInput::GetInst()->SetCallback<CPlayer>("DashUp", KeyState_Push,
+		this, &CPlayer::DashUp);
+	CInput::GetInst()->SetCallback<CPlayer>("DashDown", KeyState_Push,
+		this, &CPlayer::DashDown);
+	CInput::GetInst()->SetCallback<CPlayer>("DashLeft", KeyState_Push,
+		this, &CPlayer::DashLeft);
+	CInput::GetInst()->SetCallback<CPlayer>("DashRight", KeyState_Push,
+		this, &CPlayer::DashRight);
 
 	// Teleport
 	CInput::GetInst()->SetCallback<CPlayer>("Teleport", KeyState_Down,
@@ -157,10 +162,15 @@ void CPlayer::SetNotifyFunctions()
 	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_ATTACK, this, &CPlayer::AttackEnd);
 	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_ATTACK, this, &CPlayer::AttackEnd);
 
+	// DASH
+	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
+
 	// Death
 	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
 
+	// Skill
 	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
 	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
 
@@ -182,12 +192,14 @@ bool CPlayer::Init()
 	AddAnimation(PLAYER_RIGHT_IDLE);
 	AddAnimation(PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(PLAYER_RIGHT_DASH, false, DASH_TIME);
 	AddAnimation(PLAYER_RIGHT_RUN, true, 0.6f);
 
 	// Left
 	AddAnimation(PLAYER_LEFT_IDLE);
 	AddAnimation(PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(PLAYER_LEFT_DASH, false, DASH_TIME);
 	AddAnimation(PLAYER_LEFT_RUN, true, 0.6f);
 
 	// Skill
@@ -277,27 +289,22 @@ void CPlayer::Update(float DeltaTime)
 
 		if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
 		{
-			// �ð� �ǵ�����
 			SetTimeScale(1.f);
 			CGameManager::GetInst()->SetTimeScale(1.f);
 			m_SkillSlowMotionAttackEnable = false;
 			m_SkillSlowMotionAttackTime = 0.f;
-
 		}
 	}
 
 	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP += DeltaTime;
-
 	// Run
 	if (m_RunEnable)
 	{
 		if (m_CharacterInfo.MP >= 0)
 			m_CharacterInfo.MP -= 3 * DeltaTime;
 		if (m_CharacterInfo.MP <= 0)
-		{
 			RunEnd();
-		}
 	}
 
 	// Dash
@@ -308,9 +315,7 @@ void CPlayer::Update(float DeltaTime)
 		if (m_DashTime >= 0)
 			m_DashTime -= DeltaTime;
 		if (m_DashTime <= 0)
-		{
 			DashEnd();
-		}
 	}
 
 	// Teleport
@@ -341,17 +346,17 @@ void CPlayer::Update(float DeltaTime)
 	else
 		SetOffset(0.f, 0.f);
 
+	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
 	{
-		Vector2 MousePos = CInput::GetInst()->GetMousePos();
+		Vector2 MousePos           = CInput::GetInst()->GetMousePos();
 		Vector2 MousePlayerPosDiff = m_Pos - MousePos;
-		// ���� setting
-		float Angle = GetAngle(m_Pos, MousePos);
+		float Angle				   = GetAngle(m_Pos, MousePos);
 		SetDir(Angle);
 		// Animation Change
-		if (MousePlayerPosDiff.x >= 0) // Player�� ���콺���� �����ʿ� ���� --> ������ ���� �ϱ�
+		if (MousePlayerPosDiff.x >= 0) 
 			ChangeAnimation(PLAYER_LEFT_IDLE);
-		else // Player�� ���콺���� ���ʿ� ���� --> �������� ���� �ϱ�
+		else
 			ChangeAnimation(PLAYER_RIGHT_IDLE);
 	}
 }
@@ -359,30 +364,21 @@ void CPlayer::Update(float DeltaTime)
 void CPlayer::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
-	if (CheckCurrentAnimation(PLAYER_RIGHT_WALK) &&
+	if ((CheckCurrentAnimation(PLAYER_RIGHT_WALK) ||
+		CheckCurrentAnimation(PLAYER_RIGHT_RUN) || 
+		CheckCurrentAnimation(PLAYER_RIGHT_DASH)) &&
 		m_Velocity.Length() == 0.f)
 	{
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
 	}
-	if (CheckCurrentAnimation(PLAYER_LEFT_WALK) &&
+	if ((CheckCurrentAnimation(PLAYER_LEFT_WALK) ||
+		CheckCurrentAnimation(PLAYER_LEFT_RUN) ||
+		CheckCurrentAnimation(PLAYER_LEFT_DASH)) &&
 		m_Velocity.Length() == 0.f)
 	{
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 	}
 
-	// Run ���� pos
-	if (CheckCurrentAnimation(PLAYER_RIGHT_RUN) &&
-		m_Velocity.Length() == 0.f)
-	{
-		RunEnd();
-		ChangeAnimation(PLAYER_RIGHT_IDLE);
-	}
-	if (CheckCurrentAnimation(PLAYER_LEFT_RUN) &&
-		m_Velocity.Length() == 0.f)
-	{
-		RunEnd();
-		ChangeAnimation(PLAYER_LEFT_IDLE);
-	}
 }
 
 void CPlayer::Collision(float DeltaTime)
@@ -394,6 +390,9 @@ void CPlayer::Render(HDC hDC)
 {
 	CCharacter::Render(hDC);
 
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	Vector2 ScreenPlayerPos = m_Pos - CameraPos;
+
 	if (m_TargetEnable)
 	{
 		HPEN Pen = CGameManager::GetInst()->GetRedPen();
@@ -401,9 +400,6 @@ void CPlayer::Render(HDC hDC)
 
 		HBRUSH Brush = CGameManager::GetInst()->GetRedBrush();
 		HGDIOBJ PrevBrush = SelectObject(hDC, Brush);
-
-		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
-		Vector2 ScreenPlayerPos = m_Pos - CameraPos;
 
 		// LaserObj 가 충돌을 일으켰다면, LaserObj의 위치로 세팅
 		// 그렇지 않다면, MousePos로 세팅 
@@ -427,6 +423,7 @@ void CPlayer::Render(HDC hDC)
 		SelectObject(hDC, PrevPen);
 		SelectObject(hDC, PrevBrush);
 	}
+
 }
 
 CPlayer *CPlayer::Clone()
@@ -459,6 +456,26 @@ void CPlayer::ChangeIdleAnimation()
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 	else
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
+}
+
+void CPlayer::ChangeRunAnimation()
+{
+	if (m_StunEnable)
+		return;
+	if (m_Dir.x == -1.f)
+		ChangeAnimation(PLAYER_LEFT_RUN);
+	else
+		ChangeAnimation(PLAYER_RIGHT_RUN);
+}
+
+void CPlayer::ChangeDashAnimation()
+{
+	if (m_StunEnable)
+		return;
+	if (m_Dir.x < 0.f)
+		ChangeAnimation(PLAYER_LEFT_DASH);
+	else
+		ChangeAnimation(PLAYER_RIGHT_DASH);
 }
 
 void CPlayer::MoveUp(float DeltaTime)
@@ -523,28 +540,24 @@ void CPlayer::RunLeft(float DeltaTime)
 {
 	Move(Vector2(-1.f, 0.f));
 	RunStart();
-	ChangeRunAnimation();
 }
 
 void CPlayer::RunRight(float DeltaTime)
 {
 	Move(Vector2(1.f, 0.f));
 	RunStart();
-	ChangeRunAnimation();
 }
 
 void CPlayer::RunUp(float DeltaTime)
 {
 	Move(Vector2(0.f, -1.f));
 	RunStart();
-	ChangeRunAnimation();
 }
 
 void CPlayer::RunDown(float DeltaTime)
 {
 	Move(Vector2(0.f, 1.f));
 	RunStart();
-	ChangeRunAnimation();
 }
 
 void CPlayer::RunStart()
@@ -553,10 +566,11 @@ void CPlayer::RunStart()
 	m_RunEnable = true;
 
 	Vector2 PlayerBtm;
+	float PlayerBtmy = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2;
 	if(m_Dir.x < 0 ) // 왼쪽 
-		PlayerBtm = Vector2(m_Pos.x + m_Size.x/2, m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2);
+		PlayerBtm = Vector2(m_Pos.x + (m_Pivot.x * m_Size.x),PlayerBtmy);
 	else // 오른쪽 
-		PlayerBtm = Vector2(m_Pos.x , m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2);
+		PlayerBtm = Vector2(m_Pos.x - (m_Pivot.x * m_Size.x),PlayerBtmy);
 
 
 	CEffectDash *Hit = m_Scene->CreateObject<CEffectDash>(
@@ -566,13 +580,14 @@ void CPlayer::RunStart()
 
 	m_Scene->GetSceneResource()->SoundPlay("Run");
 	SetMoveSpeed(FAST_SPEED);
+
+	// Animation
+	ChangeRunAnimation();
 }
 
 void CPlayer::RunEnd()
 {
-	if (!m_RunEnable)
-		return;
-
+	if (!m_RunEnable) return;
 	m_RunEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
 
@@ -586,54 +601,67 @@ void CPlayer::RunEnd()
 	}
 }
 
-void CPlayer::ChangeRunAnimation()
+void CPlayer::DashStart()
 {
-	if (m_StunEnable)
-		return;
-	// ����
-	if (m_Dir.x == -1.f)
-		ChangeAnimation(PLAYER_LEFT_RUN);
-	// ������
-	else
-		ChangeAnimation(PLAYER_RIGHT_RUN);
-}
-
-void CPlayer::Dash(float DelatTime)
-{
-	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax)
-		return;
+	if (m_DashEnable) return;
+	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
 
 	// Dash Time 
-	m_DashTime = DASH_TIME;
+	m_DashTime   = DASH_TIME;
 	m_DashEnable = true;
 
-	// speed 
+	// Speed 
 	SetMoveSpeed(DASH_SPEED);
 
 	// MP 
 	if (m_CharacterInfo.MP >= 0.5f * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.5f * m_CharacterInfo.MPMax;
 
-	// Effect 
-	CEffectDash*Dash = m_Scene->CreateObject<CEffectDash>(DASH_EFFECT, DASH_EFFECT,
-														m_Pos, Vector2(178.f, 164.f));
-
 	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
+
+	// Animation
+	ChangeDashAnimation();
 }
 
 void CPlayer::DashEnd()
 {
-	if (!m_DashEnable)
-		return;
+	if (!m_DashEnable) return;
 	m_DashEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
+
+	if (CheckCurrentAnimation(PLAYER_RIGHT_DASH))
+	{
+		ChangeAnimation(PLAYER_RIGHT_WALK);
+	}
+	if (CheckCurrentAnimation(PLAYER_LEFT_DASH))
+	{
+		ChangeAnimation(PLAYER_LEFT_WALK);
+	}
 }
 
-
-void CPlayer::BulletFire(float DeltaTime)
+void CPlayer::DashLeft(float DeltaTime)
 {
-	ChangeAnimation(PLAYER_RIGHT_ATTACK);
+	Move(Vector2(-1.f,0.f));
+	DashStart();
+}
+
+void CPlayer::DashRight(float DeltaTime)
+{
+	Move(Vector2(1.f,0.f));
+	DashStart();
+}
+
+void CPlayer::DashUp(float DeltaTime)
+{
+	Move(Vector2(0.f, -1.f));
+	DashStart();
+}
+
+void CPlayer::DashDown(float DeltaTime)
+{
+	Move(Vector2(0.f, 1.f));
+	DashStart();
 }
 
 void CPlayer::Pause(float DeltaTime)
@@ -676,7 +704,6 @@ void CPlayer::SkillSlowMotionAttackEnable()
 																	Vector2(m_Size.x, m_Size.y));
 		Bullet->SetObjectType(EObject_Type::Bullet);
 
-		// Bullet �浹ü : PlayerAttack ���� ó���ϱ�
 		CCollider *BulletBody = Bullet->FindCollider("Body");
 		BulletBody->SetCollisionProfile("PlayerAttack");
 
@@ -766,16 +793,13 @@ void CPlayer::Teleport(float DeltaTime)
 	// Animation �����ϱ�
 	ChangeAnimation(PLAYER_TELEPORT);
 
-	// �̵��ϱ�
 	m_Pos = m_TeleportPos;
 
-	// Animation �ǵ����α�
 	// ChangeMoveAnimation();
 
 	// m_TeleportEnable
 	m_TeleportEnable = false;
 
-	// MP 90% ����
 	if (m_CharacterInfo.MP >= 0.9f * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.9f * m_CharacterInfo.MPMax;
 
@@ -788,24 +812,16 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	if (m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax)
 		return;
 
-	// Teleport �غ�
 	m_TeleportEnable = true;
 
-	// Ŭ���ϴ� ����, ��ǥ���� ���콺 ��ġ ��������
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TeleportPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 
-	// ȭ���?Teleport ��ġ �ִϸ��̼� �׸���
-	// ������ �׸� teleport animation �����?(�޸� leak ���� )
 	DeleteTeleportObj();
-	// ���� �׸���
 	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
 														  m_TeleportPos);
 
-	// Update �Լ�����, Ŀ���� ������, Teleport �����ָ�
-	// m_TeleportObj �� Animation�� ���?�������� �� �ִ�
-	// ����, ���� �ð��� ������ �����ֱ� ���� m_TeleportTime�� �����Ѵ�
 	m_TelePortTime = TELEPORT_MOUSE_DISPLAY_TIME;
 }
 
@@ -845,6 +861,7 @@ void CPlayer::FireTarget()
 																"PlayerBullet",
 																Vector2(m_Pos + BulletOffset),
 																Vector2(50.f, 50.f));
+	Bullet->SetTimeScale(1.f);
 	Bullet->SetObjectType(EObject_Type::Bullet);
 	float Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
 
@@ -877,8 +894,6 @@ void CPlayer::SetTargetPos(float DeltaTime)
 	m_LaserBulletObj->SetDistance(Distance(m_Pos, MousePos));
 
 	*/
-	
-
 	
 	m_TargetEnable = true;
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));

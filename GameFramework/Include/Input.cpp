@@ -148,7 +148,14 @@ bool CInput::Init(HWND hWnd)
 	SetShiftKey("RunRight", true);
 
 	// Dash
-	CreateKey("Dash", VK_TAB);
+	CreateKey("DashUp", 'W');
+	SetCtrlKey("DashUp", true);
+	CreateKey("DashDown", 'S');
+	SetCtrlKey("DashDown", true);
+	CreateKey("DashLeft", 'A');
+	SetCtrlKey("DashLeft", true);
+	CreateKey("DashRight", 'D');
+	SetCtrlKey("DashRight", true);
 
 	// Teleport
 	CreateKey("Teleport", 'T');
@@ -201,7 +208,6 @@ bool CInput::Init(HWND hWnd)
 	{
 		MouseDefault->AddFrameData(Vector2(0.f, 0.f), Vector2(32.f, 31.f));
 	}
-
 	m_vecMouseImage.push_back(MouseDefault);
 
 	return true;

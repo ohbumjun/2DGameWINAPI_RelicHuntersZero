@@ -39,42 +39,8 @@ bool CMainScene::Init()
 {
 	LoadSound();
 	LoadAnimationSequence();
-
-	// EffectHit
-	CEffectHit  *EffectHitPrototype = CreatePrototype<CEffectHit>("HitEffect");
-	// EffectDash
-	CEffectDash *EffectDashPrototype = CreatePrototype<CEffectDash>(DASH_EFFECT);
-
-	// Teleport
-	CTeleportMouse *TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
-
-	// Bullet 
-	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
-	PlayerBullet->SetCollisionProfile("PlayerAttack");
-
-	/*
-	CBullet* PlayerLaserBullet = CreatePrototype<CBullet>("PlayerLaserProto");
-	PlayerLaserBullet->SetCollisionProfile("PlayerLaser");
-	PlayerLaserBullet->SetMoveSpeed(LASER_SPEED);
-	PlayerLaserBullet->SetDistance(LASER_DISTANCE);
-	*/
-
-	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
-	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
-
-	// Monster
-	CMonster *MonsterPrototype = CreatePrototype<CMonster>("MonsterProto");
-	MonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
-
-	// Collider
-	CCollider *Collider = PlayerBullet->FindCollider("Body");
-	if (Collider)
-		Collider->SetCollisionProfile("PlayerAttack");
-	CBullet *MonsterBullet = CreatePrototype<CBullet>("MonsterBullet");
-	Collider = MonsterBullet->FindCollider("Body");
-	if (Collider)
-		Collider->SetCollisionProfile("MonsterAttack");
-
+	SetBasicProtoTypes();
+	
 	// Player
 	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
@@ -108,20 +74,18 @@ bool CMainScene::Init()
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	// Potion
-	CMPPotion *MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
+	
 	CMPPotion *MPPotion1 = CreateObject<CMPPotion>("MPPotion1", "MPPotion");
 
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f, 230.f));
 
-	CHPPotion *HPPotionPrototype = CreatePrototype<CHPPotion>("HPPotion");
 	CHPPotion *HPPotion1 = CreateObject<CHPPotion>("HPPotion1", "HPPotion");
 
 	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 
-	// Scroll ���� ����
 	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 	float ScrollWidth = 1500.f - GetCamera()->GetResolution().x; // ScrollMap ũ�Ⱑ 1500.f, 1200.f
 	float ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
@@ -134,7 +98,6 @@ bool CMainScene::Init()
 	Map->SetSize(1280.f, 720.f);
 	Map->SetTexture("ScrollBack", TEXT("Stage1.bmp"));
 
-	// Scroll ������, ScrollMap, TileMap ������ �����Ѵ�
 	Map->SetScrollRatio(ScrollWidth / TileMapWidth, ScrollHeight / TileMapHeight);
 	Map->SetZOrder(0);
 	Map->SetTextureColorKey(255, 0, 255);

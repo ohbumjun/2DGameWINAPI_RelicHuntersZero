@@ -24,6 +24,9 @@ bool CHomeScene::Init()
 	// Animation
 	LoadAnimationSequence();
 
+	// Protos
+	SetBasicProtoTypes();
+
 	// Objects
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
@@ -36,28 +39,6 @@ bool CHomeScene::Init()
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
 
-	// Prototypes
-	CEffectHit* EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
-
-	// Teleport
-	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
-
-	// Bullet 
-	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
-	PlayerBullet->SetCollisionProfile("PlayerAttack");
-
-	CLaserObject* PlayerLaserBullet = CreatePrototype<CLaserObject>("PlayerLaserProto");
-	PlayerLaserBullet->SetCollisionProfile("PlayerLaser");
-	PlayerLaserBullet->SetMoveSpeed(LASER_SPEED);
-	PlayerLaserBullet->SetDistance(LASER_DISTANCE);
-	
-
-	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
-	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
-
-	CCollider* Collider = PlayerBullet->FindCollider("Body");
-	if (Collider)
-		Collider->SetCollisionProfile("PlayerAttack");
 
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
