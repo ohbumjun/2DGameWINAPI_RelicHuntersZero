@@ -36,6 +36,7 @@ private:
 	CUIWindow** m_UIArray;
 	int		m_UICount;
 	int		m_UICapacity;
+	class CTileMap* m_TileMap;
 
 	// Player Laser 충돌 위치 : Vector2
 	// Vector2 m_LaserCollidePos;
@@ -49,6 +50,10 @@ public:
 	CGameObject* GetPlayer()	const
 	{
 		return m_Player;
+	}
+	CTileMap* GetTileMap()	const
+	{
+		return m_TileMap;
 	}
 
 // Animation Setting 
@@ -206,6 +211,10 @@ public:
 		Map->SetSize(Size);
 		Map->SetName(Name);
 		
+		// TileMap 세팅해주기 
+		if (typeid(T).hash_code() ==
+			typeid(CTileMap).hash_code())
+			m_TileMap = (CTileMap*)Map;
 
 		if (!Map->Init())
 		{

@@ -44,7 +44,7 @@ public :
 	bool IsCollisionCheck();
 
 // Physics
-private :
+protected :
 	bool m_PhysicsSimulate;
 	float m_FallTime; // �������� �ð�
 	float m_FallStartY; // ���� ���� ( ���� ������ y��ǥ )
@@ -53,6 +53,34 @@ private :
 	float m_GravityAccel;
 	bool m_IsGround;
 	float m_LifeTime;
+	bool m_FloorCheck;
+
+public :
+	void SetFloorCheck(bool Check)
+	{
+		m_FloorCheck = Check;
+	}
+	void SetGravityAccel(float Accel)
+	{
+		m_GravityAccel = Accel;
+	}
+	void Jump()
+	{
+		if (!m_Jump)
+		{
+			m_Jump = true;
+			m_IsGround = false;
+		}
+		m_FallStartY = m_Pos.y;
+	}
+	void SetJumpVelocity(float Velocity)
+	{
+		m_JumpVelocity = Velocity;
+	}
+	void SetPhysicsSimulate(bool Physics)
+	{
+		m_PhysicsSimulate = Physics;
+	}
 
 // Stun
 protected :
@@ -82,23 +110,6 @@ public:
 	void SetLifeTime(float Time)
 	{
 		m_LifeTime = Time;
-	}
-	void Jump()
-	{
-		if (!m_Jump)
-		{
-			m_Jump = true;
-			m_IsGround = false;
-		}
-		m_FallStartY = m_Pos.y;
-	}
-	void SetJumpVelocity(float Velocity)
-	{
-		m_JumpVelocity = Velocity;
-	}
-	void SetPhysicsSimulate(bool Physics)
-	{
-		m_PhysicsSimulate = Physics;
 	}
 	void DamageEnable(bool Enable)
 	{

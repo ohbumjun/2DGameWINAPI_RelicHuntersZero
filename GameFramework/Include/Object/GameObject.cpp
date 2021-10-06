@@ -7,6 +7,7 @@
 #include "../Resource/AnimationSequence.h"
 #include "../Scene/Camera.h"
 #include "DamageFont.h"
+#include "../Map/TileMap.h"
 
 CGameObject::CGameObject()	:
 	m_Scene(nullptr),
@@ -22,6 +23,7 @@ CGameObject::CGameObject()	:
 	m_Jump(false),
 	m_JumpVelocity(0.f),
 	m_IsGround(false),
+	m_FloorCheck(false),
 	m_GravityAccel(10.f),
 	m_LifeTime(INT_MAX),
 	m_StunDir{},
@@ -35,6 +37,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	CRef(obj)
 {
 	// this
+	m_FloorCheck = obj.m_FloorCheck;
 	m_StunDir = obj.m_StunDir;
 	m_StunEnable = obj.m_StunEnable;
 	m_StunTime = obj.m_StunTime;
@@ -564,6 +567,82 @@ void CGameObject::PostUpdate(float DeltaTime)
 		// Time 조절
 		if(m_StunTime >= 0.f) m_StunTime -= DeltaTime;
 		if (m_StunTime < 0.f) StunEnd();
+	}
+
+
+	// 수업용 : 중력 적용하기 
+	CTileMap* TileMap = m_Scene->GetTileMap();
+	if (TileMap && !m_IsGround && m_Pos.y - m_PrevPos.y > 0.f)
+	{
+		// 아래로 떨어지고 있다는 의미 
+		// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+		int PrevIndexX, PrevIndexY, IndexX, IndexY;
+
+		// 또한, 해당 player가 Prev , Pos 둘다
+		// 아예 화면 밖으로 나갈 경우가 있을 수도 있다
+		// ( 거의 그럴 일은 없겠지만 )
+		if((TileMap->GetOriginTileIndexX(m_PrevPos.x) != -1 &&
+			TileMap->GetOriginTileIndexX(m_Pos.x)) ||
+			(TileMap->GetOriginTileIndexY(m_PrevPos.y) != -1 &&
+				TileMap->GetOriginTileIndexY(m_Pos.y)))
+		{
+			Vector2 PrevBottomPos = m_PrevPos;
+			Vector2 BottomPos = m_Pos;
+
+			PrevBottomPos.y = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
+			BottomPos.y		= m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+
+			PrevIndexX = TileMap->GetOriginTileIndexX(PrevBottomPos.x);
+			PrevIndexY = TileMap->GetOriginTileIndexY(PrevBottomPos.y);
+			IndexX = TileMap->GetOriginTileIndexX(BottomPos.x);
+			IndexY = TileMap->GetOriginTileIndexY(BottomPos.y);
+			if (IndexX < 0)
+				IndexX = 0;
+			else if (IndexX >= TileMap->GetTileCountX())
+				IndexX = TileMap->GetTileCountX() - 1;
+			if (IndexY < 0)
+				IndexY = 0;
+			else if (IndexY >= TileMap->GetTileCountY())
+				IndexY = TileMap->GetTileCountY() - 1;
+
+			if (PrevIndexX < 0)
+				PrevIndexX = 0;
+			else if (PrevIndexX >= TileMap->GetTileCountX())
+				PrevIndexX = TileMap->GetTileCountX() - 1;
+			if (PrevIndexY < 0)
+				PrevIndexY = 0;
+			else if (PrevIndexY >= TileMap->GetTileCountY())
+				PrevIndexY = TileMap->GetTileCountY() - 1;
+
+			// 위에서 아래로 반복한다
+			// 위쪽의 타일이 Y 인덱스가 더 작으므로
+			// 작은 인덱스에서 큰 인덱스 순서로 
+			// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
+
+			// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
+			// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
+			// 크고 작음이 결정된다.
+			int MinY = IndexY < PrevIndexY ? IndexY : PrevIndexY;
+			int MaxY = IndexY > PrevIndexY ? IndexY : PrevIndexY;
+			int MinX = IndexX < PrevIndexX ? IndexX : PrevIndexX;
+			int MaxX = IndexX > PrevIndexX ? IndexX : PrevIndexX;
+			bool Check = false;
+			for (int i = MinY; i <= MaxY; i++)
+			{
+				for (int j = MinX; j <= MaxX; j++)
+				{
+					if (TileMap->GetTile(j, i)->GetTileOption() == ETileOption::Wall)
+					{
+						Check = true;
+						// m_Pos : 발의 위치 
+						m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+						m_IsGround = true;
+						break;
+					}
+				}
+				if (Check) break;
+			}
+		}
 	}
 }
 

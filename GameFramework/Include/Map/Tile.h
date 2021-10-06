@@ -24,6 +24,10 @@ private:
 	Vector2 m_EndFrame;
 
 public :
+	Vector2 GetPos() const
+	{
+		return m_Pos;
+	}
 	Vector2 GetStartFrame() const
 	{
 		return m_StartFrame;

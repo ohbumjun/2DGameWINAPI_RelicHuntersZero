@@ -1,34 +1,45 @@
 #pragma once
+
 #include "MapBase.h"
+#include "../Resource/Texture.h"
 
 class CScrollMap :
-    public CMapBase
+	public CMapBase
 {
 	friend class CScene;
-protected :
+
+protected:
 	CScrollMap();
 	virtual ~CScrollMap();
-protected :
-	CSharedPtr<class CTexture> m_ScrollTexture;
-	Vector2                    m_ScrollRatio;
-public :
-	bool SetTexture(const std::string& Name, const TCHAR* FileName,
-		const std::string& PathName = TEXTURE_PATH);
-	bool SetTextureFullPath(const std::string& Name,
-		const TCHAR* FullPath);
-	bool SetTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName,
-		const std::string& PathName = TEXTURE_PATH);
-	bool SetTexture(const std::string& Name);
-	void SetTextureColorKey(
-		const unsigned char r,
-		const unsigned char g,
-		const unsigned char b
-	);
-public :
-	void SetScrollRatio(float xR, float yR)
+
+protected:
+	CSharedPtr<CTexture>	m_ScrollTexture;
+	Vector2		m_TextureSize;
+	Vector2		m_ScrollRatio;
+	bool		m_Loop;
+
+public:
+	void SetScrollRatio(float x, float y)
 	{
-		m_ScrollRatio = Vector2(xR, yR);
+		m_ScrollRatio = Vector2(x, y);
 	}
+
+	void SetLoop(bool Loop)
+	{
+		m_Loop = Loop;
+	}
+
+public:
+	void SetTexture(const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = TEXTURE_PATH);
+	void SetTextureFullPath(const std::string& Name,
+		const TCHAR* FullPath);
+	void SetTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName,
+		const std::string& PathName = TEXTURE_PATH);
+	void SetTexture(const std::string& Name);
+	void SetTextureColorKey(const unsigned char r, const unsigned char g,
+		const unsigned char b);
+
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -36,7 +47,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void PrevRender();
 	virtual void Render(HDC hDC);
-	virtual void Save(FILE* File);
-	virtual void Load(FILE* File);
+	virtual void Save(FILE* pFile);
+	virtual void Load(FILE* pFile);
 };
 

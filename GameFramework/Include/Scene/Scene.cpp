@@ -31,6 +31,7 @@ CScene::CScene()
 
 	m_Camera->Init();
 
+	m_TileMap = nullptr;
 	// m_LaserCollidePos = Vector2(-1.f, -1.f);
 }
 
@@ -825,9 +826,6 @@ bool CScene::PostUpdate(float DeltaTime)
 
 	m_Camera->Update(DeltaTime);
 
-	// TileMap Update�� PostUpdate���� ����.
-	// ��, Render�� �ݵ�� Map�� ���� ���Ѿ� �Ѵ�
-	// �ֳ��ϸ�, ���⼭ ī�޶� update �Ǳ� �����̴�
 	{
 		auto iter = m_MapList.begin();
 		auto iterEnd = m_MapList.end();

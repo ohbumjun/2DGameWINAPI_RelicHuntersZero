@@ -34,9 +34,9 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+		if ((*iter)->GetName() == HPWIDGET_COMPONENET)
 			m_HPBarWidget = (*iter);
-		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+		if ((*iter)->GetName() == MPWIDGET_COMPONENET)
 			m_MPBarWidget = (*iter);
 	}
 

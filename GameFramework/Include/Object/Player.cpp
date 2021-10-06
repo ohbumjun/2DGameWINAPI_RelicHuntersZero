@@ -39,6 +39,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_LaserBulletObj(nullptr)
 {
 	m_ObjType = EObject_Type::Player;
+
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -62,15 +63,15 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->GetName() == PLAYER_HPWIDGET_COMPONENET)
+		if ((*iter)->GetName() == HPWIDGET_COMPONENET)
 		{
 			m_HPBarWidget = (*iter);
 		}
-		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
+		if ((*iter)->GetName() == MPWIDGET_COMPONENET)
 		{
 			m_MPBarWidget = (*iter);
 		}
-		if ((*iter)->GetName() == PLAYER_NAMEWIDGET_COMPONENET)
+		if ((*iter)->GetName() == NAMEWIDGET_COMPONENET)
 		{
 			m_NameWidget = (*iter);
 		}
@@ -192,14 +193,14 @@ bool CPlayer::Init()
 	AddAnimation(PLAYER_RIGHT_IDLE);
 	AddAnimation(PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(PLAYER_RIGHT_ATTACK, false, 0.1f);
-	AddAnimation(PLAYER_RIGHT_DASH, false, DASH_TIME);
+	AddAnimation(PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PLAYER_RIGHT_RUN, true, 0.6f);
 
 	// Left
 	AddAnimation(PLAYER_LEFT_IDLE);
 	AddAnimation(PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(PLAYER_LEFT_ATTACK, false, 0.1f);
-	AddAnimation(PLAYER_LEFT_DASH, false, DASH_TIME);
+	AddAnimation(PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PLAYER_LEFT_RUN, true, 0.6f);
 
 	// Skill
@@ -235,18 +236,18 @@ bool CPlayer::Init()
 
 	// Widget ---
 	// HPBar
-	m_HPBarWidget = CreateWidgetComponent(PLAYER_HPWIDGET_COMPONENET);
+	m_HPBarWidget = CreateWidgetComponent(HPWIDGET_COMPONENET);
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 	
 	// MPBar
-	m_MPBarWidget = CreateWidgetComponent(PLAYER_MPWIDGET_COMPONENET);
+	m_MPBarWidget = CreateWidgetComponent(MPWIDGET_COMPONENET);
 	CProgressBar *MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -85.f);
 
-	m_NameWidget = CreateWidgetComponent(PLAYER_NAMEWIDGET_COMPONENET);
+	m_NameWidget = CreateWidgetComponent(NAMEWIDGET_COMPONENET);
 	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
 
 	NameText->SetText(TEXT("Lucid"));
@@ -254,6 +255,13 @@ bool CPlayer::Init()
 
 	m_NameWidget->SetPos(-25.f, -115.f);
 
+	// 수업용 : 물리 적용
+	// SetGravityAccel();
+	/*
+	SetPhysicsSimulate(true);
+	SetJumpVelocity(150.f);
+	m_IsGround = false;
+	*/
 	return true;
 }
 
@@ -918,10 +926,8 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 void CPlayer::CharacterDestroy()
 {
 	m_DeathAnimationTime = DEATH_TIME;
-	// ����
 	if (m_Dir.x <= 0.f)
 		ChangeAnimation("LucidNunNaLeftDeath");
-	// ������
 	else
 		ChangeAnimation("LucidNunNaRightDeath");
 }

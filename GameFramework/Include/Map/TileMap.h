@@ -24,6 +24,15 @@ protected :
 	int m_StartY;
 	int m_EndX;
 	int m_EndY;
+public :
+	int GetTileCountX() const
+	{
+		return m_TileCountX;
+	}
+	int GetTileCountY() const
+	{
+		return m_TileCountY;
+	}
 
 public :
 	bool CreateTile(int CountX, int CountY,
@@ -43,6 +52,13 @@ public :
 		const Vector2& Pos,
 		const Vector2& Start, const Vector2& End);
 	CTile* GetTile(const Vector2& Pos);
+	CTile* GetTile(int IndexX, int IndexY);
+	int GetTileIndexX(float PosX);
+	int GetTileIndexY(float PosY);
+	int GetTileIndex(const Vector2& Pos);
+	int GetOriginTileIndexX(float PosX);
+	int GetOriginTileIndexY(float PosY);
+
 public :
 	virtual void Start();
 	virtual bool Init();

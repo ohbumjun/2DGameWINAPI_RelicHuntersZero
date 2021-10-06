@@ -1,5 +1,4 @@
-
-#include "Bullet.h"
+﻿#include "Bullet.h"
 #include "../Collision/ColliderBox.h"
 #include "../Collision/ColliderSphere.h"
 #include "EffectHit.h"
@@ -11,15 +10,15 @@
 
 CBullet::CBullet()
 {
-	m_ObjType   = EObject_Type::Bullet;
-	m_Dir.x     = 1.f;
-	m_Dir.y     = 0.f;
-	m_Damage    = NORMAL_MONSTER_ATTACK;
-	m_Distance  = NORMAL_BULLET_DISTANCE;
-	m_MoveSpeed = NORMAL_MONSTER_ATTACK_SPEED;
+	m_ObjType = EObject_Type::Bullet;
+	m_Dir.x = 1.f;
+	m_Dir.y = 0.f;
+	m_Damage = NORMAL_MONSTER_ATTACK;
+	m_Distance = NORMAL_BULLET_DISTANCE;
+	SetMoveSpeed(NORMAL_MONSTER_ATTACK_SPEED);
 }
 
-CBullet::CBullet(const CBullet &obj) : CGameObject(obj)
+CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
 {
 	m_Damage = obj.m_Damage;
 	m_Dir = obj.m_Dir;
@@ -33,7 +32,7 @@ CBullet::~CBullet()
 void CBullet::Start()
 {
 	CGameObject::Start();
-	CCollider *Body = FindCollider("Body");
+	CCollider* Body = FindCollider("Body");
 	Body->SetCollisionBeginFunction<CBullet>(this, &CBullet::CollisionBegin);
 }
 
@@ -47,7 +46,7 @@ bool CBullet::Init()
 	CreateAnimation();
 	AddAnimation("Bullet", true, 1.f);
 
-	CColliderSphere *Body = AddCollider<CColliderSphere>("Body");
+	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(25.f);
 	Body->SetOffset(0.f, 0.f);
 
@@ -80,15 +79,16 @@ void CBullet::Render(HDC hDC)
 	CGameObject::Render(hDC);
 }
 
-CBullet *CBullet::Clone()
+CBullet* CBullet::Clone()
 {
 	return new CBullet(*this);
 }
 
-void CBullet::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
+void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
 	Destroy();
 
+	// Damage �ֱ�
 	Dest->GetOwner()->SetDamage(m_Damage);
 
 	CGameObject* DestOwner = Dest->GetOwner();
@@ -102,8 +102,8 @@ void CBullet::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 		DestOwner->Stun();
 	}
 
-	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
-														m_Pos, Vector2(178.f, 164.f));
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+		m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 	int Armor = 0;
@@ -111,6 +111,6 @@ void CBullet::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 		Dest->GetOwner()->GetObjType() == EObject_Type::Player)
 		Armor = Dest->GetOwner()->GetArmor();
 
-	CDamageFont *DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 	DamageFont->SetDamageNumber((int)(m_Damage - Armor));
 }

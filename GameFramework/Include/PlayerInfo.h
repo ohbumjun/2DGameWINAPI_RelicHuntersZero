@@ -2,7 +2,7 @@
 
 // Time
 #define STUN_TIME 0.5f
-#define DASH_TIME 0.15f
+#define DASH_TIME 0.3f
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
 // MP,HP,Stemina
@@ -19,7 +19,7 @@
 #define FAST_SPEED 400.f
 #define BULLET_SPEED 3000.f
 #define LASER_SPEED 20000.f
-#define DASH_SPEED 1600.f
+#define DASH_SPEED 1200.f
 
 // Attack Distance
 #define NORMAL_ATTACK_DISTANCE 500.f
@@ -32,3 +32,8 @@
 
 // Laser Dist
 #define LASER_DISTANCE 200000.f
+
+// Widget Componenet Names
+#define HPWIDGET_COMPONENET "HPBarWidget"
+#define MPWIDGET_COMPONENET "MPBarWidget"
+#define NAMEWIDGET_COMPONENET "NameWidget"

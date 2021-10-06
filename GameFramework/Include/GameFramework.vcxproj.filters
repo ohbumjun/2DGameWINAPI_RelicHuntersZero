@@ -521,6 +521,9 @@
     <ClInclude Include="Object\EffectDash.h">
       <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
+    <ClInclude Include="ProtoInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameFramework.rc">

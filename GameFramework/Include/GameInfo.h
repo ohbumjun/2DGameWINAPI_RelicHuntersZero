@@ -2,28 +2,28 @@
 
 #define _CRTDBG_MAP_ALLOC
 
+#include <Windows.h>
 #include <stdlib.h>
 #include <crtdbg.h>
-
-
-#include <Windows.h>
 #include <list>	  
 #include <vector> 
 #include <stack>
 #include <string>
 #include <unordered_map>
-// #include <crtdbg.h>
 #include <functional>
 #include "resource.h"
 
+// Header
 #include "SharedPtr.h"
 #include "Math.h"
 #include "Flag.h"
 #include "MonsterInfo.h"
 #include "AnimNameInfo.h"
 #include "PlayerInfo.h"
-#include "fmod.hpp"
+#include "ProtoInfo.h"
 
+// Sound 
+#include "fmod.hpp"
 #pragma comment(lib, "msimg32.lib")
 #pragma comment(lib, "fmod64_vc.lib")
 
@@ -67,10 +67,6 @@
 // Bullet Distance
 #define NORMAL_BULLET_DISTANCE 800.f;
 
-// Widget Componenet Names
-#define PLAYER_HPWIDGET_COMPONENET "HPBarWidget"
-#define PLAYER_MPWIDGET_COMPONENET "MPBarWidget"
-#define PLAYER_NAMEWIDGET_COMPONENET "NameWidget"
 
 struct Resolution
 {
