@@ -1,7 +1,7 @@
 #pragma once
 // Effect ---
 #define DASH_EFFECT   "DashEffect"
-#define HIT_EFFECT    "HitEffect"
+#define HIT_EFFECT    EFFECT_HIT_PROTO
 
 // Player  ---
 #define PLAYER_RIGHT_IDLE   "RightIdle"

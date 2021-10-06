@@ -47,6 +47,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillSlowMotionAttackTime = obj.m_SkillSlowMotionAttackTime;
 	m_SkillSlowMotionAttackEnable = false;
 	m_TeleportEnable = false;
+	m_TargetEnable = obj.m_TargetEnable;
 	m_RunEnable = false;
 	m_DashEnable = false;
 	m_DashTime = 0.f;
@@ -405,33 +406,33 @@ void CPlayer::Render(HDC hDC)
 	{
 		HPEN Pen = CGameManager::GetInst()->GetRedPen();
 		HGDIOBJ PrevPen = SelectObject(hDC, Pen);
-
+		
 		HBRUSH Brush = CGameManager::GetInst()->GetRedBrush();
 		HGDIOBJ PrevBrush = SelectObject(hDC, Brush);
 
+		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+		Vector2 ScreenPlayerPos = m_Pos - CameraPos;
+		Vector2 ScreenTargetPos = m_TargetPos - CameraPos;
+
 		// LaserObj 가 충돌을 일으켰다면, LaserObj의 위치로 세팅
 		// 그렇지 않다면, MousePos로 세팅 
-		Vector2 ScreenTargetPos = m_TargetPos - CameraPos;
-		
-		Vector2 LaserCollidePos = m_Scene->GetSceneCollision()->GetLaserCollidePos();
-		if (LaserCollidePos.x != -1.f && 
-			LaserCollidePos.y != -1.f) // 특정 물체와 충돌했다면 
+		/*
+		bool LaserCollide = m_LaserBulletObj->IsCollisionCheck();
+		if (LaserCollide) // 특정 물체와 충돌했다면 
 		{
-			
-			ScreenTargetPos = LaserCollidePos - CameraPos;
-			// 다시 -1.f, -1.f 로 세팅 
-			// m_Scene->GetSceneCollision()->SetLaserCollidePos(Vector2(-1.f,-1.f));
+			ScreenTargetPos = m_LaserBulletObj->GetPos() - CameraPos;
+			m_LaserBulletObj->Destroy();
 		}
-		
+		*/
+
 		MoveToEx(hDC, (int)ScreenPlayerPos.x, (int)ScreenPlayerPos.y, nullptr);
 		LineTo(hDC, (int)ScreenTargetPos.x, (int)ScreenTargetPos.y);
 		Ellipse(hDC, (int)(ScreenTargetPos.x - 5), (int)(ScreenTargetPos.y - 5),
-				(int)(ScreenTargetPos.x + 5), (int)(ScreenTargetPos.y + 5)); //  L, T, R, B
+			(int)(ScreenTargetPos.x + 5), (int)(ScreenTargetPos.y + 5)); //  L, T, R, B
 
 		SelectObject(hDC, PrevPen);
 		SelectObject(hDC, PrevBrush);
 	}
-
 }
 
 CPlayer *CPlayer::Clone()
@@ -827,7 +828,7 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	m_TeleportPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 
 	DeleteTeleportObj();
-	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>("TeleportMouse", "TeleportMouse",
+	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>(TELEPORT_MOUSE_PROTO, TELEPORT_MOUSE_PROTO,
 														  m_TeleportPos);
 
 	m_TelePortTime = TELEPORT_MOUSE_DISPLAY_TIME;

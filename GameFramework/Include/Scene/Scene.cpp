@@ -129,7 +129,7 @@ void CScene::DestroyAllAttackObjects()
 		{
 			Vector2 ObjPos = (*iter)->GetPos();
 			(*iter)->Destroy();
-			CEffectHit *Hit = CreateObject<CEffectHit>("HitEffect", "HitEffect",
+			CEffectHit *Hit = CreateObject<CEffectHit>(EFFECT_HIT_PROTO, EFFECT_HIT_PROTO,
 													   ObjPos, Vector2(178.f, 164.f));
 			GetSceneResource()->SoundPlay("Fire");
 		}
@@ -677,13 +677,13 @@ void CScene::SetDuck11MonsterAnimation()
 void CScene::SetBasicProtoTypes()
 {
 	// EffectHit
-	CEffectHit* EffectHitPrototype = CreatePrototype<CEffectHit>("HitEffect");
+	CEffectHit* EffectHitPrototype = CreatePrototype<CEffectHit>(EFFECT_HIT_PROTO);
 	// EffectDash
 	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(DASH_EFFECT);
 	// Teleport
-	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");
+	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 
-	CBullet* PlayerBullet = CreatePrototype<CBullet>("PlayerBullet");
+	CBullet* PlayerBullet = CreatePrototype<CBullet>(PLAYER_BULLET_PROTO);
 	PlayerBullet->SetCollisionProfile("PlayerAttack");
 
 	/*
@@ -694,11 +694,11 @@ void CScene::SetBasicProtoTypes()
 	*/
 
 	// Player SlowMotion Bullet 
-	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>("SkillSlowMotionAttackBullet");
+	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>(PLAYER_SKILL_SLOWMOTION_BULLET_PROTO);
 	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
 
 	// Monster
-	CMonster* MonsterPrototype = CreatePrototype<CMonster>("MonsterProto");
+	CMonster* MonsterPrototype = CreatePrototype<CMonster>(MONSTER_DUCK1_PROTO);
 	MonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	// Collider
@@ -707,14 +707,14 @@ void CScene::SetBasicProtoTypes()
 		Collider->SetCollisionProfile("PlayerAttack");
 
 	// Monster Bullet 
-	CBullet* MonsterBullet = CreatePrototype<CBullet>("MonsterBullet");
+	CBullet* MonsterBullet = CreatePrototype<CBullet>(MONSTER_BULLET_PROTO);
 	Collider = MonsterBullet->FindCollider("Body");
 	if (Collider)
 		Collider->SetCollisionProfile("MonsterAttack");
 
 	// Potions
-	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>("MPPotion");
-	CHPPotion* HPPotionPrototype = CreatePrototype<CHPPotion>("HPPotion");
+	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>(POTION_MP_PROTO);
+	CHPPotion* HPPotionPrototype = CreatePrototype<CHPPotion>(POTION_HP_PROTO);
 
 }
 

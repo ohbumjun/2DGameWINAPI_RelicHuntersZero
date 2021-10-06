@@ -67,6 +67,10 @@
 // Bullet Distance
 #define NORMAL_BULLET_DISTANCE 800.f;
 
+// Widget Componenet Names
+#define HPWIDGET_COMPONENET "HPBarWidget"
+#define MPWIDGET_COMPONENET "MPBarWidget"
+#define NAMEWIDGET_COMPONENET "NameWidget"
 
 struct Resolution
 {

@@ -128,11 +128,9 @@ void CMonster::Update(float DeltaTime)
 		m_FireTime -= m_FireTimeMax;
 		++m_Count;
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-																	"MonsterBullet", Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
+																	MONSTER_BULLET_PROTO, Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
 																	Vector2(50.f, 50.f));
 		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-		Bullet->SetObjectType(EObject_Type::Bullet);
-
 		if (m_Count % 3 != 0)
 			Bullet->SetDir(-1.f, 0.f);
 		else

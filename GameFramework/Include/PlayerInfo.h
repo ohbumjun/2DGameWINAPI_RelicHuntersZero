@@ -33,7 +33,3 @@
 // Laser Dist
 #define LASER_DISTANCE 200000.f
 
-// Widget Componenet Names
-#define HPWIDGET_COMPONENET "HPBarWidget"
-#define MPWIDGET_COMPONENET "MPBarWidget"
-#define NAMEWIDGET_COMPONENET "NameWidget"
