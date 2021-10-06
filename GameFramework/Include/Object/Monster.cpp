@@ -131,6 +131,7 @@ void CMonster::Update(float DeltaTime)
 																	MONSTER_BULLET_PROTO, Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
 																	Vector2(50.f, 50.f));
 		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
+		Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
 		if (m_Count % 3 != 0)
 			Bullet->SetDir(-1.f, 0.f);
 		else

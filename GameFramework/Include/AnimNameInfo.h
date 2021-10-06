@@ -16,9 +16,10 @@
 #define PLAYER_LEFT_DASH   "LeftDash"
 #define PLAYER_LEFT_ATTACK "LeftAttack"
 
-#define PLAYER_TELEPORT "Teleport"
-#define PLAYER_DEATH    "Death"
-#define PLAYER_HIT      "Hit"
+#define PLAYER_TELEPORT    "Teleport"
+#define PLAYER_DEATH       "Death"
+#define PLAYER_LEFT_HIT    "LeftHit"
+#define PLAYER_RIGHT_HIT   "RightHit"
 
 // Monster ( Common ) ---
 #define MONSTER_RIGHT_IDLE   "RightIdle"

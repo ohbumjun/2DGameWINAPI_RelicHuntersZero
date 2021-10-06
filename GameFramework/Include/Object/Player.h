@@ -97,17 +97,18 @@ private:
 		SetAnimationPlayScale(PLAYER_RIGHT_ATTACK, Speed);
 	}
 
-	// Collision ---
+// Collision ---
 private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
 	Vector2 GetColliderPos();
 	virtual void CollideBounceBack(Vector2 Dir);
-	// Stun ---
+// Stun ---
 private:
 	virtual void Stun();
 	virtual void StunEnd();
+	void ChangeStunAnimation();
 
-	// Teleport ---
+// Teleport ---
 private:
 	bool m_TeleportEnable;
 	Vector2 m_TeleportPos;

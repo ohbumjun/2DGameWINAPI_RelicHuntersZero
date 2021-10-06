@@ -336,13 +336,22 @@ void CScene::SetPlayerAnimation()
 	
 	// Hit ---
 	// Stun
-	GetSceneResource()->CreateAnimationSequence(PLAYER_HIT,
-		PLAYER_HIT, TEXT("images/Character/jimmy/hit.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_HIT,
+	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_HIT,
+		PLAYER_LEFT_HIT, TEXT("images/Character/jimmy/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_HIT,
 		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(PLAYER_HIT,
+		GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_HIT,
+		PLAYER_RIGHT_HIT, TEXT("images/Character/jimmy/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_HIT,
 			i * 134.f, 0, 134.f, 114.f);
 	}
 

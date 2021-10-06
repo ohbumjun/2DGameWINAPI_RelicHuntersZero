@@ -216,7 +216,8 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaLeftDeath", false, DEATH_TIME);
 
 	// Stun
-	AddAnimation(PLAYER_HIT, true, 0.6f);
+	AddAnimation(PLAYER_LEFT_HIT, true, 0.6f);
+	AddAnimation(PLAYER_RIGHT_HIT, true, 0.6f);
 
 	// Teleport
 	AddAnimation(PLAYER_TELEPORT, false, 0.3f);
@@ -780,7 +781,7 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 void CPlayer::Stun()
 {
 	CCharacter::Stun();
-	ChangeAnimation(PLAYER_HIT);
+	ChangeStunAnimation();
 }
 
 void CPlayer::StunEnd()
@@ -788,6 +789,14 @@ void CPlayer::StunEnd()
 	CCharacter::StunEnd();
 	// ���⿡ ���� �ٲ��ֱ� ( ���� ���콺 ��ġ�� ���� ���� ������ ���� )
 	ChangeAnimation(PLAYER_RIGHT_IDLE);
+}
+
+void CPlayer::ChangeStunAnimation()
+{
+	if (m_Dir.x < 0.f)
+		ChangeAnimation(PLAYER_LEFT_HIT);
+	else
+		ChangeAnimation(PLAYER_RIGHT_HIT);
 }
 
 void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)

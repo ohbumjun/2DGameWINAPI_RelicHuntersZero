@@ -74,7 +74,6 @@ bool CMainScene::Init()
 	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	// Potion
-	
 	CMPPotion *MPPotion1 = CreateObject<CMPPotion>("MPPotion1", POTION_MP_PROTO);
 	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f, 230.f));

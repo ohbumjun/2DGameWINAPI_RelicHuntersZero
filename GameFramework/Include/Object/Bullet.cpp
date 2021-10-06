@@ -10,12 +10,12 @@
 
 CBullet::CBullet()
 {
-	m_ObjType = EObject_Type::Bullet;
-	m_Dir.x = 1.f;
-	m_Dir.y = 0.f;
-	m_Damage = NORMAL_MONSTER_ATTACK;
-	m_Distance = NORMAL_BULLET_DISTANCE;
-	SetMoveSpeed(NORMAL_MONSTER_ATTACK_SPEED);
+	m_ObjType   = EObject_Type::Bullet;
+	m_Dir.x     = 1.f;
+	m_Dir.y     = 0.f;
+	m_Damage    = NORMAL_MONSTER_ATTACK;
+	m_Distance  = NORMAL_BULLET_DISTANCE;
+	m_MoveSpeed = NORMAL_MONSTER_ATTACK_SPEED;
 }
 
 CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
@@ -88,7 +88,6 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
 	Destroy();
 
-	// Damage �ֱ�
 	Dest->GetOwner()->SetDamage(m_Damage);
 
 	CGameObject* DestOwner = Dest->GetOwner();
