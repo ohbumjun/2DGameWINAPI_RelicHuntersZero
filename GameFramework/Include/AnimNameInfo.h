@@ -1,6 +1,10 @@
 #pragma once
 
-// Player 
+// Effect ---
+#define DASH_EFFECT   "DashEffect"
+
+
+// Player  ---
 #define PLAYER_RIGHT_IDLE   "RightIdle"
 #define PLAYER_RIGHT_WALK   "RightWalk"
 #define PLAYER_RIGHT_RUN    "RightRun"
@@ -17,7 +21,7 @@
 #define PLAYER_DEATH    "Death"
 #define PLAYER_HIT      "Hit"
 
-// Monster ( Common ) 
+// Monster ( Common ) ---
 #define MONSTER_RIGHT_IDLE   "RightIdle"
 #define MONSTER_RIGHT_WALK   "RightWalk"
 #define MONSTER_RIGHT_RUN    "RightRun"
@@ -53,3 +57,4 @@
 #define MONSTER_DUCK1_RIGHT_DEATH "Duck1RightDeath"
 #define MONSTER_DUCK1_LEFT_HIT    "Duck1LeftHit"
 #define MONSTER_DUCK1_RIGHT_HIT   "Duck1RightHit"
+

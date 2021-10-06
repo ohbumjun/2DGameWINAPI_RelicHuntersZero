@@ -405,6 +405,18 @@ void CScene::SetCollideAnimation()
 		GetSceneResource()->AddAnimationFrameData("HitRight",
 			i * 178.f, 0.f, 178.f, 164.f);
 	}
+
+	// 충돌 효과 애니메이션 
+	GetSceneResource()->CreateAnimationSequence(DASH_EFFECT,
+		DASH_EFFECT, TEXT("images/Weapon/Sprint/dashEffect.bmp"));
+	GetSceneResource()->SetTextureColorKey(DASH_EFFECT,
+		255, 0, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(DASH_EFFECT,
+			i * 178.f, 0.f, 178.f, 164.f);
+	}
 }
 
 void CScene::SetMouseAnimation()
