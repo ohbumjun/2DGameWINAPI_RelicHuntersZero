@@ -10,7 +10,8 @@
 CMonster::CMonster() : m_FireTime(0.f),
 					   m_FireTimeMax(1.f),
 					   m_Count(0),
-					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME)
+					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME),
+					   m_mapAnimName{}
 {
 
 	m_Dir.x = (float)(rand() % 2);
@@ -37,6 +38,17 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 			m_HPBarWidget = (*iter);
 		if ((*iter)->GetName() == PLAYER_MPWIDGET_COMPONENET)
 			m_MPBarWidget = (*iter);
+	}
+
+	// m_mapAnimNames
+	m_mapAnimName.clear();
+	{
+		auto iter    = obj.m_mapAnimName.begin();
+		auto iterEnd = obj.m_mapAnimName.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			m_mapAnimName[iter->first] = iter->second;
+		}
 	}
 }
 
@@ -151,8 +163,8 @@ void CMonster::PostUpdate(float DeltaTime)
 	if (m_Velocity.x == 0 && m_Velocity.y == 0)
 	{
 		// Change Idle Animation
-		ChangeIdleAnimation();
-		return;
+		// ChangeIdleAnimation();
+		// return;
 	}
 	// Walk Animation
 	ChangeWalkAnimation();
@@ -205,17 +217,29 @@ void CMonster::Move(const Vector2& Dir, float Speed)
 void CMonster::ChangeIdleAnimation()
 {
 	if (m_Dir.x)
-		ChangeAnimation(m_mapAnimName[MONSTER_LEFT_IDLE]);
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(m_mapAnimName[MONSTER_RIGHT_IDLE]);
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CMonster::ChangeWalkAnimation()
 {
-	if (m_Dir.x)
-		ChangeAnimation(m_mapAnimName[MONSTER_LEFT_WALK]);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(m_mapAnimName[MONSTER_RIGHT_WALK]);
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_WALK)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CMonster::SetRandomTargetDir()
@@ -312,16 +336,17 @@ void CMonster::SetAnimNames()
 
 void CMonster::SetDuck1AnimName()
 {
-	m_mapAnimName[MONSTER_RIGHT_IDLE] = MONSTER_DUCK1_RIGHT_IDLE;
-	m_mapAnimName[MONSTER_RIGHT_WALK] = MONSTER_DUCK1_RIGHT_WALK;
-	m_mapAnimName[MONSTER_RIGHT_ATTACK] = MONSTER_DUCK1_RIGHT_ATTACK;
-	m_mapAnimName[MONSTER_RIGHT_RUN] = MONSTER_DUCK1_RIGHT_RUN;
-	m_mapAnimName[MONSTER_RIGHT_DEATH] = MONSTER_DUCK1_RIGHT_DEATH;
-	m_mapAnimName[MONSTER_RIGHT_HIT] = MONSTER_DUCK1_RIGHT_HIT;
-	m_mapAnimName[MONSTER_LEFT_IDLE] = MONSTER_DUCK1_LEFT_IDLE;
-	m_mapAnimName[MONSTER_LEFT_WALK] = MONSTER_DUCK1_LEFT_WALK;
-	m_mapAnimName[MONSTER_LEFT_ATTACK] = MONSTER_DUCK1_LEFT_ATTACK;
-	m_mapAnimName[MONSTER_LEFT_RUN] = MONSTER_DUCK1_LEFT_RUN;
-	m_mapAnimName[MONSTER_LEFT_DEATH] = MONSTER_DUCK1_LEFT_DEATH;
-	m_mapAnimName[MONSTER_LEFT_HIT] = MONSTER_DUCK1_LEFT_HIT;
+	m_mapAnimName.clear();
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_IDLE, MONSTER_DUCK1_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_WALK, MONSTER_DUCK1_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_ATTACK, MONSTER_DUCK1_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_RUN, MONSTER_DUCK1_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_DEATH, MONSTER_DUCK1_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_HIT, MONSTER_DUCK1_RIGHT_HIT));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_IDLE, MONSTER_DUCK1_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_WALK, MONSTER_DUCK1_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_ATTACK, MONSTER_DUCK1_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_RUN, MONSTER_DUCK1_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_DEATH, MONSTER_DUCK1_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_HIT, MONSTER_DUCK1_LEFT_HIT));
 }

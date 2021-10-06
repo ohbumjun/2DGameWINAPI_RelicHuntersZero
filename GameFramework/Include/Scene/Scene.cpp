@@ -257,10 +257,11 @@ void CScene::SetPlayerAnimation()
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_WALK,
 		255, 255, 255);
 
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 4; j++)
 		{
+			if (i == 3 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -481,6 +482,7 @@ void CScene::SetDuck11MonsterAnimation()
 	{
 		for (int j = 0; j < 4; j++)
 		{
+			if (i == 3 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -506,7 +508,7 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_ATTACK,
 		MONSTER_DUCK1_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_ATTACK,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_ATTACK,
@@ -517,7 +519,7 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_DASH,
 		MONSTER_DUCK1_RIGHT_DASH, TEXT("images/Monster/Duck1/right_dash.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_DASH,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_DASH,
@@ -544,11 +546,12 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_WALK,
 		MONSTER_DUCK1_LEFT_WALK, TEXT("images/Monster/Duck1/left_walk.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_WALK,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 4; ++i)
 	{
 		for (int j = 0; j < 4; j++)
 		{
+			if (i == 3 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -558,7 +561,7 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_RUN,
 		MONSTER_DUCK1_LEFT_RUN, TEXT("images/Monster/Duck1/left_run.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_RUN,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
@@ -573,7 +576,7 @@ void CScene::SetDuck11MonsterAnimation()
 		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/left_dash.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DASH,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_DASH,
@@ -585,7 +588,7 @@ void CScene::SetDuck11MonsterAnimation()
 		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/left_dash.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DASH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
@@ -602,7 +605,7 @@ void CScene::SetDuck11MonsterAnimation()
 		MONSTER_DUCK1_LEFT_DEATH, TEXT("images/Monster/Duck1/left_death.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DEATH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -618,7 +621,7 @@ void CScene::SetDuck11MonsterAnimation()
 		MONSTER_DUCK1_RIGHT_DEATH, TEXT("images/Monster/Duck1/right_death.bmp"));
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_DEATH,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -634,7 +637,7 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_HIT,
 		MONSTER_DUCK1_LEFT_HIT, TEXT("images/Monster/Duck1/left_hit.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_HIT,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_HIT,
@@ -645,7 +648,7 @@ void CScene::SetDuck11MonsterAnimation()
 	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_HIT,
 		MONSTER_DUCK1_RIGHT_HIT, TEXT("images/Monster/Duck1/right_hit.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_HIT,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_HIT,
