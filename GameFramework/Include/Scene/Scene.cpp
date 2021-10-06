@@ -410,7 +410,7 @@ void CScene::SetCollideAnimation()
 	GetSceneResource()->CreateAnimationSequence(DASH_EFFECT,
 		DASH_EFFECT, TEXT("images/Weapon/Sprint/dashEffect.bmp"));
 	GetSceneResource()->SetTextureColorKey(DASH_EFFECT,
-		255, 0, 255);
+		255, 255, 255);
 
 	for (int i = 0; i < 6; ++i)
 	{
@@ -559,11 +559,10 @@ void CScene::SetDuck11MonsterAnimation()
 		MONSTER_DUCK1_LEFT_WALK, TEXT("images/Monster/Duck1/left_walk.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_WALK,
 		255, 255, 255);
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 2; j++)
 		{
-			if (i == 3 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}

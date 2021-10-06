@@ -4,6 +4,7 @@
 // Object
 #include "Player.h"
 #include "EffectHit.h"
+#include "EffectDash.h"
 #include "TeleportMouse.h"
 #include "Potion.h"
 #include "DamageFont.h"
@@ -92,9 +93,6 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
 											this, &CPlayer::AcquireItem);
 
-	// Fire, Pause, Resume
-	// CInput::GetInst()->SetCallback<CPlayer>("Fire", KeyState_Push,
-	// this, &CPlayer::BulletFire);
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 											this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
@@ -551,11 +549,21 @@ void CPlayer::RunDown(float DeltaTime)
 
 void CPlayer::RunStart()
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax || m_RunEnable)
-		return;
+	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax || m_RunEnable) return;
 	m_RunEnable = true;
-	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
-														m_Pos, Vector2(178.f, 164.f));
+
+	Vector2 PlayerBtm;
+	if(m_Dir.x < 0 ) // 왼쪽 
+		PlayerBtm = Vector2(m_Pos.x + m_Size.x/2, m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2);
+	else // 오른쪽 
+		PlayerBtm = Vector2(m_Pos.x , m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2);
+
+
+	CEffectDash *Hit = m_Scene->CreateObject<CEffectDash>(
+		DASH_EFFECT,DASH_EFFECT,
+		PlayerBtm,
+		Vector2(5.f,5.f));
+
 	m_Scene->GetSceneResource()->SoundPlay("Run");
 	SetMoveSpeed(FAST_SPEED);
 }
@@ -595,22 +603,22 @@ void CPlayer::Dash(float DelatTime)
 	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax)
 		return;
 
-	// Dash Time ����
+	// Dash Time 
 	m_DashTime = DASH_TIME;
 	m_DashEnable = true;
 
-	// speed ����
+	// speed 
 	SetMoveSpeed(DASH_SPEED);
 
-	// MP ����
+	// MP 
 	if (m_CharacterInfo.MP >= 0.5f * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.5f * m_CharacterInfo.MPMax;
 
-	// Effect ȿ��
-	CEffectHit *Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", "HitEffect",
+	// Effect 
+	CEffectDash*Dash = m_Scene->CreateObject<CEffectDash>(DASH_EFFECT, DASH_EFFECT,
 														m_Pos, Vector2(178.f, 164.f));
 
-	// Sound ȿ��
+	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 }
 

@@ -12,6 +12,7 @@
 #include "../Object/Bullet.h"
 #include "../Object/Monster.h"
 #include "../Object/EffectHit.h"
+#include "../Object/EffectDash.h"
 #include "../Object/TeleportMouse.h"
 #include "../Object/StageDoor.h"
 #include "../Object/Potion.h"
@@ -39,8 +40,10 @@ bool CMainScene::Init()
 	LoadSound();
 	LoadAnimationSequence();
 
-	// Effect
-	CEffectHit *EffectPrototype = CreatePrototype<CEffectHit>("HitEffect");
+	// EffectHit
+	CEffectHit  *EffectHitPrototype = CreatePrototype<CEffectHit>("HitEffect");
+	// EffectDash
+	CEffectDash *EffectDashPrototype = CreatePrototype<CEffectDash>(DASH_EFFECT);
 
 	// Teleport
 	CTeleportMouse *TeleportMousePrototype = CreatePrototype<CTeleportMouse>("TeleportMouse");

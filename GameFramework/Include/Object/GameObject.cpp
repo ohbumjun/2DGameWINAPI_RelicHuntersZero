@@ -599,7 +599,6 @@ void CGameObject::PrevRender()
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
 		Size = FrameData.Size;
 	}
-
 	Vector2	LT = m_RenderPos - m_Pivot * Size + m_Offset;
 
 	m_CameraCull = false;
