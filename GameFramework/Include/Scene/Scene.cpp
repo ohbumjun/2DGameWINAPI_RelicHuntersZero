@@ -1204,34 +1204,6 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 	Player->SetSize(Size);
 	Player->SetName(Name);
 
-	// Colliders
-	{
-		auto iter = Player->m_ColliderList.begin();
-		auto iterEnd = Player->m_ColliderList.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			(*iter)->SetScene(this);
-		}
-	}
-
-	{
-		auto iter = Player->m_WidgetComponentList.begin();
-		auto iterEnd = Player->m_WidgetComponentList.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			(*iter)->SetScene(this);
-		}
-	}
-	// Gun
-	for (int i = 0; i < EGunClass::End; i++)
-	{
-		if (Player->m_GunEquipment[i])
-		{
-			CGun* Gun = Player->m_GunEquipment[i];
-			Gun->SetScene(this);
-		}
-	}
-
 	Player->SetNotifyFunctions();
 	m_ObjList.push_back(Player);
 

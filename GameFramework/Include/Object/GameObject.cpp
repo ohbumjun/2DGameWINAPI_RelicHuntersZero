@@ -293,7 +293,28 @@ void CGameObject::SetScene(CScene* Scene)
 	m_Scene = Scene;
 	if (m_Animation)
 		m_Animation->m_Scene = Scene;
+
+	// Colliders
+	{
+		auto iter = m_ColliderList.begin();
+		auto iterEnd = m_ColliderList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SetScene(Scene);
+		}
+	}
+
+	// Widgets
+	{
+		auto iter = m_WidgetComponentList.begin();
+		auto iterEnd = m_WidgetComponentList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SetScene(Scene);
+		}
+	}
 }
+
 
 void CGameObject::Move(const Vector2& Dir)
 {

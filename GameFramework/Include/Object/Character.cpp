@@ -92,6 +92,20 @@ float CCharacter::SetDamage(float Damage)
 	return Damage;
 }
 
+void CCharacter::SetScene(CScene* Scene)
+{
+	CGameObject::SetScene(Scene);
+	// Guns
+	for (int i = 0; i < EGunClass::End; i++)
+	{
+		if (m_GunEquipment[i])
+		{
+			CGun* Gun = m_GunEquipment[i];
+			Gun->SetScene(Scene);
+		}
+	}
+}
+
 void CCharacter::Move(const Vector2& Dir)
 {
 	CGameObject::Move(Dir);

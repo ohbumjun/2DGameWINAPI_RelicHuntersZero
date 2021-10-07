@@ -30,6 +30,7 @@ CGun::~CGun()
 {
 }
 
+
 void CGun::Shoot()
 {
 }
