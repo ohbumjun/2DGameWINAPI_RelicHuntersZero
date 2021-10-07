@@ -102,6 +102,7 @@ void CCharacter::SetScene(CScene* Scene)
 		{
 			CGun* Gun = m_GunEquipment[i];
 			Gun->SetScene(Scene);
+			Gun->SetOwner(this);
 		}
 	}
 }

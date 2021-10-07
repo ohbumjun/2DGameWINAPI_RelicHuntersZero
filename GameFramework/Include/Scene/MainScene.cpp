@@ -40,6 +40,7 @@ bool CMainScene::Init()
 	LoadSound();
 	LoadAnimationSequence();
 	SetBasicProtoTypes();
+
 	
 	// Player
 	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
@@ -81,7 +82,6 @@ bool CMainScene::Init()
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 
-	
 	// Tile Map
 	CTileMap *TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("MainMap.map");

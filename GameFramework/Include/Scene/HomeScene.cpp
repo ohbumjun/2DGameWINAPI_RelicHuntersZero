@@ -28,7 +28,7 @@ bool CHomeScene::Init()
 	// Protos
 	SetBasicProtoTypes();
 	// Guns
-	SetBasicProtoGuns();
+	SetBasicObjectGuns();
 	// Objects
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
@@ -88,76 +88,3 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
-
-void CHomeScene::SetBasicProtoGuns()
-{
-	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 200.f);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_LIGHT_R);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
-
-	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_MEDIUM);
-	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_R, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 300.f);
-	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetGunType(EGun_Type::Medium_Pistol);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
-
-	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_HEAVY);
-	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_R, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 400.f);
-	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetGunType(EGun_Type::Heavy_Pistol);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_HEAVY_R);
-
-	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_LIGHT);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_R, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 500.f);
-	GunPistolLight->SetGunClass(EGunClass::Light);
-	GunPistolLight->SetGunType(EGun_Type::Light_ShotGun);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
-
-	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_R, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 600.f);
-	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetGunType(EGun_Type::Medium_ShotGun);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
-
-	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_HEAVY);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_R, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
-	GunPistolLight->SetPos(200.f, 700.f);
-	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
-
-}
-
-void CHomeScene::SetBasicObjectGuns()
-{
-}
-

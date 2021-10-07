@@ -68,9 +68,14 @@ public :
 public :
 	void SetLevel1MonsterAnimation();
 	void SetDuck11MonsterAnimation();
+// Gun Setting 
+public :
+	void SetBasicObjectGuns();
+
 // Proto Setting
 public :
 	void SetBasicProtoTypes();
+	void SetBasicProtoGuns();
 public:
 	virtual bool Init();
 	virtual bool Update(float DeltaTime);
