@@ -28,6 +28,16 @@ enum class EBullet_Type
 	Heavy
 };
 
+enum class EGun_Type
+{
+	Light_Pistol,
+	Medium_Pistol,
+	Heavy_Pistol,
+	Light_ShotGun,
+	Medium_ShotGun,
+	Heavy_ShotGun
+};
+
 enum ECollision_Channel
 {
 	Channel_Object,

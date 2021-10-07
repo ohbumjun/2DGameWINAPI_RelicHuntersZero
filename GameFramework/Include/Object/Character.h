@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Gun.h"
 class CCharacter : public CGameObject
 {
 	friend class CScene;
@@ -11,7 +12,7 @@ protected:
 
 protected:
 	CharacterInfo m_CharacterInfo;
-
+	class CGun* m_Gun;
 public :
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
@@ -84,6 +85,32 @@ protected :
 	virtual void Stun();
 	virtual void StunEnd();
 protected:
-	// Á×À½
+// Death
 	virtual void CharacterDestroy() = 0;
+protected :
+// Gun
+	virtual void SetGunPos(Vector2 Pos)
+	{
+		m_Gun->SetPos(Pos);
+	}
+	void SetTexture(CTexture* Texture)
+	{
+		m_Texture = Texture;
+
+		if (m_Texture)
+		{
+			m_Size.x = (float)m_Texture->GetWidth();
+			m_Size.y = (float)m_Texture->GetHeight();
+		}
+	}
+
+	void SetGunTexture(const std::string& Name);
+	void SetGunTexture(const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = TEXTURE_PATH);
+	void SetGunTextureFullPath(const std::string& Name, const TCHAR* FullPath);
+	void SetGunTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName,
+		const std::string& PathName = TEXTURE_PATH);
+	void SetGunTextureColorKey(unsigned char r,
+		unsigned char g, unsigned char b, int Index = 0);
+
 };

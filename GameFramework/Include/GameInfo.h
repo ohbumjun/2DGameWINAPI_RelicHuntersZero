@@ -18,7 +18,7 @@
 #include "Math.h"
 #include "Flag.h"
 #include "MonsterInfo.h"
-#include "AnimNameInfo.h"
+#include "NameInfo.h"
 #include "PlayerInfo.h"
 #include "ProtoInfo.h"
 
@@ -103,6 +103,16 @@ struct AnimationFrameData
 {
 	Vector2 StartPos;
 	Vector2 Size;
+};
+
+struct EGunInfo
+{
+	EGun_Type m_GunType;
+	float m_Damage;
+	int   m_BulletsLoaded;
+	bool  m_BulletEmpty;
+	float m_BulletLoadTime;
+	float m_BulletDistance;
 };
 
 struct CharacterInfo

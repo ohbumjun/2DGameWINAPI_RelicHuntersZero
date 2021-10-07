@@ -175,6 +175,7 @@
     <ClCompile Include="Object\EffectHit.cpp" />
     <ClCompile Include="Object\Equipment.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
+    <ClCompile Include="Object\Gun.cpp" />
     <ClCompile Include="Object\HPPotion.cpp" />
     <ClCompile Include="Object\LaserObject.cpp" />
     <ClCompile Include="Object\Potion.cpp" />
@@ -218,7 +219,7 @@
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="Animation\AnimationInfo.h" />
-    <ClInclude Include="AnimNameInfo.h" />
+    <ClInclude Include="NameInfo.h" />
     <ClInclude Include="Collision\Collider.h" />
     <ClInclude Include="Collision\ColliderBox.h" />
     <ClInclude Include="Collision\ColliderSphere.h" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Object\Character.h" />
     <ClInclude Include="Object\EffectDash.h" />
     <ClInclude Include="Object\Equipment.h" />
+    <ClInclude Include="Object\Gun.h" />
     <ClInclude Include="Object\HPPotion.h" />
     <ClInclude Include="Object\LaserObject.h" />
     <ClInclude Include="Object\Potion.h" />

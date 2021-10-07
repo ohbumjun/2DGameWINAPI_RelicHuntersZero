@@ -106,6 +106,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="03. Object\05. Guns">
+      <UniqueIdentifier>{c176ad40-8682-4707-bc2f-f73e7e1193f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -290,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="Object\EffectDash.cpp">
       <Filter>03. Object\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Gun.cpp">
+      <Filter>03. Object\05. Guns</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,7 +521,7 @@
     <ClInclude Include="Object\LaserObject.h">
       <Filter>03. Object</Filter>
     </ClInclude>
-    <ClInclude Include="AnimNameInfo.h">
+    <ClInclude Include="NameInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\EffectDash.h">
@@ -523,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="ProtoInfo.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Gun.h">
+      <Filter>03. Object\05. Guns</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

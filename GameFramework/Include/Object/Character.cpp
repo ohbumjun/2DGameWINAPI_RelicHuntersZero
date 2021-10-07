@@ -2,20 +2,25 @@
 #include "Character.h"
 #include "../Scene/Camera.h"
 #include "../Scene/Scene.h"
+#include "../Object/Gun.h"
 
 CCharacter::CCharacter() : 
-	m_CharacterInfo{}
+	m_CharacterInfo{},
+	m_Gun{}
 {
 	m_ObjType = EObject_Type::Character;
+
 }
 
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
+	m_Gun = obj.m_Gun->Clone();
 }
 
 CCharacter::~CCharacter()
 {
+	SAFE_DELETE(m_Gun);
 }
 
 
@@ -28,6 +33,8 @@ bool CCharacter::Init()
 {
 	if (!CGameObject::Init())
 		return false;
+
+	m_Gun = new CGun;
 
 	return true;
 }
@@ -150,4 +157,29 @@ void CCharacter::Stun()
 void CCharacter::StunEnd()
 {
 	CGameObject::StunEnd();
+}
+
+void CCharacter::SetGunTexture(const std::string& Name)
+{
+	m_Gun->SetTexture(Name);
+}
+
+void CCharacter::SetGunTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+{
+	m_Gun->SetTexture(Name, FileName, PathName);
+}
+
+void CCharacter::SetGunTextureFullPath(const std::string& Name, const TCHAR* FullPath)
+{
+	m_Gun->SetTexture(Name, FullPath);
+}
+
+void CCharacter::SetGunTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName, const std::string& PathName)
+{
+	m_Gun->SetTexture(Name, vecFileName, PathName);
+}
+
+void CCharacter::SetGunTextureColorKey(unsigned char r, unsigned char g, unsigned char b, int Index)
+{
+	m_Gun->SetTextureColorKey(r, g, b, Index);
 }
