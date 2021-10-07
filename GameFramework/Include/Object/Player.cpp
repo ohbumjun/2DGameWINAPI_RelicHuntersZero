@@ -458,6 +458,23 @@ float CPlayer::SetDamage(float Damage)
 	return Damage;
 }
 
+void CPlayer::ChangeGun()
+{
+	// 충돌 목록 중에서 Player가 있는지 확인한다
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CPlayer* Player = (*iter)->IsCollisionWithPlayer();
+		// 만약 Player와 충돌했다면
+		if (Player)
+		{
+			// 위로 가기 버튼을 클릭했다면( Dir )
+			Vector2 PlayerDir = Player->GetDir();
+		}
+	}
+}
+
 void CPlayer::ChangeIdleAnimation()
 {
 	if (m_StunEnable)

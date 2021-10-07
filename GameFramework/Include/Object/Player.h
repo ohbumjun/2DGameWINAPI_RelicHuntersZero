@@ -33,6 +33,9 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
+// Gun
+private :
+	void ChangeGun();
 
 // Idle ---
 private:
@@ -120,7 +123,7 @@ private:
 	void SetTeleportPos(float DeltaTime);
 	void DeleteTeleportObj();
 
-	// Attack ---
+// Attack ---
 private:
 	Vector2 m_TargetPos;
 
@@ -134,7 +137,7 @@ public:
 	void BulletFireTarget(float);
 	CGameObject *FindClosestTarget(Vector2 PlayerPos);
 
-	// Death ---
+// Death ---
 public:
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
@@ -144,7 +147,7 @@ public:
 		m_Pos += Dist;
 	};
 
-	// Item --
+// Item --
 public:
 	virtual void AcquireItem(float);
 };

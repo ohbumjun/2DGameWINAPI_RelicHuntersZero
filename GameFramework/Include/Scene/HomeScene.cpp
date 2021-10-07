@@ -28,6 +28,9 @@ bool CHomeScene::Init()
 	// Protos
 	SetBasicProtoTypes();
 
+	// Guns
+	SetBasicGuns();
+
 	// Objects
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
@@ -46,9 +49,7 @@ bool CHomeScene::Init()
 
 	// Gun
 	// Start ==
-	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT, TEXT("images/Weapon/Gun/spr_pistol_0.bmp"));
-	GunPistolLight->SetPos(200.f,200.f);
+	
 
 	return true;
 }
@@ -81,5 +82,32 @@ void CHomeScene::LoadSound()
 	// Player --> run, dash
 	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
+}
+
+void CHomeScene::SetBasicGuns()
+{
+	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
+	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT, TEXT("images/Weapon/Gun/spr_pistol_0.bmp"));
+	GunPistolLight->SetPos(200.f, 200.f);
+
+	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_MEDIUM);
+	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM, TEXT("images/Weapon/Gun/spr_pistol_assault_0.bmp"));
+	GunPistolLight->SetPos(200.f, 300.f);
+
+	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_HEAVY);
+	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY, TEXT("images/Weapon/Gun/spr_pistol_heavy_0.bmp"));
+	GunPistolLight->SetPos(200.f, 400.f);
+
+	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_LIGHT);
+	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT, TEXT("images/Weapon/Gun/spr_sawedoff_0.bmp"));
+	GunPistolLight->SetPos(200.f, 500.f);
+
+	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM);
+	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM, TEXT("images/Weapon/Gun/spr_shotgun_0.bmp"));
+	GunPistolLight->SetPos(200.f, 600.f);
+
+	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_HEAVY);
+	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY, TEXT("images/Weapon/Gun/spr_shotgun_heavy_0.bmp"));
+	GunPistolLight->SetPos(200.f, 700.f);
 }
 
