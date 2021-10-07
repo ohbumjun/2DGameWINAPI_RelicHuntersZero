@@ -1,7 +1,9 @@
 #include "Gun.h"
 #include "../Collision/ColliderSphere.h"
 
-CGun::CGun()
+CGun::CGun() :
+	m_TextureImgNames{},
+	m_Owner(nullptr)
 {
 	m_GunInfo.m_GunClass = EGunClass::Light;
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
@@ -9,16 +11,19 @@ CGun::CGun()
 	m_GunInfo.m_BulletsLoaded  = true;
 	m_GunInfo.m_BulletLoadTime = 0.1f;
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
-
-	m_Owner = nullptr;
+	
 	m_ObjType = EObject_Type::Weapon;
-
 }
 
 CGun::CGun(const CGun& obj) : CGameObject(obj)
 {
 	m_Owner = nullptr;
 	m_GunInfo = obj.m_GunInfo;
+
+	for (int i = 0; i < ETexture_Dir::Texture_End; i++)
+	{
+		m_TextureImgNames[i] = obj.m_TextureImgNames[i];
+	}
 }
 
 CGun::~CGun()
@@ -50,13 +55,27 @@ bool CGun::Init()
 void CGun::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	if (m_Owner)
-		SetPos(m_Owner->GetPos());
 }
 
 void CGun::PostUpdate(float DeltaTime)
 {
 	CGameObject::PostUpdate(DeltaTime);
+	if (m_Owner)
+	{
+		Vector2 OwnerDir = m_Owner->GetDir();
+		Vector2 OwnerPos = m_Owner->GetPos();
+
+		// 위치 조정 
+		SetPos(m_Owner->GetPos());
+		
+		// 방향 조정 
+		SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
+		SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
+		if (OwnerDir.x < 0)
+			SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
+		else
+			SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
+	}
 }
 
 void CGun::Collision(float DeltaTime)

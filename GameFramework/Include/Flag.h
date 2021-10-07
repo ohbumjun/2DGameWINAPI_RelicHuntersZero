@@ -14,6 +14,13 @@ enum class ETexture_Type
 	Frame
 };
 
+enum ETexture_Dir
+{
+	Texture_Left,
+	Texture_Right,
+	Texture_End
+};
+
 enum class ECollider_Type
 {
 	Box,

@@ -28,7 +28,7 @@ bool CHomeScene::Init()
 	// Protos
 	SetBasicProtoTypes();
 	// Guns
-	SetBasicObjectGuns();
+	SetBasicProtoGuns();
 	// Objects
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
@@ -89,40 +89,64 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
 
-void CHomeScene::SetBasicObjectGuns()
+void CHomeScene::SetBasicProtoGuns()
 {
 	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT, TEXT("images/Weapon/Gun/spr_pistol_0.bmp"));
+	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
+	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
 	GunPistolLight->SetPos(200.f, 200.f);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_PISTOL_LIGHT_R);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_PISTOL_LIGHT_L);
 
 	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_MEDIUM);
-	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM, TEXT("images/Weapon/Gun/spr_pistol_assault_0.bmp"));
+	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
 	GunPistolLight->SetPos(200.f, 300.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
 	GunPistolLight->SetGunType(EGun_Type::Medium_Pistol);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_PISTOL_MEDIUM_L);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_PISTOL_MEDIUM_R);
 
 	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_HEAVY);
-	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY, TEXT("images/Weapon/Gun/spr_pistol_heavy_0.bmp"));
+	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
 	GunPistolLight->SetPos(200.f, 400.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
 	GunPistolLight->SetGunType(EGun_Type::Heavy_Pistol);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_PISTOL_HEAVY_L);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_PISTOL_HEAVY_R);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_LIGHT);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT, TEXT("images/Weapon/Gun/spr_sawedoff_0.bmp"));
+	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
 	GunPistolLight->SetPos(200.f, 500.f);
 	GunPistolLight->SetGunClass(EGunClass::Light);
 	GunPistolLight->SetGunType(EGun_Type::Light_ShotGun);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_SHOTGUN_LIGHT_L);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_SHOTGUN_LIGHT_R);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM, TEXT("images/Weapon/Gun/spr_shotgun_0.bmp"));
+	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
 	GunPistolLight->SetPos(200.f, 600.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
 	GunPistolLight->SetGunType(EGun_Type::Medium_ShotGun);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_SHOTGUN_LIGHT_L);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_SHOTGUN_LIGHT_R);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_HEAVY);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY, TEXT("images/Weapon/Gun/spr_shotgun_heavy_0.bmp"));
+	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
 	GunPistolLight->SetPos(200.f, 700.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
 	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
+	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetLeftTextureName(TEXTURE_GUN_SHOTGUN_HEAVY_L);
+	GunPistolLight->SetRightTextureName(TEXTURE_GUN_SHOTGUN_HEAVY_R);
+
+}
+
+void CHomeScene::SetBasicObjectGuns()
+{
 }
 

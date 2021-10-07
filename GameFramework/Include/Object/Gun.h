@@ -12,6 +12,7 @@ public :
 private :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
+	const char* m_TextureImgNames[2];
 public :
 	/*
 	
@@ -26,6 +27,14 @@ struct GunInfo
 };
 	*/
 public:
+	void SetLeftTextureName(const char* Name)
+	{
+		m_TextureImgNames[ETexture_Dir::Texture_Left] = Name;
+	}
+	void SetRightTextureName(const char* Name)
+	{
+		m_TextureImgNames[ETexture_Dir::Texture_Right] = Name;
+	}
 	void SetGunClass(EGunClass GunClass)
 	{
 		m_GunInfo.m_GunClass = GunClass;
