@@ -356,10 +356,12 @@ void CPlayer::Update(float DeltaTime)
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	// Character Offset
+	/*
 	if (CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) || CheckCurrentAnimation(PLAYER_LEFT_ATTACK))
 		SetOffset(0.f, 20.f);
 	else
 		SetOffset(0.f, 0.f);
+	*/
 
 	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
@@ -778,7 +780,6 @@ CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
 
 Vector2 CPlayer::GetColliderPos()
 {
-	// ���� �浹ü�� ���ٸ�, �����ػ� ���� ��ġ�� ���� ( ���⿡�� � collider�� ���� ���̹Ƿ� )
 	Vector2 m_Resolution = m_Scene->GetCamera()->GetWorldResolution();
 	if (!CollisionCheck())
 		return m_Resolution;
@@ -810,7 +811,6 @@ void CPlayer::Stun()
 void CPlayer::StunEnd()
 {
 	CCharacter::StunEnd();
-	// ���⿡ ���� �ٲ��ֱ� ( ���� ���콺 ��ġ�� ���� ���� ������ ���� )
 	ChangeAnimation(PLAYER_RIGHT_IDLE);
 }
 
@@ -896,7 +896,8 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget()
 {
-	Vector2 BulletOffset = CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(75.f, 0.f) : Vector2(-75.f, 0.f);
+	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
+	Vector2 BulletOffset = CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x* 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x*0.15,-m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 																"PlayerBullet",
 																Vector2(m_Pos + BulletOffset),

@@ -29,6 +29,7 @@ bool CCollisionManager::Init()
 	CreateProfile("PlayerLaser", Channel_PlayerLaser, true);
 	CreateProfile("MonsterAttack", Channel_MonsterAttack, true);
 
+	SetCollisionState("Default", Channel_Object, ECollision_State::Ignore);
 	SetCollisionState("Default", Channel_Monster, ECollision_State::Ignore);
 	SetCollisionState("Default", Channel_PlayerAttack, ECollision_State::Ignore);
 	SetCollisionState("Default", Channel_MonsterAttack, ECollision_State::Ignore);
