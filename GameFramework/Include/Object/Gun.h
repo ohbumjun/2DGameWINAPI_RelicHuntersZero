@@ -71,6 +71,7 @@ public:
 	virtual void Update(float DeltaTime);
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
+	virtual void PrevRender();
 	virtual void Render(HDC hDC);
 	virtual CGun* Clone();
 };

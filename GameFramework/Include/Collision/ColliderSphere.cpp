@@ -106,11 +106,9 @@ bool CColliderSphere::CollisionMouse(const Vector2 &MousePos)
 
 bool CColliderSphere::IsCollisionWithLaser(const Vector2 &LaserPos)
 {
-	// �浹 ������ return ���ش�
 	float Dist = Distance(m_Info.Center, LaserPos);
 	float Angle = GetAngle(m_Info.Center, LaserPos);
 
-	// �浹 ���� �ȿ� �������� ����
 	if (Dist > m_Info.Radius)
 		return false;
 	return true;

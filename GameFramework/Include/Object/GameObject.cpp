@@ -672,9 +672,10 @@ void CGameObject::Collision(float DeltaTime)
 void CGameObject::PrevRender()
 {
 	CCamera* Camera = m_Scene->GetCamera();
-	m_RenderPos = m_Pos - Camera->GetPos();
-	Vector2	Size = m_Size;
+	Vector2 CameraPos = Camera->GetPos();
+	m_RenderPos = m_Pos - CameraPos;
 
+	Vector2	Size = m_Size;
 	if (m_Animation && m_Animation->m_CurrentAnimation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;

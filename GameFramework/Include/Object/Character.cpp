@@ -64,6 +64,13 @@ void CCharacter::Collision(float DeltaTime)
 	CGameObject::Collision(DeltaTime);
 }
 
+void CCharacter::PrevRender()
+{
+	CGameObject::PrevRender();
+	if (m_CurrentGun)
+		m_CurrentGun->PrevRender();
+}
+
 void CCharacter::Render(HDC hDC)
 {
 	CGameObject::Render(hDC);

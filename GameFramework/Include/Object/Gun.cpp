@@ -64,6 +64,11 @@ void CGun::Collision(float DeltaTime)
 	CGameObject::Collision(DeltaTime);
 }
 
+void CGun::PrevRender()
+{
+	CGameObject::PrevRender();
+}
+
 void CGun::Render(HDC hDC)
 {
 	CGameObject::Render(hDC);
