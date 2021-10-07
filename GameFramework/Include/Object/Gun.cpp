@@ -67,14 +67,18 @@ void CGun::PostUpdate(float DeltaTime)
 
 		// 위치 조정 
 		SetPos(m_Owner->GetPos());
-		
 		// 방향 조정 
-		SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
-		SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
+		/*
 		if (OwnerDir.x < 0)
 			SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
 		else
 			SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
+		*/
+		if (OwnerDir.x < 0)
+			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
+		else
+			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
+		
 	}
 }
 
