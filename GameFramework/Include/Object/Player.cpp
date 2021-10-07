@@ -936,18 +936,21 @@ void CPlayer::SetTargetPos(float DeltaTime)
 
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
-	Vector2 PlayerDir = m_Dir;
+	if (m_CurrentGun)
+	{
+		Vector2 PlayerDir = m_Dir;
 
-	// SetTargetPos(DeltaTime);
-	// Laser ?�시 ?�이 Target �??�팅?�기
-	Vector2 MousePos = CInput::GetInst()->GetMousePos();
-	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
-	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
+		// SetTargetPos(DeltaTime);
+		// Laser ?�시 ?�이 Target �??�팅?�기
+		Vector2 MousePos = CInput::GetInst()->GetMousePos();
+		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+		m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 
-	if (m_Dir.x > 0)
-		ChangeAnimation(PLAYER_RIGHT_ATTACK);
-	else
-		ChangeAnimation(PLAYER_LEFT_ATTACK);
+		if (m_Dir.x > 0)
+			ChangeAnimation(PLAYER_RIGHT_ATTACK);
+		else
+			ChangeAnimation(PLAYER_LEFT_ATTACK);
+	}
 }
 
 void CPlayer::CharacterDestroy()
