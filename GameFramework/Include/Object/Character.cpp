@@ -50,6 +50,13 @@ void CCharacter::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 	if (m_CurrentGun)
 		m_CurrentGun->Update(DeltaTime);
+
+	// MP, HP Max Á¶Àý
+	if (m_CharacterInfo.MP > m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+
+	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
+		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 }
 
 void CCharacter::PostUpdate(float DeltaTime)

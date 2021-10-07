@@ -10,9 +10,17 @@ public:
 protected :
     EPotion_Type m_PotionType;
     float m_PotionAmount;
+protected :
+	float m_PotionPauseTime;
+	bool m_PotionPause;
 public :
 	EPotion_Type GetPotionType() { return m_PotionType; }
 	float GetPotionAmount() { return m_PotionAmount; }
+public :
+	void SetPotionType(EPotion_Type PotionType)
+	{
+		m_PotionType = PotionType;
+	}
 public :
 	void AddPotionToPlayer();
 public:
@@ -22,7 +30,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	// virtual CPotion* Clone();
+	virtual CPotion* Clone();
 
 };
 

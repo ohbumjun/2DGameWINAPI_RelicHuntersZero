@@ -99,9 +99,9 @@ public:
 	void CallMouseCollisionBegin(const Vector2 &MousePos, float DeltaTime);
 	void CallMouseCollisionEnd(const Vector2 &MousePos, float DeltaTime);
 	// Damage�� ���´�
-	CGameObject *IsCollisionWithMonster();
 
 public:
+	CGameObject *IsCollisionWithMonster();
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
 	class CGun *IsCollisionWithGun();

@@ -8,7 +8,6 @@
 
 CPotion::CPotion()
 {
-	m_PotionType = EPotion_Type::HP;
 	m_ObjType = EObject_Type::Potion;
 	m_PotionAmount = 0.f;
 }
@@ -16,6 +15,7 @@ CPotion::CPotion()
 CPotion::CPotion(const CPotion& Potion) : CGameObject(Potion)
 {
 	m_PotionType = Potion.m_PotionType;
+
 	m_ObjType = Potion.m_ObjType;
 	m_PotionAmount = Potion.m_PotionAmount;
 }
@@ -54,6 +54,16 @@ bool CPotion::Init()
 void CPotion::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_PotionPause)
+	{
+		m_PotionPauseTime -= DeltaTime;
+		if (m_PotionPauseTime < 0.f)
+		{
+			m_PotionPause = false;
+			m_PotionPauseTime = 0.f;
+			
+		}
+	}
 }
 
 void CPotion::PostUpdate(float DeltaTime)
@@ -66,8 +76,6 @@ void CPotion::Collision(float DeltaTime)
 	CGameObject::Collision(DeltaTime);
 
 	// 충돌 목록 중에서 Player가 있는지 확인한다
-	/*
-	
 	
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
@@ -77,26 +85,31 @@ void CPotion::Collision(float DeltaTime)
 		// 만약 Player와 충돌했다면
 		if (Player)
 		{
-			// 위로 가기 버튼을 클릭했다면( Dir )
-			EPotion_Type PotionType = GetPotionType();
-			if (m_PotionType == EPotion_Type::HP)
+			// 일정 시간동안, Player HP를 올려준다 
+			if (!m_PotionPause)
 			{
-				CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-				DamageFont->SetDamageNumber(7);
-				Player->SetHP(Player->GetHP() + (int)m_PotionAmount);
-			}
-			else 
-			{
-				CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-				DamageFont->SetDamageNumber(9);
-				// Player->SetMP(Player->GetMP() + m_PotionAmount);
+				EPotion_Type PotionType = GetPotionType();
+				if (m_PotionType == EPotion_Type::HP)
+				{
+					Player->SetHP(Player->GetHP() + (int)m_PotionAmount);
+				}
+				else if(m_PotionType == EPotion_Type::HP)
+				{
+					Player->SetMP(Player->GetMP() + m_PotionAmount);
+				}
+				m_PotionPause = true;
+				m_PotionPauseTime = 1.f;
 			}
 		}
 	}
-	*/
 }
 
 void CPotion::Render(HDC hDC)
 {
 	CGameObject::Render(hDC);
+}
+
+CPotion* CPotion::Clone()
+{
+	return new CPotion(*this);
 }

@@ -976,12 +976,12 @@ void CPlayer::AcquireItem(float DeltaTime)
 		if (Potion)
 		{
 			EPotion_Type PType = Potion->GetPotionType();
-			float PotionAmount = Potion->GetPotionAmount();
 			if (PType == EPotion_Type::HP)
-				m_CharacterInfo.HP += (int)PotionAmount;
+				m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 			else
-				m_CharacterInfo.MP += PotionAmount;
-			Potion->Destroy();
+				m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+			// Potion->Destroy();
+			break;
 			return;
 		}
 
@@ -990,6 +990,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 		if (Gun)
 		{
 			Equip(Gun->Clone());
+			break;
 		}
 	}
 }

@@ -42,10 +42,10 @@ bool CHomeScene::Init()
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
 	// Potion
-	CMPPotion* MPPotion1 = CreateObject<CMPPotion>("MPPotion1", POTION_MP_PROTO);
+	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
 	MPPotion1->SetPos(Vector2(300.f, 230.f));
 
-	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1", POTION_HP_PROTO);
+	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 
 

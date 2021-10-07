@@ -149,6 +149,7 @@ public:
 
 		T* Obj = (T*)Prototype->Clone();
 
+
 		Obj->SetScene(this);
 		Obj->SetPos(Pos);
 		Obj->SetSize(Size);

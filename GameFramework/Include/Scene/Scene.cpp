@@ -103,7 +103,6 @@ CGameObject *CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
 
 	for (; iter != iterEnd; ++iter)
 	{
-		// Monster Type�� �ƴϸ� �ǳʶڴ�
 		if ((*iter)->GetObjType() != EObject_Type::Monster)
 			continue;
 
@@ -807,7 +806,6 @@ void CScene::SetBasicProtoTypes()
 	// Potions
 	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>(POTION_MP_PROTO);
 	CHPPotion* HPPotionPrototype = CreatePrototype<CHPPotion>(POTION_HP_PROTO);
-
 	// Guns
 	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));

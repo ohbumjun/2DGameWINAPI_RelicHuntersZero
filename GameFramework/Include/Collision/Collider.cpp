@@ -45,7 +45,6 @@ CGameObject *CCollider::IsCollisionWithMonster()
 	{
 		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Monster)
 		{
-			// Damage�� ���´�
 			return (*iter)->GetOwner();
 		}
 	}
