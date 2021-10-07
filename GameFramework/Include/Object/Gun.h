@@ -12,6 +12,7 @@ public :
 private :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
+public :
 	/*
 	
 struct GunInfo
@@ -25,19 +26,27 @@ struct GunInfo
 };
 	*/
 public:
-	void SetGunDamage(float Damage)
+	void SetOwner(CGameObject* Obj)
+	{
+		m_Owner = Obj;
+	}
+	void SetGunDamage(float &Damage)
 	{
 		m_GunInfo.m_Damage = Damage;
 	}
-	void SetGunType(EGun_Type GunType)
+	void SetGunType(EGun_Type &GunType)
 	{
 		m_GunInfo.m_GunType = GunType;
 	}
-	void SetBulletDistance(float Dist)
+	void SetBulletDistance(float &Dist)
 	{
 		m_GunInfo.m_BulletDistance = Dist;
 	}
 public :
+	CGameObject* GetOwner() const
+	{
+		return m_Owner;
+	}
 	EGunClass GetGunClass() const
 	{
 		return m_GunInfo.m_GunClass;

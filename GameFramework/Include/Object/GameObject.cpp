@@ -266,7 +266,7 @@ float CGameObject::GetBottom() const
 {
 	Vector2	Size = m_Size;
 
-	if (m_Animation)
+	if (m_Animation && m_Animation->m_CurrentAnimation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
 
@@ -675,7 +675,7 @@ void CGameObject::PrevRender()
 	m_RenderPos = m_Pos - Camera->GetPos();
 	Vector2	Size = m_Size;
 
-	if (m_Animation)
+	if (m_Animation && m_Animation->m_CurrentAnimation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
@@ -700,7 +700,7 @@ void CGameObject::PrevRender()
 
 void CGameObject::Render(HDC hDC)
 {
-	if (m_Animation)
+	if (m_Animation && m_Animation->m_CurrentAnimation)
 	{
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);

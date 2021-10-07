@@ -168,8 +168,11 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("TargetFire", VK_SPACE);
 	SetCtrlKey("TargetFire", true);
 
-	// Item
+	// Item 
 	CreateKey("GetItem", 'Z');
+
+	// Gun
+	CreateKey("ChangeGun", 'C');
 
 	// Edit
 	CreateKey("Editor", VK_F1);

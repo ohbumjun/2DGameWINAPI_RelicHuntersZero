@@ -149,8 +149,8 @@ public:
 
 // Item --
 public:
-	virtual void AcquireItem(float);
+	void AcquireItem(float);
 // Weapon
 public :
-	virtual void AcquireWeapon(float);
+	void ChangeWeapon(float);
 };

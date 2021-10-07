@@ -171,25 +171,38 @@ void CCharacter::StunEnd()
 	CGameObject::StunEnd();
 }
 
+void CCharacter::SetInitGun(CGun* Gun)
+{
+	EGunClass GunClass = Gun->GetGunClass();
+	m_GunEquipment[GunClass] = Gun;
+	m_CurrentGun = Gun;
+}
+
 CGun* CCharacter::Equip(CGun* Gun)
 {
-	EGunClass GunClass;
+	EGunClass GunClass = EGunClass::Light;
 	switch (Gun->GetGunClass())
 	{
 	case EGunClass::Light :
 		GunClass = Light;
 		break;
 	case EGunClass::Medium:
-		GunClass = Light;
+		GunClass = Medium;
 		break;
 	case EGunClass::Heavy :
 		GunClass = Heavy;
 		break;
 	}
+	// Chnage Equipment 
 	CGun*ExistingGun = m_GunEquipment[GunClass];
 	m_GunEquipment[GunClass] = Gun;
-	// ÇöÀç ÃÑÀ¸·Î ¹Ù²Û´Ù 
+	// Set Current Gun
 	m_CurrentGun = m_GunEquipment[GunClass];
+
+	// Set Owner, Pos 
+	Gun->SetOwner(this);
+	Gun->SetPos(m_Pos);
+	// this
 	return ExistingGun;
 }
 

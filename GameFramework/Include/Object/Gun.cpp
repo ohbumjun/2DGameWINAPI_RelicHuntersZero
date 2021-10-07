@@ -17,6 +17,7 @@ CGun::CGun()
 
 CGun::CGun(const CGun& obj) : CGameObject(obj)
 {
+	m_Owner = nullptr;
 	m_GunInfo = obj.m_GunInfo;
 }
 
@@ -36,8 +37,9 @@ bool CGun::Init()
 {
 	if (!CGameObject::Init()) return false;
 
-	SetPivot(0.5f, 0.5f);
+	CreateAnimation();
 
+	SetPivot(0.5f, 0.5f);
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(25.f);
 	Body->SetOffset(0.f, 0.f);

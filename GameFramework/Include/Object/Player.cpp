@@ -37,6 +37,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_SkillDestoryAllAttackEnable(false),
 					 m_SkillDestoryAllAttackTime(0.f),
 					 m_LaserBulletObj(nullptr)
+			
 {
 	m_ObjType = EObject_Type::Player;
 
@@ -98,6 +99,10 @@ void CPlayer::Start()
 											this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
 											this, &CPlayer::Resume);
+
+	// Gun 
+	CInput::GetInst()->SetCallback<CPlayer>("ChangeGun", KeyState_Down,
+		this, &CPlayer::ChangeWeapon);
 
 	// 1) Slow Motion
 	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
@@ -286,7 +291,7 @@ void CPlayer::Update(float DeltaTime)
 		MonsterDamage -= m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0)
 			MonsterDamage = 0;
-		DamageFont->SetDamageNumber(MonsterDamage);
+		DamageFont->SetDamageNumber((int)MonsterDamage);
 		SetDamage((float)MonsterDamage);
 
 		Vector2 MonsterDir = CollideMonster->GetDir();
@@ -960,6 +965,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
+		// Potion
 		CPotion *Potion = (*iter)->IsCollisionWithPotion();
 		if (Potion)
 		{
@@ -970,16 +976,10 @@ void CPlayer::AcquireItem(float DeltaTime)
 			else
 				m_CharacterInfo.MP += PotionAmount;
 			Potion->Destroy();
+			return;
 		}
-	}
-}
 
-void CPlayer::AcquireWeapon(float)
-{
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-	for (; iter != iterEnd; ++iter)
-	{
+		// Weapon
 		CGun* Gun = (*iter)->IsCollisionWithGun();
 		if (Gun)
 		{
@@ -987,3 +987,8 @@ void CPlayer::AcquireWeapon(float)
 		}
 	}
 }
+
+void CPlayer::ChangeWeapon(float)
+{
+}
+

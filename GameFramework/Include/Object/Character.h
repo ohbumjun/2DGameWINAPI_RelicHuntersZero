@@ -90,7 +90,8 @@ protected:
 	virtual void CharacterDestroy() = 0;
 protected :
 // Gun
-	virtual void SetGunPos(Vector2 Pos)
+	void SetInitGun(CGun* Gun);
+	void SetGunPos(Vector2 Pos)
 	{
 		m_CurrentGun->SetPos(Pos);
 	}
