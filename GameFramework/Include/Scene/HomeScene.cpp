@@ -7,6 +7,8 @@
 #include "../Object/Gun.h"
 #include "../Object/StageDoor.h"
 #include "../Object/EffectHit.h"
+#include "../Object/MPPotion.h"
+#include "../Object/HPPotion.h"
 #include "../UI/UICharacterStateHUD.h"
 
 CHomeScene::CHomeScene()
@@ -21,27 +23,30 @@ bool CHomeScene::Init()
 {
 	// Sound 
 	LoadSound();
-
 	// Animation
 	LoadAnimationSequence();
-
 	// Protos
 	SetBasicProtoTypes();
-
 	// Guns
-	SetBasicGuns();
-
+	SetBasicObjectGuns();
 	// Objects
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
 
 
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
+	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
+	// Potion
+	CMPPotion* MPPotion1 = CreateObject<CMPPotion>("MPPotion1", POTION_MP_PROTO);
+	MPPotion1->SetPos(Vector2(300.f, 230.f));
+
+	CHPPotion* HPPotion1 = CreateObject<CHPPotion>("HPPotion1", POTION_HP_PROTO);
+	HPPotion1->SetPos(Vector2(200.f, 210.f));
 
 
 	// Window
@@ -84,7 +89,7 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
 }
 
-void CHomeScene::SetBasicGuns()
+void CHomeScene::SetBasicObjectGuns()
 {
 	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT, TEXT("images/Weapon/Gun/spr_pistol_0.bmp"));

@@ -188,6 +188,7 @@ CGun* CCharacter::Equip(CGun* Gun)
 	}
 	CGun*ExistingGun = m_GunEquipment[GunClass];
 	m_GunEquipment[GunClass] = Gun;
+	// ÇöÀç ÃÑÀ¸·Î ¹Ù²Û´Ù 
 	m_CurrentGun = m_GunEquipment[GunClass];
 	return ExistingGun;
 }

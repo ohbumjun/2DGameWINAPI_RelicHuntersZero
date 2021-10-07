@@ -11,6 +11,7 @@ public :
 	virtual ~CGun();
 private :
 	EGunInfo m_GunInfo;
+	CGameObject* m_Owner;
 	/*
 	
 struct GunInfo

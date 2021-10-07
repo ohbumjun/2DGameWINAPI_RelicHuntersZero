@@ -150,4 +150,7 @@ public:
 // Item --
 public:
 	virtual void AcquireItem(float);
+// Weapon
+public :
+	virtual void AcquireWeapon(float);
 };

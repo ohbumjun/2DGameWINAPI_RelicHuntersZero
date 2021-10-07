@@ -104,6 +104,7 @@ public:
 public:
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
+	class CGun *IsCollisionWithGun();
 
 public:
 	virtual bool Init();

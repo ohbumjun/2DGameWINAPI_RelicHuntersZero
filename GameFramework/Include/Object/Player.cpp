@@ -973,3 +973,17 @@ void CPlayer::AcquireItem(float DeltaTime)
 		}
 	}
 }
+
+void CPlayer::AcquireWeapon(float)
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CGun* Gun = (*iter)->IsCollisionWithGun();
+		if (Gun)
+		{
+			Equip(Gun->Clone());
+		}
+	}
+}

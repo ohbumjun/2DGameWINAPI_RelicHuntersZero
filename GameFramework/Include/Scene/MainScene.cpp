@@ -75,11 +75,9 @@ bool CMainScene::Init()
 
 	// Potion
 	CMPPotion *MPPotion1 = CreateObject<CMPPotion>("MPPotion1", POTION_MP_PROTO);
-	MPPotion1->SetTexture("MPPotion1", TEXT("Potion/MPPotion.bmp"));
 	MPPotion1->SetPos(Vector2(300.f, 230.f));
 
 	CHPPotion *HPPotion1 = CreateObject<CHPPotion>("HPPotion1", POTION_HP_PROTO);
-	HPPotion1->SetTexture("HPPotion1", TEXT("Potion/HPPotion.bmp"));
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 

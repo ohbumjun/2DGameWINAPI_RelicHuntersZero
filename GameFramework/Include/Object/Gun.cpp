@@ -1,4 +1,5 @@
 #include "Gun.h"
+#include "../Collision/ColliderSphere.h"
 
 CGun::CGun()
 {
@@ -8,7 +9,10 @@ CGun::CGun()
 	m_GunInfo.m_BulletsLoaded  = true;
 	m_GunInfo.m_BulletLoadTime = 0.1f;
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
-	EGunInfo m_GunInfo;
+
+	m_Owner = nullptr;
+	m_ObjType = EObject_Type::Weapon;
+
 }
 
 CGun::CGun(const CGun& obj) : CGameObject(obj)
@@ -31,12 +35,21 @@ void CGun::Start()
 bool CGun::Init()
 {
 	if (!CGameObject::Init()) return false;
+
+	SetPivot(0.5f, 0.5f);
+
+	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
+	Body->SetRadius(25.f);
+	Body->SetOffset(0.f, 0.f);
+
 	return true;
 }
 
 void CGun::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_Owner)
+		SetPos(m_Owner->GetPos());
 }
 
 void CGun::PostUpdate(float DeltaTime)

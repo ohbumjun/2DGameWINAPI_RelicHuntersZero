@@ -76,6 +76,18 @@ CPotion *CCollider::IsCollisionWithPotion()
 	return nullptr;
 }
 
+CGun* CCollider::IsCollisionWithGun()
+{
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::Weapon)
+			return (CGun*)(*iter)->GetOwner();
+	}
+	return nullptr;
+}
+
 bool CCollider::DidCollideWithObstacles() const
 {
 	auto iter = m_CollisionList.begin();

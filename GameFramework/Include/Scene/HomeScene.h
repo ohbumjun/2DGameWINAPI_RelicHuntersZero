@@ -15,6 +15,6 @@ public:
 private:
 	void LoadAnimationSequence();
 	void LoadSound();
-	void SetBasicGuns();
+	void SetBasicObjectGuns();
 };
 
