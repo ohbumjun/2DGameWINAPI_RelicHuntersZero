@@ -26,6 +26,10 @@ struct GunInfo
 };
 	*/
 public:
+	void SetGunClass(EGunClass GunClass)
+	{
+		m_GunInfo.m_GunClass = GunClass;
+	}
 	void SetOwner(CGameObject* Obj)
 	{
 		m_Owner = Obj;
@@ -34,7 +38,7 @@ public:
 	{
 		m_GunInfo.m_Damage = Damage;
 	}
-	void SetGunType(EGun_Type &GunType)
+	void SetGunType(EGun_Type GunType)
 	{
 		m_GunInfo.m_GunType = GunType;
 	}

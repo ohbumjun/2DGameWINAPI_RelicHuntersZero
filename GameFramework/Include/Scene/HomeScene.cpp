@@ -98,21 +98,31 @@ void CHomeScene::SetBasicObjectGuns()
 	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_MEDIUM);
 	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM, TEXT("images/Weapon/Gun/spr_pistol_assault_0.bmp"));
 	GunPistolLight->SetPos(200.f, 300.f);
+	GunPistolLight->SetGunClass(EGunClass::Medium);
+	GunPistolLight->SetGunType(EGun_Type::Medium_Pistol);
 
 	GunPistolLight = CreateObject<CGun>(GUN_PISTOL_HEAVY);
 	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY, TEXT("images/Weapon/Gun/spr_pistol_heavy_0.bmp"));
 	GunPistolLight->SetPos(200.f, 400.f);
+	GunPistolLight->SetGunClass(EGunClass::Heavy);
+	GunPistolLight->SetGunType(EGun_Type::Heavy_Pistol);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_LIGHT);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT, TEXT("images/Weapon/Gun/spr_sawedoff_0.bmp"));
 	GunPistolLight->SetPos(200.f, 500.f);
+	GunPistolLight->SetGunClass(EGunClass::Light);
+	GunPistolLight->SetGunType(EGun_Type::Light_ShotGun);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM, TEXT("images/Weapon/Gun/spr_shotgun_0.bmp"));
 	GunPistolLight->SetPos(200.f, 600.f);
+	GunPistolLight->SetGunClass(EGunClass::Medium);
+	GunPistolLight->SetGunType(EGun_Type::Medium_ShotGun);
 
 	GunPistolLight = CreateObject<CGun>(GUN_SHOTGUN_HEAVY);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY, TEXT("images/Weapon/Gun/spr_shotgun_heavy_0.bmp"));
 	GunPistolLight->SetPos(200.f, 700.f);
+	GunPistolLight->SetGunClass(EGunClass::Heavy);
+	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
 }
 

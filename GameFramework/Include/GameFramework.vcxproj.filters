@@ -536,11 +536,11 @@
     <ClInclude Include="ProtoInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Gun.h">
-      <Filter>03. Object\05. Gun</Filter>
-    </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>02. Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Gun.h">
+      <Filter>03. Object\05. Gun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

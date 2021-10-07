@@ -208,8 +208,8 @@ CGun* CCharacter::Equip(CGun* Gun)
 
 	// Set Owner, Pos 
 	Gun->SetOwner(this);
-	Gun->SetPos(m_Pos);
-	// this
+	Gun->SetOffset(0.f, -m_Size.y * 0.3);
+
 	return ExistingGun;
 }
 
