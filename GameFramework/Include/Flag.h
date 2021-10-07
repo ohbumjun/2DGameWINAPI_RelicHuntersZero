@@ -28,6 +28,19 @@ enum class EBullet_Type
 	Heavy
 };
 
+enum EItem_Type
+{
+	Item_Gun,
+	Item_End
+};
+
+enum EGunClass
+{
+	Light,
+	Medium,
+	Heavy,
+	End
+};
 enum class EGun_Type
 {
 	Light_Pistol,

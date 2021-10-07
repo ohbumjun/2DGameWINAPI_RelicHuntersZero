@@ -2,6 +2,7 @@
 
 CGun::CGun()
 {
+	m_GunInfo.m_GunClass = EGunClass::Light;
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
 	m_GunInfo.m_BulletsLoaded  = true;
@@ -30,8 +31,7 @@ void CGun::Start()
 bool CGun::Init()
 {
 	if (!CGameObject::Init()) return false;
-  	CreateAnimation();
-	return false;
+	return true;
 }
 
 void CGun::Update(float DeltaTime)

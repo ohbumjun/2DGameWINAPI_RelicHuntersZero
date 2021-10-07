@@ -12,7 +12,8 @@ protected:
 
 protected:
 	CharacterInfo m_CharacterInfo;
-	class CGun* m_Gun;
+	class CSharedPtr<CGun> m_GunEquipment[EGunClass::End];
+	CSharedPtr<CGun> m_CurrentGun;
 public :
 	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, int Level,
 						  int Exp, int Gold, float AttackSpeed,
@@ -91,7 +92,7 @@ protected :
 // Gun
 	virtual void SetGunPos(Vector2 Pos)
 	{
-		m_Gun->SetPos(Pos);
+		m_CurrentGun->SetPos(Pos);
 	}
 	void SetTexture(CTexture* Texture)
 	{
@@ -103,14 +104,5 @@ protected :
 			m_Size.y = (float)m_Texture->GetHeight();
 		}
 	}
-
-	void SetGunTexture(const std::string& Name);
-	void SetGunTexture(const std::string& Name, const TCHAR* FileName,
-		const std::string& PathName = TEXTURE_PATH);
-	void SetGunTextureFullPath(const std::string& Name, const TCHAR* FullPath);
-	void SetGunTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName,
-		const std::string& PathName = TEXTURE_PATH);
-	void SetGunTextureColorKey(unsigned char r,
-		unsigned char g, unsigned char b, int Index = 0);
-
+	CGun* Equip(CGun* Gun);
 };

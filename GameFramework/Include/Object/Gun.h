@@ -37,6 +37,10 @@ public:
 		m_GunInfo.m_BulletDistance = Dist;
 	}
 public :
+	EGunClass GetGunClass() const
+	{
+		return m_GunInfo.m_GunClass;
+	}
 	float GetGunDamage() const
 	{
 		return	m_GunInfo.m_Damage;

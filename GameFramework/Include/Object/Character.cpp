@@ -6,7 +6,8 @@
 
 CCharacter::CCharacter() : 
 	m_CharacterInfo{},
-	m_Gun{}
+	m_GunEquipment{},
+	m_CurrentGun(nullptr)
 {
 	m_ObjType = EObject_Type::Character;
 
@@ -15,12 +16,19 @@ CCharacter::CCharacter() :
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
-	m_Gun = obj.m_Gun->Clone();
+	for (int i = 0; i < EGunClass::End; i++)
+	{
+		if (obj.m_GunEquipment[i])
+		{
+			m_GunEquipment[i] = obj.m_GunEquipment[i]->Clone();
+			if (!m_CurrentGun && m_GunEquipment[i]->GetName() == obj.m_CurrentGun->GetName())
+				m_CurrentGun = m_GunEquipment[i];
+		}
+	}
 }
 
 CCharacter::~CCharacter()
 {
-	SAFE_DELETE(m_Gun);
 }
 
 
@@ -34,19 +42,21 @@ bool CCharacter::Init()
 	if (!CGameObject::Init())
 		return false;
 
-	m_Gun = new CGun;
-
 	return true;
 }
 
 void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_CurrentGun)
+		m_CurrentGun->Update(DeltaTime);
 }
 
 void CCharacter::PostUpdate(float DeltaTime)
 {
 	CGameObject::PostUpdate(DeltaTime);
+	if (m_CurrentGun)
+		m_CurrentGun->PostUpdate(DeltaTime);
 }
 
 void CCharacter::Collision(float DeltaTime)
@@ -57,6 +67,8 @@ void CCharacter::Collision(float DeltaTime)
 void CCharacter::Render(HDC hDC)
 {
 	CGameObject::Render(hDC);
+	if (m_CurrentGun)
+		m_CurrentGun->Render(hDC);
 }
 
 CCharacter *CCharacter::Clone()
@@ -159,27 +171,25 @@ void CCharacter::StunEnd()
 	CGameObject::StunEnd();
 }
 
-void CCharacter::SetGunTexture(const std::string& Name)
+CGun* CCharacter::Equip(CGun* Gun)
 {
-	m_Gun->SetTexture(Name);
+	EGunClass GunClass;
+	switch (Gun->GetGunClass())
+	{
+	case EGunClass::Light :
+		GunClass = Light;
+		break;
+	case EGunClass::Medium:
+		GunClass = Light;
+		break;
+	case EGunClass::Heavy :
+		GunClass = Heavy;
+		break;
+	}
+	CGun*ExistingGun = m_GunEquipment[GunClass];
+	m_GunEquipment[GunClass] = Gun;
+	m_CurrentGun = m_GunEquipment[GunClass];
+	return ExistingGun;
 }
 
-void CCharacter::SetGunTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
-{
-	m_Gun->SetTexture(Name, FileName, PathName);
-}
 
-void CCharacter::SetGunTextureFullPath(const std::string& Name, const TCHAR* FullPath)
-{
-	m_Gun->SetTexture(Name, FullPath);
-}
-
-void CCharacter::SetGunTexture(const std::string& Name, const std::vector<std::wstring>& vecFileName, const std::string& PathName)
-{
-	m_Gun->SetTexture(Name, vecFileName, PathName);
-}
-
-void CCharacter::SetGunTextureColorKey(unsigned char r, unsigned char g, unsigned char b, int Index)
-{
-	m_Gun->SetTextureColorKey(r, g, b, Index);
-}

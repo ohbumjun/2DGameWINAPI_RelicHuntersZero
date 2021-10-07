@@ -106,8 +106,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="03. Object\05. Guns">
+    <Filter Include="03. Object\05. Gun">
       <UniqueIdentifier>{c176ad40-8682-4707-bc2f-f73e7e1193f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Inventory">
+      <UniqueIdentifier>{44df73ff-12fe-4a33-8571-de62bc986b59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -295,7 +298,10 @@
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
     <ClCompile Include="Object\Gun.cpp">
-      <Filter>03. Object\05. Guns</Filter>
+      <Filter>03. Object\05. Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>02. Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -531,7 +537,10 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\Gun.h">
-      <Filter>03. Object\05. Guns</Filter>
+      <Filter>03. Object\05. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>02. Inventory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

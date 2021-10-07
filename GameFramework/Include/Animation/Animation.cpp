@@ -158,83 +158,87 @@ void CAnimation::SetLoop(const std::string& Name, bool Loop)
 
 void CAnimation::Update(float DeltaTime)
 {
-	// 애니메이션 시간을 증가시켜준다.
-	m_CurrentAnimation->Time += DeltaTime * m_CurrentAnimation->PlayScale;
-
-	bool	AnimEnd = false;
-	// m_CurrentAnimation->FrameTime = 0.5f;
-
-	// 증가된 시간이 1프레임당 흘러야 할 시간을 지났다면 프레임을 증가시켜줘야 한다.
-	if (m_CurrentAnimation->Time >= m_CurrentAnimation->FrameTime)
+	// If No Animation , No Update 
+	if (m_CurrentAnimation)
 	{
-		// Damage Font 
-		// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", Vector2(100.f,100.f));
-		// DamageFont->SetDamageNumber(m_CurrentAnimation->Sequence->GetFrameCount());
-		// 1프레임당 흘러야 할 시간을 빼준다.
-		m_CurrentAnimation->Time -= m_CurrentAnimation->FrameTime;
+		// Increase Animation Time
+		m_CurrentAnimation->Time += DeltaTime * m_CurrentAnimation->PlayScale;
 
+		bool	AnimEnd = false;
+		// m_CurrentAnimation->FrameTime = 0.5f;
 
-		if (m_CurrentAnimation->Reverse)
+		// 증가된 시간이 1프레임당 흘러야 할 시간을 지났다면 프레임을 증가시켜줘야 한다.
+		if (m_CurrentAnimation->Time >= m_CurrentAnimation->FrameTime)
 		{
-			--m_CurrentAnimation->Frame;
+			// Damage Font 
+			// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", Vector2(100.f,100.f));
+			// DamageFont->SetDamageNumber(m_CurrentAnimation->Sequence->GetFrameCount());
+			// 1프레임당 흘러야 할 시간을 빼준다.
+			m_CurrentAnimation->Time -= m_CurrentAnimation->FrameTime;
 
-			if (m_CurrentAnimation->Frame < 0)
-				AnimEnd = true;
-		}
 
-		else
-		{
-			++m_CurrentAnimation->Frame;
-
-			if (m_CurrentAnimation->Frame == m_CurrentAnimation->Sequence->GetFrameCount())
-				AnimEnd = true;
-		}
-	}
-
-	size_t	Size = m_CurrentAnimation->vecNotify.size();
-
-	for (size_t i = 0; i < Size; ++i)
-	{
-		if (!m_CurrentAnimation->vecNotify[i]->Call &&
-			m_CurrentAnimation->vecNotify[i]->Frame == m_CurrentAnimation->Frame)
-		{
-			m_CurrentAnimation->vecNotify[i]->Call = true;
-
-			m_CurrentAnimation->vecNotify[i]->Function();
-		}
-	}
-
-	if (AnimEnd)
-	{
-		if (m_CurrentAnimation->Loop)
-		{
 			if (m_CurrentAnimation->Reverse)
-				m_CurrentAnimation->Frame = m_CurrentAnimation->Sequence->GetFrameCount() - 1;
-
-			else
-				m_CurrentAnimation->Frame = 0;
-		}
-
-		else
-		{
-			if (m_CurrentAnimation->Reverse)
-				m_CurrentAnimation->Frame = 0;
-
-			else
-				m_CurrentAnimation->Frame = m_CurrentAnimation->Sequence->GetFrameCount() - 1;
-		}
-
-		// 모션이 끝났다면 EndFunction이 있을 경우 호출한다.
-		if (m_CurrentAnimation->EndFunction)
-			m_CurrentAnimation->EndFunction();
-
-		if (m_CurrentAnimation->Loop)
-		{
-			size_t	Size = m_CurrentAnimation->vecNotify.size();
-
-			for (size_t i = 0; i < Size; ++i)
 			{
-				m_CurrentAnimation->vecNotify[i]->Call = false;
+				--m_CurrentAnimation->Frame;
+
+				if (m_CurrentAnimation->Frame < 0)
+					AnimEnd = true;
+			}
+
+			else
+			{
+				++m_CurrentAnimation->Frame;
+
+				if (m_CurrentAnimation->Frame == m_CurrentAnimation->Sequence->GetFrameCount())
+					AnimEnd = true;
+			}
+		}
+
+		size_t	Size = m_CurrentAnimation->vecNotify.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			if (!m_CurrentAnimation->vecNotify[i]->Call &&
+				m_CurrentAnimation->vecNotify[i]->Frame == m_CurrentAnimation->Frame)
+			{
+				m_CurrentAnimation->vecNotify[i]->Call = true;
+
+				m_CurrentAnimation->vecNotify[i]->Function();
+			}
+		}
+
+		if (AnimEnd)
+		{
+			if (m_CurrentAnimation->Loop)
+			{
+				if (m_CurrentAnimation->Reverse)
+					m_CurrentAnimation->Frame = m_CurrentAnimation->Sequence->GetFrameCount() - 1;
+
+				else
+					m_CurrentAnimation->Frame = 0;
+			}
+
+			else
+			{
+				if (m_CurrentAnimation->Reverse)
+					m_CurrentAnimation->Frame = 0;
+
+				else
+					m_CurrentAnimation->Frame = m_CurrentAnimation->Sequence->GetFrameCount() - 1;
+			}
+
+			// 모션이 끝났다면 EndFunction이 있을 경우 호출한다.
+			if (m_CurrentAnimation->EndFunction)
+				m_CurrentAnimation->EndFunction();
+
+			if (m_CurrentAnimation->Loop)
+			{
+				size_t	Size = m_CurrentAnimation->vecNotify.size();
+
+				for (size_t i = 0; i < Size; ++i)
+				{
+					m_CurrentAnimation->vecNotify[i]->Call = false;
+				}
 			}
 		}
 	}

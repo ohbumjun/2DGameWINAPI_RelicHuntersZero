@@ -107,6 +107,8 @@ struct AnimationFrameData
 
 struct EGunInfo
 {
+	EItem_Type m_ItemType = EItem_Type::Item_Gun;
+	EGunClass m_GunClass;
 	EGun_Type m_GunType;
 	float m_Damage;
 	int   m_BulletsLoaded;

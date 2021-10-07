@@ -4,6 +4,7 @@
 #include "../Object/Player.h"
 #include "../Object/LaserObject.h"
 #include "../Scene/Camera.h"
+#include "../Object/Gun.h"
 #include "../Object/StageDoor.h"
 #include "../Object/EffectHit.h"
 #include "../UI/UICharacterStateHUD.h"
@@ -42,6 +43,12 @@ bool CHomeScene::Init()
 
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+
+	// Gun
+	// Start ==
+	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT);
+	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT, TEXT("images/Weapon/Gun/spr_pistol_0.bmp"));
+	GunPistolLight->SetPos(200.f,200.f);
 
 	return true;
 }

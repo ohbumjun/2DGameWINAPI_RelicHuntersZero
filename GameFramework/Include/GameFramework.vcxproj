@@ -161,6 +161,7 @@
     <ClCompile Include="Collision\CollisionManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\MapBase.cpp" />
     <ClCompile Include="Map\ScrollMap.cpp" />
@@ -219,6 +220,7 @@
   <ItemGroup>
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="Animation\AnimationInfo.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="NameInfo.h" />
     <ClInclude Include="Collision\Collider.h" />
     <ClInclude Include="Collision\ColliderBox.h" />

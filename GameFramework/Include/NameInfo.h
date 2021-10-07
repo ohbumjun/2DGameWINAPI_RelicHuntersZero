@@ -9,6 +9,14 @@
 #define BULLET_MEDIUM "BulletMedium"
 #define BULLET_HEAVY  "BulletHeavy"
 
+// Gun
+#define GUN_PISTOL_LIGHT  "PistolLight"
+#define GUN_PISTOL_MEDIUM  "PistolMedium"
+#define GUN_PISTOL_HEAVY  "PistolHeavy"
+#define GUN_SHOTGUN_LIGHT  "ShotGunLight"
+#define GUN_SHOTGUN_MEDIUM  "ShotGunMediun"
+#define GUN_SHOTGUN_HEAVY  "ShotGunHeavy"
+
 // Player  ---
 #define PLAYER_RIGHT_IDLE   "RightIdle"
 #define PLAYER_RIGHT_WALK   "RightWalk"
