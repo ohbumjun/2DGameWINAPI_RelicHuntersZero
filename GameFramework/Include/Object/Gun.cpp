@@ -63,8 +63,9 @@ void CGun::PostUpdate(float DeltaTime)
 	CGameObject::PostUpdate(DeltaTime);
 	if (m_Owner)
 	{
-		Vector2 OwnerDir = m_Owner->GetDir();
-		Vector2 OwnerPos = m_Owner->GetPos();
+		Vector2 OwnerDir  = m_Owner->GetDir();
+		Vector2 OwnerPos  = m_Owner->GetPos();
+		Vector2 OwnerSize = m_Owner->GetSize();
 
 		// 위치 조정 
 		SetPos(m_Owner->GetPos());
@@ -76,9 +77,15 @@ void CGun::PostUpdate(float DeltaTime)
 			SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
 		*/
 		if (OwnerDir.x < 0)
+		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
+			SetOffset(-OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+		}
 		else
+		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
+			SetOffset(OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+		}
 		
 	}
 }
@@ -95,6 +102,7 @@ void CGun::PrevRender()
 
 void CGun::Render(HDC hDC)
 {
+
 	CGameObject::Render(hDC);
 }
 

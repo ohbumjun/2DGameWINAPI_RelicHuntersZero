@@ -225,7 +225,7 @@ CGun* CCharacter::Equip(CGun* Gun)
 	Gun->SetOwner(this);
 	// 아래의 코드가 반드시 있어야 한다... 왜지 ?
 	// Gun->SetPos(m_Pos);
-	// Gun->SetOffset(0.f, -m_Size.y * 0.3);
+	Gun->SetOffset(m_Size.x * 0.1, -m_Size.y * 0.3);
 
 	return ExistingGun;
 }

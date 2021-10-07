@@ -721,6 +721,8 @@ void CPlayer::SkillSlowMotionAttackEnd()
 void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
+	if (!m_CurrentGun) return;
+
 	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
