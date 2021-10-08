@@ -55,8 +55,14 @@ private :
 	// 현재 선택한 Frame 번호
 	int m_SelectFrameIndex;
 
+	bool m_SideCollision;
+
 
 public :
+	bool GetSideCollision() const
+	{
+		return m_SideCollision;
+	}
 	ETileOption GetTileOption() const
 	{
 		// 선택한 idx를 return 해준다 
@@ -114,6 +120,9 @@ public :
 	void Save();
 	void Load();
 	void TileImageAllClear();
+
+	HWND m_SideCollisionCheckHandle;
+	void SideCollisionCheck();
 
 private :
 	// WindowProc is a user-defined callback function 

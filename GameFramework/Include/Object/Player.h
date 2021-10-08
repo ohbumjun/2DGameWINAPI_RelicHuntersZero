@@ -50,6 +50,7 @@ private:
 	virtual void Move(const Vector2 &Dir);
 	virtual void Move(const Vector2 &Dir, float Speed);
 	void ChangeMoveAnimation(); 
+	void JumpKey(float DeltaTime);
 
 // Run ---
 private:
@@ -117,7 +118,6 @@ private:
 	Vector2 m_TeleportPos;
 	float m_TelePortTime; // �ڷ���Ʈ ���콺 Ŀ���� ���� obj�� �����ֱ� ����
 	CTeleportMouse *m_TeleportObj;
-
 private:
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);

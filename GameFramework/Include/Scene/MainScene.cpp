@@ -52,10 +52,12 @@ bool CMainScene::Init()
 
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
+	/*
 	CMonster *Duck1Monster = CreateObject<CMonster>("Monster", MONSTER_DUCK1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	Duck1Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 							  NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	Duck1Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	*/
 
 	/*
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
@@ -85,7 +87,7 @@ bool CMainScene::Init()
 	// Tile Map
 	CTileMap *TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("MainMap.map");
-	TileMap->SetZOrder(1);
+	TileMap->SetZOrder(2);
 
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap

@@ -9,7 +9,8 @@ CTile::CTile() :
 	m_IndexX(0),
 	m_IndexY(0),
 	m_Index(0),
-	m_Option(ETileOption::Normal)
+	m_Option(ETileOption::Normal),
+	m_SideCollision(false)
 {
 }
 
@@ -55,7 +56,11 @@ void CTile::Render(HDC hDC)
 			Brush = CGameManager::GetInst()->GetGreenBrush();
 			break;
 		case ETileOption::Wall:
-			Brush = CGameManager::GetInst()->GetRedBrush();
+			if (m_SideCollision)
+				Brush = CGameManager::GetInst()->GetYellowBrush();
+
+			else
+				Brush = CGameManager::GetInst()->GetRedBrush();
 			break;
 		case ETileOption::Slow:
 			Brush = CGameManager::GetInst()->GetYellowBrush();
@@ -89,6 +94,7 @@ void CTile::Save(FILE* pFile)
 	fwrite(&m_StartFrame, sizeof(Vector2), 1, pFile);
 	fwrite(&m_EndFrame, sizeof(Vector2), 1, pFile);
 	fwrite(&m_Option, sizeof(ETileOption), 1, pFile);
+	fwrite(&m_SideCollision, sizeof(bool), 1, pFile);
 
 	if (m_Texture)
 	{
@@ -117,6 +123,7 @@ void CTile::Load(FILE* pFile)
 	fread(&m_StartFrame, sizeof(Vector2), 1, pFile);
 	fread(&m_EndFrame, sizeof(Vector2), 1, pFile);
 	fread(&m_Option, sizeof(ETileOption), 1, pFile);
+	fread(&m_SideCollision, sizeof(bool), 1, pFile);
 
 	bool	Tex = true;
 	fread(&Tex, sizeof(bool), 1, pFile);

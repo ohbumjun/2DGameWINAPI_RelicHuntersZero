@@ -54,8 +54,16 @@ protected :
 	bool m_IsGround;
 	float m_LifeTime;
 	bool m_FloorCheck;
+	// Whether SideCollision is Applied
+	// Bullet etc, should  not consider SideCollision with Wall
+	// Only Characters
+	bool m_SideWallCheck;
 
 public :
+	void SetSideWallCheck(bool Check)
+	{
+		m_SideWallCheck = Check;
+	}
 	void SetFloorCheck(bool Check)
 	{
 		m_FloorCheck = Check;

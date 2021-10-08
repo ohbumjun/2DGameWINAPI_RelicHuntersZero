@@ -415,7 +415,58 @@ void CScene::SetItemsAnimation()
 				j * 192.f, i * 192.f, 192.f, 192.f);
 		}
 	}
-
+	
+	// Potion
+	// HP
+	GetSceneResource()->CreateAnimationSequence(POTION_HP_ANIM,
+		POTION_HP_ANIM, TEXT("images/Items/HPPotion.bmp"));
+	GetSceneResource()->SetTextureColorKey(POTION_HP_ANIM,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(POTION_HP_ANIM,
+			i * 140.f, 0, 140.f, 70.f);
+	}
+	// MP
+	GetSceneResource()->CreateAnimationSequence(POTION_MP_ANIM,
+		POTION_MP_ANIM, TEXT("images/Items/MPPotion.bmp"));
+	GetSceneResource()->SetTextureColorKey(POTION_MP_ANIM,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(POTION_MP_ANIM,
+			i * 140.f, 0, 140.f, 70.f);
+	}
+	
+	// Surprise
+	GetSceneResource()->CreateAnimationSequence(SURPRISE_EFFECT,
+		SURPRISE_EFFECT, TEXT("images/Items/Surprise.bmp"));
+	GetSceneResource()->SetTextureColorKey(SURPRISE_EFFECT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 1 && j == 3) break;
+			GetSceneResource()->AddAnimationFrameData(SURPRISE_EFFECT,
+				j * 38.f, i * 54.f, 38.f, 54.f);
+		}
+	}
+	
+	// Hp, Mp Up
+	GetSceneResource()->CreateAnimationSequence(MPHPUP_EFFECT,
+		MPHPUP_EFFECT, TEXT("images/Items/HPMPUp.bmp"));
+	GetSceneResource()->SetTextureColorKey(MPHPUP_EFFECT,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i == 2 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(MPHPUP_EFFECT,
+				j * 58.f, i * 56.f, 58.f, 56.f);
+		}
+	}
 }
 
 void CScene::SetBulletsAnimation()

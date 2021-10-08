@@ -141,9 +141,14 @@ CTile* CTileMap::GetTile(const Vector2& Pos)
     return m_vecTile[IndexY * m_TileCountX + IndexX];
 }
 
+CTile* CTileMap::GetTile(int Index)
+{
+    return m_vecTile[Index];
+}
+
 CTile* CTileMap::GetTile(int IndexX, int IndexY)
 {
-    return m_vecTile[IndexX * m_TileCountX + IndexX];
+    return m_vecTile[IndexY * m_TileCountX + IndexX];
 }
 
 int CTileMap::GetTileIndexX(float PosX)
@@ -182,6 +187,14 @@ int CTileMap::GetOriginTileIndexX(float PosX)
 int CTileMap::GetOriginTileIndexY(float PosY)
 {
     return (int)(PosY/m_TileSize.y);
+}
+
+void CTileMap::ChangeTileSideCollision(const Vector2& Pos, bool SideCollision)
+{
+
+    CTile* Tile = GetTile(Pos);
+    if (!Tile) return;
+    Tile->SetSideCollision(SideCollision);
 }
 
 void CTileMap::Start()

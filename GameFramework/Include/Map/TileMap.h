@@ -52,12 +52,14 @@ public :
 		const Vector2& Pos,
 		const Vector2& Start, const Vector2& End);
 	CTile* GetTile(const Vector2& Pos);
+	CTile* GetTile(int Index);
 	CTile* GetTile(int IndexX, int IndexY);
 	int GetTileIndexX(float PosX);
 	int GetTileIndexY(float PosY);
 	int GetTileIndex(const Vector2& Pos);
 	int GetOriginTileIndexX(float PosX);
 	int GetOriginTileIndexY(float PosY);
+	void ChangeTileSideCollision(const Vector2& Pos,bool SideCollision);
 
 public :
 	virtual void Start();

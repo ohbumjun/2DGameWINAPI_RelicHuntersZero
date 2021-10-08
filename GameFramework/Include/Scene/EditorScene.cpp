@@ -74,9 +74,9 @@ bool CEditorScene::Update(float DeltaTime)
 	// Screen 좌표로 나온다
 	GetCursorPos(&ptMouse);
 
-	if (rc.left <= ptMouse.x
-		&& ptMouse.x <= rc.right &&
-		rc.top <= ptMouse.y &&
+	if (rc.left <= ptMouse.x && 
+		ptMouse.x <= rc.right && 
+		rc.top <= ptMouse.y && 
 		ptMouse.y <= rc.bottom)
 	{
 		// cursor가 Dialog 안에 들어온다면
@@ -186,6 +186,7 @@ void CEditorScene::MouseLButton(float DeltaTime)
 			// 어떤 Tile Option을 선택했는지
 			ETileOption Option = m_Dlg->GetTileOption();
 			m_TileMap->ChangeTileOption(MousePos, Option);
+			m_TileMap->ChangeTileSideCollision(MousePos,m_Dlg->GetSideCollision());
 		}
 			break;
 		case ETileEditMode::Image:

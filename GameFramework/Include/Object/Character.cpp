@@ -16,6 +16,7 @@ CCharacter::CCharacter() :
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
+
 	for (int i = 0; i < EGunClass::End; i++)
 	{
 		if (obj.m_GunEquipment[i])

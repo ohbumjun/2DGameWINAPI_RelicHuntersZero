@@ -122,12 +122,16 @@ bool CInput::Init(HWND hWnd)
 	m_MousePush = false;
 	m_MouseUp = false;
 
+	// Move
 	CreateKey("MoveUp", 'W');
 	CreateKey("MoveDown", 'S');
 	CreateKey("MoveLeft", 'A');
 	CreateKey("MoveRight", 'D');
-	CreateKey("Fire", VK_SPACE);
 
+	// Jump
+	CreateKey("Jump", VK_SPACE);
+
+	// Pause, Resume
 	CreateKey("Pause", 'P');
 	SetCtrlKey("Pause", true);
 	CreateKey("Resume", 'R');

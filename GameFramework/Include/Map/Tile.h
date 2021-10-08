@@ -19,40 +19,46 @@ private:
 	int		m_IndexY;
 	int		m_Index;
 	CSharedPtr<CTexture>	m_Texture;
-	ETileOption m_Option;
-	Vector2 m_StartFrame;
-	Vector2 m_EndFrame;
+	ETileOption	m_Option;
+	Vector2	m_StartFrame;
+	Vector2	m_EndFrame;
+	bool	m_SideCollision;
 
-public :
-	Vector2 GetPos() const
+public:
+	void SetSideCollision(bool SideCollision)
 	{
-		return m_Pos;
+		m_SideCollision = SideCollision;
 	}
-	Vector2 GetStartFrame() const
-	{
-		return m_StartFrame;
-	}
-	Vector2 GetEndFrame() const
-	{
-		return m_EndFrame;
-	}
+
 	void SetStartFrame(const Vector2& Frame)
 	{
 		m_StartFrame = Frame;
 	}
+
 	void SetEndFrame(const Vector2& Frame)
 	{
 		m_EndFrame = Frame;
 	}
 
-public :
-	ETileOption GetTileOption() const
+public:
+	bool GetSideCollision()	const
+	{
+		return m_SideCollision;
+	}
+
+	ETileOption GetTileOption()	const
 	{
 		return m_Option;
 	}
-	void SetTileOption(ETileOption Option)
+
+	Vector2 GetPos()	const
 	{
-		m_Option = Option;
+		return m_Pos;
+	}
+
+	Vector2 GetSize()	const
+	{
+		return m_Size;
 	}
 
 public:
@@ -74,13 +80,18 @@ public:
 		m_Texture = Texture;
 	}
 
+	void SetTileOption(ETileOption Option)
+	{
+		m_Option = Option;
+	}
+
 public:
 	bool Init();
 	void Update(float DeltaTime);
 	void PostUpdate(float DeltaTime);
 	void PrevRender();
 	void Render(HDC hDC);
-	void Save(FILE* File);
-	void Load(FILE* File);
+	void Save(FILE* pFile);
+	void Load(FILE* pFile);
 };
 

@@ -40,7 +40,6 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 			
 {
 	m_ObjType = EObject_Type::Player;
-
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -112,8 +111,8 @@ void CPlayer::Start()
 											this, &CPlayer::SkillDestroyAllAttack);
 
 	// Move
-	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
-											this, &CPlayer::MoveUp);
+	//CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
+	//										this, &CPlayer::MoveUp);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveDown", KeyState_Push,
 											this, &CPlayer::MoveDown);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveLeft", KeyState_Push,
@@ -121,6 +120,10 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("MoveRight", KeyState_Push,
 											this, &CPlayer::MoveRight);
 
+	// Jump
+	CInput::GetInst()->SetCallback<CPlayer>("Jump", KeyState_Push,
+		this, &CPlayer::JumpKey);
+	
 	// Run
 	CInput::GetInst()->SetCallback<CPlayer>("RunUp", KeyState_Push,
 											this, &CPlayer::RunUp);
@@ -196,7 +199,7 @@ bool CPlayer::Init()
 	CreateAnimation();
 
 	// Right
-	AddAnimation(PLAYER_RIGHT_IDLE);
+	AddAnimation(PLAYER_RIGHT_IDLE,true, 2.f);
 	AddAnimation(PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
@@ -264,11 +267,10 @@ bool CPlayer::Init()
 
 	// 수업용 : 물리 적용
 	// SetGravityAccel();
-	/*
 	SetPhysicsSimulate(true);
-	SetJumpVelocity(150.f);
-	m_IsGround = false;
-	*/
+	SetJumpVelocity(50.f);
+	SetSideWallCheck(true);
+
 	return true;
 }
 
@@ -568,6 +570,11 @@ void CPlayer::ChangeMoveAnimation()
 		ChangeAnimation(PLAYER_LEFT_WALK);
 	else
 		ChangeAnimation(PLAYER_RIGHT_WALK);
+}
+
+void CPlayer::JumpKey(float DeltaTime)
+{
+	Jump();
 }
 
 void CPlayer::RunLeft(float DeltaTime)
@@ -976,10 +983,10 @@ void CPlayer::AcquireItem(float DeltaTime)
 		if (Potion)
 		{
 			EPotion_Type PType = Potion->GetPotionType();
-			if (PType == EPotion_Type::HP)
-				m_CharacterInfo.HP = m_CharacterInfo.HPMax;
-			else
-				m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+			//if (PType == EPotion_Type::HP)
+				//m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+			//else
+				//m_CharacterInfo.MP = m_CharacterInfo.MPMax;
 			// Potion->Destroy();
 			break;
 			return;

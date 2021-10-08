@@ -109,7 +109,6 @@ bool CEditorDlg::Init(int ID)
 
 	m_TileEditMode = ETileEditMode::Option;
 
-
 	m_TileOptionCombo = GetDlgItem(m_hDlg, IDC_COMBO_TILEOPTION);
 
 	TCHAR	TileOptionText[(int)ETileOption::End][30] =
@@ -127,6 +126,9 @@ bool CEditorDlg::Init(int ID)
 	SendMessage(m_TileOptionCombo, CB_SETCURSEL, 0, 0);
 
 	m_TileOption = ETileOption::Normal;
+
+	m_SideCollisionCheckHandle = GetDlgItem(m_hDlg,IDC_CHECK_SIDECOLLISION);
+	m_SideCollision = false;
 
 	return true;
 }
@@ -153,8 +155,8 @@ void CEditorDlg::CreateMap()
 	// 4번째 인자 : 부호가 있느냐 
 	int	TileCountX = GetDlgItemInt(m_hDlg, IDC_EDIT_TILECOUNTX, &Transfer, TRUE);
 	int	TileCountY = GetDlgItemInt(m_hDlg, IDC_EDIT_TILECOUNTY, &Transfer, TRUE);
-	int	TileSizeX = GetDlgItemInt(m_hDlg, IDC_EDIT_TILESIZEX, &Transfer, TRUE);
-	int	TileSizeY = GetDlgItemInt(m_hDlg, IDC_EDIT_TILESIZEY, &Transfer, TRUE);
+	int	TileSizeX  = GetDlgItemInt(m_hDlg, IDC_EDIT_TILESIZEX, &Transfer, TRUE);
+	int	TileSizeY  = GetDlgItemInt(m_hDlg, IDC_EDIT_TILESIZEY, &Transfer, TRUE);
 
 	m_Scene->CreateTileMap();
 
@@ -191,7 +193,8 @@ void CEditorDlg::LoadTileTexture()
 
 		// 위에서 OpenFile을 통해 선택해서 얻어온 파일정보에서, 이름만 빼내오는 코드 
 		// FileNAme이라는 변수에 정보를 넣는다 
-		_wsplitpath_s(FilePath, nullptr, 0, nullptr, 0, FileName, 128, nullptr, 0);
+		_wsplitpath_s(FilePath, nullptr, 0, nullptr, 0, 
+			FileName, 128, nullptr, 0);
 
 		char	TextureName[256] = {};
 #ifdef UNICODE
@@ -269,8 +272,7 @@ void CEditorDlg::SelectList()
 	// 선택한 애를 얻어오겠다 
 	m_SelectTextureListIndex = (int)SendMessage(m_TextureListBox,
 		LB_GETCURSEL,
-		0,0
-		);
+		0,0);
 
 	if (m_SelectTextureListIndex != -1)
 	{
@@ -459,6 +461,23 @@ void CEditorDlg::TileImageAllClear()
 	m_Scene->TileImageAllClear();
 }
 
+void CEditorDlg::SideCollisionCheck()
+{
+	// Check 여부만 판단하기 
+	if (SendMessage(
+		m_SideCollisionCheckHandle,
+		BM_GETCHECK,0,0
+	) == BST_UNCHECKED)
+	{
+		m_SideCollision = false;
+	}
+	else
+	{
+		m_SideCollision = true;
+	}
+
+}
+
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -539,12 +558,13 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		case IDC_BUTTON_IMAGECLEAR:
 			g_Dlg->TileImageAllClear();
 			break;
-		default:
+		case IDC_CHECK_SIDECOLLISION :
+			g_Dlg->SideCollisionCheck();
 			break;
 		}
+		break;
 	default:
 		break;
 	}
-
 	return 0;
 }

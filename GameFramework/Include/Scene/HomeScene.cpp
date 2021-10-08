@@ -5,6 +5,7 @@
 #include "../Object/LaserObject.h"
 #include "../Scene/Camera.h"
 #include "../Object/Gun.h"
+#include "../Object/Monster.h"
 #include "../Object/StageDoor.h"
 #include "../Object/EffectHit.h"
 #include "../Object/MPPotion.h"
@@ -48,13 +49,15 @@ bool CHomeScene::Init()
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 
+	// Monster
+	CMonster* Duck1Monster = CreateObject<CMonster>("Monster", MONSTER_DUCK1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	Duck1Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	Duck1Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
-	// Gun
-	// Start ==
-	
 
 	return true;
 }

@@ -29,8 +29,11 @@ CGameObject::CGameObject()	:
 	m_StunDir{},
 	m_StunEnable(false),
 	m_StunTime(0.f),
-	m_MoveSpeed(NORMAL_SPEED)
+	m_MoveSpeed(NORMAL_SPEED),
+	m_SideWallCheck(false)
 {
+	// 시작할 때 -1로 준다 
+	m_PrevPos.y = -1.f;
 }
 
 CGameObject::CGameObject(const CGameObject& obj)	:
@@ -49,6 +52,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	m_PhysicsSimulate = obj.m_PhysicsSimulate;
 	m_DamageEnable = obj.m_DamageEnable;
 	m_ObjType = obj.m_ObjType;
+	m_SideWallCheck = obj.m_SideWallCheck;
 
 	// 얘는 무조건 false로 세팅해둬야 한다.
 	m_Start = false;
@@ -593,80 +597,309 @@ void CGameObject::PostUpdate(float DeltaTime)
 		if (m_StunTime < 0.f) StunEnd();
 	}
 
-
-	// 수업용 : 중력 적용하기 
-
-	CTileMap* TileMap = m_Scene->GetTileMap();
-	if (TileMap && !m_IsGround && m_Pos.y - m_PrevPos.y > 0.f)
+	// 수업용 : Side Collision 적용하기
+	float DirX = m_Pos.x - m_PrevPos.x;
+	// 이동을 하고 있다라는 의미 ( 왼쪽이던, 오른쪽이던 )
+	// SideWallCollision을 고려하는 Object일 경우 
+	if (DirX != 0.f && m_SideWallCheck)
 	{
-		// 아래로 떨어지고 있다는 의미 
-		// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
-		int PrevIndexX, PrevIndexY, IndexX, IndexY;
+		int LTIndexX, LTIndexY, RBIndexX, RBIndexY;
+		CTileMap* TileMap = m_Scene->GetTileMap();
 
-		// 또한, 해당 player가 Prev , Pos 둘다
-		// 아예 화면 밖으로 나갈 경우가 있을 수도 있다
-		// ( 거의 그럴 일은 없겠지만 )
-		if((TileMap->GetOriginTileIndexX(m_PrevPos.x) != -1 &&
-			TileMap->GetOriginTileIndexX(m_Pos.x)) ||
-			(TileMap->GetOriginTileIndexY(m_PrevPos.y) != -1 &&
-				TileMap->GetOriginTileIndexY(m_Pos.y)))
+		// 좌상단, 우하단 위치 구하기 
+		// 충돌해서 겹치는 부분의 
+		Vector2 PrevLT = m_PrevPos - m_Pivot * m_Size;
+		Vector2 PrevRB = PrevLT + m_Size;
+		Vector2 LT = m_Pos - m_Pivot * m_Size;
+		Vector2 RB = LT +  m_Size;
+
+
+		// Side Collision 여부 
+		bool	SideCollision = false;
+
+		// 오른쪽으로 이동할때
+		if (DirX > 0.f)
 		{
-			Vector2 PrevBottomPos = m_PrevPos;
-			Vector2 BottomPos = m_Pos;
+			Vector2 resultLT, resultRB;
+			resultLT = LT;
+			resultRB = RB;
 
-			PrevBottomPos.y = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
-			BottomPos.y		= m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+			resultLT.x = PrevRB.x;
+			// 둘중 작은 거 ( top )
+			resultLT.y = LT.y < PrevLT.y ? LT.y : PrevLT.y;
+			// 둘중 큰거 ( bottom )
+			resultRB.y = RB.y > PrevLT.y ? LT.y : PrevLT.y;
+			
+			// LT ,RB 영억이 바로 충돌 영역 
+			// 이 부분에 있는 tile 들을 구해줄 것이다
+			LTIndexX = TileMap->GetOriginTileIndexX(resultLT.x);
+			LTIndexY = TileMap->GetOriginTileIndexY(resultLT.y);
+			RBIndexX = TileMap->GetOriginTileIndexX(resultRB.x);
+			RBIndexY = TileMap->GetOriginTileIndexY(resultRB.y);
 
-			PrevIndexX = TileMap->GetOriginTileIndexX(PrevBottomPos.x);
-			PrevIndexY = TileMap->GetOriginTileIndexY(PrevBottomPos.y);
-			IndexX = TileMap->GetOriginTileIndexX(BottomPos.x);
-			IndexY = TileMap->GetOriginTileIndexY(BottomPos.y);
-			if (IndexX < 0)
-				IndexX = 0;
-			else if (IndexX >= TileMap->GetTileCountX())
-				IndexX = TileMap->GetTileCountX() - 1;
-			if (IndexY < 0)
-				IndexY = 0;
-			else if (IndexY >= TileMap->GetTileCountY())
-				IndexY = TileMap->GetTileCountY() - 1;
+			// 범위 제한 ( 혹시나 )
+			LTIndexX = LTIndexX < 0 ? 0 : LTIndexX;
+			LTIndexY = LTIndexY < 0 ? 0 : LTIndexY;
 
-			if (PrevIndexX < 0)
-				PrevIndexX = 0;
-			else if (PrevIndexX >= TileMap->GetTileCountX())
-				PrevIndexX = TileMap->GetTileCountX() - 1;
-			if (PrevIndexY < 0)
-				PrevIndexY = 0;
-			else if (PrevIndexY >= TileMap->GetTileCountY())
-				PrevIndexY = TileMap->GetTileCountY() - 1;
+			RBIndexX = RBIndexX > TileMap->GetTileCountX() - 1 ? TileMap->GetTileCountX() - 1 : RBIndexX;
+			RBIndexY = RBIndexY > TileMap->GetTileCountY() - 1 ? TileMap->GetTileCountY() - 1 : RBIndexY;
 
-			// 위에서 아래로 반복한다
-			// 위쪽의 타일이 Y 인덱스가 더 작으므로
-			// 작은 인덱스에서 큰 인덱스 순서로 
-			// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
 
-			// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
-			// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
-			// 크고 작음이 결정된다.
-			int MinY = IndexY < PrevIndexY ? IndexY : PrevIndexY;
-			int MaxY = IndexY > PrevIndexY ? IndexY : PrevIndexY;
-			int MinX = IndexX < PrevIndexX ? IndexX : PrevIndexX;
-			int MaxX = IndexX > PrevIndexX ? IndexX : PrevIndexX;
-			bool Check = false;
-			for (int i = MinY; i <= MaxY; i++)
+			for (int i = LTIndexY; i <= RBIndexY; ++i)
 			{
-				for (int j = MinX; j <= MaxX; j++)
+				for (int j = LTIndexX; j <= RBIndexX; ++j)
 				{
-					if (TileMap->GetTile(j, i)->GetTileOption() == ETileOption::Wall)
+					// Tile의 일차원 배열상의 idx 
+					int	Index = i * TileMap->GetTileCountX() + j;
+
+					// 벽이 아니거나, Side Collision 가 false 일 경우, 
+					// Side Collision을 할 필요 없으므로, continue
+					if (TileMap->GetTile(Index)->GetTileOption() !=
+						ETileOption::Wall ||
+						!TileMap->GetTile(Index)->GetSideCollision())
+						continue;
+
+					// 해당 Tile의 위치, size 정보를 가져온다 
+					// TilePos : Tile의 위쪽을 의미한다 
+					Vector2	TilePos = TileMap->GetTile(Index)->GetPos();
+					Vector2	TileSize = TileMap->GetTile(Index)->GetSize();
+
+					// Side Collision을 고려 중
+					// Player가 위에 거의 딱 붙어있는 경우 제외 시키기 
+					// 즉, Tile의 윗면과 거의 차이가 없을 때 제외 
+					if (TilePos.y - 0.001f <= RB.y && 
+						RB.y <= TilePos.y + 0.001f)
+						continue;
+
+					// 가로 길이
+					float Width = RB.x - TilePos.x;
+
+					// 이 가로 길이가 너무 크다면 ? 
+					// 충돌을 무시해준다 
+					// DeltaTime을 이용하여 움직이는 중인데
+					// 8이라는 것은 매우 큰 것이다
+					if (Width > 8.f)
+						continue;
+
+					// 렉트충돌
+					if (LT.x <= TilePos.x + TileSize.x &&
+						LT.y <= TilePos.y + TileSize.y &&
+						RB.x >= TilePos.x && 
+						RB.y >= TilePos.y)
 					{
-						Check = true;
-						// m_Pos : 발의 위치 
-						m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
-						m_IsGround = true;
-						break;
+						SideCollision = true;
+
+						// TilePos는 Tile의 왼쪽 상단
+						// RB : 오른쪽 아래 
+						// 즉, 충돌한 정도만큼, 오른쪽으로 밀어내려는 것이다 
+						// MoveX는 - 값이 나오게 될 것이다 
+						float	MoveX = TilePos.x - RB.x - 0.001f;
+
+						//Move(Vector2(MoveX, 0.f));
+						m_Pos.x += MoveX;
+						m_Velocity.x += MoveX;
 					}
 				}
-				if (Check) break;
+				if (SideCollision)
+					break;
 			}
+		}
+		// 왼쪽으로 이동할때
+		else
+		{
+			Vector2 resultLT, resultRB;
+			resultLT = LT;
+			resultRB = RB;
+
+			// 둘중 작은 거 ( top )
+			resultLT.y = LT.y < PrevLT.y ? LT.y : PrevLT.y;
+			// 둘중 큰거 ( bottom )
+			resultRB.y = RB.y > PrevLT.y ? LT.y : PrevLT.y;
+			resultRB.x = PrevLT.x;
+
+			// LT ,RB 영억이 바로 충돌 영역 
+			// 이 부분에 있는 tile 들을 구해줄 것이다
+			LTIndexX = TileMap->GetOriginTileIndexX(resultLT.x);
+			LTIndexY = TileMap->GetOriginTileIndexY(resultLT.y);
+			RBIndexX = TileMap->GetOriginTileIndexX(resultRB.x);
+			RBIndexY = TileMap->GetOriginTileIndexY(resultRB.y);
+
+			// 범위 제한 ( 혹시나 )
+			LTIndexX = LTIndexX < 0 ? 0 : LTIndexX;
+			LTIndexY = LTIndexY < 0 ? 0 : LTIndexY;
+
+			RBIndexX = RBIndexX > TileMap->GetTileCountX() - 1 ? TileMap->GetTileCountX() - 1 : RBIndexX;
+			RBIndexY = RBIndexY > TileMap->GetTileCountY() - 1 ? TileMap->GetTileCountY() - 1 : RBIndexY;
+
+			// 가로 길이
+			float Width = RB.x - LT.x;
+
+			// 이 가로 길이가 너무 크다면 ? 
+			// 충돌을 무시해준다 
+			// DeltaTime을 이용하여 움직이는 중인데
+			// 8이라는 것은 매우 큰 것이다
+			
+			for (int i = LTIndexY; i <= RBIndexY; ++i)
+			{
+				for (int j = RBIndexX; j >= LTIndexX; --j)
+				{
+					int	Index = i * TileMap->GetTileCountX() + j;
+
+					if (TileMap->GetTile(Index)->GetTileOption() !=
+						ETileOption::Wall ||
+						!TileMap->GetTile(Index)->GetSideCollision())
+						continue;
+
+					// 해당 Tile의 위치, size 정보를 가져온다 
+					// TilePos : Tile의 위쪽을 의미한다 
+					Vector2	TilePos = TileMap->GetTile(Index)->GetPos();
+					Vector2	TileSize = TileMap->GetTile(Index)->GetSize();
+
+					// Side Collision을 고려 중
+					// Player가 위에 거의 딱 붙어있는 경우 제외 시키기 
+					// 즉, Tile의 윗면과 거의 차이가 없을 때 제외 
+					if (TilePos.y - 0.001f <= RB.y &&
+						RB.y <= TilePos.y + 0.001f)
+						continue;
+
+					// 가로 길이 ( 파고든 정도 ) 
+					float Width = (TilePos.x+TileSize.x) - resultLT.x;
+
+					// 이 가로 길이가 너무 크다면 ? 
+					// 충돌을 무시해준다 
+					// DeltaTime을 이용하여 움직이는 중인데
+					// 8이라는 것은 매우 큰 것이다
+					if (Width > 8.f)
+						continue;
+
+					// 렉트충돌
+					if (LT.x <= TilePos.x + TileSize.x &&
+						LT.y <= TilePos.y + TileSize.y &&
+						RB.x >= TilePos.x && RB.y >= TilePos.y)
+					{
+						SideCollision = true;
+
+						// 오른쪽으로 밀리게 만들어준다
+						// MoveX는 + 값이 나오게 될 것이다 
+						// LT : 왼쪽 위 
+						float	MoveX = TilePos.x + TileSize.x - LT.x + 0.001f;
+
+						//Move(Vector2(MoveX, 0.f));
+						m_Pos.x += MoveX;
+						m_Velocity.x += MoveX;
+					}
+				}
+				if (SideCollision)
+					break;
+			}
+		}
+	}
+
+	// 수업용 : 중력 적용하기 
+	CTileMap* TileMap = m_Scene->GetTileMap();
+
+	if (TileMap && 
+		m_PhysicsSimulate && 
+		m_Pos.y - m_PrevPos.y >= 0.f)
+	{
+		// y값이 같을 경우는, 땅위를 걷고 있는 것으로 판단한다
+		// 그러므로, 이 경우에는 바닥을 체크하고
+		// 위로 올라가는 경우에는, 
+		// 체크를 안한다. 
+
+		float PrevBottom = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
+		float CurBottom = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+		float PrevLeft  = m_PrevPos.x - m_Pivot.x * m_Size.x;
+		float CurLeft   = m_Pos.x - m_Pivot.x * m_Size.x;
+		float PrevRight = PrevLeft + m_Size.x;
+		float CurRight = CurLeft + m_Size.x;
+
+		// 둘중 작은 것 
+		float resultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
+		// 둘중 큰 거 
+		float resultRight = PrevRight > CurRight ? PrevRight : CurRight;
+		// 둘중 작은 거
+		float resultTop    = PrevBottom < CurBottom ? PrevBottom : CurBottom;
+		// 둘중 큰 거 
+		float resultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
+
+		// 아래로 떨어지고 있다는 의미 
+		// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+
+		LeftIndexX     = TileMap->GetOriginTileIndexX(resultLeft);
+		TopIndexY      = TileMap->GetOriginTileIndexY(resultTop);
+		RightIndexX    = TileMap->GetOriginTileIndexX(resultRight);
+		BottomIndexY   = TileMap->GetOriginTileIndexY(resultBottom);
+
+		if (LeftIndexX < 0)
+			LeftIndexX = 0;
+		else if (RightIndexX >= TileMap->GetTileCountX())
+			RightIndexX = TileMap->GetTileCountX() - 1;
+		if (TopIndexY < 0)
+			TopIndexY = 0;
+		else if (BottomIndexY >= TileMap->GetTileCountY())
+			BottomIndexY = TileMap->GetTileCountY() - 1;
+
+		// 위에서 아래로 반복한다
+		// 위쪽의 타일이 Y 인덱스가 더 작으므로
+		// 작은 인덱스에서 큰 인덱스 순서로 
+		// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
+
+		// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
+		// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
+		// 크고 작음이 결정된다.
+
+		bool Check = false;
+		// 위에서부터 아래로 차례로 검사한다 
+		for (int i = TopIndexY; i <= BottomIndexY; i++)
+		{
+			for (int j = LeftIndexX; j <= RightIndexX; j++)
+			{
+				// 이전 위치의 Bottom이 무조건 위일 것이다
+				// 내려가는 것이기 때문이다
+				// 만약 이전 위치의 Bottom이 Top보다 클 경우 무시
+				if (TileMap->GetTile(j, i)->GetPos().y < PrevBottom)
+					continue;
+
+				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+				if (TileOption == ETileOption::Wall)
+				{
+					Check = true;
+					// m_Pos : 발의 위치 
+					m_Pos.y    = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+					m_IsGround = true;
+					m_Jump     = false; // 바닥에 붙어있으면 jump는 false로 
+					m_FallTime = 0.f;
+					break;
+				}
+			}
+			if (Check) { break; }
+		}
+		if (!Check)
+		{
+			if (m_IsGround)
+			{
+				// True 였다가, False로 바뀌는 이 순간에
+				// m_FallTime, m_FallStartY를 초기화
+				// 왜 ? 
+				// 현재 이 괄호 영역안의 의미는
+				// 떨어지고 있지 않고, 현재 바닥에 붙어있는 경우
+				// 그러면, 떨어졌다가, 바닥에 닿고
+				// 그 바닥에서 다시 떨어진다고 가정할 때 
+				// 다시 처음부터 천천히, 중력을 처음으로 적용해야
+				// 그런데, 만약 여기서 초기화 해주지 않으면
+				// m_FallTime은 계속 누적되기 때문에
+				// 바닥에 닿은 다음, 또 다시 떨어질 때
+				// 이전에 누적된 m_FallTime 으로 인해
+				// 커진 Velocity에 의해
+				// 추락하는 속도가 엄청 커진다
+				// 따라서 이 영역에서 
+				// 초기화를 해주어야 한다 
+				m_FallTime = 0.f;
+				m_FallStartY = m_Pos.y;
+			}
+			m_IsGround = false;
 		}
 	}
 }

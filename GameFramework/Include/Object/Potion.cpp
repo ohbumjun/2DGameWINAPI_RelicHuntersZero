@@ -86,6 +86,7 @@ void CPotion::Collision(float DeltaTime)
 		if (Player)
 		{
 			// 일정 시간동안, Player HP를 올려준다 
+			/*
 			if (!m_PotionPause)
 			{
 				EPotion_Type PotionType = GetPotionType();
@@ -100,9 +101,10 @@ void CPotion::Collision(float DeltaTime)
 				m_PotionPause = true;
 				m_PotionPauseTime = 1.f;
 			}
+				*/
 		}
 	}
-}
+};
 
 void CPotion::Render(HDC hDC)
 {

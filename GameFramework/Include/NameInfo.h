@@ -1,13 +1,20 @@
 #pragma once
 
 // Effect ---
-#define DASH_EFFECT   "DashEffect"
-#define HIT_EFFECT    "HitEffect"
+#define DASH_EFFECT      "DashEffect"
+#define HIT_EFFECT       "HitEffect"
+#define SURPRISE_EFFECT  "Surprise"
+#define MPHPUP_EFFECT    "HitEffect"
 
 // Bullet 
 #define BULLET_LIGHT  "BulletLight"
 #define BULLET_MEDIUM "BulletMedium"
 #define BULLET_HEAVY  "BulletHeavy"
+
+// Potion
+#define POTION_MP_ANIM  "BulletHeavy"
+#define POTION_HP_ANIM "BulletHeavy"
+
 
 // Gun
 #define GUN_PISTOL_LIGHT     "PistolLight"
