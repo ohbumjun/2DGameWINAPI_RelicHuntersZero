@@ -61,6 +61,8 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 
 	if (obj.m_Animation)
 		m_Animation = obj.m_Animation->Clone();
+	else
+		m_Animation = nullptr;
 
 	if(m_Animation)
 		m_Animation->m_Owner = this;

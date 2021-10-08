@@ -229,17 +229,7 @@ void CMonster::AttackEnd()
 
 void CMonster::Fire()
 {
-	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-		MONSTER_BULLET_PROTO, Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
-		Vector2(50.f, 50.f));
-	// Bullet Damage
-	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-	// Speed 
-	Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
-	// Bullet Dir 
 	CGameObject* Player = m_Scene->GetPlayer();
-	float Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
-	Bullet->SetDir(Angle);
 }
 
 void CMonster::Move(const Vector2& Dir)

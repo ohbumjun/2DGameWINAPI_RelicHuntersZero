@@ -107,5 +107,6 @@ protected :
 			m_Size.y = (float)m_Texture->GetHeight();
 		}
 	}
+public:
 	CGun* Equip(CGun* Gun);
 };

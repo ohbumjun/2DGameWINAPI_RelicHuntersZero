@@ -858,7 +858,7 @@ void CScene::SetBasicProtoTypes()
 	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>(POTION_MP_PROTO);
 	CHPPotion* HPPotionPrototype = CreatePrototype<CHPPotion>(POTION_HP_PROTO);
 	// Guns
-	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT);
+	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
@@ -867,7 +867,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_LIGHT_R);
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_MEDIUM);
+	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_MEDIUM_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_R, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
@@ -878,7 +878,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_HEAVY);
+	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_HEAVY_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_R, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
@@ -889,7 +889,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_LIGHT);
+	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_LIGHT_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_R, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
@@ -900,7 +900,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_MEDIUM);
+	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_MEDIUM_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_R, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
@@ -911,7 +911,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_HEAVY);
+	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_HEAVY_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_R, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
 	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));

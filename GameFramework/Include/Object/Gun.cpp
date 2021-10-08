@@ -55,6 +55,24 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
+
+	CScene* Scene = m_Owner->GetScene();
+	Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(MONSTER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
+		MONSTER_BULLET_PROTO,
+		Vector2(m_Pos + BulletOffset),
+		Vector2(50.f, 50.f));
+	// Bullet Damage
+	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
+	// Speed 
+	Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
+	// Bullet Dir 
+	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
+	Bullet->SetDir(Angle);
+
+	// Collision Profile
+	CCollider* BulletBody = Bullet->FindCollider("Body");
+	BulletBody->SetCollisionProfile("MonsterAttack");
 }
 
 void CGun::Start()
@@ -65,7 +83,7 @@ bool CGun::Init()
 {
 	if (!CGameObject::Init()) return false;
 
-	CreateAnimation();
+	// CreateAnimation();
 
 	SetPivot(0.5f, 0.5f);
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");

@@ -67,7 +67,6 @@ bool CSceneManager::ChangeScene()
 		// m_Scene에 있는 기존 resource를 모두 지운 다음
 		// 그 다음 m_NextScene을 init 해주어야 한다 
 		m_NextScene->Init();
-
 		// 생성되어 있는 다음 장면을 기존 장면으로 지정한다.
 		m_Scene = m_NextScene;
 		// 변수를 초기화한다.
