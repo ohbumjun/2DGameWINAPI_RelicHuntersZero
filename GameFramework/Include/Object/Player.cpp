@@ -111,8 +111,8 @@ void CPlayer::Start()
 											this, &CPlayer::SkillDestroyAllAttack);
 
 	// Move
-	//CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
-	//										this, &CPlayer::MoveUp);
+	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
+											this, &CPlayer::MoveUp);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveDown", KeyState_Push,
 											this, &CPlayer::MoveDown);
 	CInput::GetInst()->SetCallback<CPlayer>("MoveLeft", KeyState_Push,
@@ -206,7 +206,7 @@ bool CPlayer::Init()
 	AddAnimation(PLAYER_RIGHT_RUN, true, 0.6f);
 
 	// Left
-	AddAnimation(PLAYER_LEFT_IDLE);
+	AddAnimation(PLAYER_LEFT_IDLE, true, 2.f);
 	AddAnimation(PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
@@ -267,9 +267,11 @@ bool CPlayer::Init()
 
 	// 수업용 : 물리 적용
 	// SetGravityAccel();
+	/*
 	SetPhysicsSimulate(true);
 	SetJumpVelocity(50.f);
 	SetSideWallCheck(true);
+	*/
 
 	return true;
 }

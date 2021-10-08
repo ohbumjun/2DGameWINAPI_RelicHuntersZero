@@ -130,8 +130,6 @@ struct CharacterInfo
 	int Gold;
 	float AttackSpeed;
 	float AttackDistance;
-	// Monster Dash to Player if Player exist inside DashDistance
-	float DashDistance;
 };
 
 struct CollisionProfile

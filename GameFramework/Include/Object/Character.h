@@ -30,7 +30,6 @@ public :
 		m_CharacterInfo.Gold = Gold;
 		m_CharacterInfo.AttackSpeed = AttackSpeed;
 		m_CharacterInfo.AttackDistance = AttackDistance;
-		m_CharacterInfo.DashDistance = DashDistance;
 	}
 	// Get
 	void SetAttackSpeed(float Speed)

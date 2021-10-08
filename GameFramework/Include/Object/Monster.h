@@ -17,6 +17,9 @@ private:
 	Vector2 m_MoveTargetPos;
 	int		m_Count;
 	EMonster_Type m_MonsterType;
+	EMonsterAI m_AI;
+	float m_DashDistance;
+	float m_AttackDistance;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
@@ -50,6 +53,7 @@ public :
 public :
 	void ChangeIdleAnimation();
 	void ChangeWalkAnimation();
+	void ChangeTraceAnimation();
 
 // Random Dir Setting
 private :
@@ -61,5 +65,11 @@ private :
 	void SetAnimNames();
 	void SetDuck1Animation();
 	void SetDuck1AnimName();
+private :
+	void AIIdle(float DeltaTime);
+	void AIWalk(float DeltaTime);
+	void AITrace(float DeltaTime, Vector2 PlayerPos);
+	void AIAttack(float DeltaTime, Vector2 PlayerPos);
+	void AIDeath(float DeltaTime);
 };
 

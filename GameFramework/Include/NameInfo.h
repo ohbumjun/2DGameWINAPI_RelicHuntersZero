@@ -98,7 +98,6 @@
 #define MONSTER_RIGHT_HIT     "RightHit"
 
 // Duck1 
-
 #define MONSTER_DUCK1_RIGHT_IDLE   "Duck1RightIdle"
 #define MONSTER_DUCK1_RIGHT_WALK   "Duck1RightWalk"
 #define MONSTER_DUCK1_RIGHT_RUN    "Duck1RightRun"

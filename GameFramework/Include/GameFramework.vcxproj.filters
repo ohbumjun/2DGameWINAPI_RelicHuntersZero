@@ -112,6 +112,9 @@
     <Filter Include="02. Inventory">
       <UniqueIdentifier>{44df73ff-12fe-4a33-8571-de62bc986b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\01. Character\01. Monster">
+      <UniqueIdentifier>{fe348a0a-2650-44b6-8bc9-764ab6fe0c0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>01. GameManager\02. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Monster.cpp">
-      <Filter>03. Object\01. Character</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>01. GameManager\04. Input</Filter>
@@ -303,6 +303,15 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>02. Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Monster.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\DuckMonster.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\TurtleMonster.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -340,9 +349,6 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>01. GameManager\02. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Monster.h">
-      <Filter>03. Object\01. Character</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>01. GameManager\04. Input</Filter>
@@ -541,6 +547,15 @@
     </ClInclude>
     <ClInclude Include="Object\Gun.h">
       <Filter>03. Object\05. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Monster.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TurtleMonster.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DuckMonster.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
