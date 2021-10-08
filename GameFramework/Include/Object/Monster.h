@@ -20,6 +20,8 @@ private:
 	EMonsterAI m_AI;
 	float m_DashDistance;
 	float m_AttackDistance;
+	bool m_AttackEnable;
+	float m_AttackPauseTime;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
@@ -45,6 +47,11 @@ public:
 	virtual float SetDamage(float Damage);
 	virtual void CharacterDestroy();
 
+// Attack
+public :
+	void AttackEnd();
+	void Fire();
+
 // Move
 public :
 	virtual void Move(const Vector2& Dir);
@@ -65,6 +72,7 @@ private :
 	void SetAnimNames();
 	void SetDuck1Animation();
 	void SetDuck1AnimName();
+// AI
 private :
 	void AIIdle(float DeltaTime);
 	void AIWalk(float DeltaTime);

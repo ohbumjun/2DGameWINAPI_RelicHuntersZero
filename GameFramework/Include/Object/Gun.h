@@ -13,6 +13,7 @@ private :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
 	const char* m_TextureImgNames[2];
+	int m_BulletNums;
 public :
 	/*
 	

@@ -312,6 +312,21 @@
     <ClCompile Include="Object\TurtleMonster.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Object\LightBullet.cpp">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\HeavyBullet.cpp">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MediumBullet.cpp">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ShotGun.cpp">
+      <Filter>03. Object\05. Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\PistolGun.cpp">
+      <Filter>03. Object\05. Gun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -556,6 +571,21 @@
     </ClInclude>
     <ClInclude Include="Object\DuckMonster.h">
       <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\LightBullet.h">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MediumBullet.h">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\HeavyBullet.h">
+      <Filter>03. Object\02. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ShotGun.h">
+      <Filter>03. Object\05. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\PistolGun.h">
+      <Filter>03. Object\05. Gun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

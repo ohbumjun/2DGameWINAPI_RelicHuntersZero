@@ -14,7 +14,9 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_mapAnimName{},
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
-					   m_AttackDistance(NORMAL_ATTACK_DISTANCE)
+					   m_AttackDistance(NORMAL_ATTACK_DISTANCE),
+						m_AttackEnable(false),
+						m_AttackPauseTime(MONSTER_ATTACK_PAUSE_TIME)
 {
 	m_Dir.x = (float)(rand() % 2);
 	m_Dir.y = (float)(rand() % 2);
@@ -32,6 +34,7 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
+	m_AttackPauseTime = MONSTER_ATTACK_PAUSE_TIME;
 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
@@ -109,8 +112,10 @@ void CMonster::Update(float DeltaTime)
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);
+
 	if (DistToPlayer <= m_DashDistance)
 	{
+
 		// 공격 
 		if (DistToPlayer < m_AttackDistance)
 		{
@@ -119,7 +124,12 @@ void CMonster::Update(float DeltaTime)
 		// 추적 
 		else
 		{
-			m_AI = EMonsterAI::Trace;
+			// m_AttackEnable 이 false 일때만 따라가게
+			// 즉, Attack이 끝나고 어느정도 시간 주고
+			// 그 다음에 움직이게 한다
+			// 움직이면서 공격 x 
+			if(!m_AttackEnable)
+				m_AI = EMonsterAI::Trace;
 		}
 	}
 	else
@@ -204,7 +214,6 @@ CMonster *CMonster::Clone()
 float CMonster::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
-
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
@@ -212,6 +221,25 @@ float CMonster::SetDamage(float Damage)
 
 void CMonster::CharacterDestroy()
 {
+}
+
+void CMonster::AttackEnd()
+{
+}
+
+void CMonster::Fire()
+{
+	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
+		MONSTER_BULLET_PROTO, Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
+		Vector2(50.f, 50.f));
+	// Bullet Damage
+	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
+	// Speed 
+	Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
+	// Bullet Dir 
+	CGameObject* Player = m_Scene->GetPlayer();
+	float Angle = GetAngle(Bullet->GetPos(), Player->GetPos());
+	Bullet->SetDir(Angle);
 }
 
 void CMonster::Move(const Vector2& Dir)
@@ -405,21 +433,21 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 {
 	// Animation 
 	ChangeIdleAnimation();
-	// Player를 쫒아가기
-	float Angle = GetAngle(m_Pos, PlayerPos);
-	SetDir(Angle);
 
+	// 멈추기 
+	SetDir(Vector2(0.f,0.f));
+
+	m_AttackEnable   = true;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+
 	m_FireTime += DeltaTime;
 	if (m_FireTime >= m_FireTimeMax)
 	{
 		m_FireTime -= m_FireTimeMax;
 		++m_Count;
-		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-			MONSTER_BULLET_PROTO, Vector2(m_Pos - Vector2(m_Size.x / 2.f + 25.f, m_Size.y / 2.f)),
-			Vector2(50.f, 50.f));
-		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-		Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
+		Fire();
+		AttackEnd();
+
 	}
 }
 

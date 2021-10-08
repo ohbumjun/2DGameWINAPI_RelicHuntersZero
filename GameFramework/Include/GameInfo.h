@@ -67,6 +67,10 @@
 // Bullet Distance
 #define NORMAL_BULLET_DISTANCE 800.f;
 
+// Bullets Nums
+#define PISTOL_BULLET_NUM 100
+#define SHOTGUN_BULLET_NUM 10
+
 // Widget Componenet Names
 #define HPWIDGET_COMPONENET "HPBarWidget"
 #define MPWIDGET_COMPONENET "MPBarWidget"
