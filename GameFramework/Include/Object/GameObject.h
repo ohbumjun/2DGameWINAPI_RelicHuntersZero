@@ -194,7 +194,10 @@ public:
 	{
 		return m_Velocity.Length();
 	}
-
+	CScene* GetScene() const
+	{
+		return m_Scene;
+	}
 	float GetBottom()	const;
 	virtual int GetArmor()const;
 	virtual int GetAttack()const;

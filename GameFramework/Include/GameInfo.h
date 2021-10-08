@@ -116,6 +116,7 @@ struct EGunInfo
 	EGun_Type m_GunType;
 	float m_Damage;
 	int   m_BulletsLoaded;
+	int   m_BulletsFullNum;
 	bool  m_BulletEmpty;
 	float m_BulletLoadTime;
 	float m_BulletDistance;

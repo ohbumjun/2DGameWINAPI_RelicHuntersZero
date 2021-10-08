@@ -130,7 +130,6 @@ private:
 public:
 	bool m_TargetEnable;
 	void AttackEnd();
-	void Fire();
 	void SetTargetPos(float DeltaTime);
 	void RemoveTargetPos(float DeltaTime);
 	void FireTarget();

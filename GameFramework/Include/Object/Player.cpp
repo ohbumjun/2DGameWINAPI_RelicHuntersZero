@@ -732,7 +732,11 @@ void CPlayer::SkillSlowMotionAttackEnd()
 void CPlayer::SkillSlowMotionAttackEnable()
 {
 	// Slow Motion
-	if (!m_CurrentGun) return;
+	if (!m_CurrentGun)
+	{
+		// 메세지
+		return;
+	}
 
 	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
@@ -889,15 +893,6 @@ void CPlayer::AttackEnd()
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 }
 
-void CPlayer::Fire()
-{
-	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-																Vector2(m_Pos + Vector2(75.f, 0.f)),
-																Vector2(50.f, 50.f));
-	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-	Bullet->SetObjectType(EObject_Type::Bullet);
-}
-
 void CPlayer::RemoveTargetPos(float DeltaTime)
 {
 	m_TargetEnable = false;
@@ -905,15 +900,8 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 
 void CPlayer::FireTarget()
 {
-	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
-	Vector2 BulletOffset = CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x* 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x*0.15,-m_Size.y * 0.3f);
-	CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-																"PlayerBullet",
-																Vector2(m_Pos + BulletOffset),
-																Vector2(50.f, 50.f));
-	float Angle = GetAngle(Bullet->GetPos(), m_TargetPos);
-	Bullet->SetDir(Angle);
-	Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
+	if (m_CurrentGun)
+		m_CurrentGun->PlayerFire(m_TargetPos, m_CharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -948,21 +936,21 @@ void CPlayer::SetTargetPos(float DeltaTime)
 
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
-	if (m_CurrentGun)
+	if (!m_CurrentGun)
 	{
-		Vector2 PlayerDir = m_Dir;
-
-		// SetTargetPos(DeltaTime);
-		// Laser ?�시 ?�이 Target �??�팅?�기
-		Vector2 MousePos = CInput::GetInst()->GetMousePos();
-		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
-		m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
-
-		if (m_Dir.x > 0)
-			ChangeAnimation(PLAYER_RIGHT_ATTACK);
-		else
-			ChangeAnimation(PLAYER_LEFT_ATTACK);
+		// 경고 메세지 
+		return;
 	}
+	Vector2 PlayerDir = m_Dir;
+
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
+
+	if (m_Dir.x > 0)
+		ChangeAnimation(PLAYER_RIGHT_ATTACK);
+	else
+		ChangeAnimation(PLAYER_LEFT_ATTACK);
 }
 
 void CPlayer::CharacterDestroy()

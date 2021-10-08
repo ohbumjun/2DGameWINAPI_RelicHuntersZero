@@ -13,7 +13,6 @@ private :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
 	const char* m_TextureImgNames[2];
-	int m_BulletNums;
 public :
 	/*
 	
@@ -78,7 +77,8 @@ public :
 		return	m_GunInfo.m_BulletEmpty;
 	}
 public :
-	void Shoot();
+	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
+	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
 public:
 	virtual void Start();
 	virtual bool Init();

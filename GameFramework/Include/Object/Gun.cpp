@@ -1,14 +1,17 @@
 #include "Gun.h"
 #include "../Collision/ColliderSphere.h"
+#include "Bullet.h"
+#include"../Scene/Scene.h"
 
 CGun::CGun() :
 	m_TextureImgNames{},
 	m_Owner(nullptr)
 {
-	m_GunInfo.m_GunClass = EGunClass::Light;
+	m_GunInfo.m_GunClass       = EGunClass::Light;
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
 	m_GunInfo.m_BulletsLoaded  = true;
+	m_GunInfo.m_BulletsFullNum = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletLoadTime = 0.1f;
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
 	
@@ -31,7 +34,26 @@ CGun::~CGun()
 }
 
 
-void CGun::Shoot()
+void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
+{
+	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
+	CScene* Scene = m_Owner->GetScene();
+	Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	CSharedPtr<CBullet> Bullet = m_Owner->GetScene()->CreateObject<CBullet>("Bullet",
+		"PlayerBullet",
+		Vector2(m_Pos + BulletOffset),
+		Vector2(50.f, 50.f));
+	// Angle 
+	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
+	Bullet->SetDir(Angle);
+	// Damage 
+	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
+	// Collision Profile
+	CCollider* BulletBody = Bullet->FindCollider("Body");
+	BulletBody->SetCollisionProfile("PlayerAttack");
+}
+
+void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
 }
 
