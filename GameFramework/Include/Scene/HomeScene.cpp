@@ -51,7 +51,6 @@ bool CHomeScene::Init()
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
-
 	return true;
 }
 

@@ -693,7 +693,7 @@ void CScene::SetDuck11MonsterAnimation()
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_RUN,
 			i * 134.f, 0.f, 134.f, 114.f);
 	}
-
+	
 
 	// Death ---
 	// Left 

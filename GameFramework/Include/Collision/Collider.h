@@ -53,6 +53,10 @@ public:
 		m_Owner = Owner;
 	}
 public:
+	bool GetMouseCollision() const
+	{
+		return m_MouseCollision;
+	}
 	virtual float GetBottom() const
 	{
 		return 0.f;
