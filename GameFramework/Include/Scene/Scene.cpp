@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "../Object/EffectHit.h"
 #include "../Object/EffectSurprise.h"
+#include "../Object/EffectCasing.h"
 #include "../Object/EffectDash.h"
 #include "../Object/DamageFont.h"
 #include "../Object/Monster.h"
@@ -791,7 +792,9 @@ void CScene::SetBasicProtoTypes()
 	// Effect Surpise
 	CEffectSurprise* EffectSurprisePrototype = CreatePrototype<CEffectSurprise>(EFFECT_SURPRISE_PROTO);
 	// EffectDash
-	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(DASH_EFFECT);
+	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(EFFECT_DASH_PROTO);
+	// EffectCasing
+	CEffectCasing* EffectCasingPrototype = CreatePrototype<CEffectCasing>(EFFECT_CASING_PROTO);
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 

@@ -1,6 +1,7 @@
 #include "Gun.h"
 #include "../Collision/ColliderSphere.h"
 #include "Bullet.h"
+#include "EffectCasing.h"
 #include"../Scene/Scene.h"
 
 CGun::CGun() :
@@ -40,7 +41,7 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = m_Owner->GetScene()->CreateObject<CBullet>("Bullet",
-		"PlayerBullet",
+		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
 	// Angle 
@@ -51,6 +52,9 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("PlayerAttack");
+
+	// Casing
+	CreateCasing();
 }
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
@@ -73,6 +77,39 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("MonsterAttack");
+
+	// Casing
+	CreateCasing();
+}
+
+void CGun::CreateCasing()
+{
+	// Casing Effect
+	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>("Casing",
+		EFFECT_CASING_PROTO,
+		Vector2(m_Pos + CasingOffset),
+		Vector2(50.f, 50.f));
+	float CasingDir = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? -1 : 1;
+	Casing->SetDirX(CasingDir);
+	switch (m_GunInfo.m_GunClass)
+	{
+	case Light:
+		Casing->SetTexture("LightCasing",
+			TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
+		Casing->SetTextureColorKey(255, 255, 255);
+		break;
+	case Medium:
+		Casing->SetTexture("MediumCasing",
+			TEXT("images/Weapon/Casing/spr_casing_2.bmp"));
+		Casing->SetTextureColorKey(255, 255, 255);
+		break;
+	case Heavy:
+		Casing->SetTexture("HeavyCasing",
+			TEXT("images/Weapon/Casing/spr_casing_1.bmp"));
+		Casing->SetTextureColorKey(255, 255, 255);
+		break;
+	}
 }
 
 void CGun::Start()

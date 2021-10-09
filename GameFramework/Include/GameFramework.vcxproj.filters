@@ -333,6 +333,9 @@
     <ClCompile Include="Object\EffectSurprise.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\EffectCasing.cpp">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -597,6 +600,9 @@
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
     <ClInclude Include="Object\EffectSurprise.h">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectCasing.h">
       <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
   </ItemGroup>
