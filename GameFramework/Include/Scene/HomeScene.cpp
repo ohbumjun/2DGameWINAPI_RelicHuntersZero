@@ -34,7 +34,6 @@ bool CHomeScene::Init()
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
 
-
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 

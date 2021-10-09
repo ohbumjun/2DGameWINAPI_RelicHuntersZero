@@ -143,16 +143,19 @@ void CMonster::Update(float DeltaTime)
 	{
 	case EMonsterAI::Idle:
 	{
+		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AIIdle(DeltaTime);
 	}
 		break;
 	case EMonsterAI::Walk:
 	{
+		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AIWalk(DeltaTime);
 	}
 	break;
 	case EMonsterAI::Trace:
 	{
+		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AITrace(DeltaTime, PlayerPos);
 	}
 		break;
@@ -212,8 +215,6 @@ void CMonster::Fire()
 	CGameObject* Player = m_Scene->GetPlayer();
 	if (m_CurrentGun)
 	{
-		// 속도 조정
-		m_MoveSpeed = 0.f;
 		// Fire
 		m_CurrentGun->MonsterFire(Player->GetPos(),m_CharacterInfo.Attack);
 	}
@@ -412,8 +413,7 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 	SetDir(Angle);
 
 	// 멈추기
-	SetStunDir(Vector2(0.f, 0.f));
-	Stun();
+	m_MoveSpeed = 0.f;
 
 	// Animation 
 	ChangeIdleAnimation();
@@ -437,7 +437,10 @@ void CMonster::AIDeath(float DeltaTime)
 CGun* CMonster::Equip(CGun* Gun)
 {
 	CGun* EquipedGun = CCharacter::Equip(Gun);
-	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
-	GunBody->SetCollisionProfile("MonsterAttack");
+	if (m_CurrentGun)
+	{
+		CCollider* GunBody = m_CurrentGun->FindCollider("Body");
+		GunBody->SetCollisionProfile("MonsterAttack");
+	}
 	return EquipedGun;
 }

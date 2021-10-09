@@ -998,7 +998,7 @@ void CPlayer::ChangeWeapon(float)
 
 CGun* CPlayer::Equip(CGun* Gun)
 {
-	CGun* ExitingGun = CCharacter::Equip(Gun);
+	CGun* ExitingGun   = CCharacter::Equip(Gun);
 	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
 	GunBody->SetCollisionProfile("PlayerAttack");
 	return ExitingGun;
