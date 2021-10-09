@@ -72,7 +72,10 @@ public:
 	{
 		return m_Scene;
 	}
-
+	bool GetMouseCollision() const
+	{
+		return m_MouseCollision;
+	}
 	ECollider_Type GetColliderType() const
 	{
 		return m_Type;

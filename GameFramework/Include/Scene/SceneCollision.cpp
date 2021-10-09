@@ -127,6 +127,13 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 
 					MouseCollision = true;
 				}
+				// 만약 충돌하지 않았는데 해당 충돌체의 Mouse Collision이 True ?
+				// False로 바꿔준다
+				else
+				{
+					if (m_vecCollider[i]->GetMouseCollision())
+						m_vecCollider[i]->SetMouseCollision(false);
+				}
 			}
 
 			if (!MouseCollision)
