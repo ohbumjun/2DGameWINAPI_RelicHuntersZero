@@ -637,11 +637,8 @@ void CScene::SetDuck11MonsterAnimation()
 
 	for (int i = 0; i < 2; ++i)
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_RUN,
-				j * 134.f, i * 114.f, 134.f, 114.f);
-		}
+		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
 	}
 
 	// Right Attack
@@ -653,17 +650,6 @@ void CScene::SetDuck11MonsterAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_ATTACK,
 			i * 176.f, 0.f, 176.f, 89.f);
-	}
-
-	// Right Dash
-	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_RIGHT_DASH,
-		MONSTER_DUCK1_RIGHT_DASH, TEXT("images/Monster/Duck1/right_dash.bmp"));
-	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_RIGHT_DASH,
-		255, 255, 255);
-	for (int i = 0; i < 3; ++i)
-	{
-		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_RIGHT_DASH,
-			i * 134.f, 0, 134.f, 114.f);
 	}
 
 	// Player Left ---
@@ -704,40 +690,10 @@ void CScene::SetDuck11MonsterAnimation()
 		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_RUN,
-				j * 134.f, i * 114.f, 134.f, 114.f);
-		}
-	}
-
-	// Left Dash
-	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_DASH,
-		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/left_dash.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DASH,
-		255, 255, 255);
-	for (int i = 0; i < 3; ++i)
-	{
-		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_DASH,
+		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_RUN,
 			i * 134.f, 0.f, 134.f, 114.f);
 	}
 
-	// Left Attack
-	GetSceneResource()->CreateAnimationSequence(MONSTER_DUCK1_LEFT_DASH,
-		MONSTER_DUCK1_LEFT_DASH, TEXT("images/Monster/Duck1/left_dash.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK1_LEFT_DASH,
-		255, 255, 255);
-
-	for (int i = 0; i < 2; ++i)
-	{
-		for (int j = 0; j < 2; j++)
-		{
-			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK1_LEFT_DASH,
-				j * 134.f, i * 114.f, 134.f, 114.f);
-		}
-	}
 
 	// Death ---
 	// Left 

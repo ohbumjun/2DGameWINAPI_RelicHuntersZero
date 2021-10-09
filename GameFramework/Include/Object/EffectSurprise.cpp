@@ -28,7 +28,7 @@ bool CEffectSurprise::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation(SURPRISE_EFFECT, false, 1.f);
+	AddAnimation(SURPRISE_EFFECT, false, 0.7f);
 
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(25.f);

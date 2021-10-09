@@ -83,13 +83,11 @@
 #define MONSTER_RIGHT_IDLE   "RightIdle"
 #define MONSTER_RIGHT_WALK   "RightWalk"
 #define MONSTER_RIGHT_RUN    "RightRun"
-#define MONSTER_RIGHT_DASH   "RightDash"
 #define MONSTER_RIGHT_ATTACK "RightAttack"
 
 #define MONSTER_LEFT_IDLE   "LeftIdle"
 #define MONSTER_LEFT_WALK   "LeftWalk"
 #define MONSTER_LEFT_RUN    "LeftRun"
-#define MONSTER_LEFT_DASH   "LeftDash"
 #define MONSTER_LEFT_ATTACK "LeftAttack"
 
 #define MONSTER_LEFT_DEATH    "LeftDeath"
@@ -101,13 +99,11 @@
 #define MONSTER_DUCK1_RIGHT_IDLE   "Duck1RightIdle"
 #define MONSTER_DUCK1_RIGHT_WALK   "Duck1RightWalk"
 #define MONSTER_DUCK1_RIGHT_RUN    "Duck1RightRun"
-#define MONSTER_DUCK1_RIGHT_DASH   "Duck1RightDash"
 #define MONSTER_DUCK1_RIGHT_ATTACK "Duck1RightAttack"
 
 #define MONSTER_DUCK1_LEFT_IDLE   "Duck1LeftIdle"
 #define MONSTER_DUCK1_LEFT_WALK   "Duck1LeftWalk"
 #define MONSTER_DUCK1_LEFT_RUN    "Duck1LeftRun"
-#define MONSTER_DUCK1_LEFT_DASH   "Duck1LeftDash"
 #define MONSTER_DUCK1_LEFT_ATTACK "Duck1LeftAttack"
 
 #define MONSTER_DUCK1_LEFT_DEATH  "Duck1LeftDeath"

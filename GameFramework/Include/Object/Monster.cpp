@@ -17,7 +17,8 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
 					   m_AttackDistance(NORMAL_MONSTER_ATTACK_DISTANCE),
-					   m_TraceSurprise(false)
+					   m_TraceSurprise(false),
+						m_SurpriseStopTime(0.0f)
 {
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
@@ -125,17 +126,16 @@ void CMonster::Update(float DeltaTime)
 		if (!m_TraceSurprise)
 		{
 			Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
-			Vector2 RT = Vector2(LT.x + m_Size.x * 0.85, LT.y + m_Size.y * 0.2);
+			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8, LT.y + m_Size.y * 0.4);
 			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
 				RT, Vector2(10.f, 10.f));
+
 			// 나중에 sound 바꾸기 
 			m_Scene->GetSceneResource()->SoundPlay("Fire");
-			// 멈추기
-			m_MoveSpeed = 0.f;
+
 			m_TraceSurprise = true;
 		}
-		
-		// 공격 
+
 		if (DistToPlayer < m_AttackDistance)
 			m_AI = EMonsterAI::Attack;
 		// 추적 
@@ -165,27 +165,21 @@ void CMonster::Update(float DeltaTime)
 	{
 	case EMonsterAI::Idle:
 	{
-		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
-		m_TraceSurprise = false;
 		AIIdle(DeltaTime);
 	}
 		break;
 	case EMonsterAI::Walk:
 	{
-		m_TraceSurprise = false;
-		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AIWalk(DeltaTime);
 	}
 	break;
 	case EMonsterAI::Trace:
 	{
-		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AITrace(DeltaTime, PlayerPos);
 	}
 		break;
 	case EMonsterAI::Attack:
 	{
-		m_TraceSurprise = false;
 		AIAttack(DeltaTime, PlayerPos);
 	}
 		break;
@@ -414,17 +408,21 @@ void CMonster::SetDuck1AnimName()
 
 void CMonster::AIIdle(float DeltaTime)
 {
+	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
+	m_TraceSurprise = false;
 	ChangeIdleAnimation();
 }
 
 void CMonster::AIWalk(float DeltaTime)
 {
+	m_TraceSurprise = false;
+	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 	ChangeWalkAnimation();
-
 }
 
 void CMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
 {
+	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 	ChangeTraceAnimation();
 	// Player를 쫒아가기
 	float Angle = GetAngle(m_Pos, PlayerPos);

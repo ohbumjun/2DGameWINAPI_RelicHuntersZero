@@ -21,6 +21,7 @@ private:
 	float m_DashDistance;
 	float m_AttackDistance;
 	bool m_TraceSurprise;
+	float m_SurpriseStopTime;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
