@@ -8,7 +8,8 @@ CAnimation::CAnimation() :
 	m_CurrentAnimation(nullptr),
 	m_Owner(nullptr),
 	m_mapAnimation{},
-	m_Scene(nullptr)
+	m_Scene(nullptr),
+	m_WidgetOwner(nullptr)
 {
 }
 
@@ -17,6 +18,7 @@ CAnimation::CAnimation(const CAnimation& Anim)
 	m_CurrentAnimation = nullptr;
 	m_Owner = nullptr;
 	m_Scene = nullptr;
+	m_WidgetOwner = nullptr;
 	// Anim은 const 객체이다. Anim이 가지고 있는 stl을 사용하려 할때는
 	// iterator 들을 const_iterator 를 사용해야 한다.
 	std::unordered_map<std::string, AnimationInfo*>::const_iterator	iter = Anim.m_mapAnimation.begin();

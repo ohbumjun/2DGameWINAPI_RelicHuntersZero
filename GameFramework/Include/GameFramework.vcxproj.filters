@@ -327,8 +327,11 @@
     <ClCompile Include="Object\PistolGun.cpp">
       <Filter>03. Object\05. Gun</Filter>
     </ClCompile>
-    <ClCompile Include="UI\SurpriseSign.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="UI\UIAnimation.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectSurprise.cpp">
+      <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -590,8 +593,11 @@
     <ClInclude Include="Object\PistolGun.h">
       <Filter>03. Object\05. Gun</Filter>
     </ClInclude>
-    <ClInclude Include="UI\SurpriseSign.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="UI\UIAnimation.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectSurprise.h">
+      <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

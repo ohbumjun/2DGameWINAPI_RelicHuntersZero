@@ -18,7 +18,6 @@ public:
 
 protected:
 	class CScene* m_Scene;
-	// Pos 
 	Vector2		m_PrevPos;
 	Vector2		m_Pos;
 	Vector2		m_RenderPos;

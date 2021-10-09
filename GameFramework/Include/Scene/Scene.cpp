@@ -5,6 +5,7 @@
 #include "SceneCollision.h"
 #include "Camera.h"
 #include "../Object/EffectHit.h"
+#include "../Object/EffectSurprise.h"
 #include "../Object/EffectDash.h"
 #include "../Object/DamageFont.h"
 #include "../Object/Monster.h"
@@ -820,6 +821,8 @@ void CScene::SetBasicProtoTypes()
 {
 	// EffectHit
 	CEffectHit* EffectHitPrototype = CreatePrototype<CEffectHit>(EFFECT_HIT_PROTO);
+	// Effect Surpise
+	CEffectSurprise* EffectSurprisePrototype = CreatePrototype<CEffectSurprise>(EFFECT_SURPRISE_PROTO);
 	// EffectDash
 	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(DASH_EFFECT);
 	// Teleport

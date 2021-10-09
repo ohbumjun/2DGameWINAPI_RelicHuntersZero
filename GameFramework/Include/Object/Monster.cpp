@@ -1,8 +1,10 @@
 
 #include "Monster.h"
 #include "Bullet.h"
+#include "EffectSurprise.h"
 #include "../Scene/Scene.h"
 #include "../Scene/Camera.h"
+#include "../Scene/SceneResource.h"
 #include "../Collision/ColliderBox.h"
 #include "../UI/ProgressBar.h"
 #include "Player.h"
@@ -14,7 +16,8 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_mapAnimName{},
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
-					   m_AttackDistance(NORMAL_ATTACK_DISTANCE)
+					   m_AttackDistance(NORMAL_MONSTER_ATTACK_DISTANCE),
+					   m_TraceSurprise(false)
 {
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
@@ -32,6 +35,7 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
+	m_TraceSurprise = false;
 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
@@ -102,7 +106,10 @@ bool CMonster::Init()
 void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
+	// Monster 이동 
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
+
+	
 
 	MoveWithinWorldResolution();
 
@@ -114,6 +121,20 @@ void CMonster::Update(float DeltaTime)
 
 	if (DistToPlayer <= m_DashDistance)
 	{
+		// 느낌표 
+		if (!m_TraceSurprise)
+		{
+			Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
+			Vector2 RT = Vector2(LT.x + m_Size.x * 0.85, LT.y + m_Size.y * 0.2);
+			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
+				RT, Vector2(10.f, 10.f));
+			// 나중에 sound 바꾸기 
+			m_Scene->GetSceneResource()->SoundPlay("Fire");
+			// 멈추기
+			m_MoveSpeed = 0.f;
+			m_TraceSurprise = true;
+		}
+		
 		// 공격 
 		if (DistToPlayer < m_AttackDistance)
 			m_AI = EMonsterAI::Attack;
@@ -123,6 +144,7 @@ void CMonster::Update(float DeltaTime)
 	}
 	else
 	{
+		m_TraceSurprise = false;
 		m_RandomMoveTime -= DeltaTime;
 		if (m_RandomMoveTime <= 0.f)
 		{
@@ -144,11 +166,13 @@ void CMonster::Update(float DeltaTime)
 	case EMonsterAI::Idle:
 	{
 		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
+		m_TraceSurprise = false;
 		AIIdle(DeltaTime);
 	}
 		break;
 	case EMonsterAI::Walk:
 	{
+		m_TraceSurprise = false;
 		m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 		AIWalk(DeltaTime);
 	}
@@ -161,6 +185,7 @@ void CMonster::Update(float DeltaTime)
 		break;
 	case EMonsterAI::Attack:
 	{
+		m_TraceSurprise = false;
 		AIAttack(DeltaTime, PlayerPos);
 	}
 		break;

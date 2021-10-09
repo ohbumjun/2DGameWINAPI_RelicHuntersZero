@@ -20,6 +20,7 @@ private:
 	EMonsterAI m_AI;
 	float m_DashDistance;
 	float m_AttackDistance;
+	bool m_TraceSurprise;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;

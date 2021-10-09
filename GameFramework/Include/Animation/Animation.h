@@ -5,6 +5,7 @@
 class CAnimation
 {
 	friend class CGameObject;
+	friend class CUIAnimation;
 
 private:
 	CAnimation();
@@ -13,6 +14,7 @@ private:
 
 private:
 	class CGameObject* m_Owner;
+	class CUIWidget* m_WidgetOwner;
 	class CScene* m_Scene;
 	std::unordered_map<std::string, AnimationInfo*>	m_mapAnimation;
 	AnimationInfo* m_CurrentAnimation;

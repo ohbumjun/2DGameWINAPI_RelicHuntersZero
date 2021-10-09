@@ -1,6 +1,7 @@
 #pragma once
 
 #define EFFECT_HIT_PROTO					  "HitEffect"
+#define EFFECT_SURPRISE_PROTO				  "SurpriseEffect"
 #define TELEPORT_MOUSE_PROTO				  "TeleportMouse"
 #define MONSTER_DUCK1_PROTO					  "MonsterProto"
 #define PLAYER_BULLET_PROTO					  "PlayerBullet"
