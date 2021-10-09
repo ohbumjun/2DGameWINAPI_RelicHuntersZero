@@ -245,7 +245,7 @@ void CMonster::ChangeIdleAnimation()
 	}
 	else
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_IDLE)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_IDLE)->second;
 		ChangeAnimation(Anim);
 	}
 }
@@ -378,6 +378,7 @@ void CMonster::SetDuck1AnimName()
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_RUN, MONSTER_DUCK1_RIGHT_RUN));
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_DEATH, MONSTER_DUCK1_RIGHT_DEATH));
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_HIT, MONSTER_DUCK1_RIGHT_HIT));
+
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_IDLE, MONSTER_DUCK1_LEFT_IDLE));
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_WALK, MONSTER_DUCK1_LEFT_WALK));
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_ATTACK, MONSTER_DUCK1_LEFT_ATTACK));

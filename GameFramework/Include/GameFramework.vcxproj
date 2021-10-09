@@ -214,6 +214,7 @@
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\NumberWidget.cpp" />
     <ClCompile Include="UI\ProgressBar.cpp" />
+    <ClCompile Include="UI\SurpriseSign.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
     <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\NumberWidget.h" />
     <ClInclude Include="UI\ProgressBar.h" />
+    <ClInclude Include="UI\SurpriseSign.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
     <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />

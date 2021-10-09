@@ -18,7 +18,7 @@ void CMPPotion::Start()
 bool CMPPotion::Init()
 {
 	if (!CPotion::Init()) return false;
-
+	AddAnimation(POTION_MP_ANIM);
 	return true;
 }
 

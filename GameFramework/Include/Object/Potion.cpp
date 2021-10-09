@@ -46,7 +46,6 @@ bool CPotion::Init()
 
 	// Animation
 	CreateAnimation();
-	AddAnimation("Bullet", true, 1.f);
 
 	return true;
 }

@@ -12,8 +12,8 @@
 #define BULLET_HEAVY  "BulletHeavy"
 
 // Potion
-#define POTION_MP_ANIM  "BulletHeavy"
-#define POTION_HP_ANIM  "BulletHeavy"
+#define POTION_MP_ANIM  "MPPotion"
+#define POTION_HP_ANIM  "HPPotion"
 
 
 // Gun

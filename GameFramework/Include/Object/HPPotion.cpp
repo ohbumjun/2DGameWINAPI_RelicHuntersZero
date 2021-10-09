@@ -18,6 +18,7 @@ void CHPPotion::Start()
 bool CHPPotion::Init()
 {
     if (!CPotion::Init()) return false;
+	AddAnimation(POTION_HP_ANIM);
 	return true;
 }
 

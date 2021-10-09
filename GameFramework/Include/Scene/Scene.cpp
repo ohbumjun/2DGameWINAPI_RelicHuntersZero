@@ -425,7 +425,7 @@ void CScene::SetItemsAnimation()
 	for (int i = 0; i < 2; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(POTION_HP_ANIM,
-			i * 140.f, 0, 140.f, 70.f);
+			i * 70.f, 0, 70.f, 70.f);
 	}
 	// MP
 	GetSceneResource()->CreateAnimationSequence(POTION_MP_ANIM,
@@ -435,7 +435,7 @@ void CScene::SetItemsAnimation()
 	for (int i = 0; i < 2; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(POTION_MP_ANIM,
-			i * 140.f, 0, 140.f, 70.f);
+			i * 70.f, 0, 70.f, 70.f);
 	}
 	
 	// Surprise
