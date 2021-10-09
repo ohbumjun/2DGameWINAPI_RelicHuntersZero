@@ -94,6 +94,17 @@ CGameObject *CScene::FindObject(const std::string &Name)
 	return nullptr;
 }
 
+CGameObject* CScene::FindObject(CGameObject* Obj)
+{
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter) == Obj) return (*iter);
+	}
+	return nullptr;
+}
+
 CGameObject *CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
 {
 	auto iter = m_ObjList.begin();
@@ -1248,6 +1259,8 @@ bool CScene::Render(HDC hDC)
 
 	return false;
 }
+
+
 
 int CScene::SortY(const void *Src, const void *Dest)
 {

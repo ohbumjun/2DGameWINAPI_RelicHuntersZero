@@ -30,7 +30,8 @@ CGameObject::CGameObject()	:
 	m_StunEnable(false),
 	m_StunTime(0.f),
 	m_MoveSpeed(NORMAL_SPEED),
-	m_SideWallCheck(false)
+	m_SideWallCheck(false),
+	m_ProtoTypeName{}
 {
 	// 시작할 때 -1로 준다 
 	m_PrevPos.y = -1.f;
@@ -53,6 +54,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 	m_DamageEnable = obj.m_DamageEnable;
 	m_ObjType = obj.m_ObjType;
 	m_SideWallCheck = obj.m_SideWallCheck;
+	m_ProtoTypeName = obj.m_ProtoTypeName;
 
 	// 얘는 무조건 false로 세팅해둬야 한다.
 	m_Start = false;

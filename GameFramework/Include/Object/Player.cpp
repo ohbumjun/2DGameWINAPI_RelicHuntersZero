@@ -986,7 +986,9 @@ void CPlayer::AcquireItem(float DeltaTime)
 		CGun* Gun = (*iter)->IsCollisionWithGun();
 		if (Gun)
 		{
-			Equip(Gun->Clone());
+			std::string ProtoTypeName = Gun->GetProtoTypeName();
+			// Equip(Gun->Clone());
+			Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
 			break;
 		}
 	}

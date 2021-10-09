@@ -43,6 +43,7 @@ private:
 
 public:
 	CGameObject* FindObject(const std::string& Name);
+	CGameObject* FindObject(CGameObject* Obj);
 	CGameObject* FindClosestMonsterToPlayer(Vector2 PlayerPos);
 	void DestroyAllAttackObjects();
 	CGameObject* SetPlayer(const std::string& Name);
@@ -82,7 +83,12 @@ public:
 	virtual bool PostUpdate(float DeltaTime);
 	virtual bool Collision(float DeltaTime);
 	virtual bool Render(HDC hDC);
-
+// Objects
+public :
+	void PushObjectToScene(CGameObject* Obj)
+	{
+		m_ObjList.push_back(Obj);
+	}
 public:
 	static int SortY(const void* Src, const void* Dest);
 	static int SortZOrder(const void* Src, const void* Dest);
@@ -125,6 +131,7 @@ public:
 
 		Obj->SetScene(this);
 		Obj->SetName(Name);
+		Obj->SetProtoTypeName(Name);
 
 		if (!Obj->Init())
 		{

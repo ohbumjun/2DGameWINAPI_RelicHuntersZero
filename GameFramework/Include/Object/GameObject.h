@@ -20,6 +20,7 @@ protected:
 	class CScene* m_Scene;
 	Vector2		m_PrevPos;
 	Vector2		m_Pos;
+	std::string m_ProtoTypeName;
 	Vector2		m_RenderPos;
 	Vector2		m_Size;
 	Vector2		m_Pivot;
@@ -59,6 +60,10 @@ protected :
 	bool m_SideWallCheck;
 
 public :
+	void SetProtoTypeName(const std::string& Name)
+	{
+		m_ProtoTypeName = Name;
+	}
 	void SetSideWallCheck(bool Check)
 	{
 		m_SideWallCheck = Check;
@@ -154,6 +159,10 @@ public:
 	void SetAnimationLoop(const std::string& Name, bool Loop);
 
 public:
+	std::string GetProtoTypeName() const
+	{
+		return m_ProtoTypeName;
+	}
 	Vector2 GetOffset()	const
 	{
 		return m_Offset;

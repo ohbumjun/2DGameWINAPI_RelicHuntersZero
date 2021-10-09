@@ -111,6 +111,8 @@ void CCharacter::SetScene(CScene* Scene)
 			CGun* Gun = m_GunEquipment[i];
 			Gun->SetScene(Scene);
 			Gun->SetOwner(this);
+			if (!m_Scene->FindObject(Gun))
+				m_Scene->PushObjectToScene(Gun);
 		}
 	}
 }
