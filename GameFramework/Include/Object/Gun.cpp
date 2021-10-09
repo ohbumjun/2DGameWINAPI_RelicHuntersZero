@@ -84,13 +84,16 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 void CGun::CreateCasing()
 {
+	std::string StandAnimName = m_Owner->GetObjType() == EObject_Type::Monster ?
+		MONSTER_RIGHT_ATTACK : PLAYER_RIGHT_ATTACK;
+
 	// Casing Effect
-	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(StandAnimName) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
 	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>("Casing",
 		EFFECT_CASING_PROTO,
 		Vector2(m_Pos + CasingOffset),
-		Vector2(50.f, 50.f));
-	float CasingDir = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? -1 : 1;
+		Vector2(20.f, 20.f));
+	float CasingDir = m_Owner->CheckCurrentAnimation(StandAnimName) ? -1 : 1;
 	Casing->SetDirX(CasingDir);
 	switch (m_GunInfo.m_GunClass)
 	{

@@ -22,8 +22,8 @@ void CEffectCasing::Start()
 	CGameObject::Start();
 	// m_DirX = rand() % 2 == 0 ? 1.f : -1.f;
 	m_SpeedX = (float)(rand() % 300);
-	SetTexture("LightCasing",
-		TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
+	//SetTexture("LightCasing",
+		//TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
 }
 
 bool CEffectCasing::Init()
@@ -34,9 +34,9 @@ bool CEffectCasing::Init()
 	SetJumpVelocity(3000.f);
 	SetPhysicsSimulate(true);
 	Jump();
-	SetLifeTime(5.f);
-	SetTexture("LightCasing",
-		TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
+	SetLifeTime(1.f);
+	//SetTexture("LightCasing",
+		//TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
 
 	return true;
 }

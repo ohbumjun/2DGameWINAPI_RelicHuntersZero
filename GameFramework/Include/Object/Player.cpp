@@ -371,7 +371,8 @@ void CPlayer::Update(float DeltaTime)
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
 	{
 		Vector2 MousePos           = CInput::GetInst()->GetMousePos();
-		Vector2 MousePlayerPosDiff = m_Pos - MousePos;
+		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+		Vector2 MousePlayerPosDiff = m_Pos - (MousePos + CameraPos);
 		float Angle				   = GetAngle(m_Pos, MousePos);
 		SetDir(Angle);
 		// Animation Change
@@ -887,7 +888,7 @@ void CPlayer::DeleteTeleportObj()
 
 void CPlayer::AttackEnd()
 {
-	if (CheckCurrentAnimation(PLAYER_RIGHT_ATTACK))
+	if (m_Dir.x > 0)
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
 	else
 		ChangeAnimation(PLAYER_LEFT_IDLE);
