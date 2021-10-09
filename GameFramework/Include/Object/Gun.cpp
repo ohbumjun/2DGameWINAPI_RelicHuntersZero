@@ -1,8 +1,10 @@
 #include "Gun.h"
 #include "../Collision/ColliderSphere.h"
 #include "Bullet.h"
+#include "DamageFont.h"
 #include "EffectCasing.h"
 #include"../Scene/Scene.h"
+#include"../Scene/Camera.h"
 
 CGun::CGun() :
 	m_TextureImgNames{},
@@ -88,13 +90,17 @@ void CGun::CreateCasing()
 		MONSTER_RIGHT_ATTACK : PLAYER_RIGHT_ATTACK;
 
 	// Casing Effect
+	Vector2 CameraPos    = m_Owner->GetScene()->GetCamera()->GetPos();
 	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(StandAnimName) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	Vector2 CasingPos    = m_Pos - CameraPos + CasingOffset;
 	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>("Casing",
 		EFFECT_CASING_PROTO,
-		Vector2(m_Pos + CasingOffset),
+		Vector2(m_Owner->GetPos() + CasingOffset),
 		Vector2(20.f, 20.f));
-	float CasingDir = m_Owner->CheckCurrentAnimation(StandAnimName) ? -1 : 1;
+
+	float CasingDir      = m_Owner->CheckCurrentAnimation(StandAnimName) ? -1 : 1;
 	Casing->SetDirX(CasingDir);
+
 	switch (m_GunInfo.m_GunClass)
 	{
 	case Light:
@@ -113,6 +119,8 @@ void CGun::CreateCasing()
 		Casing->SetTextureColorKey(255, 255, 255);
 		break;
 	}
+	//CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", CasingPos);
+	//DamageFont->SetDamageNumber(30);
 }
 
 void CGun::Start()
@@ -148,21 +156,17 @@ void CGun::PostUpdate(float DeltaTime)
 		Vector2 OwnerSize = m_Owner->GetSize();
 
 		// 위치 조정 
-		// Gun->SetPos(m_Size.x * 0.1, -m_Size.y * 0.3);
 		SetPos(m_Owner->GetPos().x,m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3 );
-		// SetPos(m_Owner->GetSize().x * 0.1, -m_Owner->GetSize().y * 0.3);
 
 		// 방향 조정 
 		if (OwnerDir.x < 0)
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
-			// SetOffset(-OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
 			SetOffset(-OwnerSize.x * 0.1, 0 );
 		}
 		else
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
-			// SetOffset(OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
 			SetOffset(OwnerSize.x * 0.1, 0 );
 		}
 		
@@ -181,7 +185,6 @@ void CGun::PrevRender()
 
 void CGun::Render(HDC hDC)
 {
-
 	CGameObject::Render(hDC);
 }
 

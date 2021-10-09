@@ -20,10 +20,12 @@ CEffectCasing::~CEffectCasing()
 void CEffectCasing::Start()
 {
 	CGameObject::Start();
-	// m_DirX = rand() % 2 == 0 ? 1.f : -1.f;
 	m_SpeedX = (float)(rand() % 300);
-	//SetTexture("LightCasing",
-		//TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
+
+	SetJumpVelocity(30.f);
+	SetPhysicsSimulate(true);
+	Jump();
+	SetLifeTime(3.f);
 }
 
 bool CEffectCasing::Init()
@@ -31,12 +33,10 @@ bool CEffectCasing::Init()
 	if (!CGameObject::Init()) return false;
 
 	// Physics Setting
-	SetJumpVelocity(3000.f);
+	SetJumpVelocity(30.f);
 	SetPhysicsSimulate(true);
 	Jump();
-	SetLifeTime(1.f);
-	//SetTexture("LightCasing",
-		//TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
+	SetLifeTime(3.f);
 
 	return true;
 }
@@ -59,6 +59,7 @@ void CEffectCasing::Collision(float DeltaTime)
 
 void CEffectCasing::Render(HDC hDC)
 {
+	// this
 	CGameObject::Render(hDC);
 }
 

@@ -603,6 +603,7 @@ void CGameObject::PostUpdate(float DeltaTime)
 	}
 
 	// 수업용 : Side Collision 적용하기
+	/*
 	float DirX = m_Pos.x - m_PrevPos.x;
 	// 이동을 하고 있다라는 의미 ( 왼쪽이던, 오른쪽이던 )
 	// SideWallCollision을 고려하는 Object일 경우 
@@ -799,8 +800,10 @@ void CGameObject::PostUpdate(float DeltaTime)
 			}
 		}
 	}
+	*/
 
 	// 수업용 : 중력 적용하기 
+	/*
 	CTileMap* TileMap = m_Scene->GetTileMap();
 
 	if (TileMap && 
@@ -907,6 +910,7 @@ void CGameObject::PostUpdate(float DeltaTime)
 			m_IsGround = false;
 		}
 	}
+	*/
 }
 
 void CGameObject::Collision(float DeltaTime)
@@ -945,17 +949,20 @@ void CGameObject::PrevRender()
 
 	m_CameraCull = false;
 
+	Vector2 CameraResolution = Camera->GetResolution();
+
 	if (LT.x + Size.x <= 0.f)
 		m_CameraCull = true;
 
-	else if (LT.x >= Camera->GetResolution().x)
+	else if (LT.x >= CameraResolution.x)
 		m_CameraCull = true;
 
 	else if (LT.y + Size.y <= 0.f)
 		m_CameraCull = true;
 
-	else if (LT.y >= Camera->GetResolution().y)
+	else if (LT.y >= CameraResolution.y)
 		m_CameraCull = true;
+
 }
 
 void CGameObject::Render(HDC hDC)
@@ -977,7 +984,6 @@ void CGameObject::Render(HDC hDC)
 				FrameData.StartPos, FrameData.Size, AnimInfo->Frame);
 		}
 	}
-
 	else
 	{
 		Vector2	LT = m_RenderPos - m_Pivot * m_Size + m_Offset;
@@ -1005,19 +1011,16 @@ void CGameObject::Render(HDC hDC)
 			iterEnd = m_ColliderList.end();
 			continue;
 		}
-
 		else if ((*iter)->GetEnable())
 		{
 			(*iter)->Render(hDC);
 		}
-
 		++iter;
 	}
 
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();
-
 		for (; iter != iterEnd; ++iter)
 		{
 			(*iter)->Render(hDC);

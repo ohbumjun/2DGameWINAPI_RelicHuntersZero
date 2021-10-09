@@ -26,6 +26,7 @@ void CDamageFont::Start()
 	CGameObject::Start();
 	m_DirX = rand() % 2 == 0 ? 1.f : -1.f;
 	m_SpeedX = (float)(rand() % 300);
+	// Jump()
 }
 
 bool CDamageFont::Init()
