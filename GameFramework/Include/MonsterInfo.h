@@ -2,7 +2,7 @@
 
 
 // Monster Move Direction Limit Time
-#define MONSTER_TARGET_POS_LIMIT_TIME 1.f
+#define MONSTER_TARGET_POS_LIMIT_TIME 5.f
 
 // Monster Attack
 #define NORMAL_MONSTER_ATTACK 30

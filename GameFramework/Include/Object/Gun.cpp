@@ -108,18 +108,22 @@ void CGun::PostUpdate(float DeltaTime)
 		Vector2 OwnerSize = m_Owner->GetSize();
 
 		// 위치 조정 
-		SetPos(m_Owner->GetPos());
+		// Gun->SetPos(m_Size.x * 0.1, -m_Size.y * 0.3);
+		SetPos(m_Owner->GetPos().x,m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3 );
+		// SetPos(m_Owner->GetSize().x * 0.1, -m_Owner->GetSize().y * 0.3);
 
 		// 방향 조정 
 		if (OwnerDir.x < 0)
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
-			SetOffset(-OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+			// SetOffset(-OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+			SetOffset(-OwnerSize.x * 0.1, 0 );
 		}
 		else
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
-			SetOffset(OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+			// SetOffset(OwnerSize.x * 0.1, -OwnerSize.y * 0.3);
+			SetOffset(OwnerSize.x * 0.1, 0 );
 		}
 		
 	}

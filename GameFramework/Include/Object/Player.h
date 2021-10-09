@@ -152,4 +152,7 @@ public:
 // Weapon
 public :
 	void ChangeWeapon(float);
+// Gun
+public :
+	virtual CGun* Equip(CGun* Gun);
 };

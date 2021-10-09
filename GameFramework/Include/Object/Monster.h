@@ -20,8 +20,6 @@ private:
 	EMonsterAI m_AI;
 	float m_DashDistance;
 	float m_AttackDistance;
-	bool m_AttackEnable;
-	float m_AttackPauseTime;
 private :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
@@ -79,5 +77,8 @@ private :
 	void AITrace(float DeltaTime, Vector2 PlayerPos);
 	void AIAttack(float DeltaTime, Vector2 PlayerPos);
 	void AIDeath(float DeltaTime);
+// Gun
+public :
+	virtual CGun* Equip(CGun* Gun);
 };
 

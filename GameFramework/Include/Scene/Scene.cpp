@@ -797,23 +797,23 @@ void CScene::SetDuck11MonsterAnimation()
 
 void CScene::SetBasicObjectGuns()
 {
-	CGameObject* GunProto = FindPrototype(GUN_PISTOL_LIGHT);
-	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT, GunProto->m_Pos,GunProto->m_Size);
+	CGameObject* GunProto = FindPrototype(GUN_PISTOL_LIGHT_PROTO);
+	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, GunProto->m_Pos,GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_PISTOL_MEDIUM);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM, GunProto->m_Pos, GunProto->m_Size);
+	GunProto = FindPrototype(GUN_PISTOL_MEDIUM_PROTO);
+	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, GunProto->m_Pos, GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_PISTOL_HEAVY);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY, GunProto->m_Pos, GunProto->m_Size);
+	GunProto = FindPrototype(GUN_PISTOL_HEAVY_PROTO);
+	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, GunProto->m_Pos, GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_LIGHT);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT, GunProto->m_Pos, GunProto->m_Size);
+	GunProto = FindPrototype(GUN_SHOTGUN_LIGHT_PROTO);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, GunProto->m_Pos, GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_MEDIUM);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM, GunProto->m_Pos, GunProto->m_Size);
+	GunProto = FindPrototype(GUN_SHOTGUN_MEDIUM_PROTO);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, GunProto->m_Pos, GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_HEAVY);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY, GunProto->m_Pos, GunProto->m_Size);
+	GunProto = FindPrototype(GUN_SHOTGUN_HEAVY_PROTO);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, GunProto->m_Pos, GunProto->m_Size);
 }
 
 void CScene::SetBasicProtoTypes()
@@ -1155,7 +1155,6 @@ bool CScene::Collision(float DeltaTime)
 
 bool CScene::Render(HDC hDC)
 {
-	// ZOrder�� ���� �����Ѵ�
 	if (m_MapList.size() >= 2)
 	{
 		qsort(&m_MapList[0], (size_t)m_MapList.size(),

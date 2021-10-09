@@ -14,14 +14,12 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_mapAnimName{},
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
-					   m_AttackDistance(NORMAL_ATTACK_DISTANCE),
-						m_AttackEnable(false),
-						m_AttackPauseTime(MONSTER_ATTACK_PAUSE_TIME)
+					   m_AttackDistance(NORMAL_ATTACK_DISTANCE)
 {
-	m_Dir.x = (float)(rand() % 2);
-	m_Dir.y = (float)(rand() % 2);
-	m_ObjType = EObject_Type::Monster;
-	m_MonsterType = EMonster_Type::Duck1;
+	m_Dir.x           = (float)(rand() % 2);
+	m_Dir.y           = (float)(rand() % 2);
+	m_ObjType         = EObject_Type::Monster;
+	m_MonsterType     = EMonster_Type::Duck1;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
@@ -34,7 +32,6 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
-	m_AttackPauseTime = MONSTER_ATTACK_PAUSE_TIME;
 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
@@ -113,24 +110,16 @@ void CMonster::Update(float DeltaTime)
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);
 
+
+
 	if (DistToPlayer <= m_DashDistance)
 	{
-
 		// 공격 
 		if (DistToPlayer < m_AttackDistance)
-		{
 			m_AI = EMonsterAI::Attack;
-		}
 		// 추적 
 		else
-		{
-			// m_AttackEnable 이 false 일때만 따라가게
-			// 즉, Attack이 끝나고 어느정도 시간 주고
-			// 그 다음에 움직이게 한다
-			// 움직이면서 공격 x 
-			if(!m_AttackEnable)
-				m_AI = EMonsterAI::Trace;
-		}
+			m_AI = EMonsterAI::Trace;
 	}
 	else
 	{
@@ -184,16 +173,6 @@ void CMonster::Update(float DeltaTime)
 void CMonster::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
-
-	// 멈춰있을 때 Idle Animation
-	if (m_Velocity.x == 0 && m_Velocity.y == 0)
-	{
-		// Change Idle Animation
-		// ChangeIdleAnimation();
-		// return;
-	}
-	// Walk Animation
-	ChangeWalkAnimation();
 }
 
 void CMonster::Collision(float DeltaTime)
@@ -225,11 +204,19 @@ void CMonster::CharacterDestroy()
 
 void CMonster::AttackEnd()
 {
+	// m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 }
 
 void CMonster::Fire()
 {
 	CGameObject* Player = m_Scene->GetPlayer();
+	if (m_CurrentGun)
+	{
+		// 속도 조정
+		m_MoveSpeed = 0.f;
+		// Fire
+		m_CurrentGun->MonsterFire(Player->GetPos(),m_CharacterInfo.Attack);
+	}
 }
 
 void CMonster::Move(const Vector2& Dir)
@@ -336,17 +323,17 @@ void CMonster::SetAnimation()
 void CMonster::SetDuck1Animation()
 {
 	// Right
-	AddAnimation(MONSTER_DUCK1_RIGHT_IDLE);
+	AddAnimation(MONSTER_DUCK1_RIGHT_IDLE, true, 2.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
 
 	// Left
-	AddAnimation(MONSTER_DUCK1_LEFT_IDLE);
+	AddAnimation(MONSTER_DUCK1_LEFT_IDLE, true,2.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
-
+	
 	// Stun
 	AddAnimation(MONSTER_DUCK1_LEFT_DEATH , false, DEATH_TIME);
 	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, DEATH_TIME);
@@ -354,7 +341,6 @@ void CMonster::SetDuck1Animation()
 	// Stun
 	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
 	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
-
 }
 
 void CMonster::SetAnimNames()
@@ -421,13 +407,17 @@ void CMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
 
 void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 {
+	// 방향 조정  
+	float Angle = GetAngle(m_Pos, PlayerPos);
+	SetDir(Angle);
+
+	// 멈추기
+	SetStunDir(Vector2(0.f, 0.f));
+	Stun();
+
 	// Animation 
 	ChangeIdleAnimation();
 
-	// 멈추기 
-	SetDir(Vector2(0.f,0.f));
-
-	m_AttackEnable   = true;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 
 	m_FireTime += DeltaTime;
@@ -437,10 +427,17 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 		++m_Count;
 		Fire();
 		AttackEnd();
-
 	}
 }
 
 void CMonster::AIDeath(float DeltaTime)
 {
+}
+
+CGun* CMonster::Equip(CGun* Gun)
+{
+	CGun* EquipedGun = CCharacter::Equip(Gun);
+	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
+	GunBody->SetCollisionProfile("MonsterAttack");
+	return EquipedGun;
 }

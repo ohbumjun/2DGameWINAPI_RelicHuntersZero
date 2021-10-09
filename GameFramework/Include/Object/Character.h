@@ -108,5 +108,5 @@ protected :
 		}
 	}
 public:
-	CGun* Equip(CGun* Gun);
+	virtual CGun* Equip(CGun* Gun);
 };
