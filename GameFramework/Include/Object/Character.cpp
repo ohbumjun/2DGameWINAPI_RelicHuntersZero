@@ -1,13 +1,17 @@
 
 #include "Character.h"
 #include "../Scene/Camera.h"
+#include "../GameManager.h"
 #include "../Scene/Scene.h"
 #include "../Object/Gun.h"
 
 CCharacter::CCharacter() : 
 	m_CharacterInfo{},
 	m_GunEquipment{},
-	m_CurrentGun(nullptr)
+	m_CurrentGun(nullptr),
+	m_StunEnable(false),
+	m_StunTime(0.f),
+	m_StunDir{}
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -15,6 +19,9 @@ CCharacter::CCharacter() :
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
+	m_StunEnable    = false;
+	m_StunTime      = 0.f;
+	m_StunDir = obj.m_StunDir;
 
 	for (int i = 0; i < EGunClass::End; i++)
 	{
@@ -48,6 +55,7 @@ bool CCharacter::Init()
 void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	MoveWithinWorldResolution();
 	if (m_CurrentGun)
 		m_CurrentGun->Update(DeltaTime);
 
@@ -57,6 +65,14 @@ void CCharacter::Update(float DeltaTime)
 
 	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+	// Stun Á¶Àý 
+	if (m_StunEnable)
+	{
+		StunMove();
+		if (m_StunTime >= 0.f) m_StunTime -= DeltaTime;
+		if (m_StunTime < 0.f) StunEnd();
+		return;
+	}
 }
 
 void CCharacter::PostUpdate(float DeltaTime)
@@ -118,11 +134,13 @@ void CCharacter::SetScene(CScene* Scene)
 
 void CCharacter::Move(const Vector2& Dir)
 {
+	if (m_StunEnable) return;
 	CGameObject::Move(Dir);
 }
 
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
+	if (m_StunEnable) return;
 	CGameObject::Move(Dir, Speed);
 }
 
@@ -191,14 +209,30 @@ void CCharacter::CollideBounceBack(Vector2 Dir)
 	Stun();
 }
 
+void CCharacter::SetStunDir(Vector2 Dir)
+{
+	m_StunDir = Dir;
+	m_StunDir.Normalize();
+}
+
 void CCharacter::Stun()
 {
-	CGameObject::Stun();
+	m_StunTime = STUN_TIME;
+	m_StunEnable = true;
+	// CGameObject::Stun();
+}
+
+void CCharacter::StunMove()
+{
+	if (!m_StunEnable) return;
+	Vector2	CurrentMove = m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	m_Velocity += CurrentMove;
+	m_Pos += CurrentMove;
 }
 
 void CCharacter::StunEnd()
 {
-	CGameObject::StunEnd();
+	m_StunEnable = false;
 }
 
 void CCharacter::CharacterDestroy()

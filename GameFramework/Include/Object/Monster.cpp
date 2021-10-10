@@ -28,6 +28,7 @@ CMonster::CMonster() : m_FireTime(0.f),
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 {
+	m_ObjType = EObject_Type::Monster;
 	m_Dir = obj.m_Dir;
 	m_DashDistance = obj.m_DashDistance;
 	m_AttackDistance = obj.m_AttackDistance;
@@ -110,16 +111,13 @@ bool CMonster::Init()
 void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
+
 	// Monster 이동 
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
-
-	MoveWithinWorldResolution();
 
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);
-
-
 
 	if (DistToPlayer <= m_DashDistance)
 	{
@@ -161,6 +159,10 @@ void CMonster::Update(float DeltaTime)
 	{
 		m_AI = EMonsterAI::Death;
 	}
+	if (m_StunEnable)
+	{
+		m_AI = EMonsterAI::Hit;
+	}
 
 	switch (m_AI)
 	{
@@ -184,6 +186,11 @@ void CMonster::Update(float DeltaTime)
 		AIAttack(DeltaTime, PlayerPos);
 	}
 		break;
+	case EMonsterAI::Hit:
+	{
+		AIHit(DeltaTime);
+	}
+	break;
 	case EMonsterAI::Death:
 	{
 		// Death Animation
@@ -358,7 +365,7 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, false, 5.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 0.5f);
 	
 
@@ -367,15 +374,9 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 5.6f);
 	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 0.5f);
 	
-	
-	// Stun
-	// AddAnimation(MONSTER_DUCK1_LEFT_DEATH , false, DEATH_TIME);
-	// AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, DEATH_TIME);
-
-	// Stun
 }
 
 void CMonster::SetAnimNames()
@@ -475,6 +476,12 @@ void CMonster::AIDeath(float DeltaTime)
 	ChangeDeathAnimation();
 }
 
+void CMonster::AIHit(float DeltaTime)
+{
+	CCharacter::Stun();
+	ChangeStunAnimation();
+}
+
 CGun* CMonster::Equip(CGun* Gun)
 {
 	CGun* EquipedGun = CCharacter::Equip(Gun);
@@ -485,3 +492,18 @@ CGun* CMonster::Equip(CGun* Gun)
 	}
 	return EquipedGun;
 }
+
+void CMonster::ChangeStunAnimation()
+{
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_HIT)->second;
+		ChangeAnimation(Anim);
+	}
+	else
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_HIT)->second;
+		ChangeAnimation(Anim);
+	}
+}
+

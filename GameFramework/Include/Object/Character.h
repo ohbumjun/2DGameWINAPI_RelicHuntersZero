@@ -71,27 +71,34 @@ public:
 protected :
 	void SetScene(class CScene* Scene);
 protected :
-	// Move != 가상함수
-	// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
-	// 가상함수 테이블에, Move함수를 들고 있게 하고 싶지 않았다 
-	// 그런데.. 그냥 걸자... ㅋㅋ
+// Move != 가상함수
+// 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
+// 가상함수 테이블에, Move함수를 들고 있게 하고 싶지 않았다 
+// 그런데.. 그냥 걸자... ㅋㅋ
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
 	void MoveWithinWorldResolution();
-// collision
+// Collision
 protected :
 	bool CollisionCheck();
 	bool ObstacleCollisionCheck() const;
 	CGameObject* MonsterCollisionCheck();
 	virtual void CollideBounceBack(Vector2 Dir);
-protected :
-	virtual void Stun();
-	virtual void StunEnd();
+// Stun
+protected:
+	bool m_StunEnable;
+	float m_StunTime;
+	Vector2 m_StunDir;
 public:
+	void SetStunDir(Vector2 Dir);
+	virtual void Stun();
+	virtual void StunMove();
+	virtual void StunEnd();
 // Death
+public:
 	void CharacterDestroy();
-protected :
 // Gun
+protected :
 	void SetInitGun(CGun* Gun);
 	void SetGunPos(Vector2 Pos)
 	{
@@ -107,6 +114,7 @@ protected :
 			m_Size.y = (float)m_Texture->GetHeight();
 		}
 	}
+// Equip
 public:
 	virtual CGun* Equip(CGun* Gun);
 };

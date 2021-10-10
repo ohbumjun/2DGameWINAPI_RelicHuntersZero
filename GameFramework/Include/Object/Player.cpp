@@ -284,8 +284,6 @@ void CPlayer::Update(float DeltaTime)
 	// SetAttackSpeed(0.5f);
 	// if (m_DeathAnimationTime > 0.f) return;
 
-	MoveWithinWorldResolution();
-
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 	{
@@ -831,7 +829,7 @@ void CPlayer::Stun()
 void CPlayer::StunEnd()
 {
 	CCharacter::StunEnd();
-	ChangeAnimation(PLAYER_RIGHT_IDLE);
+	ChangeIdleAnimation();
 }
 
 void CPlayer::ChangeStunAnimation()

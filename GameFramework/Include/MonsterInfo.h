@@ -61,6 +61,7 @@ enum class EMonsterAI
 	Idle,
 	Walk,
 	Trace,
+	Hit,
 	Attack,
 	Death
 };

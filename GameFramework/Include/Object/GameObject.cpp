@@ -26,9 +26,6 @@ CGameObject::CGameObject()	:
 	m_FloorCheck(false),
 	m_GravityAccel(10.f),
 	m_LifeTime(INT_MAX),
-	m_StunDir{},
-	m_StunEnable(false),
-	m_StunTime(0.f),
 	m_MoveSpeed(NORMAL_SPEED),
 	m_SideWallCheck(false),
 	m_ProtoTypeName{}
@@ -42,9 +39,6 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 {
 	// this
 	m_FloorCheck = obj.m_FloorCheck;
-	m_StunDir = obj.m_StunDir;
-	m_StunEnable = obj.m_StunEnable;
-	m_StunTime = obj.m_StunTime;
 	m_LifeTime = obj.m_LifeTime;
 	m_GravityAccel = obj.m_GravityAccel;
 	m_IsGround = obj.m_IsGround;
@@ -126,20 +120,6 @@ CGameObject::~CGameObject()
 	m_WidgetComponentList.clear();
 }
 
-void CGameObject::Stun()
-{
-	m_StunTime = STUN_TIME;
-	m_StunEnable = true;
-}
-
-void CGameObject::StunMove()
-{
-	if (!m_StunEnable) return;
-	Vector2	CurrentMove = m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
-	m_Velocity += CurrentMove;
-	m_Pos += CurrentMove;
-}
-
 void CGameObject::SetCollisionProfile(const std::string& Name)
 {
 	auto iter = m_ColliderList.begin();
@@ -163,17 +143,6 @@ bool CGameObject::IsCollisionCheck()
 		}
 	}
 	return false;
-}
-
-void CGameObject::SetStunDir(Vector2 Dir)
-{
-	m_StunDir = Dir;
-	m_StunDir.Normalize();
-}
-
-void CGameObject::StunEnd()
-{
-	m_StunEnable = false;
 }
 
 CCollider* CGameObject::FindCollider(const std::string& Name)
@@ -327,7 +296,6 @@ void CGameObject::SetScene(CScene* Scene)
 
 void CGameObject::Move(const Vector2& Dir)
 {
-	if (m_StunEnable) return;
 	SetDir(Dir);
 	float DeltaTime = CGameManager::GetInst()->GetDeltaTime();
 	Vector2	CurrentMove = Dir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
@@ -337,7 +305,6 @@ void CGameObject::Move(const Vector2& Dir)
 
 void CGameObject::Move(const Vector2& Dir, float Speed)
 {
-	if(m_StunEnable) return;
 	SetDir(Dir);
 	Vector2	CurrentMove = Dir * Speed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
@@ -546,14 +513,7 @@ void CGameObject::Update(float DeltaTime)
 			(*iter)->Update(DeltaTime);
 		}
 	}
-	if (m_StunEnable)
-	{
-		StunMove();
-		m_StunTime -= DeltaTime;
-		if (m_StunTime < 0.f)
-			StunEnd();
-		return;
-	}
+
 }
 
 void CGameObject::PostUpdate(float DeltaTime)
@@ -592,15 +552,6 @@ void CGameObject::PostUpdate(float DeltaTime)
 		{
 			(*iter)->PostUpdate(DeltaTime);
 		}
-	}
-	// Stun 작용
-	if (m_StunEnable)
-	{
-		// Stun Move 조절
-		StunMove();
-		// Time 조절
-		if(m_StunTime >= 0.f) m_StunTime -= DeltaTime;
-		if (m_StunTime < 0.f) StunEnd();
 	}
 
 	// 수업용 : Side Collision 적용하기

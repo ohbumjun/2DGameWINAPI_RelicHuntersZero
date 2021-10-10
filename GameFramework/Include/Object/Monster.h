@@ -79,8 +79,12 @@ private :
 	void AITrace(float DeltaTime, Vector2 PlayerPos);
 	void AIAttack(float DeltaTime, Vector2 PlayerPos);
 	void AIDeath(float DeltaTime);
+	void AIHit(float DeltaTime);
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);
+// Stun
+private:
+	void ChangeStunAnimation();
 };
 

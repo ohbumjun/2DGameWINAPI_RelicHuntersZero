@@ -19,7 +19,7 @@ CGun::CGun() :
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
 	// m_GunInfo.m_BulletsLoaded  = PISTOL_BULLET_NUM;
-	m_GunInfo.m_BulletsLoaded  = 1;
+	m_GunInfo.m_BulletsLoaded  = 1000;
 	m_GunInfo.m_BulletsFullNum = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletLoadTime = 0.1f;
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
@@ -180,9 +180,6 @@ void CGun::CreateBulletEffect()
 
 void CGun::ShowNoBulletSign()
 {
-	// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-	// DamageFont->SetDamageNumber(9);
-	// Name Widget
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 CameraPos = m_Owner->GetScene()->GetCamera()->GetPos();
 	CSharedPtr<CEffectText> NoBulletText = Scene->CreateObject<CEffectText>(
@@ -192,13 +189,6 @@ void CGun::ShowNoBulletSign()
 		Vector2(50.f,10.f));
 	NoBulletText->SetText(TEXT("NO BULLET"));
 	NoBulletText->SetTextColor(255, 0, 0);
-	/*
-	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
-	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
-		MONSTER_BULLET_PROTO,
-		Vector2(m_Pos + BulletOffset),
-		Vector2(50.f, 50.f));
-		*/
 }
 
 void CGun::AdjustGunTexture()
@@ -246,14 +236,13 @@ bool CGun::Init()
 
 void CGun::Update(float DeltaTime)
 {
-	AdjustGunTexture();
 	CGameObject::Update(DeltaTime);
 }
 
 void CGun::PostUpdate(float DeltaTime)
 {
 	CGameObject::PostUpdate(DeltaTime);
-	// AdjustGunTexture();
+	AdjustGunTexture();
 }
 
 void CGun::Collision(float DeltaTime)

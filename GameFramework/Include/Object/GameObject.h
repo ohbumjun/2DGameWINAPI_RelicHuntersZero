@@ -94,17 +94,6 @@ public :
 		m_PhysicsSimulate = Physics;
 	}
 
-// Stun
-protected :
-	bool m_StunEnable;
-	float m_StunTime;
-	Vector2 m_StunDir;
-public :
-	void SetStunDir(Vector2 Dir);
-	virtual void Stun();
-	virtual void StunMove();
-	virtual void StunEnd();
-
 public:
 	virtual void Start();
 	virtual bool Init();
