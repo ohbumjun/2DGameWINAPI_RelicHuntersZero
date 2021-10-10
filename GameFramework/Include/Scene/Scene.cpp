@@ -576,15 +576,15 @@ void CScene::SetBulletsAnimation()
 void CScene::SetCollideAnimation()
 {
 	// 충돌 효과 애니메이션 
-	GetSceneResource()->CreateAnimationSequence("HitRight",
-		"HitRight", TEXT("Hit2.bmp"));
-	GetSceneResource()->SetTextureColorKey("HitRight",
-		255, 0, 255);
+	GetSceneResource()->CreateAnimationSequence(HIT_EFFECT,
+		HIT_EFFECT, TEXT("HitEffect.bmp"));
+	GetSceneResource()->SetTextureColorKey(HIT_EFFECT,
+		255, 255, 255);
 
 	for (int i = 0; i < 6; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData("HitRight",
-			i * 178.f, 0.f, 178.f, 164.f);
+		GetSceneResource()->AddAnimationFrameData(HIT_EFFECT,
+			i * 96.f, 0.f, 96.f, 96.f);
 	}
 
 	// 충돌 효과 애니메이션 

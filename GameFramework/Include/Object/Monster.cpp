@@ -367,8 +367,7 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, false, 1.f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 0.5f);
-	
+	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 1.5f);
 
 	// Left
 	AddAnimation(MONSTER_DUCK1_LEFT_IDLE, true,2.f);
@@ -376,7 +375,7 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 1.f);
-	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 0.5f);
+	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 1.5f);
 	
 }
 
