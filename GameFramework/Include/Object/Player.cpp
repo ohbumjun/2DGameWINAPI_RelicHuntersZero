@@ -850,15 +850,14 @@ void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 
 void CPlayer::Teleport(float DeltaTime)
 {
-	if (!m_TeleportEnable || m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax)
+
+	if (!m_TeleportEnable || m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
 		return;
 
 	// Animation �����ϱ�
 	ChangeAnimation(PLAYER_TELEPORT);
 
 	m_Pos = m_TeleportPos;
-
-	// ChangeMoveAnimation();
 
 	// m_TeleportEnable
 	m_TeleportEnable = false;
@@ -872,7 +871,7 @@ void CPlayer::Teleport(float DeltaTime)
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax)
+	if (m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
 		return;
 
 	m_TeleportEnable = true;
