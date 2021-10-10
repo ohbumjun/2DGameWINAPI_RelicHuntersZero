@@ -61,6 +61,14 @@
 #define TEXTURE_GUN_SHOTGUN_HEAVY_R  "images/Weapon/Gun/spr_shotgun_heavy_0.bmp"
 #define TEXTURE_GUN_SHOTGUN_HEAVY_L  "images/Weapon/Gun/left_spr_shotgun_heavy_0.bmp"
 
+// Casing Image Path 
+#define TEXTURE_CASING_L_TOWARD_L  "images/Weapon/Casing/L_spr_casing_0.bmp"
+#define TEXTURE_CASING_L_TOWARD_R  "images/Weapon/Casing/spr_casing_0.bmp"
+#define TEXTURE_CASING_M_TOWARD_L  "images/Weapon/Casing/L_spr_casing_2.bmp"
+#define TEXTURE_CASING_M_TOWARD_R  "images/Weapon/Casing/spr_casing_2.bmp"
+#define TEXTURE_CASING_H_TOWARD_L  "images/Weapon/Casing/L_spr_casing_1.bmp"
+#define TEXTURE_CASING_H_TOWARD_R  "images/Weapon/Casing/spr_casing_1.bmp"
+
 // Player  ---
 #define PLAYER_RIGHT_IDLE   "RightIdle"
 #define PLAYER_RIGHT_WALK   "RightWalk"

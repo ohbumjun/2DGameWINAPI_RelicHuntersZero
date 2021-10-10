@@ -79,7 +79,7 @@ public :
 public :
 	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
-	void CreateCasing();
+	void CreateCasing(class CBullet* Bullet);
 public:
 	virtual void Start();
 	virtual bool Init();

@@ -98,16 +98,17 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 		}
 	}
 
-	m_PrevPos = obj.m_PrevPos;
-	m_Pos = obj.m_Pos;
-	m_Size = obj.m_Size;
-	m_Pivot = obj.m_Pivot;
-	m_Velocity = obj.m_Velocity;
-	m_Offset = obj.m_Offset;
-	m_MoveSpeed = obj.m_MoveSpeed;
-	m_TimeScale = obj.m_TimeScale;
-	m_Texture = obj.m_Texture;
-	m_ImageStart = obj.m_ImageStart;
+	m_PrevPos      = obj.m_PrevPos;
+	m_Pos          = obj.m_Pos;
+	m_Size         = obj.m_Size;
+	m_Pivot        = obj.m_Pivot;
+	m_Velocity     = obj.m_Velocity;
+	m_JumpVelocity = obj.m_JumpVelocity;
+	m_Offset       = obj.m_Offset;
+	m_MoveSpeed    = obj.m_MoveSpeed;
+	m_TimeScale    = obj.m_TimeScale;
+	m_Texture      = obj.m_Texture;
+	m_ImageStart   = obj.m_ImageStart;
 }
 
 CGameObject::~CGameObject()

@@ -56,7 +56,7 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	BulletBody->SetCollisionProfile("PlayerAttack");
 
 	// Casing
-	CreateCasing();
+	CreateCasing(Bullet);
 }
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
@@ -81,44 +81,58 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	BulletBody->SetCollisionProfile("MonsterAttack");
 
 	// Casing
-	CreateCasing();
+	CreateCasing(Bullet);
 }
 
-void CGun::CreateCasing()
+void CGun::CreateCasing(CBullet* Bullet)
 {
 	std::string StandAnimName = m_Owner->GetObjType() == EObject_Type::Monster ?
 		MONSTER_RIGHT_ATTACK : PLAYER_RIGHT_ATTACK;
 
 	// Casing Effect
-	Vector2 CameraPos    = m_Owner->GetScene()->GetCamera()->GetPos();
-	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(StandAnimName) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
-	Vector2 CasingPos    = m_Pos - CameraPos + CasingOffset;
-	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>("Casing",
+	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(StandAnimName) ? Vector2(-m_Size.x * 0.7, -m_Size.y * 0.5f) : Vector2(m_Size.x * 0.4, -m_Size.y * 0.5f);
+	Vector2 CasingPos    = m_Pos + CasingOffset;
+
+	// DirX Will Set Differently according to "CasingName"
+	std::string CasingName = m_Owner->CheckCurrentAnimation(StandAnimName) ? "CasingLeft" : "CasingRight";
+	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>(CasingName,
 		EFFECT_CASING_PROTO,
-		Vector2(m_Owner->GetPos() + CasingOffset),
+		CasingPos,
 		Vector2(20.f, 20.f));
 
-	float CasingDir      = m_Owner->CheckCurrentAnimation(StandAnimName) ? -1 : 1;
+	// Owner Left : Casing Right / Owner Right : Casing Left
+	float CasingDir      = m_Owner->CheckCurrentAnimation(StandAnimName) ? -20.f : 20.f;
 	Casing->SetDirX(CasingDir);
 
 	switch (m_GunInfo.m_GunClass)
 	{
-	case Light:
-		Casing->SetTexture("LightCasing",
-			TEXT("images/Weapon/Casing/spr_casing_0.bmp"));
-		Casing->SetTextureColorKey(255, 255, 255);
+		case Light:
+		{
+			if (CasingDir == 1) // Owner Lft --> Right Casing
+				Casing->SetTexture("LightCasing", TEXT(TEXTURE_CASING_L_TOWARD_R));
+			else // Owner Right --> Left Casing
+				Casing->SetTexture("LightCasing", TEXT(TEXTURE_CASING_L_TOWARD_L));
+		}
 		break;
-	case Medium:
-		Casing->SetTexture("MediumCasing",
-			TEXT("images/Weapon/Casing/spr_casing_2.bmp"));
-		Casing->SetTextureColorKey(255, 255, 255);
+		case Medium:
+		{
+			if (CasingDir == 1) // 哭率 --> 坷弗率 Casing
+				Casing->SetTexture("MediumCasing", TEXT(TEXTURE_CASING_M_TOWARD_R));
+			else
+				Casing->SetTexture("MediumCasing", TEXT(TEXTURE_CASING_M_TOWARD_L));
+		}
 		break;
-	case Heavy:
-		Casing->SetTexture("HeavyCasing",
-			TEXT("images/Weapon/Casing/spr_casing_1.bmp"));
-		Casing->SetTextureColorKey(255, 255, 255);
+		case Heavy:
+		{
+			if (CasingDir == 1) // 哭率 --> 坷弗率 Casing
+				Casing->SetTexture("HeavyCasing", TEXT(TEXTURE_CASING_H_TOWARD_R));
+			else
+				Casing->SetTexture("HeavyCasing", TEXT(TEXTURE_CASING_H_TOWARD_L));
+		}
 		break;
 	}
+	Casing->SetTextureColorKey(255, 255, 255);
+
 	//CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", CasingPos);
 	//DamageFont->SetDamageNumber(30);
 }
