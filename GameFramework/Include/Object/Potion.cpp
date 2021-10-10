@@ -6,18 +6,17 @@
 #include "Player.h"
 #include "DamageFont.h"
 
-CPotion::CPotion()
+CPotion::CPotion() :m_PotionPauseTime(1.f)
 {
 	m_ObjType = EObject_Type::Potion;
-	m_PotionAmount = 0.f;
+	m_PotionType = EPotion_Type::HP;
 }
 
 CPotion::CPotion(const CPotion& Potion) : CGameObject(Potion)
 {
 	m_PotionType = Potion.m_PotionType;
-
 	m_ObjType = Potion.m_ObjType;
-	m_PotionAmount = Potion.m_PotionAmount;
+	m_PotionPauseTime = Potion.m_PotionPauseTime;
 }
 
 CPotion::~CPotion()
@@ -79,16 +78,18 @@ void CPotion::Collision(float DeltaTime)
 		if (Player)
 		{
 			// 일정 시간동안, Player HP를 올려준다 
-			if (!m_PotionPauseTime <= 0.f)
+			if (m_PotionPauseTime <= 0.f)
 			{
 				EPotion_Type PotionType = GetPotionType();
 				if (m_PotionType == EPotion_Type::HP)
 				{
-					Player->SetHP(Player->GetHP() + (int)m_PotionAmount);
+					int HPMax = Player->GetHPMax();
+					Player->SetHP(int(Player->GetHP() + HPMax * 0.2f));
 				}
-				else if(m_PotionType == EPotion_Type::HP)
+				else if(m_PotionType == EPotion_Type::MP)
 				{
-					Player->SetMP(Player->GetMP() + m_PotionAmount);
+					float MPMax = Player->GetMPMax();
+					Player->SetMP(Player->GetMP() + MPMax * 0.2f);
 				}
 				m_PotionPauseTime = 1.f;
 			}

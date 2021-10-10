@@ -48,8 +48,10 @@ public :
 		m_CharacterInfo.MP = newMP;
 	}
 	// Get 
-	int GetHP() { return m_CharacterInfo.HP; }
-	float GetMP() { return m_CharacterInfo.MP; }
+	int GetHP()      { return m_CharacterInfo.HP; }
+	int GetHPMax() { return m_CharacterInfo.HPMax; }
+	float GetMP()    { return m_CharacterInfo.MP; }
+	float GetMPMax() { return m_CharacterInfo.MPMax; }
 	int GetArmor()const 
 	{
 		return m_CharacterInfo.Armor;

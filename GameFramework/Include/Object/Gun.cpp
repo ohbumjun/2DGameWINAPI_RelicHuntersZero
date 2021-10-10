@@ -59,7 +59,7 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
 	CScene* Scene = m_Owner->GetScene();
 	// Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
-	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = m_Owner->GetScene()->CreateObject<CBullet>("Bullet",
 		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
@@ -91,7 +91,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 	CScene* Scene = m_Owner->GetScene();
 	// Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(MONSTER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
-	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
+	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
 		MONSTER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
@@ -119,7 +119,7 @@ void CGun::CreateCasing(CBullet* Bullet)
 {
 	// Casing Effect
 	// Casing Offset Set According To Owner Dir
-	Vector2 CasingOffset   = m_Owner->GetDir().x > 0 ? Vector2(-m_Size.x * 0.7, -m_Size.y * 0.5f) : Vector2(m_Size.x * 0.4, -m_Size.y * 0.5f);
+	Vector2 CasingOffset   = m_Owner->GetDir().x > 0 ? Vector2(-m_Size.x * 0.7f, -m_Size.y * 0.5f) : Vector2(m_Size.x * 0.4f, -m_Size.y * 0.5f);
 	Vector2 CasingPos      = m_Pos + CasingOffset;
 
 	// DirX Will Set Differently according to "CasingName"
@@ -168,7 +168,7 @@ void CGun::CreateCasing(CBullet* Bullet)
 
 void CGun::CreateBulletEffect()
 {
-	Vector2 BulletStartOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.7, -m_Size.y * 0.4f) : Vector2(-m_Size.x * 0.7, -m_Size.y * 0.4f);
+	Vector2 BulletStartOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.7f, -m_Size.y * 0.4f) : Vector2(-m_Size.x * 0.7f, -m_Size.y * 0.4f);
 	Vector2 BulletStartPos = m_Pos + BulletStartOffset;
 
 	CSharedPtr<CEffectBulletStart> Casing = m_Owner->GetScene()->CreateObject<CEffectBulletStart>("BulletEffect",
@@ -185,7 +185,7 @@ void CGun::ShowNoBulletSign()
 	CSharedPtr<CEffectText> NoBulletText = Scene->CreateObject<CEffectText>(
 		"CEffectText",
 		EFFECT_TEXT_PROTO,
-		Vector2(m_Owner->GetPos().x-50.f,m_Owner->GetPos().y-m_Owner->GetSize().y*0.8),
+		Vector2(m_Owner->GetPos().x-50.f,m_Owner->GetPos().y-m_Owner->GetSize().y*0.8f),
 		Vector2(50.f,10.f));
 	NoBulletText->SetText(TEXT("NO BULLET"));
 	NoBulletText->SetTextColor(255, 0, 0);
@@ -199,19 +199,19 @@ void CGun::AdjustGunTexture()
 		Vector2 OwnerSize = m_Owner->GetSize();
 
 		// 위치 조정 
-		SetPos(m_Owner->GetPos().x, m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3);
+		SetPos(m_Owner->GetPos().x, m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3f);
 
 		// 방향 조정 
 		if (m_Owner->GetDir().x < 0)
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
-			SetOffset(-OwnerSize.x * 0.1, 0);
+			SetOffset(-OwnerSize.x * 0.1f, 0);
 			// 공격중이라면
 		}
 		else
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
-			SetOffset(OwnerSize.x * 0.1, 0);
+			SetOffset(OwnerSize.x * 0.1f, 0);
 		}
 	}
 }

@@ -1,4 +1,3 @@
-
 #include "Scene.h"
 #include "SceneResource.h"
 #include "SceneManager.h"
@@ -876,18 +875,18 @@ void CScene::SetBasicProtoTypes()
 	// Guns
 	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 200.f);
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_LIGHT_R);
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
 
 	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_MEDIUM_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_R, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 300.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
 	GunPistolLight->SetGunType(EGun_Type::Medium_Pistol);
@@ -896,9 +895,9 @@ void CScene::SetBasicProtoTypes()
 
 	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_HEAVY_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_R, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 400.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
 	GunPistolLight->SetGunType(EGun_Type::Heavy_Pistol);
@@ -907,9 +906,9 @@ void CScene::SetBasicProtoTypes()
 
 	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_LIGHT_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_R, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 500.f);
 	GunPistolLight->SetGunClass(EGunClass::Light);
 	GunPistolLight->SetGunType(EGun_Type::Light_ShotGun);
@@ -918,9 +917,9 @@ void CScene::SetBasicProtoTypes()
 
 	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_MEDIUM_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_R, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 600.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
 	GunPistolLight->SetGunType(EGun_Type::Medium_ShotGun);
@@ -929,9 +928,9 @@ void CScene::SetBasicProtoTypes()
 
 	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_HEAVY_PROTO);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_R, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255.f, 255.f, 255.f);
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 700.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
 	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
@@ -1274,7 +1273,6 @@ bool CScene::Render(HDC hDC)
 		}
 	}
 
-	// ��� ����� �����Ѵ�.
 	qsort(m_RenderArray, (size_t)m_RenderCount, sizeof(CGameObject *),
 		  CScene::SortY);
 
@@ -1321,7 +1319,6 @@ int CScene::SortY(const void *Src, const void *Dest)
 	CGameObject *SrcObj = *(CGameObject **)Src;
 	CGameObject *DestObj = *(CGameObject **)Dest;
 
-	// Bottom ���� ���Ѵ�.
 	float SrcY = SrcObj->GetBottom();
 	float DestY = DestObj->GetBottom();
 
@@ -1338,7 +1335,6 @@ int CScene::SortZOrder(const void *Src, const void *Dest)
 	CUIWindow *SrcObj = *(CUIWindow **)Src;
 	CUIWindow *DestObj = *(CUIWindow **)Dest;
 
-	// Bottom ���� ���Ѵ�.
 	int SrcZ = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 
@@ -1356,7 +1352,6 @@ int CScene::SortZOrderMap(const void *Src, const void *Dest)
 	CMapBase *SrcObj = *(CMapBase **)Src;
 	CMapBase *DestObj = *(CMapBase **)Dest;
 
-	// Bottom ���� ���Ѵ�
 	int SrcZ = SrcObj->GetZOrder();
 	int DestZ = DestObj->GetZOrder();
 

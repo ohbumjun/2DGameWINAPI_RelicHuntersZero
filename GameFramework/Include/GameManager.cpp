@@ -14,7 +14,16 @@ bool CGameManager::m_Loop = true;
 
 CGameManager::CGameManager() : m_Timer(nullptr),
 							   m_TimeScale(1.f),
-								m_EditorMode(false)
+								m_EditorMode(false),
+	m_RS{},
+	m_hBackBmp{},
+	m_hBackDC{},
+	m_hDC{},
+	m_hGreenBrush{},
+	m_hGreenPen{},
+	m_hYellowBrush{},
+	m_hRedBrush{},
+	m_hRedPen{}
 {
 	// init commit 
 }
@@ -44,7 +53,6 @@ CGameManager::~CGameManager()
 	DeleteObject(m_hGreenPen);
 	DeleteObject(m_hRedPen);
 
-	// GetDC�� �̿��ؼ� ������ DC�� �ݵ�� ReleaseDC�� ���־�� �Ѵ�.
 	ReleaseDC(m_hWnd, m_hDC);
 }
 
@@ -73,35 +81,27 @@ bool CGameManager::Init(HINSTANCE hInst)
 	Register();
 	Create();
 
-	// DC�� �����Ѵ�.
 	m_hDC = GetDC(m_hWnd);
 
-	// ��ΰ����� �ʱ�ȭ
 	if (!CPathManager::GetInst()->Init())
 		return false;
 
-	// ���ҽ� ������ �ʱ�ȭ
 	if (!CResourceManager::GetInst()->Init())
 		return false;
 
-	// �浹 ������ �ʱ�ȭ
 	if (!CCollisionManager::GetInst()->Init())
 		return false;
 
-	// �Է°����� �ʱ�ȭ
 	if (!CInput::GetInst()->Init(m_hWnd))
 		return false;
 
-	// �������� �ʱ�ȭ
 	if (!CSceneManager::GetInst()->Init())
 		return false;
 
 	CSceneManager::GetInst()->CreateScene<CStartScene>();
 
-	// Ÿ�̸Ӹ� �����Ѵ�.
 	m_Timer = new CTimer;
 
-	// ����� ����
 	m_hBackDC = CreateCompatibleDC(m_hDC);
 
 	m_hBackBmp = CreateCompatibleBitmap(m_hDC, m_RS.Width, m_RS.Height);
@@ -119,26 +119,14 @@ bool CGameManager::Init(HINSTANCE hInst)
 
 int CGameManager::Run()
 {
-	MSG msg;
+	MSG msg = {};
 
 	while (m_Loop)
 	{
-		// GetMessage�� �޼����� ���� ��� �ٸ����� �� �� ����.
-		// �޼����� �ö����� ����ϰ� �ִ� �ð��� �������� ����Ÿ���̶�� �Ѵ�.
-		// ������ �޼����� �ִ� �ð����� ���� �ð��� �ξ� ���.
-		// �׷��� ������ �������� ����Ÿ�ӵ��� ������ ���۵� �� �ְ� �����Ѵ�.
-		// PeekMessage�� �޼���ť���� �޼����� ���´�.
-		// �׷��� ���� �޼����� ���ٸ� false�� �����ϸ鼭 �ٷ� ����������
-		// �޼����� �ִٸ� true�� �����ϸ鼭 �ش� �޼����� �����´�.
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			// WM_KEYDOWN �̶�� �޼����� �ִ�. �̴� Ű���� Ű�� �������� �߻��Ǵ� �޼���
-			// �̴�. TranslateMessage �Լ������� �޼����� �������ָ� WM_KEYDOWN ������
-			// �Ǵ����ְ� ������ Ű�� ���� Ű������ �Ǵ��ؼ� �Ϲ� ���� Ű��� WM_CHAR���
-			// �޽����� ���� �޼��� ť�� �߰����ְ� �ȴ�.
 			TranslateMessage(&msg);
 
-			// DispatchMessage �Լ��� �޼����� ������ ���ν����� �����ش�.
 			DispatchMessage(&msg);
 		}
 
@@ -210,7 +198,6 @@ ATOM CGameManager::Register()
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 
-	// Window Instance�� �����Ѵ�.
 	wcex.hInstance = m_hInst;
 
 	wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON1));

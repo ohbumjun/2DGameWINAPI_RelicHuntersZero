@@ -111,7 +111,7 @@ void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
 
-	// Monster 이동 
+	// Monster Move 
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
 	CGameObject *Player = m_Scene->GetPlayer();
@@ -120,15 +120,14 @@ void CMonster::Update(float DeltaTime)
 
 	if (DistToPlayer <= m_DashDistance)
 	{
-		// 느낌표 
+		// Suprise  
 		if (!m_TraceSurprise)
 		{
 			Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
-			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8, LT.y + m_Size.y * 0.4);
+			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
 			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
 				RT, Vector2(10.f, 10.f));
 
-			// 나중에 sound 바꾸기 
 			m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 			m_TraceSurprise = true;
@@ -136,7 +135,6 @@ void CMonster::Update(float DeltaTime)
 
 		if (DistToPlayer < m_AttackDistance)
 			m_AI = EMonsterAI::Attack;
-		// 추적 
 		else
 			m_AI = EMonsterAI::Trace;
 	}
@@ -440,7 +438,6 @@ void CMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
 {
 	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
 	ChangeRunAnimation();
-	// Player를 쫒아가기
 	float Angle = GetAngle(m_Pos, PlayerPos);
 	SetDir(Angle);
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
@@ -448,14 +445,11 @@ void CMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
 
 void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 {
-	// 방향 조정  
 	float Angle = GetAngle(m_Pos, PlayerPos);
 	SetDir(Angle);
 
-	// 멈추기
 	m_MoveSpeed = 0.f;
 
-	// Animation 
 	ChangeIdleAnimation();
 
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;

@@ -316,8 +316,7 @@ void CPlayer::Update(float DeltaTime)
 	if (m_SkillSlowMotionAttackEnable)
 		SkillSlowMotionUpdate(DeltaTime);
 
-	if (m_CharacterInfo.Stemina <= m_CharacterInfo.SteminaMax)
-		m_CharacterInfo.Stemina += DeltaTime;
+	// Hp, Mp, Stemina
 
 	// Run
 	if (m_RunEnable)
@@ -436,6 +435,18 @@ float CPlayer::SetDamage(float Damage)
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	return Damage;
+}
+
+void CPlayer::AbilityUpdate(float DeltaTime)
+{
+	if (m_CharacterInfo.Stemina <= m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina += DeltaTime;
+
+	if (m_CharacterInfo.HP <= m_CharacterInfo.HPMax)
+		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+
+	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP += DeltaTime;
 }
 
 void CPlayer::ChangeGun()
@@ -865,7 +876,7 @@ void CPlayer::Teleport(float DeltaTime)
 	if (m_CharacterInfo.MP >= 0.2f * m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
 
-	// TeleportMouse Cursor Animation �����ֱ�
+	// TeleportMouse Cursor Animation
 	DeleteTeleportObj();
 }
 
@@ -916,7 +927,7 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 void CPlayer::FireTarget()
 {
 	if (m_CurrentGun)
-		m_CurrentGun->PlayerFire(m_TargetPos, m_CharacterInfo.Attack);
+		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_CharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)

@@ -35,6 +35,10 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
+// Hp,Mp,Stemina 
+public :
+	void AbilityUpdate(float DeltaTime);
+
 // Animation 
 private :
 	virtual void ChangeMoveAnimation();

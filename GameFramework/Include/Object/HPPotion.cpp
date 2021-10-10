@@ -4,7 +4,6 @@
 CHPPotion::CHPPotion()
 {
 	m_PotionType = EPotion_Type::HP;
-	m_PotionAmount = 50;
 };
 
 CHPPotion::~CHPPotion()
