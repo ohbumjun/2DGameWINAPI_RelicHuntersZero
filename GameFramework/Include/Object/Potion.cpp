@@ -84,12 +84,12 @@ void CPotion::Collision(float DeltaTime)
 				if (m_PotionType == EPotion_Type::HP)
 				{
 					int HPMax = Player->GetHPMax();
-					Player->SetHP(int(Player->GetHP() + HPMax * 0.2f));
+					Player->SetHP(int(Player->GetHP() + HPMax * 0.1f));
 				}
 				else if(m_PotionType == EPotion_Type::MP)
 				{
 					float MPMax = Player->GetMPMax();
-					Player->SetMP(Player->GetMP() + MPMax * 0.2f);
+					Player->SetMP(Player->GetMP() + MPMax * 0.1f);
 				}
 				m_PotionPauseTime = 1.f;
 			}
