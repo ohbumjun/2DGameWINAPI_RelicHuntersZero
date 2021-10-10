@@ -61,6 +61,14 @@ public :
 	{
 		return m_Owner;
 	}
+	int GetGunFullBullet() const
+	{
+		return m_GunInfo.m_BulletsFullNum;
+	}
+	int GetGunLeftBullet() const
+	{
+		return m_GunInfo.m_BulletsLoaded;
+	}
 	EGunClass GetGunClass() const
 	{
 		return m_GunInfo.m_GunClass;

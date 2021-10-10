@@ -38,10 +38,10 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_SkillDestoryAllAttackTime(0.f),
 					 m_LaserBulletObj(nullptr),
 					 m_PlayerDeath(false),
-	m_HPBarWidget(nullptr),
-	m_MPBarWidget(nullptr),
-	m_NameWidget(nullptr),
-	m_SteminaBarWidget(nullptr)
+					m_HPBarWidget(nullptr),
+					m_MPBarWidget(nullptr),
+					m_NameWidget(nullptr),
+					m_SteminaBarWidget(nullptr)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -339,9 +339,37 @@ void CPlayer::Update(float DeltaTime)
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
 	{
+		// Ability 
 		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 		State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+
+		// Gun
+		CGun* Gun = nullptr;
+		// Light 
+		if (m_GunEquipment[EGunClass::Light])
+		{
+			Gun = m_GunEquipment[EGunClass::Light];
+			State->SetLightGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+		}
+		else
+			State->SetLightGunPercent(0.f);
+		// Medium
+		if (m_GunEquipment[EGunClass::Medium])
+		{
+			Gun = m_GunEquipment[EGunClass::Medium];
+			State->SetMediumGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+		}
+		else
+			State->SetMediumGunPercent(0.f);
+		// Heavy
+		if (m_GunEquipment[EGunClass::Heavy])
+		{
+			Gun = m_GunEquipment[EGunClass::Heavy];
+			State->SetHeavyGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+		}
+		else
+			State->SetHeavyGunPercent(0.f);
 	}
 	
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
