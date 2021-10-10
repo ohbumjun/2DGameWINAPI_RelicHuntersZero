@@ -83,6 +83,7 @@ public :
 	void CreateCasing(class CBullet* Bullet);
 	void CreateBulletEffect();
 	void ShowNoBulletSign();
+	void AdjustGunTexture();
 public:
 	virtual void Start();
 	virtual bool Init();

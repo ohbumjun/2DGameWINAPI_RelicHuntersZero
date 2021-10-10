@@ -376,10 +376,16 @@ void CPlayer::Update(float DeltaTime)
 		float Angle				   = GetAngle(m_Pos, MousePos);
 		SetDir(Angle);
 		// Animation Change
-		if (MousePlayerPosDiff.x >= 0) 
+		if (MousePlayerPosDiff.x >= 0)
+		{
 			ChangeAnimation(PLAYER_LEFT_IDLE);
+			m_Dir.x = -1;
+		}
 		else
+		{
 			ChangeAnimation(PLAYER_RIGHT_IDLE);
+			m_Dir.x = 1;
+		}
 	}
 }
 
