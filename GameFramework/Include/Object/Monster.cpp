@@ -480,8 +480,7 @@ void CMonster::AIDeath(float DeltaTime)
 
 void CMonster::AIHit(float DeltaTime)
 {
-	CCharacter::Hit();
-	ChangeHitAnimation();
+	// HitMove();
 }
 
 CGun* CMonster::Equip(CGun* Gun)

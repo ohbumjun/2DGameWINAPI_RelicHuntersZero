@@ -65,14 +65,13 @@ void CCharacter::Update(float DeltaTime)
 
 	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+
 	// Hit Á¶Àý 
+	if (m_HitTime >= 0.f) m_HitTime -= DeltaTime;
 	if (m_HitEnable)
 	{
 		HitMove();
-		if (m_HitTime >= 0.f) m_HitTime -= DeltaTime;
 		if (m_HitTime < 0.f) HitEnd();
-		// While Hit , No Other Animations or Change is allowed
-		return;
 	}
 }
 
@@ -247,11 +246,11 @@ void CCharacter::Hit()
 	m_HitEnable = true;
 	ChangeHitAnimation();
 }
-
 void CCharacter::HitMove()
 {
 	if (!m_HitEnable) return;
-	Vector2	CurrentMove = m_HitDir * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	float MoveMultiply = 5;
+	Vector2	CurrentMove = m_HitDir * MoveMultiply * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }
