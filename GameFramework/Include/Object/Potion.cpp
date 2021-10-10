@@ -53,16 +53,10 @@ bool CPotion::Init()
 void CPotion::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	if (m_PotionPause)
-	{
+
+	// Potion Time Update
+	if (m_PotionPauseTime >= 0.f)
 		m_PotionPauseTime -= DeltaTime;
-		if (m_PotionPauseTime < 0.f)
-		{
-			m_PotionPause = false;
-			m_PotionPauseTime = 0.f;
-			
-		}
-	}
 }
 
 void CPotion::PostUpdate(float DeltaTime)
@@ -85,8 +79,7 @@ void CPotion::Collision(float DeltaTime)
 		if (Player)
 		{
 			// 일정 시간동안, Player HP를 올려준다 
-			/*
-			if (!m_PotionPause)
+			if (!m_PotionPauseTime <= 0.f)
 			{
 				EPotion_Type PotionType = GetPotionType();
 				if (m_PotionType == EPotion_Type::HP)
@@ -97,10 +90,8 @@ void CPotion::Collision(float DeltaTime)
 				{
 					Player->SetMP(Player->GetMP() + m_PotionAmount);
 				}
-				m_PotionPause = true;
 				m_PotionPauseTime = 1.f;
 			}
-				*/
 		}
 	}
 };

@@ -854,7 +854,7 @@ void CPlayer::Teleport(float DeltaTime)
 	if (!m_TeleportEnable || m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
 		return;
 
-	// Animation �����ϱ�
+	// Animation Settings
 	ChangeAnimation(PLAYER_TELEPORT);
 
 	m_Pos = m_TeleportPos;
