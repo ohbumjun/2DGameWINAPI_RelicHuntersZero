@@ -7,6 +7,7 @@
 #include "../Object/EffectHit.h"
 #include "../Object/EffectSurprise.h"
 #include "../Object/EffectCasing.h"
+#include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
 #include "../Object/DamageFont.h"
 #include "../Object/Monster.h"
@@ -530,6 +531,29 @@ void CScene::SetBulletsAnimation()
 		GetSceneResource()->AddAnimationFrameData(BULLET_HEAVY,
 			i * 66.f, 0, 66.f, 50.f);
 	}
+
+	// 총알 효과 L
+	GetSceneResource()->CreateAnimationSequence(BULLETSTART_EFFECT_L,
+		BULLETSTART_EFFECT_L, TEXT("images/Weapon/Gun/Bullet/left_spr_bullet_start.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLETSTART_EFFECT_L,
+		0, 0, 0);
+	for (int i = 0; i < 1; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLETSTART_EFFECT_L,
+			i * 46.f, 0, 46.f, 30.f);
+	}
+
+	// 총알 효과
+	GetSceneResource()->CreateAnimationSequence(BULLETSTART_EFFECT_R,
+		BULLETSTART_EFFECT_R, TEXT("images/Weapon/Gun/Bullet/spr_bullet_start.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLETSTART_EFFECT_R,
+		255, 0, 255);
+	for (int i = 0; i < 1; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLETSTART_EFFECT_R,
+			i * 46.f, 0, 46.f, 30.f);
+	}
+	
 }
 
 void CScene::SetCollideAnimation()
@@ -795,6 +819,8 @@ void CScene::SetBasicProtoTypes()
 	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(EFFECT_DASH_PROTO);
 	// EffectCasing
 	CEffectCasing* EffectCasingPrototype = CreatePrototype<CEffectCasing>(EFFECT_CASING_PROTO);
+	// EffectBulletStart
+	CEffectBulletStart* EffectBulletSTPrototype = CreatePrototype<CEffectBulletStart>(EFFECT_BULLETSTART_PROTO);
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 

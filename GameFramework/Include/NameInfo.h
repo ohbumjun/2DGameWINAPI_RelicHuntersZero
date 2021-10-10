@@ -1,10 +1,12 @@
 #pragma once
 
 // Effect ---
-#define DASH_EFFECT      "DashEffect"
-#define HIT_EFFECT       "HitEffect"
-#define SURPRISE_EFFECT  "Surprise"
-#define MPHPUP_EFFECT    "HitEffect"
+#define DASH_EFFECT           "DashEffect"
+#define HIT_EFFECT            "HitEffect"
+#define BULLETSTART_EFFECT_L  "LBulletStartEffect"
+#define BULLETSTART_EFFECT_R  "RBulletSTartEffect"
+#define SURPRISE_EFFECT		  "Surprise"
+#define MPHPUP_EFFECT         "HPMPUpEffect"
 
 // Bullet 
 #define BULLET_LIGHT  "BulletLight"

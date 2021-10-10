@@ -3,6 +3,7 @@
 #include "Bullet.h"
 #include "DamageFont.h"
 #include "EffectCasing.h"
+#include "EffectBulletStart.h"
 #include"../Scene/Scene.h"
 #include"../Scene/Camera.h"
 
@@ -57,11 +58,13 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 	// Casing
 	CreateCasing(Bullet);
+
+	// Bullet Effect
+	CreateBulletEffect();
 }
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
-
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(MONSTER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
@@ -82,33 +85,34 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 	// Casing
 	CreateCasing(Bullet);
+
+	// Bullet Effect
+	CreateBulletEffect();
 }
 
 void CGun::CreateCasing(CBullet* Bullet)
 {
-	std::string StandAnimName = m_Owner->GetObjType() == EObject_Type::Monster ?
-		MONSTER_RIGHT_ATTACK : PLAYER_RIGHT_ATTACK;
-
 	// Casing Effect
-	Vector2 CasingOffset = m_Owner->CheckCurrentAnimation(StandAnimName) ? Vector2(-m_Size.x * 0.7, -m_Size.y * 0.5f) : Vector2(m_Size.x * 0.4, -m_Size.y * 0.5f);
-	Vector2 CasingPos    = m_Pos + CasingOffset;
+	// Casing Offset Set According To Owner Dir
+	Vector2 CasingOffset   = m_Owner->GetDir().x > 0 ? Vector2(-m_Size.x * 0.7, -m_Size.y * 0.5f) : Vector2(m_Size.x * 0.4, -m_Size.y * 0.5f);
+	Vector2 CasingPos      = m_Pos + CasingOffset;
 
 	// DirX Will Set Differently according to "CasingName"
-	std::string CasingName = m_Owner->CheckCurrentAnimation(StandAnimName) ? "CasingLeft" : "CasingRight";
+	std::string CasingName = m_Owner->GetDir().x > 0 ? "CasingLeft" : "CasingRight";
 	CSharedPtr<CEffectCasing> Casing = m_Owner->GetScene()->CreateObject<CEffectCasing>(CasingName,
 		EFFECT_CASING_PROTO,
 		CasingPos,
 		Vector2(20.f, 20.f));
 
 	// Owner Left : Casing Right / Owner Right : Casing Left
-	float CasingDir      = m_Owner->CheckCurrentAnimation(StandAnimName) ? -20.f : 20.f;
+	float CasingDir        = m_Owner->GetDir().x > 0 ? -20.f : 20.f;
 	Casing->SetDirX(CasingDir);
 
 	switch (m_GunInfo.m_GunClass)
 	{
 		case Light:
 		{
-			if (CasingDir == 1) // Owner Lft --> Right Casing
+			if (m_Owner->GetDir().x < 0) // Owner Lft --> Right Casing
 				Casing->SetTexture("LightCasing", TEXT(TEXTURE_CASING_L_TOWARD_R));
 			else // Owner Right --> Left Casing
 				Casing->SetTexture("LightCasing", TEXT(TEXTURE_CASING_L_TOWARD_L));
@@ -116,7 +120,7 @@ void CGun::CreateCasing(CBullet* Bullet)
 		break;
 		case Medium:
 		{
-			if (CasingDir == 1) // 哭率 --> 坷弗率 Casing
+			if (m_Owner->GetDir().x < 0) // 哭率 --> 坷弗率 Casing
 				Casing->SetTexture("MediumCasing", TEXT(TEXTURE_CASING_M_TOWARD_R));
 			else
 				Casing->SetTexture("MediumCasing", TEXT(TEXTURE_CASING_M_TOWARD_L));
@@ -124,7 +128,7 @@ void CGun::CreateCasing(CBullet* Bullet)
 		break;
 		case Heavy:
 		{
-			if (CasingDir == 1) // 哭率 --> 坷弗率 Casing
+			if (m_Owner->GetDir().x < 0) // 哭率 --> 坷弗率 Casing
 				Casing->SetTexture("HeavyCasing", TEXT(TEXTURE_CASING_H_TOWARD_R));
 			else
 				Casing->SetTexture("HeavyCasing", TEXT(TEXTURE_CASING_H_TOWARD_L));
@@ -135,6 +139,18 @@ void CGun::CreateCasing(CBullet* Bullet)
 
 	//CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", CasingPos);
 	//DamageFont->SetDamageNumber(30);
+}
+
+void CGun::CreateBulletEffect()
+{
+	Vector2 BulletStartOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.7, -m_Size.y * 0.4f) : Vector2(-m_Size.x * 0.7, -m_Size.y * 0.4f);
+	Vector2 BulletStartPos = m_Pos + BulletStartOffset;
+
+	CSharedPtr<CEffectBulletStart> Casing = m_Owner->GetScene()->CreateObject<CEffectBulletStart>("BulletEffect",
+		EFFECT_BULLETSTART_PROTO,
+		BulletStartPos,
+		Vector2(20.f, 20.f));
+
 }
 
 void CGun::Start()

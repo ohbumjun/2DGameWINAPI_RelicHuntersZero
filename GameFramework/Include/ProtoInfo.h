@@ -1,6 +1,7 @@
 #pragma once
 
 #define EFFECT_HIT_PROTO					  "HitEffectProto"
+#define EFFECT_BULLETSTART_PROTO			  "BulletStartEffectProto"
 #define EFFECT_SURPRISE_PROTO				  "SurpriseEffectProto"
 #define EFFECT_CASING_PROTO					  "CasingEffectProto"
 #define EFFECT_DASH_PROTO					  "DashEffectProto"

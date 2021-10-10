@@ -20,14 +20,9 @@ CEffectCasing::~CEffectCasing()
 void CEffectCasing::Start()
 {
 	CGameObject::Start();
-	// m_SpeedX = (float)(rand() % 300);
-	// "CasingLeft" : "CasingRight"
-	// m_DirX = m_Name == "CasingLeft" ? -10.f : 10.f;
-
+	// Random Jump Velocity
 	SetJumpVelocity((float)(10.f + rand() % 30));
-	//SetPhysicsSimulate(true);
 	Jump();
-	//SetLifeTime(3.f);
 }
 
 bool CEffectCasing::Init()
