@@ -317,6 +317,7 @@ void CPlayer::Update(float DeltaTime)
 		SkillSlowMotionUpdate(DeltaTime);
 
 	// Hp, Mp, Stemina
+	AbilityUpdate(DeltaTime);
 
 	// Run
 	if (m_RunEnable)
@@ -439,8 +440,9 @@ float CPlayer::SetDamage(float Damage)
 
 void CPlayer::AbilityUpdate(float DeltaTime)
 {
-	if (m_CharacterInfo.Stemina <= m_CharacterInfo.SteminaMax)
-		m_CharacterInfo.Stemina += DeltaTime;
+	m_CharacterInfo.Stemina += 0.8f * DeltaTime;
+	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
 
 	if (m_CharacterInfo.HP <= m_CharacterInfo.HPMax)
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
@@ -590,7 +592,7 @@ void CPlayer::RunDown(float DeltaTime)
 
 void CPlayer::RunUpdate(float DeltaTime)
 {
-	if (m_CharacterInfo.Stemina >= 0)
+	if (m_CharacterInfo.Stemina > 0)
 		m_CharacterInfo.Stemina -= 3 * DeltaTime;
 	if (m_CharacterInfo.Stemina <= 0)
 		RunEnd();
@@ -746,7 +748,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
-	m_CharacterInfo.Stemina = 0.f;
+	m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
 
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) 
 	{
