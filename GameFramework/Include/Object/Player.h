@@ -33,14 +33,19 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
+
+// Animation 
+private :
+	void ChangeMoveAnimation();
+	void ChangeRunAnimation();
+	void ChangeHitAnimation();
+	void ChangeIdleAnimation();
+	void ChangeDashAnimation();
+
 // Gun
 private :
 	void ChangeGun();
 
-// Idle ---
-private:
-	void ChangeIdleAnimation();
-	void ChangeDashAnimation();
 // Move ---
 private:
 	void MoveUp(float DeltaTime);
@@ -49,7 +54,6 @@ private:
 	void MoveRight(float DeltaTime);
 	virtual void Move(const Vector2 &Dir);
 	virtual void Move(const Vector2 &Dir, float Speed);
-	void ChangeMoveAnimation(); 
 	void JumpKey(float DeltaTime);
 
 // Run ---
@@ -61,7 +65,6 @@ private:
 	bool m_RunEnable;
 	void RunStart();
 	void RunEnd();
-	void ChangeRunAnimation();
 
 // Dash ---
 private:
@@ -106,11 +109,6 @@ private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
 	Vector2 GetColliderPos();
 	virtual void CollideBounceBack(Vector2 Dir);
-// Stun ---
-private:
-	virtual void Stun();
-	virtual void StunEnd();
-	void ChangeStunAnimation();
 
 // Teleport ---
 private:

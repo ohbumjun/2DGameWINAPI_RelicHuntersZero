@@ -9,9 +9,9 @@ CCharacter::CCharacter() :
 	m_CharacterInfo{},
 	m_GunEquipment{},
 	m_CurrentGun(nullptr),
-	m_StunEnable(false),
-	m_StunTime(0.f),
-	m_StunDir{}
+	m_HitEnable(false),
+	m_HitTime(0.f),
+	m_HitDir{}
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -19,9 +19,9 @@ CCharacter::CCharacter() :
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
-	m_StunEnable    = false;
-	m_StunTime      = 0.f;
-	m_StunDir = obj.m_StunDir;
+	m_HitEnable    = false;
+	m_HitTime      = 0.f;
+	m_HitDir = obj.m_HitDir;
 
 	for (int i = 0; i < EGunClass::End; i++)
 	{
@@ -65,12 +65,13 @@ void CCharacter::Update(float DeltaTime)
 
 	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
-	// Stun 조절 
-	if (m_StunEnable)
+	// Hit 조절 
+	if (m_HitEnable)
 	{
-		StunMove();
-		if (m_StunTime >= 0.f) m_StunTime -= DeltaTime;
-		if (m_StunTime < 0.f) StunEnd();
+		HitMove();
+		if (m_HitTime >= 0.f) m_HitTime -= DeltaTime;
+		if (m_HitTime < 0.f) HitEnd();
+		// While Hit , No Other Animations or Change is allowed
 		return;
 	}
 }
@@ -132,15 +133,40 @@ void CCharacter::SetScene(CScene* Scene)
 	}
 }
 
+void CCharacter::ChangeHitAnimation()
+{
+	if (!m_HitEnable) return;
+}
+
+void CCharacter::ChangeIdleAnimation()
+{
+	if (m_HitEnable) return;
+}
+
+void CCharacter::ChangeDashAnimation()
+{
+	if (m_HitEnable) return;
+}
+
+void CCharacter::ChangeRunAnimation()
+{
+	if (m_HitEnable) return;
+}
+
+void CCharacter::ChangeMoveAnimation()
+{
+	if (m_HitEnable) return;
+}
+
 void CCharacter::Move(const Vector2& Dir)
 {
-	if (m_StunEnable) return;
+	if (m_HitEnable) return;
 	CGameObject::Move(Dir);
 }
 
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
-	if (m_StunEnable) return;
+	if (m_HitEnable) return;
 	CGameObject::Move(Dir, Speed);
 }
 
@@ -205,34 +231,35 @@ void CCharacter::CollideBounceBack(Vector2 Dir)
 {
 	Vector2 OppDir = Dir;
 	OppDir.Normalize();
-	SetStunDir(OppDir);
-	Stun();
+	SetHitDir(OppDir);
+	Hit();
 }
 
-void CCharacter::SetStunDir(Vector2 Dir)
+void CCharacter::SetHitDir(Vector2 Dir)
 {
-	m_StunDir = Dir;
-	m_StunDir.Normalize();
+	m_HitDir = Dir;
+	m_HitDir.Normalize();
 }
 
-void CCharacter::Stun()
+void CCharacter::Hit()
 {
-	m_StunTime = STUN_TIME;
-	m_StunEnable = true;
-	// CGameObject::Stun();
+	m_HitTime = HIT_TIME;
+	m_HitEnable = true;
+	ChangeHitAnimation();
 }
 
-void CCharacter::StunMove()
+void CCharacter::HitMove()
 {
-	if (!m_StunEnable) return;
-	Vector2	CurrentMove = m_StunDir * STUN_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	if (!m_HitEnable) return;
+	Vector2	CurrentMove = m_HitDir * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }
 
-void CCharacter::StunEnd()
+void CCharacter::HitEnd()
 {
-	m_StunEnable = false;
+	m_HitEnable = false;
+	ChangeIdleAnimation();
 }
 
 void CCharacter::CharacterDestroy()

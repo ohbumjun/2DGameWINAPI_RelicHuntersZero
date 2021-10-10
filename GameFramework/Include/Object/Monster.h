@@ -61,6 +61,7 @@ public :
 	void ChangeWalkAnimation();
 	void ChangeTraceAnimation();
 	void ChangeDeathAnimation();
+	void ChangeHitAnimation();
 
 // Random Dir Setting
 private :
@@ -83,8 +84,5 @@ private :
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);
-// Stun
-private:
-	void ChangeStunAnimation();
 };
 

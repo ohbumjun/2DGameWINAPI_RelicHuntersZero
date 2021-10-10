@@ -1,7 +1,7 @@
 #pragma once
 
 // Time
-#define STUN_TIME 1.0f
+#define HIT_TIME 0.5f
 #define DASH_TIME 0.3f
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
@@ -15,7 +15,7 @@
 
 // Speed 
 #define NORMAL_SPEED 200.f
-#define STUN_SPEED 250.f
+#define HIT_SPEED 250.f
 #define FAST_SPEED 400.f
 #define BULLET_SPEED 800.f
 #define LASER_SPEED 20000.f

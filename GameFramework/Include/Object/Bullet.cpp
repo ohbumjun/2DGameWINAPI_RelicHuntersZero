@@ -119,8 +119,8 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		DestOwner->GetObjType() == EObject_Type::Monster)
 	{
 		CCharacter* DestChar = (CCharacter*)Dest->GetOwner();
-		DestChar->SetStunDir(BulletDir);
-		DestChar->Stun();
+		DestChar->SetHitDir(BulletDir);
+		DestChar->Hit();
 	}
 
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,

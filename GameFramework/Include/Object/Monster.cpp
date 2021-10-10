@@ -87,7 +87,6 @@ bool CMonster::Init()
 	SetAnimation();
 	SetAnimNames();
 	
-
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
 	Body->SetOffset(0.f, -36.5f);
@@ -159,7 +158,7 @@ void CMonster::Update(float DeltaTime)
 	{
 		m_AI = EMonsterAI::Death;
 	}
-	if (m_StunEnable)
+	if (m_HitEnable)
 	{
 		m_AI = EMonsterAI::Hit;
 	}
@@ -261,6 +260,7 @@ void CMonster::Move(const Vector2& Dir, float Speed)
 
 void CMonster::ChangeIdleAnimation()
 {
+	CCharacter::ChangeIdleAnimation();
 	if (m_Dir.x < 0)
 	{
 		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_IDLE)->second;
@@ -275,6 +275,7 @@ void CMonster::ChangeIdleAnimation()
 
 void CMonster::ChangeWalkAnimation()
 {
+	CCharacter::ChangeMoveAnimation();
 	if (m_Dir.x < 0)
 	{
 		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
@@ -289,6 +290,7 @@ void CMonster::ChangeWalkAnimation()
 
 void CMonster::ChangeTraceAnimation()
 {
+	CCharacter::ChangeRunAnimation();
 	if (m_Dir.x < 0)
 	{
 		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_RUN)->second;
@@ -365,7 +367,7 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, false, 5.f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, false, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 0.5f);
 	
 
@@ -374,7 +376,7 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 5.6f);
+	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 0.5f);
 	
 }
@@ -478,8 +480,8 @@ void CMonster::AIDeath(float DeltaTime)
 
 void CMonster::AIHit(float DeltaTime)
 {
-	CCharacter::Stun();
-	ChangeStunAnimation();
+	CCharacter::Hit();
+	ChangeHitAnimation();
 }
 
 CGun* CMonster::Equip(CGun* Gun)
@@ -493,8 +495,9 @@ CGun* CMonster::Equip(CGun* Gun)
 	return EquipedGun;
 }
 
-void CMonster::ChangeStunAnimation()
+void CMonster::ChangeHitAnimation()
 {
+	CCharacter::ChangeHitAnimation();
 	if (m_Dir.x < 0)
 	{
 		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_HIT)->second;

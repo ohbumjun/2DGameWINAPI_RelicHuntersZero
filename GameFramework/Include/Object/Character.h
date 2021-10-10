@@ -70,6 +70,14 @@ public:
 	
 protected :
 	void SetScene(class CScene* Scene);
+// Animation
+protected :
+	virtual void ChangeHitAnimation();
+	virtual void ChangeIdleAnimation();
+	virtual void ChangeDashAnimation();
+	virtual void ChangeRunAnimation();
+	virtual void ChangeMoveAnimation();
+
 protected :
 // Move != 가상함수
 // 왜 가상함수 x ? --> Character 외, 다른 GameObject 까지
@@ -84,16 +92,16 @@ protected :
 	bool ObstacleCollisionCheck() const;
 	CGameObject* MonsterCollisionCheck();
 	virtual void CollideBounceBack(Vector2 Dir);
-// Stun
+// Hit
 protected:
-	bool m_StunEnable;
-	float m_StunTime;
-	Vector2 m_StunDir;
+	bool m_HitEnable;
+	float m_HitTime;
+	Vector2 m_HitDir;
 public:
-	void SetStunDir(Vector2 Dir);
-	virtual void Stun();
-	virtual void StunMove();
-	virtual void StunEnd();
+	void SetHitDir(Vector2 Dir);
+	virtual void Hit();
+	virtual void HitMove();
+	virtual void HitEnd();
 // Death
 public:
 	void CharacterDestroy();

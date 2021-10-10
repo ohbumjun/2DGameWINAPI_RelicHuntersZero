@@ -284,6 +284,8 @@ void CPlayer::Update(float DeltaTime)
 	// SetAttackSpeed(0.5f);
 	// if (m_DeathAnimationTime > 0.f) return;
 
+	MoveWithinWorldResolution();
+
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 	{
@@ -493,8 +495,7 @@ void CPlayer::ChangeGun()
 
 void CPlayer::ChangeIdleAnimation()
 {
-	if (m_StunEnable)
-		return;
+	CCharacter::ChangeIdleAnimation();
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 	else
@@ -503,8 +504,7 @@ void CPlayer::ChangeIdleAnimation()
 
 void CPlayer::ChangeRunAnimation()
 {
-	if (m_StunEnable)
-		return;
+	CCharacter::ChangeRunAnimation();
 	if (m_Dir.x == -1.f)
 		ChangeAnimation(PLAYER_LEFT_RUN);
 	else
@@ -513,8 +513,7 @@ void CPlayer::ChangeRunAnimation()
 
 void CPlayer::ChangeDashAnimation()
 {
-	if (m_StunEnable)
-		return;
+	CCharacter::ChangeDashAnimation();
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_DASH);
 	else
@@ -571,8 +570,7 @@ void CPlayer::Move(const Vector2 &Dir, float Speed)
 
 void CPlayer::ChangeMoveAnimation()
 {
-	if (m_StunEnable)
-		return;
+	CCharacter::ChangeMoveAnimation();
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_WALK);
 	else
@@ -820,19 +818,7 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 	DashEnd();
 }
 
-void CPlayer::Stun()
-{
-	CCharacter::Stun();
-	ChangeStunAnimation();
-}
-
-void CPlayer::StunEnd()
-{
-	CCharacter::StunEnd();
-	ChangeIdleAnimation();
-}
-
-void CPlayer::ChangeStunAnimation()
+void CPlayer::ChangeHitAnimation()
 {
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_HIT);
