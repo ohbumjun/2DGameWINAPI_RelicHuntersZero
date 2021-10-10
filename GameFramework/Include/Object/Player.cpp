@@ -110,8 +110,12 @@ void CPlayer::Start()
 											this, &CPlayer::Resume);
 
 	// Gun 
-	CInput::GetInst()->SetCallback<CPlayer>("ChangeGun", KeyState_Down,
-		this, &CPlayer::ChangeWeapon);
+	CInput::GetInst()->SetCallback<CPlayer>("ChangeGunToLight", KeyState_Down,
+		this, &CPlayer::ChangeGunToLight);
+	CInput::GetInst()->SetCallback<CPlayer>("ChangeGunToMedium", KeyState_Down,
+		this, &CPlayer::ChangeGunToMedium);
+	CInput::GetInst()->SetCallback<CPlayer>("ChangeGunToHeavy", KeyState_Down,
+		this, &CPlayer::ChangeGunToHeavy);
 
 	// 1) Slow Motion
 	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
@@ -451,21 +455,37 @@ void CPlayer::AbilityUpdate(float DeltaTime)
 		m_CharacterInfo.MP += DeltaTime;
 }
 
-void CPlayer::ChangeGun()
+
+void CPlayer::ChangeGunToLight(float DeltaTime)
 {
-	// 충돌 목록 중에서 Player가 있는지 확인한다
-	auto iter = m_ColliderList.begin();
-	auto iterEnd = m_ColliderList.end();
-	for (; iter != iterEnd; ++iter)
-	{
-		CPlayer* Player = (*iter)->IsCollisionWithPlayer();
-		// 만약 Player와 충돌했다면
-		if (Player)
-		{
-			// 위로 가기 버튼을 클릭했다면( Dir )
-			Vector2 PlayerDir = Player->GetDir();
-		}
-	}
+	if (m_GunEquipment[EGunClass::Light])
+		m_CurrentGun = m_GunEquipment[EGunClass::Light];
+
+	// Chnage Equipment 
+	// CGun* ExistingGun = m_GunEquipment[GunClass];
+	// m_GunEquipment[GunClass] = Gun;
+	// Set Current Gun
+	// m_CurrentGun = m_GunEquipment[GunClass];
+
+	// Set Owner, Pos 
+	// Gun->SetOwner(this);
+	// 아래의 코드가 반드시 있어야 한다... 왜지 ?
+	// Gun->SetPos(m_Pos);
+	// Gun->SetOffset(m_Size.x * 0.1, -m_Size.y * 0.3);
+	// Gun->SetPos(m_Size.x * 0.1, -m_Size.y * 0.3);
+
+}
+
+void CPlayer::ChangeGunToMedium(float DeltaTime)
+{
+	if (m_GunEquipment[EGunClass::Medium])
+		m_CurrentGun = m_GunEquipment[EGunClass::Medium];
+}
+
+void CPlayer::ChangeGunToHeavy(float DeltaTime)
+{
+	if (m_GunEquipment[EGunClass::Heavy])
+		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
 }
 
 void CPlayer::ChangeIdleAnimation()
@@ -1024,9 +1044,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 	}
 }
 
-void CPlayer::ChangeWeapon(float)
-{
-}
+
 
 CGun* CPlayer::Equip(CGun* Gun)
 {

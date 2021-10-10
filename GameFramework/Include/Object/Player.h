@@ -50,7 +50,9 @@ private :
 
 // Gun
 private :
-	void ChangeGun();
+	void ChangeGunToLight(float DeltaTime);
+	void ChangeGunToMedium(float DeltaTime);
+	void ChangeGunToHeavy(float DeltaTime);
 
 // Move ---
 private:
@@ -158,9 +160,6 @@ public:
 // Item --
 public:
 	void AcquireItem(float);
-// Weapon
-public :
-	void ChangeWeapon(float);
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);

@@ -177,11 +177,15 @@ bool CInput::Init(HWND hWnd)
 
 	// Gun
 	CreateKey("ChangeGun", 'C');
+	CreateKey("ChangeGunToLight", '1');
+	CreateKey("ChangeGunToMedium",'2');
+	CreateKey("ChangeGunToHeavy", '3');
 
 	// Edit
 	CreateKey("Editor", VK_F1);
 	CreateKey("MouseLButton", VK_LBUTTON);
 	CreateKey("MouseRButton", VK_RBUTTON);
+
 
 	ShowCursor(FALSE);
 
