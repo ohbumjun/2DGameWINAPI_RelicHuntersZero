@@ -1,6 +1,7 @@
 
 #include "EffectText.h"
 #include "../Scene/Scene.h"
+#include "../Scene/Camera.h"
 #include "../Scene/SceneResource.h"
 #include "../Resource/ResourceManager.h"
 
@@ -59,7 +60,7 @@ bool CEffectText::Init()
  	SetJumpVelocity(30.f);
 	SetPhysicsSimulate(true);
 	Jump();
-	SetLifeTime(0.5f);
+	SetLifeTime(0.3f);
 
 	m_Font = CResourceManager::GetInst()->FindFont("DefaultFont");
 	return true;
@@ -88,7 +89,9 @@ void CEffectText::Render(HDC hDC)
 	SetBkMode(hDC, TRANSPARENT);
 	// 앞에 :: 을 붙여서 전역함수 SetTextColor 를 호출한다.
 	::SetTextColor(hDC, m_TextColor);
-	TextOut(hDC, (int)m_Pos.x, (int)m_Pos.y, m_Text, m_TextCount);
+
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	TextOut(hDC, (int)(m_Pos.x-CameraPos.x), (int)(m_Pos.y-CameraPos.y), m_Text, m_TextCount);
 
 	m_Font->ResetFont(hDC);
 }
