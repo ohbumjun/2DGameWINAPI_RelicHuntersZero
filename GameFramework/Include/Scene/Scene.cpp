@@ -9,6 +9,7 @@
 #include "../Object/EffectCasing.h"
 #include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
+#include "../Object/EffectText.h"
 #include "../Object/DamageFont.h"
 #include "../Object/Monster.h"
 #include "../Object/HPPotion.h"
@@ -821,6 +822,8 @@ void CScene::SetBasicProtoTypes()
 	CEffectCasing* EffectCasingPrototype = CreatePrototype<CEffectCasing>(EFFECT_CASING_PROTO);
 	// EffectBulletStart
 	CEffectBulletStart* EffectBulletSTPrototype = CreatePrototype<CEffectBulletStart>(EFFECT_BULLETSTART_PROTO);
+	// EffectText
+	CEffectText* EffectTextPrototype = CreatePrototype<CEffectText>(EFFECT_TEXT_PROTO);
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 

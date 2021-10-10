@@ -339,6 +339,9 @@
     <ClCompile Include="Object\EffectBulletStart.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\EffectText.cpp">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -609,6 +612,9 @@
       <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
     <ClInclude Include="Object\EffectBulletStart.h">
+      <Filter>03. Object\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectText.h">
       <Filter>03. Object\03. Effect</Filter>
     </ClInclude>
   </ItemGroup>

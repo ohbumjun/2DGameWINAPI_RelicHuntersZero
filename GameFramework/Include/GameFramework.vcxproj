@@ -178,6 +178,7 @@
     <ClCompile Include="Object\EffectDash.cpp" />
     <ClCompile Include="Object\EffectHit.cpp" />
     <ClCompile Include="Object\EffectSurprise.cpp" />
+    <ClCompile Include="Object\EffectText.cpp" />
     <ClCompile Include="Object\Equipment.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Gun.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Object\DuckMonster.h" />
     <ClInclude Include="Object\EffectDash.h" />
     <ClInclude Include="Object\EffectSurprise.h" />
+    <ClInclude Include="Object\EffectText.h" />
     <ClInclude Include="Object\Equipment.h" />
     <ClInclude Include="Object\Gun.h" />
     <ClInclude Include="Object\HeavyBullet.h" />

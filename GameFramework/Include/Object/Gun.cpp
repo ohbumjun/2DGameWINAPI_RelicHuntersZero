@@ -3,18 +3,23 @@
 #include "Bullet.h"
 #include "DamageFont.h"
 #include "EffectCasing.h"
+#include "EffectText.h"
 #include "EffectBulletStart.h"
 #include"../Scene/Scene.h"
 #include"../Scene/Camera.h"
+// UI
+#include "../UI/UIText.h"
 
 CGun::CGun() :
 	m_TextureImgNames{},
-	m_Owner(nullptr)
+	m_Owner(nullptr),
+	m_FireToggle(false)
 {
 	m_GunInfo.m_GunClass       = EGunClass::Light;
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
-	m_GunInfo.m_BulletsLoaded  = true;
+	// m_GunInfo.m_BulletsLoaded  = PISTOL_BULLET_NUM;
+	m_GunInfo.m_BulletsLoaded  = 10;
 	m_GunInfo.m_BulletsFullNum = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletLoadTime = 0.1f;
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
@@ -24,8 +29,9 @@ CGun::CGun() :
 
 CGun::CGun(const CGun& obj) : CGameObject(obj)
 {
-	m_Owner = nullptr;
-	m_GunInfo = obj.m_GunInfo;
+	m_Owner      = nullptr;
+	m_GunInfo    = obj.m_GunInfo;
+	m_FireToggle = false;
 
 	for (int i = 0; i < ETexture_Dir::Texture_End; i++)
 	{
@@ -40,6 +46,12 @@ CGun::~CGun()
 
 void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
+	if (m_GunInfo.m_BulletsLoaded <= 0)
+	{
+		// 경고
+		ShowNoBulletSign();
+		return;
+	}
 	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
@@ -47,6 +59,9 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
+
+	m_GunInfo.m_BulletsLoaded -= 1;
+
 	// Angle 
 	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
 	Bullet->SetDir(Angle);
@@ -153,6 +168,22 @@ void CGun::CreateBulletEffect()
 
 }
 
+void CGun::ShowNoBulletSign()
+{
+	// CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+	// DamageFont->SetDamageNumber(9);
+	// Name Widget
+	CScene* Scene = m_Owner->GetScene();
+	CEffectText* NoBulletText = Scene->CreateObject<CEffectText>(
+		"CEffectText",
+		EFFECT_TEXT_PROTO,
+		Vector2(m_Pos.x-50.f,m_Pos.y-m_Owner->GetSize().y*0.6),
+		Vector2(50.f,10.f));
+	NoBulletText->SetText(TEXT("NO BULLET"));
+	NoBulletText->SetTextColor(255, 0, 0);
+
+}
+
 void CGun::Start()
 {
 }
@@ -193,6 +224,12 @@ void CGun::PostUpdate(float DeltaTime)
 		{
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Left]);
 			SetOffset(-OwnerSize.x * 0.1, 0 );
+			// 공격중이라면
+			if (m_Owner->CheckCurrentAnimation(PLAYER_LEFT_ATTACK))
+			{
+				// 
+				SetPos(m_Owner->GetPos().x - 10.f, m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3);
+			}
 		}
 		else
 		{

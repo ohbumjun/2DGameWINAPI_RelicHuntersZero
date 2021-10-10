@@ -10,6 +10,7 @@ public :
 	CGun(const CGun& obj);
 	virtual ~CGun();
 private :
+	bool m_FireToggle;
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
 	const char* m_TextureImgNames[2];
@@ -81,6 +82,7 @@ public :
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void CreateCasing(class CBullet* Bullet);
 	void CreateBulletEffect();
+	void ShowNoBulletSign();
 public:
 	virtual void Start();
 	virtual bool Init();

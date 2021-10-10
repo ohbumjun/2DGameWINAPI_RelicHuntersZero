@@ -5,6 +5,7 @@
 #define EFFECT_SURPRISE_PROTO				  "SurpriseEffectProto"
 #define EFFECT_CASING_PROTO					  "CasingEffectProto"
 #define EFFECT_DASH_PROTO					  "DashEffectProto"
+#define EFFECT_TEXT_PROTO					  "TextEffectProto"
 #define TELEPORT_MOUSE_PROTO				  "TeleportMouseProto"
 #define MONSTER_DUCK1_PROTO					  "MonsterProto"
 #define PLAYER_BULLET_PROTO					  "PlayerBulletProto"
