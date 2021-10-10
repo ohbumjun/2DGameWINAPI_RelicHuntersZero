@@ -340,36 +340,9 @@ void CPlayer::Update(float DeltaTime)
 	if (State)
 	{
 		// Ability 
-		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
-		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
-		State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
-
-		// Gun
-		CGun* Gun = nullptr;
-		// Light 
-		if (m_GunEquipment[EGunClass::Light])
-		{
-			Gun = m_GunEquipment[EGunClass::Light];
-			State->SetLightGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
-		}
-		else
-			State->SetLightGunPercent(0.f);
-		// Medium
-		if (m_GunEquipment[EGunClass::Medium])
-		{
-			Gun = m_GunEquipment[EGunClass::Medium];
-			State->SetMediumGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
-		}
-		else
-			State->SetMediumGunPercent(0.f);
-		// Heavy
-		if (m_GunEquipment[EGunClass::Heavy])
-		{
-			Gun = m_GunEquipment[EGunClass::Heavy];
-			State->SetHeavyGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
-		}
-		else
-			State->SetHeavyGunPercent(0.f);
+		AbilityStateUIUpdate(State);
+		// Gun State
+		GunStateUIUpdate(State);
 	}
 	
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
@@ -483,6 +456,13 @@ void CPlayer::AbilityUpdate(float DeltaTime)
 		m_CharacterInfo.MP += DeltaTime;
 }
 
+void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
+{
+	State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+	State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+}
+
 
 void CPlayer::ChangeGunToLight(float DeltaTime)
 {
@@ -514,6 +494,36 @@ void CPlayer::ChangeGunToHeavy(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Heavy])
 		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
+}
+
+void CPlayer::GunStateUIUpdate(CUICharacterStateHUD* State)
+{
+	// Gun
+	CGun* Gun = nullptr;
+	// Light 
+	if (m_GunEquipment[EGunClass::Light])
+	{
+		Gun = m_GunEquipment[EGunClass::Light];
+		State->SetLightGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+	}
+	else
+		State->SetLightGunPercent(0.f);
+	// Medium
+	if (m_GunEquipment[EGunClass::Medium])
+	{
+		Gun = m_GunEquipment[EGunClass::Medium];
+		State->SetMediumGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+	}
+	else
+		State->SetMediumGunPercent(0.f);
+	// Heavy
+	if (m_GunEquipment[EGunClass::Heavy])
+	{
+		Gun = m_GunEquipment[EGunClass::Heavy];
+		State->SetHeavyGunPercent(Gun->GetGunLeftBullet() / (float)Gun->GetGunFullBullet());
+	}
+	else
+		State->SetHeavyGunPercent(0.f);
 }
 
 void CPlayer::ChangeIdleAnimation()

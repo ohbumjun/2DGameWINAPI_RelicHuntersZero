@@ -35,10 +35,10 @@ public:
 	virtual CPlayer *Clone();
 	virtual float SetDamage(float Damage);
 
-// Hp,Mp,Stemina 
+// Hp,Mp,Stemina (Ability)
 public :
 	void AbilityUpdate(float DeltaTime);
-
+	void AbilityStateUIUpdate(class CUICharacterStateHUD* State);
 // Animation 
 private :
 	virtual void ChangeMoveAnimation();
@@ -53,6 +53,7 @@ private :
 	void ChangeGunToLight(float DeltaTime);
 	void ChangeGunToMedium(float DeltaTime);
 	void ChangeGunToHeavy(float DeltaTime);
+	void GunStateUIUpdate(class CUICharacterStateHUD* State);
 
 // Move ---
 private:
