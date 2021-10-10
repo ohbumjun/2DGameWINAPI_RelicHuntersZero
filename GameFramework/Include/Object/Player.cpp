@@ -36,7 +36,12 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_DeathAnimationTime(0.f),
 					 m_SkillDestoryAllAttackEnable(false),
 					 m_SkillDestoryAllAttackTime(0.f),
-					 m_LaserBulletObj(nullptr)
+					 m_LaserBulletObj(nullptr),
+					 m_PlayerDeath(false),
+	m_HPBarWidget(nullptr),
+	m_MPBarWidget(nullptr),
+	m_NameWidget(nullptr),
+	m_SteminaBarWidget(nullptr)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -47,6 +52,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillSlowMotionAttackTime = obj.m_SkillSlowMotionAttackTime;
 	m_SkillSlowMotionAttackEnable = false;
 	m_TeleportEnable = false;
+	m_PlayerDeath = false;
 	m_TargetEnable = obj.m_TargetEnable;
 	m_RunEnable = false;
 	m_DashEnable = false;
@@ -75,6 +81,10 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 		if ((*iter)->GetName() == NAMEWIDGET_COMPONENET)
 		{
 			m_NameWidget = (*iter);
+		}
+		if ((*iter)->GetName() == STEMINAMEWIDGET_COMPONENET)
+		{
+			m_SteminaBarWidget = (*iter);
 		}
 	}
 }
@@ -173,7 +183,9 @@ void CPlayer::SetNotifyFunctions()
 	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_ATTACK, this, &CPlayer::AttackEnd);
 
 	// Death
-	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_DEATH, this, &CPlayer::Destroy);
+	AddAnimationNotify<CPlayer>(PLAYER_LEFT_DEATH, 11, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_DEATH , this, &CPlayer::Destroy);
+	AddAnimationNotify<CPlayer>(PLAYER_RIGHT_DEATH, 11, this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_DEATH, this, &CPlayer::Destroy);
 
 	// Skill
@@ -216,8 +228,8 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
 	// Stun
-	AddAnimation(PLAYER_LEFT_DEATH, false, DEATH_TIME);
-	AddAnimation(PLAYER_RIGHT_DEATH, false, DEATH_TIME);
+	AddAnimation(PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(PLAYER_RIGHT_DEATH, false, 0.1f);
 
 	// Stun
 	AddAnimation(PLAYER_LEFT_HIT, true, 0.6f);
@@ -245,21 +257,27 @@ bool CPlayer::Init()
 	m_HPBarWidget = CreateWidgetComponent(HPWIDGET_COMPONENET);
 	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
-	m_HPBarWidget->SetPos(-25.f, -95.f);
+	m_HPBarWidget->SetPos(-25.f, -105.f);
 	
 	// MPBar
 	m_MPBarWidget = CreateWidgetComponent(MPWIDGET_COMPONENET);
 	CProgressBar *MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
-	m_MPBarWidget->SetPos(-25.f, -85.f);
+	m_MPBarWidget->SetPos(-25.f, -95.f);
 
+	// SteminaBar
+	m_SteminaBarWidget = CreateWidgetComponent(STEMINAMEWIDGET_COMPONENET);
+	CProgressBar* SteminaBar = m_SteminaBarWidget->CreateWidget<CProgressBar>("SteminaBar");
+	SteminaBar->SetTexture("WorldSteminaBar", TEXT("CharacterSteminaBar.bmp"));
+	m_SteminaBarWidget->SetPos(-25.f, -85.f);
+
+
+	// Name
 	m_NameWidget = CreateWidgetComponent(NAMEWIDGET_COMPONENET);
 	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
-
 	NameText->SetText(TEXT("Lucid"));
 	NameText->SetTextColor(255, 0, 0);
-
-	m_NameWidget->SetPos(-25.f, -115.f);
+	m_NameWidget->SetPos(-25.f, -125.f);
 
 	// 수업용 : 물리 적용
 	// SetGravityAccel();
@@ -280,58 +298,38 @@ void CPlayer::Update(float DeltaTime)
 	// SetAttackSpeed(0.5f);
 	// if (m_DeathAnimationTime > 0.f) return;
 
+	// Death
+	if (m_CharacterInfo.HP <= 0 )
+	{
+		ChangeDeathAnimation();
+		return;
+	}
+
 	MoveWithinWorldResolution();
 
+	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
-	{
 		CollideMonsterBody(CollideMonster);
-		
-	}
 
+	// Skill Slow Motion
 	if (m_SkillSlowMotionAttackEnable)
-	{
-		m_SkillSlowMotionAttackTime += DeltaTime * m_TimeScale;
+		SkillSlowMotionUpdate(DeltaTime);
 
-		if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
-		{
-			SetTimeScale(1.f);
-			CGameManager::GetInst()->SetTimeScale(1.f);
-			m_SkillSlowMotionAttackEnable = false;
-			m_SkillSlowMotionAttackTime = 0.f;
-		}
-	}
-
-	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP += DeltaTime;
+	if (m_CharacterInfo.Stemina <= m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina += DeltaTime;
 
 	// Run
 	if (m_RunEnable)
-	{
-		if (m_CharacterInfo.MP >= 0)
-			m_CharacterInfo.MP -= 3 * DeltaTime;
-		if (m_CharacterInfo.MP <= 0)
-			RunEnd();
-	}
+		RunUpdate(DeltaTime);
 
 	// Dash
 	if (m_DashEnable)
-	{
-		if (ObstacleCollisionCheck())
-			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
-		if (m_DashTime >= 0)
-			m_DashTime -= DeltaTime;
-		if (m_DashTime <= 0)
-			DashEnd();
-	}
+		DashUpdate(DeltaTime);
 
 	// Teleport
 	if (m_TeleportEnable)
-	{
-		m_TelePortTime -= DeltaTime;
-		if (m_TelePortTime <= 0.f)
-			DeleteTeleportObj();
-	}
+		TeleportUpdate(DeltaTime);
 
 	// MPBar , HPBar
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
@@ -339,34 +337,23 @@ void CPlayer::Update(float DeltaTime)
 	{
 		State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+		State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
 	}
-	// this
+	
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
+	CProgressBar* SteminaBar = (CProgressBar*)m_SteminaBarWidget->GetWidget();
+	SteminaBar->SetPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+
 	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
-	{
-		Vector2 MousePos           = CInput::GetInst()->GetMousePos();
-		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
-		Vector2 MousePlayerPosDiff = m_Pos - (MousePos + CameraPos);
-		float Angle				   = GetAngle(m_Pos, MousePos);
-		SetDir(Angle);
-		// Animation Change
-		if (MousePlayerPosDiff.x >= 0)
-		{
-			ChangeAnimation(PLAYER_LEFT_IDLE);
-			m_Dir.x = -1;
-		}
-		else
-		{
-			ChangeAnimation(PLAYER_RIGHT_IDLE);
-			m_Dir.x = 1;
-		}
-	}
+		ChangeDirToMouse();
+
+	
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -448,11 +435,6 @@ float CPlayer::SetDamage(float Damage)
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
-	if (m_CharacterInfo.HP <= 0)
-	{
-		Destroy();
-		return -1.f;
-	}
 	return Damage;
 }
 
@@ -558,6 +540,7 @@ void CPlayer::Move(const Vector2 &Dir, float Speed)
 
 void CPlayer::ChangeMoveAnimation()
 {
+	if (m_HitEnable) return;
 	CCharacter::ChangeMoveAnimation();
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_WALK);
@@ -594,9 +577,17 @@ void CPlayer::RunDown(float DeltaTime)
 	RunStart();
 }
 
+void CPlayer::RunUpdate(float DeltaTime)
+{
+	if (m_CharacterInfo.Stemina >= 0)
+		m_CharacterInfo.Stemina -= 3 * DeltaTime;
+	if (m_CharacterInfo.Stemina <= 0)
+		RunEnd();
+}
+
 void CPlayer::RunStart()
 {
-	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax || m_RunEnable) return;
+	if (m_CharacterInfo.Stemina <= 0.2 * m_CharacterInfo.SteminaMax || m_RunEnable) return;
 	m_RunEnable = true;
 
 	Vector2 PlayerBtm;
@@ -638,7 +629,7 @@ void CPlayer::RunEnd()
 void CPlayer::DashStart()
 {
 	if (m_DashEnable) return;
-	if (m_DashEnable || m_CharacterInfo.MP < 0.5 * m_CharacterInfo.MPMax) return;
+	if (m_DashEnable || m_CharacterInfo.Stemina < 0.5 * m_CharacterInfo.SteminaMax) return;
 
 	// Dash Time 
 	m_DashTime   = DASH_TIME;
@@ -647,9 +638,9 @@ void CPlayer::DashStart()
 	// Speed 
 	SetMoveSpeed(DASH_SPEED);
 
-	// MP 
-	if (m_CharacterInfo.MP >= 0.5f * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.5f * m_CharacterInfo.MPMax;
+	// Stemina
+	if (m_CharacterInfo.Stemina >= 0.5f * m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina -= 0.5f * m_CharacterInfo.SteminaMax;
 
 	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
@@ -672,6 +663,16 @@ void CPlayer::DashEnd()
 	{
 		ChangeAnimation(PLAYER_LEFT_WALK);
 	}
+}
+
+void CPlayer::DashUpdate(float DeltaTime)
+{
+	if (ObstacleCollisionCheck())
+		CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
+	if (m_DashTime >= 0)
+		m_DashTime -= DeltaTime;
+	if (m_DashTime <= 0)
+		DashEnd();
 }
 
 void CPlayer::DashLeft(float DeltaTime)
@@ -710,7 +711,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	if (m_CharacterInfo.MP <= 0.95 * m_CharacterInfo.MPMax)
+	if (m_CharacterInfo.Stemina <= 0.95 * m_CharacterInfo.SteminaMax)
 		return;
 	ChangeAnimation("SkillSlowMotionAttack");
 }
@@ -734,7 +735,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
-	m_CharacterInfo.MP = 0.f;
+	m_CharacterInfo.Stemina = 0.f;
 
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) 
 	{
@@ -758,6 +759,19 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		}
 		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
+	}
+}
+
+void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
+{
+	m_SkillSlowMotionAttackTime += DeltaTime * m_TimeScale;
+
+	if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
+	{
+		SetTimeScale(1.f);
+		CGameManager::GetInst()->SetTimeScale(1.f);
+		m_SkillSlowMotionAttackEnable = false;
+		m_SkillSlowMotionAttackTime = 0.f;
 	}
 }
 
@@ -849,8 +863,8 @@ void CPlayer::Teleport(float DeltaTime)
 	// m_TeleportEnable
 	m_TeleportEnable = false;
 
-	if (m_CharacterInfo.MP >= 0.9f * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.9f * m_CharacterInfo.MPMax;
+	if (m_CharacterInfo.MP >= 0.2f * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
 
 	// TeleportMouse Cursor Animation �����ֱ�
 	DeleteTeleportObj();
@@ -858,7 +872,7 @@ void CPlayer::Teleport(float DeltaTime)
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
-	if (m_CharacterInfo.MP <= 0.9 * m_CharacterInfo.MPMax)
+	if (m_CharacterInfo.MP <= 0.2 * m_CharacterInfo.MPMax)
 		return;
 
 	m_TeleportEnable = true;
@@ -878,6 +892,13 @@ void CPlayer::DeleteTeleportObj()
 {
 	if (m_TeleportObj)
 		m_TeleportObj->Destroy();
+}
+
+void CPlayer::TeleportUpdate(float DeltaTime)
+{
+	m_TelePortTime -= DeltaTime;
+	if (m_TelePortTime <= 0.f)
+		DeleteTeleportObj();
 }
 
 void CPlayer::AttackEnd()
@@ -1001,5 +1022,25 @@ CGun* CPlayer::Equip(CGun* Gun)
 	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
 	GunBody->SetCollisionProfile("PlayerAttack");
 	return ExitingGun;
+}
+
+void CPlayer::ChangeDirToMouse()
+{
+	Vector2 MousePos = CInput::GetInst()->GetMousePos();
+	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+	Vector2 MousePlayerPosDiff = m_Pos - (MousePos + CameraPos);
+	float Angle = GetAngle(m_Pos, MousePos);
+	SetDir(Angle);
+	// Animation Change
+	if (MousePlayerPosDiff.x >= 0)
+	{
+		ChangeAnimation(PLAYER_LEFT_IDLE);
+		m_Dir.x = -1;
+	}
+	else
+	{
+		ChangeAnimation(PLAYER_RIGHT_IDLE);
+		m_Dir.x = 1;
+	}
 }
 

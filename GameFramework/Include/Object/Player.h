@@ -14,13 +14,14 @@ protected:
 	CPlayer(const CPlayer &obj);
 	virtual ~CPlayer();
 
+// Widget ---
 protected:
-	// Widget ---
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
+	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 
-	// Laser Obj
+// Laser Obj
 	CSharedPtr<CLaserObject> m_LaserBulletObj;
 
 public:
@@ -63,6 +64,7 @@ private:
 	void RunRight(float DeltaTime);
 	void RunUp(float DeltaTime);
 	void RunDown(float DeltaTime);
+	void RunUpdate(float DeltaTime);
 	bool m_RunEnable;
 	void RunStart();
 	void RunEnd();
@@ -75,6 +77,7 @@ private:
 	void DashUp(float DeltaTime);
 	void DashDown(float DeltaTime);
 	void DashEnd();
+	void DashUpdate(float DeltaTime);
 	bool m_DashEnable;
 	float m_DashTime;
 
@@ -88,6 +91,7 @@ private:
 	void SkillSlowMotionAttack(float DeltaTime);
 	void SkillSlowMotionAttackEnd();
 	void SkillSlowMotionAttackEnable();
+	void SkillSlowMotionUpdate(float DeltaTime);
 	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
 
@@ -122,11 +126,11 @@ private:
 	void Teleport(float DeltaTime);
 	void SetTeleportPos(float DeltaTime);
 	void DeleteTeleportObj();
+	void TeleportUpdate(float DeltaTime);
 
 // Attack ---
 private:
 	Vector2 m_TargetPos;
-
 public:
 	bool m_TargetEnable;
 	void AttackEnd();
@@ -138,6 +142,7 @@ public:
 
 // Death ---
 public:
+	bool m_PlayerDeath;
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
 	virtual void GoOppDirection(Vector2 Dir)
@@ -155,4 +160,7 @@ public :
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);
+// Direction
+private :
+	void ChangeDirToMouse();
 };

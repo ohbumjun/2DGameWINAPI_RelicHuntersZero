@@ -72,9 +72,10 @@
 #define SHOTGUN_BULLET_NUM 10
 
 // Widget Componenet Names
-#define HPWIDGET_COMPONENET "HPBarWidget"
-#define MPWIDGET_COMPONENET "MPBarWidget"
-#define NAMEWIDGET_COMPONENET "NameWidget"
+#define HPWIDGET_COMPONENET        "HPBarWidget"
+#define MPWIDGET_COMPONENET        "MPBarWidget"
+#define NAMEWIDGET_COMPONENET      "NameWidget"
+#define STEMINAMEWIDGET_COMPONENET "SteminaWidget"
 
 struct Resolution
 {
@@ -130,11 +131,14 @@ struct CharacterInfo
 	int HPMax;
 	float MP;
 	float MPMax;
+	float Stemina;
+	float SteminaMax;
 	int Level;
 	int Exp;
 	int Gold;
 	float AttackSpeed;
 	float AttackDistance;
+		
 };
 
 struct CollisionProfile

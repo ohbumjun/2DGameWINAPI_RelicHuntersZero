@@ -17,6 +17,7 @@ private:
 private:
 	CSharedPtr<CProgressBar> m_HPBar;
 	CSharedPtr<CProgressBar> m_MPBar;
+	CSharedPtr<CProgressBar> m_SteminaBar;
 
 public:
 	void SetHPPercent(float Percent)
@@ -26,6 +27,10 @@ public:
 	void SetMPPercent(float Percent)
 	{
 		m_MPBar->SetPercent(Percent);
+	}
+	void SetSteminaPercent(float Percent)
+	{
+		m_SteminaBar->SetPercent(Percent);
 	}
 
 public:

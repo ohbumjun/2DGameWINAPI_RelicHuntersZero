@@ -115,6 +115,9 @@
     <Filter Include="03. Object\01. Character\01. Monster">
       <UniqueIdentifier>{fe348a0a-2650-44b6-8bc9-764ab6fe0c0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\01. Character\02. Player">
+      <UniqueIdentifier>{db502550-7385-43f3-8bd2-3c1a707711f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,9 +139,6 @@
       <Filter>01. GameManager\02. Scene\03. Math</Filter>
     </ClCompile>
     <ClCompile Include="Object\Character.cpp">
-      <Filter>03. Object\01. Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player.cpp">
       <Filter>03. Object\01. Character</Filter>
     </ClCompile>
     <ClCompile Include="Object\Bullet.cpp">
@@ -342,6 +342,12 @@
     <ClCompile Include="Object\EffectText.cpp">
       <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\BossMonster.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>03. Object\01. Character\02. Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -366,9 +372,6 @@
       <Filter>01. GameManager\02. Scene\03. Math</Filter>
     </ClInclude>
     <ClInclude Include="Object\Character.h">
-      <Filter>03. Object\01. Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player.h">
       <Filter>03. Object\01. Character</Filter>
     </ClInclude>
     <ClInclude Include="Object\Bullet.h">
@@ -616,6 +619,12 @@
     </ClInclude>
     <ClInclude Include="Object\EffectText.h">
       <Filter>03. Object\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BossMonster.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player.h">
+      <Filter>03. Object\01. Character\02. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

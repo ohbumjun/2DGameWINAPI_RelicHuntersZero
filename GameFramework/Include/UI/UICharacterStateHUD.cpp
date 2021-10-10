@@ -34,5 +34,13 @@ bool CUICharacterStateHUD::Init()
 	m_MPBar->SetPos(10.f, 50.f);
 	// m_MPBar->SetZOrder(1);
 
+	Back = CreateWidget<CUIImage>("SteminaBarBack");
+	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
+	Back->SetTextureColorKey(255, 0, 255);
+	Back->SetPos(0, 80.f);
+	m_SteminaBar = CreateWidget<CProgressBar>("SteminaBar");
+	m_SteminaBar->SetTexture("SteminaBar", TEXT("BarStemina.bmp"));
+	m_SteminaBar->SetPos(10.f, 90.f);
+
 	return true;
 }

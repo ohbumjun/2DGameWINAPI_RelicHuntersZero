@@ -372,7 +372,6 @@ void CScene::SetPlayerAnimation()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (i == 2 && j == 3) break;
 			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -387,7 +386,6 @@ void CScene::SetPlayerAnimation()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (i == 2 && j == 3) break;
 			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
@@ -954,6 +952,14 @@ bool CScene::Update(float DeltaTime)
 {
 	if (m_Player)
 	{
+		/*
+		if (!m_Player->IsActive())
+		{
+			SAFE_RELEASE(m_Player);
+		}
+		else
+			m_Player->Update(DeltaTime); 
+		*/
 		m_Player->Update(DeltaTime);
 	}
 
@@ -1379,7 +1385,7 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 	if (!Player)
 	{
 		Player = CreateObject<CPlayer>("Player", Pos, Size);
-		Player->SetCharacterInfo(0.000000000000001, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, 1, 1, 1,
+		Player->SetCharacterInfo(101, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, PLAYER_INIT_STEMINA, 1, 1, 1,
 								 NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
 		return Player;
 	}
