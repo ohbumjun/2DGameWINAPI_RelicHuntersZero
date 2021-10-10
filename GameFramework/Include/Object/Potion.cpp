@@ -4,6 +4,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "Player.h"
+#include "EffectAbilityUp.h"
 #include "DamageFont.h"
 
 CPotion::CPotion() :m_PotionPauseTime(1.f)
@@ -92,6 +93,11 @@ void CPotion::Collision(float DeltaTime)
 					Player->SetMP(Player->GetMP() + MPMax * 0.1f);
 				}
 				m_PotionPauseTime = 1.f;
+
+				Vector2 PlayerPos  = Player->GetPos();
+				Vector2 PlayerSize = Player->GetSize();
+				CEffectAbilityUp* Surprise = m_Scene->CreateObject<CEffectAbilityUp>(ABILITYUP_EFFECT, EFFECT_ABILITYUP_PROTO,
+					Vector2(PlayerPos.x + PlayerSize.x * 0.4f,PlayerPos.y - PlayerSize.y * 0.7f), Vector2(10.f, 10.f));
 			}
 		}
 	}

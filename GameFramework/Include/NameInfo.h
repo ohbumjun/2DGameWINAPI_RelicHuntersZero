@@ -6,6 +6,7 @@
 #define BULLETSTART_EFFECT_L  "LBulletStartEffect"
 #define BULLETSTART_EFFECT_R  "RBulletSTartEffect"
 #define SURPRISE_EFFECT		  "Surprise"
+#define ABILITYUP_EFFECT	  "AbilityUp"
 #define MPHPUP_EFFECT         "HPMPUpEffect"
 
 // Bullet 

@@ -6,6 +6,7 @@
 #include "../Object/EffectHit.h"
 #include "../Object/EffectSurprise.h"
 #include "../Object/EffectCasing.h"
+#include "../Object/EffectAbilityUp.h"
 #include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
@@ -480,6 +481,21 @@ void CScene::SetItemsAnimation()
 				j * 38.f, i * 54.f, 38.f, 54.f);
 		}
 	}
+
+	// ABILITYUP_EFFECT
+	GetSceneResource()->CreateAnimationSequence(ABILITYUP_EFFECT,
+		ABILITYUP_EFFECT, TEXT("images/Items/HPMPUp.bmp"));
+	GetSceneResource()->SetTextureColorKey(ABILITYUP_EFFECT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i == 2 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(ABILITYUP_EFFECT,
+				j * 58.f, i * 56.f, 58.f, 56.f);
+		}
+	}
 	
 	// Hp, Mp Up
 	GetSceneResource()->CreateAnimationSequence(MPHPUP_EFFECT,
@@ -837,6 +853,9 @@ void CScene::SetBasicProtoTypes()
 	CEffectBulletStart* EffectBulletSTPrototype = CreatePrototype<CEffectBulletStart>(EFFECT_BULLETSTART_PROTO);
 	// EffectText
 	CEffectText* EffectTextPrototype = CreatePrototype<CEffectText>(EFFECT_TEXT_PROTO);
+	// EffectAbilityUp
+	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
+
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 

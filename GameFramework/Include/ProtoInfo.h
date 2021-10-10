@@ -3,6 +3,7 @@
 #define EFFECT_HIT_PROTO					  "HitEffectProto"
 #define EFFECT_BULLETSTART_PROTO			  "BulletStartEffectProto"
 #define EFFECT_SURPRISE_PROTO				  "SurpriseEffectProto"
+#define EFFECT_ABILITYUP_PROTO				  "AbilityUpEffectProto"
 #define EFFECT_CASING_PROTO					  "CasingEffectProto"
 #define EFFECT_DASH_PROTO					  "DashEffectProto"
 #define EFFECT_TEXT_PROTO					  "TextEffectProto"
