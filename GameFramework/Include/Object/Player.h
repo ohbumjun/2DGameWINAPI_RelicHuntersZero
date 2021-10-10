@@ -36,10 +36,11 @@ public:
 
 // Animation 
 private :
-	void ChangeMoveAnimation();
-	void ChangeRunAnimation();
-	void ChangeHitAnimation();
-	void ChangeIdleAnimation();
+	virtual void ChangeMoveAnimation();
+	virtual void ChangeRunAnimation();
+	virtual void ChangeHitAnimation();
+	virtual void ChangeIdleAnimation();
+	virtual void ChangeDeathAnimation();
 	void ChangeDashAnimation();
 
 // Gun
@@ -109,6 +110,7 @@ private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
 	Vector2 GetColliderPos();
 	virtual void CollideBounceBack(Vector2 Dir);
+	void CollideMonsterBody(CGameObject* Monster);
 
 // Teleport ---
 private:

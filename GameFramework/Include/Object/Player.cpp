@@ -172,13 +172,9 @@ void CPlayer::SetNotifyFunctions()
 	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_ATTACK, this, &CPlayer::AttackEnd);
 	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_ATTACK, this, &CPlayer::AttackEnd);
 
-	// DASH
-	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
-
 	// Death
-	SetAnimationEndNotify<CPlayer>("LucidNunNaLeftDeath", this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>("LucidNunNaRightDeath", this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_DEATH, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_DEATH, this, &CPlayer::Destroy);
 
 	// Skill
 	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
@@ -220,8 +216,8 @@ bool CPlayer::Init()
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
 	// Stun
-	AddAnimation("LucidNunNaRightDeath", false, DEATH_TIME);
-	AddAnimation("LucidNunNaLeftDeath", false, DEATH_TIME);
+	AddAnimation(PLAYER_LEFT_DEATH, false, DEATH_TIME);
+	AddAnimation(PLAYER_RIGHT_DEATH, false, DEATH_TIME);
 
 	// Stun
 	AddAnimation(PLAYER_LEFT_HIT, true, 0.6f);
@@ -289,17 +285,8 @@ void CPlayer::Update(float DeltaTime)
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 	{
-		float MonsterDamage = (float)CollideMonster->GetAttack();
-		// Damage Font
-		CDamageFont *DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-		MonsterDamage -= m_CharacterInfo.Armor;
-		if (MonsterDamage <= 0)
-			MonsterDamage = 0;
-		DamageFont->SetDamageNumber((int)MonsterDamage);
-		SetDamage((float)MonsterDamage);
-
-		Vector2 MonsterDir = CollideMonster->GetDir();
-		CollideBounceBack(Vector2(MonsterDir.x, MonsterDir.y));
+		CollideMonsterBody(CollideMonster);
+		
 	}
 
 	if (m_SkillSlowMotionAttackEnable)
@@ -317,6 +304,7 @@ void CPlayer::Update(float DeltaTime)
 
 	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP += DeltaTime;
+
 	// Run
 	if (m_RunEnable)
 	{
@@ -358,14 +346,6 @@ void CPlayer::Update(float DeltaTime)
 
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
-
-	// Character Offset
-	/*
-	if (CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) || CheckCurrentAnimation(PLAYER_LEFT_ATTACK))
-		SetOffset(0.f, 20.f);
-	else
-		SetOffset(0.f, 0.f);
-	*/
 
 	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
@@ -502,6 +482,14 @@ void CPlayer::ChangeIdleAnimation()
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
 }
 
+void CPlayer::ChangeDeathAnimation()
+{
+	if (m_Dir.x < 0)
+		ChangeAnimation(PLAYER_LEFT_DEATH);
+	else 
+		ChangeAnimation(PLAYER_RIGHT_DEATH);
+}
+
 void CPlayer::ChangeRunAnimation()
 {
 	CCharacter::ChangeRunAnimation();
@@ -513,7 +501,7 @@ void CPlayer::ChangeRunAnimation()
 
 void CPlayer::ChangeDashAnimation()
 {
-	CCharacter::ChangeDashAnimation();
+	if (m_HitEnable) return;
 	if (m_Dir.x < 0.f)
 		ChangeAnimation(PLAYER_LEFT_DASH);
 	else
@@ -816,6 +804,22 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 {
 	CCharacter::CollideBounceBack(Dir);
 	DashEnd();
+}
+
+void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
+{
+	float MonsterDamage = (float)CollideMonster->GetAttack();
+	// Damage Font
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+	MonsterDamage -= m_CharacterInfo.Armor;
+	if (MonsterDamage <= 0)
+		MonsterDamage = 0;
+	DamageFont->SetDamageNumber((int)MonsterDamage);
+	SetDamage((float)MonsterDamage);
+
+	// Bounc Back
+	Vector2 MonsterDir = CollideMonster->GetDir() * m_MoveSpeed;
+	CollideBounceBack(MonsterDir);
 }
 
 void CPlayer::ChangeHitAnimation()

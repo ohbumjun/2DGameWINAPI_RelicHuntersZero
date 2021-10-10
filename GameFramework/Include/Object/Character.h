@@ -74,9 +74,9 @@ protected :
 protected :
 	virtual void ChangeHitAnimation();
 	virtual void ChangeIdleAnimation();
-	virtual void ChangeDashAnimation();
 	virtual void ChangeRunAnimation();
 	virtual void ChangeMoveAnimation();
+	virtual void ChangeDeathAnimation();
 
 protected :
 // Move != 가상함수

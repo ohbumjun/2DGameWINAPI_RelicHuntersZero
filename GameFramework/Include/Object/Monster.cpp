@@ -272,8 +272,7 @@ void CMonster::ChangeIdleAnimation()
 		ChangeAnimation(Anim);
 	}
 }
-
-void CMonster::ChangeWalkAnimation()
+void CMonster::ChangeMoveAnimation()
 {
 	CCharacter::ChangeMoveAnimation();
 	if (m_Dir.x < 0)
@@ -288,7 +287,7 @@ void CMonster::ChangeWalkAnimation()
 	}
 }
 
-void CMonster::ChangeTraceAnimation()
+void CMonster::ChangeRunAnimation()
 {
 	CCharacter::ChangeRunAnimation();
 	if (m_Dir.x < 0)
@@ -435,13 +434,13 @@ void CMonster::AIWalk(float DeltaTime)
 {
 	m_TraceSurprise = false;
 	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
-	ChangeWalkAnimation();
+	ChangeMoveAnimation();
 }
 
 void CMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
 {
 	m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;
-	ChangeTraceAnimation();
+	ChangeRunAnimation();
 	// Player를 쫒아가기
 	float Angle = GetAngle(m_Pos, PlayerPos);
 	SetDir(Angle);

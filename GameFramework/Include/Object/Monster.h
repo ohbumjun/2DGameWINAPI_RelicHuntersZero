@@ -57,11 +57,11 @@ public :
 	virtual void Move(const Vector2& Dir, float Speed);
 // Animation
 public :
-	void ChangeIdleAnimation();
-	void ChangeWalkAnimation();
-	void ChangeTraceAnimation();
-	void ChangeDeathAnimation();
-	void ChangeHitAnimation();
+	virtual void ChangeIdleAnimation();
+	virtual void ChangeMoveAnimation();
+	virtual void ChangeRunAnimation();
+	virtual void ChangeDeathAnimation();
+	virtual void ChangeHitAnimation();
 
 // Random Dir Setting
 private :

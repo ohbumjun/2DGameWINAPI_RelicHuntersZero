@@ -362,17 +362,33 @@ void CScene::SetPlayerAnimation()
 	}
 
 	// Death ---
-	GetSceneResource()->CreateAnimationSequence(PLAYER_DEATH,
-		PLAYER_LEFT_DASH, TEXT("images/Character/jimmy/death.bmp"));
+	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_DEATH,
+		PLAYER_LEFT_DEATH, TEXT("images/Character/jimmy/left_death.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_DEATH,
+	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_DEATH,
 		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_DEATH,
+			if (i == 2 && j == 3) break;
+			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_DEATH,
+		PLAYER_RIGHT_DEATH, TEXT("images/Character/jimmy/death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 2 && j == 3) break;
+			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}

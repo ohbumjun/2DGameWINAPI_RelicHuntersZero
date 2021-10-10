@@ -142,11 +142,6 @@ void CCharacter::ChangeIdleAnimation()
 	if (m_HitEnable) return;
 }
 
-void CCharacter::ChangeDashAnimation()
-{
-	if (m_HitEnable) return;
-}
-
 void CCharacter::ChangeRunAnimation()
 {
 	if (m_HitEnable) return;
@@ -155,6 +150,10 @@ void CCharacter::ChangeRunAnimation()
 void CCharacter::ChangeMoveAnimation()
 {
 	if (m_HitEnable) return;
+}
+
+void CCharacter::ChangeDeathAnimation()
+{
 }
 
 void CCharacter::Move(const Vector2& Dir)
