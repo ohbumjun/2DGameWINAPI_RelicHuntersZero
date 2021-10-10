@@ -10,7 +10,6 @@ CCharacter::CCharacter() :
 	m_CurrentGun(nullptr)
 {
 	m_ObjType = EObject_Type::Character;
-
 }
 
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
@@ -129,17 +128,16 @@ void CCharacter::Move(const Vector2& Dir, float Speed)
 
 void CCharacter::MoveWithinWorldResolution()
 {
-	{
-		Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
-		if (m_Pos.x <= 0)
-			m_Pos.x = 0.f;
-		if (m_Pos.x + m_Size.x >= WorldResolution.x)
-			m_Pos.x = WorldResolution.x - m_Size.x;
-		if (m_Pos.y <= 0)
-			m_Pos.y = 0.f;
-		if (m_Pos.y + m_Size.y >= WorldResolution.y)
-			m_Pos.y = WorldResolution.y - m_Size.y;
-	}
+	float Space = 10.f;
+	Vector2 WorldResolution = m_Scene->GetCamera()->GetWorldResolution();
+	if (m_Pos.x <= Space)
+		m_Pos.x = Space;
+	if (m_Pos.x + m_Size.x >= WorldResolution.x - Space)
+		m_Pos.x = WorldResolution.x - Space - m_Size.x;
+	if (m_Pos.y <= Space)
+		m_Pos.y = Space;
+	if (m_Pos.y + m_Size.y >= WorldResolution.y - Space)
+		m_Pos.y = WorldResolution.y - Space - m_Size.y;
 }
 
 bool CCharacter::CollisionCheck()
@@ -201,6 +199,16 @@ void CCharacter::Stun()
 void CCharacter::StunEnd()
 {
 	CGameObject::StunEnd();
+}
+
+void CCharacter::CharacterDestroy()
+{
+	Destroy();
+	for (int i = 0; i < EGunClass::End; i++)
+	{
+		if (m_GunEquipment[i])
+			m_GunEquipment[i]->Destroy();
+	}
 }
 
 void CCharacter::SetInitGun(CGun* Gun)

@@ -989,6 +989,8 @@ void CPlayer::AcquireItem(float DeltaTime)
 		{
 			std::string ProtoTypeName = Gun->GetProtoTypeName();
 			// Equip(Gun->Clone());
+			// Have to Add Newly Cloned Gun to Scene 
+			// So that it can be update within Scene.cpp
 			Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
 			break;
 		}

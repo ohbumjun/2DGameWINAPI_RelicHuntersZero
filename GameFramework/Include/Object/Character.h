@@ -87,9 +87,9 @@ protected :
 protected :
 	virtual void Stun();
 	virtual void StunEnd();
-protected:
+public:
 // Death
-	virtual void CharacterDestroy() = 0;
+	void CharacterDestroy();
 protected :
 // Gun
 	void SetInitGun(CGun* Gun);

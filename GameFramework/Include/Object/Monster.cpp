@@ -71,6 +71,9 @@ CMonster::~CMonster()
 void CMonster::Start()
 {
 	CCharacter::Start();
+	
+	SetAnimationEndNotify<CMonster>(MONSTER_DUCK1_LEFT_DEATH, this, &CMonster::CharacterDestroy);
+	SetAnimationEndNotify<CMonster>(MONSTER_DUCK1_RIGHT_DEATH, this, &CMonster::CharacterDestroy);
 }
 
 bool CMonster::Init()
@@ -109,8 +112,6 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	// Monster 이동 
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
-
-	
 
 	MoveWithinWorldResolution();
 
@@ -158,7 +159,7 @@ void CMonster::Update(float DeltaTime)
 	}
 	if (m_CharacterInfo.HP <= 0)
 	{
-		Destroy();
+		m_AI = EMonsterAI::Death;
 	}
 
 	switch (m_AI)
@@ -218,10 +219,6 @@ float CMonster::SetDamage(float Damage)
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
-}
-
-void CMonster::CharacterDestroy()
-{
 }
 
 void CMonster::AttackEnd()
@@ -297,6 +294,20 @@ void CMonster::ChangeTraceAnimation()
 	}
 }
 
+void CMonster::ChangeDeathAnimation()
+{
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_DEATH)->second;
+		ChangeAnimation(Anim);
+	}
+	else
+	{
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_DEATH)->second;
+		ChangeAnimation(Anim);
+	}
+}
+
 void CMonster::SetRandomTargetDir()
 {
 	m_MoveTargetPos = SetRandomTargetPos();
@@ -347,20 +358,24 @@ void CMonster::SetDuck1Animation()
 	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 1.0f);
+	
 
 	// Left
 	AddAnimation(MONSTER_DUCK1_LEFT_IDLE, true,2.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
+	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 1.0f);
+	
 	
 	// Stun
-	AddAnimation(MONSTER_DUCK1_LEFT_DEATH , false, DEATH_TIME);
-	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, DEATH_TIME);
+	// AddAnimation(MONSTER_DUCK1_LEFT_DEATH , false, DEATH_TIME);
+	// AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, DEATH_TIME);
 
 	// Stun
-	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_LEFT_HIT, true, 0.6f);
 }
 
 void CMonster::SetAnimNames()
@@ -456,6 +471,8 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 
 void CMonster::AIDeath(float DeltaTime)
 {
+	m_MoveSpeed = 0.f;
+	ChangeDeathAnimation();
 }
 
 CGun* CMonster::Equip(CGun* Gun)

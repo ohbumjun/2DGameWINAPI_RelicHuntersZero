@@ -28,7 +28,7 @@
 #define BOSS_ATTACK_DISTANCE   2000.f
 
 // Death Time
-#define DEATH_TIME 5.f
+#define DEATH_TIME 1.f
 
 // Laser Dist
 #define LASER_DISTANCE 200000.f
