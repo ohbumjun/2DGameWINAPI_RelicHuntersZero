@@ -13,7 +13,6 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_FireTimeMax(1.f),
 					   m_Count(0),
 					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME),
-					   m_mapAnimName{},
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
 					   m_AttackDistance(NORMAL_MONSTER_ATTACK_DISTANCE),
@@ -38,40 +37,18 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
-
-	auto iter = m_WidgetComponentList.begin();
-	auto iterEnd = m_WidgetComponentList.end();
-
-	for (; iter != iterEnd; ++iter)
-	{
-		if ((*iter)->GetName() == HPWIDGET_COMPONENET)
-			m_HPBarWidget = (*iter);
-		if ((*iter)->GetName() == MPWIDGET_COMPONENET)
-			m_MPBarWidget = (*iter);
-	}
-
-	// m_mapAnimNames
-	m_mapAnimName.clear();
-	{
-		auto iter    = obj.m_mapAnimName.begin();
-		auto iterEnd = obj.m_mapAnimName.end();
-		for (; iter != iterEnd; ++iter)
-		{
-			m_mapAnimName[iter->first] = iter->second;
-		}
-	}
 }
 
 CMonster::~CMonster()
 {
 	m_HPBarWidget = nullptr;
 	m_MPBarWidget = nullptr;
-	m_mapAnimName.clear();
 }
 
 void CMonster::Start()
 {
 	CCharacter::Start();
+	
 }
 
 bool CMonster::Init()
@@ -81,22 +58,21 @@ bool CMonster::Init()
 
 	SetPivot(0.5f, 1.f);
 	CreateAnimation();
-	SetAnimation();
-	
-	CColliderBox *Body = AddCollider<CColliderBox>("Body");
+
+	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
-	Body->SetOffset(0.f, -36.5f);
+	Body->SetOffset(0.f, -39.5f);
 	Body->SetCollisionProfile("Monster");
 
 	// HPBar
 	m_HPBarWidget = CreateWidgetComponent("HPBarWidget");
-	CProgressBar *HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
+	CProgressBar* HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 
 	// MPBar
 	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
-	CProgressBar *MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
+	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -85.f);
 
@@ -351,15 +327,5 @@ CGun* CMonster::Equip(CGun* Gun)
 void CMonster::ChangeHitAnimation()
 {
 	CCharacter::ChangeHitAnimation();
-	if (m_Dir.x < 0)
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_HIT)->second;
-		ChangeAnimation(Anim);
-	}
-	else
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_HIT)->second;
-		ChangeAnimation(Anim);
-	}
 }
 

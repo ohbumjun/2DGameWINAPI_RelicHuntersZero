@@ -4,7 +4,7 @@ CDuckMonster::CDuckMonster()
 {
 }
 
-CDuckMonster::CDuckMonster(const CDuckMonster& obj)
+CDuckMonster::CDuckMonster(const CDuckMonster& obj) : CMonster(obj)
 {
 }
 
@@ -74,7 +74,6 @@ void CDuckMonster::SetAnimation()
 	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 1.f);
 	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 1.5f);
-
 }
 
 
