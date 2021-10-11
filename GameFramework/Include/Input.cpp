@@ -176,7 +176,7 @@ bool CInput::Init(HWND hWnd)
 	CreateKey("GetItem", 'Z');
 
 	// Gun
-	CreateKey("ChangeGun", 'C');
+	CreateKey("Reload", 'R');
 	CreateKey("ChangeGunToLight", '1');
 	CreateKey("ChangeGunToMedium",'2');
 	CreateKey("ChangeGunToHeavy", '3');

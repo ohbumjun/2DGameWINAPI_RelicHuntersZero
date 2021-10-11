@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "EffectHit.h"
 #include "EffectDash.h"
+#include "EffectReload.h"
 #include "TeleportMouse.h"
 #include "Potion.h"
 #include "DamageFont.h"
@@ -116,6 +117,8 @@ void CPlayer::Start()
 		this, &CPlayer::ChangeGunToMedium);
 	CInput::GetInst()->SetCallback<CPlayer>("ChangeGunToHeavy", KeyState_Down,
 		this, &CPlayer::ChangeGunToHeavy);
+	CInput::GetInst()->SetCallback<CPlayer>("Reload", KeyState_Down,
+		this, &CPlayer::ReloadGun);
 
 	// 1) Slow Motion
 	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
@@ -231,16 +234,19 @@ bool CPlayer::Init()
 	// Target
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
-	// Stun
+	// Death
 	AddAnimation(PLAYER_LEFT_DEATH, false, 0.1f);
 	AddAnimation(PLAYER_RIGHT_DEATH, false, 0.1f);
 
-	// Stun
+	// Hit
 	AddAnimation(PLAYER_LEFT_HIT, true, 0.6f);
 	AddAnimation(PLAYER_RIGHT_HIT, true, 0.6f);
 
 	// Teleport
 	AddAnimation(PLAYER_TELEPORT, false, 0.3f);
+
+	// Gun
+	// AddAnimation(RELOAD_EFFECT, false, 2.0f);
 
 	// NotifyFunctions
 	SetNotifyFunctions();
@@ -495,6 +501,16 @@ void CPlayer::ChangeGunToHeavy(float DeltaTime)
 	if (m_GunEquipment[EGunClass::Heavy])
 		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
 }
+
+void CPlayer::ReloadGun(float DelatTime)
+{
+	if (m_CurrentGun)
+	{
+		CEffectReload* ReloadAnim = m_Scene->CreateObject<CEffectReload>(RELOAD_EFFECT,
+			Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.1f), Vector2(10.f, 10.f));
+	}
+}
+
 
 void CPlayer::GunStateUIUpdate(CUICharacterStateHUD* State)
 {

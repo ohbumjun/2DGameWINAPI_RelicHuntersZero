@@ -562,7 +562,7 @@ void CScene::SetBulletsAnimation()
 			i * 66.f, 0, 66.f, 50.f);
 	}
 
-	// 총알 효과 L
+	// Bullet Start Left
 	GetSceneResource()->CreateAnimationSequence(BULLETSTART_EFFECT_L,
 		BULLETSTART_EFFECT_L, TEXT("images/Weapon/Gun/Bullet/left_spr_bullet_start.bmp"));
 	GetSceneResource()->SetTextureColorKey(BULLETSTART_EFFECT_L,
@@ -573,7 +573,7 @@ void CScene::SetBulletsAnimation()
 			i * 46.f, 0, 46.f, 30.f);
 	}
 
-	// 총알 효과
+	// Bullet Start Right 
 	GetSceneResource()->CreateAnimationSequence(BULLETSTART_EFFECT_R,
 		BULLETSTART_EFFECT_R, TEXT("images/Weapon/Gun/Bullet/spr_bullet_start.bmp"));
 	GetSceneResource()->SetTextureColorKey(BULLETSTART_EFFECT_R,
@@ -582,6 +582,20 @@ void CScene::SetBulletsAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(BULLETSTART_EFFECT_R,
 			i * 46.f, 0, 46.f, 30.f);
+	}
+
+	// Bullet Reload
+	GetSceneResource()->CreateAnimationSequence(RELOAD_EFFECT,
+		RELOAD_EFFECT, TEXT("images/Weapon/Gun/Bullet/GunReload.bmp"));
+	GetSceneResource()->SetTextureColorKey(RELOAD_EFFECT,
+		255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData(RELOAD_EFFECT,
+				j * 46.f, i * 46.f, 46.f, 46.f);
+		}
 	}
 	
 }

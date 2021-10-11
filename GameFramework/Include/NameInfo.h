@@ -3,6 +3,7 @@
 // Effect ---
 #define DASH_EFFECT           "DashEffect"
 #define HIT_EFFECT            "HitEffect"
+#define RELOAD_EFFECT         "ReloadEffect"
 #define BULLETSTART_EFFECT_L  "LBulletStartEffect"
 #define BULLETSTART_EFFECT_R  "RBulletSTartEffect"
 #define SURPRISE_EFFECT		  "Surprise"

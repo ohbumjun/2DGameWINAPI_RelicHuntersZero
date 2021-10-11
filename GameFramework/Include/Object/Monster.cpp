@@ -236,7 +236,7 @@ void CMonster::Fire()
 	if (m_CurrentGun)
 	{
 		// Fire
-		m_CurrentGun->MonsterFire(Player->GetPos(),m_CharacterInfo.Attack);
+		m_CurrentGun->MonsterFire(Player->GetPos(),(float)m_CharacterInfo.Attack);
 	}
 }
 

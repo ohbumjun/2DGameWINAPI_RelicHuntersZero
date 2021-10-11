@@ -56,6 +56,10 @@ public:
 	{
 		m_GunInfo.m_BulletDistance = Dist;
 	}
+	void SetReloadBullet()
+	{
+		m_GunInfo.m_BulletsLoaded = m_GunInfo.m_BulletsFullNum;
+	}
 public :
 	CGameObject* GetOwner() const
 	{

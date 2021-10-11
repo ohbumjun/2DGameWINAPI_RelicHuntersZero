@@ -179,6 +179,7 @@
     <ClCompile Include="Object\DuckMonster.cpp" />
     <ClCompile Include="Object\EffectDash.cpp" />
     <ClCompile Include="Object\EffectHit.cpp" />
+    <ClCompile Include="Object\EffectReload.cpp" />
     <ClCompile Include="Object\EffectSurprise.cpp" />
     <ClCompile Include="Object\EffectText.cpp" />
     <ClCompile Include="Object\Equipment.cpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="Object\Character.h" />
     <ClInclude Include="Object\DuckMonster.h" />
     <ClInclude Include="Object\EffectDash.h" />
+    <ClInclude Include="Object\EffectReload.h" />
     <ClInclude Include="Object\EffectSurprise.h" />
     <ClInclude Include="Object\EffectText.h" />
     <ClInclude Include="Object\Equipment.h" />

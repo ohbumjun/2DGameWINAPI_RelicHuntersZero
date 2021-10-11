@@ -50,10 +50,16 @@ private :
 
 // Gun
 private :
-	void ChangeGunToLight(float DeltaTime);
-	void ChangeGunToMedium(float DeltaTime);
-	void ChangeGunToHeavy(float DeltaTime);
-	void GunStateUIUpdate(class CUICharacterStateHUD* State);
+	void  ChangeGunToLight(float DeltaTime);
+	void  ChangeGunToMedium(float DeltaTime);
+	void  ChangeGunToHeavy(float DeltaTime);
+	void  ReloadGun(float DeltaTime);
+	void  GunStateUIUpdate(class CUICharacterStateHUD* State);
+public :
+	CGun* GetCurrentGun() const
+	{
+		return m_CurrentGun;
+	}
 
 // Move ---
 private:

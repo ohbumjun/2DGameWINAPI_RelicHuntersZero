@@ -118,6 +118,12 @@
     <Filter Include="03. Object\01. Character\02. Player">
       <UniqueIdentifier>{db502550-7385-43f3-8bd2-3c1a707711f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\03. Effect\01. DynamicEffect">
+      <UniqueIdentifier>{b3f2a816-35dc-4063-978e-fe25ed23fde9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\03. Effect\02. StaticEffect">
+      <UniqueIdentifier>{91d11e4b-cf01-41b5-af60-0a6589128f4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -189,9 +195,6 @@
     <ClCompile Include="Collision\ColliderSphere.cpp">
       <Filter>06. Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Object\EffectHit.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
     <ClCompile Include="UI\UIWindow.cpp">
       <Filter>07. UI</Filter>
     </ClCompile>
@@ -233,12 +236,6 @@
     </ClCompile>
     <ClCompile Include="UI\NumberWidget.cpp">
       <Filter>07. UI\01. Widget</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\DamageFont.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\TeleportMouse.cpp">
-      <Filter>03. Object\03. Effect</Filter>
     </ClCompile>
     <ClCompile Include="UI\UIHome.cpp">
       <Filter>07. UI\02. Window</Filter>
@@ -294,9 +291,6 @@
     <ClCompile Include="Object\LaserObject.cpp">
       <Filter>03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="Object\EffectDash.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Gun.cpp">
       <Filter>03. Object\05. Gun</Filter>
     </ClCompile>
@@ -330,26 +324,41 @@
     <ClCompile Include="UI\UIAnimation.cpp">
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
-    <ClCompile Include="Object\EffectSurprise.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\EffectCasing.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\EffectBulletStart.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\EffectText.cpp">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Object\BossMonster.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player.cpp">
       <Filter>03. Object\01. Character\02. Player</Filter>
     </ClCompile>
+    <ClCompile Include="Object\DamageFont.cpp">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClCompile>
     <ClCompile Include="Object\EffectAbilityUp.cpp">
-      <Filter>03. Object\03. Effect</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectBulletStart.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectCasing.cpp">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectDash.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectHit.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectSurprise.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectText.cpp">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\TeleportMouse.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectReload.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -434,9 +443,6 @@
     <ClInclude Include="Collision\ColliderSphere.h">
       <Filter>06. Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Object\EffectHit.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="UI\UIWindow.h">
       <Filter>07. UI</Filter>
     </ClInclude>
@@ -503,12 +509,6 @@
     <ClInclude Include="UI\NumberWidget.h">
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
-    <ClInclude Include="Object\DamageFont.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\TeleportMouse.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="MonsterInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -572,9 +572,6 @@
     <ClInclude Include="NameInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\EffectDash.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="ProtoInfo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -611,26 +608,41 @@
     <ClInclude Include="UI\UIAnimation.h">
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
-    <ClInclude Include="Object\EffectSurprise.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\EffectCasing.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\EffectBulletStart.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\EffectText.h">
-      <Filter>03. Object\03. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Object\BossMonster.h">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player.h">
       <Filter>03. Object\01. Character\02. Player</Filter>
     </ClInclude>
+    <ClInclude Include="Object\DamageFont.h">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
     <ClInclude Include="Object\EffectAbilityUp.h">
-      <Filter>03. Object\03. Effect</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectBulletStart.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectCasing.h">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectDash.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectHit.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectSurprise.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectText.h">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\TeleportMouse.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectReload.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
