@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "SceneCollision.h"
 #include "Camera.h"
+// UI
 #include "../Object/EffectHit.h"
 #include "../Object/EffectSurprise.h"
 #include "../Object/EffectCasing.h"
@@ -14,7 +15,12 @@
 #include "../Object/Monster.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
+// Map
 #include "../Map/MapBase.h"
+// UI
+#include "../UI/UIMain.h"
+#include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIGunStateHUD.h"
 
 CScene::CScene()
 {
@@ -36,7 +42,6 @@ CScene::CScene()
 	m_Camera->Init();
 
 	m_TileMap = nullptr;
-	// m_LaserCollidePos = Vector2(-1.f, -1.f);
 }
 
 CScene::~CScene()
@@ -851,6 +856,13 @@ void CScene::SetBasicObjectGuns()
 
 	GunProto = FindPrototype(GUN_SHOTGUN_HEAVY_PROTO);
 	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, GunProto->m_Pos, GunProto->m_Size);
+}
+
+void CScene::SetBasicUIs()
+{
+	// Window
+	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	CUIGunStateHUD* GunStateWindow = CreateUIWindow<CUIGunStateHUD>("GunStateHUD");
 }
 
 void CScene::SetBasicProtoTypes()

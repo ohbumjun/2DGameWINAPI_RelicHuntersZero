@@ -28,6 +28,8 @@ bool CHomeScene::Init()
 	LoadAnimationSequence();
 	// Protos
 	SetBasicProtoTypes();
+	// UI
+	SetBasicUIs();
 	// Guns
 	SetBasicObjectGuns();
 	// Objects
@@ -47,9 +49,6 @@ bool CHomeScene::Init()
 
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
-
-	// Window
-	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	return true;
 }

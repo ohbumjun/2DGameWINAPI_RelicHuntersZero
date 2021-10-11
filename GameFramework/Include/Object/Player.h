@@ -54,7 +54,7 @@ private :
 	void  ChangeGunToMedium(float DeltaTime);
 	void  ChangeGunToHeavy(float DeltaTime);
 	void  ReloadGun(float DeltaTime);
-	void  GunStateUIUpdate(class CUICharacterStateHUD* State);
+	void  GunStateUIUpdate(class CUIGunStateHUD* State);
 public :
 	CGun* GetCurrentGun() const
 	{

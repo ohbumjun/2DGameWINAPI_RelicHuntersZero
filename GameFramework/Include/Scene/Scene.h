@@ -72,6 +72,9 @@ public :
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();
+// UI Setiing
+public :
+	void SetBasicUIs();
 
 // Proto Setting
 public :

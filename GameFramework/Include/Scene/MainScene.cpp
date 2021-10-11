@@ -40,7 +40,7 @@ bool CMainScene::Init()
 	LoadSound();
 	LoadAnimationSequence();
 	SetBasicProtoTypes();
-
+	SetBasicUIs();
 	
 	// Player
 	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
@@ -76,7 +76,6 @@ bool CMainScene::Init()
 
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
-	CUICharacterStateHUD *StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 
 	// Potion
 	CMPPotion *MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO,POTION_MP_PROTO);

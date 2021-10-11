@@ -20,6 +20,7 @@
 #include "../Collision/ColliderSphere.h"
 // UI
 #include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIGunStateHUD.h"
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 
@@ -347,10 +348,7 @@ void CPlayer::Update(float DeltaTime)
 	{
 		// Ability 
 		AbilityStateUIUpdate(State);
-		// Gun State
-		GunStateUIUpdate(State);
 	}
-	
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
@@ -359,6 +357,14 @@ void CPlayer::Update(float DeltaTime)
 
 	CProgressBar* SteminaBar = (CProgressBar*)m_SteminaBarWidget->GetWidget();
 	SteminaBar->SetPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+
+	// Gun 
+	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
+	if (GunState)
+	{
+		// Gun State
+		GunStateUIUpdate(GunState);
+	}
 
 	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
@@ -512,7 +518,7 @@ void CPlayer::ReloadGun(float DelatTime)
 }
 
 
-void CPlayer::GunStateUIUpdate(CUICharacterStateHUD* State)
+void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 {
 	// Gun
 	CGun* Gun = nullptr;

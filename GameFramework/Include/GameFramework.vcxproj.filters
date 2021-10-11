@@ -360,6 +360,9 @@
     <ClCompile Include="Object\EffectReload.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIGunStateHUD.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -643,6 +646,9 @@
     </ClInclude>
     <ClInclude Include="Object\EffectReload.h">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIGunStateHUD.h">
+      <Filter>07. UI\02. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

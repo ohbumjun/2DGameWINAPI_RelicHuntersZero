@@ -223,6 +223,7 @@
     <ClCompile Include="UI\ProgressBar.cpp" />
     <ClCompile Include="UI\UIAnimation.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
+    <ClCompile Include="UI\UIGunStateHUD.cpp" />
     <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\UIAnimation.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
+    <ClInclude Include="UI\UIGunStateHUD.h" />
     <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIMain.h" />
