@@ -457,11 +457,13 @@ void CPlayer::AbilityUpdate(float DeltaTime)
 	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
 		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
 
-	if (m_CharacterInfo.HP <= m_CharacterInfo.HPMax)
+	/*
+	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 
 	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
 		m_CharacterInfo.MP += DeltaTime;
+	*/
 }
 
 void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
@@ -1120,11 +1122,11 @@ void CPlayer::AcquireItem(float DeltaTime)
 		if (Potion)
 		{
 			EPotion_Type PType = Potion->GetPotionType();
-			//if (PType == EPotion_Type::HP)
-				//m_CharacterInfo.HP = m_CharacterInfo.HPMax;
-			//else
-				//m_CharacterInfo.MP = m_CharacterInfo.MPMax;
-			// Potion->Destroy();
+			if (PType == EPotion_Type::HP)
+				m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+			else
+				m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+			Potion->Destroy();
 			break;
 			return;
 		}
