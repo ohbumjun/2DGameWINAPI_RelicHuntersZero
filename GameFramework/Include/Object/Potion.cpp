@@ -41,7 +41,7 @@ bool CPotion::Init()
 	// Add Collider
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
 	Body->SetRadius(20.f);
-	Body->SetOffset(25.f, 25.f);
+	Body->SetOffset(35.f,35.f);
 	Body->SetCollisionProfile("Default");
 
 	// Animation
