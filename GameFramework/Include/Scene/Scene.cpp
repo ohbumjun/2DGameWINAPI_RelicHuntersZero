@@ -677,6 +677,8 @@ void CScene::SetSkillAnimation()
 void CScene::SetLevel1MonsterAnimation()
 {
 	SetDuck1MonsterAnimation();
+	SetDuck2MonsterAnimation();
+	SetDuck3MonsterAnimation();
 }
 
 void CScene::SetDuck1MonsterAnimation()

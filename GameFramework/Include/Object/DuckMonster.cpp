@@ -48,12 +48,12 @@ void CDuckMonster::ChangeRunAnimation()
 	CMonster::ChangeRunAnimation();
 	if (m_Dir.x < 0)
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_RUN)->second;
 		ChangeAnimation(Anim);
 	}
 	else
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_RUN)->second;
 		ChangeAnimation(Anim);
 	}
 }
@@ -63,12 +63,12 @@ void CDuckMonster::ChangeDeathAnimation()
 	CMonster::ChangeDeathAnimation();
 	if (m_Dir.x < 0)
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_DEATH)->second;
 		ChangeAnimation(Anim);
 	}
 	else
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_DEATH)->second;
 		ChangeAnimation(Anim);
 	}
 }
@@ -78,12 +78,12 @@ void CDuckMonster::ChangeHitAnimation()
 	CMonster::ChangeHitAnimation();
 	if (m_Dir.x < 0)
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_HIT)->second;
 		ChangeAnimation(Anim);
 	}
 	else
 	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_WALK)->second;
+		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_HIT)->second;
 		ChangeAnimation(Anim);
 	}
 }
@@ -217,6 +217,7 @@ void CDuckMonster::SetDuck3AnimName()
 void CDuckMonster::Start()
 {
 	CMonster::Start();
+	SetAnimNames();
 	SetAnimationEndNotify<CDuckMonster>(MONSTER_DUCK1_LEFT_DEATH, this, &CDuckMonster::CharacterDestroy);
 	SetAnimationEndNotify<CDuckMonster>(MONSTER_DUCK1_RIGHT_DEATH, this, &CDuckMonster::CharacterDestroy);
 	SetAnimationEndNotify<CDuckMonster>(MONSTER_DUCK2_LEFT_DEATH, this, &CDuckMonster::CharacterDestroy);
