@@ -72,9 +72,6 @@ CMonster::~CMonster()
 void CMonster::Start()
 {
 	CCharacter::Start();
-	
-	SetAnimationEndNotify<CMonster>(MONSTER_DUCK1_LEFT_DEATH, this, &CMonster::CharacterDestroy);
-	SetAnimationEndNotify<CMonster>(MONSTER_DUCK1_RIGHT_DEATH, this, &CMonster::CharacterDestroy);
 }
 
 bool CMonster::Init()
@@ -85,7 +82,6 @@ bool CMonster::Init()
 	SetPivot(0.5f, 1.f);
 	CreateAnimation();
 	SetAnimation();
-	SetAnimNames();
 	
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(82.f, 73.f);
@@ -212,11 +208,6 @@ void CMonster::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-CMonster *CMonster::Clone()
-{
-	return new CMonster(*this);
-}
-
 float CMonster::SetDamage(float Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
@@ -259,59 +250,20 @@ void CMonster::Move(const Vector2& Dir, float Speed)
 void CMonster::ChangeIdleAnimation()
 {
 	CCharacter::ChangeIdleAnimation();
-	if (m_Dir.x < 0)
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_IDLE)->second;
-		ChangeAnimation(Anim);
-	}
-	else
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_IDLE)->second;
-		ChangeAnimation(Anim);
-	}
 }
 void CMonster::ChangeMoveAnimation()
 {
 	CCharacter::ChangeMoveAnimation();
-	if (m_Dir.x < 0)
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_WALK)->second;
-		ChangeAnimation(Anim);
-	}
-	else
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_WALK)->second;
-		ChangeAnimation(Anim);
-	}
 }
 
 void CMonster::ChangeRunAnimation()
 {
 	CCharacter::ChangeRunAnimation();
-	if (m_Dir.x < 0)
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_RUN)->second;
-		ChangeAnimation(Anim);
-	}
-	else
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_RUN)->second;
-		ChangeAnimation(Anim);
-	}
 }
 
 void CMonster::ChangeDeathAnimation()
 {
-	if (m_Dir.x < 0)
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_LEFT_DEATH)->second;
-		ChangeAnimation(Anim);
-	}
-	else
-	{
-		std::string Anim = m_mapAnimName.find(MONSTER_RIGHT_DEATH)->second;
-		ChangeAnimation(Anim);
-	}
+	CCharacter::ChangeDeathAnimation();
 }
 
 void CMonster::SetRandomTargetDir()
@@ -328,96 +280,6 @@ Vector2 CMonster::SetRandomTargetPos()
 	float y = (float)(rand() % (int)WorldResolution.y);
 	m_MoveTargetPos = Vector2(x, y);
 	return m_MoveTargetPos;
-}
-
-void CMonster::SetAnimation()
-{
-	switch (m_MonsterType)
-	{
-	case EMonster_Type::Duck1:
-		SetDuck1Animation();
-		break;
-	case EMonster_Type::Duck2:
-		AddAnimation(PLAYER_LEFT_IDLE);
-		break;
-	case EMonster_Type::Duck3:
-		AddAnimation(PLAYER_LEFT_IDLE);
-		break;
-	case EMonster_Type::Turtle1:
-		AddAnimation(PLAYER_LEFT_IDLE);
-		break;
-	case EMonster_Type::Turtle2:
-		AddAnimation(PLAYER_LEFT_IDLE);
-		break;
-	case EMonster_Type::Turtle3:
-		AddAnimation(PLAYER_LEFT_IDLE);
-		break;
-	default:
-		break;
-	}
-}
-
-void CMonster::SetDuck1Animation()
-{
-	// Right
-	AddAnimation(MONSTER_DUCK1_RIGHT_IDLE, true, 2.f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_WALK, true, 1.f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_ATTACK, false, 0.1f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_HIT, false, 1.f);
-	AddAnimation(MONSTER_DUCK1_RIGHT_DEATH, false, 1.5f);
-
-	// Left
-	AddAnimation(MONSTER_DUCK1_LEFT_IDLE, true,2.f);
-	AddAnimation(MONSTER_DUCK1_LEFT_WALK, true, 1.f);
-	AddAnimation(MONSTER_DUCK1_LEFT_ATTACK, false, 0.1f);
-	AddAnimation(MONSTER_DUCK1_LEFT_RUN, true, 0.6f);
-	AddAnimation(MONSTER_DUCK1_LEFT_HIT, false, 1.f);
-	AddAnimation(MONSTER_DUCK1_LEFT_DEATH, false, 1.5f);
-	
-}
-
-void CMonster::SetAnimNames()
-{
-	switch (m_MonsterType)
-	{
-	case EMonster_Type::Duck1:
-		SetDuck1AnimName();
-		break;
-	case EMonster_Type::Duck2:
-		SetDuck1AnimName();
-		break;
-	case EMonster_Type::Duck3:
-		SetDuck1AnimName();
-		break;
-	case EMonster_Type::Turtle1:
-		SetDuck1AnimName();
-		break;
-	case EMonster_Type::Turtle2:
-		SetDuck1AnimName();
-		break;
-	case EMonster_Type::Turtle3:
-		SetDuck1AnimName();
-		break;
-	}
-}
-
-void CMonster::SetDuck1AnimName()
-{
-	m_mapAnimName.clear();
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_IDLE, MONSTER_DUCK1_RIGHT_IDLE));
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_WALK, MONSTER_DUCK1_RIGHT_WALK));
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_ATTACK, MONSTER_DUCK1_RIGHT_ATTACK));
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_RUN, MONSTER_DUCK1_RIGHT_RUN));
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_DEATH, MONSTER_DUCK1_RIGHT_DEATH));
-	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_HIT, MONSTER_DUCK1_RIGHT_HIT));
-
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_IDLE, MONSTER_DUCK1_LEFT_IDLE));
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_WALK, MONSTER_DUCK1_LEFT_WALK));
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_ATTACK, MONSTER_DUCK1_LEFT_ATTACK));
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_RUN, MONSTER_DUCK1_LEFT_RUN));
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_DEATH, MONSTER_DUCK1_LEFT_DEATH));
-	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_HIT, MONSTER_DUCK1_LEFT_HIT));
 }
 
 void CMonster::AIIdle(float DeltaTime)

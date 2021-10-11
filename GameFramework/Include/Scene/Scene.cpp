@@ -12,7 +12,7 @@
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
 #include "../Object/DamageFont.h"
-#include "../Object/Monster.h"
+#include "../Object/DuckMonster.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
 // Map
@@ -889,20 +889,13 @@ void CScene::SetBasicProtoTypes()
 	CBullet* PlayerBullet = CreatePrototype<CBullet>(PLAYER_BULLET_PROTO);
 	PlayerBullet->SetCollisionProfile("PlayerAttack");
 
-	/*
-	CBullet* PlayerLaserBullet = CreatePrototype<CBullet>("PlayerLaserProto");
-	PlayerLaserBullet->SetCollisionProfile("PlayerLaser");
-	PlayerLaserBullet->SetMoveSpeed(LASER_SPEED);
-	PlayerLaserBullet->SetDistance(LASER_DISTANCE);
-	*/
-
 	// Player SlowMotion Bullet 
 	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>(PLAYER_SKILL_SLOWMOTION_BULLET_PROTO);
 	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
 
 	// Monster
-	CMonster* MonsterPrototype = CreatePrototype<CMonster>(MONSTER_DUCK1_PROTO);
-	MonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
+	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);
+	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	// Collider
 	CCollider* Collider = PlayerBullet->FindCollider("Body");

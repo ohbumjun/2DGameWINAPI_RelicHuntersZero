@@ -10,7 +10,7 @@ protected:
 	CMonster(const CMonster& obj);
 	virtual ~CMonster();
 
-private:
+protected:
 	float	m_FireTime;
 	float	m_FireTimeMax;
 	float   m_RandomMoveTime;
@@ -22,7 +22,7 @@ private:
 	float m_AttackDistance;
 	bool m_TraceSurprise;
 	float m_SurpriseStopTime;
-private :
+protected :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 private :
@@ -43,7 +43,6 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual CMonster* Clone();
 	virtual float SetDamage(float Damage);
 
 // Attack
@@ -57,24 +56,21 @@ public :
 	virtual void Move(const Vector2& Dir, float Speed);
 // Animation
 public :
-	virtual void ChangeIdleAnimation();
-	virtual void ChangeMoveAnimation();
-	virtual void ChangeRunAnimation();
-	virtual void ChangeDeathAnimation();
-	virtual void ChangeHitAnimation();
+	virtual void ChangeIdleAnimation() = 0;
+	virtual void ChangeMoveAnimation() = 0;
+	virtual void ChangeRunAnimation() = 0;
+	virtual void ChangeDeathAnimation() = 0;
+	virtual void ChangeHitAnimation() = 0;
 
 // Random Dir Setting
 private :
 	void SetRandomTargetDir();
 	Vector2 SetRandomTargetPos();
 // Set Animation
-private :
-	void SetAnimation();
-	void SetAnimNames();
-	void SetDuck1Animation();
-	void SetDuck1AnimName();
+protected :
+	virtual void SetAnimation() = 0;
 // AI
-private :
+protected :
 	void AIIdle(float DeltaTime);
 	void AIWalk(float DeltaTime);
 	void AITrace(float DeltaTime, Vector2 PlayerPos);
