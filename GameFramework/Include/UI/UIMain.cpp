@@ -10,7 +10,16 @@
 #include "NumberWidget.h"
 
 CUIMain::CUIMain() :
-	m_Minute(0)
+	m_Minute(0),
+	m_DoorToStageOne(nullptr),
+	m_MinuteWidget(nullptr),
+	m_NumberWidget(nullptr),
+	m_Number1Widget(nullptr),
+	m_OutputIndex(-1),
+	m_OutputText(-1),
+	m_Time(-1.f),
+	m_TextTime(-1.f),
+	m_Text(nullptr)
 {
 }
 
@@ -55,7 +64,7 @@ bool CUIMain::Init()
 	m_NumberWidget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{
-		m_NumberWidget->SetTextureColorKey(255, 255, 255, i);
+		// m_NumberWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
 	// m_Number1Widget
@@ -65,7 +74,7 @@ bool CUIMain::Init()
 	m_Number1Widget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{
-		m_Number1Widget->SetTextureColorKey(255, 255, 255, i);
+		//m_Number1Widget->SetTextureColorKey(255, 0, 255, i);
 	}
 
 	// m_MinuteWidget
@@ -75,7 +84,7 @@ bool CUIMain::Init()
 	m_MinuteWidget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{
-		m_MinuteWidget->SetTextureColorKey(255, 255, 255, i);
+		// m_MinuteWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
 	// Colon

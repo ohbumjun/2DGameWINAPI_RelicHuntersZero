@@ -1,5 +1,6 @@
 #pragma once
 #include "UIWindow.h"
+#include "UIText.h"
 #include "ProgressBar.h"
 #include "Button.h"
 #include "UIImage.h"
@@ -12,7 +13,7 @@ class CUIGunStateHUD :
 private:
 	CUIGunStateHUD();
 	virtual ~CUIGunStateHUD();
-
+// Bar 
 private:
 	CSharedPtr<CProgressBar> m_GunLightBar;
 	CSharedPtr<CProgressBar> m_GunMediumBar;
@@ -30,6 +31,12 @@ public:
 	{
 		m_GunHeavyBar->SetPercent(Percent);
 	}
+// Texture 
+private :
+	CSharedPtr<class CUIText> m_LightGunText;
+	CSharedPtr<class CUIText> m_MediumGunText;
+	CSharedPtr<class CUIText> m_HeavyGunText;
+// Image 
 private :
 	CSharedPtr<CUIImage> m_CurrentGunImage;
 	CSharedPtr<CUIImage> m_SecondGunImage;
