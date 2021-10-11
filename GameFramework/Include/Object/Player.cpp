@@ -520,7 +520,7 @@ void CPlayer::ReloadGun(float DelatTime)
 
 void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 {
-	// Gun
+	// 1) Gun Bar Setting  ---
 	CGun* Gun = nullptr;
 	// Light 
 	if (m_GunEquipment[EGunClass::Light])
@@ -546,6 +546,23 @@ void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 	}
 	else
 		State->SetHeavyGunPercent(0.f);
+
+	// 2) Gun Image Setting  ---
+	if (m_CurrentGun)
+		State->SetCurrentGunImage(m_CurrentGun->GetRightTextureName());
+	bool SetThirdGun = false;
+	for (int i = 0; i < EGunClass::End; i++)
+	{
+		if (!m_GunEquipment[i]) continue;
+		if (m_GunEquipment[i] == m_CurrentGun) continue;
+		if (!SetThirdGun)
+		{
+			State->SetSecondGunImage(m_GunEquipment[i]->GetRightTextureName());
+			SetThirdGun = true;
+		}
+		else
+			State->SetThirdGunImage(m_GunEquipment[i]->GetRightTextureName());
+	}
 }
 
 void CPlayer::ChangeIdleAnimation()

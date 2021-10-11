@@ -14,19 +14,6 @@ private :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
 	const char* m_TextureImgNames[2];
-public :
-	/*
-	
-struct GunInfo
-{
-	EGun_Type m_GunType;
-	float m_Damage;
-	int   m_BulletsLoaded;
-	bool  m_BulletEmpty;
-	float m_BulletLoadTime;
-	float m_BulletDistance;
-};
-	*/
 public:
 	void SetLeftTextureName(const char* Name)
 	{
@@ -61,6 +48,14 @@ public:
 		m_GunInfo.m_BulletsLoaded = m_GunInfo.m_BulletsFullNum;
 	}
 public :
+	std::string GetLeftTextureName()
+	{
+		return m_TextureImgNames[ETexture_Dir::Texture_Left];
+	}
+	std::string GetRightTextureName()
+	{
+		return m_TextureImgNames[ETexture_Dir::Texture_Right];
+	}
 	CGameObject* GetOwner() const
 	{
 		return m_Owner;

@@ -1036,13 +1036,11 @@ bool CScene::Update(float DeltaTime)
 				}
 				continue;
 			}
-
 			else if (!m_UIArray[i]->GetVisibility())
 			{
 				++i;
 				continue;
 			}
-
 			m_UIArray[i]->Update(DeltaTime);
 			++i;
 		}
@@ -1081,21 +1079,17 @@ bool CScene::PostUpdate(float DeltaTime)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
-
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
 				}
-
 				continue;
 			}
-
 			else if (!m_UIArray[i]->GetVisibility())
 			{
 				++i;
 				continue;
 			}
-
 			m_UIArray[i]->PostUpdate(DeltaTime);
 			++i;
 		}
@@ -1278,13 +1272,9 @@ bool CScene::Render(HDC hDC)
 				if (m_RenderCount == m_RenderCapacity)
 				{
 					m_RenderCapacity *= 2;
-
 					CGameObject **Array = new CGameObject *[m_RenderCapacity];
-
 					memcpy(Array, m_RenderArray, sizeof(CGameObject *) * m_RenderCount);
-
 					delete[] m_RenderArray;
-
 					m_RenderArray = Array;
 				}
 
@@ -1299,13 +1289,9 @@ bool CScene::Render(HDC hDC)
 	if (m_RenderCount == m_RenderCapacity)
 	{
 		m_RenderCapacity *= 2;
-
 		CGameObject **Array = new CGameObject *[m_RenderCapacity];
-
 		memcpy(Array, m_RenderArray, sizeof(CGameObject *) * m_RenderCount);
-
 		delete[] m_RenderArray;
-
 		m_RenderArray = Array;
 	}
 

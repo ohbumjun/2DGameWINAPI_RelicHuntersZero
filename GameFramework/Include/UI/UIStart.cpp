@@ -22,7 +22,6 @@ bool CUIStart::Init()
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
 	CUIImage* Back = CreateWidget<CUIImage>("Back");
-
 	Back->SetTexture("StartBack", TEXT("GameBack.bmp"));
 
 	// Start ==

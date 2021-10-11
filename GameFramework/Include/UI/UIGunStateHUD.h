@@ -30,6 +30,23 @@ public:
 	{
 		m_GunHeavyBar->SetPercent(Percent);
 	}
+private :
+	CSharedPtr<CUIImage> m_CurrentGunImage;
+	CSharedPtr<CUIImage> m_SecondGunImage;
+	CSharedPtr<CUIImage> m_ThirdGunImage;
+public:
+	void SetCurrentGunImage(const std::string &TextureName)
+	{
+		m_CurrentGunImage->SetTexture(TextureName);
+	}
+	void SetSecondGunImage(const std::string &TextureName)
+	{
+		m_SecondGunImage->SetTexture(TextureName);
+	}
+	void SetThirdGunImage(const std::string &TextureName)
+	{
+		m_ThirdGunImage->SetTexture(TextureName);
+	}
 
 public:
 	virtual bool Init();
