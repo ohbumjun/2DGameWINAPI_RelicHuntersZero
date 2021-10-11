@@ -25,10 +25,14 @@ protected:
 protected :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
+protected:
+	std::unordered_map<std::string, std::string> m_mapAnimName;
+	bool m_TypeChanged;
 public :
 	void SetMonsterType(EMonster_Type MonsterType)
 	{
 		m_MonsterType = MonsterType;
+		m_TypeChanged = true;
 	}
 	EMonster_Type GetMonsterType() const
 	{
@@ -67,6 +71,7 @@ private :
 // Set Animation
 protected :
 	virtual void SetAnimation() = 0;
+	virtual void SetAnimNames() = 0;
 // AI
 protected :
 	void AIIdle(float DeltaTime);

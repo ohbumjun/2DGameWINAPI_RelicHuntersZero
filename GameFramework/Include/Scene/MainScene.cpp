@@ -56,11 +56,16 @@ bool CMainScene::Init()
 
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	CDuckMonster*Duck1Monster = CreateObject<CDuckMonster>("Monster", MONSTER_DUCK1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	Duck1Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-							  NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	Duck1Monster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-	Duck1Monster->Equip(PistolLightGun);
+	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1", MONSTER_DUCK1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	DuckMonster->Equip(PistolLightGun);
+
+	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+	DuckMonster = CreateObject<CDuckMonster>("Monster2", MONSTER_DUCK2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	DuckMonster->Equip(PistolLightGun);
+
+	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	DuckMonster->Equip(PistolLightGun);
 
 	/*
 	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));

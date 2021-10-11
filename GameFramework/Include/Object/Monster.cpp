@@ -17,16 +17,19 @@ CMonster::CMonster() : m_FireTime(0.f),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
 					   m_AttackDistance(NORMAL_MONSTER_ATTACK_DISTANCE),
 					   m_TraceSurprise(false),
-						m_SurpriseStopTime(0.0f)
+						m_SurpriseStopTime(0.0f),
+						m_mapAnimName{},
+						m_TypeChanged(false),
+						m_MonsterType(EMonster_Type::Duck1)
 {
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
 	m_ObjType         = EObject_Type::Monster;
-	m_MonsterType     = EMonster_Type::Duck1;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 {
+	m_TypeChanged = false;
 	m_ObjType = EObject_Type::Monster;
 	m_Dir = obj.m_Dir;
 	m_DashDistance = obj.m_DashDistance;
@@ -37,18 +40,26 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
+	
+	m_mapAnimName.clear();
+	auto iter    = obj.m_mapAnimName.begin();
+	auto iterEnd = obj.m_mapAnimName.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		m_mapAnimName.insert(std::make_pair(iter->first, iter->second));
+	}
 }
 
 CMonster::~CMonster()
 {
 	m_HPBarWidget = nullptr;
 	m_MPBarWidget = nullptr;
+	
 }
 
 void CMonster::Start()
 {
 	CCharacter::Start();
-	
 }
 
 bool CMonster::Init()
@@ -119,7 +130,8 @@ void CMonster::Update(float DeltaTime)
 			SetRandomTargetDir();
 			m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 		}
-		if (m_Velocity.Length() == 0.f)
+
+		if (m_Dir.x ==  0.f && m_Dir.y == 0.f) // 움직이지 않는데, 움직일 때 I
 			m_AI = EMonsterAI::Idle;
 		else
 			m_AI = EMonsterAI::Walk;

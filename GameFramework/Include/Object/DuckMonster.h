@@ -10,9 +10,6 @@ protected:
 	CDuckMonster(const CDuckMonster& obj);
 	virtual ~CDuckMonster();
 
-private:
-	std::unordered_map<std::string, std::string> m_mapAnimName;
-
 // Animation
 public:
 	virtual void ChangeIdleAnimation();
@@ -20,10 +17,14 @@ public:
 	virtual void ChangeRunAnimation();
 	virtual void ChangeDeathAnimation();
 	virtual void ChangeHitAnimation();
-
 	// Set Animation
 private:
 	virtual void SetAnimation();
+	virtual void SetAnimNames();
+private :
+	void SetDuck1AnimName();
+	void SetDuck2AnimName();
+	void SetDuck3AnimName();
 public :
 	virtual void Start();
 	virtual bool Init();

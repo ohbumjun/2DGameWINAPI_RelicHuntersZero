@@ -68,7 +68,9 @@ public :
 // Monster Setting 
 public :
 	void SetLevel1MonsterAnimation();
-	void SetDuck11MonsterAnimation();
+	void SetDuck1MonsterAnimation();
+	void SetDuck2MonsterAnimation();
+	void SetDuck3MonsterAnimation();
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();

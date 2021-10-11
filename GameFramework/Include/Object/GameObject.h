@@ -293,7 +293,6 @@ public:
 			m_Size.y = (float)m_Texture->GetHeight();
 		}
 	}
-
 	void SetTexture(const std::string& Name);
 	void SetTexture(const std::string& Name, const TCHAR* FileName,
 		const std::string& PathName = TEXTURE_PATH);

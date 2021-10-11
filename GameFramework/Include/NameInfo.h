@@ -124,3 +124,36 @@
 #define MONSTER_DUCK1_LEFT_HIT    "Duck1LeftHit"
 #define MONSTER_DUCK1_RIGHT_HIT   "Duck1RightHit"
 
+// Duck2
+#define MONSTER_DUCK2_RIGHT_IDLE   "Duck2RightIdle"
+#define MONSTER_DUCK2_RIGHT_WALK   "Duck2RightWalk"
+#define MONSTER_DUCK2_RIGHT_RUN    "Duck2RightRun"
+#define MONSTER_DUCK2_RIGHT_ATTACK "Duck2RightAttack"
+
+#define MONSTER_DUCK2_LEFT_IDLE   "Duck2LeftIdle"
+#define MONSTER_DUCK2_LEFT_WALK   "Duck2LeftWalk"
+#define MONSTER_DUCK2_LEFT_RUN    "Duck2LeftRun"
+#define MONSTER_DUCK2_LEFT_ATTACK "Duck2LeftAttack"
+
+#define MONSTER_DUCK2_LEFT_DEATH  "Duck2LeftDeath"
+#define MONSTER_DUCK2_RIGHT_DEATH "Duck2RightDeath"
+#define MONSTER_DUCK2_LEFT_HIT    "Duck2LeftHit"
+#define MONSTER_DUCK2_RIGHT_HIT   "Duck2RightHit"
+
+// Duck3
+#define MONSTER_DUCK3_RIGHT_IDLE   "Duck3RightIdle"
+#define MONSTER_DUCK3_RIGHT_WALK   "Duck3RightWalk"
+#define MONSTER_DUCK3_RIGHT_RUN    "Duck3RightRun"
+#define MONSTER_DUCK3_RIGHT_ATTACK "Duck3RightAttack"
+
+#define MONSTER_DUCK3_LEFT_IDLE   "Duck3LeftIdle"
+#define MONSTER_DUCK3_LEFT_WALK   "Duck3LeftWalk"
+#define MONSTER_DUCK3_LEFT_RUN    "Duck3LeftRun"
+#define MONSTER_DUCK3_LEFT_ATTACK "Duck3LeftAttack"
+
+#define MONSTER_DUCK3_LEFT_DEATH  "Duck3LeftDeath"
+#define MONSTER_DUCK3_RIGHT_DEATH "Duck3RightDeath"
+#define MONSTER_DUCK3_LEFT_HIT    "Duck3LeftHit"
+#define MONSTER_DUCK3_RIGHT_HIT   "Duck3RightHit"
+
+
