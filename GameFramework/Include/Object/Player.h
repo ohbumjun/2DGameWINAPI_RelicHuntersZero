@@ -55,6 +55,7 @@ private :
 	void  ChangeGunToHeavy(float DeltaTime);
 	void  ReloadGun(float DeltaTime);
 	void  GunStateUIUpdate(class CUIGunStateHUD* State);
+	void  GunCurBulletNumUpdate();
 public :
 	CGun* GetCurrentGun() const
 	{

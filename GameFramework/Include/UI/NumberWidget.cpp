@@ -5,7 +5,8 @@
 #include "UIWindow.h"
 
 CNumberWidget::CNumberWidget()	:
-	m_Number(1)
+	m_Number(1),
+	m_RenderEnable(false)
 {
 }
 
@@ -13,6 +14,7 @@ CNumberWidget::CNumberWidget(const CNumberWidget& widget) :
 	CUIImage(widget)
 {
 	m_Number = widget.m_Number;
+	m_RenderEnable = widget.m_RenderEnable;
 }
 
 CNumberWidget::~CNumberWidget()
@@ -62,6 +64,7 @@ void CNumberWidget::Collision(float DeltaTime)
 
 void CNumberWidget::Render(HDC hDC)
 {
+	if (!m_RenderEnable) return;
 	if (m_vecNumber.empty())
 	{
 		// 비어있으면 0을 출력한다.
@@ -78,7 +81,6 @@ void CNumberWidget::Render(HDC hDC)
 				m_FrameIndex = m_vecNumber[i];
 			else
 				m_FrameIndex = 0;
-
 			// 처음에 OffSet 0으로 세팅해준 다음 Render로 넘어갈 수 있게 해주기 
 			// ex) 1 --> 2 --> 3 : 이런식으로 오른쪽으로 넘어가면서 !
 			m_Offset.x = i * m_Size.x;
@@ -89,7 +91,7 @@ void CNumberWidget::Render(HDC hDC)
 
 void CNumberWidget::Render(const Vector2& Pos, HDC hDC)
 {
-	
+	if (!m_RenderEnable) return;
 	if (m_vecNumber.empty())
 	{
 		// 비어있으면 0을 출력한다.

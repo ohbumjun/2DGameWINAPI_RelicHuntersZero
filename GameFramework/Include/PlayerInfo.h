@@ -33,3 +33,7 @@
 // Laser Dist
 #define LASER_DISTANCE 200000.f
 
+// UI Pos
+#define CURRENT_GUN_X_POS 10.f
+#define CURRENT_GUN_Y_POS 550.f
+

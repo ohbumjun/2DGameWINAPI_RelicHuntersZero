@@ -14,16 +14,25 @@ public:
 protected:
 	int		m_Number;
 	std::vector<int>	m_vecNumber;
+	bool    m_RenderEnable;
 
 public:
 	void SetNumber(int Number)
 	{
 		m_Number = Number;
+		m_RenderEnable = true;
 	}
-
+	void SetRenderEnable(bool state)
+	{
+		m_RenderEnable = state;
+	}
 	void AddNumber(int Number)
 	{
 		m_Number += Number;
+	}
+	void ClearNumber()
+	{
+		m_vecNumber.clear();
 	}
 
 public:

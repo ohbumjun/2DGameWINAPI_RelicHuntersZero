@@ -23,6 +23,7 @@
 #include "../UI/UIGunStateHUD.h"
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
+#include "../UI/UIMain.h"
 
 // Static
 CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
@@ -345,10 +346,7 @@ void CPlayer::Update(float DeltaTime)
 	// MPBar , HPBar
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
-	{
-		// Ability 
 		AbilityStateUIUpdate(State);
-	}
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
@@ -361,16 +359,14 @@ void CPlayer::Update(float DeltaTime)
 	// Gun 
 	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
 	if (GunState)
-	{
-		// Gun State
 		GunStateUIUpdate(GunState);
-	}
 
 	// Dir Set toward Mouse Pos
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
 		ChangeDirToMouse();
 
-	
+	GunCurBulletNumUpdate();
+
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -481,19 +477,6 @@ void CPlayer::ChangeGunToLight(float DeltaTime)
 	if (m_GunEquipment[EGunClass::Light])
 		m_CurrentGun = m_GunEquipment[EGunClass::Light];
 
-	// Chnage Equipment 
-	// CGun* ExistingGun = m_GunEquipment[GunClass];
-	// m_GunEquipment[GunClass] = Gun;
-	// Set Current Gun
-	// m_CurrentGun = m_GunEquipment[GunClass];
-
-	// Set Owner, Pos 
-	// Gun->SetOwner(this);
-	// 아래의 코드가 반드시 있어야 한다... 왜지 ?
-	// Gun->SetPos(m_Pos);
-	// Gun->SetOffset(m_Size.x * 0.1, -m_Size.y * 0.3);
-	// Gun->SetPos(m_Size.x * 0.1, -m_Size.y * 0.3);
-
 }
 
 void CPlayer::ChangeGunToMedium(float DeltaTime)
@@ -562,6 +545,45 @@ void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 		}
 		else
 			State->SetThirdGunImage(m_GunEquipment[i]->GetRightTextureName());
+	}
+}
+
+void CPlayer::GunCurBulletNumUpdate()
+{
+	if (m_CurrentGun)
+	{
+		// MPBar , HPBar
+		CUIMain* State = m_Scene->FindUIWindow<CUIMain>("MainUI");
+		int FullBullet = m_CurrentGun->GetGunFullBullet();
+		int FullH = FullBullet / 100, FullT = (FullBullet % 100) / 10, FullO = FullBullet % 10;
+		if (FullH != 0)
+			State->SetFullBulletHundredWidget(FullH);
+		else
+			State->SetFullBulletHundredRenderEnable(false);
+		if (FullH != 0 || FullT != 0)
+			State->SetFullBulletTenWidget(FullT);
+		else
+			State->SetFullBulletTenRenderEnable(false);
+		if (FullH != 0 || FullT != 0 || FullO != 0)
+			State->SetFullBulletOneWidget(FullO);
+		else
+			State->SetFullBulletOneRenderEnable(false);
+
+		int CurBullet = m_CurrentGun->GetGunLeftBullet();
+		int CurH = CurBullet / 100, CurT = (CurBullet % 100) / 10, CurO = CurBullet % 10;
+		if (CurH != 0)
+			State->SetBulletHundredWidget(CurH);
+		else
+			State->SetBulletHundredRenderEnable(false);
+		if (CurH != 0 || CurT != 0)
+			State->SetBulletTenWidget(CurT);
+		else
+			State->SetBulletTenRenderEnable(false);
+		if (CurH != 0 || CurT != 0 || CurO != 0)
+			State->SetBulletOneWidget(CurO);
+		else
+			State->SetBulletOneRenderEnable(false);
+
 	}
 }
 

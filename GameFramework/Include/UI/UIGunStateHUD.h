@@ -55,6 +55,7 @@ public:
 		m_ThirdGunImage->SetTexture(TextureName);
 	}
 
+
 public:
 	virtual bool Init();
 };

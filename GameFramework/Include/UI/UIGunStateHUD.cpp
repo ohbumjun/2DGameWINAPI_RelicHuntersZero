@@ -81,17 +81,19 @@ bool CUIGunStateHUD::Init()
 	m_CurrentGunImage = CreateWidget<CUIImage>("GunLightImage");
 	m_CurrentGunImage->SetTexture("GunLightImage", TEXT("BarGunLight.bmp"));
 	m_CurrentGunImage->SetTextureColorKey(255, 0, 255);
-	m_CurrentGunImage->SetPos(10.f, 500.f);
+	m_CurrentGunImage->SetPos(10.f, 550.f);
 
 	m_SecondGunImage = CreateWidget<CUIImage>("GunMediumImage");
 	m_SecondGunImage->SetTexture("GunMediumImage", TEXT("BarGunLight.bmp"));
 	m_SecondGunImage->SetTextureColorKey(255, 0, 255);
-	m_SecondGunImage->SetPos(10.f, 550.f);
+	m_SecondGunImage->SetPos(10.f, 600.f);
 
 	m_ThirdGunImage = CreateWidget<CUIImage>("GunHeavyImage");
 	m_ThirdGunImage->SetTexture("GunHeavyImage", TEXT("BarGunLight.bmp"));
 	m_ThirdGunImage->SetTextureColorKey(255, 0, 255);
-	m_ThirdGunImage->SetPos(90.f, 550.f);
+	m_ThirdGunImage->SetPos(90.f, 600.f);
+
+	// Bullet Text 
 
 	return true;
 }
