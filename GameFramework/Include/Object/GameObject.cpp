@@ -996,7 +996,7 @@ float CGameObject::SetDamage(float Damage)
 
 	return Damage;
 }
-
+ 
 /*
 L-value, R-value
 

@@ -97,7 +97,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE1_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE1_RIGHT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE1_RIGHT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE1_RIGHT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE1_RIGHT_DEATH, false, 1.0f);
 
 	// Left
 	AddAnimation(MONSTER_TURTLE1_LEFT_IDLE, true, 2.f);
@@ -105,7 +105,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE1_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE1_LEFT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE1_LEFT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE1_LEFT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE1_LEFT_DEATH, false, 1.0f);
 
 	// Turtle2 --
 	// Right
@@ -114,7 +114,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE2_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE2_RIGHT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE2_RIGHT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE2_RIGHT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE2_RIGHT_DEATH, false, 1.0f);
 
 	// Left
 	AddAnimation(MONSTER_TURTLE2_LEFT_IDLE, true, 2.f);
@@ -122,7 +122,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE2_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE2_LEFT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE2_LEFT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE2_LEFT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE2_LEFT_DEATH, false, 1.0f);
 
 	// Turtle1 --
 	// Right
@@ -131,7 +131,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE3_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE3_RIGHT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE3_RIGHT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE3_RIGHT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE3_RIGHT_DEATH, false, 1.0f);
 
 	// Left
 	AddAnimation(MONSTER_TURTLE3_LEFT_IDLE, true, 2.f);
@@ -139,7 +139,7 @@ void CTurtleMonster::SetAnimation()
 	AddAnimation(MONSTER_TURTLE3_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(MONSTER_TURTLE3_LEFT_RUN, true, 0.6f);
 	AddAnimation(MONSTER_TURTLE3_LEFT_HIT, false, 1.f);
-	AddAnimation(MONSTER_TURTLE3_LEFT_DEATH, false, 1.5f);
+	AddAnimation(MONSTER_TURTLE3_LEFT_DEATH, false, 1.0f);
 }
 
 void CTurtleMonster::SetAnimNames()

@@ -17,7 +17,7 @@
 #define NORMAL_SPEED 200.f
 #define HIT_SPEED 400.f
 #define FAST_SPEED 400.f
-#define BULLET_SPEED 800.f
+#define BULLET_SPEED 2000.f
 #define LASER_SPEED 20000.f
 #define DASH_SPEED 1200.f
 

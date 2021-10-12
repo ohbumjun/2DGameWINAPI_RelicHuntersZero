@@ -202,7 +202,6 @@ void CScene::SetPlayerAnimation()
 	// Right Walk
 	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_WALK,
 		PLAYER_RIGHT_WALK, TEXT("images/Character/jimmy/right_walk.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_WALK,
 		255, 255, 255);
 
@@ -1207,39 +1206,39 @@ void CScene::SetBasicProtoTypes()
 	// Monster
 	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);
 	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK2_PROTO);
 	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck2);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK3_PROTO);
 	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck3);
 
 	// Turtle Monster
 	CTurtleMonster* TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE1_PROTO);
 	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle1);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE2_PROTO);
 	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle2);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE3_PROTO);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle3);
 	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
 	// Collider
@@ -1344,13 +1343,12 @@ bool CScene::Update(float DeltaTime)
 		else
 			m_Player->Update(DeltaTime); 
 		*/
-		m_Player->Update(DeltaTime);
+		m_Player->Update(DeltaTime * (m_Player->m_TimeScale));
 	}
 
 	{
 		auto iter = m_ObjList.begin();
 		auto iterEnd = m_ObjList.end();
-
 		for (; iter != iterEnd;)
 		{
 			if (!(*iter)->IsActive())

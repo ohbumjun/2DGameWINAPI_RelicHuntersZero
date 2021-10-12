@@ -1,6 +1,7 @@
 
 #include "Monster.h"
 #include "Bullet.h"
+#include "../GameManager.h"
 #include "EffectSurprise.h"
 #include "../Scene/Scene.h"
 #include "../Scene/Camera.h"
@@ -71,7 +72,6 @@ CMonster::~CMonster()
 {
 	m_HPBarWidget = nullptr;
 	m_MPBarWidget = nullptr;
-	
 }
 
 void CMonster::Start()
@@ -113,33 +113,36 @@ void CMonster::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 
 	// Monster Move 
-	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
+	m_Dir.Normalize();
+	// m_Pos += m_Dir * m_MoveSpeed * DeltaTime ;
+
+	// m_Dir.Normalize();
+	// Move(m_Dir);
+	Vector2 ExMove = m_Dir * m_MoveSpeed * DeltaTime;
+	float tDeltaTime = CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	Vector2	CurrentMove = m_Dir * (tDeltaTime * m_TimeScale) * m_MoveSpeed;
+	// m_Velocity += CurrentMove;
+	m_Pos += CurrentMove;
 
 	CGameObject *Player = m_Scene->GetPlayer();
-	if (Player)
+	Vector2 PlayerPos   = Player->GetPos();
+	float DistToPlayer  = Distance(m_Pos,PlayerPos);
+	if (DistToPlayer <= m_DashDistance)
 	{
-		Vector2 PlayerPos   = Player->GetPos();
-		float DistToPlayer  = Distance(m_Pos,PlayerPos);
-		if (DistToPlayer <= m_DashDistance)
+		// Suprise  
+		if (!m_TraceSurprise)
 		{
-			// Suprise  
-			if (!m_TraceSurprise)
-			{
-				Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
-				Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
-				CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
-					RT, Vector2(10.f, 10.f));
-
-				m_Scene->GetSceneResource()->SoundPlay("Fire");
-
-				m_TraceSurprise = true;
-			}
-
-			if (DistToPlayer < m_AttackDistance)
-				m_AI = EMonsterAI::Attack;
-			else
-				m_AI = EMonsterAI::Trace;
+			Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
+			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
+			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
+				RT, Vector2(10.f, 10.f));
+			m_Scene->GetSceneResource()->SoundPlay("Fire");
+			m_TraceSurprise = true;
 		}
+		if (DistToPlayer < m_AttackDistance)
+			m_AI = EMonsterAI::Attack;
+		else
+			m_AI = EMonsterAI::Trace;
 	}
 	else
 	{
@@ -150,8 +153,7 @@ void CMonster::Update(float DeltaTime)
 			SetRandomTargetDir();
 			m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 		}
-
-		if (m_Dir.x ==  0.f && m_Dir.y == 0.f) // 움직이지 않는데, 움직일 때 I
+		if (m_Dir.x == 0.f && m_Dir.y == 0.f)
 			m_AI = EMonsterAI::Idle;
 		else
 			m_AI = EMonsterAI::Walk;
@@ -245,6 +247,7 @@ void CMonster::Fire()
 
 void CMonster::Move(const Vector2& Dir)
 {
+	
 	if (ObstacleCollisionCheck())
 	{
 	}
@@ -341,6 +344,7 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 void CMonster::AIDeath(float DeltaTime)
 {
 	m_MoveSpeed = 0.f;
+	m_ColliderList.clear();
 	ChangeDeathAnimation();
 }
 

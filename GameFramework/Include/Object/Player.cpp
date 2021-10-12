@@ -48,6 +48,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 			
 {
 	m_ObjType = EObject_Type::Player;
+	m_TimeScale = 1.f;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -65,7 +66,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_TeleportPos = obj.m_TeleportPos;
 	m_DeathAnimationTime = 0.f;
 	m_SkillDestoryAllAttackEnable = false;
-	m_SkillDestoryAllAttackTime = 0.f;
+	m_SkillDestoryAllAttackTime   = 0.f;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -283,7 +284,6 @@ bool CPlayer::Init()
 	SteminaBar->SetTexture("WorldSteminaBar", TEXT("CharacterSteminaBar.bmp"));
 	m_SteminaBarWidget->SetPos(-25.f, -85.f);
 
-
 	// Name
 	m_NameWidget = CreateWidgetComponent(NAMEWIDGET_COMPONENET);
 	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
@@ -325,8 +325,8 @@ void CPlayer::Update(float DeltaTime)
 		CollideMonsterBody(CollideMonster);
 
 	// Skill Slow Motion
-	if (m_SkillSlowMotionAttackEnable)
-		SkillSlowMotionUpdate(DeltaTime);
+	// if (m_SkillSlowMotionAttackEnable)
+		// SkillSlowMotionUpdate(DeltaTime);
 
 	// Hp, Mp, Stemina
 	AbilityUpdate(DeltaTime);
@@ -864,8 +864,8 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		return;
 	}
 
-	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(100.f);
+	// CGameManager::GetInst()->SetTimeScale(0.01f);
+	// SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
@@ -902,8 +902,8 @@ void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
 
 	if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
 	{
-		SetTimeScale(1.f);
-		CGameManager::GetInst()->SetTimeScale(1.f);
+		// SetTimeScale(1.f);
+		// CGameManager::GetInst()->SetTimeScale(1.f);
 		m_SkillSlowMotionAttackEnable = false;
 		m_SkillSlowMotionAttackTime = 0.f;
 	}

@@ -12,9 +12,10 @@
 CGameManager *CGameManager::m_Inst = nullptr;
 bool CGameManager::m_Loop = true;
 
-CGameManager::CGameManager() : m_Timer(nullptr),
-							   m_TimeScale(1.f),
-								m_EditorMode(false),
+CGameManager::CGameManager() : 
+	m_Timer(nullptr),
+	m_TimeScale(1.f),
+	m_EditorMode(false),
 	m_RS{},
 	m_hBackBmp{},
 	m_hBackDC{},

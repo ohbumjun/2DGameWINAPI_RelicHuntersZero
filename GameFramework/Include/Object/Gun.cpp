@@ -98,8 +98,6 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 		Vector2(50.f, 50.f));
 	// Bullet Damage
 	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
-	// Speed 
-	Bullet->SetMoveSpeed(BOSS_MONSTER_ATTACK_SPEED);
 	// Bullet Dir 
 	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
 	Bullet->SetDir(Angle);
@@ -162,8 +160,6 @@ void CGun::CreateCasing(CBullet* Bullet)
 	}
 	Casing->SetTextureColorKey(255, 255, 255);
 
-	//CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", CasingPos);
-	//DamageFont->SetDamageNumber(30);
 }
 
 void CGun::CreateBulletEffect()
@@ -181,7 +177,6 @@ void CGun::CreateBulletEffect()
 void CGun::ShowNoBulletSign()
 {
 	CScene* Scene = m_Owner->GetScene();
-	Vector2 CameraPos = m_Owner->GetScene()->GetCamera()->GetPos();
 	CSharedPtr<CEffectText> NoBulletText = Scene->CreateObject<CEffectText>(
 		"CEffectText",
 		EFFECT_TEXT_PROTO,
@@ -197,10 +192,8 @@ void CGun::AdjustGunTexture()
 	{
 		Vector2 OwnerPos = m_Owner->GetPos();
 		Vector2 OwnerSize = m_Owner->GetSize();
-
 		// 위치 조정 
 		SetPos(m_Owner->GetPos().x, m_Owner->GetPos().y - m_Owner->GetSize().y * 0.3f);
-
 		// 방향 조정 
 		if (m_Owner->GetDir().x < 0)
 		{

@@ -181,7 +181,6 @@ void CAnimation::Update(float DeltaTime)
 			// 1프레임당 흘러야 할 시간을 빼준다.
 			m_CurrentAnimation->Time -= m_CurrentAnimation->FrameTime;
 
-
 			if (m_CurrentAnimation->Reverse)
 			{
 				--m_CurrentAnimation->Frame;
@@ -189,7 +188,6 @@ void CAnimation::Update(float DeltaTime)
 				if (m_CurrentAnimation->Frame < 0)
 					AnimEnd = true;
 			}
-
 			else
 			{
 				++m_CurrentAnimation->Frame;
@@ -200,14 +198,12 @@ void CAnimation::Update(float DeltaTime)
 		}
 
 		size_t	Size = m_CurrentAnimation->vecNotify.size();
-
 		for (size_t i = 0; i < Size; ++i)
 		{
 			if (!m_CurrentAnimation->vecNotify[i]->Call &&
 				m_CurrentAnimation->vecNotify[i]->Frame == m_CurrentAnimation->Frame)
 			{
 				m_CurrentAnimation->vecNotify[i]->Call = true;
-
 				m_CurrentAnimation->vecNotify[i]->Function();
 			}
 		}

@@ -24,7 +24,8 @@ CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
 	m_Damage = obj.m_Damage;
 	m_Dir = obj.m_Dir;
 	m_Distance = obj.m_Distance;
-	m_TimeScale = obj.m_TimeScale;
+	// m_TimeScale = obj.m_TimeScale;
+	m_TimeScale = 1.f;
 }
 
 CBullet::~CBullet()
