@@ -71,6 +71,11 @@ public :
 	void SetDuck1MonsterAnimation();
 	void SetDuck2MonsterAnimation();
 	void SetDuck3MonsterAnimation();
+public:
+	void SetLevel2MonsterAnimation();
+	void SetTurtle1MonsterAnimation();
+	void SetTurtle2MonsterAnimation();
+	void SetTurtle3MonsterAnimation();
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();

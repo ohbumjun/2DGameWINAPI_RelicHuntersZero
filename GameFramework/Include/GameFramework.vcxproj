@@ -211,6 +211,7 @@
     <ClCompile Include="Scene\EditorDlg.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Scene\HomeScene.cpp" />
+    <ClCompile Include="Scene\Main2Scene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneCollision.cpp" />
@@ -307,6 +308,7 @@
     <ClInclude Include="Scene\EditorDlg.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Scene\HomeScene.h" />
+    <ClInclude Include="Scene\Main2Scene.h" />
     <ClInclude Include="Scene\MainScene.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneCollision.h" />

@@ -157,3 +157,52 @@
 #define MONSTER_DUCK3_RIGHT_HIT   "Duck3RightHit"
 
 
+// Turtle1 
+#define MONSTER_TURTLE1_RIGHT_IDLE   "Turtle1RightIdle"
+#define MONSTER_TURTLE1_RIGHT_WALK   "Turtle1RightWalk"
+#define MONSTER_TURTLE1_RIGHT_RUN    "Turtle1RightRun"
+#define MONSTER_TURTLE1_RIGHT_ATTACK "Turtle1RightAttack"
+
+#define MONSTER_TURTLE1_LEFT_IDLE   "Turtle1LeftIdle"
+#define MONSTER_TURTLE1_LEFT_WALK   "Turtle1LeftWalk"
+#define MONSTER_TURTLE1_LEFT_RUN    "Turtle1LeftRun"
+#define MONSTER_TURTLE1_LEFT_ATTACK "Turtle1LeftAttack"
+
+#define MONSTER_TURTLE1_LEFT_DEATH  "Turtle1LeftDeath"
+#define MONSTER_TURTLE1_RIGHT_DEATH "Turtle1RightDeath"
+#define MONSTER_TURTLE1_LEFT_HIT    "Turtle1LeftHit"
+#define MONSTER_TURTLE1_RIGHT_HIT   "Turtle1RightHit"
+
+// Duck2
+#define MONSTER_TURTLE2_RIGHT_IDLE   "Turtle2RightIdle"
+#define MONSTER_TURTLE2_RIGHT_WALK   "Turtle2RightWalk"
+#define MONSTER_TURTLE2_RIGHT_RUN    "Turtle2RightRun"
+#define MONSTER_TURTLE2_RIGHT_ATTACK "Turtle2RightAttack"
+
+#define MONSTER_TURTLE2_LEFT_IDLE   "Turtle2LeftIdle"
+#define MONSTER_TURTLE2_LEFT_WALK   "Turtle2LeftWalk"
+#define MONSTER_TURTLE2_LEFT_RUN    "Turtle2LeftRun"
+#define MONSTER_TURTLE2_LEFT_ATTACK "Turtle2LeftAttack"
+
+#define MONSTER_TURTLE2_LEFT_DEATH  "Turtle2LeftDeath"
+#define MONSTER_TURTLE2_RIGHT_DEATH "Turtle2RightDeath"
+#define MONSTER_TURTLE2_LEFT_HIT    "Turtle2LeftHit"
+#define MONSTER_TURTLE2_RIGHT_HIT   "Turtle2RightHit"
+
+// Duck3
+#define MONSTER_TURTLE3_RIGHT_IDLE   "Turtle3RightIdle"
+#define MONSTER_TURTLE3_RIGHT_WALK   "Turtle3RightWalk"
+#define MONSTER_TURTLE3_RIGHT_RUN    "Turtle3RightRun"
+#define MONSTER_TURTLE3_RIGHT_ATTACK "Turtle3RightAttack"
+
+#define MONSTER_TURTLE3_LEFT_IDLE   "Turtle3LeftIdle"
+#define MONSTER_TURTLE3_LEFT_WALK   "Turtle3LeftWalk"
+#define MONSTER_TURTLE3_LEFT_RUN    "Turtle3LeftRun"
+#define MONSTER_TURTLE3_LEFT_ATTACK "Turtle3LeftAttack"
+
+#define MONSTER_TURTLE3_LEFT_DEATH  "Turtle3LeftDeath"
+#define MONSTER_TURTLE3_RIGHT_DEATH "Turtle3RightDeath"
+#define MONSTER_TURTLE3_LEFT_HIT    "Turtle3LeftHit"
+#define MONSTER_TURTLE3_RIGHT_HIT   "Turtle3RightHit"
+
+

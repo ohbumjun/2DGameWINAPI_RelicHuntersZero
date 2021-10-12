@@ -1746,3 +1746,488 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 
 	return Player;
 }
+
+
+void CScene::SetLevel2MonsterAnimation()
+{
+	// SetTurtle1MonsterAnimation();
+	// SetTurtle2MonsterAnimation();
+	// SetTurtle3MonsterAnimation();
+}
+
+void CScene::SetTurtle1MonsterAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_IDLE,
+		MONSTER_TURTLE1_RIGHT_IDLE, TEXT("images/Monster/TURTLE1/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_WALK,
+		MONSTER_TURTLE1_RIGHT_WALK, TEXT("images/Monster/TURTLE1/right_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_RUN,
+		MONSTER_TURTLE1_RIGHT_RUN, TEXT("images/Monster/TURTLE1/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+
+	// Right Attack
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_ATTACK,
+		MONSTER_TURTLE1_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_ATTACK,
+			i * 176.f, 0.f, 176.f, 89.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_LEFT_IDLE,
+		MONSTER_TURTLE1_LEFT_IDLE, TEXT("images/Monster/TURTLE1/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 3; j >= 0; --j)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_LEFT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_LEFT_WALK,
+		MONSTER_TURTLE1_LEFT_WALK, TEXT("images/Monster/TURTLE1/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_LEFT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_LEFT_RUN,
+		MONSTER_TURTLE1_LEFT_RUN, TEXT("images/Monster/TURTLE1/left_run.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+		for (int i = 0; i < 3; ++i)
+		{
+			for (int j = 2; j >= 0; --j)
+			{
+				GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_LEFT_RUN,
+					j * 134.f, i * 114.f, 134.f, 114.f);
+			}
+		}
+
+
+	// Death ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_LEFT_DEATH,
+		MONSTER_TURTLE1_LEFT_DEATH, TEXT("images/Monster/TURTLE1/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 3; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_LEFT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_DEATH,
+		MONSTER_TURTLE1_RIGHT_DEATH, TEXT("images/Monster/TURTLE1/right_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Hit ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_LEFT_HIT,
+		MONSTER_TURTLE1_LEFT_HIT, TEXT("images/Monster/TURTLE1/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 1; i >= 0; --i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE1_RIGHT_HIT,
+		MONSTER_TURTLE1_RIGHT_HIT, TEXT("images/Monster/TURTLE1/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE1_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+}
+
+
+void CScene::SetTurtle2MonsterAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_IDLE,
+		MONSTER_TURTLE2_RIGHT_IDLE, TEXT("images/Monster/TURTLE/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_WALK,
+		MONSTER_TURTLE2_RIGHT_WALK, TEXT("images/Monster/TURTLE2/right_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_RUN,
+		MONSTER_TURTLE2_RIGHT_RUN, TEXT("images/Monster/TURTLE2/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_RUN,
+		255, 255, 255);
+
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_RUN,
+				j * 134.f,i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Attack
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_ATTACK,
+		MONSTER_TURTLE2_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK2_RIGHT_ATTACK,
+			i * 176.f, 0.f, 176.f, 89.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_IDLE,
+		MONSTER_TURTLE2_LEFT_IDLE, TEXT("images/Monster/TURTLE2/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 3; j>= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_LEFT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_WALK,
+		MONSTER_TURTLE2_LEFT_WALK, TEXT("images/Monster/TURTLE2/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_LEFT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_RUN,
+		MONSTER_TURTLE2_LEFT_RUN, TEXT("images/Monster/TURTLE2/left_run.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_LEFT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Death ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_DEATH,
+		MONSTER_TURTLE2_LEFT_DEATH, TEXT("images/Monster/TURTLE2/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 3; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_LEFT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_DEATH,
+		MONSTER_TURTLE2_RIGHT_DEATH, TEXT("images/Monster/TURTLE2/right_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Hit ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_HIT,
+		MONSTER_TURTLE2_LEFT_HIT, TEXT("images/Monster/TURTLE2/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 1; i >= 0; --i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK2_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_HIT,
+		MONSTER_TURTLE2_RIGHT_HIT, TEXT("images/Monster/TURTLE2/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+}
+
+void CScene::SetTurtle3MonsterAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_IDLE,
+		MONSTER_TURTLE3_RIGHT_IDLE, TEXT("images/Monster/TURTLE3/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_WALK,
+		MONSTER_TURTLE3_RIGHT_WALK, TEXT("images/Monster/TURTLE3/right_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_RUN,
+		MONSTER_TURTLE3_RIGHT_RUN, TEXT("images/Monster/TURTLE3/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Attack
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_ATTACK,
+		MONSTER_TURTLE3_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_ATTACK,
+			i * 176.f, 0.f, 176.f, 89.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_LEFT_IDLE,
+		MONSTER_TURTLE3_LEFT_IDLE, TEXT("images/Monster/TURTLE3/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 3; j >=0 ; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_LEFT_WALK,
+		MONSTER_TURTLE3_LEFT_WALK, TEXT("images/Monster/TURTLE3/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >=0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_LEFT_RUN,
+		MONSTER_TURTLE3_LEFT_RUN, TEXT("images/Monster/TURTLE3/left_run.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_LEFT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+
+	// Death ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_LEFT_DEATH,
+		MONSTER_TURTLE3_LEFT_DEATH, TEXT("images/Monster/TURTLE3/left_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_LEFT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; i < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_DEATH,
+		MONSTER_TURTLE3_RIGHT_DEATH, TEXT("images/Monster/TURTLE3/right_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Hit ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_LEFT_HIT,
+		MONSTER_TURTLE3_LEFT_HIT, TEXT("images/Monster/TURTLE3/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE3_RIGHT_HIT,
+		MONSTER_TURTLE3_RIGHT_HIT, TEXT("images/Monster/TURTLE3/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE3_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 1; i >= 0; --i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+}
