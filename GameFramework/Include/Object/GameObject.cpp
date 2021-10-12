@@ -997,3 +997,102 @@ float CGameObject::SetDamage(float Damage)
 	return Damage;
 }
 
+/*
+L-value, R-value
+
+// L, R
+std::string a = "abc"
+// L, L
+std::String b = a;
+
+L-value : callable , 나중에
+우리가 부를 수 있는 값
+
+R-value : 한번쓰고 안쓰는 값 
+
+R-value, 즉, 한번만 쓰고 버릴 값은
+복사보다는, 그냥 한번 Move 해버리면 끝
+
+반면, L-value는, Copy를 해줘야 함 
+
+------------------------------------
+< std::vector :: push_back >
+
+std::string a = "abc";
+
+// l-value reference : copy
+void push_back(const T& value);
+
+ex) vec.push_back(a)
+
+// r-value reference : move 
+void push_back(T&& value
+
+ex) vec.push_back("abc")
+
+-----------------------------------
+<L-value를 R-value로 바꾸기 : std::move>
+R-value = std::move(L-value) 
+
+#include<string>
+void storeByValue(std::string s)
+{
+	// 1번 복사 : 인자 a 가 s 로 복사
+	// 2번 복사 : 인자 s 가 b 로 복사 
+	std::string b = s;
+}
+
+void storeByLRef(std::string &s)
+{
+	// 1번 복사 : reference로 들어오는 것이므로
+	// a가 가리키는 힙공간을 그대로 가리켜서
+	// 해당 공간의 string을 s가 가져오고
+	// b로 복사되는, 1번의 복사 
+	std::string b = s;
+}
+
+void storeByRRef(std::string &&s)
+{
+	// 틀린 코드 : 왜 ? 1번의 복사가 일어나기 때문
+	// std::string b = s;
+	// 따로 변수를 할당하지 않았다 .
+	// 즉, 인자로 들어온 R-value string
+	// ex) "abc"
+	// 를 가리키는 별도의 공간 및 변수가 
+	// Stack에 있기는 하지만, 임시로만 존재.
+	// 그저 힙에 해당 string 이 있을 뿐 
+
+	// 즉, s 로 라는 인자는 stack에 임시 변수로 들어가서
+	// 힙에서 abc를 잠시 가지고 있는다 
+	// 이후, local 변수 b가 stack에 생기고
+	// 힙에는 해당 abc라는 string이 복사가 된다 
+	
+	// 그렇다면 아래의 코드는 왜 틀린 것일까 ?
+	// s 를 별도로 지칭할 수 있다
+	// ex) cout << s << endl;
+	// 이 경우, s는 l-value가 된 것이다
+	// 즉, = s 라고 하는 순간 s는 l-value가 된 것이고
+	// 1번의 복사가 일어나게 된다 
+
+
+	// 정답 코드 : 단 한번의 복사도 일어나지 않는다 
+	// s는 우선, 임시 변수로 stack에 할당되어 있다
+	// 그러면, s를 l-value로 만들어주지 않고
+	// s가 담고 있는 string만을 b에 넣어주기 위해
+	// move를 사용하면, s가 담긴 string을 그대로
+	// 옮겨주기만 할 뿐, copy는 일어나지 않는다 
+
+	std::string b = std::move(s);
+}
+
+int main()
+{
+	std::string a = "abc";
+	storeByValue(a);
+	storeByLRef(a);
+	// storeByRRef(a); wrong ! Change to R-value Form
+	storeByRRef(std::move(a));
+}
+
+*/
+
