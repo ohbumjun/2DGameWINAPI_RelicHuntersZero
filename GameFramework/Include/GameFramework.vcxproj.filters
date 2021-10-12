@@ -147,9 +147,6 @@
     <ClCompile Include="Object\Character.cpp">
       <Filter>03. Object\01. Character</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Bullet.cpp">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>01. GameManager\02. Scene</Filter>
     </ClCompile>
@@ -365,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="Object\Player.cpp">
       <Filter>03. Object\01. Character\02. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Bullet.cpp">
+      <Filter>03. Object\02. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

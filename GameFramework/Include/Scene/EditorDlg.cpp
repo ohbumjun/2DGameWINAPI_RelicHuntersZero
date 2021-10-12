@@ -3,7 +3,9 @@
 #include "../PathManager.h"
 #include "EditorScene.h"
 #include "Scene.h"
+#include "StartScene.h"
 #include "SceneResource.h"
+#include "SceneManager.h"
 #include "../Resource/Texture.h"
 
 // static 멤버 함수인 WndProc 를 호출하기 위해
@@ -521,6 +523,7 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		case IDOK :
 			break;
 		case IDCANCEL:
+			CSceneManager::GetInst()->CreateScene<CStartScene>();
 			break;
 		case IDC_BUTTON_CREATEMAP :
 			// 이때 map 생성해준다 

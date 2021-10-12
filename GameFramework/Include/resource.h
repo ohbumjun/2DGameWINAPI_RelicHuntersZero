@@ -2,6 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by GameFramework.rc
 //
+#define ID_BUTTON_OK                    1
 #define IDD_DIALOG_EDITOR               9
 #define IDI_ICON1                       101
 #define IDD_DIALOG1                     108
@@ -29,7 +30,6 @@
 #define IDC_BUTTON_SAVE                 1025
 #define IDC_BUTTON1                     1026
 #define IDC_BUTTON_IMAGECLEAR           1026
-#define IDC_CHECK1                      1027
 #define IDC_CHECK_SIDECOLLISION         1027
 
 // Next default values for new objects
@@ -38,7 +38,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        110
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1028
+#define _APS_NEXT_CONTROL_VALUE         1031
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
