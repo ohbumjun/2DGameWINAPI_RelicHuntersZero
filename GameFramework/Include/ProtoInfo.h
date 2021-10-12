@@ -8,14 +8,19 @@
 #define EFFECT_DASH_PROTO					  "DashEffectProto"
 #define EFFECT_TEXT_PROTO					  "TextEffectProto"
 #define TELEPORT_MOUSE_PROTO				  "TeleportMouseProto"
-#define MONSTER_DUCK1_PROTO					  "MonsterDuck1Proto"
-#define MONSTER_DUCK2_PROTO					  "MonsterDuck2Proto"
-#define MONSTER_DUCK3_PROTO					  "MonsterDuck3Proto"
 #define PLAYER_BULLET_PROTO					  "PlayerBulletProto"
 #define POTION_HP_PROTO						  "HPPotionProto"
 #define POTION_MP_PROTO						  "MPPotionProto"
 #define MONSTER_BULLET_PROTO                  "MonsterBulletProto"
 #define PLAYER_SKILL_SLOWMOTION_BULLET_PROTO  "SkillSlowMotionAttackBulletProto"
+
+#define MONSTER_DUCK1_PROTO					  "MonsterDuck1Proto"
+#define MONSTER_DUCK2_PROTO					  "MonsterDuck2Proto"
+#define MONSTER_DUCK3_PROTO					  "MonsterDuck3Proto"
+
+#define MONSTER_TURTLE1_PROTO				"MonsterTurtle1Proto"
+#define MONSTER_TURTLE2_PROTO				"MonsterTurtle2Proto"
+#define MONSTER_TURTLE3_PROTO				"MonsterTurtle3Proto"
 
 #define GUN_PISTOL_LIGHT_PROTO     "PistolLightProto"
 #define GUN_PISTOL_MEDIUM_PROTO    "PistolMediumProto"

@@ -13,6 +13,7 @@
 #include "../Object/EffectText.h"
 #include "../Object/DamageFont.h"
 #include "../Object/DuckMonster.h"
+#include "../Object/TurtleMonster.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
 // Map
@@ -1222,6 +1223,24 @@ void CScene::SetBasicProtoTypes()
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 
+	CTurtleMonster* TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE1_PROTO);
+	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle1);
+
+	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE2_PROTO);
+	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle2);
+
+	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE3_PROTO);
+	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle3);
+	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+
 	// Collider
 	CCollider* Collider = PlayerBullet->FindCollider("Body");
 	if (Collider)
@@ -1750,9 +1769,9 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 
 void CScene::SetLevel2MonsterAnimation()
 {
-	// SetTurtle1MonsterAnimation();
-	// SetTurtle2MonsterAnimation();
-	// SetTurtle3MonsterAnimation();
+	SetTurtle1MonsterAnimation();
+	SetTurtle2MonsterAnimation();
+	SetTurtle3MonsterAnimation();
 }
 
 void CScene::SetTurtle1MonsterAnimation()
@@ -1942,7 +1961,7 @@ void CScene::SetTurtle2MonsterAnimation()
 
 	for (int i = 0; i < 2; ++i)
 	{
-		for (int j = 0; j < 3; j--)
+		for (int j = 0; j < 3; j++)
 		{
 			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
@@ -2187,7 +2206,7 @@ void CScene::SetTurtle3MonsterAnimation()
 		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; i < 4; j++)
+		for (int j = 0; j < 4; j++)
 		{
 			GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE3_LEFT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);

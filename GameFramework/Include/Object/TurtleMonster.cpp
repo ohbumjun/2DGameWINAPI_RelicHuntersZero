@@ -220,8 +220,10 @@ void CTurtleMonster::Start()
 	SetAnimNames();
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE1_LEFT_DEATH, this, &CTurtleMonster::CharacterDestroy);
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE1_RIGHT_DEATH, this, &CTurtleMonster::CharacterDestroy);
+
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE2_LEFT_DEATH, this, &CTurtleMonster::CharacterDestroy);
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE2_RIGHT_DEATH, this, &CTurtleMonster::CharacterDestroy);
+
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE3_LEFT_DEATH, this, &CTurtleMonster::CharacterDestroy);
 	SetAnimationEndNotify<CTurtleMonster>(MONSTER_TURTLE3_RIGHT_DEATH, this, &CTurtleMonster::CharacterDestroy);
 }

@@ -67,18 +67,16 @@ bool CMainScene::Init()
 	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	DuckMonster->Equip(PistolLightGun);
 
-	/*
-	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-	*/
-
 	// Stage Door
-	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor",
+	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
 														 Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 														 Vector2(50.f, 50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
+
+	StageDoor_One = CreateObject<CStageDoor>("StageDoor2",
+		Vector2(800.f, 30.f + rand() % 100),
+		Vector2(50.f, 50.f));
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Two);
 
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");

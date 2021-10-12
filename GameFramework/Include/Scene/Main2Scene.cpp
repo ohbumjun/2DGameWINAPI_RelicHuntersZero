@@ -12,6 +12,7 @@
 #include "../Object/Bullet.h"
 #include "../Object/Monster.h"
 #include "../Object/DuckMonster.h"
+#include "../Object/TurtleMonster.h"
 #include "../Object/EffectHit.h"
 #include "../Object/EffectDash.h"
 #include "../Object/TeleportMouse.h"
@@ -56,29 +57,23 @@ bool CMain2Scene::Init()
 
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	CDuckMonster* DuckMonster = CreateObject<CDuckMonster>("Monster1", MONSTER_DUCK1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	DuckMonster->Equip(PistolLightGun);
+	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster1", MONSTER_TURTLE1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	TurtleMonster->Equip(PistolLightGun);
 
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster2", MONSTER_DUCK2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	DuckMonster->Equip(PistolLightGun);
+	TurtleMonster = CreateObject<CTurtleMonster>("Monster2", MONSTER_TURTLE2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	TurtleMonster->Equip(PistolLightGun);
 
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	DuckMonster->Equip(PistolLightGun);
-
-	/*
-	CMonster* Monster2 = CreateObject<CMonster>("Monster", Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	Monster2->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	Monster2->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-	*/
+	TurtleMonster = CreateObject<CTurtleMonster>("Monster3", MONSTER_TURTLE3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	TurtleMonster->Equip(PistolLightGun);
 
 	// Stage Door
-	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor",
+	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f, 50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
+
 
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
@@ -121,11 +116,13 @@ bool CMain2Scene::Init()
 	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
 	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
 
+	/*
 	Map->SetSize(1280.f, 720.f);
 	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(1);
 	Map->SetTextureColorKey(255, 0, 255);
+	*/
 
 	/*
 	Scroll Map Infinite Loop
@@ -160,7 +157,7 @@ void CMain2Scene::LoadAnimationSequence()
 	SetMouseAnimation();
 	SetPlayerAnimation();
 
-	SetLevel1MonsterAnimation();
+	SetLevel2MonsterAnimation();
 }
 
 void CMain2Scene::LoadSound()

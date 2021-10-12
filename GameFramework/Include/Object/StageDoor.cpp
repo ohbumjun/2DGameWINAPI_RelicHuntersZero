@@ -2,6 +2,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/MainScene.h"
+#include "../Scene/Main2Scene.h"
 #include "../Scene/StartScene.h"
 #include "../Collision/ColliderBox.h"
 #include "Player.h"
@@ -91,20 +92,15 @@ void CStageDoor::ChangeScene()
 	switch (m_DoorStageType)
 	{
 	case EDoorStage_Type::Stage_Home:
-		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
-		// CSceneManager::GetInst()->CreateScene<CStartScene>();
-		CSceneManager::GetInst()->CreateScene<CMainScene>();
+		CSceneManager::GetInst()->CreateScene<CHomeScene>();
 		break;
 	case EDoorStage_Type::Stage_One:
-		// CSceneManager::GetInst()->CreateScene<CMainScene>();
-		CSceneManager::GetInst()->CreateScene<CHomeScene>();
-		// CSceneManager::GetInst()->CreateScene<CStartScene>();
+		CSceneManager::GetInst()->CreateScene<CMainScene>();
 		break;
 	case EDoorStage_Type::Stage_Two:
-		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
+		CSceneManager::GetInst()->CreateScene<CMain2Scene>();
 		break;
 	case EDoorStage_Type::Stage_Three:
-		// CSceneManager::GetInst()->CreateScene<CHomeScene>();
 		break;
 	}
 }
