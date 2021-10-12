@@ -327,9 +327,6 @@
     <ClCompile Include="Object\BossMonster.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Player.cpp">
-      <Filter>03. Object\01. Character\02. Player</Filter>
-    </ClCompile>
     <ClCompile Include="Object\DamageFont.cpp">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClCompile>
@@ -365,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Main2Scene.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>03. Object\01. Character\02. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -620,9 +620,6 @@
     <ClInclude Include="Object\Player.h">
       <Filter>03. Object\01. Character\02. Player</Filter>
     </ClInclude>
-    <ClInclude Include="Object\DamageFont.h">
-      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Object\EffectAbilityUp.h">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
@@ -655,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="Scene\Main2Scene.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\DamageFont.h">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

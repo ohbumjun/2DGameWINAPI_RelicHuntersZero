@@ -41,12 +41,29 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
 	
+	// Name
 	m_mapAnimName.clear();
-	auto iter    = obj.m_mapAnimName.begin();
-	auto iterEnd = obj.m_mapAnimName.end();
-	for (; iter != iterEnd; ++iter)
 	{
-		m_mapAnimName.insert(std::make_pair(iter->first, iter->second));
+		auto iter    = obj.m_mapAnimName.begin();
+		auto iterEnd = obj.m_mapAnimName.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			m_mapAnimName.insert(std::make_pair(iter->first, iter->second));
+		}
+	}
+
+	// Widget
+	{
+		auto iter = m_WidgetComponentList.begin();
+		auto iterEnd = m_WidgetComponentList.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			if ((*iter)->GetName() == HPWIDGET_COMPONENET)
+				m_HPBarWidget = (*iter);
+			if ((*iter)->GetName() == MPWIDGET_COMPONENET)
+				m_MPBarWidget = (*iter);
+		}
 	}
 }
 
@@ -81,6 +98,7 @@ bool CMonster::Init()
 	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
 	m_HPBarWidget->SetPos(-25.f, -95.f);
 
+
 	// MPBar
 	m_MPBarWidget = CreateWidgetComponent("MPBarWidget");
 	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
@@ -98,28 +116,30 @@ void CMonster::Update(float DeltaTime)
 	m_Pos += m_Dir * m_MoveSpeed * DeltaTime;
 
 	CGameObject *Player = m_Scene->GetPlayer();
-	Vector2 PlayerPos   = Player->GetPos();
-	float DistToPlayer  = Distance(m_Pos,PlayerPos);
-
-	if (DistToPlayer <= m_DashDistance)
+	if (Player)
 	{
-		// Suprise  
-		if (!m_TraceSurprise)
+		Vector2 PlayerPos   = Player->GetPos();
+		float DistToPlayer  = Distance(m_Pos,PlayerPos);
+		if (DistToPlayer <= m_DashDistance)
 		{
-			Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
-			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
-			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
-				RT, Vector2(10.f, 10.f));
+			// Suprise  
+			if (!m_TraceSurprise)
+			{
+				Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
+				Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
+				CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
+					RT, Vector2(10.f, 10.f));
 
-			m_Scene->GetSceneResource()->SoundPlay("Fire");
+				m_Scene->GetSceneResource()->SoundPlay("Fire");
 
-			m_TraceSurprise = true;
+				m_TraceSurprise = true;
+			}
+
+			if (DistToPlayer < m_AttackDistance)
+				m_AI = EMonsterAI::Attack;
+			else
+				m_AI = EMonsterAI::Trace;
 		}
-
-		if (DistToPlayer < m_AttackDistance)
-			m_AI = EMonsterAI::Attack;
-		else
-			m_AI = EMonsterAI::Trace;
 	}
 	else
 	{
@@ -159,11 +179,15 @@ void CMonster::Update(float DeltaTime)
 	break;
 	case EMonsterAI::Trace:
 	{
+		CGameObject* Player = m_Scene->GetPlayer();
+		Vector2 PlayerPos = Player->GetPos();
 		AITrace(DeltaTime, PlayerPos);
 	}
 		break;
 	case EMonsterAI::Attack:
 	{
+		CGameObject* Player = m_Scene->GetPlayer();
+		Vector2 PlayerPos = Player->GetPos();
 		AIAttack(DeltaTime, PlayerPos);
 	}
 		break;

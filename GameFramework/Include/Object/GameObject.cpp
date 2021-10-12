@@ -86,6 +86,7 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 		for (; iter != iterEnd; ++iter)
 		{
 			CWidgetComponent* Widget = (*iter)->Clone();
+			// CWidgetComponent* Widget = (*iter);
 			Widget->SetOwner(this);
 			Widget->SetScene(m_Scene);
 			m_WidgetComponentList.push_back(Widget);
@@ -116,7 +117,7 @@ CGameObject::~CGameObject()
 	{
 		(*iter)->ClearCollisionList();
 	}
-
+	m_ColliderList.clear();
 	m_WidgetComponentList.clear();
 }
 

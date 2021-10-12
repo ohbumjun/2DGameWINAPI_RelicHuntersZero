@@ -16,8 +16,7 @@ CWidgetComponent::CWidgetComponent(const CWidgetComponent& widget) : CRef(widget
 {
 	m_Pos = widget.m_Pos;
 	m_Visibility = widget.m_Visibility;
-	m_Widget = widget.m_Widget->Clone();
-
+	m_Widget = widget.m_Widget;
 }
 
 CWidgetComponent::~CWidgetComponent() 

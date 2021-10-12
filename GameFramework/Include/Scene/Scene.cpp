@@ -1218,11 +1218,12 @@ void CScene::SetBasicProtoTypes()
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck2);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK3_PROTO);
-	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck3);
 	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck3);
 
+	// Turtle Monster
 	CTurtleMonster* TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE1_PROTO);
 	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
