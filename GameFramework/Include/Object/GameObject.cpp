@@ -299,6 +299,7 @@ void CGameObject::Move(const Vector2& Dir)
 {
 	SetDir(Dir);
 	float DeltaTime = CGameManager::GetInst()->GetDeltaTime();
+	// Vector2	CurrentMove = Dir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	Vector2	CurrentMove = Dir * m_MoveSpeed * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity	+= CurrentMove;
 	m_Pos += CurrentMove;

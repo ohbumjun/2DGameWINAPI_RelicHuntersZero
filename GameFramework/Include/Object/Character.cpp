@@ -247,9 +247,7 @@ void CCharacter::Hit()
 }
 void CCharacter::HitMove()
 {
-	if (!m_HitEnable) return;
-	float MoveMultiply = 5;
-	Vector2	CurrentMove = m_HitDir * MoveMultiply * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	Vector2	CurrentMove = m_HitDir * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 }

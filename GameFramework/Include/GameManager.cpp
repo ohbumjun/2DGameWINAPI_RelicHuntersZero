@@ -145,24 +145,20 @@ void CGameManager::Logic()
 	float DeltaTime = m_Timer->Update() * m_TimeScale;
 
 	CResourceManager::GetInst()->Update();
-
 	CInput::GetInst()->Update(DeltaTime);
 
 	if (Update(DeltaTime))
 		return;
-
 	if (PostUpdate(DeltaTime))
 		return;
-
 	if (Collision(DeltaTime))
 		return;
-
 	Render(DeltaTime);
 }
 
 bool CGameManager::Update(float DeltaTime)
 {
-	m_Timer->Update();
+	// m_Timer->Update();
 	return CSceneManager::GetInst()->Update(DeltaTime);
 }
 

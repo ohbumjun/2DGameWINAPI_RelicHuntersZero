@@ -68,9 +68,9 @@ bool CBullet::Init()
 	Body->SetOffset(0.f, 0.f);
 
 	CreateAnimation();
-	AddAnimation(BULLET_LIGHT);
-	AddAnimation(BULLET_MEDIUM);
-	AddAnimation(BULLET_HEAVY);
+	AddAnimation(BULLET_LIGHT,true,0.1f);
+	AddAnimation(BULLET_MEDIUM,true,0.1f);
+	AddAnimation(BULLET_HEAVY,true,0.1f);
 	return true;
 }
 

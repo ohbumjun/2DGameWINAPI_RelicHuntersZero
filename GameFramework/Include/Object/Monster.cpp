@@ -117,12 +117,7 @@ void CMonster::Update(float DeltaTime)
 	// m_Pos += m_Dir * m_MoveSpeed * DeltaTime ;
 
 	// m_Dir.Normalize();
-	// Move(m_Dir);
-	Vector2 ExMove = m_Dir * m_MoveSpeed * DeltaTime;
-	float tDeltaTime = CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
-	Vector2	CurrentMove = m_Dir * (tDeltaTime * m_TimeScale) * m_MoveSpeed;
-	// m_Velocity += CurrentMove;
-	m_Pos += CurrentMove;
+	Move(m_Dir);
 
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();

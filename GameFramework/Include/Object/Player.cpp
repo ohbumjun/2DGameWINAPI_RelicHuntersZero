@@ -96,9 +96,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 CPlayer::~CPlayer()
 {
 	DeleteTeleportObj();
-	m_HPBarWidget = nullptr;
-	m_MPBarWidget = nullptr;
-	m_NameWidget = nullptr;
 }
 
 void CPlayer::Start()
@@ -304,6 +301,7 @@ bool CPlayer::Init()
 
 void CPlayer::Update(float DeltaTime)
 {
+
 	CCharacter::Update(DeltaTime);
 
 	// if (GetAsyncKeyState(VK_F1) & 0x8000)
@@ -366,7 +364,7 @@ void CPlayer::Update(float DeltaTime)
 		ChangeDirToMouse();
 
 	GunCurBulletNumUpdate();
-
+	
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -864,8 +862,8 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		return;
 	}
 
-	// CGameManager::GetInst()->SetTimeScale(0.01f);
-	// SetTimeScale(100.f);
+	CGameManager::GetInst()->SetTimeScale(0.01f);
+	SetTimeScale(100.f);
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
@@ -902,8 +900,8 @@ void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
 
 	if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
 	{
-		// SetTimeScale(1.f);
-		// CGameManager::GetInst()->SetTimeScale(1.f);
+		SetTimeScale(1.f);
+		CGameManager::GetInst()->SetTimeScale(1.f);
 		m_SkillSlowMotionAttackEnable = false;
 		m_SkillSlowMotionAttackTime = 0.f;
 	}
