@@ -1868,8 +1868,7 @@ void CScene::SetTurtle1MonsterAnimation()
 		MONSTER_TURTLE1_LEFT_RUN, TEXT("images/Monster/TURTLE1/left_run.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE1_LEFT_RUN,
 		255, 255, 255);
-	for (int i = 0; i < 2; ++i)
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 2; ++i)
 		{
 			for (int j = 2; j >= 0; --j)
 			{
@@ -1940,7 +1939,7 @@ void CScene::SetTurtle2MonsterAnimation()
 {
 	// RightIdle
 	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_IDLE,
-		MONSTER_TURTLE2_RIGHT_IDLE, TEXT("images/Monster/TURTLE/right_idle.bmp"));
+		MONSTER_TURTLE2_RIGHT_IDLE, TEXT("images/Monster/TURTLE2/right_idle.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_IDLE,
 		255, 255, 255);
 
@@ -1955,10 +1954,8 @@ void CScene::SetTurtle2MonsterAnimation()
 	// Right Walk
 	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_WALK,
 		MONSTER_TURTLE2_RIGHT_WALK, TEXT("images/Monster/TURTLE2/right_walk.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_WALK,
 		255, 255, 255);
-
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
@@ -1974,8 +1971,6 @@ void CScene::SetTurtle2MonsterAnimation()
 
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_RUN,
 		255, 255, 255);
-
-	
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
@@ -1992,7 +1987,7 @@ void CScene::SetTurtle2MonsterAnimation()
 		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK2_RIGHT_ATTACK,
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_RIGHT_ATTACK,
 			i * 176.f, 0.f, 176.f, 89.f);
 	}
 
@@ -2043,10 +2038,8 @@ void CScene::SetTurtle2MonsterAnimation()
 	// Left 
 	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_LEFT_DEATH,
 		MONSTER_TURTLE2_LEFT_DEATH, TEXT("images/Monster/TURTLE2/left_death.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_LEFT_DEATH,
 		255, 255, 255);
-
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 3; j >= 0; j--)
@@ -2059,10 +2052,8 @@ void CScene::SetTurtle2MonsterAnimation()
 	// Right 
 	GetSceneResource()->CreateAnimationSequence(MONSTER_TURTLE2_RIGHT_DEATH,
 		MONSTER_TURTLE2_RIGHT_DEATH, TEXT("images/Monster/TURTLE2/right_death.bmp"));
-
 	GetSceneResource()->SetTextureColorKey(MONSTER_TURTLE2_RIGHT_DEATH,
 		255, 255, 255);
-
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 4; j++)
@@ -2080,7 +2071,7 @@ void CScene::SetTurtle2MonsterAnimation()
 		255, 255, 255);
 	for (int i = 1; i >= 0; --i)
 	{
-		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK2_LEFT_HIT,
+		GetSceneResource()->AddAnimationFrameData(MONSTER_TURTLE2_LEFT_HIT,
 			i * 134.f, 0, 134.f, 114.f);
 	}
 
