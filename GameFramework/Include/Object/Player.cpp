@@ -451,7 +451,7 @@ float CPlayer::SetDamage(float Damage)
 
 void CPlayer::AbilityUpdate(float DeltaTime)
 {
-	m_CharacterInfo.Stemina += 0.8f * DeltaTime;
+	m_CharacterInfo.Stemina += 1.5 * DeltaTime;
 	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
 		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
 

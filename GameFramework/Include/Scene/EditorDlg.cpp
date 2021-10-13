@@ -68,20 +68,20 @@ bool CEditorDlg::Init(int ID)
 	// 다이얼로그 input(editor입력창)에
 	// 값을 넣을 수도 잇다
 	// default를 만들어놓자 
-	SetDlgItemInt(m_hDlg,IDC_EDIT_TILECOUNTX,40,TRUE);
+	SetDlgItemInt(m_hDlg,IDC_EDIT_TILECOUNTX,60,TRUE);
 	SetDlgItemInt(m_hDlg,IDC_EDIT_TILECOUNTY,40,TRUE);
 	
 	// 타일 하나당 40 * 53 
-	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEX,40,TRUE);
-	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEY,53,TRUE);
+	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEX,64,TRUE);
+	SetDlgItemInt(m_hDlg,IDC_EDIT_TILESIZEY,64,TRUE);
 
 	// TileFrameData Setting
 	SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEX, 0, TRUE);
 	SetDlgItemInt(m_hDlg, IDC_EDIT_STARTFRAMEY, 0, TRUE);
 
 	// 타일 하나당 40 * 53 
-	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, 40, TRUE);
-	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, 53, TRUE);
+	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, 64, TRUE);
+	SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, 64, TRUE);
 
 	// 해당 ListBox의 핸들을 얻어온 것이다(왼쪽)
 	m_TextureListBox = GetDlgItem(m_hDlg,IDC_LIST_TILETEXTURE);
@@ -191,12 +191,12 @@ void CEditorDlg::LoadTileTexture()
 	if (GetOpenFileName(&OpenFile) != 0)
 	{
 		// 파일 이름만 뽑아오기
-		TCHAR FileName[128] = {};
+		TCHAR FileName[64] = {};
 
 		// 위에서 OpenFile을 통해 선택해서 얻어온 파일정보에서, 이름만 빼내오는 코드 
 		// FileNAme이라는 변수에 정보를 넣는다 
 		_wsplitpath_s(FilePath, nullptr, 0, nullptr, 0, 
-			FileName, 128, nullptr, 0);
+			FileName, 64, nullptr, 0);
 
 		char	TextureName[256] = {};
 #ifdef UNICODE
@@ -218,7 +218,7 @@ void CEditorDlg::LoadTileTexture()
 
 		// Texture를 읽어옴 
 		CTexture* Texture = m_Scene->GetSceneResource()->FindTexture(TextureName);
-		Texture->SetColorKey(255, 0, 255);
+		Texture->SetColorKey(255, 255, 255);
 
 		// 우리가 만든 ListBos ( Dialog )에 넣기
 		// SendMessage 라는 방식을 활용한다 
@@ -262,8 +262,42 @@ void CEditorDlg::SelectTexture()
 	
 		m_Scene->CreateTileMap();
 
+		// m_Scene->SetTileTexture(m_SelectTileTexture);
+		m_Scene->SetSelectedTileTexture(m_SelectTileTexture);
+	}
+}
+
+void CEditorDlg::SetAllTexture()
+{
+	// m_SelectTextureListText : Load한 목록 중에서
+// 선택한 texture의 이름이 들어가 있다
+// 그런데, TCHAR 형태로 들어가 있다 
+
+// 선택된 Texture가 있을 때만
+	if (m_SelectTextureListIndex != -1)
+	{
+		char TextureName[256] = {};
+
+		// 유니코드라면, 멀티바이트로 변환해준다
+#ifdef UNICODE
+// 유니코드 문자열을 멀티바이트 문자열로 변환한다.
+		int ConvertLength = WideCharToMultiByte(CP_ACP, 0, m_SelectTextureListText, -1, nullptr, 0, 0, 0);
+
+		// FileName을 TextureName에 변환해서 넣어라 
+		WideCharToMultiByte(CP_ACP, 0, m_SelectTextureListText, -1,
+			TextureName, ConvertLength, 0, 0);
+#else
+		strcpy_s(TextureName, FileName);
+#endif // UNICODE
+
+		// Load 된 Texture 목록들 중에서 
+		// TextureName에 해당하는 Texture를 가져온다 
+		m_SelectTileTexture = m_Scene->GetSceneResource()->FindTexture(TextureName);
+
+		m_Scene->CreateTileMap();
+
 		m_Scene->SetTileTexture(m_SelectTileTexture);
-	
+		// m_Scene->SetSelectedTileTexture(m_SelectTileTexture);
 	}
 }
 
@@ -480,8 +514,16 @@ void CEditorDlg::SideCollisionCheck()
 
 }
 
+void CEditorDlg::LoadImages()
+{
+}
+
 LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
+	HBRUSH MyBrush, OldBrush;
+
 	switch (message)
 	{
 	case WM_CLOSE :
@@ -490,6 +532,15 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 	case WM_DESTROY : // 윈도우를 지웠다면 아에 종료시키기
 		PostQuitMessage(0);
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		MyBrush = CreateSolidBrush(RGB(255, 0, 0));
+		OldBrush = (HBRUSH)SelectObject(hdc, MyBrush);
+		Rectangle(hdc, 10, 600, 200, 300);
+		SelectObject(hdc, OldBrush);
+		DeleteObject(MyBrush);
+		EndPaint(hWnd,&ps);
 		break;
 
 	case WM_COMMAND :
@@ -523,6 +574,10 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		case IDOK :
 			break;
 		case IDCANCEL:
+			// Destroy Disalog 
+			DestroyWindow(hWnd);
+			// By setting Null, we can create Dialog newly afterwards
+			// hWnd = NULL;
 			CSceneManager::GetInst()->CreateScene<CStartScene>();
 			break;
 		case IDC_BUTTON_CREATEMAP :
@@ -537,6 +592,9 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		// 불러온 파일 중 선택하기
 		case IDC_BUTTON_SETTEXTURE:
 			g_Dlg->SelectTexture();
+			break;
+		case IDC_BUTTON_SET_ALLTEXTURE :
+			g_Dlg->SetAllTexture();
 			break;
 		// 프레임 추가 하기
 		case IDC_BUTTON_ADDFRAME:

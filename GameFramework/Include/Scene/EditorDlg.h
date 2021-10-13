@@ -109,6 +109,7 @@ public :
 	void CreateMap();
 	void LoadTileTexture();
 	void SelectTexture();
+	void SetAllTexture();
 	// ListBox에서 선택한 것을 저장해둘 것이다
 	void SelectList();
 
@@ -123,6 +124,11 @@ public :
 
 	HWND m_SideCollisionCheckHandle;
 	void SideCollisionCheck();
+
+	// Image Setting
+	HBITMAP hLogoImage;
+	HBITMAP hGenerateImage;
+	void LoadImages();
 
 private :
 	// WindowProc is a user-defined callback function 

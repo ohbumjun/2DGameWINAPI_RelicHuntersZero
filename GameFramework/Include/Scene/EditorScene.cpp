@@ -13,7 +13,7 @@ CEditorScene::CEditorScene() :
 	m_Dlg(nullptr),
 	m_Start(false),
 	m_TileMap(nullptr),
-	m_ScrollSpeed(500.f)
+	m_ScrollSpeed(1000.f)
 {
 	CGameManager::GetInst()->SetEditorMode(true);
 }
@@ -132,6 +132,11 @@ void CEditorScene::SetTileInfo(int CountX, int CountY, int SizeX, int SizeY)
 void CEditorScene::SetTileTexture(CTexture* Texture)
 {
 	m_TileMap->SetTileTexture(Texture);
+}
+
+void CEditorScene::SetSelectedTileTexture(CTexture* Texture)
+{
+	m_TileMap->SetSelectedTileTexture(Texture);
 }
 
 void CEditorScene::CameraMoveUp(float DeltaTime)

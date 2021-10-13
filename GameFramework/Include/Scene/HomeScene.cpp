@@ -11,6 +11,7 @@
 #include "../Object/MPPotion.h"
 #include "../Object/HPPotion.h"
 #include "../UI/UICharacterStateHUD.h"
+#include "../Map/TileMap.h"
 
 CHomeScene::CHomeScene()
 {
@@ -36,7 +37,10 @@ bool CHomeScene::Init()
 	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
 	SetPlayer(Player);
 
-	Vector2 WorldResolution = m_Camera->GetWorldResolution();
+	// Camera
+	GetCamera()->SetTarget(Player);
+	GetCamera()->SetTargetPivot(0.5f, 0.5f);
+
 	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
@@ -49,6 +53,12 @@ bool CHomeScene::Init()
 
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
+
+	// Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Sample.map");
+	TileMap->SetZOrder(0);
+	TileMap->SetTileWorldResolution();
 
 	return true;
 }

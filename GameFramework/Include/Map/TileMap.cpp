@@ -87,6 +87,12 @@ bool CTileMap::CreateTile(int CountX, int CountY, const Vector2& TileSize)
     return true;
 }
 
+bool CTileMap::SetSelectedTileTexture(CTexture* Texture)
+{
+    m_TileTexture = Texture;
+    return true;
+}
+
 bool CTileMap::SetTileTexture(CTexture* Texture)
 {
     m_TileTexture = Texture;
@@ -129,6 +135,12 @@ void CTileMap::SetTileFrame(const Vector2& Pos,const Vector2& Start, const Vecto
     Tile->SetTileTexture(m_TileTexture);
     Tile->SetStartFrame(Start);
     Tile->SetEndFrame(End);
+}
+
+void CTileMap::SetTileWorldResolution()
+{
+    CCamera* Camera = m_Scene->GetCamera();
+    Camera->SetWorldResolution(m_Size);
 }
 
 CTile* CTileMap::GetTile(const Vector2& Pos)

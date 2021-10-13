@@ -88,7 +88,7 @@ bool CMain2Scene::Init()
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("MainMap.map");
+	TileMap->LoadFile("Sample.map");
 	TileMap->SetZOrder(2);
 
 	// WorldResolution is set to TileMap

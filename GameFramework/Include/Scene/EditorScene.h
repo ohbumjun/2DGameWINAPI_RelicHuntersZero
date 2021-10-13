@@ -32,6 +32,7 @@ public :
 		int SizeX, int SizeY
 	);
 	void SetTileTexture(class CTexture* Texture);
+	void SetSelectedTileTexture(class CTexture* Texture);
 
 public :
 	// 카메라를 움직일 때마다 호출하는 함수

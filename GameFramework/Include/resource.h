@@ -2,7 +2,6 @@
 // Microsoft Visual C++ generated include file.
 // Used by GameFramework.rc
 //
-#define ID_BUTTON_OK                    1
 #define IDD_DIALOG_EDITOR               9
 #define IDI_ICON1                       101
 #define IDD_DIALOG1                     108
@@ -14,6 +13,8 @@
 #define IDC_BUTTON_TILETEXTURELOAD      1010
 #define IDC_LIST_TILETEXTURE            1011
 #define IDC_BUTTON_SETTEXTURE           1012
+#define IDC_BUTTON_SETTEXTURE2          1013
+#define IDC_BUTTON_SET_ALLTEXTURE       1013
 #define IDC_COMBO_EDITMODE              1014
 #define IDC_COMBO_TILEOPTION            1015
 #define IDC_LIST_TEXTUREFRAME           1016
@@ -38,7 +39,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        110
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1031
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

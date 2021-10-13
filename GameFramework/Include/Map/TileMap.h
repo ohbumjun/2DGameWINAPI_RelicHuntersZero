@@ -35,8 +35,12 @@ public :
 	}
 
 public :
+	// Tile 생성 
 	bool CreateTile(int CountX, int CountY,
 		const Vector2& TileSize);
+
+	// m_SelectedTileTexture 세팅하기
+	bool SetSelectedTileTexture(CTexture* Texture);
 
 	// 전체에 원하는 Texture 세팅 
 	bool SetTileTexture(CTexture* Texture);
@@ -51,6 +55,10 @@ public :
 	void SetTileFrame(
 		const Vector2& Pos,
 		const Vector2& Start, const Vector2& End);
+
+	// Tile map 크기로 전체 world 세팅 
+	void SetTileWorldResolution();
+
 	CTile* GetTile(const Vector2& Pos);
 	CTile* GetTile(int Index);
 	CTile* GetTile(int IndexX, int IndexY);
