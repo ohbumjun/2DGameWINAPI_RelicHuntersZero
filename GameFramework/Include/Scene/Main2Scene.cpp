@@ -88,7 +88,7 @@ bool CMain2Scene::Init()
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Sample.map");
+	TileMap->LoadFile("Stage2.map");
 	TileMap->SetZOrder(2);
 
 	// WorldResolution is set to TileMap
@@ -104,6 +104,8 @@ bool CMain2Scene::Init()
 
 	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
+
+
 
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
 	Map->SetSize(1280.f, 720.f);

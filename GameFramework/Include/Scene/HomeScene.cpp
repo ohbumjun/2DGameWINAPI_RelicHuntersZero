@@ -55,10 +55,12 @@ bool CHomeScene::Init()
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 
 	// Map
+	/*
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Sample.map");
+	TileMap->LoadFile("Stage1.map");
 	TileMap->SetZOrder(0);
-	TileMap->SetTileWorldResolution();
+	*/
+	// TileMap->SetTileWorldResolution();
 
 	return true;
 }

@@ -42,9 +42,14 @@ bool CMainScene::Init()
 	LoadAnimationSequence();
 	SetBasicProtoTypes();
 	SetBasicUIs();
+
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Stage1.map");
+	// TileMap->SetZOrder(2);
 	
 	// Player
-	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 230.f));
+	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 530.f));
 	SetPlayer(Player);
 
 	// Camera
@@ -57,7 +62,7 @@ bool CMainScene::Init()
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1", 
-		Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+		Vector2(300.f , 500.f));
 	DuckMonster->Equip(PistolLightGun);
 	DuckMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
@@ -67,22 +72,24 @@ bool CMainScene::Init()
 
 	/*
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster2", MONSTER_DUCK2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	DuckMonster = CreateObject<CDuckMonster>("Monster2", MONSTER_DUCK2_PROTO, 
+	Vector2(400.f , 700.f));
 	DuckMonster->Equip(PistolLightGun);
 
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
+	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, 
+		Vector2(300.f, 1200.f + (float)(rand() % 1000)));
 	DuckMonster->Equip(PistolLightGun);
 	*/
 
 	// Stage Door
 	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
-														 Vector2(300.f + rand() % 700, 30.f + rand() % 100),
+														 Vector2(900.f + rand() % 700, 300.f + rand() % 100),
 														 Vector2(50.f, 50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
 	StageDoor_One = CreateObject<CStageDoor>("StageDoor2",
-		Vector2(800.f, 30.f + rand() % 100),
+		Vector2(1500.f, 400.f + rand() % 100),
 		Vector2(50.f, 50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Two);
 
@@ -97,16 +104,11 @@ bool CMainScene::Init()
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 
-	// Tile Map
-	CTileMap *TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("MainMap.map");
-	TileMap->SetZOrder(2);
-
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap
 	// Then, you have to set world resolution at the end  
 	// or after TileMap
-	GetCamera()->SetWorldResolution(2000.f, 2000.f);
+	// GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
 	// ScrollMap Size 1500.f, 1200.f
 	// Scroll Map : Sky
@@ -116,6 +118,7 @@ bool CMainScene::Init()
 	float	TileScrollMapWidth  = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
+	/*
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
 	Map->SetSize(1280.f, 720.f);
 	Map->SetTexture("Sky", TEXT("Sky.bmp")); // Sky.bmp : 1500, 1200
@@ -126,12 +129,13 @@ bool CMainScene::Init()
 	Map = CreateMap<CScrollMap>("ScrollMap");
 	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
 	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
-
 	Map->SetSize(1280.f, 720.f);
 	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(1);
 	Map->SetTextureColorKey(255, 0, 255);
+	*/
+
 
 	/*
 	Scroll Map Infinite Loop
