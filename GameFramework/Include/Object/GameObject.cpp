@@ -339,7 +339,7 @@ void CGameObject::WallCollisionUpCheck(CTileMap* TileMap)
 		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
 
 		// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
-		LeftIndexX = TileMap->GetOriginTileIndexX(CurLeft);
+		LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
 		TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
 		RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
 		BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
@@ -368,21 +368,17 @@ void CGameObject::WallCollisionUpCheck(CTileMap* TileMap)
 		{
 			for (int j = LeftIndexX; j <= RightIndexX; j++)
 			{
-				// ?
 				if (TileMap->GetTile(j, i)->GetPos().y > PrevTop)
 					continue;
 				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
 				if (TileOption == ETileOption::Wall)
 				{
-					Check = true;
-					// ? 
 					float TilePosY = TileMap->GetTile(j, i)->GetPos().y;
 					float TileSizeY = TileMap->GetTile(j, i)->GetSize().y;
-					m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y;
+					m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
 					break;
 				}
 			}
-			if (Check) { break; }
 		}
 	}
 }
@@ -436,7 +432,6 @@ void CGameObject::WallCollisionDownCheck(CTileMap* TileMap)
 		// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
 		// 크고 작음이 결정된다.
 
-		bool Check = false;
 		// 위에서부터 아래로 차례로 검사한다 
 		for (int i = TopIndexY; i <= BottomIndexY; i++)
 		{
@@ -450,23 +445,79 @@ void CGameObject::WallCollisionDownCheck(CTileMap* TileMap)
 				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
 				if (TileOption == ETileOption::Wall)
 				{
-					Check = true;
 					// m_Pos : 발의 위치 
-					m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+					m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y - 0.1f;
 					break;
 				}
 			}
-			if (Check) { break; }
 		}
 	}
 }
 
 void CGameObject::WallCollisionRightCheck(CTileMap* TileMap)
 {
+	// 위 이동
+	if (m_Dir.x > 0)
+	{
+		float PrevTop = m_PrevPos.y - m_Pivot.y * m_Size.y;
+		float CurTop = m_Pos.y - m_Pivot.y * m_Size.y;
+		float PrevLeft = m_PrevPos.x - m_Pivot.x * m_Size.x;
+		float CurLeft = m_Pos.x - m_Pivot.x * m_Size.x;
+		float PrevRight = PrevLeft + m_Size.x;
+		float CurRight = CurLeft + m_Size.x;
+
+		// 둘중 작은 것 
+		float resultLeft = PrevRight;
+		// 둘중 큰 거   
+		float resultRight = CurRight;
+		// 둘중 작은 거 
+		float resultTop = PrevTop < CurTop ? PrevTop : CurTop;
+		// 둘중 큰 거   
+		float resultBottom = PrevTop > CurTop ? PrevTop : CurTop;
+
+		// 아래로 떨어지고 있다는 의미 
+		// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+
+		// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
+		LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
+		TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
+		RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
+		BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
+
+		if (LeftIndexX < 0)
+			LeftIndexX = 0;
+		else if (RightIndexX >= TileMap->GetTileCountX())
+			RightIndexX = TileMap->GetTileCountX() - 1;
+		if (TopIndexY < 0)
+			TopIndexY = 0;
+		else if (BottomIndexY >= TileMap->GetTileCountY())
+			BottomIndexY = TileMap->GetTileCountY() - 1;
+
+		bool Check = false;
+		// From Down to Up
+		for (int j = LeftIndexX; j <= RightIndexX; j++)
+		{
+			for (int i = TopIndexY; i <= BottomIndexY; i++)
+			{
+				if (TileMap->GetTile(j, i)->GetPos().y > PrevTop)
+					continue;
+				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+				if (TileOption == ETileOption::Wall)
+				{
+					float TilePosX  = TileMap->GetTile(j, i)->GetPos().x;
+					float TileSizeX = TileMap->GetTile(j, i)->GetSize().x;
+					m_Pos.x = TilePosX - (1 - m_Pivot.x) * m_Size.x - 0.1f;
+					break;
+				}
+			}
+		}
+	}
 }
 
 void CGameObject::WallCollisionLeftCheck(CTileMap* TileMap)
 {
+
 }
 
 void CGameObject::SetTexture(const std::string& Name)
