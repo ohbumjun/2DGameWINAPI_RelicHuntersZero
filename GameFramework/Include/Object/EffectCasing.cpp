@@ -2,7 +2,7 @@
 
 CEffectCasing::CEffectCasing() :
 	m_DirX(0),
-	m_SpeedX(300.f)
+	m_SpeedX(100.f)
 {
 }
 
@@ -21,7 +21,7 @@ void CEffectCasing::Start()
 {
 	CGameObject::Start();
 	// Random Jump Velocity
-	SetJumpVelocity((float)(10.f + rand() % 30));
+	SetJumpVelocity((float)(10.f + rand() % 20));
 	Jump();
 }
 

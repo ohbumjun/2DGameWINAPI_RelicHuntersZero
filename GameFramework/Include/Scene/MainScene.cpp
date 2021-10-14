@@ -62,7 +62,7 @@ bool CMainScene::Init()
 	// Monster
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1", 
-		Vector2(300.f , 500.f));
+		Vector2(300.f , 530.f));
 	DuckMonster->Equip(PistolLightGun);
 	DuckMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);

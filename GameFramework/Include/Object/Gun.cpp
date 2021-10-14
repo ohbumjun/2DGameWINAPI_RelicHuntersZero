@@ -128,7 +128,7 @@ void CGun::CreateCasing(CBullet* Bullet)
 		Vector2(20.f, 20.f));
 
 	// Owner Left : Casing Right / Owner Right : Casing Left
-	float CasingDir        = m_Owner->GetDir().x > 0 ? -20.f : 20.f;
+	float CasingDir        = m_Owner->GetDir().x > 0 ? -2.f : 2.f;
 	Casing->SetDirX(CasingDir);
 
 	switch (m_GunInfo.m_GunClass)
