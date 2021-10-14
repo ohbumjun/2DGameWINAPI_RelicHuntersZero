@@ -313,6 +313,178 @@ void CGameObject::Move(const Vector2& Dir, float Speed)
 	m_Pos += CurrentMove;
 }
 
+void CGameObject::WallCollisionUpCheck(CTileMap* TileMap)
+{
+	CTileMap* TileMap = m_Scene->GetTileMap();
+	if (TileMap)
+	{
+		// 위 이동
+		if (m_Dir.y < 0)
+		{
+			float PrevBottom = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float CurBottom = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float PrevLeft = m_PrevPos.x - m_Pivot.x * m_Size.x;
+			float CurLeft = m_Pos.x - m_Pivot.x * m_Size.x;
+			float PrevRight = PrevLeft + m_Size.x;
+			float CurRight = CurLeft + m_Size.x;
+
+			// 둘중 작은 것 
+			float resultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
+			// 둘중 큰 거 
+			float resultRight = PrevRight > CurRight ? PrevRight : CurRight;
+			// 둘중 작은 거
+			float resultTop = PrevBottom > CurBottom ? PrevBottom : CurBottom;
+			// 둘중 큰 거 
+			float resultBottom = PrevBottom < CurBottom ? PrevBottom : CurBottom;
+
+			// 아래로 떨어지고 있다는 의미 
+			// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+			int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+
+			// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
+			LeftIndexX = TileMap->GetOriginTileIndexX(CurLeft);
+			TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
+			RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
+			BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
+
+			if (LeftIndexX < 0)
+				LeftIndexX = 0;
+			else if (RightIndexX >= TileMap->GetTileCountX())
+				RightIndexX = TileMap->GetTileCountX() - 1;
+			if (TopIndexY < 0)
+				TopIndexY = 0;
+			else if (BottomIndexY >= TileMap->GetTileCountY())
+				BottomIndexY = TileMap->GetTileCountY() - 1;
+
+			// 위에서 아래로 반복한다
+			// 위쪽의 타일이 Y 인덱스가 더 작으므로
+			// 작은 인덱스에서 큰 인덱스 순서로 
+			// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
+
+			// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
+			// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
+			// 크고 작음이 결정된다.
+
+			bool Check = false;
+			// 위에서부터 아래로 차례로 검사한다 
+			for (int i = TopIndexY; i <= BottomIndexY; i++)
+			{
+				for (int j = LeftIndexX; j <= RightIndexX; j++)
+				{
+					// 이전 위치의 Bottom이 무조건 위일 것이다
+					// 내려가는 것이기 때문이다
+					// 만약 이전 위치의 Bottom이 Top보다 클 경우 무시 ( 이 경우는 점프 해서 올라오는 것)
+					if (TileMap->GetTile(j, i)->GetPos().y < PrevBottom)
+						continue;
+
+					ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+					if (TileOption == ETileOption::Wall)
+					{
+						Check = true;
+						// m_Pos : 발의 위치 
+						m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+						// m_IsGround = true;
+						// m_Jump = false; // 바닥에 붙어있으면 jump는 false로 
+						// m_FallTime = 0.f;
+						break;
+					}
+				}
+				if (Check) { break; }
+			}
+		}
+	}
+}
+
+void CGameObject::WallCollisionDownCheck(CTileMap* TileMap)
+{
+	CTileMap* TileMap = m_Scene->GetTileMap();
+	if (TileMap)
+	{
+		// 아래 이동
+		if (m_Dir.y > 0)
+		{
+			float PrevBottom = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float CurBottom = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float PrevLeft = m_PrevPos.x - m_Pivot.x * m_Size.x;
+			float CurLeft = m_Pos.x - m_Pivot.x * m_Size.x;
+			float PrevRight = PrevLeft + m_Size.x;
+			float CurRight = CurLeft + m_Size.x;
+
+			// 둘중 작은 것 
+			float resultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
+			// 둘중 큰 거 
+			float resultRight = PrevRight > CurRight ? PrevRight : CurRight;
+			// 둘중 작은 거
+			float resultTop = PrevBottom < CurBottom ? PrevBottom : CurBottom;
+			// 둘중 큰 거 
+			float resultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
+
+			// 아래로 떨어지고 있다는 의미 
+			// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+			int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+
+			// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
+			LeftIndexX = TileMap->GetOriginTileIndexX(CurLeft);
+			TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
+			RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
+			BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
+
+			if (LeftIndexX < 0)
+				LeftIndexX = 0;
+			else if (RightIndexX >= TileMap->GetTileCountX())
+				RightIndexX = TileMap->GetTileCountX() - 1;
+			if (TopIndexY < 0)
+				TopIndexY = 0;
+			else if (BottomIndexY >= TileMap->GetTileCountY())
+				BottomIndexY = TileMap->GetTileCountY() - 1;
+
+			// 위에서 아래로 반복한다
+			// 위쪽의 타일이 Y 인덱스가 더 작으므로
+			// 작은 인덱스에서 큰 인덱스 순서로 
+			// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
+
+			// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
+			// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
+			// 크고 작음이 결정된다.
+
+			bool Check = false;
+			// 위에서부터 아래로 차례로 검사한다 
+			for (int i = TopIndexY; i <= BottomIndexY; i++)
+			{
+				for (int j = LeftIndexX; j <= RightIndexX; j++)
+				{
+					// 이전 위치의 Bottom이 무조건 위일 것이다
+					// 내려가는 것이기 때문이다
+					// 만약 이전 위치의 Bottom이 Top보다 클 경우 무시 ( 이 경우는 점프 해서 올라오는 것)
+					if (TileMap->GetTile(j, i)->GetPos().y < PrevBottom)
+						continue;
+
+					ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+					if (TileOption == ETileOption::Wall)
+					{
+						Check = true;
+						// m_Pos : 발의 위치 
+						m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+						// m_IsGround = true;
+						// m_Jump = false; // 바닥에 붙어있으면 jump는 false로 
+						// m_FallTime = 0.f;
+						break;
+					}
+				}
+				if (Check) { break; }
+			}
+		}
+	}
+}
+
+void CGameObject::WallCollisionRightCheck(CTileMap* TileMap)
+{
+}
+
+void CGameObject::WallCollisionLeftCheck(CTileMap* TileMap)
+{
+}
+
 void CGameObject::SetTexture(const std::string& Name)
 {
 	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
@@ -517,82 +689,86 @@ void CGameObject::Update(float DeltaTime)
 	}
 
 	// Wall Collision
-	CTileMap* TileMap = m_Scene->GetTileMap();
-
+	// CTileMap* TileMap = m_Scene->GetTileMap();
+	/*
 	if (TileMap)
 	{
-		// float PrevBottom = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
-		float CurBottom = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
-		// float PrevLeft = m_PrevPos.x - m_Pivot.x * m_Size.x;
-		float CurLeft = m_Pos.x - m_Pivot.x * m_Size.x;
-		// float PrevRight = PrevLeft + m_Size.x;
-		float CurRight = CurLeft + m_Size.x;
-
-		// 둘중 작은 것 
-		// float resultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
-		// 둘중 큰 거 
-		// float resultRight = PrevRight > CurRight ? PrevRight : CurRight;
-		// 둘중 작은 거
-		// float resultTop = PrevBottom < CurBottom ? PrevBottom : CurBottom;
-		// 둘중 큰 거 
-		// float resultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
-
-		// 아래로 떨어지고 있다는 의미 
-		// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
-		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
-
-		// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
-		LeftIndexX = TileMap->GetOriginTileIndexX(CurLeft);
-		TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
-		RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
-		BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
-
-		if (LeftIndexX < 0)
-			LeftIndexX = 0;
-		else if (RightIndexX >= TileMap->GetTileCountX())
-			RightIndexX = TileMap->GetTileCountX() - 1;
-		if (TopIndexY < 0)
-			TopIndexY = 0;
-		else if (BottomIndexY >= TileMap->GetTileCountY())
-			BottomIndexY = TileMap->GetTileCountY() - 1;
-
-		// 위에서 아래로 반복한다
-		// 위쪽의 타일이 Y 인덱스가 더 작으므로
-		// 작은 인덱스에서 큰 인덱스 순서로 
-		// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
-
-		// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
-		// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
-		// 크고 작음이 결정된다.
-
-		bool Check = false;
-		// 위에서부터 아래로 차례로 검사한다 
-		for (int i = TopIndexY; i <= BottomIndexY; i++)
+		// 아래 이동
+		if (m_Dir.y < 0)
 		{
-			for (int j = LeftIndexX; j <= RightIndexX; j++)
+			float PrevBottom = m_PrevPos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float CurBottom = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y;
+			float PrevLeft = m_PrevPos.x - m_Pivot.x * m_Size.x;
+			float CurLeft = m_Pos.x - m_Pivot.x * m_Size.x;
+			float PrevRight = PrevLeft + m_Size.x;
+			float CurRight = CurLeft + m_Size.x;
+
+			// 둘중 작은 것 
+			float resultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
+			// 둘중 큰 거 
+			float resultRight = PrevRight > CurRight ? PrevRight : CurRight;
+			// 둘중 작은 거
+			float resultTop = PrevBottom < CurBottom ? PrevBottom : CurBottom;
+			// 둘중 큰 거 
+			float resultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
+
+			// 아래로 떨어지고 있다는 의미 
+			// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
+			int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+
+			// LeftIndexX = TileMap->GetOriginTileIndexX(resultLeft);
+			LeftIndexX = TileMap->GetOriginTileIndexX(CurLeft);
+			TopIndexY = TileMap->GetOriginTileIndexY(resultTop);
+			RightIndexX = TileMap->GetOriginTileIndexX(resultRight);
+			BottomIndexY = TileMap->GetOriginTileIndexY(resultBottom);
+
+			if (LeftIndexX < 0)
+				LeftIndexX = 0;
+			else if (RightIndexX >= TileMap->GetTileCountX())
+				RightIndexX = TileMap->GetTileCountX() - 1;
+			if (TopIndexY < 0)
+				TopIndexY = 0;
+			else if (BottomIndexY >= TileMap->GetTileCountY())
+				BottomIndexY = TileMap->GetTileCountY() - 1;
+
+			// 위에서 아래로 반복한다
+			// 위쪽의 타일이 Y 인덱스가 더 작으므로
+			// 작은 인덱스에서 큰 인덱스 순서로 
+			// 체크를 할 수 있도록 한다 (위에서 아래로 떨어진다 )
+
+			// 왼쪽에서 오른쪽으로 , 혹은 오른쪽으로 왼쪽으로
+			// 이동하는 방향에 따라서 , PrevIndexX, IndexX 
+			// 크고 작음이 결정된다.
+
+			bool Check = false;
+			// 위에서부터 아래로 차례로 검사한다 
+			for (int i = TopIndexY; i <= BottomIndexY; i++)
 			{
-				// 이전 위치의 Bottom이 무조건 위일 것이다
-				// 내려가는 것이기 때문이다
-				// 만약 이전 위치의 Bottom이 Top보다 클 경우 무시
-				if (TileMap->GetTile(j, i)->GetPos().y < PrevBottom)
-					continue;
-
-				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
-				if (TileOption == ETileOption::Wall)
+				for (int j = LeftIndexX; j <= RightIndexX; j++)
 				{
-					Check = true;
-					// m_Pos : 발의 위치 
-					m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
-					m_IsGround = true;
-					m_Jump = false; // 바닥에 붙어있으면 jump는 false로 
-					m_FallTime = 0.f;
-					break;
+					// 이전 위치의 Bottom이 무조건 위일 것이다
+					// 내려가는 것이기 때문이다
+					// 만약 이전 위치의 Bottom이 Top보다 클 경우 무시 ( 이 경우는 점프 해서 올라오는 것)
+					if (TileMap->GetTile(j, i)->GetPos().y < PrevBottom)
+						continue;
+
+					ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+					if (TileOption == ETileOption::Wall)
+					{
+						Check = true;
+						// m_Pos : 발의 위치 
+						m_Pos.y = TileMap->GetTile(j, i)->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
+						// m_IsGround = true;
+						// m_Jump = false; // 바닥에 붙어있으면 jump는 false로 
+						// m_FallTime = 0.f;
+						break;
+					}
 				}
+				if (Check) { break; }
 			}
-			if (Check) { break; }
 		}
-
-
+	}
+	*/
 }
 
 void CGameObject::PostUpdate(float DeltaTime)
@@ -961,6 +1137,11 @@ void CGameObject::Collision(float DeltaTime)
 			(*iter)->Collision(DeltaTime);
 		}
 	}
+
+	WallCollisionDownCheck();
+	WallCollisionUpCheck();
+	WallCollisionRightCheck();
+	WallCollisionLeftCheck();
 }
 
 void CGameObject::PrevRender()

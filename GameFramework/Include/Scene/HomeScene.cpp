@@ -34,7 +34,7 @@ bool CHomeScene::Init()
 	// Guns
 	SetBasicObjectGuns();
 	// Objects
-	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 830.f));
 	SetPlayer(Player);
 
 	// Camera

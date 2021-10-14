@@ -106,6 +106,12 @@ public:
 	virtual float SetDamage(float Damage);
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
+// Wall
+public :
+	virtual void WallCollisionUpCheck(class CTileMap* TileMap);
+	virtual void WallCollisionDownCheck(class CTileMap* TileMap);
+	virtual void WallCollisionRightCheck(class CTileMap* TileMap);
+	virtual void WallCollisionLeftCheck(class CTileMap* TileMap);
 
 public:
 	void SetLifeTime(float Time)
