@@ -30,6 +30,7 @@ private:
 	float		m_TimeScale;
 	HBRUSH		m_hGreenBrush;
 	HBRUSH		m_hRedBrush;
+	HBRUSH		m_hBlueBrush;
 	HBRUSH		m_hYellowBrush;
 	HPEN		m_hGreenPen;
 	HPEN		m_hRedPen;
@@ -60,6 +61,11 @@ public:
 	HBRUSH GetRedBrush()	const
 	{
 		return m_hRedBrush;
+	}
+
+	HBRUSH GetBlueBrush()	const
+	{
+		return m_hBlueBrush;
 	}
 
 	HBRUSH GetYellowBrush()	const

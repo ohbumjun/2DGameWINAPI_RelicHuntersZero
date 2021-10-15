@@ -13,7 +13,6 @@
 #define IDC_BUTTON_TILETEXTURELOAD      1010
 #define IDC_LIST_TILETEXTURE            1011
 #define IDC_BUTTON_SETTEXTURE           1012
-#define IDC_BUTTON_SETTEXTURE2          1013
 #define IDC_BUTTON_SET_ALLTEXTURE       1013
 #define IDC_COMBO_EDITMODE              1014
 #define IDC_COMBO_TILEOPTION            1015
@@ -32,6 +31,8 @@
 #define IDC_BUTTON1                     1026
 #define IDC_BUTTON_IMAGECLEAR           1026
 #define IDC_CHECK_SIDECOLLISION         1027
+#define IDC_COMBO_TILEOPTION2           1028
+#define IDC_COMBO_MONSTEROPTION         1028
 
 // Next default values for new objects
 // 

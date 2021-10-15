@@ -10,6 +10,7 @@ CTile::CTile() :
 	m_IndexY(0),
 	m_Index(0),
 	m_Option(ETileOption::Normal),
+	m_MonsterOption(EMonsterOption::None),
 	m_SideCollision(false)
 {
 }
@@ -58,12 +59,27 @@ void CTile::Render(HDC hDC)
 		case ETileOption::Wall:
 			if (m_SideCollision)
 				Brush = CGameManager::GetInst()->GetYellowBrush();
-
 			else
 				Brush = CGameManager::GetInst()->GetRedBrush();
 			break;
 		case ETileOption::Slow:
 			Brush = CGameManager::GetInst()->GetYellowBrush();
+			break;
+		}
+
+		switch (m_MonsterOption)
+		{
+		case EMonsterOption::None:
+			Brush = CGameManager::GetInst()->GetGreenBrush();
+			break;
+		case EMonsterOption::Easy:
+			Brush = CGameManager::GetInst()->GetBlueBrush();
+			break;
+		case EMonsterOption::Medium:
+			Brush = CGameManager::GetInst()->GetYellowBrush();
+			break;
+		case EMonsterOption::Hard:
+			Brush = CGameManager::GetInst()->GetRedBrush();
 			break;
 		}
 

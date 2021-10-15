@@ -138,9 +138,19 @@ enum class ETileOption
 	End
 };
 
+enum class EMonsterOption
+{
+	None,
+	Easy,
+	Medium,
+	Hard,
+	End
+};
+
 enum class ETileEditMode
 {
 	Option,
 	Image,
+	Monster,
 	End
 };

@@ -52,6 +52,8 @@ public :
 		CTexture* Texture);
 	void ChangeTileOption(const Vector2& Pos,
 		ETileOption Option);
+	void ChangeMonsterOption(const Vector2& Pos,
+		EMonsterOption Option);
 	void SetTileFrame(
 		const Vector2& Pos,
 		const Vector2& Start, const Vector2& End);

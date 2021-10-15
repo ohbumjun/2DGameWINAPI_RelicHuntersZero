@@ -524,7 +524,6 @@ void CGameObject::WallCollisionLeftCheck(CTileMap* TileMap)
 	// 둘중 큰 거   
 	float resultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
 
-	// 아래로 떨어지고 있다는 의미 
 	// 이전 위치와 현재 위치의 타일 인덱스를 구해온다
 	int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
 
@@ -771,12 +770,14 @@ void CGameObject::Update(float DeltaTime)
 	{
 		if (m_Pos.y - m_PrevPos.y > 0)
 			WallCollisionDownCheck(TileMap);
-		if (m_Pos.y - m_PrevPos.y <  0)
-			WallCollisionUpCheck(TileMap);
-		if (m_Pos.x - m_PrevPos.x > 0)
-			WallCollisionRightCheck(TileMap);
 		if (m_Pos.x - m_PrevPos.x < 0)
 			WallCollisionLeftCheck(TileMap);
+		/*
+		if (m_Pos.x - m_PrevPos.x > 0)
+			WallCollisionRightCheck(TileMap);
+		if (m_Pos.y - m_PrevPos.y <  0)
+			WallCollisionUpCheck(TileMap);
+			*/
 	}
 
 

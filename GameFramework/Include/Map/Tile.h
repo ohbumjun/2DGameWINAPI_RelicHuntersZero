@@ -20,6 +20,7 @@ private:
 	int		m_Index;
 	CSharedPtr<CTexture>	m_Texture;
 	ETileOption	m_Option;
+	EMonsterOption	m_MonsterOption;
 	Vector2	m_StartFrame;
 	Vector2	m_EndFrame;
 	bool	m_SideCollision;
@@ -83,6 +84,11 @@ public:
 	void SetTileOption(ETileOption Option)
 	{
 		m_Option = Option;
+	}
+
+	void SetMonsterOption(EMonsterOption Option)
+	{
+		m_MonsterOption = Option;
 	}
 
 public:

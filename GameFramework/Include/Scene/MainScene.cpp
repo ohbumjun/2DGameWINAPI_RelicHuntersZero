@@ -42,11 +42,6 @@ bool CMainScene::Init()
 	LoadAnimationSequence();
 	SetBasicProtoTypes();
 	SetBasicUIs();
-
-	// Tile Map
-	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Stage1.map");
-	// TileMap->SetZOrder(2);
 	
 	// Player
 	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 530.f));
@@ -103,6 +98,10 @@ bool CMainScene::Init()
 	CHPPotion *HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO,POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
+
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Stage1.map");
 
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap
