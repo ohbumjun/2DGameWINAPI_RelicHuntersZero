@@ -14,6 +14,8 @@
 #define MONSTER_BULLET_PROTO                  "MonsterBulletProto"
 #define PLAYER_SKILL_SLOWMOTION_BULLET_PROTO  "SkillSlowMotionAttackBulletProto"
 
+#define WALL_PROTO							  "WallProto"
+
 #define MONSTER_DUCK1_PROTO					  "MonsterDuck1Proto"
 #define MONSTER_DUCK2_PROTO					  "MonsterDuck2Proto"
 #define MONSTER_DUCK3_PROTO					  "MonsterDuck3Proto"

@@ -134,7 +134,7 @@ private:
 private:
 	bool m_TeleportEnable;
 	Vector2 m_TeleportPos;
-	float m_TelePortTime; // �ڷ���Ʈ ���콺 Ŀ���� ���� obj�� �����ֱ� ����
+	float m_TelePortTime;
 	CTeleportMouse *m_TeleportObj;
 private:
 	void Teleport(float DeltaTime);

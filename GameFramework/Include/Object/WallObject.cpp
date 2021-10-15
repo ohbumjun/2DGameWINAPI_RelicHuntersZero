@@ -32,7 +32,7 @@ bool CWallObject::Init()
 	if (!CGameObject::Init())
 		return false;
 
-	SetPivot(0.5f, 0.5f);
+	SetPivot(1.f, 0.0f);
 	// CreateAnimation();
 	// AddAnimation("WallObject", true, 2.f);
 

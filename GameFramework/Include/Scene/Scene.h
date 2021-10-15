@@ -113,6 +113,9 @@ public:
 	static int SortZOrderMap(const void* Src, const void* Dest);
 private:
 	CGameObject* FindPrototype(const std::string& Name);
+// Wall Object
+public :
+	void SetObjectsToWall();
 
 public:
 	class CPlayer* CreatePlayer(const std::string& Name,

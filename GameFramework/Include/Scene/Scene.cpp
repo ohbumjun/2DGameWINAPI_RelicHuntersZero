@@ -12,6 +12,7 @@
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
 #include "../Object/DamageFont.h"
+#include "../Object/WallObject.h"
 #include "../Object/DuckMonster.h"
 #include "../Object/TurtleMonster.h"
 #include "../Object/HPPotion.h"
@@ -1194,6 +1195,10 @@ void CScene::SetBasicProtoTypes()
 	// EffectAbilityUp
 	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
 
+	// Wall
+	// Teleport
+	CWallObject* WallObjPrototype = CreatePrototype<CWallObject>(WALL_PROTO);
+
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 
@@ -1741,6 +1746,55 @@ CGameObject *CScene::FindPrototype(const std::string &Name)
 		return nullptr;
 
 	return iter->second;
+}
+
+void CScene::SetObjectsToWall()
+{
+	CTileMap* TileMap = GetTileMap();
+
+	if (TileMap)
+	{
+		// Tile Idx 
+		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+		LeftIndexX = TileMap->GetOriginTileIndexX(0);
+		RightIndexX = TileMap->GetTileCountX() - 1;
+		TopIndexY = TileMap->GetOriginTileIndexY(0);
+		BottomIndexY = TileMap->GetTileCountY() - 1;
+
+		int WallNum = 0;
+
+		CGameObject* WallObj = nullptr;
+
+		// From Down to Up
+		for (int i = TopIndexY; i <= BottomIndexY; i++)
+		{
+			for (int j = LeftIndexX; j <= RightIndexX; j++)
+			{
+				Vector2 TilePos        = TileMap->GetTile(j, i)->GetPos();
+				Vector2 TileSize       = TileMap->GetTile(j, i)->GetSize();
+				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
+				Vector2 WallObjPos     = Vector2(TilePos.x + 0.5*TileSize.x, TilePos.y);
+
+				if (TileOption == ETileOption::Wall)
+				{
+					WallObj = CreateObject<CWallObject>(std::to_string(WallNum),WALL_PROTO, WallObjPos, TileSize);
+
+					/*
+					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+					Monster = CreateObject<T>(std::to_string(EasyMNum), MonsterProtoEasy,
+						TilePos);
+					Monster->Equip(PistolGun);
+					Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
+						NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+					EasyMNum += 1;
+					// m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
+					break;
+					*/
+					WallNum += 1;
+				}
+			}
+		}
+	}
 }
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)

@@ -65,20 +65,7 @@ bool CMainScene::Init()
 	DuckMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	*/
 
-	/*
-	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster2", MONSTER_DUCK2_PROTO, 
-	Vector2(400.f , 700.f));
-	DuckMonster->Equip(PistolLightGun);
-
-	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	DuckMonster = CreateObject<CDuckMonster>("Monster3", MONSTER_DUCK3_PROTO, 
-		Vector2(300.f, 1200.f + (float)(rand() % 1000)));
-	DuckMonster->Equip(PistolLightGun);
-	*/
-
 	// Stage Door
-
 	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
 														 Vector2(900.f + rand() % 700, 400.f + rand() % 100),
 														 Vector2(50.f, 50.f));
@@ -103,7 +90,9 @@ bool CMainScene::Init()
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage1.map");
-	TileMap->SetZOrder(-1);
+
+	// Wall Setting
+	SetObjectsToWall();
 
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap
