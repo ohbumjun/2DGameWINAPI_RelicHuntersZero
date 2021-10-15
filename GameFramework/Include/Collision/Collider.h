@@ -13,6 +13,7 @@ protected:
 protected:
 	class CScene *m_Scene;
 	class CGameObject *m_Owner;
+	// bool m_IsWallCollider;
 	ECollider_Type m_Type;
 	Vector2 m_Offset;
 	bool m_Enable;
@@ -28,6 +29,12 @@ protected:
 	bool m_MouseCollision;
 
 public:
+	/*
+	void SetWallCollider(bool State)
+	{
+		m_IsWallCollider = State;
+	}
+	*/
 	void SetMouseCollision(bool MouseCollision)
 	{
 		m_MouseCollision = MouseCollision;
@@ -53,6 +60,12 @@ public:
 		m_Owner = Owner;
 	}
 public:
+	/*
+	bool IsWallCollider() const
+	{
+		return m_IsWallCollider;
+	}
+	*/
 	bool GetMouseCollision() const
 	{
 		return m_MouseCollision;
@@ -101,10 +114,10 @@ public:
 	void CallCollisionEnd(CCollider *Dest, float DeltaTime);
 	void CallMouseCollisionBegin(const Vector2 &MousePos, float DeltaTime);
 	void CallMouseCollisionEnd(const Vector2 &MousePos, float DeltaTime);
-	// Damage�� ���´�
 
 public:
 	CGameObject *IsCollisionWithMonster();
+	// bool         IsCollisionWithWall();
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
 	class CGun *IsCollisionWithGun();

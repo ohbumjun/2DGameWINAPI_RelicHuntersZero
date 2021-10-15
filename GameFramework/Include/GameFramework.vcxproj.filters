@@ -124,6 +124,9 @@
     <Filter Include="03. Object\03. Effect\02. StaticEffect">
       <UniqueIdentifier>{91d11e4b-cf01-41b5-af60-0a6589128f4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\06. WallObj">
+      <UniqueIdentifier>{7a2fa660-9af5-4019-bc82-b2112c034ce8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -365,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="Object\Bullet.cpp">
       <Filter>03. Object\02. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\WallObject.cpp">
+      <Filter>03. Object\06. WallObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -655,6 +661,9 @@
     </ClInclude>
     <ClInclude Include="Object\DamageFont.h">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\WallObject.h">
+      <Filter>03. Object\06. WallObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

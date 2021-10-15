@@ -3,6 +3,7 @@
 class CColliderBox : public CCollider
 {
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CColliderBox();
@@ -13,8 +14,15 @@ protected:
 	float m_Width;
 	float m_Height;
 	RectInfo m_Info;
+	// bool m_IsWallCollider;
 
 public:
+	/*
+	void SetWallCollider(bool State)
+	{
+		m_IsWallCollider = State;
+	}
+	*/
 	void SetExtent(float Width, float Height)
 	{
 		m_Width = Width;
@@ -30,6 +38,13 @@ public:
 	{
 		return m_Info.Bottom;
 	}
+public :
+	/*
+	bool IsWallCollider() const
+	{
+		return m_IsWallCollider;
+	}
+	*/
 
 public:
 	virtual bool Init();

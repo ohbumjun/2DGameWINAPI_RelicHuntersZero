@@ -96,6 +96,7 @@ enum class EObject_Type
 	Obstacle,
 	Equipment,
 	Bullet,
+	WallObject,
 	Effect
 };
 

@@ -199,6 +199,7 @@
     <ClCompile Include="Object\StageDoor.cpp" />
     <ClCompile Include="Object\TeleportMouse.cpp" />
     <ClCompile Include="Object\TurtleMonster.cpp" />
+    <ClCompile Include="Object\WallObject.cpp" />
     <ClCompile Include="Object\Weapon.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Ref.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="Object\Monster.h" />
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\TurtleMonster.h" />
+    <ClInclude Include="Object\WallObject.h" />
     <ClInclude Include="Object\Weapon.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="PlayerInfo.h" />

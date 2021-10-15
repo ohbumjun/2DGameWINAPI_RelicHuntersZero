@@ -9,6 +9,7 @@ CCollider::CCollider() : m_Scene(nullptr),
 						 m_Enable(true),
 						 m_Profile(nullptr),
 						 m_MouseCollision(false),
+						 // m_IsWallCollider(false),
 						 m_Type(ECollider_Type::Box)
 {
 }
@@ -21,6 +22,7 @@ CCollider::CCollider(const CCollider &collider) : CRef(collider),
 	m_Type = collider.m_Type;
 	m_Offset = collider.m_Offset;
 	m_Profile = collider.m_Profile;
+	// m_IsWallCollider = collider.m_IsWallCollider;
 }
 
 CCollider::~CCollider()
@@ -50,6 +52,22 @@ CGameObject *CCollider::IsCollisionWithMonster()
 	}
 	return nullptr;
 }
+
+/*
+bool CCollider::IsCollisionWithWall()
+{
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->IsWallCollider())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+*/
 
 CPlayer *CCollider::IsCollisionWithPlayer()
 {

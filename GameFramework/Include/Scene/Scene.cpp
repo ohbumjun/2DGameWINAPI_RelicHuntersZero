@@ -1180,11 +1180,11 @@ void CScene::SetBasicUIs()
 void CScene::SetBasicProtoTypes()
 {
 	// EffectHit
-	CEffectHit* EffectHitPrototype = CreatePrototype<CEffectHit>(EFFECT_HIT_PROTO);
+	CEffectHit* EffectHitPrototype           = CreatePrototype<CEffectHit>(EFFECT_HIT_PROTO);
 	// Effect Surpise
 	CEffectSurprise* EffectSurprisePrototype = CreatePrototype<CEffectSurprise>(EFFECT_SURPRISE_PROTO);
 	// EffectDash
-	CEffectDash* EffectDashPrototype = CreatePrototype<CEffectDash>(EFFECT_DASH_PROTO);
+	CEffectDash* EffectDashPrototype         = CreatePrototype<CEffectDash>(EFFECT_DASH_PROTO);
 	// EffectCasing
 	CEffectCasing* EffectCasingPrototype = CreatePrototype<CEffectCasing>(EFFECT_CASING_PROTO);
 	// EffectBulletStart

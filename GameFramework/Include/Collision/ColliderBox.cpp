@@ -9,6 +9,8 @@
 
 CColliderBox::CColliderBox() : m_Width(100.f),
 							   m_Height(100.f)
+								// m_IsWallCollider(false)
+		
 {
 	m_Type = ECollider_Type::Box;
 }
@@ -41,12 +43,15 @@ void CColliderBox::PostUpdate(float DeltaTime)
 {
 	CCollider::PostUpdate(DeltaTime);
 
-	Vector2 Pos = m_Owner->GetPos();
+	if (m_Owner)
+	{
+		Vector2 Pos = m_Owner->GetPos();
 
-	m_Info.Left = Pos.x - m_Width / 2.f + m_Offset.x;
-	m_Info.Top = Pos.y - m_Height / 2.f + m_Offset.y;
-	m_Info.Right = Pos.x + m_Width / 2.f + m_Offset.x;
-	m_Info.Bottom = Pos.y + m_Height / 2.f + m_Offset.y;
+		m_Info.Left = Pos.x - m_Width / 2.f + m_Offset.x;
+		m_Info.Top = Pos.y - m_Height / 2.f + m_Offset.y;
+		m_Info.Right = Pos.x + m_Width / 2.f + m_Offset.x;
+		m_Info.Bottom = Pos.y + m_Height / 2.f + m_Offset.y;
+	}
 }
 
 void CColliderBox::Render(HDC hDC)

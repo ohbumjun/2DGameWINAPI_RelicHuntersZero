@@ -12,6 +12,7 @@
 #include "../Object/Bullet.h"
 #include "../Object/Monster.h"
 #include "../Object/DuckMonster.h"
+#include "../Object/WallObject.h"
 #include "../Object/EffectHit.h"
 #include "../Object/EffectDash.h"
 #include "../Object/TeleportMouse.h"
@@ -53,7 +54,6 @@ bool CMainScene::Init()
 
 	// Gun
 	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-
 	
 	/*
 	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1",MONSTER_DUCK1_PROTO,
@@ -158,7 +158,7 @@ bool CMainScene::Init()
 	*/
 
 	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }
