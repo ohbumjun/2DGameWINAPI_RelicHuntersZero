@@ -37,6 +37,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_TeleportObj{},
 					 m_TeleportPos(Vector2(0.f, 0.f)),
 					 m_DeathAnimationTime(0.f),
+					m_MonsterCollideTime(0.f),
 					 m_SkillDestoryAllAttackEnable(false),
 					 m_SkillDestoryAllAttackTime(0.f),
 					 m_LaserBulletObj(nullptr),
@@ -308,6 +309,9 @@ void CPlayer::Update(float DeltaTime)
 	// SetAttackSpeed(0.5f);
 	// if (m_DeathAnimationTime > 0.f) return;
 
+	// Wall Move
+	PreventWallMove();
+
 	// Death
 	if (m_CharacterInfo.HP <= 0 )
 	{
@@ -365,6 +369,9 @@ void CPlayer::Update(float DeltaTime)
 
 	GunCurBulletNumUpdate();
 	
+	// Update m_MonsterCollideTime
+	if (m_MonsterCollideTime >= 0.f)
+		m_MonsterCollideTime -= DeltaTime;
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -955,17 +962,23 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 {
 	float MonsterDamage = (float)CollideMonster->GetAttack();
+
 	// Damage Font
-	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-	MonsterDamage -= m_CharacterInfo.Armor;
-	if (MonsterDamage <= 0)
-		MonsterDamage = 0;
-	DamageFont->SetDamageNumber((int)MonsterDamage);
-	SetDamage((float)MonsterDamage);
+	if (m_MonsterCollideTime <= 0.f)
+	{
+		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+		MonsterDamage -= m_CharacterInfo.Armor;
+		if (MonsterDamage <= 0) MonsterDamage = 0;
+		DamageFont->SetDamageNumber((int)MonsterDamage);
+		SetDamage((float)MonsterDamage);
+	}
 
 	// Bounc Back
 	Vector2 MonsterDir = CollideMonster->GetDir() * m_MoveSpeed;
 	CollideBounceBack(MonsterDir);
+
+	// Monster Collide Time Setting 
+	m_MonsterCollideTime = 0.5f;
 }
 
 void CPlayer::ChangeHitAnimation()

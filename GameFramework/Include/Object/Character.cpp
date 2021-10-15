@@ -58,42 +58,7 @@ void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
 	MoveWithinWorldResolution();
-	CGameObject* CollideWall = WallCollisionCheck();
-	if(CollideWall)
-	{
-		CWallObject* WallObj = (CWallObject*)CollideWall;
-		Vector2 WallObjPos = WallObj->GetPos();
-		RECT rcInter;
-
-		CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
-		CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
-		RectInfo CharRect    = CharCollideBox->GetInfo();
-		RectInfo WallRect    = WallCollideBox->GetInfo();
-		RectInfo Intersect   = GetInterCollideRect(CharRect,WallRect);
-		float UpDownSpace    = Intersect.Bottom - Intersect.Top;
-		float LeftRightSpace = Intersect.Right  - Intersect.Left;
-		
-		// 좌우 이동 
-		if (LeftRightSpace <= 10.f)
-		{
-			// Going Right
-			if (WallObjPos.x > m_Pos.x)
-				m_Pos.x -= LeftRightSpace + 0.1f;
-			// Going Left
-			if (WallObjPos.x <= m_Pos.x)
-				m_Pos.x += LeftRightSpace + 0.1f;
-		}
-		// 상하 이동
-		if (UpDownSpace <= 10.f)
-		{
-			// Going Down
-			if (WallObjPos.y > m_Pos.y)
-				m_Pos.y -= UpDownSpace + 0.1f;
-			// Going Up
-			if (WallObjPos.y <= m_Pos.y)
-				m_Pos.y += UpDownSpace + 0.1f;
-		}
-	}
+	
 
 	if (m_CurrentGun)
 		m_CurrentGun->Update(DeltaTime);
@@ -197,14 +162,16 @@ void CCharacter::ChangeDeathAnimation()
 
 void CCharacter::Move(const Vector2& Dir)
 {
-	if (m_HitEnable) return;
-	CGameObject::Move(Dir);
+	// PreventWallMove();
+	if (!m_HitEnable)
+		CGameObject::Move(Dir);
 }
 
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
-	if (m_HitEnable) return;
-	CGameObject::Move(Dir, Speed);
+	// PreventWallMove();
+	if (!m_HitEnable) return;
+		CGameObject::Move(Dir, Speed);
 }
 
 void CCharacter::MoveWithinWorldResolution()
@@ -310,6 +277,46 @@ RectInfo CCharacter::GetInterCollideRect(RectInfo Rect1, RectInfo Rect2)
 	return Intersect;
 }
 
+void CCharacter::PreventWallMove()
+{
+	CGameObject* CollideWall = WallCollisionCheck();
+	if (CollideWall)
+	{
+		CWallObject* WallObj = (CWallObject*)CollideWall;
+		Vector2 WallObjPos = WallObj->GetPos();
+		RECT rcInter;
+
+		CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
+		CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
+		RectInfo CharRect = CharCollideBox->GetInfo();
+		RectInfo WallRect = WallCollideBox->GetInfo();
+		RectInfo Intersect = GetInterCollideRect(CharRect, WallRect);
+		float UpDownSpace = Intersect.Bottom - Intersect.Top;
+		float LeftRightSpace = Intersect.Right - Intersect.Left;
+
+		// 좌우 이동 
+		if (LeftRightSpace <= 10.f)
+		{
+			// Going Right
+			if (WallObjPos.x > m_Pos.x)
+				m_Pos.x -= LeftRightSpace + 0.1f;
+			// Going Left
+			if (WallObjPos.x <= m_Pos.x)
+				m_Pos.x += LeftRightSpace + 0.1f;
+		}
+		// 상하 이동
+		if (UpDownSpace <= 10.f)
+		{
+			// Going Down
+			if (WallObjPos.y > m_Pos.y)
+				m_Pos.y -= UpDownSpace + 0.1f;
+			// Going Up
+			if (WallObjPos.y <= m_Pos.y)
+				m_Pos.y += UpDownSpace + 0.1f;
+		}
+	}
+}
+
 void CCharacter::SetHitDir(Vector2 Dir)
 {
 	m_HitDir = Dir;
@@ -320,7 +327,7 @@ void CCharacter::Hit()
 {
 	m_HitTime = HIT_TIME;
 	m_HitEnable = true;
-	m_Pos += m_HitDir * m_Size.Length() * 0.1f;
+	// m_Pos += m_HitDir * m_Size.Length() * 0.1f;
 	ChangeHitAnimation();
 }
 void CCharacter::HitMove()
@@ -328,6 +335,7 @@ void CCharacter::HitMove()
 	Vector2	CurrentMove = m_HitDir * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
+	PreventWallMove();
 }
 
 void CCharacter::HitEnd()

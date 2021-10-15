@@ -129,6 +129,7 @@ private:
 	Vector2 GetColliderPos();
 	virtual void CollideBounceBack(Vector2 Dir);
 	void CollideMonsterBody(CGameObject* Monster);
+	float m_MonsterCollideTime;
 
 // Teleport ---
 private:

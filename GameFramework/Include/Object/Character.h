@@ -90,6 +90,7 @@ protected :
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
 	void MoveWithinWorldResolution();
+
 // Collision
 protected :
 	bool CollisionCheck();
@@ -99,6 +100,7 @@ protected :
 	virtual void CollideBounceBack(Vector2 Dir);
 	class CCollider* GetColliderBox();
 	RectInfo GetInterCollideRect(RectInfo Rect1, RectInfo Rect2);
+	void PreventWallMove();
 // Hit
 protected:
 	bool m_HitEnable;
