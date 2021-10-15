@@ -4,6 +4,8 @@
 #include "../GameManager.h"
 #include "../Scene/Scene.h"
 #include "../Object/Gun.h"
+#include "../Object/WallObject.h"
+#include "../Collision/ColliderBox.h"
 
 CCharacter::CCharacter() : 
 	m_CharacterInfo{},
@@ -56,6 +58,23 @@ void CCharacter::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
 	MoveWithinWorldResolution();
+	CGameObject* CollideWall = WallCollisionCheck();
+	if(CollideWall)
+	{
+		// 충돌 처리 
+		CWallObject* WallObj = (CWallObject*)CollideWall;
+
+		// 사각형 
+		RECT rcInter;
+		RECT CharRect;
+		// RECT rcInter;
+
+		CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
+		CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
+		RectInfo CharRectInfo = CharCollideBox->GetInfo();
+		RectInfo WallRectInfo = WallCollideBox->GetInfo();
+	}
+
 	if (m_CurrentGun)
 		m_CurrentGun->Update(DeltaTime);
 
@@ -225,12 +244,36 @@ CGameObject* CCharacter::MonsterCollisionCheck()
 	return nullptr;
 }
 
+CGameObject* CCharacter::WallCollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		CGameObject* WallCollide = (*iter)->IsCollisionWithWall();
+		if (WallCollide) return WallCollide;
+	}
+	return nullptr;
+}
+
 void CCharacter::CollideBounceBack(Vector2 Dir)
 {
 	Vector2 OppDir = Dir;
 	OppDir.Normalize();
 	SetHitDir(OppDir);
 	Hit();
+}
+
+CCollider* CCharacter::GetColliderBox()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetName() == "Body")
+			return (*iter);
+	}
+	return nullptr;
 }
 
 void CCharacter::SetHitDir(Vector2 Dir)

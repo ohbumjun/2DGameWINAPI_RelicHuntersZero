@@ -252,14 +252,14 @@ bool CPlayer::Init()
 	SetNotifyFunctions();
 
 	// Collider ---
-	CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
-	Head->SetRadius(20.f);
-	Head->SetOffset(0.f, -60.f);
-	Head->SetCollisionProfile("Player");
+	// CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
+	// Head->SetRadius(20.f);
+	// Head->SetOffset(0.f, -60.f);
+	// Head->SetCollisionProfile("Player");
 
 	CColliderBox *Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(80.f, 45.f);
-	Body->SetOffset(0.f, -22.5f);
+	Body->SetExtent(60.f, 80.f);
+	Body->SetOffset(0.f, -50.0f);
 	Body->SetCollisionProfile("Player");
 
 	// Widget ---

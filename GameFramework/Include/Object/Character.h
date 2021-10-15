@@ -95,7 +95,9 @@ protected :
 	bool CollisionCheck();
 	bool ObstacleCollisionCheck() const;
 	CGameObject* MonsterCollisionCheck();
+	CGameObject* WallCollisionCheck();
 	virtual void CollideBounceBack(Vector2 Dir);
+	class CCollider* GetColliderBox();
 // Hit
 protected:
 	bool m_HitEnable;

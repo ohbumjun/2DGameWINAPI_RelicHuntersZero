@@ -53,21 +53,19 @@ CGameObject *CCollider::IsCollisionWithMonster()
 	return nullptr;
 }
 
-/*
-bool CCollider::IsCollisionWithWall()
+CGameObject* CCollider::IsCollisionWithWall()
 {
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		if ((*iter)->IsWallCollider())
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::WallObject)
 		{
-			return true;
+			return (*iter)->GetOwner();
 		}
 	}
-	return false;
+	return nullptr;
 }
-*/
 
 CPlayer *CCollider::IsCollisionWithPlayer()
 {

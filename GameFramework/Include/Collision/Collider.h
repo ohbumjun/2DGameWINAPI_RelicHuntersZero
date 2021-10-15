@@ -117,7 +117,7 @@ public:
 
 public:
 	CGameObject *IsCollisionWithMonster();
-	// bool         IsCollisionWithWall();
+	CGameObject* IsCollisionWithWall();
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
 	class CGun *IsCollisionWithGun();

@@ -8,6 +8,8 @@ public:
 	CWallObject();
 	CWallObject(const CWallObject& obj);
 	virtual ~CWallObject();
+public :
+	class CCollider* GetColliderBox();
 
 public:
 	virtual void Start();

@@ -21,6 +21,18 @@ CWallObject::~CWallObject()
 {
 }
 
+CCollider* CWallObject::GetColliderBox()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetName() == "Body")
+			return (*iter);
+	}
+	return nullptr;
+}
+
 void CWallObject::Start()
 {
 	CGameObject::Start();
