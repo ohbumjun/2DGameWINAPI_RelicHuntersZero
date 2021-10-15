@@ -15,7 +15,6 @@ CWallObject::CWallObject()
 CWallObject::CWallObject(const CWallObject& obj) :
 	CGameObject(obj)
 {
-	m_DoorStageType = obj.m_DoorStageType;
 }
 
 CWallObject::~CWallObject()
@@ -32,14 +31,13 @@ bool CWallObject::Init()
 	if (!CGameObject::Init())
 		return false;
 
-	SetPivot(1.f, 0.0f);
+	// SetPivot(1.f, 0.0f);
 	// CreateAnimation();
 	// AddAnimation("WallObject", true, 2.f);
 
 	// Add Collider
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(100.f, 80.f);
-	Body->SetOffset(0.f, 25.f);
+	Body->SetExtent(64.f,64.f);
 
 	return true;
 }
