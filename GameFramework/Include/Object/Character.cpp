@@ -61,18 +61,38 @@ void CCharacter::Update(float DeltaTime)
 	CGameObject* CollideWall = WallCollisionCheck();
 	if(CollideWall)
 	{
-		// 충돌 처리 
 		CWallObject* WallObj = (CWallObject*)CollideWall;
-
-		// 사각형 
+		Vector2 WallObjPos = WallObj->GetPos();
 		RECT rcInter;
-		RECT CharRect;
-		// RECT rcInter;
 
 		CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
 		CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
-		RectInfo CharRectInfo = CharCollideBox->GetInfo();
-		RectInfo WallRectInfo = WallCollideBox->GetInfo();
+		RectInfo CharRect    = CharCollideBox->GetInfo();
+		RectInfo WallRect    = WallCollideBox->GetInfo();
+		RectInfo Intersect   = GetInterCollideRect(CharRect,WallRect);
+		float UpDownSpace    = Intersect.Bottom - Intersect.Top;
+		float LeftRightSpace = Intersect.Right  - Intersect.Left;
+		
+		// 좌우 이동 
+		if (LeftRightSpace <= 10.f)
+		{
+			// Going Right
+			if (WallObjPos.x > m_Pos.x)
+				m_Pos.x -= LeftRightSpace + 0.1f;
+			// Going Left
+			if (WallObjPos.x <= m_Pos.x)
+				m_Pos.x += LeftRightSpace + 0.1f;
+		}
+		// 상하 이동
+		if (UpDownSpace <= 10.f)
+		{
+			// Going Down
+			if (WallObjPos.y > m_Pos.y)
+				m_Pos.y -= UpDownSpace + 0.1f;
+			// Going Up
+			if (WallObjPos.y <= m_Pos.y)
+				m_Pos.y += UpDownSpace + 0.1f;
+		}
 	}
 
 	if (m_CurrentGun)
@@ -274,6 +294,20 @@ CCollider* CCharacter::GetColliderBox()
 			return (*iter);
 	}
 	return nullptr;
+}
+
+RectInfo CCharacter::GetInterCollideRect(RectInfo Rect1, RectInfo Rect2)
+{
+	RectInfo Intersect;
+	// max among left 
+	Intersect.Left  = Rect1.Left > Rect2.Left ? Rect1.Left : Rect2.Left;
+	// Min among Right 
+	Intersect.Right = Rect1.Right < Rect2.Right ? Rect1.Right : Rect2.Right;
+	// Max among y1
+	Intersect.Top   = Rect1.Top > Rect2.Top ? Rect1.Top : Rect2.Top;
+	// Min among y2
+	Intersect.Bottom = Rect1.Bottom < Rect2.Bottom ? Rect1.Bottom : Rect2.Bottom;
+	return Intersect;
 }
 
 void CCharacter::SetHitDir(Vector2 Dir)

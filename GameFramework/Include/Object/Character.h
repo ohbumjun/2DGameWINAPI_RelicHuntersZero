@@ -98,6 +98,7 @@ protected :
 	CGameObject* WallCollisionCheck();
 	virtual void CollideBounceBack(Vector2 Dir);
 	class CCollider* GetColliderBox();
+	RectInfo GetInterCollideRect(RectInfo Rect1, RectInfo Rect2);
 // Hit
 protected:
 	bool m_HitEnable;

@@ -110,7 +110,9 @@ bool CCollider::DidCollideWithObstacles() const
 	for (; iter != iterEnd; ++iter)
 	{
 		EObject_Type OwnerObjType = (*iter)->GetOwner()->GetObjType();
-		if (OwnerObjType == EObject_Type::Monster || OwnerObjType == EObject_Type::Obstacle)
+		if (OwnerObjType == EObject_Type::Monster || 
+			OwnerObjType == EObject_Type::Obstacle || 
+			OwnerObjType == EObject_Type::WallObject)
 			return true;
 	}
 	return false;

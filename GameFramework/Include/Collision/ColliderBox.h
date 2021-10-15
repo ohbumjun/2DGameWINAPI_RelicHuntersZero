@@ -28,12 +28,10 @@ public:
 		m_Width = Width;
 		m_Height = Height;
 	}
-
 	RectInfo GetInfo() const
 	{
 		return m_Info;
 	}
-
 	virtual float GetBottom() const
 	{
 		return m_Info.Bottom;
