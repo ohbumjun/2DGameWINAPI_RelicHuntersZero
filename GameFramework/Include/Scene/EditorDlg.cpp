@@ -18,7 +18,20 @@ CEditorDlg::CEditorDlg() :
 	m_Open(false),
 	m_Scene(nullptr),
 	m_SelectTextureListText{},
-	m_SelectFrameIndex(-1)
+	m_SelectFrameIndex(-1),
+	hGenerateImage{},
+	hLogoImage{},
+	m_EditModeCombo{},
+	m_FrameListBox{},
+	m_MonsterOption{},
+	m_SelectTextureListIndex(-1),
+	m_SideCollision(false),
+	m_SideCollisionCheckHandle{},
+	m_TextureListBox{},
+	m_TileEditMode{},
+	m_TileOption{},
+	m_TileOptionCombo{},
+	m_MonsterOptionCombo{}
 {
 	g_Dlg = this;
 }

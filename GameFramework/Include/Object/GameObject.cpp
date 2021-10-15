@@ -768,11 +768,11 @@ void CGameObject::Update(float DeltaTime)
 	CTileMap* TileMap = m_Scene->GetTileMap();
 	if (TileMap)
 	{
+		/*
 		if (m_Pos.y - m_PrevPos.y > 0)
 			WallCollisionDownCheck(TileMap);
 		if (m_Pos.x - m_PrevPos.x < 0)
 			WallCollisionLeftCheck(TileMap);
-		/*
 		if (m_Pos.x - m_PrevPos.x > 0)
 			WallCollisionRightCheck(TileMap);
 		if (m_Pos.y - m_PrevPos.y <  0)

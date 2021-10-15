@@ -80,7 +80,7 @@ bool CTileMap::CreateTile(int CountX, int CountY, const Vector2& TileSize)
         for (int j = 0; j < m_TileCountX; ++j)
         {
             // Texture만 전체 세팅 해준다 
-            m_vecTile[i * m_TileCountX + j]->SetTileTexture(m_TileTexture);
+            m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->SetTileTexture(m_TileTexture);
         }
     }
 
@@ -101,7 +101,7 @@ bool CTileMap::SetTileTexture(CTexture* Texture)
         for (int j = 0; j < m_TileCountX; j++)
         {
             // Texture만 전체 세팅 해준다 
-            m_vecTile[i * m_TileCountX + j]->SetTileTexture(m_TileTexture);
+            m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->SetTileTexture(m_TileTexture);
         }
     }
     return true;
@@ -110,7 +110,7 @@ bool CTileMap::SetTileTexture(CTexture* Texture)
 bool CTileMap::SetTileTexture(CTexture* Texture, int IndexX, int IndexY)
 {
     m_TileTexture = Texture;
-    m_vecTile[IndexY * m_TileCountX + IndexX]->SetTileTexture(m_TileTexture);
+    m_vecTile[static_cast<__int64>(IndexY) * m_TileCountX + IndexX]->SetTileTexture(m_TileTexture);
     return true;
 }
 
@@ -157,7 +157,7 @@ CTile* CTileMap::GetTile(const Vector2& Pos)
     int IndexY = (int)(Pos.y / m_TileSize.y);
     if (IndexX < 0 || IndexX >= m_TileCountX) return nullptr;
     if (IndexY < 0 || IndexY >= m_TileCountY) return nullptr;
-    return m_vecTile[IndexY * m_TileCountX + IndexX];
+    return m_vecTile[static_cast<__int64>(IndexY) * m_TileCountX + IndexX];
 }
 
 CTile* CTileMap::GetTile(int Index)
@@ -167,7 +167,7 @@ CTile* CTileMap::GetTile(int Index)
 
 CTile* CTileMap::GetTile(int IndexX, int IndexY)
 {
-    return m_vecTile[IndexY * m_TileCountX + IndexX];
+    return m_vecTile[static_cast<__int64>(IndexY) * m_TileCountX + IndexX];
 }
 
 int CTileMap::GetTileIndexX(float PosX)
@@ -265,7 +265,7 @@ void CTileMap::Update(float DeltaTime)
         {
             for (int j = m_StartX; j <= m_EndX; ++j)
             {
-                m_vecTile[i * m_TileCountX + j]->Update(DeltaTime);
+                m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->Update(DeltaTime);
             }
         }
     }
@@ -283,7 +283,7 @@ void CTileMap::PostUpdate(float DeltaTime)
         {
             for (int j = m_StartX; j <= m_EndX; ++j)
             {
-                m_vecTile[i * m_TileCountX + j]->PostUpdate(DeltaTime);
+                m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->PostUpdate(DeltaTime);
             }
         }
     }
@@ -301,7 +301,7 @@ void CTileMap::PrevRender()
         {
             for (int j = m_StartX; j <= m_EndX; ++j)
             {
-                m_vecTile[i * m_TileCountX + j]->PrevRender();
+                m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->PrevRender();
             }
         }
     }
@@ -319,7 +319,7 @@ void CTileMap::Render(HDC hDC)
         {
             for (int j = m_StartX; j <= m_EndX; ++j)
             {
-                m_vecTile[i * m_TileCountX + j]->Render(hDC);
+                m_vecTile[static_cast<__int64>(i) * m_TileCountX + j]->Render(hDC);
             }
         }
     }
