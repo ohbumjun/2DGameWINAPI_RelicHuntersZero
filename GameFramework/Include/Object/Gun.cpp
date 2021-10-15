@@ -18,7 +18,6 @@ CGun::CGun() :
 	m_GunInfo.m_GunClass       = EGunClass::Light;
 	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
-	// m_GunInfo.m_BulletsLoaded  = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletsLoaded  = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletsFullNum = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletLoadTime = 0.1f;

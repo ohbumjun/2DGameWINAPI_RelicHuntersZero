@@ -71,6 +71,12 @@ public :
 	void SetDuck1MonsterAnimation();
 	void SetDuck2MonsterAnimation();
 	void SetDuck3MonsterAnimation();
+	template <typename T>
+	void SetMonsterOnTileMap(T*Monster,
+		const std::string& MonsterProtoEasy, 
+		const std::string& MonsterProtoMid, 
+		const std::string& MonsterProtoHard
+		);
 public:
 	void SetLevel2MonsterAnimation();
 	void SetTurtle1MonsterAnimation();
@@ -250,4 +256,3 @@ public:
 		return Map;
 	}
 };
-

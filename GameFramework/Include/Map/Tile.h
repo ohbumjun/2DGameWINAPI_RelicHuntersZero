@@ -51,6 +51,10 @@ public:
 	{
 		return m_Option;
 	}
+	EMonsterOption GetMonsterOption()	const
+	{
+		return m_MonsterOption;
+	}
 
 	Vector2 GetPos()	const
 	{

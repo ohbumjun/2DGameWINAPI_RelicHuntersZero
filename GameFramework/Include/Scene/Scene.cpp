@@ -18,6 +18,7 @@
 #include "../Object/MPPotion.h"
 // Map
 #include "../Map/MapBase.h"
+#include "../Map/TileMap.h"
 // UI
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
@@ -1116,7 +1117,7 @@ void CScene::SetDuck3MonsterAnimation()
 
 	for (int j = 0; j < 3; ++j)
 	{
-		for (int i = 0; i < 3;i++)
+		for (int i = 0; i < 3; i++)
 		{
 			GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK3_RIGHT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
@@ -1140,10 +1141,58 @@ void CScene::SetDuck3MonsterAnimation()
 		MONSTER_DUCK3_RIGHT_HIT, TEXT("images/Monster/Duck3/right_hit.bmp"));
 	GetSceneResource()->SetTextureColorKey(MONSTER_DUCK3_RIGHT_HIT,
 		255, 255, 255);
-	for (int i = 1; i >=0; --i)
+	for (int i = 1; i >= 0; --i)
 	{
 		GetSceneResource()->AddAnimationFrameData(MONSTER_DUCK3_RIGHT_HIT,
 			i * 134.f, 0, 134.f, 114.f);
+	}
+}
+template<typename T>
+inline void CScene::SetMonsterOnTileMap(T* Monster, const std::string& MonsterProtoEasy, const std::string& MonsterProtoMid, const std::string& MonsterProtoHard)
+{
+	CTileMap* TileMap = GetTileMap();
+	if (TileMap)
+	{
+		// Tile Idx 
+		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
+		LeftIndexX = TileMap->GetOriginTileIndexX(0);
+		TopIndexY = TileMap->GetOriginTileIndexY(TileMap->GetTileCountX() - 1);
+		RightIndexX = TileMap->GetOriginTileIndexX(0);
+		BottomIndexY = TileMap->GetOriginTileIndexY(TileMap->GetTileCountY() - 1);
+
+		int EasyMNum = 0, MidMNum = 0, HardMNum = 0;
+
+		// From Down to Up
+		for (int i = TopIndexY; i <= BottomIndexY; i++)
+		{
+			for (int j = LeftIndexX; j <= RightIndexX; j++)
+			{
+				float TilePosY = TileMap->GetTile(j, i)->GetPos().y;
+				EMonsterOption MonsterOption = TileMap->GetTile(j, i)->GetMonsterOption();
+				if (MonsterOption == EMonsterOption::Easy)
+				{
+					CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+					// m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
+					break;
+				}
+				if (MonsterOption == EMonsterOption::Medium)
+				{
+					CGun* PistolMediumGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO);
+					float TilePosY = TileMap->GetTile(j, i)->GetPos().y;
+					// float TileSizeY = TileMap->GetTile(j, i)->GetSize().y;
+					// m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
+					break;
+				}
+				if (MonsterOption == EMonsterOption::Hard)
+				{
+					CGun* PistolHardGun = CreateObject<CGun>(GUN_PISTOL_HARD, GUN_PISTOL_HARD_PROTO);
+					float TilePosY = TileMap->GetTile(j, i)->GetPos().y;
+					float TileSizeY = TileMap->GetTile(j, i)->GetSize().y;
+					m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
+					break;
+				}
+			}
+		}
 	}
 }
 

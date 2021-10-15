@@ -9,7 +9,7 @@ public :
 	CGun();
 	CGun(const CGun& obj);
 	virtual ~CGun();
-private :
+protected :
 	bool m_FireToggle;
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
