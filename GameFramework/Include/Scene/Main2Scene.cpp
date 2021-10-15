@@ -88,10 +88,7 @@ bool CMain2Scene::Init()
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
 
-	// Tile Map
-	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Stage2.map");
-	TileMap->SetZOrder(2);
+
 
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap
@@ -107,6 +104,7 @@ bool CMain2Scene::Init()
 	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
+	/*
 
 
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
@@ -120,7 +118,6 @@ bool CMain2Scene::Init()
 	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
 	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
 
-	/*
 	Map->SetSize(1280.f, 720.f);
 	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
@@ -148,7 +145,10 @@ bool CMain2Scene::Init()
 	Map->SetZOrder(0);
 
 	*/
-
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Stage2.map");
+	TileMap->SetZOrder(-1);
 	SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 
 	return true;
