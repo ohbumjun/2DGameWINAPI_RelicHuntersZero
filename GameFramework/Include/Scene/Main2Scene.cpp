@@ -56,6 +56,7 @@ bool CMain2Scene::Init()
 	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 
 	// Monster
+	/*
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster1", MONSTER_TURTLE1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	TurtleMonster->Equip(PistolLightGun);
@@ -67,6 +68,7 @@ bool CMain2Scene::Init()
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	TurtleMonster = CreateObject<CTurtleMonster>("Monster3", MONSTER_TURTLE3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	TurtleMonster->Equip(PistolLightGun);
+	*/
 
 	// Stage Door
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
@@ -146,6 +148,8 @@ bool CMain2Scene::Init()
 	Map->SetZOrder(0);
 
 	*/
+
+	SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 
 	return true;
 }

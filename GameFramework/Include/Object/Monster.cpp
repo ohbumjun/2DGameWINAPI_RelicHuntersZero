@@ -362,5 +362,10 @@ CGun* CMonster::Equip(CGun* Gun)
 void CMonster::ChangeHitAnimation()
 {
 	CCharacter::ChangeHitAnimation();
+	if (m_CharacterInfo.HP <= 0)
+	{
+		m_MoveSpeed = 0.f;
+		m_ColliderList.clear();
+	}
 }
 
