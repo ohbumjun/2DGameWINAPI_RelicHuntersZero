@@ -22,10 +22,15 @@ CGameManager::CGameManager() :
 	m_hDC{},
 	m_hGreenBrush{},
 	m_hGreenPen{},
-	m_hYellowBrush{},
+	m_hDarkBlueBrush{},
 	m_hRedBrush{},
-	m_hRedPen{}
-{
+	m_hRedPen{},
+	m_hBlueBrush{},
+	m_hLightBlueBrush{}
+	/*
+	m_hYellowBrush{},
+	*/
+	{
 	// init commit 
 }
 
@@ -51,7 +56,11 @@ CGameManager::~CGameManager()
 	DeleteObject(m_hGreenBrush);
 	DeleteObject(m_hRedBrush);
 	DeleteObject(m_hBlueBrush);
+	DeleteObject(m_hLightBlueBrush);
+	DeleteObject(m_hDarkBlueBrush);
+	/*
 	DeleteObject(m_hYellowBrush);
+	*/
 	DeleteObject(m_hGreenPen);
 	DeleteObject(m_hRedPen);
 
@@ -110,10 +119,15 @@ bool CGameManager::Init(HINSTANCE hInst)
 
 	m_hPrevBackBmp = (HBITMAP)SelectObject(m_hBackDC, m_hBackBmp);
 
-	m_hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));
-	m_hRedBrush = CreateSolidBrush(RGB(255, 0, 0));
-	m_hBlueBrush = CreateSolidBrush(RGB(0, 0, 255));
+	m_hGreenBrush     = CreateSolidBrush(RGB(0, 255, 0));
+	m_hRedBrush       = CreateSolidBrush(RGB(255, 0, 0));
+	m_hBlueBrush      = CreateSolidBrush(RGB(0, 0, 255));
+	m_hLightBlueBrush = CreateSolidBrush(RGB(255, 255, 255));
+	m_hDarkBlueBrush  = CreateSolidBrush(RGB(0, 0, 63));
+	/*
 	m_hYellowBrush = CreateSolidBrush(RGB(255, 255, 0));
+	*/
+	
 	m_hGreenPen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 

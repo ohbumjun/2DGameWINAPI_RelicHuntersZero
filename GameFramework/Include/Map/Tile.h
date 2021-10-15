@@ -20,7 +20,6 @@ private:
 	int		m_Index;
 	CSharedPtr<CTexture>	m_Texture;
 	ETileOption	m_Option;
-	EMonsterOption	m_MonsterOption;
 	Vector2	m_StartFrame;
 	Vector2	m_EndFrame;
 	bool	m_SideCollision;
@@ -51,11 +50,6 @@ public:
 	{
 		return m_Option;
 	}
-	EMonsterOption GetMonsterOption()	const
-	{
-		return m_MonsterOption;
-	}
-
 	Vector2 GetPos()	const
 	{
 		return m_Pos;
@@ -89,12 +83,6 @@ public:
 	{
 		m_Option = Option;
 	}
-
-	void SetMonsterOption(EMonsterOption Option)
-	{
-		m_MonsterOption = Option;
-	}
-
 public:
 	bool Init();
 	void Update(float DeltaTime);

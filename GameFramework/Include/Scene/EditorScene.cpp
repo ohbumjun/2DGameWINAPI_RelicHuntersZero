@@ -202,12 +202,6 @@ void CEditorScene::MouseLButton(float DeltaTime)
 			m_TileMap->SetTileFrame(MousePos, FrameData.Start, FrameData.End);
 		}
 			break;
-		case ETileEditMode::Monster:
-		{
-			// 어떤 Tile Option을 선택했는지
-			EMonsterOption Option = m_Dlg->GetMonsterOption();
-			m_TileMap->ChangeMonsterOption(MousePos, Option);
-		}
 	}
 }
 

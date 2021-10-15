@@ -134,16 +134,9 @@ enum class ETileOption
 {
 	Normal,
 	Wall,
-	Slow,
-	End
-};
-
-enum class EMonsterOption
-{
-	None,
-	Easy,
-	Medium,
-	Hard,
+	MonsterLight,
+	MonsterMedium,
+	MonsterHard,
 	End
 };
 
@@ -151,6 +144,5 @@ enum class ETileEditMode
 {
 	Option,
 	Image,
-	Monster,
 	End
 };

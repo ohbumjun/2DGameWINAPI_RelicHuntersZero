@@ -50,9 +50,6 @@ private :
 	HWND m_TileOptionCombo;
 	ETileOption m_TileOption;
 
-	HWND m_MonsterOptionCombo;
-	EMonsterOption m_MonsterOption;
-
 	// FrameData 목록이 들어있는 ListBox
 	HWND m_FrameListBox;
 	// 현재 선택한 Frame 번호
@@ -62,6 +59,10 @@ private :
 
 
 public :
+	HWND GetEditorDlg() const
+	{
+		return m_hDlg;
+	}
 	bool GetSideCollision() const
 	{
 		return m_SideCollision;
@@ -70,10 +71,6 @@ public :
 	{
 		// 선택한 idx를 return 해준다 
 		return (ETileOption)SendMessage(m_TileOptionCombo, CB_GETCURSEL, 0, 0);
-	}
-	EMonsterOption GetMonsterOption() const
-	{
-		return (EMonsterOption)SendMessage(m_MonsterOptionCombo, CB_GETCURSEL, 0, 0);
 	}
 	TileFrameData GetTileFrameData()	const
 	{

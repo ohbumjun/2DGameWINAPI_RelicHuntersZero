@@ -28,10 +28,17 @@ private:
 	Resolution	m_RS;
 	class CTimer* m_Timer;
 	float		m_TimeScale;
+	// Brush
 	HBRUSH		m_hGreenBrush;
 	HBRUSH		m_hRedBrush;
 	HBRUSH		m_hBlueBrush;
+	HBRUSH		m_hLightBlueBrush;
+	HBRUSH		m_hDarkBlueBrush;
+	/*
 	HBRUSH		m_hYellowBrush;
+
+	*/
+	// Pen
 	HPEN		m_hGreenPen;
 	HPEN		m_hRedPen;
 	// 현재 에디트 모드인지 아닌지 --> Editor Scene에 들어가면 true로
@@ -42,37 +49,42 @@ public:
 	{
 		return m_RS;
 	}
-
 	HPEN GetGreenPen()	const
 	{
 		return m_hGreenPen;
 	}
-
 	HPEN GetRedPen()	const
 	{
 		return m_hRedPen;
 	}
-
 	HBRUSH GetGreenBrush()	const
 	{
 		return m_hGreenBrush;
 	}
-
 	HBRUSH GetRedBrush()	const
 	{
 		return m_hRedBrush;
 	}
 
+	HBRUSH GetLightBlueBrush()	const
+	{
+		return m_hLightBlueBrush;
+	}
 	HBRUSH GetBlueBrush()	const
 	{
 		return m_hBlueBrush;
 	}
-
+	HBRUSH GetDarkBlueBrush()	const
+	{
+		return m_hDarkBlueBrush;
+	}
+	/*
 	HBRUSH GetYellowBrush()	const
 	{
 		return m_hYellowBrush;
 	}
 
+	*/
 	HDC GetWindowDC()	const
 	{
 		return m_hDC;

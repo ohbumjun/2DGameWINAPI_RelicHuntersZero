@@ -2,6 +2,8 @@
 #include "Tile.h"
 #include "../Scene/SceneManager.h"
 #include "../Scene/Scene.h"
+#include "../Scene/EditorScene.h"
+#include "../Scene/EditorDlg.h"
 #include "../Scene/Camera.h"
 #include "../GameManager.h"
 
@@ -10,7 +12,6 @@ CTile::CTile() :
 	m_IndexY(0),
 	m_Index(0),
 	m_Option(ETileOption::Normal),
-	m_MonsterOption(EMonsterOption::None),
 	m_SideCollision(false)
 {
 }
@@ -51,42 +52,48 @@ void CTile::Render(HDC hDC)
 	{
 		HBRUSH	Brush = 0;
 
-		switch (m_Option)
-		{
-		case ETileOption::Normal:
-			Brush = CGameManager::GetInst()->GetGreenBrush();
-			break;
-		case ETileOption::Wall:
-			if (m_SideCollision)
-				Brush = CGameManager::GetInst()->GetYellowBrush();
-			else
-				Brush = CGameManager::GetInst()->GetRedBrush();
-			break;
-		case ETileOption::Slow:
-			Brush = CGameManager::GetInst()->GetYellowBrush();
-			break;
-		}
+		CEditorScene* EScene   = (CEditorScene*)(m_Scene);
+		ETileEditMode EditMode = EScene->GetEditorDlg()->GetTileEditMode();
 
-		switch (m_MonsterOption)
+		switch (EditMode)
 		{
-		case EMonsterOption::None:
-			Brush = CGameManager::GetInst()->GetGreenBrush();
-			break;
-		case EMonsterOption::Easy:
-			Brush = CGameManager::GetInst()->GetBlueBrush();
-			break;
-		case EMonsterOption::Medium:
-			Brush = CGameManager::GetInst()->GetYellowBrush();
-			break;
-		case EMonsterOption::Hard:
-			Brush = CGameManager::GetInst()->GetRedBrush();
-			break;
+			// 옵션 편집 
+			case ETileEditMode::Option:
+			{
+				switch (m_Option)
+				{
+				case ETileOption::Normal:
+					Brush = CGameManager::GetInst()->GetGreenBrush();
+					break;
+				case ETileOption::Wall:
+					if (m_SideCollision)
+						Brush = CGameManager::GetInst()->GetBlueBrush();
+					else
+						Brush = CGameManager::GetInst()->GetRedBrush();
+					break;
+				case ETileOption::MonsterLight:
+					Brush = CGameManager::GetInst()->GetLightBlueBrush();
+					break;
+				case ETileOption::MonsterMedium:
+					Brush = CGameManager::GetInst()->GetBlueBrush();
+					break;
+				case ETileOption::MonsterHard:
+					Brush = CGameManager::GetInst()->GetDarkBlueBrush();
+					break;
+					/*
+					*/
+				}
+			}
+				break;
+			case ETileEditMode::Image:
+			{
+				Brush = CGameManager::GetInst()->GetGreenBrush();
+			}
+				break;
 		}
-
+		
 		CCamera* Camera = CSceneManager::GetInst()->GetScene()->GetCamera();
-
 		Vector2	CameraPos = Camera->GetPos();
-
 		RECT	rc;
 		rc.left = (LONG)m_Pos.x - (LONG)CameraPos.x;
 		rc.top = (LONG)m_Pos.y - (LONG)CameraPos.y;

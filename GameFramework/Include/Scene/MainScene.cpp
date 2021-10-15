@@ -54,8 +54,7 @@ bool CMainScene::Init()
 	// Gun
 	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 
-	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO,MONSTER_DUCK2_PROTO,MONSTER_DUCK3_PROTO);
+	
 	/*
 	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1",MONSTER_DUCK1_PROTO,
 		Vector2(300.f , 530.f));
@@ -157,6 +156,9 @@ bool CMainScene::Init()
 	Map->SetZOrder(0);
 
 	*/
+
+	// Monster
+	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }

@@ -128,13 +128,6 @@ void CTileMap::ChangeTileOption(const Vector2& Pos, ETileOption Option)
     Tile->SetTileOption(Option);
 }
 
-void CTileMap::ChangeMonsterOption(const Vector2& Pos, EMonsterOption Option)
-{
-    CTile* Tile = GetTile(Pos);
-    if (!Tile) return;
-    Tile->SetMonsterOption(Option);
-}
-
 void CTileMap::SetTileFrame(const Vector2& Pos,const Vector2& Start, const Vector2& End)
 {
     CTile* Tile = GetTile(Pos);

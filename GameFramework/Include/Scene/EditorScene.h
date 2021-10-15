@@ -15,6 +15,11 @@ private:
 	class CTileMap* m_TileMap;
 	// 스크롤 스피드 : 카메라 이동속도
 	float m_ScrollSpeed;
+public :
+	CEditorDlg* GetEditorDlg()
+	{
+		return m_Dlg;
+	}
 
 public :
 	virtual bool Init();

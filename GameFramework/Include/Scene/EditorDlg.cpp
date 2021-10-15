@@ -23,15 +23,13 @@ CEditorDlg::CEditorDlg() :
 	hLogoImage{},
 	m_EditModeCombo{},
 	m_FrameListBox{},
-	m_MonsterOption{},
 	m_SelectTextureListIndex(-1),
 	m_SideCollision(false),
 	m_SideCollisionCheckHandle{},
 	m_TextureListBox{},
 	m_TileEditMode{},
 	m_TileOption{},
-	m_TileOptionCombo{},
-	m_MonsterOptionCombo{}
+	m_TileOptionCombo{}
 {
 	g_Dlg = this;
 }
@@ -112,8 +110,7 @@ bool CEditorDlg::Init(int ID)
 	TCHAR	TileEditMode[(int)ETileEditMode::End][30] =
 	{
 		TEXT("타일옵션"),
-		TEXT("타일이미지"),
-		TEXT("타일몬스터")
+		TEXT("타일이미지")
 	};
 
 	for (int i = 0; i < (int)ETileEditMode::End; ++i)
@@ -132,7 +129,9 @@ bool CEditorDlg::Init(int ID)
 	{
 		TEXT("Normal"),
 		TEXT("Wall"),
-		TEXT("Slow")
+		TEXT("MstLight"),
+		TEXT("MstMedium"),
+		TEXT("MstHard")
 	};
 
 	for (int i = 0; i < (int)ETileOption::End; ++i)
@@ -143,24 +142,6 @@ bool CEditorDlg::Init(int ID)
 	SendMessage(m_TileOptionCombo, CB_SETCURSEL, 0, 0);
 
 	m_TileOption = ETileOption::Normal;
-
-	// Monster Option
-	m_MonsterOptionCombo = GetDlgItem(m_hDlg, IDC_COMBO_MONSTEROPTION);
-
-	TCHAR	MonsterOptionText[(int)EMonsterOption::End][30] =
-	{
-		TEXT("NULL"),
-		TEXT("Light"),
-		TEXT("Medium"),
-		TEXT("Hard")
-	};
-
-	for (int i = 0; i < (int)EMonsterOption::End; ++i)
-	{
-		SendMessage(m_MonsterOptionCombo, CB_ADDSTRING, 0, (LPARAM)MonsterOptionText[i]);
-	}
-
-	SendMessage(m_MonsterOptionCombo, CB_SETCURSEL, 0, 0);
 
 	// Side Collision
 	m_SideCollisionCheckHandle = GetDlgItem(m_hDlg,IDC_CHECK_SIDECOLLISION);
