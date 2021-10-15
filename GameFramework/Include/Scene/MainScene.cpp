@@ -78,13 +78,14 @@ bool CMainScene::Init()
 	*/
 
 	// Stage Door
+
 	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
-														 Vector2(900.f + rand() % 700, 300.f + rand() % 100),
+														 Vector2(900.f + rand() % 700, 400.f + rand() % 100),
 														 Vector2(50.f, 50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
 	StageDoor_One = CreateObject<CStageDoor>("StageDoor2",
-		Vector2(1500.f, 400.f + rand() % 100),
+		Vector2(1500.f, 900.f + rand() % 100),
 		Vector2(50.f, 50.f));
 	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Two);
 
@@ -102,6 +103,7 @@ bool CMainScene::Init()
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage1.map");
+	TileMap->SetZOrder(-1);
 
 	// WorldResolution is set to TileMap
 	// if you want the other World Resolution Size instead of TileMap
@@ -136,29 +138,8 @@ bool CMainScene::Init()
 	*/
 
 
-	/*
-	Scroll Map Infinite Loop
-
-	GetCamera()->SetWorldResolution(300000.f, 120000.f);
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileMapWidth = 3000.f - GetCamera()->GetResolution().x;
-	float	TileMapHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("ScrollBack", TEXT("Sky.bmp"));
-	Map->SetLoop(true);
-	Map->SetZOrder(0);
-
-	*/
-
 	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }
