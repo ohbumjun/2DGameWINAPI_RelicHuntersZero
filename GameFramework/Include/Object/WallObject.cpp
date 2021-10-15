@@ -50,6 +50,7 @@ bool CWallObject::Init()
 	// Add Collider
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(64.f,64.f);
+	Body->SetCollisionProfile("Wall");
 
 	return true;
 }

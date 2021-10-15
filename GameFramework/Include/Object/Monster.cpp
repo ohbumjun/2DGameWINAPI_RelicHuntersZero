@@ -119,6 +119,8 @@ void CMonster::Update(float DeltaTime)
 	// m_Dir.Normalize();
 	Move(m_Dir);
 
+	PreventWallMove();
+
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);
@@ -200,11 +202,14 @@ void CMonster::Update(float DeltaTime)
 	}
 		break;
 	}
+
+
 }
 
 void CMonster::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
+	PreventWallMove();
 }
 
 void CMonster::Collision(float DeltaTime)
@@ -242,18 +247,11 @@ void CMonster::Fire()
 
 void CMonster::Move(const Vector2& Dir)
 {
-	
-	if (ObstacleCollisionCheck())
-	{
-	}
 	CCharacter::Move(Dir);
 }
 
 void CMonster::Move(const Vector2& Dir, float Speed)
 {
-	if (ObstacleCollisionCheck())
-	{
-	}
 	CCharacter::Move(Dir, Speed);
 }
 

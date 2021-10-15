@@ -23,10 +23,10 @@ CCollisionManager::~CCollisionManager()
 bool CCollisionManager::Init()
 {
 	CreateProfile("Default", Channel_Object, true);
+	CreateProfile("Wall", Channel_Wall, true);
 	CreateProfile("Player", Channel_Player, true);
 	CreateProfile("Monster", Channel_Monster, true);
 	CreateProfile("PlayerAttack", Channel_PlayerAttack, true);
-	CreateProfile("PlayerLaser", Channel_PlayerLaser, true);
 	CreateProfile("MonsterAttack", Channel_MonsterAttack, true);
 
 	SetCollisionState("Default", Channel_Object, ECollision_State::Ignore);
@@ -34,9 +34,11 @@ bool CCollisionManager::Init()
 	SetCollisionState("Default", Channel_PlayerAttack, ECollision_State::Ignore);
 	SetCollisionState("Default", Channel_MonsterAttack, ECollision_State::Ignore);
 
+	SetCollisionState("Wall", Channel_Object, ECollision_State::Ignore);
+	SetCollisionState("Wall", Channel_Wall, ECollision_State::Ignore);
+
 	SetCollisionState("Player", Channel_Player, ECollision_State::Ignore);
 	SetCollisionState("Player", Channel_PlayerAttack, ECollision_State::Ignore);
-	SetCollisionState("Player", Channel_PlayerLaser, ECollision_State::Ignore);
 
 	SetCollisionState("Monster", Channel_Monster, ECollision_State::Ignore);
 	SetCollisionState("Monster", Channel_MonsterAttack, ECollision_State::Ignore);
@@ -44,11 +46,6 @@ bool CCollisionManager::Init()
 	SetCollisionState("PlayerAttack", Channel_Player, ECollision_State::Ignore);
 	SetCollisionState("PlayerAttack", Channel_PlayerAttack, ECollision_State::Ignore);
 	SetCollisionState("PlayerAttack", Channel_MonsterAttack, ECollision_State::Ignore);
-
-	SetCollisionState("PlayerLaser", Channel_Player, ECollision_State::Ignore);
-	SetCollisionState("PlayerLaser", Channel_PlayerLaser, ECollision_State::Ignore);
-	SetCollisionState("PlayerLaser", Channel_PlayerAttack, ECollision_State::Ignore);
-	SetCollisionState("PlayerLaser", Channel_MonsterAttack, ECollision_State::Ignore);
 
 	SetCollisionState("MonsterAttack", Channel_Monster, ECollision_State::Ignore);
 	SetCollisionState("MonsterAttack", Channel_PlayerAttack, ECollision_State::Ignore);

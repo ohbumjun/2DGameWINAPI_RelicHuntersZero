@@ -59,7 +59,6 @@ void CCharacter::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 	MoveWithinWorldResolution();
 	
-
 	if (m_CurrentGun)
 		m_CurrentGun->Update(DeltaTime);
 
@@ -295,7 +294,7 @@ void CCharacter::PreventWallMove()
 		float LeftRightSpace = Intersect.Right - Intersect.Left;
 
 		// 좌우 이동 
-		if (LeftRightSpace <= 10.f)
+		if (LeftRightSpace <= 5.f)
 		{
 			// Going Right
 			if (WallObjPos.x > m_Pos.x)
@@ -305,7 +304,7 @@ void CCharacter::PreventWallMove()
 				m_Pos.x += LeftRightSpace + 0.1f;
 		}
 		// 상하 이동
-		if (UpDownSpace <= 10.f)
+		if (UpDownSpace <= 5.f)
 		{
 			// Going Down
 			if (WallObjPos.y > m_Pos.y)

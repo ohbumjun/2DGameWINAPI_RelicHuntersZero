@@ -64,8 +64,8 @@ enum ECollision_Channel
 	Channel_Player,
 	Channel_Monster,
 	Channel_PlayerAttack,
-	Channel_PlayerLaser,
 	Channel_MonsterAttack,
+	Channel_Wall,
 	Channel_Max
 };
 

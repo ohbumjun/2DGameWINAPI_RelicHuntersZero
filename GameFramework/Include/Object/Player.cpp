@@ -302,15 +302,14 @@ bool CPlayer::Init()
 
 void CPlayer::Update(float DeltaTime)
 {
-
 	CCharacter::Update(DeltaTime);
-
 	// if (GetAsyncKeyState(VK_F1) & 0x8000)
 	// SetAttackSpeed(0.5f);
 	// if (m_DeathAnimationTime > 0.f) return;
 
 	// Wall Move
 	PreventWallMove();
+	MoveWithinWorldResolution();
 
 	// Death
 	if (m_CharacterInfo.HP <= 0 )
@@ -318,8 +317,6 @@ void CPlayer::Update(float DeltaTime)
 		ChangeDeathAnimation();
 		return;
 	}
-
-	MoveWithinWorldResolution();
 
 	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
@@ -376,6 +373,7 @@ void CPlayer::Update(float DeltaTime)
 
 void CPlayer::PostUpdate(float DeltaTime)
 {
+
 	CCharacter::PostUpdate(DeltaTime);
 	if ((CheckCurrentAnimation(PLAYER_RIGHT_WALK) ||
 		CheckCurrentAnimation(PLAYER_RIGHT_RUN) || 
@@ -391,7 +389,7 @@ void CPlayer::PostUpdate(float DeltaTime)
 	{
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 	}
-
+	
 }
 
 void CPlayer::Collision(float DeltaTime)

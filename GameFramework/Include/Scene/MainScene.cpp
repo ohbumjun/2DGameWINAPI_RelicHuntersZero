@@ -90,6 +90,7 @@ bool CMainScene::Init()
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage1.map");
+	
 
 	// Wall Setting
 	SetObjectsToWall();
@@ -125,7 +126,6 @@ bool CMainScene::Init()
 	Map->SetZOrder(1);
 	Map->SetTextureColorKey(255, 0, 255);
 	*/
-
 
 	// Monster
 	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
