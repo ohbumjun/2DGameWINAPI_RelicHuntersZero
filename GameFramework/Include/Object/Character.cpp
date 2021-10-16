@@ -309,12 +309,7 @@ bool CCharacter::PreventWallMove()
 
 		RBIndexX = RBIndexX > TileMap->GetTileCountX() - 1 ? TileMap->GetTileCountX() - 1 : RBIndexX;
 		RBIndexY = RBIndexY > TileMap->GetTileCountY() - 1 ? TileMap->GetTileCountY() - 1 : RBIndexY;
-		
-		RectInfo CharRect, WallRect;
-		CharRect.Left   = LT.x;
-		CharRect.Right  = RB.x;
-		CharRect.Top    = LT.y;
-		CharRect.Bottom = RB.y;
+	
 		for (int i = RBIndexY; i >= LTIndexY; --i)
 		{
 			for (int j = LTIndexX; j <= RBIndexX; ++j)
@@ -338,14 +333,18 @@ bool CCharacter::PreventWallMove()
 				{
 					WallCollision = true;
 
+					RectInfo CharRect, WallRect;
+					CharRect.Left = LT.x;
+					CharRect.Right = RB.x;
+					CharRect.Top = LT.y;
+					CharRect.Bottom = RB.y;
+
 					WallRect.Left   = TilePos.x;
 					WallRect.Right  = TilePos.x + TileSize.x;
 					WallRect.Top    = TilePos.y;
 					WallRect.Bottom = TilePos.y + TileSize.y;
 					
 					RectInfo Intersect = GetInterCollideRect(CharRect, WallRect);
-
-					float	MoveX = TilePos.x - RB.x - 0.001f;
 
 					float UpDownSpace = Intersect.Bottom - Intersect.Top;
 					float LeftRightSpace = Intersect.Right - Intersect.Left;
@@ -354,13 +353,13 @@ bool CCharacter::PreventWallMove()
 					if (LeftRightSpace <= 5.f)
 					{
 						// Going Right
-						if (TilePos.x > m_Pos.x)
+						if (TilePos.x > LT.x)
 						{
 							m_Pos.x -= LeftRightSpace;
 							m_Velocity.x += LeftRightSpace;
 						}
 						// Going Left
-						if (TilePos.x <= m_Pos.x)
+						if (TilePos.x <= LT.x)
 						{
 							m_Pos.x += LeftRightSpace;
 							m_Velocity.x += LeftRightSpace;
@@ -370,13 +369,13 @@ bool CCharacter::PreventWallMove()
 					if (UpDownSpace <= 5.f)
 					{
 						// Going Down
-						if (TilePos.y > m_Pos.y)
+						if (TilePos.y > LT.y)
 						{
 							m_Pos.y -= UpDownSpace;
 							m_Velocity.y += UpDownSpace;
 						}
 						// Going Up
-						if (TilePos.y <= m_Pos.y)
+						if (TilePos.y <= LT.y)
 						{
 							m_Pos.y += UpDownSpace;
 							m_Velocity.y += UpDownSpace;

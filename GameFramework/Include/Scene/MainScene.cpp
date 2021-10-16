@@ -122,7 +122,7 @@ bool CMainScene::Init()
 	*/
 
 	// Monster
-	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }

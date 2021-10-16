@@ -978,6 +978,7 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 	m_MonsterCollideTime = 0.5f;
 }
 
+
 void CPlayer::ChangeHitAnimation()
 {
 	if (m_Dir.x < 0.f)

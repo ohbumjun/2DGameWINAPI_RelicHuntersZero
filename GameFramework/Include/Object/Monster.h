@@ -63,6 +63,7 @@ public :
 	virtual void ChangeRunAnimation() = 0;
 	virtual void ChangeDeathAnimation() = 0;
 	virtual void ChangeHitAnimation() = 0;
+// Wall
 
 // Random Dir Setting
 private :

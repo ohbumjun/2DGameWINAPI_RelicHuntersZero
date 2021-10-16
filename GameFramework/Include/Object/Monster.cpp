@@ -119,14 +119,10 @@ void CMonster::Update(float DeltaTime)
 	// m_Dir.Normalize();
 	Move(m_Dir);
 
-	if (!WallCollisionCheck().empty())
-	{
-		SetRandomTargetDir();
-		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
-	}
-
 	// Wall Move
-	// PreventWallMove();
+	bool WallCollision = PreventWallMove();
+	if (WallCollision) SetRandomTargetDir();
+
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);
@@ -285,6 +281,7 @@ void CMonster::SetRandomTargetDir()
 	m_MoveTargetPos = SetRandomTargetPos();
 	float Angle = GetAngle(m_Pos, m_MoveTargetPos);
 	SetDir(Angle);
+	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 }
 
 Vector2 CMonster::SetRandomTargetPos()
@@ -372,4 +369,5 @@ void CMonster::ChangeHitAnimation()
 		m_ColliderList.clear();
 	}
 }
+
 
