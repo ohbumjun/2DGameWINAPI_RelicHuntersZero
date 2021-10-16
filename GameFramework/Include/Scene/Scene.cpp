@@ -1748,6 +1748,7 @@ CGameObject *CScene::FindPrototype(const std::string &Name)
 	return iter->second;
 }
 
+/*
 void CScene::SetObjectsToWall()
 {
 	CTileMap* TileMap = GetTileMap();
@@ -1774,28 +1775,16 @@ void CScene::SetObjectsToWall()
 				Vector2 TileSize       = TileMap->GetTile(j, i)->GetSize();
 				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
 				Vector2 WallObjPos     = Vector2(TilePos.x + 0.5*TileSize.x, TilePos.y);
-
 				if (TileOption == ETileOption::Wall)
 				{
 					WallObj = CreateObject<CWallObject>(std::to_string(WallNum),WALL_PROTO, WallObjPos, TileSize);
-
-					/*
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-					Monster = CreateObject<T>(std::to_string(EasyMNum), MonsterProtoEasy,
-						TilePos);
-					Monster->Equip(PistolGun);
-					Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-						NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-					EasyMNum += 1;
-					// m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
-					break;
-					*/
 					WallNum += 1;
 				}
 			}
 		}
 	}
 }
+*/
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {

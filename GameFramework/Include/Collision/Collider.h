@@ -117,7 +117,7 @@ public:
 
 public:
 	CGameObject *IsCollisionWithMonster();
-	CGameObject* IsCollisionWithWall();
+	std::vector<CGameObject*> IsCollisionWithWall();
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
 	class CGun *IsCollisionWithGun();

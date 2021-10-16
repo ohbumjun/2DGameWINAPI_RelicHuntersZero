@@ -93,13 +93,7 @@ bool CMainScene::Init()
 	
 
 	// Wall Setting
-	SetObjectsToWall();
-
-	// WorldResolution is set to TileMap
-	// if you want the other World Resolution Size instead of TileMap
-	// Then, you have to set world resolution at the end  
-	// or after TileMap
-	// GetCamera()->SetWorldResolution(2000.f, 2000.f);
+	// SetObjectsToWall();
 
 	// ScrollMap Size 1500.f, 1200.f
 	// Scroll Map : Sky
@@ -128,7 +122,7 @@ bool CMainScene::Init()
 	*/
 
 	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }

@@ -119,8 +119,14 @@ void CMonster::Update(float DeltaTime)
 	// m_Dir.Normalize();
 	Move(m_Dir);
 
-	PreventWallMove();
+	if (!WallCollisionCheck().empty())
+	{
+		SetRandomTargetDir();
+		m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
+	}
 
+	// Wall Move
+	// PreventWallMove();
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();
 	float DistToPlayer  = Distance(m_Pos,PlayerPos);

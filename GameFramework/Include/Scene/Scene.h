@@ -115,7 +115,7 @@ private:
 	CGameObject* FindPrototype(const std::string& Name);
 // Wall Object
 public :
-	void SetObjectsToWall();
+	// void SetObjectsToWall();
 
 public:
 	class CPlayer* CreatePlayer(const std::string& Name,

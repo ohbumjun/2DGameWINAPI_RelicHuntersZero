@@ -53,18 +53,18 @@ CGameObject *CCollider::IsCollisionWithMonster()
 	return nullptr;
 }
 
-CGameObject* CCollider::IsCollisionWithWall()
+std::vector<CGameObject*> CCollider::IsCollisionWithWall()
 {
+	std::vector<CGameObject*> vecWalls;
+	vecWalls.reserve(m_CollisionList.size());
 	auto iter = m_CollisionList.begin();
 	auto iterEnd = m_CollisionList.end();
 	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::WallObject)
-		{
-			return (*iter)->GetOwner();
-		}
+			vecWalls.push_back((*iter)->GetOwner());
 	}
-	return nullptr;
+	return vecWalls;
 }
 
 CPlayer *CCollider::IsCollisionWithPlayer()

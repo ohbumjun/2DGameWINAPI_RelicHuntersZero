@@ -230,16 +230,23 @@ CGameObject* CCharacter::MonsterCollisionCheck()
 	return nullptr;
 }
 
-CGameObject* CCharacter::WallCollisionCheck()
+std::vector<CGameObject*> CCharacter::WallCollisionCheck()
 {
+	std::vector<CGameObject*> vecWalls;
+	vecWalls.reserve(m_ColliderList.size());
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
 	{
-		CGameObject* WallCollide = (*iter)->IsCollisionWithWall();
-		if (WallCollide) return WallCollide;
+		std::vector<CGameObject*> WallsCollide = (*iter)->IsCollisionWithWall();
+		if (!WallsCollide.empty())
+		{
+			size_t WallsCollideN = WallsCollide.size();
+			for(size_t i = 0 ; i < WallsCollideN;i++)
+				vecWalls.push_back(WallsCollide[i]);
+		}
 	}
-	return nullptr;
+	return vecWalls;
 }
 
 void CCharacter::CollideBounceBack(Vector2 Dir)
@@ -276,44 +283,155 @@ RectInfo CCharacter::GetInterCollideRect(RectInfo Rect1, RectInfo Rect2)
 	return Intersect;
 }
 
-void CCharacter::PreventWallMove()
+bool CCharacter::PreventWallMove()
 {
-	CGameObject* CollideWall = WallCollisionCheck();
-	if (CollideWall)
+	bool WallCollision = false;
+	int LTIndexX, LTIndexY, RBIndexX, RBIndexY;
+	CTileMap* TileMap = m_Scene->GetTileMap();
+	if (TileMap)
 	{
-		CWallObject* WallObj = (CWallObject*)CollideWall;
-		Vector2 WallObjPos = WallObj->GetPos();
-		RECT rcInter;
+		// 좌상단, 우하단 위치 구하기 
+		// 충돌해서 겹치는 부분의 
 
-		CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
-		CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
-		RectInfo CharRect = CharCollideBox->GetInfo();
-		RectInfo WallRect = WallCollideBox->GetInfo();
-		RectInfo Intersect = GetInterCollideRect(CharRect, WallRect);
-		float UpDownSpace = Intersect.Bottom - Intersect.Top;
-		float LeftRightSpace = Intersect.Right - Intersect.Left;
+		Vector2 LT = m_Pos - m_Pivot * m_Size;
+		Vector2 RB = LT + m_Size;
 
-		// 좌우 이동 
-		if (LeftRightSpace <= 5.f)
+		// LT ,RB 영억이 바로 충돌 영역 
+		// 이 부분에 있는 tile 들을 구해줄 것이다
+		LTIndexX = TileMap->GetOriginTileIndexX(LT.x);
+		LTIndexY = TileMap->GetOriginTileIndexY(LT.y);
+		RBIndexX = TileMap->GetOriginTileIndexX(RB.x);
+		RBIndexY = TileMap->GetOriginTileIndexY(RB.y);
+
+		// 범위 제한 ( 혹시나 )
+		LTIndexX = LTIndexX < 0 ? 0 : LTIndexX;
+		LTIndexY = LTIndexY < 0 ? 0 : LTIndexY;
+
+		RBIndexX = RBIndexX > TileMap->GetTileCountX() - 1 ? TileMap->GetTileCountX() - 1 : RBIndexX;
+		RBIndexY = RBIndexY > TileMap->GetTileCountY() - 1 ? TileMap->GetTileCountY() - 1 : RBIndexY;
+		
+		RectInfo CharRect, WallRect;
+		CharRect.Left   = LT.x;
+		CharRect.Right  = RB.x;
+		CharRect.Top    = LT.y;
+		CharRect.Bottom = RB.y;
+		for (int i = RBIndexY; i >= LTIndexY; --i)
 		{
-			// Going Right
-			if (WallObjPos.x > m_Pos.x)
-				m_Pos.x -= LeftRightSpace + 0.1f;
-			// Going Left
-			if (WallObjPos.x <= m_Pos.x)
-				m_Pos.x += LeftRightSpace + 0.1f;
-		}
-		// 상하 이동
-		if (UpDownSpace <= 5.f)
-		{
-			// Going Down
-			if (WallObjPos.y > m_Pos.y)
-				m_Pos.y -= UpDownSpace + 0.1f;
-			// Going Up
-			if (WallObjPos.y <= m_Pos.y)
-				m_Pos.y += UpDownSpace + 0.1f;
+			for (int j = LTIndexX; j <= RBIndexX; ++j)
+			{
+				// Tile의 일차원 배열상의 idx 
+				int	Index = i * TileMap->GetTileCountX() + j;
+
+				if (TileMap->GetTile(Index)->GetTileOption() != ETileOption::Wall)
+					continue;
+
+				// 해당 Tile의 위치, size 정보를 가져온다 
+				// TilePos : Tile의 위쪽을 의미한다 
+				Vector2	TilePos = TileMap->GetTile(Index)->GetPos();
+				Vector2	TileSize = TileMap->GetTile(Index)->GetSize();
+
+				// 렉트충돌
+				if (LT.x <= TilePos.x + TileSize.x &&
+					LT.y <= TilePos.y + TileSize.y &&
+					RB.x >= TilePos.x &&
+					RB.y >= TilePos.y)
+				{
+					WallCollision = true;
+
+					WallRect.Left   = TilePos.x;
+					WallRect.Right  = TilePos.x + TileSize.x;
+					WallRect.Top    = TilePos.y;
+					WallRect.Bottom = TilePos.y + TileSize.y;
+					
+					RectInfo Intersect = GetInterCollideRect(CharRect, WallRect);
+
+					float	MoveX = TilePos.x - RB.x - 0.001f;
+
+					float UpDownSpace = Intersect.Bottom - Intersect.Top;
+					float LeftRightSpace = Intersect.Right - Intersect.Left;
+
+					// 좌우 이동 
+					if (LeftRightSpace <= 5.f)
+					{
+						// Going Right
+						if (TilePos.x > m_Pos.x)
+						{
+							m_Pos.x -= LeftRightSpace;
+							m_Velocity.x += LeftRightSpace;
+						}
+						// Going Left
+						if (TilePos.x <= m_Pos.x)
+						{
+							m_Pos.x += LeftRightSpace;
+							m_Velocity.x += LeftRightSpace;
+						}
+					}
+					// 상하 이동
+					if (UpDownSpace <= 5.f)
+					{
+						// Going Down
+						if (TilePos.y > m_Pos.y)
+						{
+							m_Pos.y -= UpDownSpace;
+							m_Velocity.y += UpDownSpace;
+						}
+						// Going Up
+						if (TilePos.y <= m_Pos.y)
+						{
+							m_Pos.y += UpDownSpace;
+							m_Velocity.y += UpDownSpace;
+						}
+					}
+				}
+			}
 		}
 	}
+
+	return WallCollision;
+	/*
+	std::vector<CGameObject*> CollideWalls = WallCollisionCheck();
+	if (!CollideWalls.empty())
+	{
+		size_t WallNums = CollideWalls.size();
+		for (size_t i = 0; i < WallNums; i++)
+		{
+			CGameObject* CollideWall = CollideWalls[i];
+			CWallObject* WallObj = (CWallObject*)CollideWall;
+			Vector2 WallObjPos = WallObj->GetPos();
+			RECT rcInter;
+
+			CColliderBox* CharCollideBox = (CColliderBox*)GetColliderBox();
+			CColliderBox* WallCollideBox = (CColliderBox*)WallObj->GetColliderBox();
+			RectInfo CharRect = CharCollideBox->GetInfo();
+			RectInfo WallRect = WallCollideBox->GetInfo();
+			RectInfo Intersect = GetInterCollideRect(CharRect, WallRect);
+			float UpDownSpace = Intersect.Bottom - Intersect.Top;
+			float LeftRightSpace = Intersect.Right - Intersect.Left;
+
+			// 좌우 이동 
+			if (LeftRightSpace <= 5.f)
+			{
+				// Going Right
+				if (WallObjPos.x > m_Pos.x)
+					m_Pos.x -= LeftRightSpace;
+				// Going Left
+				if (WallObjPos.x <= m_Pos.x)
+					m_Pos.x += LeftRightSpace;
+			}
+			// 상하 이동
+			if (UpDownSpace <= 5.f)
+			{
+				// Going Down
+				if (WallObjPos.y > m_Pos.y)
+					m_Pos.y -= UpDownSpace;
+				// Going Up
+				if (WallObjPos.y <= m_Pos.y)
+					m_Pos.y += UpDownSpace;
+			}
+		}
+	}
+	*/
+
 }
 
 void CCharacter::SetHitDir(Vector2 Dir)

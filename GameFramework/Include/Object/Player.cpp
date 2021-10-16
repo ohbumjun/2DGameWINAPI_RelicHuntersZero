@@ -303,14 +303,13 @@ bool CPlayer::Init()
 void CPlayer::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
-	// if (GetAsyncKeyState(VK_F1) & 0x8000)
-	// SetAttackSpeed(0.5f);
-	// if (m_DeathAnimationTime > 0.f) return;
 
 	// Wall Move
-	PreventWallMove();
-	MoveWithinWorldResolution();
+	bool WallCollision = PreventWallMove();
+	if (WallCollision && m_DashEnable)
+		CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
 
+	MoveWithinWorldResolution();
 	// Death
 	if (m_CharacterInfo.HP <= 0 )
 	{
