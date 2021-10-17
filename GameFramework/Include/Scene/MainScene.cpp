@@ -43,19 +43,24 @@ bool CMainScene::Init()
 	LoadAnimationSequence();
 	SetBasicProtoTypes();
 	SetBasicUIs();
-	
+
 	// Player
-	CPlayer *Player = CreatePlayer("Player", Vector2(230.f, 530.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(350.f, 320.f));
 	SetPlayer(Player);
 
 	// Camera
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
-
-	// Gun
-	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Stage1.map");
+
+	// Monster
+	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+
 	/*
+	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	CDuckMonster*DuckMonster = CreateObject<CDuckMonster>("Monster1",MONSTER_DUCK1_PROTO,
 		Vector2(300.f , 530.f));
 	DuckMonster->Equip(PistolLightGun);
@@ -64,17 +69,19 @@ bool CMainScene::Init()
 	
 	DuckMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	*/
-
+	
 	// Stage Door
-	CStageDoor *StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
-														 Vector2(900.f + rand() % 700, 400.f + rand() % 100),
+	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoor1",
+														 Vector2(200.f,300.f),
 														 Vector2(50.f, 50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
-	StageDoor_One = CreateObject<CStageDoor>("StageDoor2",
-		Vector2(1500.f, 900.f + rand() % 100),
+	StageDoor = CreateObject<CStageDoor>("StageDoor2",
+		Vector2(3500.f, 2200.f),
 		Vector2(50.f, 50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Two);
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Two);
+
+
 
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
@@ -86,11 +93,6 @@ bool CMainScene::Init()
 	CHPPotion *HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO,POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 	HPPotion1->SetTextureColorKey(255, 0, 255);
-
-	// Tile Map
-	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Stage1.map");
-	
 
 	// Wall Setting
 	// SetObjectsToWall();
@@ -120,9 +122,6 @@ bool CMainScene::Init()
 	Map->SetZOrder(1);
 	Map->SetTextureColorKey(255, 0, 255);
 	*/
-
-	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	return true;
 }

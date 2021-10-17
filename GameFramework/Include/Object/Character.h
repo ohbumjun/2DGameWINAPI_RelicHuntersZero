@@ -98,7 +98,7 @@ protected :
 	CGameObject* MonsterCollisionCheck();
 	std::vector<CGameObject*> WallCollisionCheck();
 	virtual void CollideBounceBack(Vector2 Dir);
-	class CCollider* GetColliderBox();
+	// class CCollider* GetColliderBox();
 	RectInfo GetInterCollideRect(RectInfo Rect1, RectInfo Rect2);
 	virtual bool PreventWallMove();
 // Hit
@@ -106,6 +106,8 @@ protected:
 	bool m_HitEnable;
 	float m_HitTime;
 	Vector2 m_HitDir;
+public :
+	void SetHitEnable(bool state) { m_HitEnable = state; }
 public:
 	void SetHitDir(Vector2 Dir);
 	virtual void Hit();

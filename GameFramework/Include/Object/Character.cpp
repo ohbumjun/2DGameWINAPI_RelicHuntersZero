@@ -13,7 +13,7 @@ CCharacter::CCharacter() :
 	m_CurrentGun(nullptr),
 	m_HitEnable(false),
 	m_HitTime(0.f),
-	m_HitDir{}
+	m_HitDir(Vector2(0.f,0.f))
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -23,7 +23,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 	m_CharacterInfo = obj.m_CharacterInfo;
 	m_HitEnable    = false;
 	m_HitTime      = 0.f;
-	m_HitDir = obj.m_HitDir;
+	m_HitDir = Vector2(0.f, 0.f);
 
 	for (int i = 0; i < EGunClass::End; i++)
 	{
@@ -169,7 +169,7 @@ void CCharacter::Move(const Vector2& Dir)
 void CCharacter::Move(const Vector2& Dir, float Speed)
 {
 	// PreventWallMove();
-	if (!m_HitEnable) return;
+	if (!m_HitEnable)
 		CGameObject::Move(Dir, Speed);
 }
 
@@ -257,6 +257,7 @@ void CCharacter::CollideBounceBack(Vector2 Dir)
 	Hit();
 }
 
+/*
 CCollider* CCharacter::GetColliderBox()
 {
 	auto iter = m_ColliderList.begin();
@@ -268,6 +269,7 @@ CCollider* CCharacter::GetColliderBox()
 	}
 	return nullptr;
 }
+*/
 
 RectInfo CCharacter::GetInterCollideRect(RectInfo Rect1, RectInfo Rect2)
 {
@@ -463,6 +465,8 @@ void CCharacter::HitEnd()
 void CCharacter::CharacterDestroy()
 {
 	Destroy();
+
+	// Destroy Equipments 
 	for (int i = 0; i < EGunClass::End; i++)
 	{
 		if (m_GunEquipment[i])

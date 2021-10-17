@@ -44,19 +44,11 @@ bool CMain2Scene::Init()
 	SetBasicProtoTypes();
 	SetBasicUIs();
 
-	// Player
-	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 230.f));
-	SetPlayer(Player);
-
-	// Camera
-	GetCamera()->SetTarget(Player);
-	GetCamera()->SetTargetPivot(0.5f, 0.5f);
-
-	// Gun
-	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 
 	// Monster
 	/*
+	// Gun
+	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
 	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster1", MONSTER_TURTLE1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
 	TurtleMonster->Equip(PistolLightGun);
@@ -70,12 +62,23 @@ bool CMain2Scene::Init()
 	TurtleMonster->Equip(PistolLightGun);
 	*/
 
-	// Stage Door
-	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor1",
-		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
+	CStageDoor* StageDoor = CreateObject<CStageDoor>("StageDoorHome",
+		Vector2(600.f, 300.f),
 		Vector2(50.f, 50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Home);
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
 
+	StageDoor = CreateObject<CStageDoor>("StageDoor3",
+		Vector2(3500.f, 2200.f),
+		Vector2(50.f, 50.f));
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Three);
+
+	// Player
+	CPlayer* Player = CreatePlayer("Player", Vector2(600.f, 330.f));
+	SetPlayer(Player);
+
+	// Camera
+	GetCamera()->SetTarget(Player);
+	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");

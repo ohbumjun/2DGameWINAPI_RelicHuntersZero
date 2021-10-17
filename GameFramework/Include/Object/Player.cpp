@@ -68,6 +68,8 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_DeathAnimationTime = 0.f;
 	m_SkillDestoryAllAttackEnable = false;
 	m_SkillDestoryAllAttackTime   = 0.f;
+	m_MoveSpeed = NORMAL_SPEED;
+
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -253,14 +255,15 @@ bool CPlayer::Init()
 	SetNotifyFunctions();
 
 	// Collider ---
-	// CColliderSphere *Head = AddCollider<CColliderSphere>("Head");
-	// Head->SetRadius(20.f);
-	// Head->SetOffset(0.f, -60.f);
-	// Head->SetCollisionProfile("Player");
+	// Collider ---
+	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
+	Head->SetRadius(20.f);
+	Head->SetOffset(0.f, -60.f);
+	Head->SetCollisionProfile("Player");
 
-	CColliderBox *Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(60.f, 80.f);
-	Body->SetOffset(0.f, -50.0f);
+	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	Body->SetExtent(80.f, 45.f);
+	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
 
 	// Widget ---
@@ -303,11 +306,15 @@ bool CPlayer::Init()
 void CPlayer::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
-
 	// Wall Move
 	bool WallCollision = PreventWallMove();
-	if (WallCollision && m_DashEnable)
-		CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
+	if (WallCollision)
+	{
+		if (m_DashEnable)
+			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
+		if (m_RunEnable)
+			RunEnd();
+	}
 
 	MoveWithinWorldResolution();
 	// Death
@@ -372,7 +379,6 @@ void CPlayer::Update(float DeltaTime)
 
 void CPlayer::PostUpdate(float DeltaTime)
 {
-
 	CCharacter::PostUpdate(DeltaTime);
 	if ((CheckCurrentAnimation(PLAYER_RIGHT_WALK) ||
 		CheckCurrentAnimation(PLAYER_RIGHT_RUN) || 
@@ -959,7 +965,7 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 {
 	float MonsterDamage = (float)CollideMonster->GetAttack();
-
+	// this
 	// Damage Font
 	if (m_MonsterCollideTime <= 0.f)
 	{

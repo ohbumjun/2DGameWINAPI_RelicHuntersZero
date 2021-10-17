@@ -41,6 +41,7 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
+	m_AI = EMonsterAI::Idle;
 	
 	// Name
 	m_mapAnimName.clear();
@@ -70,8 +71,6 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 
 CMonster::~CMonster()
 {
-	m_HPBarWidget = nullptr;
-	m_MPBarWidget = nullptr;
 }
 
 void CMonster::Start()
@@ -111,7 +110,6 @@ bool CMonster::Init()
 void CMonster::Update(float DeltaTime)
 {
 	CCharacter::Update(DeltaTime);
-
 	// Monster Move 
 	m_Dir.Normalize();
 	// m_Pos += m_Dir * m_MoveSpeed * DeltaTime ;
@@ -211,7 +209,6 @@ void CMonster::Update(float DeltaTime)
 void CMonster::PostUpdate(float DeltaTime)
 {
 	CCharacter::PostUpdate(DeltaTime);
-	PreventWallMove();
 }
 
 void CMonster::Collision(float DeltaTime)

@@ -26,7 +26,6 @@ public:
 		// 어차피 공유되는 Object는 Player 한명이기 때문이다 
 		m_CommonPlayer.clear();
 		m_CommonPlayer.push_back(Object->Clone());
-
 	}
 
 public:

@@ -30,10 +30,6 @@ bool CEffectSurprise::Init()
 	CreateAnimation();
 	AddAnimation(SURPRISE_EFFECT, false, 0.7f);
 
-	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
-	Body->SetRadius(25.f);
-	Body->SetOffset(0.f, 0.f);
-
 	return true;
 }
 

@@ -277,10 +277,8 @@ inline void CScene::SetMonsterOnTileMap(
 		// Tile Idx 
 		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
 		LeftIndexX   = TileMap->GetOriginTileIndexX(0);
-		// RightIndexX = TileMap->GetOriginTileIndexX(TileMap->GetTileCountX() - 1);
 		RightIndexX  = TileMap->GetTileCountX() - 1;
 		TopIndexY    = TileMap->GetOriginTileIndexY(0);
-		// BottomIndexY = TileMap->GetOriginTileIndexY(TileMap->GetTileCountY() - 1);
 		BottomIndexY = TileMap->GetTileCountY() - 1;
 
 		int EasyMNum = 0, MidMNum = 0, HardMNum = 0;
@@ -292,39 +290,32 @@ inline void CScene::SetMonsterOnTileMap(
 			{
 				Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
-
 				if (TileOption == ETileOption::MonsterLight)
 				{
 
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, TilePos);
 					Monster = CreateObject<T>(std::to_string(EasyMNum), MonsterProtoEasy,
 						TilePos);
 					Monster->Equip(PistolGun);
-					Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-						NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 					EasyMNum += 1;
-					// m_Pos.y = (TilePosY + TileSizeY) + m_Pivot.y * m_Size.y + 0.1f;
 					break;
 				}
+				
 				if (TileOption == ETileOption::MonsterMedium)
 				{
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO);
+					PistolGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO,TilePos);
 					Monster = CreateObject<T>(std::to_string(MidMNum), MonsterProtoMid,
 						TilePos);
 					Monster->Equip(PistolGun);
-					Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-						NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 					MidMNum += 1;
 					break;
 				}
 				if (TileOption == ETileOption::MonsterHard)
 				{
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO);
+					PistolGun = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, TilePos);
 					Monster = CreateObject<T>(std::to_string(HardMNum), MonsterProtoHard,
 						TilePos);
 					Monster->Equip(PistolGun);
-					Monster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-						NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 					HardMNum += 1;
 				}
 			}

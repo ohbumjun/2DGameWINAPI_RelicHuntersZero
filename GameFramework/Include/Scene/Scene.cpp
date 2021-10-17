@@ -1339,6 +1339,7 @@ bool CScene::Init()
 
 bool CScene::Update(float DeltaTime)
 {
+
 	if (m_Player)
 	{
 		/*
@@ -1788,12 +1789,14 @@ void CScene::SetObjectsToWall()
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {
+	
+
 	CPlayer *Player = (CPlayer*)CSceneManager::GetInst()->GetPlayer();
 
 	if (!Player)
 	{
 		Player = CreateObject<CPlayer>("Player", Pos, Size);
-		Player->SetCharacterInfo(101, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, PLAYER_INIT_STEMINA, 1, 1, 1,
+		Player->SetCharacterInfo(40, 20, PLAYER_INIT_HP, PLAYER_INIT_MP, PLAYER_INIT_STEMINA, 1, 1, 1,
 								 NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
 		return Player;
 	}
