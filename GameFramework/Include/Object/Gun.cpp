@@ -74,10 +74,8 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("PlayerAttack");
-
 	// Casing
 	CreateCasing(Bullet);
-
 	// Bullet Effect
 	CreateBulletEffect();
 

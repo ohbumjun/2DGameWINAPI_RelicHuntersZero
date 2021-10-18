@@ -10,13 +10,6 @@ protected:
 	CTurtleMonster(const CTurtleMonster& obj);
 	virtual ~CTurtleMonster();
 
-private :
-	float m_ShieldTime;
-	float m_ShieldTimeMax;
-	float m_ShieldEnableTime;
-	bool  m_ShieldEnable;
-	class CEffectShield* m_Shield;
-
 // Animation
 public:
 	virtual void ChangeIdleAnimation();

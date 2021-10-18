@@ -58,7 +58,7 @@ bool CMainScene::Init()
 	TileMap->LoadFile("Stage1.map");
 
 	// Monster
-	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
 	CKamiKazeMonster*KamikazeMonster = CreateObject<CKamiKazeMonster>("Kamikaze1",MONSTER_KAMIKAZE2_PROTO,
 		Vector2(300.f , 530.f));

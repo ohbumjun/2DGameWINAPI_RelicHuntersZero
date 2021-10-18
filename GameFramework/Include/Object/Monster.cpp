@@ -113,7 +113,10 @@ void CMonster::Update(float DeltaTime)
 	// this
 	CCharacter::Update(DeltaTime);
 	// Monster Move 
-	m_Dir.Normalize();
+	float DirLength = m_Dir.Length();
+
+	if(DirLength != 0.f)
+		m_Dir.Normalize();
 
 	// m_Dir.Normalize();
 	Move(m_Dir);

@@ -6,6 +6,7 @@
 #include "../Object/Gun.h"
 #include "../Object/WallObject.h"
 #include "../Collision/ColliderBox.h"
+#include "EffectShield.h"
 
 CCharacter::CCharacter() : 
 	m_CharacterInfo{},
@@ -13,7 +14,12 @@ CCharacter::CCharacter() :
 	m_CurrentGun(nullptr),
 	m_HitEnable(false),
 	m_HitTime(0.f),
-	m_HitDir(Vector2(0.f,0.f))
+	m_HitDir(Vector2(0.f,0.f)),
+	m_ShieldEnable(false),
+	m_ShieldTime(0.f),
+	m_ShieldTimeMax(3.f),
+	m_ShieldEnableTime(2.f),
+	m_Shield(nullptr)
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -24,6 +30,11 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 	m_HitEnable    = false;
 	m_HitTime      = 0.f;
 	m_HitDir = Vector2(0.f, 0.f);
+
+	m_ShieldEnable = false;
+	m_ShieldTime = 0.f;
+	m_ShieldTimeMax = 3.f;
+	m_ShieldEnableTime = 2.f;
 
 	for (int i = 0; i < EGunClass::End; i++)
 	{

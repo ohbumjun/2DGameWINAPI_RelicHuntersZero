@@ -112,7 +112,12 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 
 	Dest->GetOwner()->SetDamage(m_Damage);
 
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
+		m_Pos, Vector2(178.f, 164.f));
+	m_Scene->GetSceneResource()->SoundPlay("Fire");
+
 	CGameObject* DestOwner = Dest->GetOwner();
+	// bool DestShieldEnable = DestOwner->GetShieldEnable();
 	Vector2 DestSize = DestOwner->GetSize();
 	Vector2 BulletDir = m_Dir;
 
@@ -124,9 +129,6 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		DestChar->Hit();
 	}
 
-	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
-		m_Pos, Vector2(178.f, 164.f));
-	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 	int Armor = 0;
 	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||

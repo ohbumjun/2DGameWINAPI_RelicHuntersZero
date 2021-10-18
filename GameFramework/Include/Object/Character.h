@@ -60,7 +60,17 @@ public :
 	{
 		return m_CharacterInfo.Attack;
 	}
-
+protected:
+	float m_ShieldTime;
+	float m_ShieldTimeMax;
+	float m_ShieldEnableTime;
+	bool  m_ShieldEnable;
+	class CEffectShield* m_Shield;
+public :
+	bool GetShieldEnable() const
+	{
+		return m_ShieldEnable;
+	}
 public:
 	virtual void Start();
 	virtual bool Init();

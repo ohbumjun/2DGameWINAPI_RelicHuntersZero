@@ -2,20 +2,14 @@
 #include "EffectShield.h"
 #include "../Scene/Scene.h"
 
-CTurtleMonster::CTurtleMonster() : 
-	m_ShieldEnable(false), 
-	m_ShieldTime(0.f),
-	m_ShieldTimeMax(3.f),
-	m_ShieldEnableTime(2.f)
+CTurtleMonster::CTurtleMonster() 
 {
 }
 
 CTurtleMonster::CTurtleMonster(const CTurtleMonster& obj) : CMonster(obj)
 {
-	m_ShieldEnable = false;
-	m_ShieldTime = 0.f;
-	m_ShieldTimeMax = 3.f;	
-	m_ShieldEnableTime = 2.f;
+	if(obj.m_Shield && obj.m_Shield->IsActive())
+		m_Shield = obj.m_Shield->Clone();
 }
 
 CTurtleMonster::~CTurtleMonster()
