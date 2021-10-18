@@ -46,12 +46,13 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual float SetDamage(float Damage);
-
+// Collision
+public :
+	bool PlayerCollisionCheck();
 // Attack
 public :
 	void AttackEnd();
 	void Fire();
-
 // Move
 public :
 	virtual void Move(const Vector2& Dir);
@@ -63,8 +64,6 @@ public :
 	virtual void ChangeRunAnimation() = 0;
 	virtual void ChangeDeathAnimation() = 0;
 	virtual void ChangeHitAnimation() = 0;
-// Wall
-
 // Random Dir Setting
 private :
 	void SetRandomTargetDir();

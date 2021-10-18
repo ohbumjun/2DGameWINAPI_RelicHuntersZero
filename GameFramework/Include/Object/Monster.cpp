@@ -229,6 +229,17 @@ float CMonster::SetDamage(float Damage)
 	return Damage;
 }
 
+bool CMonster::PlayerCollisionCheck()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->IsCollisionWithPlayer()) return true;
+	}
+	return false;
+}
+
 void CMonster::AttackEnd()
 {
 	// m_MoveSpeed = NORMAL_MONSTER_MOVE_SPEED;

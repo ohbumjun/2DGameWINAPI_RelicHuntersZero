@@ -84,15 +84,6 @@
     <Filter Include="04. Resource\03. Sound\01. FMOD">
       <UniqueIdentifier>{2457672f-99e8-4d6e-903d-25fdadb0f577}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Object\04. Items">
-      <UniqueIdentifier>{2dc746a1-6b47-460b-95f3-f40578493cb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Object\04. Items\1.Portions">
-      <UniqueIdentifier>{51627bbf-396b-44ac-96c3-1f64e81a5e26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Object\04. Items\2. Equipment">
-      <UniqueIdentifier>{cb12c7b8-b7eb-4e93-b253-5a9709fd6ff2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. GameManager\02. Scene\04. SubScenes">
       <UniqueIdentifier>{dfc24fbd-0e07-4a91-ae84-f0f29e37f06f}</UniqueIdentifier>
     </Filter>
@@ -126,6 +117,15 @@
     </Filter>
     <Filter Include="03. Object\06. WallObj">
       <UniqueIdentifier>{7a2fa660-9af5-4019-bc82-b2112c034ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\03. Effect\02. StaticEffect\04. Items">
+      <UniqueIdentifier>{2dc746a1-6b47-460b-95f3-f40578493cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions">
+      <UniqueIdentifier>{51627bbf-396b-44ac-96c3-1f64e81a5e26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment">
+      <UniqueIdentifier>{cb12c7b8-b7eb-4e93-b253-5a9709fd6ff2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -241,25 +241,25 @@
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
     <ClCompile Include="Object\StageDoor.cpp">
-      <Filter>03. Object\04. Items</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items</Filter>
     </ClCompile>
     <ClCompile Include="Object\Armor.cpp">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClCompile>
     <ClCompile Include="Object\Equipment.cpp">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClCompile>
     <ClCompile Include="Object\Weapon.cpp">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClCompile>
     <ClCompile Include="Object\Potion.cpp">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClCompile>
     <ClCompile Include="Object\HPPotion.cpp">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClCompile>
     <ClCompile Include="Object\MPPotion.cpp">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClCompile>
     <ClCompile Include="Scene\HomeScene.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
@@ -534,25 +534,25 @@
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
     <ClInclude Include="Object\StageDoor.h">
-      <Filter>03. Object\04. Items</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items</Filter>
     </ClInclude>
     <ClInclude Include="Object\Armor.h">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClInclude>
     <ClInclude Include="Object\Equipment.h">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClInclude>
     <ClInclude Include="Object\Weapon.h">
-      <Filter>03. Object\04. Items\2. Equipment</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment</Filter>
     </ClInclude>
     <ClInclude Include="Object\Potion.h">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClInclude>
     <ClInclude Include="Object\HPPotion.h">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClInclude>
     <ClInclude Include="Object\MPPotion.h">
-      <Filter>03. Object\04. Items\1.Portions</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect\04. Items\1.Portions</Filter>
     </ClInclude>
     <ClInclude Include="Scene\HomeScene.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>

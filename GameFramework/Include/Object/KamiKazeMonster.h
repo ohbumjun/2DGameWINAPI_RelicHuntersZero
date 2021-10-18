@@ -37,6 +37,7 @@ private:
 	virtual void AIWalk(float DeltaTime);
 	virtual void AITrace(float DeltaTime, Vector2 PlayerPos);
 	virtual void AIDeath(float DeltaTime);
+	virtual void AIAttack(float DeltaTime, Vector2 PlayerPos);
 	virtual void AIHit(float DeltaTime);
 };
 
