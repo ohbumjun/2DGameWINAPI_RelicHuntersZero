@@ -110,7 +110,6 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
 	Destroy();
 
-	Dest->GetOwner()->SetDamage(m_Damage);
 
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 		m_Pos, Vector2(178.f, 164.f));
@@ -127,6 +126,8 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		bool DestShieldEnable = DestChar->GetShieldEnable();
 		if (!DestShieldEnable)
 		{
+			
+			// Hit 
 			DestChar->SetHitDir(BulletDir);
 			DestChar->Hit();
 			int Armor = 0;
@@ -134,8 +135,12 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 				Dest->GetOwner()->GetObjType() == EObject_Type::Player)
 				Armor = Dest->GetOwner()->GetArmor();
 
+			// Damage Font
 			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 			DamageFont->SetDamageNumber((int)(m_Damage - Armor));
+			
+			// Damage
+			Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));
 		}
 	}
 

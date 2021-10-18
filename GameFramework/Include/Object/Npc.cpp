@@ -1,5 +1,6 @@
 #include "Npc.h"
 #include "../UI/UIText.h"
+#include "../Collision/ColliderBox.h"
 
 CNpc::CNpc()
 {
@@ -59,12 +60,19 @@ bool CNpc::Init()
     CreateAnimation();
     AddAnimation(NPC_IDLE, true, 2.f);
 
+    // Widget 
     m_TypeWidget = CreateWidgetComponent("TypeWidget");
     CUIText* NameText = m_TypeWidget->CreateWidget<CUIText>("TypeText");
     NameText->SetText(TEXT("MP"));
     NameText->SetTextColor(10, 10, 10);
     m_TypeWidget->SetPos(-15.f, -90.f);
 
+    // Collider
+    CColliderBox* Body = AddCollider<CColliderBox>("Body");
+    Body->SetExtent(82.f, 73.f);
+    Body->SetOffset(0.f, -39.5f);
+    Body->SetCollisionProfile("Player");
+    return true;
 }
 
 void CNpc::Update(float DeltaTime)

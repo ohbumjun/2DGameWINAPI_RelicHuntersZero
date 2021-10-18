@@ -151,7 +151,9 @@ void CKamiKazeCage::CharacterDestroy()
 
 	for (int i = 0; i < 5; i++)
 	{
-		KamikazeMonster = m_Scene->CreateObject<CKamiKazeMonster>("Kamikaze"+std::to_string(i), ProtoName,m_Pos);
+		KamikazeMonster = m_Scene->CreateObject<CKamiKazeMonster>(
+			"Kamikaze"+std::to_string(i), ProtoName,
+			m_Pos + i*2.f);
 		KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 			NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 		KamikazeMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
