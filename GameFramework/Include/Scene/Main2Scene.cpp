@@ -50,14 +50,14 @@ bool CMain2Scene::Init()
 	// Monster
 	CKamiKazeCage* KamiKaze = CreateObject<CKamiKazeCage>("KamiKazeCage", MONSTER_KAMIKAZECAGE_PROTO, 
 		Vector2(300.f,300.f));
+
+	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
+	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster2", MONSTER_TURTLE2_PROTO, 
+		Vector2(300.f + rand() % 700, 500.f + (float)(rand() % 100)));
+	TurtleMonster->Equip(PistolLightGun);
 	/*
 	// Gun
-	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-
-	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	TurtleMonster = CreateObject<CTurtleMonster>("Monster2", MONSTER_TURTLE2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	TurtleMonster->Equip(PistolLightGun);
 
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	TurtleMonster = CreateObject<CTurtleMonster>("Monster3", MONSTER_TURTLE3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));

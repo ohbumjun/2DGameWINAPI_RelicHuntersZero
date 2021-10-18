@@ -1,6 +1,6 @@
 #include "EffectShield.h"
 
-CEffectShield::CEffectShield()
+CEffectShield::CEffectShield() : m_Owner(nullptr)
 {
 	m_ObjType = EObject_Type::Effect;
 	m_ShieldType = EShield_Type::Player;
@@ -9,6 +9,7 @@ CEffectShield::CEffectShield()
 CEffectShield::CEffectShield(const CEffectShield& obj) : CGameObject(obj)
 {
 	CGameObject::Start();
+	m_Owner = nullptr;
 }
 
 CEffectShield::~CEffectShield()
@@ -18,9 +19,9 @@ CEffectShield::~CEffectShield()
 void CEffectShield::Start()
 {
 	CGameObject::Start();
-	SetAnimationEndNotify<CEffectShield>(SHIELD_TURTLE, this, &CEffectShield::AnimationFinish);
-	SetAnimationEndNotify<CEffectShield>(SHIELD_PLAYER, this, &CEffectShield::AnimationFinish);
-	SetAnimationEndNotify<CEffectShield>(SHIELD_BOSS, this, &CEffectShield::AnimationFinish);
+	// SetAnimationEndNotify<CEffectShield>(SHIELD_TURTLE, this, &CEffectShield::AnimationFinish);
+	// SetAnimationEndNotify<CEffectShield>(SHIELD_PLAYER, this, &CEffectShield::AnimationFinish);
+	// SetAnimationEndNotify<CEffectShield>(SHIELD_BOSS,   this, &CEffectShield::AnimationFinish);
 }
 
 bool CEffectShield::Init()
@@ -30,10 +31,9 @@ bool CEffectShield::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation(SHIELD_TURTLE, false, 0.2f);
-	AddAnimation(SHIELD_PLAYER, false, 0.2f);
-	AddAnimation(SHIELD_BOSS, false, 0.2f);
-
+	AddAnimation(SHIELD_TURTLE, true, 0.5f);
+	AddAnimation(SHIELD_PLAYER, true, 0.5f);
+	AddAnimation(SHIELD_BOSS,   true, 0.5f);
 	return true;
 }
 
@@ -54,6 +54,14 @@ void CEffectShield::Update(float DeltaTime)
 		break;
 	default:
 		break;
+	}
+
+	if (m_Owner)
+	{
+		Vector2 OwnerSize = m_Owner->GetSize();
+		Vector2 OwnerPos = m_Owner->GetPos();
+		m_Pos.y = OwnerPos.y - OwnerSize.y * 0.5f;
+		m_Pos.x = OwnerPos.x;
 	}
 }
 

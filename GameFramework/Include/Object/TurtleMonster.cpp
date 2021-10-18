@@ -1,11 +1,21 @@
 #include "TurtleMonster.h"
+#include "EffectShield.h"
+#include "../Scene/Scene.h"
 
-CTurtleMonster::CTurtleMonster()
+CTurtleMonster::CTurtleMonster() : 
+	m_ShieldEnable(false), 
+	m_ShieldTime(0.f),
+	m_ShieldTimeMax(3.f),
+	m_ShieldEnableTime(2.f)
 {
 }
 
 CTurtleMonster::CTurtleMonster(const CTurtleMonster& obj) : CMonster(obj)
 {
+	m_ShieldEnable = false;
+	m_ShieldTime = 0.f;
+	m_ShieldTimeMax = 3.f;	
+	m_ShieldEnableTime = 2.f;
 }
 
 CTurtleMonster::~CTurtleMonster()
@@ -241,6 +251,28 @@ void CTurtleMonster::Update(float DeltaTime)
 	CMonster::Update(DeltaTime);
 	if (m_TypeChanged)
 		SetAnimNames();
+
+	m_ShieldTime += DeltaTime;
+	// Make Shield per 3 sec
+	if (m_ShieldTime >= m_ShieldTimeMax)
+	{
+		m_ShieldTime -= m_ShieldTimeMax;
+		m_Shield = m_Scene->CreateObject<CEffectShield>("Shield",SHIELD_PROTO, m_Pos);
+		m_Shield->SetShieldType(EShield_Type::Turtle);
+		m_Shield->SetOwner(this);
+		m_ShieldEnable = true;
+		m_ShieldEnableTime = 1.f;
+	}
+	// Maintain Shield for 1sec
+	if (m_ShieldEnable && m_ShieldEnableTime > 0.f)
+	{
+		m_ShieldEnableTime -= DeltaTime;
+		if (m_ShieldEnableTime <= 0.f)
+		{
+			m_ShieldEnable = false;
+			m_Shield->Destroy();
+		}
+	}
 }
 
 void CTurtleMonster::PostUpdate(float DeltaTime)

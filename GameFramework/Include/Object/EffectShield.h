@@ -4,16 +4,21 @@ class CEffectShield :
     public CGameObject
 {
 	friend class CScene;
-protected:
+public:
 	CEffectShield();
 	CEffectShield(const CEffectShield& obj);
 	virtual ~CEffectShield();
 private :
 	EShield_Type m_ShieldType;
+	CGameObject* m_Owner;
 public :
 	void SetShieldType(EShield_Type Type)
 	{
 		m_ShieldType = Type;
+	}
+	void SetOwner(CGameObject* Owner)
+	{
+		m_Owner = Owner;
 	}
 public:
 	virtual void Start();

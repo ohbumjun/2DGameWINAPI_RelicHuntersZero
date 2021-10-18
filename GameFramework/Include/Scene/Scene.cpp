@@ -11,6 +11,7 @@
 #include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
+#include "../Object/EffectShield.h"
 #include "../Object/DamageFont.h"
 #include "../Object/WallObject.h"
 #include "../Object/DuckMonster.h"
@@ -1277,6 +1278,9 @@ void CScene::SetBasicProtoTypes()
 
 	// Coin
 	CCoin* CoinPrototype = CreatePrototype<CCoin>(COIN_PROTO);
+
+	// Shield
+	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
 
 	// Guns
 	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT_PROTO);
