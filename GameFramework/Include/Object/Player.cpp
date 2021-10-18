@@ -305,7 +305,9 @@ bool CPlayer::Init()
 
 void CPlayer::Update(float DeltaTime)
 {
+	// this	
 	CCharacter::Update(DeltaTime);
+
 	// Wall Move
 	bool WallCollision = PreventWallMove();
 	if (WallCollision)
@@ -313,7 +315,7 @@ void CPlayer::Update(float DeltaTime)
 		if (m_DashEnable)
 			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
 		if (m_RunEnable)
-			RunEnd();
+			SetMoveSpeed(NORMAL_SPEED);
 	}
 
 	MoveWithinWorldResolution();
@@ -394,7 +396,6 @@ void CPlayer::PostUpdate(float DeltaTime)
 	{
 		ChangeAnimation(PLAYER_LEFT_IDLE);
 	}
-	
 }
 
 void CPlayer::Collision(float DeltaTime)

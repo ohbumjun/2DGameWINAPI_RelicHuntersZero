@@ -84,6 +84,10 @@ public:
 	void SetTurtle1MonsterAnimation();
 	void SetTurtle2MonsterAnimation();
 	void SetTurtle3MonsterAnimation();
+	void SetKamikaze1MonsterAnimation();
+public:
+	void SetLevel3MonsterAnimation();
+	void SetKamikaze2MonsterAnimation();
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();
@@ -288,30 +292,29 @@ inline void CScene::SetMonsterOnTileMap(
 		{
 			for (int j = LeftIndexX; j <= RightIndexX; j++)
 			{
-				Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
 				if (TileOption == ETileOption::MonsterLight)
 				{
-
+					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, TilePos);
 					Monster = CreateObject<T>(std::to_string(EasyMNum), MonsterProtoEasy,
 						TilePos);
 					Monster->Equip(PistolGun);
 					EasyMNum += 1;
-					break;
 				}
 				
 				if (TileOption == ETileOption::MonsterMedium)
 				{
+					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO,TilePos);
 					Monster = CreateObject<T>(std::to_string(MidMNum), MonsterProtoMid,
 						TilePos);
 					Monster->Equip(PistolGun);
 					MidMNum += 1;
-					break;
 				}
 				if (TileOption == ETileOption::MonsterHard)
 				{
+					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, TilePos);
 					Monster = CreateObject<T>(std::to_string(HardMNum), MonsterProtoHard,
 						TilePos);

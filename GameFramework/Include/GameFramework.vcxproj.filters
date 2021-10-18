@@ -372,6 +372,9 @@
     <ClCompile Include="Object\WallObject.cpp">
       <Filter>03. Object\06. WallObj</Filter>
     </ClCompile>
+    <ClCompile Include="Object\KamiKazeMonster.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -664,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="Object\WallObject.h">
       <Filter>03. Object\06. WallObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\KamiKazeMonster.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

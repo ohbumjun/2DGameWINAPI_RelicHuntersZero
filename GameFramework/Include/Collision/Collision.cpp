@@ -15,6 +15,8 @@ bool CCollision::CollisionBoxToBox(CColliderBox* Src, CColliderBox* Dest)
 
 bool CCollision::CollisionBoxToBox(const RectInfo& Src, const RectInfo& Dest)
 {
+	if (isnan(Src.Left) != 0 || isnan(Dest.Left) != 0) return false;
+
 	if (Src.Left > Dest.Right)
 		return false;
 

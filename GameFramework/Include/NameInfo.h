@@ -173,7 +173,7 @@
 #define MONSTER_TURTLE1_LEFT_HIT    "Turtle1LeftHit"
 #define MONSTER_TURTLE1_RIGHT_HIT   "Turtle1RightHit"
 
-// Duck2
+// Turtle2
 #define MONSTER_TURTLE2_RIGHT_IDLE   "Turtle2RightIdle"
 #define MONSTER_TURTLE2_RIGHT_WALK   "Turtle2RightWalk"
 #define MONSTER_TURTLE2_RIGHT_RUN    "Turtle2RightRun"
@@ -189,7 +189,7 @@
 #define MONSTER_TURTLE2_LEFT_HIT    "Turtle2LeftHit"
 #define MONSTER_TURTLE2_RIGHT_HIT   "Turtle2RightHit"
 
-// Duck3
+// Turtle3
 #define MONSTER_TURTLE3_RIGHT_IDLE   "Turtle3RightIdle"
 #define MONSTER_TURTLE3_RIGHT_WALK   "Turtle3RightWalk"
 #define MONSTER_TURTLE3_RIGHT_RUN    "Turtle3RightRun"
@@ -204,5 +204,37 @@
 #define MONSTER_TURTLE3_RIGHT_DEATH "Turtle3RightDeath"
 #define MONSTER_TURTLE3_LEFT_HIT    "Turtle3LeftHit"
 #define MONSTER_TURTLE3_RIGHT_HIT   "Turtle3RightHit"
+
+// KamiKaze1
+#define MONSTER_KAMIKAZE1_RIGHT_IDLE   "Kamikaze1RightIdle"
+#define MONSTER_KAMIKAZE1_RIGHT_WALK   "Kamikaze1RightWalk"
+#define MONSTER_KAMIKAZE1_RIGHT_RUN    "Kamikaze1RightRun"
+#define MONSTER_KAMIKAZE1_RIGHT_ATTACK "Kamikaze1RightAttack"
+
+#define MONSTER_KAMIKAZE1_LEFT_IDLE   "Kamikaze1LeftIdle"
+#define MONSTER_KAMIKAZE1_LEFT_WALK   "Kamikaze1LeftWalk"
+#define MONSTER_KAMIKAZE1_LEFT_RUN    "Kamikaze1LeftRun"
+#define MONSTER_KAMIKAZE1_LEFT_ATTACK "Kamikaze1LeftAttack"
+
+#define MONSTER_KAMIKAZE1_LEFT_DEATH  "Kamikaze1LeftDeath"
+#define MONSTER_KAMIKAZE1_RIGHT_DEATH "Kamikaze1RightDeath"
+#define MONSTER_KAMIKAZE1_LEFT_HIT    "Kamikaze1LeftHit"
+#define MONSTER_KAMIKAZE1_RIGHT_HIT   "Kamikaze1RightHit"
+
+// KamiKaze2
+#define MONSTER_KAMIKAZE2_RIGHT_IDLE   "Kamikaze2RightIdle"
+#define MONSTER_KAMIKAZE2_RIGHT_WALK   "Kamikaze2RightWalk"
+#define MONSTER_KAMIKAZE2_RIGHT_RUN    "Kamikaze2RightRun"
+#define MONSTER_KAMIKAZE2_RIGHT_ATTACK "Kamikaze2RightAttack"
+
+#define MONSTER_KAMIKAZE2_LEFT_IDLE   "Kamikaze2LeftIdle"
+#define MONSTER_KAMIKAZE2_LEFT_WALK   "Kamikaze2LeftWalk"
+#define MONSTER_KAMIKAZE2_LEFT_RUN    "Kamikaze2LeftRun"
+#define MONSTER_KAMIKAZE2_LEFT_ATTACK "Kamikaze2LeftAttack"
+
+#define MONSTER_KAMIKAZE2_LEFT_DEATH  "Kamikaze2LeftDeath"
+#define MONSTER_KAMIKAZE2_RIGHT_DEATH "Kamikaze2RightDeath"
+#define MONSTER_KAMIKAZE2_LEFT_HIT    "Kamikaze2LeftHit"
+#define MONSTER_KAMIKAZE2_RIGHT_HIT   "Kamikaze2RightHit"
 
 

@@ -107,7 +107,10 @@ enum class EMonster_Type
 	Duck3,
 	Turtle1,
 	Turtle2,
-	Turtle3
+	Turtle3,
+	KamiKaze1,
+	KamiKaze2,
+	Boss
 };
 
 enum class EPotion_Type

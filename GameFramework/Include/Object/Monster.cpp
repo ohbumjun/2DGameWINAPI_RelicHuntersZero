@@ -41,8 +41,9 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
+
+	//this
 	m_AI = EMonsterAI::Idle;
-	
 	// Name
 	m_mapAnimName.clear();
 	{
@@ -53,7 +54,6 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 			m_mapAnimName.insert(std::make_pair(iter->first, iter->second));
 		}
 	}
-
 	// Widget
 	{
 		auto iter = m_WidgetComponentList.begin();
@@ -109,10 +109,10 @@ bool CMonster::Init()
 
 void CMonster::Update(float DeltaTime)
 {
+	// this
 	CCharacter::Update(DeltaTime);
 	// Monster Move 
 	m_Dir.Normalize();
-	// m_Pos += m_Dir * m_MoveSpeed * DeltaTime ;
 
 	// m_Dir.Normalize();
 	Move(m_Dir);
