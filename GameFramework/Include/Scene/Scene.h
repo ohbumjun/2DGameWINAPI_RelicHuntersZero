@@ -88,6 +88,7 @@ public:
 	void SetKamikaze2MonsterAnimation();
 public:
 	void SetLevel3MonsterAnimation();
+	void SetKamikazeCageMonsterAnimation();
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();

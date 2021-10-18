@@ -257,8 +257,7 @@ void CKamiKazeMonster::AIDeath(float DeltaTime)
 
 void CKamiKazeMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 {
-	float Angle = GetAngle(m_Pos, PlayerPos);
-	SetDir(Angle);
+	CMonster::AIAttack(DeltaTime, PlayerPos);
 }
 
 void CKamiKazeMonster::AIHit(float DeltaTime)

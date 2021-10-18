@@ -5,6 +5,7 @@
 #include "../GameManager.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/MainScene.h"
+#include "../Scene/Main2Scene.h"
 #include "../Scene/EditorScene.h"
 #include "../Scene/SceneManager.h"
 #include "UIText.h"
@@ -96,7 +97,8 @@ bool CUIStart::Init()
 void CUIStart::StartClick()
 {
 	//CSceneManager::GetInst()->CreateScene<CHomeScene>();
-	CSceneManager::GetInst()->CreateScene<CMainScene>();
+	// CSceneManager::GetInst()->CreateScene<CMainScene>();
+	CSceneManager::GetInst()->CreateScene<CMain2Scene>();
 }
 
 void CUIStart::ExitClick()

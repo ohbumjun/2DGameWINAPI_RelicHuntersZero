@@ -187,6 +187,7 @@
     <ClCompile Include="Object\Gun.cpp" />
     <ClCompile Include="Object\HeavyBullet.cpp" />
     <ClCompile Include="Object\HPPotion.cpp" />
+    <ClCompile Include="Object\KamikazeCage.cpp" />
     <ClCompile Include="Object\KamiKazeMonster.cpp" />
     <ClCompile Include="Object\LaserObject.cpp" />
     <ClCompile Include="Object\LightBullet.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="Object\Gun.h" />
     <ClInclude Include="Object\HeavyBullet.h" />
     <ClInclude Include="Object\HPPotion.h" />
+    <ClInclude Include="Object\KamikazeCage.h" />
     <ClInclude Include="Object\KamiKazeMonster.h" />
     <ClInclude Include="Object\LaserObject.h" />
     <ClInclude Include="Object\LightBullet.h" />

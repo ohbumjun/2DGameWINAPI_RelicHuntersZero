@@ -237,4 +237,13 @@
 #define MONSTER_KAMIKAZE2_LEFT_HIT    "Kamikaze2LeftHit"
 #define MONSTER_KAMIKAZE2_RIGHT_HIT   "Kamikaze2RightHit"
 
+// KamiKaze Cage 
+#define MONSTER_KAMIKAZECAGE_1_IDLE   "KamikazeCage1Idle"
+#define MONSTER_KAMIKAZECAGE_1_HIT	  "KamikazeCage1Hit"
+#define MONSTER_KAMIKAZECAGE_2_IDLE   "KamikazeCage2Idle"
+#define MONSTER_KAMIKAZECAGE_2_HIT    "KamikazeCage2Hit"
+#define MONSTER_KAMIKAZECAGE_3_IDLE   "KamikazeCage3Idle"
+#define MONSTER_KAMIKAZECAGE_3_HIT    "KamikazeCage3Hit"
+#define MONSTER_KAMIKAZECAGE_DEATH    "KamikazeCageDeath"
+
 

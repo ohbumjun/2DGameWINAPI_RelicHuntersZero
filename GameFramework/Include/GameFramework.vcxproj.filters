@@ -375,6 +375,9 @@
     <ClCompile Include="Object\KamiKazeMonster.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Object\KamikazeCage.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -670,6 +673,9 @@
     </ClInclude>
     <ClInclude Include="Object\KamiKazeMonster.h">
       <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\KamikazeCage.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
 #include "../Object/DuckMonster.h"
 #include "../Object/TurtleMonster.h"
 #include "../Object/KamikazeMonster.h"
+#include "../Object/KamikazeCage.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
 // Map
@@ -1262,6 +1263,13 @@ void CScene::SetBasicProtoTypes()
 	KamiKazeMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	KamiKazeMonsterPrototype->SetMonsterType(EMonster_Type::KamiKaze2);
 
+	// KamiKaze Cage
+	CKamiKazeCage* KamiKazeCagePrototype = CreatePrototype<CKamiKazeCage>(MONSTER_KAMIKAZECAGE_PROTO);
+	KamiKazeCagePrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000.f,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	KamiKazeCagePrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	KamiKazeCagePrototype->SetMonsterType(EMonster_Type::KamiKazeCage1);
+	
 	// Collider
 	CCollider* Collider = PlayerBullet->FindCollider("Body");
 	if (Collider)
@@ -1834,6 +1842,7 @@ void CScene::SetLevel2MonsterAnimation()
 	SetTurtle2MonsterAnimation();
 	SetTurtle3MonsterAnimation();
 	SetKamikaze2MonsterAnimation();
+	SetKamikazeCageMonsterAnimation();
 }
 
 void CScene::SetTurtle1MonsterAnimation()
@@ -2459,6 +2468,92 @@ void CScene::SetKamikaze1MonsterAnimation()
 
 void CScene::SetLevel3MonsterAnimation()
 {
+}
+
+void CScene::SetKamikazeCageMonsterAnimation()
+{
+	// 1 Idle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_1_IDLE,
+		MONSTER_KAMIKAZECAGE_1_IDLE, TEXT("images/Monster/Cage/cage_1_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_1_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_1_IDLE,
+				j * 190.f, i * 180.f, 190.f, 180.f);
+		}
+	}
+
+	// 1 Hit 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_1_HIT,
+		MONSTER_KAMIKAZECAGE_1_HIT, TEXT("images/Monster/Cage/cage_1_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_1_HIT,
+		255, 255, 255);
+	GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_1_HIT,
+		0.f, 0.f, 190.f, 180.f);
+	
+	// 2 Idle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_2_IDLE,
+		MONSTER_KAMIKAZECAGE_2_IDLE, TEXT("images/Monster/Cage/cage_2_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_2_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_2_IDLE,
+				j * 190.f, i * 180.f, 190.f, 180.f);
+		}
+	}
+
+	// 2 Hit 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_2_HIT,
+		MONSTER_KAMIKAZECAGE_2_HIT, TEXT("images/Monster/Cage/cage_2_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_2_HIT,
+		255, 255, 255);
+	GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_2_HIT,
+		0.f, 0.f, 190.f, 180.f);
+
+	// 3 Idle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_3_IDLE,
+		MONSTER_KAMIKAZECAGE_3_IDLE, TEXT("images/Monster/Cage/cage_3_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_3_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_3_IDLE,
+				j * 190.f, i * 180.f, 190.f, 180.f);
+		}
+	}
+
+	// 3 Hit 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_3_HIT,
+		MONSTER_KAMIKAZECAGE_3_HIT, TEXT("images/Monster/Cage/cage_3_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_3_HIT,
+		255, 255, 255);
+	GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_3_HIT,
+		0.f, 0.f, 190.f, 180.f);
+
+	// 3 Idle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_KAMIKAZECAGE_DEATH,
+		MONSTER_KAMIKAZECAGE_DEATH, TEXT("images/Monster/Cage/cage_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_KAMIKAZECAGE_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 2 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(MONSTER_KAMIKAZECAGE_DEATH,
+				j * 190.f, i * 180.f, 190.f, 180.f);
+		}
+	}
+	
 }
 
 void CScene::SetKamikaze2MonsterAnimation()

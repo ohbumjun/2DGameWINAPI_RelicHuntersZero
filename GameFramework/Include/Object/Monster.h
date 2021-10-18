@@ -59,19 +59,19 @@ public :
 	virtual void Move(const Vector2& Dir, float Speed);
 // Animation
 public :
-	virtual void ChangeIdleAnimation() = 0;
-	virtual void ChangeMoveAnimation() = 0;
-	virtual void ChangeRunAnimation() = 0;
-	virtual void ChangeDeathAnimation() = 0;
-	virtual void ChangeHitAnimation() = 0;
+	virtual void ChangeIdleAnimation();
+	virtual void ChangeMoveAnimation() ;
+	virtual void ChangeRunAnimation() ;
+	virtual void ChangeDeathAnimation() ;
+	virtual void ChangeHitAnimation() ;
 // Random Dir Setting
 private :
 	void SetRandomTargetDir();
 	Vector2 SetRandomTargetPos();
 // Set Animation
 protected :
-	virtual void SetAnimation() = 0;
-	virtual void SetAnimNames() = 0;
+	virtual void SetAnimation() {};
+	virtual void SetAnimNames() {};
 // AI
 protected :
 	virtual void AIIdle(float DeltaTime);

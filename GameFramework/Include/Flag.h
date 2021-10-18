@@ -110,6 +110,9 @@ enum class EMonster_Type
 	Turtle3,
 	KamiKaze1,
 	KamiKaze2,
+	KamiKazeCage1,
+	KamiKazeCage2,
+	Tentacle,
 	Boss
 };
 

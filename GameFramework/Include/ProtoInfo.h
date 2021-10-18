@@ -27,6 +27,8 @@
 #define MONSTER_KAMIKAZE1_PROTO				"MonsterKamikaze1Proto"
 #define MONSTER_KAMIKAZE2_PROTO				"MonsterKamikaze2Proto"
 
+#define MONSTER_KAMIKAZECAGE_PROTO				"MonsterKamikazeCageProto"
+
 #define GUN_PISTOL_LIGHT_PROTO     "PistolLightProto"
 #define GUN_PISTOL_MEDIUM_PROTO    "PistolMediumProto"
 #define GUN_PISTOL_HEAVY_PROTO     "PistolHeavyProto"

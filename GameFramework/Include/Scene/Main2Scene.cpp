@@ -16,6 +16,8 @@
 #include "../Object/EffectHit.h"
 #include "../Object/EffectDash.h"
 #include "../Object/TeleportMouse.h"
+#include "../Object/KamiKazeMonster.h"
+#include "../Object/KamiKazeCage.h"
 #include "../Object/StageDoor.h"
 #include "../Object/Potion.h"
 #include "../Object/HPPotion.h"
@@ -46,12 +48,12 @@ bool CMain2Scene::Init()
 
 
 	// Monster
+	CKamiKazeCage* KamiKaze = CreateObject<CKamiKazeCage>("KamiKazeCage", MONSTER_KAMIKAZECAGE_PROTO, 
+		Vector2(300.f,300.f));
 	/*
 	// Gun
 	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	Vector2 WorldResolution = m_Camera->GetWorldResolution();
-	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster1", MONSTER_TURTLE1_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	TurtleMonster->Equip(PistolLightGun);
 
 	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
 	TurtleMonster = CreateObject<CTurtleMonster>("Monster2", MONSTER_TURTLE2_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
@@ -148,11 +150,12 @@ bool CMain2Scene::Init()
 	Map->SetZOrder(0);
 
 	*/
+
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage2.map");
 	TileMap->SetZOrder(-1);
-	SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
+	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 
 	return true;
 }
