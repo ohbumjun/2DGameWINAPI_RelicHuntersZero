@@ -77,6 +77,7 @@ void CHomeScene::LoadAnimationSequence()
 	SetItemsAnimation();
 	SetMouseAnimation();
 	SetSkillAnimation();
+	SetShieldAnimation();
 
 	// Map
 	SetLevel1MonsterAnimation();

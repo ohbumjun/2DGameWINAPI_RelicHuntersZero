@@ -144,6 +144,7 @@ void CMainScene::LoadAnimationSequence()
 	SetCollideAnimation();
 	SetMouseAnimation();
 	SetPlayerAnimation();
+	SetShieldAnimation();
 
 	SetLevel1MonsterAnimation();
 	SetKamikaze2MonsterAnimation();

@@ -82,6 +82,7 @@ public :
 		);
 public:
 	void SetLevel2MonsterAnimation();
+	void SetShieldAnimation();
 	void SetTurtle1MonsterAnimation();
 	void SetTurtle2MonsterAnimation();
 	void SetTurtle3MonsterAnimation();

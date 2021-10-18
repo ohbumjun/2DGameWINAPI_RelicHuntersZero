@@ -1838,6 +1838,56 @@ void CScene::SetLevel2MonsterAnimation()
 	SetKamikazeCageMonsterAnimation();
 }
 
+void CScene::SetShieldAnimation()
+{
+	// Turtle Shield 
+	GetSceneResource()->CreateAnimationSequence(SHIELD_TURTLE,
+		SHIELD_TURTLE, TEXT("images/Weapon/Shield/TurtleShield.bmp"));
+	GetSceneResource()->SetTextureColorKey(SHIELD_TURTLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 3 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(SHIELD_TURTLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Player Shield 
+	GetSceneResource()->CreateAnimationSequence(SHIELD_PLAYER,
+		SHIELD_PLAYER, TEXT("images/Weapon/Shield/player_shield.bmp"));
+	GetSceneResource()->SetTextureColorKey(SHIELD_PLAYER,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(SHIELD_PLAYER,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Boss Shield 
+	GetSceneResource()->CreateAnimationSequence(SHIELD_BOSS,
+		SHIELD_BOSS, TEXT("images/Weapon/Shield/boss_shleld.bmp"));
+	GetSceneResource()->SetTextureColorKey(SHIELD_BOSS,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i == 2 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(SHIELD_BOSS,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+}
+
 void CScene::SetTurtle1MonsterAnimation()
 {
 	// RightIdle

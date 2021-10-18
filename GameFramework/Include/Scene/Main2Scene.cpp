@@ -168,6 +168,7 @@ void CMain2Scene::LoadAnimationSequence()
 	SetCollideAnimation();
 	SetMouseAnimation();
 	SetPlayerAnimation();
+	SetShieldAnimation();
 
 	SetLevel2MonsterAnimation();
 }

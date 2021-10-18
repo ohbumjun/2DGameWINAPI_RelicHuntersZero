@@ -156,7 +156,6 @@
 #define MONSTER_DUCK3_LEFT_HIT    "Duck3LeftHit"
 #define MONSTER_DUCK3_RIGHT_HIT   "Duck3RightHit"
 
-
 // Turtle1 
 #define MONSTER_TURTLE1_RIGHT_IDLE   "Turtle1RightIdle"
 #define MONSTER_TURTLE1_RIGHT_WALK   "Turtle1RightWalk"
@@ -246,4 +245,7 @@
 #define MONSTER_KAMIKAZECAGE_3_HIT    "KamikazeCage3Hit"
 #define MONSTER_KAMIKAZECAGE_DEATH    "KamikazeCageDeath"
 
-
+// Shiled
+#define SHIELD_TURTLE "ShieldTurtle"
+#define SHIELD_BOSS   "ShieldBoxx"
+#define SHIELD_PLAYER "ShieldPlayer"

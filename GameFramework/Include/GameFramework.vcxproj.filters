@@ -381,6 +381,9 @@
     <ClCompile Include="Object\Coin.cpp">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\EffectShield.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -682,6 +685,9 @@
     </ClInclude>
     <ClInclude Include="Object\Coin.h">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectShield.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

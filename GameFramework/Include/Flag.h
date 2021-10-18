@@ -117,6 +117,13 @@ enum class EMonster_Type
 	Boss
 };
 
+enum class EShield_Type
+{
+	Turtle,
+	Player,
+	Boss
+};
+
 enum class EPotion_Type
 {
 	HP,
