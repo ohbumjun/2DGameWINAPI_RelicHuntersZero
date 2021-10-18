@@ -32,5 +32,11 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CKamiKazeMonster* Clone();
+private:
+	virtual void AIIdle(float DeltaTime);
+	virtual void AIWalk(float DeltaTime);
+	virtual void AITrace(float DeltaTime, Vector2 PlayerPos);
+	virtual void AIDeath(float DeltaTime);
+	virtual void AIHit(float DeltaTime);
 };
 

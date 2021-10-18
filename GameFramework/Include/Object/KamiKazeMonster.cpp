@@ -224,3 +224,31 @@ CKamiKazeMonster* CKamiKazeMonster::Clone()
 	return new CKamiKazeMonster(*this);
 }
 
+void CKamiKazeMonster::AIIdle(float DeltaTime)
+{
+	CMonster::AIIdle(DeltaTime);
+	m_MoveSpeed = 150.f;
+}
+
+void CKamiKazeMonster::AIWalk(float DeltaTime)
+{
+	CMonster::AIWalk(DeltaTime);
+	m_MoveSpeed = 150.f;
+}
+
+void CKamiKazeMonster::AITrace(float DeltaTime, Vector2 PlayerPos)
+{
+	CMonster::AITrace(DeltaTime, PlayerPos);
+	m_MoveSpeed = 200.f;
+}
+
+void CKamiKazeMonster::AIDeath(float DeltaTime)
+{
+	CMonster::AIDeath(DeltaTime);
+}
+
+void CKamiKazeMonster::AIHit(float DeltaTime)
+{
+	CMonster::AIHit(DeltaTime);
+}
+

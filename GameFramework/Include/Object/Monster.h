@@ -75,12 +75,12 @@ protected :
 	virtual void SetAnimNames() = 0;
 // AI
 protected :
-	void AIIdle(float DeltaTime);
-	void AIWalk(float DeltaTime);
-	void AITrace(float DeltaTime, Vector2 PlayerPos);
-	void AIAttack(float DeltaTime, Vector2 PlayerPos);
-	void AIDeath(float DeltaTime);
-	void AIHit(float DeltaTime);
+	virtual void AIIdle(float DeltaTime);
+	virtual void AIWalk(float DeltaTime);
+	virtual void AITrace(float DeltaTime, Vector2 PlayerPos);
+	virtual void AIAttack(float DeltaTime, Vector2 PlayerPos);
+	virtual void AIDeath(float DeltaTime);
+	virtual void AIHit(float DeltaTime);
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);
