@@ -92,6 +92,7 @@ void CCharacter::Collision(float DeltaTime)
 
 void CCharacter::PrevRender()
 {
+	
 	CGameObject::PrevRender();
 	if (m_CurrentGun)
 		m_CurrentGun->PrevRender();

@@ -73,6 +73,7 @@ public :
 	void SetDuck1MonsterAnimation();
 	void SetDuck2MonsterAnimation();
 	void SetDuck3MonsterAnimation();
+	void SetKamikaze1MonsterAnimation();
 	template <typename T>
 	void SetMonsterOnTileMap(
 		const std::string&  MonsterProtoEasy,
@@ -84,10 +85,9 @@ public:
 	void SetTurtle1MonsterAnimation();
 	void SetTurtle2MonsterAnimation();
 	void SetTurtle3MonsterAnimation();
-	void SetKamikaze1MonsterAnimation();
+	void SetKamikaze2MonsterAnimation();
 public:
 	void SetLevel3MonsterAnimation();
-	void SetKamikaze2MonsterAnimation();
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();

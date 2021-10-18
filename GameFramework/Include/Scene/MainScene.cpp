@@ -60,7 +60,7 @@ bool CMainScene::Init()
 	// Monster
 	// SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 
-	CKamiKazeMonster*KamikazeMonster = CreateObject<CKamiKazeMonster>("Kamikaze1",MONSTER_KAMIKAZE1_PROTO,
+	CKamiKazeMonster*KamikazeMonster = CreateObject<CKamiKazeMonster>("Kamikaze1",MONSTER_KAMIKAZE2_PROTO,
 		Vector2(300.f , 530.f));
 	// DuckMonster->Equip(PistolLightGun);
 	KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
@@ -146,7 +146,7 @@ void CMainScene::LoadAnimationSequence()
 	SetPlayerAnimation();
 
 	SetLevel1MonsterAnimation();
-	SetKamikaze1MonsterAnimation();
+	SetKamikaze2MonsterAnimation();
 }
 
 void CMainScene::LoadSound()
