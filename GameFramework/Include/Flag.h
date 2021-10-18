@@ -87,7 +87,6 @@ enum class EButton_State
 enum class EObject_Type
 {
 	GameObject,
-	Laser,
 	Character,
 	Monster,
 	Player,
@@ -98,6 +97,7 @@ enum class EObject_Type
 	Equipment,
 	Bullet,
 	WallObject,
+	NPC,
 	Effect
 };
 
@@ -134,6 +134,13 @@ enum class EEquip_Type
 {
 	Attack,
 	Armor
+};
+
+enum class ENpc_Type
+{
+	Hp,
+	Mp,
+	Shield
 };
 
 enum class EDoorStage_Type

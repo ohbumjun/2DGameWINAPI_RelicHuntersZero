@@ -127,6 +127,9 @@
     <Filter Include="03. Object\03. Effect\02. StaticEffect\04. Items\2. Equipment">
       <UniqueIdentifier>{cb12c7b8-b7eb-4e93-b253-5a9709fd6ff2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\01. Character\03. Npc">
+      <UniqueIdentifier>{dfb448ff-a46c-4ab8-9ab6-59b71487099b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -383,6 +386,9 @@
     </ClCompile>
     <ClCompile Include="Object\EffectShield.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Npc.cpp">
+      <Filter>03. Object\01. Character\03. Npc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -688,6 +694,9 @@
     </ClInclude>
     <ClInclude Include="Object\EffectShield.h">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Npc.h">
+      <Filter>03. Object\01. Character\03. Npc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

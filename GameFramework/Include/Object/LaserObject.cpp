@@ -12,7 +12,7 @@
 
 CLaserObject::CLaserObject()
 {
-	m_ObjType = EObject_Type::Laser;
+	m_ObjType = EObject_Type::Effect;
 	m_Dir.x = 1.f;
 	m_Dir.y = 0.f;
 	m_Damage = NORMAL_MONSTER_ATTACK;

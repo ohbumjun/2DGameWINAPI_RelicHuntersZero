@@ -73,6 +73,9 @@
 #define TEXTURE_CASING_H_TOWARD_L  "images/Weapon/Casing/L_spr_casing_1.bmp"
 #define TEXTURE_CASING_H_TOWARD_R  "images/Weapon/Casing/spr_casing_1.bmp"
 
+// Npc
+#define NPC_IDLE "NpcIdle"
+
 // Player  ---
 #define PLAYER_RIGHT_IDLE   "PlayerRightIdle"
 #define PLAYER_RIGHT_WALK   "PlayerRightWalk"

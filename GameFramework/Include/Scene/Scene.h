@@ -67,6 +67,7 @@ public :
 	void SetCollideAnimation();
 	void SetMouseAnimation();
 	void SetSkillAnimation();
+	void SetNpcAnimation();
 // Monster Setting 
 public :
 	void SetLevel1MonsterAnimation();

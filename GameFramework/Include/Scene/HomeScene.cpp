@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "../Object/Player.h"
 #include "../Object/LaserObject.h"
+#include "../Object/Npc.h"
 #include "../Scene/Camera.h"
 #include "../Object/Gun.h"
 #include "../Object/Coin.h"
@@ -57,6 +58,11 @@ bool CHomeScene::Init()
 
 	CCoin* Coin = CreateObject<CCoin>("MonsterCoin", COIN_PROTO, Vector2(500.f,500.f));
 
+	// Npc
+	CNpc* NpcMP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(500.f, 210.f)));
+	CNpc* NpcHP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(700.f, 250.f)));
+	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(900.f, 300.f)));
+
 	// Map
 	/*
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
@@ -70,7 +76,6 @@ bool CHomeScene::Init()
 
 void CHomeScene::LoadAnimationSequence()
 {
-	// Player ---
 	SetPlayerAnimation();
 	SetBulletsAnimation();
 	SetCollideAnimation();
@@ -78,6 +83,7 @@ void CHomeScene::LoadAnimationSequence()
 	SetMouseAnimation();
 	SetSkillAnimation();
 	SetShieldAnimation();
+	SetNpcAnimation();
 
 	// Map
 	SetLevel1MonsterAnimation();

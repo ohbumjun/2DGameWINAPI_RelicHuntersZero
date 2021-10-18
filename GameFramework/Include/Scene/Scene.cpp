@@ -668,6 +668,22 @@ void CScene::SetSkillAnimation()
 	}
 }
 
+void CScene::SetNpcAnimation()
+{
+	GetSceneResource()->CreateAnimationSequence(NPC_IDLE,
+		NPC_IDLE, TEXT("images/Character/ass/spr_npc.bmp"));
+	GetSceneResource()->SetTextureColorKey(NPC_IDLE,
+		255, 0, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 5; ++j)
+		{
+			GetSceneResource()->AddAnimationFrameData(NPC_IDLE,
+				j * 104.f, i * 130.f, 104.f, 130.f);
+		}
+	}
+}
+
 void CScene::SetLevel1MonsterAnimation()
 {
 	SetDuck1MonsterAnimation();

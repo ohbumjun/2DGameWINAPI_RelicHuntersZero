@@ -35,6 +35,8 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CTurtleMonster* Clone();
 private :
+	void ShieldUpdate(float DeltaTime);
+private :
 	virtual void CharacterDestroy();
 };
 
