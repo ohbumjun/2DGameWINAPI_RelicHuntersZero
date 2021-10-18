@@ -117,24 +117,27 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 	CGameObject* DestOwner = Dest->GetOwner();
-	// bool DestShieldEnable = DestOwner->GetShieldEnable();
 	Vector2 DestSize = DestOwner->GetSize();
 	Vector2 BulletDir = m_Dir;
 
 	if (DestOwner->GetObjType() == EObject_Type::Player ||
 		DestOwner->GetObjType() == EObject_Type::Monster)
 	{
-		CCharacter* DestChar = (CCharacter*)Dest->GetOwner();
-		DestChar->SetHitDir(BulletDir);
-		DestChar->Hit();
+		CCharacter* DestChar  = (CCharacter*)Dest->GetOwner();
+		bool DestShieldEnable = DestChar->GetShieldEnable();
+		if (!DestShieldEnable)
+		{
+			DestChar->SetHitDir(BulletDir);
+			DestChar->Hit();
+			int Armor = 0;
+			if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
+				Dest->GetOwner()->GetObjType() == EObject_Type::Player)
+				Armor = Dest->GetOwner()->GetArmor();
+
+			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+			DamageFont->SetDamageNumber((int)(m_Damage - Armor));
+		}
 	}
 
 
-	int Armor = 0;
-	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
-		Dest->GetOwner()->GetObjType() == EObject_Type::Player)
-		Armor = Dest->GetOwner()->GetArmor();
-
-	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
-	DamageFont->SetDamageNumber((int)(m_Damage - Armor));
 }
