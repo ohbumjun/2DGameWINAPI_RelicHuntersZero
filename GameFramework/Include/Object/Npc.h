@@ -13,11 +13,22 @@ protected:
 	virtual ~CNpc();
 private :
 	ENpc_Type m_NpcType;
-
+	int m_Cost;
+	bool m_TypeChanged;
+public :
+	void SetNpcType(ENpc_Type NpcType)
+	{
+		m_NpcType = NpcType;
+		m_TypeChanged = true;
+	}
+	void SetCost(int Amount)
+	{
+		m_Cost = Amount;
+	}
 protected:
-	CSharedPtr<CWidgetComponent> m_NameWidget;
 	CSharedPtr<CWidgetComponent> m_TypeWidget;
-
+public :
+	void TypeChange();
 public:
 	virtual void Start();
 	virtual bool Init();
