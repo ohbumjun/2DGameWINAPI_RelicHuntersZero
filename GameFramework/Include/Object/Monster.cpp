@@ -240,6 +240,7 @@ CCoin* CMonster::CreateCoin()
 {
 	CCoin* Coin = m_Scene->CreateObject<CCoin>("MonsterCoin", COIN_PROTO, m_Pos);
 	Coin->SetInitPos(m_Pos);
+	Coin->SetGold(m_CharacterInfo.Gold);
 	return Coin;
 }
 

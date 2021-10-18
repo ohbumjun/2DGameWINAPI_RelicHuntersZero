@@ -94,6 +94,7 @@ enum class EObject_Type
 	Potion,
 	Weapon,
 	Obstacle,
+	Coin,
 	Equipment,
 	Bullet,
 	WallObject,

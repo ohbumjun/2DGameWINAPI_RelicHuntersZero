@@ -234,20 +234,6 @@ void CScene::SetPlayerAnimation()
 		}
 	}
 
-	// Right Attack
-	/*
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_ATTACK,
-		PLAYER_RIGHT_ATTACK, TEXT("Player/Right/aswing.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_ATTACK,
-		255, 255, 255);
-
-	for (int i = 0; i < 3; ++i)
-	{
-		GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_ATTACK,
-			i * 176.f, 0.f, 176.f, 89.f);
-	}
-	*/
 	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_ATTACK,
 		PLAYER_RIGHT_ATTACK, TEXT("images/Character/jimmy/right_idle.bmp"));
 	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_ATTACK,
@@ -343,20 +329,7 @@ void CScene::SetPlayerAnimation()
 		}
 	}
 
-	// Left Attack
-	/*
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_ATTACK,
-		PLAYER_LEFT_ATTACK, TEXT("Player/Left/aswing_left.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_ATTACK,
-		255, 255, 255);
-
-	for (int i = 0; i < 3; ++i)
-	{
-		GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_ATTACK,
-			i * 176.f, 0.f, 176.f, 89.f);
-	}
-	*/
 	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_ATTACK,
 		PLAYER_LEFT_ATTACK, TEXT("images/Character/jimmy/left_idle.bmp"));
 	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_ATTACK, 255, 255, 255);

@@ -39,6 +39,9 @@ public:
 public :
 	void AbilityUpdate(float DeltaTime);
 	void AbilityStateUIUpdate(class CUICharacterStateHUD* State);
+// Gold
+private :
+	void  CurGoldNumUpdate(class CUICharacterStateHUD* State);
 // Animation 
 private :
 	virtual void ChangeMoveAnimation();
@@ -47,6 +50,7 @@ private :
 	virtual void ChangeIdleAnimation();
 	virtual void ChangeDeathAnimation();
 	void ChangeDashAnimation();
+
 
 // Gun
 private :

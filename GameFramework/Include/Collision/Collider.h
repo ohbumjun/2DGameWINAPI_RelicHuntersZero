@@ -121,6 +121,7 @@ public:
 	class CPlayer *IsCollisionWithPlayer();
 	class CPotion *IsCollisionWithPotion();
 	class CGun *IsCollisionWithGun();
+	class CCoin *IsCollisionWithCoin();
 
 public:
 	virtual bool Init();

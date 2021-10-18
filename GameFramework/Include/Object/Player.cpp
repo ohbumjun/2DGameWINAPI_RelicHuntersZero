@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "EffectHit.h"
 #include "EffectDash.h"
+#include "Coin.h"
 #include "EffectReload.h"
 #include "TeleportMouse.h"
 #include "Potion.h"
@@ -292,6 +293,7 @@ bool CPlayer::Init()
 	NameText->SetTextColor(255, 0, 0);
 	m_NameWidget->SetPos(-25.f, -125.f);
 
+
 	// 수업용 : 물리 적용
 	// SetGravityAccel();
 	/*
@@ -362,6 +364,9 @@ void CPlayer::Update(float DeltaTime)
 
 	CProgressBar* SteminaBar = (CProgressBar*)m_SteminaBarWidget->GetWidget();
 	SteminaBar->SetPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+
+	// Gold 
+	CurGoldNumUpdate(State);
 
 	// Gun 
 	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
@@ -631,6 +636,25 @@ void CPlayer::ChangeDashAnimation()
 		ChangeAnimation(PLAYER_LEFT_DASH);
 	else
 		ChangeAnimation(PLAYER_RIGHT_DASH);
+}
+
+void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
+{
+	int Gold = m_CharacterInfo.Gold;
+	int FullH = Gold / 100, FullT = (Gold % 100) / 10, FullO = Gold % 10;
+	if (FullH != 0)
+		State->SetGoldHundredWidget(FullH);
+	else
+		State->SetGoldHundredRenderEnable(false);
+	if (FullH != 0 || FullT != 0)
+		State->SetGoldTenWidget(FullT);
+	else
+		State->SetGoldTenRenderEnable(false);
+	if (FullH != 0 || FullT != 0 || FullO != 0)
+		State->SetGoldOneWidget(FullO);
+	else
+		State->SetGoldOneRenderEnable(false);
+
 }
 
 void CPlayer::MoveUp(float DeltaTime)
@@ -1156,6 +1180,15 @@ void CPlayer::AcquireItem(float DeltaTime)
 			// Have to Add Newly Cloned Gun to Scene 
 			// So that it can be update within Scene.cpp
 			Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
+			break;
+		}
+
+		// Coin
+		CCoin* Coin = (*iter)->IsCollisionWithCoin();
+		if (Coin)
+		{
+			m_CharacterInfo.Gold += Coin->GetCoinGold();
+			Coin->Destroy();
 			break;
 		}
 	}

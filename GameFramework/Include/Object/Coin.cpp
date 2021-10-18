@@ -1,14 +1,18 @@
 #include "Coin.h"
+#include "../Collision/ColliderSphere.h"
 
 CCoin::CCoin() :
-	m_DirX(0)
+	m_DirX(0),
+	m_Gold(50.f)
 {
+	m_ObjType = EObject_Type::Coin;
 }
 
 CCoin::CCoin(const CCoin& obj) :
 	CGameObject(obj)
 {
 	m_DirX = obj.m_DirX;
+	m_Gold = obj.m_Gold;
 }
 
 CCoin::~CCoin()
@@ -39,6 +43,12 @@ bool CCoin::Init()
 
 	CreateAnimation();
 	AddAnimation("Coin", true, 1.f);
+
+	// Collider
+	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
+	Head->SetRadius(20.f);
+	Head->SetOffset(23.f, 20.f);
+	Head->SetCollisionProfile("Default");
 
 	return true;
 }

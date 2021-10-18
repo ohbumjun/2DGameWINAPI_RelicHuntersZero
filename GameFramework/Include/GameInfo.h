@@ -76,6 +76,7 @@
 #define MPWIDGET_COMPONENET        "MPBarWidget"
 #define NAMEWIDGET_COMPONENET      "NameWidget"
 #define STEMINAMEWIDGET_COMPONENET "SteminaWidget"
+#define GOLD_COMPONENET			   "GoldWidget"
 
 struct Resolution
 {
