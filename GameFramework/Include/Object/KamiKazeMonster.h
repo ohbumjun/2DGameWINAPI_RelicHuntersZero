@@ -39,5 +39,7 @@ private:
 	virtual void AIDeath(float DeltaTime);
 	virtual void AIAttack(float DeltaTime, Vector2 PlayerPos);
 	virtual void AIHit(float DeltaTime);
+private :
+	virtual void CharacterDestroy();
 };
 

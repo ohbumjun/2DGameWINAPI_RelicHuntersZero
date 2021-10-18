@@ -5,6 +5,7 @@
 #include "../Object/LaserObject.h"
 #include "../Scene/Camera.h"
 #include "../Object/Gun.h"
+#include "../Object/Coin.h"
 #include "../Object/Monster.h"
 #include "../Object/StageDoor.h"
 #include "../Object/EffectHit.h"
@@ -45,7 +46,7 @@ bool CHomeScene::Init()
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Two);
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
 
 	// Potion
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
@@ -53,6 +54,8 @@ bool CHomeScene::Init()
 
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
+
+	CCoin* Coin = CreateObject<CCoin>("MonsterCoin", COIN_PROTO, Vector2(500.f,500.f));
 
 	// Map
 	/*

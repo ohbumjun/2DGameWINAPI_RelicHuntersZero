@@ -206,7 +206,7 @@ void CKamiKazeMonster::Update(float DeltaTime)
 		SetAnimNames();
 	if (PlayerCollisionCheck())
 	{
-		Destroy();
+		CharacterDestroy();
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 		DamageFont->SetDamageNumber((int)(m_CharacterInfo.Attack));
 	}
@@ -257,11 +257,17 @@ void CKamiKazeMonster::AIDeath(float DeltaTime)
 
 void CKamiKazeMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 {
-	CMonster::AIAttack(DeltaTime, PlayerPos);
+	float Angle = GetAngle(m_Pos, PlayerPos);
+	SetDir(Angle);
 }
 
 void CKamiKazeMonster::AIHit(float DeltaTime)
 {
 	CMonster::AIHit(DeltaTime);
+}
+
+void CKamiKazeMonster::CharacterDestroy()
+{
+	CMonster::CharacterDestroy();
 }
 

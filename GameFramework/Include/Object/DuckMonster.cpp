@@ -159,6 +159,11 @@ void CDuckMonster::SetAnimNames()
 
 }
 
+void CDuckMonster::CharacterDestroy()
+{
+	CMonster::CharacterDestroy();
+}
+
 void CDuckMonster::SetDuck1AnimName()
 {
 	m_mapAnimName.clear();

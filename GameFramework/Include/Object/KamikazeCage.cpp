@@ -144,12 +144,14 @@ void CKamiKazeCage::AIHit(float DeltaTime)
 
 void CKamiKazeCage::CharacterDestroy()
 {
-	// 5마리의 Kage 생성
-	EMonster_Type newMType = m_MonsterType == EMonster_Type::KamiKazeCage1 ? EMonster_Type::KamiKaze2 : EMonster_Type::KamiKaze2;
+	// create 6 kamikaes 
+	EMonster_Type newMType = m_MonsterType == EMonster_Type::KamiKazeCage1 ? EMonster_Type::KamiKaze1 : EMonster_Type::KamiKaze2;
 	std::string ProtoName = m_MonsterType == EMonster_Type::KamiKazeCage1 ? MONSTER_KAMIKAZE1_PROTO : MONSTER_KAMIKAZE2_PROTO;
+	CKamiKazeMonster * KamikazeMonster = nullptr;
+
 	for (int i = 0; i < 5; i++)
 	{
-		CKamiKazeMonster* KamikazeMonster = m_Scene->CreateObject<CKamiKazeMonster>("Kamikaze1", ProtoName,m_Pos);
+		KamikazeMonster = m_Scene->CreateObject<CKamiKazeMonster>("Kamikaze"+std::to_string(i), ProtoName,m_Pos);
 		KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 			NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 		KamikazeMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);

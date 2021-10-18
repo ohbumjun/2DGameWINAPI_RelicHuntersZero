@@ -22,6 +22,8 @@ private:
 	virtual void SetAnimation();
 	virtual void SetAnimNames();
 private :
+	virtual void CharacterDestroy();
+private :
 	void SetDuck1AnimName();
 	void SetDuck2AnimName();
 	void SetDuck3AnimName();

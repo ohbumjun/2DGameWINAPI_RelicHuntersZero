@@ -46,6 +46,10 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual float SetDamage(float Damage);
+// Coin
+protected :
+	void CharacterDestroy();
+	class CCoin* CreateCoin();
 // Collision
 public :
 	bool PlayerCollisionCheck();

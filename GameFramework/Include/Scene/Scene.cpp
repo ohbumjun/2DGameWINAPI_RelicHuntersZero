@@ -19,6 +19,7 @@
 #include "../Object/KamikazeCage.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
+#include "../Object/Coin.h"
 // Map
 #include "../Map/MapBase.h"
 // UI
@@ -517,6 +518,22 @@ void CScene::SetItemsAnimation()
 			if (i == 2 && j == 1) break;
 			GetSceneResource()->AddAnimationFrameData(MPHPUP_EFFECT,
 				j * 58.f, i * 56.f, 58.f, 56.f);
+		}
+	}
+
+	// Coin
+	GetSceneResource()->CreateAnimationSequence("Coin",
+		"Coin", TEXT("images/Items/coin.bmp"));
+	GetSceneResource()->SetTextureColorKey("Coin",
+		255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 3 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData("Coin",
+				j * 46.f, i * 46.f, 46.f, 46.f);
 		}
 	}
 }
@@ -1285,6 +1302,9 @@ void CScene::SetBasicProtoTypes()
 	CMPPotion* MPPotionPrototype = CreatePrototype<CMPPotion>(POTION_MP_PROTO);
 	CHPPotion* HPPotionPrototype = CreatePrototype<CHPPotion>(POTION_HP_PROTO);
 
+	// Coin
+	CCoin* CoinPrototype = CreatePrototype<CCoin>(COIN_PROTO);
+
 	// Guns
 	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT_PROTO);
 	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
@@ -1841,7 +1861,7 @@ void CScene::SetLevel2MonsterAnimation()
 	SetTurtle1MonsterAnimation();
 	SetTurtle2MonsterAnimation();
 	SetTurtle3MonsterAnimation();
-	SetKamikaze2MonsterAnimation();
+	SetKamikaze1MonsterAnimation();
 	SetKamikazeCageMonsterAnimation();
 }
 

@@ -34,5 +34,7 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CTurtleMonster* Clone();
+private :
+	virtual void CharacterDestroy();
 };
 

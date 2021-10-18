@@ -378,6 +378,9 @@
     <ClCompile Include="Object\KamikazeCage.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Coin.cpp">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -675,7 +678,10 @@
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
     <ClInclude Include="Object\KamikazeCage.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Coin.h">
+      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

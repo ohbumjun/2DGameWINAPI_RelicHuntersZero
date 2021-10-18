@@ -1,6 +1,7 @@
 
 #include "Monster.h"
 #include "Bullet.h"
+#include "Coin.h"
 #include "../GameManager.h"
 #include "EffectSurprise.h"
 #include "../Scene/Scene.h"
@@ -227,6 +228,19 @@ float CMonster::SetDamage(float Damage)
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
+}
+
+void CMonster::CharacterDestroy()
+{
+	CCharacter::CharacterDestroy();
+	CreateCoin();
+}
+
+CCoin* CMonster::CreateCoin()
+{
+	CCoin* Coin = m_Scene->CreateObject<CCoin>("MonsterCoin", COIN_PROTO, m_Pos);
+	Coin->SetInitPos(m_Pos);
+	return Coin;
 }
 
 bool CMonster::PlayerCollisionCheck()

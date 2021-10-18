@@ -115,7 +115,7 @@ public:
 	virtual void HitEnd();
 // Death
 public:
-	void CharacterDestroy();
+	virtual void CharacterDestroy();
 // Gun
 protected :
 	void SetInitGun(CGun* Gun);

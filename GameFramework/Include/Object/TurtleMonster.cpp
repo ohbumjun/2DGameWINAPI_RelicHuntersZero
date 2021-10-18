@@ -263,3 +263,8 @@ CTurtleMonster* CTurtleMonster::Clone()
 	return new CTurtleMonster(*this);
 }
 
+void CTurtleMonster::CharacterDestroy()
+{
+	CMonster::CharacterDestroy();
+}
+
