@@ -229,6 +229,7 @@ bool CCharacter::ObstacleCollisionCheck() const
 
 CGameObject* CCharacter::MonsterCollisionCheck()
 {
+	
 	auto iter = m_ColliderList.begin();
 	auto iterEnd = m_ColliderList.end();
 	for (; iter != iterEnd; ++iter)
@@ -236,7 +237,16 @@ CGameObject* CCharacter::MonsterCollisionCheck()
 		CGameObject* Monster = (*iter)->IsCollisionWithMonster();
 		if (Monster)
 		{
-			return Monster;
+			if (m_ShieldEnable)
+			{
+				CEffectShield* ShieldEffect = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
+				ShieldEffect->SetShieldType(EShield_Type::Player);
+				ShieldEffect->SetOwner(this);
+				ShieldEffect->SetLifeTime(0.5f);
+				return nullptr;
+			}
+			else
+				return Monster;
 		}
 	}
 	return nullptr;
