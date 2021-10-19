@@ -16,6 +16,7 @@ private:
 	float m_ExplodeTime;
 	float m_ExplodeMaxTime;
 	bool  m_Explode;
+	float m_ExplodeDist;
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -27,6 +28,7 @@ public:
 public :
 	void ChangeExplosionAnimation();
 	void Explode();
-	void AnimationFinish();
+	void DrawExplodeTrace();
+	void ExplodeHitPlayer(class CPlayer* const Player);
 };
 
