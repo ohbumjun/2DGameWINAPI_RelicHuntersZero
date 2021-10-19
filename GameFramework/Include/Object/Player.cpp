@@ -4,6 +4,7 @@
 // Object
 #include "Player.h"
 #include "EffectHit.h"
+#include "EffectText.h"
 #include "EffectDash.h"
 #include "Coin.h"
 #include "Npc.h"
@@ -153,6 +154,17 @@ void CPlayer::UpdateShieldInv(CUICharacterStateHUD* const State)
 		State->SetShieldInvOneRenderEnable(false);
 }
 
+void CPlayer::UseHpPotionInv(float DeltaTime)
+{
+}
+
+void CPlayer::UseMpPotionInv(float DeltaTime)
+{
+}
+
+void CPlayer::UseShieldInv(float DeltaTime)
+{
+}
 void CPlayer::Start()
 {
 	CCharacter::Start();
@@ -235,6 +247,15 @@ void CPlayer::Start()
 											this, &CPlayer::BulletFireTarget);
 	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Up,
 											this, &CPlayer::RemoveTargetPos);
+	
+	// Inv
+	CInput::GetInst()->SetCallback<CPlayer>("UseHpPotion", KeyState_Down,
+		this, &CPlayer::UseHpPotionInv);
+	CInput::GetInst()->SetCallback<CPlayer>("UseMpPotion", KeyState_Down,
+		this, &CPlayer::UseMpPotionInv);
+	CInput::GetInst()->SetCallback<CPlayer>("UseShield", KeyState_Down,
+		this, &CPlayer::UseShieldInv);
+
 }
 
 void CPlayer::SetNotifyFunctions()
@@ -1257,27 +1278,57 @@ void CPlayer::BuyItem(float)
 	{
 		// Potion
 		CNpc* Npc = (*iter)->IsCollisionWithNpc();
+		bool CanBuy = false;
 		if (Npc)
 		{
 			CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 			ENpc_Type NpcType = Npc->GetNpcType();
+			int Cost = Npc->GetCost();
 			switch (NpcType)
 			{
 			case ENpc_Type::Hp:
-				m_HpPotionInv += 1;
-				UpdateHpPotionInv(State);
+				if (m_CharacterInfo.Gold >= Cost)
+				{
+					m_CharacterInfo.Gold -= Cost;
+					m_HpPotionInv += 1;
+					UpdateHpPotionInv(State);
+					CanBuy = true;
+				}
 				break;
 			case ENpc_Type::Mp:
-				m_MpPotionInv += 1;
-				UpdateMpPotionInv(State);
+				if (m_CharacterInfo.Gold >= Cost)
+				{
+					m_CharacterInfo.Gold -= Cost;
+					m_MpPotionInv += 1;
+					UpdateMpPotionInv(State);
+					CanBuy = true;
+				}
 				break;
 			case ENpc_Type::Shield:
-				m_ShieldInv += 1;
-				UpdateShieldInv(State);
+				if (m_CharacterInfo.Gold >= Cost)
+				{
+					m_CharacterInfo.Gold -= Cost;
+					m_ShieldInv += 1;
+					UpdateShieldInv(State);
+					CanBuy = true;
+				}
 				break;
 			}
+			if (CanBuy) break;
+			else ShowNoGoldSign();
 		}
 	}
+}
+
+void CPlayer::ShowNoGoldSign()
+{
+	CSharedPtr<CEffectText> NoBulletText = m_Scene->CreateObject<CEffectText>(
+		"CEffectText",
+		EFFECT_TEXT_PROTO,
+		Vector2(m_Pos.x - m_Size.x,m_Pos.y - m_Size.y * 0.3),
+		Vector2(50.f, 10.f));
+	NoBulletText->SetText(TEXT("No Gold"));
+	NoBulletText->SetTextColor(255, 0, 0);
 }
 
 

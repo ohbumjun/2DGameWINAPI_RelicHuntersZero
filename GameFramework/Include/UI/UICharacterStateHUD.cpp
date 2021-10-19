@@ -94,7 +94,7 @@ void CUICharacterStateHUD::SetHpInvUI(std::vector<std::wstring>& vecNumberFileNa
 	m_HpInvImage = CreateWidget<CUIImage>("HpInvImage");
 	m_HpInvImage->SetTexture("HpInvImage", TEXT("images/Items/hp.bmp"));
 	m_HpInvImage->SetTextureColorKey(255, 255, 255);
-	m_HpInvImage->SetPos(350.f, 500.f);
+	m_HpInvImage->SetPos(350.f, 530.f);
 
 	m_HpInvTenWidget = CreateWidget<CNumberWidget>("Number");
 	m_HpInvTenWidget->SetTexture("Number", vecNumberFileName);
@@ -107,7 +107,7 @@ void CUICharacterStateHUD::SetHpInvUI(std::vector<std::wstring>& vecNumberFileNa
 
 	m_HpInvOneWidget = CreateWidget<CNumberWidget>("Number");
 	m_HpInvOneWidget->SetTexture("Number", vecNumberFileName);
-	m_HpInvOneWidget->SetPos(410.f, 560.f);
+	m_HpInvOneWidget->SetPos(410.f, 530.f);
 	m_HpInvOneWidget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{

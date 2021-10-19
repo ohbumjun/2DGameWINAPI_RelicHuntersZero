@@ -175,6 +175,11 @@ bool CInput::Init(HWND hWnd)
 	// Item 
 	CreateKey("GetItem", 'Z');
 
+	// Inv 
+	CreateKey("UseHpPotion", 'P');
+	CreateKey("UseMpPotion", 'O');
+	CreateKey("UseShield", 'I');
+
 	// Store
 	CreateKey("BuyItem", 'B');
 

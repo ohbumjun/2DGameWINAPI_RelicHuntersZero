@@ -58,6 +58,10 @@ private :
 	void UpdateHpPotionInv(class CUICharacterStateHUD* const State);
 	void UpdateMpPotionInv(class CUICharacterStateHUD* const State);
 	void UpdateShieldInv(class CUICharacterStateHUD* const State);
+private :
+	void UseHpPotionInv(float DeltaTime);
+	void UseMpPotionInv(float DeltaTime);
+	void UseShieldInv(float DeltaTime);
 // Functions
 public:
 	virtual void Start();
@@ -207,6 +211,8 @@ public:
 public:
 	void AcquireItem(float);
 	void BuyItem(float);
+private :
+	void ShowNoGoldSign();
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);

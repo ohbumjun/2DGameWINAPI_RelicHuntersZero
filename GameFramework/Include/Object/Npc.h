@@ -20,6 +20,10 @@ public :
 	{
 		return m_NpcType;
 	}
+	int GetCost() const
+	{
+		return m_Cost;
+	}
 public :
 	void SetNpcType(ENpc_Type NpcType)
 	{
