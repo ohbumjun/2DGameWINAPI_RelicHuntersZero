@@ -103,6 +103,7 @@ void CUIMain::Update(float DeltaTime)
 	CUIWindow::Update(DeltaTime);
 	m_TextTime += DeltaTime;
 
+	/*
 	if (m_TextTime >= 0.1f)
 	{
 		m_TextTime -= 0.1f;
@@ -128,6 +129,7 @@ void CUIMain::Update(float DeltaTime)
 			m_OutputText = (m_OutputText + 1) % 2;
 		}
 	}
+	*/
 
 	m_Time += DeltaTime;
 	if (m_Time >= 60.f)

@@ -56,7 +56,6 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 {
 	m_ObjType = EObject_Type::Player;
 	m_TimeScale = 1.f;
-	m_ShieldEnable = true;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -80,7 +79,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_HpPotionInv = obj.m_HpPotionInv;
 	m_MpPotionInv = obj.m_MpPotionInv;
 	m_ShieldInv = obj.m_ShieldInv;
-	m_ShieldEnable = true;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -186,15 +184,16 @@ void CPlayer::UseShieldInv(float DeltaTime)
 	{
 		m_ShieldInv -= 1;
 		m_ShieldEnable = true;
+		m_ShieldTime = 10.f;
 		UpdateShieldInv(State);
 	}
 }
 void CPlayer::ShieldUpdate(float DeltaTime)
 {
-	if (m_ShieldTime > 0.f)
+	if (m_ShieldTime > 0.f && m_ShieldEnable)
 	{
 		m_ShieldTime -= DeltaTime;
-		if (m_ShieldEnableTime <= 0.f)
+		if (m_ShieldTime <= 0.f)
 		{
 			m_ShieldEnable = false;
 		}
@@ -496,7 +495,7 @@ void CPlayer::Update(float DeltaTime)
 		m_MonsterCollideTime -= DeltaTime;
 
 	// Shield Update
-	// ShieldUpdate(DeltaTime);
+	ShieldUpdate(DeltaTime);
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
