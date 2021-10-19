@@ -84,7 +84,7 @@ void CBullet::Update(float DeltaTime)
 	m_Distance -= GetMoveSpeedFrame();
 	if (m_Distance <= 0.f)
 		Destroy();
-
+	WallCollision();
 }
 
 void CBullet::PostUpdate(float DeltaTime)
@@ -105,6 +105,66 @@ void CBullet::Render(HDC hDC)
 CBullet* CBullet::Clone()
 {
 	return new CBullet(*this);
+}
+
+RectInfo CBullet::GetInterCollideRect(RectInfo Rect1, RectInfo Rect2)
+{
+	RectInfo Intersect;
+	// max among left 
+	Intersect.Left = Rect1.Left > Rect2.Left ? Rect1.Left : Rect2.Left;
+	// Min among Right 
+	Intersect.Right = Rect1.Right < Rect2.Right ? Rect1.Right : Rect2.Right;
+	// Max among y1
+	Intersect.Top = Rect1.Top > Rect2.Top ? Rect1.Top : Rect2.Top;
+	// Min among y2
+	Intersect.Bottom = Rect1.Bottom < Rect2.Bottom ? Rect1.Bottom : Rect2.Bottom;
+	return Intersect;
+}
+
+
+void CBullet::WallCollision()
+{
+	bool WallCollision = false;
+	int LTIndexX, LTIndexY, RBIndexX, RBIndexY;
+	CTileMap* TileMap = m_Scene->GetTileMap();
+	if (TileMap)
+	{
+		// 좌상단, 우하단 위치 구하기 
+		// 충돌해서 겹치는 부분의 
+
+		Vector2 LT = m_Pos - m_Pivot * m_Size;
+		Vector2 RB = LT + m_Size;
+
+		// LT ,RB 영억이 바로 충돌 영역 
+		// 이 부분에 있는 tile 들을 구해줄 것이다
+		LTIndexX = TileMap->GetOriginTileIndexX(LT.x);
+		LTIndexY = TileMap->GetOriginTileIndexY(LT.y);
+		RBIndexX = TileMap->GetOriginTileIndexX(RB.x);
+		RBIndexY = TileMap->GetOriginTileIndexY(RB.y);
+
+		// 범위 제한 ( 혹시나 )
+		LTIndexX = LTIndexX < 0 ? 0 : LTIndexX;
+		LTIndexY = LTIndexY < 0 ? 0 : LTIndexY;
+
+		RBIndexX = RBIndexX > TileMap->GetTileCountX() - 1 ? TileMap->GetTileCountX() - 1 : RBIndexX;
+		RBIndexY = RBIndexY > TileMap->GetTileCountY() - 1 ? TileMap->GetTileCountY() - 1 : RBIndexY;
+
+		for (int i = RBIndexY; i >= LTIndexY; --i)
+		{
+			for (int j = LTIndexX; j <= RBIndexX; ++j)
+			{
+				// Tile의 일차원 배열상의 idx 
+				int	Index = i * TileMap->GetTileCountX() + j;
+				if (TileMap->GetTile(Index)->GetTileOption() == ETileOption::Wall)
+				{
+					Destroy();
+					CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
+						m_Pos, Vector2(178.f, 164.f));
+					m_Scene->GetSceneResource()->SoundPlay("Fire");
+				}
+			}
+		}
+	}
 }
 
 void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)

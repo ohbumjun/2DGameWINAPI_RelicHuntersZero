@@ -51,6 +51,8 @@ public:
 	virtual CBullet* Clone();
 
 public:
+	RectInfo GetInterCollideRect(RectInfo Rect1, RectInfo Rect2);
+	void WallCollision();
 	void CollisionBegin(class CCollider* Src, class CCollider* Dest, float DeltaTime);
 };
 
