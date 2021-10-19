@@ -233,6 +233,7 @@
     <ClCompile Include="UI\NumberWidget.cpp" />
     <ClCompile Include="UI\ProgressBar.cpp" />
     <ClCompile Include="UI\UIAnimation.cpp" />
+    <ClCompile Include="UI\UIBossStateHUD.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
     <ClCompile Include="UI\UIGunStateHUD.cpp" />
     <ClCompile Include="UI\UICommon.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="UI\NumberWidget.h" />
     <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\UIAnimation.h" />
+    <ClInclude Include="UI\UIBossStateHUD.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
     <ClInclude Include="UI\UIGunStateHUD.h" />
     <ClInclude Include="UI\UICommon.h" />

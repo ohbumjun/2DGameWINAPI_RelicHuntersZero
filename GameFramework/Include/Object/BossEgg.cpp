@@ -4,6 +4,7 @@
 #include "EffectSurprise.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../Collision/ColliderBox.h"
 
 CBossEgg::CBossEgg() :
     m_EggStartEnable(true),
@@ -93,6 +94,10 @@ bool CBossEgg::Init()
     // Egg
     AddAnimation(MONSTER_BOSS_EGG_START, true, 5.f);
     AddAnimation(MONSTER_BOSS_EGG_CRACK, true, 5.f);
+
+    CColliderBox* Body = (CColliderBox*)FindCollider("Body");
+    Body->Destroy();
+
     return true;
 }
 

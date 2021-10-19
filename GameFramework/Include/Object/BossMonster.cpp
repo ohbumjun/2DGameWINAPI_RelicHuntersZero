@@ -1,4 +1,8 @@
 #include "BossMonster.h"
+#include "../UI/UIBossStateHUD.h"
+#include "../Collision/ColliderBox.h"
+#include "../Scene/Scene.h"
+#include"../Scene/SceneResource.h"
 
 CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
@@ -65,6 +69,12 @@ void CBossMonster::GeneratorAttack(float DeltaTime)
 {
 }
 
+void CBossMonster::UIUpdate(float DeltaTime)
+{
+	CUIBossStateHUD* State = m_Scene->FindUIWindow<CUIBossStateHUD>("BossStateHUD");
+	State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+}
+
 void CBossMonster::ChangeIdleAnimation()
 {
 	CMonster::ChangeIdleAnimation();
@@ -111,16 +121,6 @@ void CBossMonster::ChangeHitAnimation()
 		ChangeAnimation(MONSTER_BOSS_RIGHT_HIT);
 }
 
-void CBossMonster::EggCrack()
-{
-	ChangeAnimation(MONSTER_BOSS_EGG_CRACK);
-}
-
-void CBossMonster::MonsterAppear()
-{
-	ChangeIdleAnimation();
-}
-
 void CBossMonster::SetAnimation()
 {
 	// Right
@@ -158,6 +158,9 @@ bool CBossMonster::Init()
 
 	m_HPBarWidget->SetPos(-25.f, -155.f);
 	m_MPBarWidget->SetPos(-25.f, -145.f);
+
+	CColliderBox* Body = (CColliderBox*)FindCollider("Body");
+	Body->SetOffset(0.f, -60.5f);
 
 	return true;
 }

@@ -3,6 +3,7 @@
 #include "../Scene/HomeScene.h"
 #include "../Scene/MainScene.h"
 #include "../Scene/Main2Scene.h"
+#include "../Scene/Main3Scene.h"
 #include "../Scene/StartScene.h"
 #include "../Collision/ColliderBox.h"
 #include "Player.h"
@@ -101,6 +102,7 @@ void CStageDoor::ChangeScene()
 		CSceneManager::GetInst()->CreateScene<CMain2Scene>();
 		break;
 	case EDoorStage_Type::Stage_Three:
+		CSceneManager::GetInst()->CreateScene<CMain3Scene>();
 		break;
 	}
 }

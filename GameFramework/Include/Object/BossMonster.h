@@ -17,20 +17,26 @@ protected:
 	virtual ~CBossMonster();
 private :
 	std::list<CSharedPtr<CGeneratorTower>> m_GeneratorList;
+// Missile 
 private :
 	float m_MissileAttackTime;
 	float m_MissileAttackMaxTime;
 	void MissileUpdate(float DeltaTime);
 	void MissileAttack(float DeltaTime);
+// Grenade 
 private :
 	float m_GrenadeTime;
 	float m_GrenadMaxTime;
 	void GrenadeUpdate(float DeltaTime);
 	void GrenadeAttack(float DeltaTime);
+// Generator 
 private :
 	bool m_IsGeneratorAlive;
 	void GeneratorUpdate(float DeltaTime);
 	void GeneratorAttack(float DeltaTime);
+// UI
+private :
+	void UIUpdate(float DeltaTime);
 // Animation
 public:
 	virtual void ChangeIdleAnimation();
@@ -38,9 +44,6 @@ public:
 	virtual void ChangeRunAnimation();
 	virtual void ChangeDeathAnimation();
 	virtual void ChangeHitAnimation();
-private :
-	void EggCrack();
-	void MonsterAppear();
 // Set Animation
 private:
 	virtual void SetAnimation();

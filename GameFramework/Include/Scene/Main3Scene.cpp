@@ -23,6 +23,7 @@
 #include "Camera.h"
 #include "../UI/UIMain.h"
 #include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIBossStateHUD.h"
 #include "../UI/UIImage.h"
 // Map
 #include "../Map/ScrollMap.h"
@@ -83,27 +84,8 @@ bool CMain3Scene::Init()
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(-1);
 
-
-	/*
-	Scroll Map Infinite Loop
-
-	GetCamera()->SetWorldResolution(300000.f, 120000.f);
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileMapWidth = 3000.f - GetCamera()->GetResolution().x;
-	float	TileMapHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("ScrollBack", TEXT("Sky.bmp"));
-	Map->SetLoop(true);
-	Map->SetZOrder(0);
-
-	*/
+	// UI
+	CUIBossStateHUD* BossStateWindow = CreateUIWindow<CUIBossStateHUD>("BossStateHUD");
 
 	
 	return true;
