@@ -62,6 +62,8 @@ private :
 	void UseHpPotionInv(float DeltaTime);
 	void UseMpPotionInv(float DeltaTime);
 	void UseShieldInv(float DeltaTime);
+private :
+	void ShieldUpdate(float DeltaTime);
 // Functions
 public:
 	virtual void Start();
@@ -89,8 +91,6 @@ private :
 	virtual void ChangeIdleAnimation();
 	virtual void ChangeDeathAnimation();
 	void ChangeDashAnimation();
-
-
 // Gun
 private :
 	void  ChangeGunToLight(float DeltaTime);

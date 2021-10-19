@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "EffectHit.h"
 #include "EffectText.h"
+#include "EffectShield.h"
 #include "EffectDash.h"
 #include "Coin.h"
 #include "Npc.h"
@@ -55,6 +56,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 {
 	m_ObjType = EObject_Type::Player;
 	m_TimeScale = 1.f;
+	m_ShieldEnable = true;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -78,6 +80,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_HpPotionInv = obj.m_HpPotionInv;
 	m_MpPotionInv = obj.m_MpPotionInv;
 	m_ShieldInv = obj.m_ShieldInv;
+	m_ShieldEnable = true;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -156,14 +159,46 @@ void CPlayer::UpdateShieldInv(CUICharacterStateHUD* const State)
 
 void CPlayer::UseHpPotionInv(float DeltaTime)
 {
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (m_HpPotionInv > 0)
+	{
+		m_HpPotionInv -= 1;
+		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+		UpdateHpPotionInv(State);
+	}
 }
 
 void CPlayer::UseMpPotionInv(float DeltaTime)
 {
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (m_MpPotionInv > 0)
+	{
+		m_MpPotionInv -= 1;
+		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+		UpdateMpPotionInv(State);
+	}
 }
 
 void CPlayer::UseShieldInv(float DeltaTime)
 {
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (m_ShieldInv > 0 )
+	{
+		m_ShieldInv -= 1;
+		m_ShieldEnable = true;
+		UpdateShieldInv(State);
+	}
+}
+void CPlayer::ShieldUpdate(float DeltaTime)
+{
+	if (m_ShieldTime > 0.f)
+	{
+		m_ShieldTime -= DeltaTime;
+		if (m_ShieldEnableTime <= 0.f)
+		{
+			m_ShieldEnable = false;
+		}
+	}
 }
 void CPlayer::Start()
 {
@@ -453,11 +488,15 @@ void CPlayer::Update(float DeltaTime)
 	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
 		ChangeDirToMouse();
 
+	// Gun Bullet Update
 	GunCurBulletNumUpdate();
 	
 	// Update m_MonsterCollideTime
 	if (m_MonsterCollideTime >= 0.f)
 		m_MonsterCollideTime -= DeltaTime;
+
+	// Shield Update
+	// ShieldUpdate(DeltaTime);
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -1330,8 +1369,6 @@ void CPlayer::ShowNoGoldSign()
 	NoBulletText->SetText(TEXT("No Gold"));
 	NoBulletText->SetTextColor(255, 0, 0);
 }
-
-
 
 CGun* CPlayer::Equip(CGun* Gun)
 {

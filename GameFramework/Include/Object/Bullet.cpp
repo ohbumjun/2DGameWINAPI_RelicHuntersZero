@@ -2,6 +2,7 @@
 #include "../Collision/ColliderBox.h"
 #include "../Collision/ColliderSphere.h"
 #include "EffectHit.h"
+#include "EffectShield.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../UI//NumberWidget.h"
@@ -110,23 +111,22 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
 	Destroy();
 
-
 	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 		m_Pos, Vector2(178.f, 164.f));
 	m_Scene->GetSceneResource()->SoundPlay("Fire");
 
 	CGameObject* DestOwner = Dest->GetOwner();
+	EObject_Type DestType = DestOwner->GetObjType();
 	Vector2 DestSize = DestOwner->GetSize();
 	Vector2 BulletDir = m_Dir;
 
-	if (DestOwner->GetObjType() == EObject_Type::Player ||
-		DestOwner->GetObjType() == EObject_Type::Monster)
+	if (DestType == EObject_Type::Player ||
+		DestType == EObject_Type::Monster)
 	{
 		CCharacter* DestChar  = (CCharacter*)Dest->GetOwner();
 		bool DestShieldEnable = DestChar->GetShieldEnable();
-		if (!DestShieldEnable)
+		if(!DestShieldEnable)
 		{
-			
 			// Hit 
 			DestChar->SetHitDir(BulletDir);
 			DestChar->Hit();
@@ -134,15 +134,18 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 			if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
 				Dest->GetOwner()->GetObjType() == EObject_Type::Player)
 				Armor = Dest->GetOwner()->GetArmor();
-
 			// Damage Font
 			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
 			DamageFont->SetDamageNumber((int)(m_Damage - Armor));
-			
 			// Damage
 			Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));
 		}
+		if (DestShieldEnable && DestType == EObject_Type::Player)
+		{
+			CEffectShield* ShieldEffect = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
+			ShieldEffect->SetShieldType(EShield_Type::Player);
+			ShieldEffect->SetOwner(DestOwner);
+			ShieldEffect->SetLifeTime(0.5f);
+		}
 	}
-
-
 }
