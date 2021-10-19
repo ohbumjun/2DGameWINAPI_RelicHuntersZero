@@ -58,11 +58,11 @@ bool CMainScene::Init()
 	TileMap->LoadFile("Stage1.map");
 
 	// Monster
-	SetMonsterOnTileMap<
-		CDuckMonster, 
-		CDuckMonster, 
-		CDuckMonster>
-		(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	// SetMonsterOnTileMap<
+	// 	CDuckMonster, 
+	// 	CDuckMonster, 
+	// 	CDuckMonster>
+	// 	(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 	
 	// Stage Door
 	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoor1",
@@ -78,23 +78,19 @@ bool CMainScene::Init()
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 
-	/*
+	// Scroll Map
+	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
+	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
+	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
+
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
 	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Sky", TEXT("Sky.bmp")); // Sky.bmp : 1500, 1200
+	Map->SetTexture("Sky", TEXT("Stage1Back.bmp")); 
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(0);
+	Map->SetZOrder(-1);
 
-	// Scroll Map : Mountain
-	Map = CreateMap<CScrollMap>("ScrollMap");
-	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
-	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
-	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(1);
-	Map->SetTextureColorKey(255, 0, 255);
-	*/
 
 	return true;
 }

@@ -63,14 +63,27 @@ bool CMain3Scene::Init()
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 
-	/*
+	// Tile Map
+	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
+	TileMap->LoadFile("Stage3.map");
+
+	// Monster
+	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 
 
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+	// Scroll Map
+	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
+	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
+	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
+
+	CScrollMap* Map = CreateMap<CScrollMap>("BackGroundMap");
 	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Sky", TEXT("Sky.bmp")); // Sky.bmp : 1500, 1200
+	Map->SetTexture("Sky", TEXT("Stage1Back.bmp")); 
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(0);
+	Map->SetZOrder(-1);
+	/*
 
 	// Scroll Map : Mountain
 	Map = CreateMap<CScrollMap>("ScrollMap");
@@ -105,11 +118,7 @@ bool CMain3Scene::Init()
 
 	*/
 
-	// Tile Map
-	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Stage3.map");
-	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
-
+	
 	return true;
 }
 
