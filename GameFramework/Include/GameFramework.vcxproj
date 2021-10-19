@@ -232,6 +232,7 @@
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
     <ClCompile Include="UI\UIGunStateHUD.cpp" />
     <ClCompile Include="UI\UICommon.cpp" />
+    <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="UI\UICharacterStateHUD.h" />
     <ClInclude Include="UI\UIGunStateHUD.h" />
     <ClInclude Include="UI\UICommon.h" />
+    <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIMain.h" />
     <ClInclude Include="UI\UIStart.h" />

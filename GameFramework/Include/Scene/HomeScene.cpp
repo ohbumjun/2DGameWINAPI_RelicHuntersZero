@@ -14,6 +14,7 @@
 #include "../Object/HPPotion.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UICommon.h"
+#include "../UI/UIHome.h"
 #include "../Map/TileMap.h"
 
 CHomeScene::CHomeScene()
@@ -34,6 +35,7 @@ bool CHomeScene::Init()
 	SetBasicProtoTypes();
 	// UI
 	SetBasicUIs();
+	CUIHome* HomeWindow = CreateUIWindow<CUIHome>("HomeUI");
 	// Guns
 	SetBasicObjectGuns();
 	// Objects
