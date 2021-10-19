@@ -86,11 +86,31 @@ bool CMainScene::Init()
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-	Map->SetSize(1280.f, 720.f);
+	Map->SetSize(2000.f, 1000.f);
 	Map->SetTexture("Sky", TEXT("Stage1Back.bmp")); 
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(-1);
 
+	/*
+	Scroll Map Infinite Loop
+
+	GetCamera()->SetWorldResolution(300000.f, 120000.f);
+	// ScrollMap Size 1500.f, 1200.f
+	// Scroll Map : Sky
+	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+
+	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
+	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	float	TileMapWidth = 3000.f - GetCamera()->GetResolution().x;
+	float	TileMapHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	Map->SetSize(1280.f, 720.f);
+	Map->SetTexture("ScrollBack", TEXT("Sky.bmp"));
+	Map->SetLoop(true);
+	Map->SetZOrder(0);
+
+	*/
 
 	return true;
 }

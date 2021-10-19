@@ -77,60 +77,11 @@ bool CMain2Scene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Windows
-	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
-
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
-	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
-
-	/*
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Sky", TEXT("Sky.bmp")); // Sky.bmp : 1500, 1200
-	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(0);
-
-	// Scroll Map : Mountain
-	Map = CreateMap<CScrollMap>("ScrollMap");
-	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
-	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
-	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(1);
-	Map->SetTextureColorKey(255, 0, 255);
-	*/
-
-	/*
-	Scroll Map Infinite Loop
-
-	GetCamera()->SetWorldResolution(300000.f, 120000.f);
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileMapWidth = 3000.f - GetCamera()->GetResolution().x;
-	float	TileMapHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("ScrollBack", TEXT("Sky.bmp"));
-	Map->SetLoop(true);
-	Map->SetZOrder(0);
-
-	*/
+	// CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage2.map");
-	TileMap->SetZOrder(-1);
 
 	// Monster
 	SetMonsterOnTileMap<
@@ -138,6 +89,19 @@ bool CMain2Scene::Init()
 		CTurtleMonster,
 		CTurtleMonster>
 		(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
+
+	// 
+	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
+	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
+
+	float	TileScrollMapWidth = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
+	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
+
+	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
+	Map->SetSize(2000.f, 720.f);
+	Map->SetTexture("Sky", TEXT("Stage2Back.bmp"));
+	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
+	Map->SetZOrder(-1);
 
 	return true;
 }
