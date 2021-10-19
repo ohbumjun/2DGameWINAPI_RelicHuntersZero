@@ -50,6 +50,7 @@ void CNumberWidget::Update(float DeltaTime)
 		m_vecNumber.push_back(NumberStack.top());
 		NumberStack.pop();
 	}
+
 }
 
 void CNumberWidget::PostUpdate(float DeltaTime)
@@ -120,7 +121,6 @@ void CNumberWidget::Render(const Vector2& Pos, HDC hDC)
 }
 
 CNumberWidget* CNumberWidget::Clone()
-
 {
 	return new CNumberWidget(*this);
 }

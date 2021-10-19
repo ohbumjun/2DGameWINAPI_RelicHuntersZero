@@ -6,6 +6,7 @@
 #include "../Map/TileMap.h"
 #include "../Map/Tile.h"
 #include "../Object/Player.h"
+#include "../Object/DuckMonster.h"
 
 class CScene
 {

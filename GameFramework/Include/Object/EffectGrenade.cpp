@@ -9,7 +9,7 @@
 CEffectGrenade::CEffectGrenade() :
 	m_SpeedX(100.f),
 	m_FallTime(0.f),
-	m_Damage(200.f),
+	m_Damage(100.f),
 	m_Explode(false),
 	m_ExplodeTime(0.f),
 	m_ExplodeMaxTime(1.5f)
@@ -21,7 +21,7 @@ CEffectGrenade::CEffectGrenade(const CEffectGrenade& obj) :
 {
 	m_SpeedX         = obj.m_SpeedX;
 	m_FallTime       = 0.f;
-	m_Damage         = 200.f;
+	m_Damage         = 100.f;
 	m_Explode        = false;
 	m_ExplodeTime    = 0.f;
 	m_ExplodeMaxTime = 1.5f;
@@ -106,14 +106,14 @@ void CEffectGrenade::ChangeExplosionAnimation()
 void CEffectGrenade::Explode()
 {
 	// Damage 200.f to Player If Dist from Grenade to Player is below 100.f 
-	Vector2 GrenadePos = m_Pos + Vector2(-m_Size.x * 0.45f, 0);
+	Vector2 GrenadePos = m_Pos ;
 	CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
 
 	Vector2 PlayerPos = Player->GetPos();
 	Vector2 PlayerDir = Player->GetDir();
 
 	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
-	if (DistToPlayer <= 400.f)
+	if (DistToPlayer <= 150.f)
 	{
 		CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 			PlayerPos, Vector2(178.f, 164.f));
@@ -124,12 +124,11 @@ void CEffectGrenade::Explode()
 		Player->Hit();
 		
 		int Armor = Player->GetArmor();
-
+		int FinalDamage = m_Damage - Armor;
 		// Damage Font
-		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, PlayerPos);
-		DamageFont->SetDamageNumber((int)(m_Damage - Armor));
+		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont",DAMAGEFONT_PROTO,PlayerPos);
+		DamageFont->SetDamageNumber(FinalDamage);
 
-		// Damage
-		Player->SetDamage((int)(m_Damage - Armor));
+		Player->SetDamage(FinalDamage);
 	}
 }

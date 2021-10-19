@@ -819,9 +819,8 @@ void CGameObject::Render(HDC hDC)
 			// Rectangle(hDC, (int)LT.x, (int)LT.y,
 				// (int)(LT.x + m_Size.x), (int)(LT.y + m_Size.y));
 		}
+
 	}
-
-
 	auto	iter = m_ColliderList.begin();
 	auto	iterEnd = m_ColliderList.end();
 
@@ -839,7 +838,6 @@ void CGameObject::Render(HDC hDC)
 		}
 		++iter;
 	}
-
 	{
 		auto	iter = m_WidgetComponentList.begin();
 		auto	iterEnd = m_WidgetComponentList.end();

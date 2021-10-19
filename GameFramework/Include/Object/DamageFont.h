@@ -19,10 +19,8 @@ private :
 	float m_SpeedX;
 
 public :
-	void SetDamageNumber(int Damage)
-	{
-		m_NumberWidget->SetNumber(Damage);
-	}
+	void SetDamageNumber(int Damage);
+	
 public:
 	virtual void Start();
 	virtual bool Init();

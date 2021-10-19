@@ -9,16 +9,30 @@ CDamageFont::CDamageFont() :
 {
 }
 
-CDamageFont::CDamageFont(const CDamageFont& obj) :
-	CGameObject(obj)
+CDamageFont::CDamageFont(const CDamageFont& obj) : CGameObject(obj)
 {
 	m_DirX = obj.m_DirX;
 	m_SpeedX = obj.m_SpeedX;
-	m_NumberWidget = obj.m_NumberWidget->Clone();
+	auto iter = m_WidgetComponentList.begin();
+	auto iterEnd = m_WidgetComponentList.end();
+	// typeid(T).hash_code() ==
+		// typeid(CTileMap).hash_code()
+	for (; iter != iterEnd; ++iter)
+	{
+		CUIWidget* Widget = (*iter)->GetWidget();
+		if (Widget->GetName() == "DamageFont")
+			m_NumberWidget = (CNumberWidget*)Widget;
+	}
+	// m_NumberWidget = obj.m_NumberWidget->Clone();
 }
 
 CDamageFont::~CDamageFont()
 {
+}
+
+void CDamageFont::SetDamageNumber(int Damage)
+{
+	m_NumberWidget->SetNumber(Damage);
 }
 
 void CDamageFont::Start()
@@ -26,7 +40,12 @@ void CDamageFont::Start()
 	CGameObject::Start();
 	m_DirX = rand() % 2 == 0 ? 1.f : -1.f;
 	m_SpeedX = (float)(rand() % 300);
-	// Jump()
+	
+	SetJumpVelocity(30.f);
+	SetPhysicsSimulate(true);
+	Jump();
+	SetLifeTime(1.f);
+
 }
 
 bool CDamageFont::Init()
@@ -41,7 +60,7 @@ bool CDamageFont::Init()
 	Jump();
 	SetLifeTime(1.f);
 
-	CWidgetComponent* WidgetComp =  CreateWidgetComponent("DamageFont");
+	CWidgetComponent* WidgetComp = CreateWidgetComponent("DamageFont");
 	m_NumberWidget = WidgetComp->CreateWidget<CNumberWidget>("DamageFont");
 
 	std::vector<std::wstring>	vecNumberFileName;
@@ -62,6 +81,7 @@ bool CDamageFont::Init()
 	{
 		m_NumberWidget->SetTextureColorKey(255, 255, 255, i);
 	}
+
 	return true;
 }
 
