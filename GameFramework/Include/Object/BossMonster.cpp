@@ -9,7 +9,7 @@ CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
 	m_MissileAttackTime(0.f),
 	m_GrenadeTime(0.f),
-	m_GrenadMaxTime(1.f),
+	m_GrenadMaxTime(3.f),
 	m_IsGeneratorAlive(false)
 {
 }
@@ -19,7 +19,7 @@ CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
 	m_MissileAttackMaxTime = 5.f;
 	m_MissileAttackTime = 0.f;
 	m_GrenadeTime = 0.f;
-	m_GrenadMaxTime = 15.f;
+	m_GrenadMaxTime = 3.f;
 	m_IsGeneratorAlive = false;
 }
 
@@ -47,7 +47,7 @@ void CBossMonster::GrenadeUpdate(float DeltaTime)
 	if (m_GrenadeTime >= m_GrenadMaxTime)
 	{
 		m_GrenadeTime -= m_GrenadMaxTime;
-		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 6.0f)
+		for (float f = 0.0f; f < 2 * M_PI; f += M_PI )
 		{
 			CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
 				"GrenadeEffect",
@@ -56,7 +56,7 @@ void CBossMonster::GrenadeUpdate(float DeltaTime)
 					(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f), 
 					(m_Pos.y - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
 				);
-			EffectGrenade->SetTexture("Grenade", TEXT("images/Monster/Boss/grenade_img.bmp"));
+			EffectGrenade->SetTexture("Grenade", TEXT("images/Monster/Boss/grenade.bmp"));
 			EffectGrenade->SetTextureColorKey(255, 255, 255);
 		}
 	}

@@ -1570,12 +1570,10 @@ bool CScene::Collision(float DeltaTime)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
-
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
 				}
-
 				continue;
 			}
 
@@ -1632,9 +1630,7 @@ bool CScene::Render(HDC hDC)
 	}
 
 	if (m_Player)
-	{
 		m_Player->PrevRender();
-	}
 
 	{
 		std::list<CSharedPtr<CGameObject>>::iterator iter = m_ObjList.begin();
@@ -2853,20 +2849,15 @@ void CScene::SetGeneratorAnimation()
 
 void CScene::SetGrenadeAnimation()
 {
-	// Idle
-	GetSceneResource()->CreateAnimationSequence(GENERATOR_IDLE,
-		GENERATOR_IDLE, TEXT("images/Monster/Boss/grenade_explosion.bmp"));
-	GetSceneResource()->SetTextureColorKey(GENERATOR_IDLE,
+	GetSceneResource()->CreateAnimationSequence(GRENADE_ON,
+		GRENADE_ON, TEXT("images/Monster/Boss/grenade_explosion.bmp"));
+	GetSceneResource()->SetTextureColorKey(GRENADE_ON,
 		255, 255, 255);
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (i == 2 && j == 1) break;
-			GetSceneResource()->AddAnimationFrameData(GENERATOR_IDLE,
-				j * 182.f, i * 194.f, 182.f, 194.f);
-		}
+		GetSceneResource()->AddAnimationFrameData(GRENADE_ON,
+			i * 194.f, 0.f, 194.f, 172.f);
 	}
 }
 
