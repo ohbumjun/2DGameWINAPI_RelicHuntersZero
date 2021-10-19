@@ -56,13 +56,7 @@ bool CMain2Scene::Init()
 	CTurtleMonster* TurtleMonster = CreateObject<CTurtleMonster>("Monster2", MONSTER_TURTLE2_PROTO, 
 		Vector2(300.f + rand() % 700, 500.f + (float)(rand() % 100)));
 	TurtleMonster->Equip(PistolLightGun);
-	/*
-	// Gun
 
-	PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	TurtleMonster = CreateObject<CTurtleMonster>("Monster3", MONSTER_TURTLE3_PROTO, Vector2(300.f + rand() % 700, (float)(rand() % 100)));
-	TurtleMonster->Equip(PistolLightGun);
-	*/
 
 	CStageDoor* StageDoor = CreateObject<CStageDoor>("StageDoorHome",
 		Vector2(600.f, 300.f),
@@ -84,22 +78,6 @@ bool CMain2Scene::Init()
 
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
-
-	// Potion
-	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
-	MPPotion1->SetPos(Vector2(300.f, 230.f));
-
-	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
-	HPPotion1->SetPos(Vector2(200.f, 210.f));
-	HPPotion1->SetTextureColorKey(255, 0, 255);
-
-
-
-	// WorldResolution is set to TileMap
-	// if you want the other World Resolution Size instead of TileMap
-	// Then, you have to set world resolution at the end  
-	// or after TileMap
-	GetCamera()->SetWorldResolution(2000.f, 2000.f);
 
 	// ScrollMap Size 1500.f, 1200.f
 	// Scroll Map : Sky
@@ -155,7 +133,13 @@ bool CMain2Scene::Init()
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
 	TileMap->LoadFile("Stage2.map");
 	TileMap->SetZOrder(-1);
-	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
+
+	// Monster
+	SetMonsterOnTileMap<
+		CTurtleMonster,
+		CTurtleMonster,
+		CTurtleMonster>
+		(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 
 	return true;
 }

@@ -75,11 +75,12 @@ public :
 	void SetDuck2MonsterAnimation();
 	void SetDuck3MonsterAnimation();
 	void SetKamikaze1MonsterAnimation();
-	template <typename T>
+
+	template<typename A = CDuckMonster, typename B = CDuckMonster, typename C = CDuckMonster>
 	void SetMonsterOnTileMap(
-		const std::string&  MonsterProtoEasy,
-		const std::string& MonsterProtoMid,
-		const std::string& MonsterProtoHard
+		const std::string&  MonsterProtoA,
+		const std::string& MonsterProtoB,
+		const std::string& MonsterProtoC
 		);
 public:
 	void SetLevel2MonsterAnimation();
@@ -269,13 +270,15 @@ public:
 	}
 };
 
-template<typename T>
+template<typename A, typename B, typename C>
 inline void CScene::SetMonsterOnTileMap(
-	const std::string& MonsterProtoEasy,
-	const std::string& MonsterProtoMid,
-	const std::string& MonsterProtoHard)
+	const std::string& MonsterProtoA,
+	const std::string& MonsterProtoB,
+	const std::string& MonsterProtoC)
 {
-	T* Monster = nullptr;
+	A* MonsterA = nullptr;
+	B* MonsterB = nullptr;
+	C* MonsterC = nullptr;
 	CGun* PistolGun = nullptr;
 	CTileMap* TileMap = GetTileMap();
 
@@ -300,9 +303,9 @@ inline void CScene::SetMonsterOnTileMap(
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, TilePos);
-					Monster = CreateObject<T>(std::to_string(EasyMNum), MonsterProtoEasy,
+					MonsterA = CreateObject<A>(std::to_string(EasyMNum), MonsterProtoA,
 						TilePos);
-					Monster->Equip(PistolGun);
+					MonsterA->Equip(PistolGun);
 					EasyMNum += 1;
 				}
 				
@@ -310,18 +313,18 @@ inline void CScene::SetMonsterOnTileMap(
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO,TilePos);
-					Monster = CreateObject<T>(std::to_string(MidMNum), MonsterProtoMid,
+					MonsterB = CreateObject<B>(std::to_string(MidMNum), MonsterProtoB,
 						TilePos);
-					Monster->Equip(PistolGun);
+					MonsterB->Equip(PistolGun);
 					MidMNum += 1;
 				}
 				if (TileOption == ETileOption::MonsterHard)
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
 					PistolGun = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, TilePos);
-					Monster = CreateObject<T>(std::to_string(HardMNum), MonsterProtoHard,
+					MonsterC = CreateObject<C>(std::to_string(HardMNum), MonsterProtoC,
 						TilePos);
-					Monster->Equip(PistolGun);
+					MonsterC->Equip(PistolGun);
 					HardMNum += 1;
 				}
 			}

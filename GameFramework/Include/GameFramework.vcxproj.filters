@@ -393,6 +393,9 @@
     <ClCompile Include="UI\UIHome.cpp">
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Main3Scene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -703,6 +706,9 @@
     </ClInclude>
     <ClInclude Include="UI\UIHome.h">
       <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Main3Scene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

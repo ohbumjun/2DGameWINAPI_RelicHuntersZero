@@ -58,62 +58,25 @@ bool CMainScene::Init()
 	TileMap->LoadFile("Stage1.map");
 
 	// Monster
-	SetMonsterOnTileMap<CDuckMonster>(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
-
-	CKamiKazeMonster*KamikazeMonster = CreateObject<CKamiKazeMonster>("Kamikaze1",MONSTER_KAMIKAZE2_PROTO,
-		Vector2(300.f , 530.f));
-	// DuckMonster->Equip(PistolLightGun);
-	KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	KamikazeMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-
-	CDuckMonster* DuckMonster = CreateObject<CDuckMonster>("Monster1", MONSTER_DUCK1_PROTO,
-		Vector2(300.f, 530.f));
-	DuckMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-
-	DuckMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
-	
-	/*
-	CGun* PistolLightGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO);
-	*/
+	SetMonsterOnTileMap<
+		CDuckMonster, 
+		CDuckMonster, 
+		CDuckMonster>
+		(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 	
 	// Stage Door
 	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoor1",
 														 Vector2(200.f,300.f),
 														 Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
-
 	StageDoor = CreateObject<CStageDoor>("StageDoor2",
 		Vector2(3500.f, 2200.f),
 		Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Two);
 
 
-
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
-
-	// Potion
-	/*
-	CMPPotion *MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO,POTION_MP_PROTO);
-	MPPotion1->SetPos(Vector2(300.f, 230.f));
-
-	CHPPotion *HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO,POTION_HP_PROTO);
-	HPPotion1->SetPos(Vector2(200.f, 210.f));
-	HPPotion1->SetTextureColorKey(255, 0, 255);
-	*/
-
-	// Wall Setting
-	// SetObjectsToWall();
-
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileScrollMapWidth  = GetCamera()->GetWorldResolution().x - GetCamera()->GetResolution().x;
-	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
 	/*
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
