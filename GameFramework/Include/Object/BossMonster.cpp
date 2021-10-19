@@ -172,6 +172,7 @@ void CBossMonster::Update(float DeltaTime)
 	MissileUpdate(DeltaTime);
 	GrenadeUpdate(DeltaTime);
 	GeneratorUpdate(DeltaTime);
+	UIUpdate(DeltaTime);
 }
 
 void CBossMonster::PostUpdate(float DeltaTime)
