@@ -65,18 +65,6 @@ void CBossMonster::GeneratorAttack(float DeltaTime)
 {
 }
 
-void CBossMonster::BossMonsterUpdate(float DeltaTime)
-{
-	// if (m_EggCrackEnable) return;
-	// if (m_EggStartEnable) return;
-
-	CMonster::Update(DeltaTime);
-
-	MissileUpdate(DeltaTime);
-	GrenadeUpdate(DeltaTime);
-	GeneratorUpdate(DeltaTime);
-}
-
 void CBossMonster::ChangeIdleAnimation()
 {
 	CMonster::ChangeIdleAnimation();
@@ -168,17 +156,19 @@ bool CBossMonster::Init()
 	if (!CMonster::Init()) return false;
 	SetAnimation();
 
+	m_HPBarWidget->SetPos(-25.f, -155.f);
+	m_MPBarWidget->SetPos(-25.f, -145.f);
+
 	return true;
 }
 
 void CBossMonster::Update(float DeltaTime)
 {
-	// ChangeAnimation(MONSTER_BOSS_EGG_CRACK);
-	BossMonsterUpdate(DeltaTime);
-	/*
-	EggStartUpdate(DeltaTime);
-	EggCrackUpdate(DeltaTime);
-	*/
+	CMonster::Update(DeltaTime);
+
+	MissileUpdate(DeltaTime);
+	GrenadeUpdate(DeltaTime);
+	GeneratorUpdate(DeltaTime);
 }
 
 void CBossMonster::PostUpdate(float DeltaTime)

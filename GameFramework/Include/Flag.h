@@ -46,6 +46,7 @@ enum EGunClass
 	Light,
 	Medium,
 	Heavy,
+	Boss,
 	End
 };
 enum class EGun_Type

@@ -1,4 +1,5 @@
 #include "BossEgg.h"
+#include "Gun.h"
 #include "BossMonster.h"
 #include "EffectSurprise.h"
 #include "../Scene/Scene.h"
@@ -67,6 +68,8 @@ void CBossEgg::MonsterAppear()
         Vector2(1000.f, 500.f));
     BossMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
         NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+    CGun* BossGun = m_Scene->CreateObject<CGun>("BossGun", BOSS_GUN_PROTO, m_Pos);
+    BossMonster->Equip(BossGun);
     Destroy();
 }
 

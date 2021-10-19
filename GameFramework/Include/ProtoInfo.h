@@ -37,3 +37,5 @@
 #define GUN_SHOTGUN_LIGHT_PROTO    "ShotGunLightProto"
 #define GUN_SHOTGUN_MEDIUM_PROTO   "ShotGunMediumProto"
 #define GUN_SHOTGUN_HEAVY_PROTO    "ShotGunHeavyProto"
+
+#define BOSS_GUN_PROTO   "BossGunProto"

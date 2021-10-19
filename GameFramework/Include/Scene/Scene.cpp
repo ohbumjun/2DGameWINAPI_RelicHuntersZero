@@ -1363,6 +1363,17 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
+
+	GunPistolLight = CreatePrototype<CGun>(BOSS_GUN_PROTO);
+	GunPistolLight->SetTexture(GUN_BOSS_L, TEXT(TEXTURE_BOSS_GUN_L));
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
+	GunPistolLight->SetTexture(GUN_BOSS_R, TEXT(TEXTURE_BOSS_GUN_R));
+	GunPistolLight->SetTextureColorKey(255, 255, 255);
+	GunPistolLight->SetPos(200.f, 700.f);
+	GunPistolLight->SetGunClass(EGunClass::Boss);
+	GunPistolLight->SetGunType(EGun_Type::Boss_Gun);
+	GunPistolLight->SetLeftTextureName(GUN_BOSS_L);
+	GunPistolLight->SetRightTextureName(GUN_BOSS_R);
 }
 
 void CScene::SetBasicProtoGuns()

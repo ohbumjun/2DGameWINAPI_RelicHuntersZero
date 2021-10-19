@@ -31,8 +31,6 @@ private :
 	bool m_IsGeneratorAlive;
 	void GeneratorUpdate(float DeltaTime);
 	void GeneratorAttack(float DeltaTime);
-private :
-	void BossMonsterUpdate(float DeltaTime);
 // Animation
 public:
 	virtual void ChangeIdleAnimation();

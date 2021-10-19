@@ -45,6 +45,9 @@
 #define GUN_SHOTGUN_HEAVY_R  "R_ShotGunHeavy"
 #define GUN_SHOTGUN_HEAVY_L  "L_ShotGunHeavy"
 
+#define GUN_BOSS_L  "L_BossGun"
+#define GUN_BOSS_R  "R_BossGun"
+
 
 // Gun Image Path
 #define TEXTURE_GUN_PISTOL_LIGHT_R   "images/Weapon/Gun/spr_pistol_0.bmp"
@@ -64,6 +67,9 @@
 
 #define TEXTURE_GUN_SHOTGUN_HEAVY_R  "images/Weapon/Gun/spr_shotgun_heavy_0.bmp"
 #define TEXTURE_GUN_SHOTGUN_HEAVY_L  "images/Weapon/Gun/left_spr_shotgun_heavy_0.bmp"
+
+#define TEXTURE_BOSS_GUN_L  "images/Monster/Boss/left_gun.bmp"
+#define TEXTURE_BOSS_GUN_R  "images/Monster/Boss/right_gun.bmp"
 
 // Casing Image Path 
 #define TEXTURE_CASING_L_TOWARD_L  "images/Weapon/Casing/L_spr_casing_0.bmp"
