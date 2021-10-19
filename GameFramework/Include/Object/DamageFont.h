@@ -12,7 +12,7 @@ protected:
 	virtual ~CDamageFont();
 
 private :
-	CNumberWidget* m_NumberWidget;
+	CSharedPtr<CNumberWidget> m_NumberWidget;
 	
 	// 랜덤 방향과 속도
 	float m_DirX;

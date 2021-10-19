@@ -19,6 +19,7 @@ CUIImage::CUIImage(const CUIImage& widget)	:
 	m_AnimTime = 0.f;
 	m_FrameIndex = 0;
 	m_vecFrameData = widget.m_vecFrameData;
+	
 }
 
 CUIImage::~CUIImage()

@@ -13,6 +13,9 @@ private:
 	float m_SpeedX;
 	float m_FallTime;
 	int   m_Damage;
+	float m_ExplodeTime;
+	float m_ExplodeMaxTime;
+	bool  m_Explode;
 public:
 	virtual void Start();
 	virtual bool Init();

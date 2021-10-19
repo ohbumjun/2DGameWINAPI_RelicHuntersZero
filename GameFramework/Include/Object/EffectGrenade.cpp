@@ -9,16 +9,22 @@
 CEffectGrenade::CEffectGrenade() :
 	m_SpeedX(100.f),
 	m_FallTime(0.f),
-	m_Damage(200.f)
+	m_Damage(200.f),
+	m_Explode(false),
+	m_ExplodeTime(0.f),
+	m_ExplodeMaxTime(1.5f)
 {
 }
 
 CEffectGrenade::CEffectGrenade(const CEffectGrenade& obj) :
 	CGameObject(obj)
 {
-	m_SpeedX = obj.m_SpeedX;
-	m_FallTime = 0.f;
-	m_Damage = 200.f;
+	m_SpeedX         = obj.m_SpeedX;
+	m_FallTime       = 0.f;
+	m_Damage         = 200.f;
+	m_Explode        = false;
+	m_ExplodeTime    = 0.f;
+	m_ExplodeMaxTime = 1.5f;
 }
 
 CEffectGrenade::~CEffectGrenade()
@@ -28,9 +34,13 @@ CEffectGrenade::~CEffectGrenade()
 void CEffectGrenade::Start()
 {
 	CGameObject::Start();
+
 	// Random Jump Velocity
 	SetJumpVelocity(10.f);
 	Jump();
+
+	// EndNotify
+	// SetAnimationEndNotify<CEffectGrenade>(GRENADE_ON, this, &CEffectGrenade::AnimationFinish);
 }
 
 bool CEffectGrenade::Init()
@@ -47,8 +57,16 @@ void CEffectGrenade::Update(float DeltaTime)
 	
 	m_FallTime += DeltaTime;
 	if (m_FallTime >= 0.7f)
-	{
 		ChangeExplosionAnimation();
+
+	if (m_Explode)
+	{
+		m_ExplodeTime += DeltaTime;
+		if (m_ExplodeTime >= m_ExplodeMaxTime)
+		{
+			Explode();
+			Destroy();
+		}
 	}
 }
 
@@ -82,8 +100,7 @@ void CEffectGrenade::ChangeExplosionAnimation()
 	// Activate Animation
 	AddAnimation(GRENADE_ON, false, 2.f);
 
-	// EndNotify
-	SetAnimationEndNotify<CEffectGrenade>(GRENADE_ON, this, &CEffectGrenade::AnimationFinish);
+	m_Explode = true;
 }
 
 void CEffectGrenade::Explode()
@@ -96,7 +113,7 @@ void CEffectGrenade::Explode()
 	Vector2 PlayerDir = Player->GetDir();
 
 	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
-	if (DistToPlayer <= 100.f)
+	if (DistToPlayer <= 400.f)
 	{
 		CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 			PlayerPos, Vector2(178.f, 164.f));
@@ -115,10 +132,4 @@ void CEffectGrenade::Explode()
 		// Damage
 		Player->SetDamage((int)(m_Damage - Armor));
 	}
-}
-
-void CEffectGrenade::AnimationFinish()
-{
-	Destroy();
-	Explode();
 }

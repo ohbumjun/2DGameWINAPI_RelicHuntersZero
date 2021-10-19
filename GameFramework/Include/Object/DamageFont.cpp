@@ -14,7 +14,7 @@ CDamageFont::CDamageFont(const CDamageFont& obj) :
 {
 	m_DirX = obj.m_DirX;
 	m_SpeedX = obj.m_SpeedX;
-	m_NumberWidget = nullptr;
+	m_NumberWidget = obj.m_NumberWidget->Clone();
 }
 
 CDamageFont::~CDamageFont()
@@ -88,5 +88,5 @@ void CDamageFont::Render(HDC hDC)
 
 CDamageFont* CDamageFont::Clone()
 {
-	return nullptr;
+	return new CDamageFont(*this);
 }
