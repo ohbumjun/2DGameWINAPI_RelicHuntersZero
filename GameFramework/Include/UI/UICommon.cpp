@@ -1,8 +1,8 @@
-#include "UIHome.h"
+#include "UICommon.h"
 #include "../GameManager.h"
 #include "../Object/StageDoor.h"
 
-CUIHome::CUIHome() :
+CUICommon::CUICommon() :
     m_HpCostHunderedWidget(nullptr),
     m_HpCostTenWidget(nullptr),
     m_HpCostOneWidget(nullptr),
@@ -18,11 +18,11 @@ CUIHome::CUIHome() :
 {
 }
 
-CUIHome::~CUIHome()
+CUICommon::~CUICommon()
 {
 }
 
-bool CUIHome::Init()
+bool CUICommon::Init()
 {
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
@@ -42,12 +42,12 @@ bool CUIHome::Init()
 	return true;
 }
 
-void CUIHome::Update(float DeltaTime)
+void CUICommon::Update(float DeltaTime)
 {
 	CUIWindow::Update(DeltaTime);
 }
 
-void CUIHome::HpCostInit(std::vector<std::wstring>& vecNumberFileName)
+void CUICommon::HpCostInit(std::vector<std::wstring>& vecNumberFileName)
 {
     // Hp ---
     m_HpCostHunderedWidget = CreateWidget<CNumberWidget>("Number");
@@ -93,7 +93,7 @@ void CUIHome::HpCostInit(std::vector<std::wstring>& vecNumberFileName)
         SetHpCostOneRenderEnable(false);
 }
 
-void CUIHome::MpCostInit(std::vector<std::wstring>& vecNumberFileName)
+void CUICommon::MpCostInit(std::vector<std::wstring>& vecNumberFileName)
 {
     // Mp ---
     m_MpCostHunderedWidget = CreateWidget<CNumberWidget>("Number");
@@ -139,7 +139,7 @@ void CUIHome::MpCostInit(std::vector<std::wstring>& vecNumberFileName)
         SetMpCostOneRenderEnable(false);
 }
 
-void CUIHome::ShieldCostInit(std::vector<std::wstring>& vecNumberFileName)
+void CUICommon::ShieldCostInit(std::vector<std::wstring>& vecNumberFileName)
 {
     // Shield ---
     m_ShieldCostHunderedWidget = CreateWidget<CNumberWidget>("Number");

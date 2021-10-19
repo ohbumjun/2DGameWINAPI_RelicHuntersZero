@@ -1,14 +1,14 @@
 #pragma once
 #include "UIWindow.h"
 #include "NumberWidget.h"
-class CUIHome :
+class CUICommon :
     public CUIWindow
 {
 	friend class CScene;
 
 private:
-	CUIHome();
-	virtual ~CUIHome();
+	CUICommon();
+	virtual ~CUICommon();
 private:
 // HP 
 	class   CNumberWidget* m_HpCostHunderedWidget;

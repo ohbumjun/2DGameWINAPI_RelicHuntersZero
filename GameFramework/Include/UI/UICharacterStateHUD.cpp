@@ -25,12 +25,8 @@ CUICharacterStateHUD::~CUICharacterStateHUD()
 {
 }
 
-bool CUICharacterStateHUD::Init()
+void CUICharacterStateHUD::SetAbilityUI()
 {
-	SetPos(30.f, 20.f);
-
-	Resolution	RS = CGameManager::GetInst()->GetResolution();
-
 	// Hp, Mp, Stemina Bar ---
 	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
 	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
@@ -54,20 +50,16 @@ bool CUICharacterStateHUD::Init()
 	m_SteminaBar = CreateWidget<CProgressBar>("SteminaBar");
 	m_SteminaBar->SetTexture("SteminaBar", TEXT("BarStemina.bmp"));
 	m_SteminaBar->SetPos(10.f, 90.f);
+}
 
-	// Gold ---
+void CUICharacterStateHUD::SetGoldUI(std::vector<std::wstring>& vecNumberFileName)
+{
 	m_GoldImage = CreateWidget<CUIImage>("GoldImage");
 	m_GoldImage->SetTexture("GoldImage", TEXT("images/Items/coin_single.bmp"));
 	m_GoldImage->SetTextureColorKey(255, 255, 255);
 	m_GoldImage->SetPos(250.f, 10.f);
 
-	std::vector<std::wstring>	vecNumberFileName;
-	for (int i = 0; i < 10; ++i)
-	{
-		TCHAR	FileName[256] = {};
-		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
-		vecNumberFileName.push_back(FileName);
-	}
+
 
 	m_GoldHunderedWidget = CreateWidget<CNumberWidget>("Number");
 	m_GoldHunderedWidget->SetTexture("Number", vecNumberFileName);
@@ -95,16 +87,18 @@ bool CUICharacterStateHUD::Init()
 	{
 		m_GoldOneWidget->SetTextureColorKey(255, 255, 255, i);
 	}
+}
 
-	// HpInv --- 
+void CUICharacterStateHUD::SetHpInvUI(std::vector<std::wstring>& vecNumberFileName)
+{
 	m_HpInvImage = CreateWidget<CUIImage>("HpInvImage");
 	m_HpInvImage->SetTexture("HpInvImage", TEXT("images/Items/hp.bmp"));
 	m_HpInvImage->SetTextureColorKey(255, 255, 255);
-	m_HpInvImage->SetPos(550.f, 500.f);
+	m_HpInvImage->SetPos(350.f, 500.f);
 
 	m_HpInvTenWidget = CreateWidget<CNumberWidget>("Number");
 	m_HpInvTenWidget->SetTexture("Number", vecNumberFileName);
-	m_HpInvTenWidget->SetPos(580.f, 530.f);
+	m_HpInvTenWidget->SetPos(380.f, 530.f);
 	m_HpInvTenWidget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{
@@ -113,15 +107,68 @@ bool CUICharacterStateHUD::Init()
 
 	m_HpInvOneWidget = CreateWidget<CNumberWidget>("Number");
 	m_HpInvOneWidget->SetTexture("Number", vecNumberFileName);
-	m_HpInvOneWidget->SetPos(610.f,560.f);
+	m_HpInvOneWidget->SetPos(410.f, 560.f);
 	m_HpInvOneWidget->SetSize(29.f, 48.f);
 	for (int i = 0; i < 10; i++)
 	{
 		m_HpInvOneWidget->SetTextureColorKey(255, 255, 255, i);
 	}
+}
 
-	// Gun
-	// Bullet Loaded 
+void CUICharacterStateHUD::SetMpInvUI(std::vector<std::wstring>& vecNumberFileName)
+{
+	m_MpInvImage = CreateWidget<CUIImage>("MpInvImage");
+	m_MpInvImage->SetTexture("MpInvImage", TEXT("images/Items/mp.bmp"));
+	m_MpInvImage->SetTextureColorKey(255, 255, 255);
+	m_MpInvImage->SetPos(450.f, 530.f);
+
+	m_MpInvTenWidget = CreateWidget<CNumberWidget>("Number");
+	m_MpInvTenWidget->SetTexture("Number", vecNumberFileName);
+	m_MpInvTenWidget->SetPos(480.f, 530.f);
+	m_MpInvTenWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_MpInvTenWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+
+	m_MpInvOneWidget = CreateWidget<CNumberWidget>("Number");
+	m_MpInvOneWidget->SetTexture("Number", vecNumberFileName);
+	m_MpInvOneWidget->SetPos(510.f, 530.f);
+	m_MpInvOneWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_MpInvOneWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+}
+
+void CUICharacterStateHUD::SetShieldInvUI(std::vector<std::wstring>& vecNumberFileName)
+{
+	m_ShieldInvImage = CreateWidget<CUIImage>("ShieldInvImage");
+	m_ShieldInvImage->SetTexture("ShieldInvImage", TEXT("images/Items/shield.bmp"));
+	m_ShieldInvImage->SetTextureColorKey(255, 255, 255);
+	m_ShieldInvImage->SetPos(550.f, 530.f);
+
+	m_ShieldInvTenWidget = CreateWidget<CNumberWidget>("Number");
+	m_ShieldInvTenWidget->SetTexture("Number", vecNumberFileName);
+	m_ShieldInvTenWidget->SetPos(580.f, 530.f);
+	m_ShieldInvTenWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_ShieldInvTenWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+
+	m_ShieldInvOneWidget = CreateWidget<CNumberWidget>("Number");
+	m_ShieldInvOneWidget->SetTexture("Number", vecNumberFileName);
+	m_ShieldInvOneWidget->SetPos(610.f, 530.f);
+	m_ShieldInvOneWidget->SetSize(29.f, 48.f);
+	for (int i = 0; i < 10; i++)
+	{
+		m_ShieldInvOneWidget->SetTextureColorKey(255, 255, 255, i);
+	}
+}
+
+void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFileName)
+{
 	m_BulletHunderedWidget = CreateWidget<CNumberWidget>("Number");
 	m_BulletHunderedWidget->SetTexture("Number", vecNumberFileName);
 	m_BulletHunderedWidget->SetPos(CURRENT_GUN_X_POS + 120.f, CURRENT_GUN_Y_POS);
@@ -176,6 +223,37 @@ bool CUICharacterStateHUD::Init()
 	{
 		m_FullBulletOneWidget->SetTextureColorKey(255, 0, 255, i);
 	}
+}
+
+bool CUICharacterStateHUD::Init()
+{
+	SetPos(30.f, 20.f);
+
+	Resolution	RS = CGameManager::GetInst()->GetResolution();
+	std::vector<std::wstring>	vecNumberFileName;
+	for (int i = 0; i < 10; ++i)
+	{
+		TCHAR	FileName[256] = {};
+		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
+		vecNumberFileName.push_back(FileName);
+	}
+
+	// Ability ---
+	SetAbilityUI();
+
+	// Gold ---
+	SetGoldUI(vecNumberFileName);
+
+	// HpInv --- 
+	SetHpInvUI(vecNumberFileName);
+	// MpInv --- 
+	SetMpInvUI(vecNumberFileName);
+	// ShieldInv --- 
+	SetShieldInvUI(vecNumberFileName);
+	
+
+	// Bullet 
+	SetGunBulletUI(vecNumberFileName);
 
 	return true;
 }

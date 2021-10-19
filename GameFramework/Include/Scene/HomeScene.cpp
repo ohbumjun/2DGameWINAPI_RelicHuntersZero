@@ -13,7 +13,7 @@
 #include "../Object/MPPotion.h"
 #include "../Object/HPPotion.h"
 #include "../UI/UICharacterStateHUD.h"
-#include "../UI/UIHome.h"
+#include "../UI/UICommon.h"
 #include "../Map/TileMap.h"
 
 CHomeScene::CHomeScene()
@@ -66,9 +66,6 @@ bool CHomeScene::Init()
 	NpcHP->SetNpcType(ENpc_Type::Hp);
 	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(900.f, 300.f)));
 	NpcShield->SetNpcType(ENpc_Type::Shield);
-
-	// Home
-	CUIHome* HomeWindow = CreateUIWindow<CUIHome>("HomeUI");
 
 	// Map
 	/*

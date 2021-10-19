@@ -20,6 +20,8 @@ private:
 	CSharedPtr<CProgressBar> m_HPBar;
 	CSharedPtr<CProgressBar> m_MPBar;
 	CSharedPtr<CProgressBar> m_SteminaBar;
+private :
+	void SetAbilityUI();
 public:
 	void SetHPPercent(float Percent)
 	{
@@ -36,6 +38,8 @@ public:
 // Gold
 private :
 	CSharedPtr<CUIImage> m_GoldImage;
+private :
+	void SetGoldUI(std::vector<std::wstring>& vecNumberFileName);
 public:
 	void SetGoldImage(const std::string& TextureName)
 	{
@@ -73,6 +77,8 @@ public:
 // Hp Inventory --- 
 private:
 	CSharedPtr<CUIImage> m_HpInvImage;
+private :
+	void SetHpInvUI(std::vector<std::wstring>& vecNumberFileName);
 public:
 	void SetHpInvImage(const std::string& TextureName)
 	{
@@ -101,6 +107,8 @@ public:
 // Mp Inventory --- 
 private:
 	CSharedPtr<CUIImage> m_MpInvImage;
+private :
+	void SetMpInvUI(std::vector<std::wstring>& vecNumberFileName);
 public:
 	void SetMpInvImage(const std::string& TextureName)
 	{
@@ -129,6 +137,8 @@ public:
 // Shield Inventory --- 
 private:
 	CSharedPtr<CUIImage> m_ShieldInvImage;
+private :
+	void SetShieldInvUI(std::vector<std::wstring>& vecNumberFileName);
 public:
 	void SetShieldInvImage(const std::string& TextureName)
 	{
@@ -155,11 +165,13 @@ public:
 		m_ShieldInvOneWidget->SetRenderEnable(State);
 	}
 // Bullet Info ---
-	private:
-		// Gun 
-		class   CNumberWidget* m_BulletHunderedWidget;
-		class   CNumberWidget* m_BulletTenWidget;
-		class   CNumberWidget* m_BulletOneWidget;
+private :
+	void SetGunBulletUI(std::vector<std::wstring>& vecNumberFileName);
+private:
+	// Gun 
+	class   CNumberWidget* m_BulletHunderedWidget;
+	class   CNumberWidget* m_BulletTenWidget;
+	class   CNumberWidget* m_BulletOneWidget;
 public:
 	void SetBulletHundredWidget(int Number)
 	{

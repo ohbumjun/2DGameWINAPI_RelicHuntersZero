@@ -25,6 +25,7 @@
 #include "../Map/MapBase.h"
 // UI
 #include "../UI/UIMain.h"
+#include "../UI/UICommon.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIGunStateHUD.h"
 
@@ -1185,7 +1186,7 @@ void CScene::SetBasicUIs()
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	CUIGunStateHUD*		  GunStateWindow = CreateUIWindow<CUIGunStateHUD>("GunStateHUD");
-	// CUIMain*			  MainWindow = CreateUIWindow<CUIMain>("MainUI");
+	CUICommon*			  CommonWindow = CreateUIWindow<CUICommon>("CommonUI");
 }
 
 void CScene::SetBasicProtoTypes()
