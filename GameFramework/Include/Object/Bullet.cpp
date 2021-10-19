@@ -195,7 +195,7 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 				Dest->GetOwner()->GetObjType() == EObject_Type::Player)
 				Armor = Dest->GetOwner()->GetArmor();
 			// Damage Font
-			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
 			DamageFont->SetDamageNumber((int)(m_Damage - Armor));
 			// Damage
 			Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));

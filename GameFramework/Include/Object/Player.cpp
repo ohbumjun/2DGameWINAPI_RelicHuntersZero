@@ -1108,7 +1108,7 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 	// Damage Font
 	if (m_MonsterCollideTime <= 0.f)
 	{
-		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", m_Pos);
+		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
 		MonsterDamage -= m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber((int)MonsterDamage);

@@ -1208,8 +1208,10 @@ void CScene::SetBasicProtoTypes()
 	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
 	// EffectAbilityUp
 	CEffectGrenade* EffectGrenadeProto = CreatePrototype<CEffectGrenade>(GRENADE_PROTO);
-	// Teleport
-	CWallObject* WallObjPrototype = CreatePrototype<CWallObject>(WALL_PROTO);
+	// DamageFont 
+	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
+	
+	// CWallObject* WallObjPrototype = CreatePrototype<CWallObject>(WALL_PROTO);
 
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);

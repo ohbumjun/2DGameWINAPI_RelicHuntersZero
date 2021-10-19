@@ -12,6 +12,7 @@ private:
 	// 랜덤 방향과 속도
 	float m_SpeedX;
 	float m_FallTime;
+	int   m_Damage;
 public:
 	virtual void Start();
 	virtual bool Init();
