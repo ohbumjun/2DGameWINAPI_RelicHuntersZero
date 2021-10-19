@@ -168,8 +168,6 @@ bool CBossMonster::Init()
 	if (!CMonster::Init()) return false;
 	SetAnimation();
 
-	SetCurrentAnimation(MONSTER_BOSS_EGG_START);
-
 	return true;
 }
 

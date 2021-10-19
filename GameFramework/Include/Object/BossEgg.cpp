@@ -1,6 +1,8 @@
 #include "BossEgg.h"
 #include "BossMonster.h"
+#include "EffectSurprise.h"
 #include "../Scene/Scene.h"
+#include "../Scene/SceneResource.h"
 
 CBossEgg::CBossEgg() :
     m_EggStartEnable(true),
@@ -32,6 +34,11 @@ void CBossEgg::EggStartUpdate(float DeltaTime)
         {
             m_EggStartEnable = false;
             m_EggCrackEnable = true;
+            Vector2 LT = m_Pos - m_Pivot * m_Size + m_Offset;
+            Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
+            CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
+                RT, Vector2(10.f, 10.f));
+            m_Scene->GetSceneResource()->SoundPlay("Fire");
         }
     }
 }
@@ -60,6 +67,7 @@ void CBossEgg::MonsterAppear()
         Vector2(1000.f, 500.f));
     BossMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
         NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+    Destroy();
 }
 
 void CBossEgg::SetAnimation()
