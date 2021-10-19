@@ -84,7 +84,7 @@ void CBullet::Update(float DeltaTime)
 	m_Distance -= GetMoveSpeedFrame();
 	if (m_Distance <= 0.f)
 		Destroy();
-	WallCollision();
+	WallCollision(); //
 }
 
 void CBullet::PostUpdate(float DeltaTime)
