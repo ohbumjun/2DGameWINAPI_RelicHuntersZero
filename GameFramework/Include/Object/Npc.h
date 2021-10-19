@@ -16,6 +16,11 @@ private :
 	int m_Cost;
 	bool m_TypeChanged;
 public :
+	ENpc_Type GetNpcType() const
+	{
+		return m_NpcType;
+	}
+public :
 	void SetNpcType(ENpc_Type NpcType)
 	{
 		m_NpcType = NpcType;

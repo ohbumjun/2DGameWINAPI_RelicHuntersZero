@@ -72,7 +72,7 @@ bool CNpc::Init()
     CColliderBox* Body = AddCollider<CColliderBox>("Body");
     Body->SetExtent(90.f, 130.f);
     Body->SetOffset(-5.f, -5.f);
-    Body->SetCollisionProfile("Player");
+    Body->SetCollisionProfile("Default");
 
 
     return true;

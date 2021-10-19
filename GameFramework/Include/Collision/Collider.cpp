@@ -115,6 +115,18 @@ CCoin* CCollider::IsCollisionWithCoin()
 	return nullptr;
 }
 
+CNpc* CCollider::IsCollisionWithNpc()
+{
+	auto iter = m_CollisionList.begin();
+	auto iterEnd = m_CollisionList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetOwner()->GetObjType() == EObject_Type::NPC)
+			return (CNpc*)(*iter)->GetOwner();
+	}
+	return nullptr;
+}
+
 bool CCollider::DidCollideWithObstacles() const
 {
 	auto iter = m_CollisionList.begin();

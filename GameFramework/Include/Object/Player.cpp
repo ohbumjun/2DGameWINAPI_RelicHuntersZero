@@ -6,6 +6,7 @@
 #include "EffectHit.h"
 #include "EffectDash.h"
 #include "Coin.h"
+#include "Npc.h"
 #include "EffectReload.h"
 #include "TeleportMouse.h"
 #include "Potion.h"
@@ -45,7 +46,10 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					m_HPBarWidget(nullptr),
 					m_MPBarWidget(nullptr),
 					m_NameWidget(nullptr),
-					m_SteminaBarWidget(nullptr)
+					m_SteminaBarWidget(nullptr),
+					m_HpPotionInv(0),
+					m_MpPotionInv(0),
+					m_ShieldInv(0)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -70,6 +74,9 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillDestoryAllAttackTime   = 0.f;
 	m_MoveSpeed = NORMAL_SPEED;
 
+	m_HpPotionInv = obj.m_HpPotionInv;
+	m_MpPotionInv = obj.m_MpPotionInv;
+	m_ShieldInv = obj.m_ShieldInv;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -101,6 +108,51 @@ CPlayer::~CPlayer()
 	DeleteTeleportObj();
 }
 
+void CPlayer::UpdateHpPotionInv(CUICharacterStateHUD* const State)
+{
+	// MPBar , HPBar
+	int FullT = m_HpPotionInv / 10, FullO = m_HpPotionInv % 10;
+
+	if (FullT != 0)
+		State->SetHpInvTenWidget(FullT);
+	else
+		State->SetHpInvTenRenderEnable(false);
+	if (FullT != 0 || FullO != 0)
+		State->SetHpInvOneWidget(FullO);
+	else
+		State->SetHpInvOneRenderEnable(false);
+}
+
+void CPlayer::UpdateMpPotionInv(CUICharacterStateHUD* const State)
+{
+	// MPBar , HPBar
+	int FullT = m_MpPotionInv / 10, FullO = m_MpPotionInv % 10;
+
+	if (FullT != 0)
+		State->SetMpInvTenWidget(FullT);
+	else
+		State->SetMpInvTenRenderEnable(false);
+	if (FullT != 0 || FullO != 0)
+		State->SetMpInvOneWidget(FullO);
+	else
+		State->SetMpInvOneRenderEnable(false);
+}
+
+void CPlayer::UpdateShieldInv(CUICharacterStateHUD* const State)
+{
+	// MPBar , HPBar
+	int FullT = m_ShieldInv / 10, FullO = m_ShieldInv % 10;
+
+	if (FullT != 0)
+		State->SetShieldInvTenWidget(FullT);
+	else
+		State->SetShieldInvTenRenderEnable(false);
+	if (FullT != 0 || FullO != 0)
+		State->SetShieldInvOneWidget(FullO);
+	else
+		State->SetShieldInvOneRenderEnable(false);
+}
+
 void CPlayer::Start()
 {
 	CCharacter::Start();
@@ -108,6 +160,10 @@ void CPlayer::Start()
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
 											this, &CPlayer::AcquireItem);
+	CInput::GetInst()->SetCallback<CPlayer>("BuyItem", KeyState_Down,
+		this, &CPlayer::BuyItem);
+
+	// Pause, Resume
 	CInput::GetInst()->SetCallback<CPlayer>("Pause", KeyState_Down,
 											this, &CPlayer::Pause);
 	CInput::GetInst()->SetCallback<CPlayer>("Resume", KeyState_Down,
@@ -1189,6 +1245,37 @@ void CPlayer::AcquireItem(float DeltaTime)
 			m_CharacterInfo.Gold += Coin->GetCoinGold();
 			Coin->Destroy();
 			break;
+		}
+	}
+}
+
+void CPlayer::BuyItem(float)
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		// Potion
+		CNpc* Npc = (*iter)->IsCollisionWithNpc();
+		if (Npc)
+		{
+			CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+			ENpc_Type NpcType = Npc->GetNpcType();
+			switch (NpcType)
+			{
+			case ENpc_Type::Hp:
+				m_HpPotionInv += 1;
+				UpdateHpPotionInv(State);
+				break;
+			case ENpc_Type::Mp:
+				m_MpPotionInv += 1;
+				UpdateMpPotionInv(State);
+				break;
+			case ENpc_Type::Shield:
+				m_ShieldInv += 1;
+				UpdateShieldInv(State);
+				break;
+			}
 		}
 	}
 }

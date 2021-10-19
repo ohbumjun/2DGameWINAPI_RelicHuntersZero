@@ -23,7 +23,42 @@ protected:
 
 // Laser Obj
 	CSharedPtr<CLaserObject> m_LaserBulletObj;
-
+// Inv 
+private :
+	int m_HpPotionInv;
+	int m_MpPotionInv;
+	int m_ShieldInv;
+private :
+	int GetHpPotionInv() const
+	{
+		return m_HpPotionInv;
+	}
+	int GetMpPotionInv() const
+	{
+		return m_MpPotionInv;
+	}
+	int GetShieldInv() const
+	{
+		return m_ShieldInv;
+	}
+private :
+	void SetHpPotionInv(int Hp)
+	{
+		m_HpPotionInv = Hp;
+	}
+	void SetMpPotionInv(int Mp)
+	{
+		m_MpPotionInv = Mp;
+	}
+	void SetShieldPotionInv(int Shield)
+	{
+		m_ShieldInv = Shield;
+	}
+private :
+	void UpdateHpPotionInv(class CUICharacterStateHUD* const State);
+	void UpdateMpPotionInv(class CUICharacterStateHUD* const State);
+	void UpdateShieldInv(class CUICharacterStateHUD* const State);
+// Functions
 public:
 	virtual void Start();
 	virtual void SetNotifyFunctions();
@@ -146,7 +181,6 @@ private:
 	void SetTeleportPos(float DeltaTime);
 	void DeleteTeleportObj();
 	void TeleportUpdate(float DeltaTime);
-
 // Attack ---
 private:
 	Vector2 m_TargetPos;
@@ -169,10 +203,10 @@ public:
 		Vector2 Dist = Vector2(Dir.x * 20, Dir.y * 20);
 		m_Pos += Dist;
 	};
-
 // Item --
 public:
 	void AcquireItem(float);
+	void BuyItem(float);
 // Gun
 public :
 	virtual CGun* Equip(CGun* Gun);

@@ -175,6 +175,9 @@ bool CInput::Init(HWND hWnd)
 	// Item 
 	CreateKey("GetItem", 'Z');
 
+	// Store
+	CreateKey("BuyItem", 'B');
+
 	// Gun
 	CreateKey("Reload", 'R');
 	CreateKey("ChangeGunToLight", '1');
