@@ -1185,7 +1185,7 @@ void CScene::SetBasicUIs()
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	CUIGunStateHUD*		  GunStateWindow = CreateUIWindow<CUIGunStateHUD>("GunStateHUD");
-	CUIMain*			  MainWindow = CreateUIWindow<CUIMain>("MainUI");
+	// CUIMain*			  MainWindow = CreateUIWindow<CUIMain>("MainUI");
 }
 
 void CScene::SetBasicProtoTypes()

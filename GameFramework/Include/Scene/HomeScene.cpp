@@ -13,6 +13,7 @@
 #include "../Object/MPPotion.h"
 #include "../Object/HPPotion.h"
 #include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIHome.h"
 #include "../Map/TileMap.h"
 
 CHomeScene::CHomeScene()
@@ -56,12 +57,18 @@ bool CHomeScene::Init()
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 
+	// Coin 
 	CCoin* Coin = CreateObject<CCoin>("MonsterCoin", COIN_PROTO, Vector2(500.f,500.f));
 
 	// Npc
 	CNpc* NpcMP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(500.f, 210.f)));
 	CNpc* NpcHP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(700.f, 250.f)));
+	NpcHP->SetNpcType(ENpc_Type::Hp);
 	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(900.f, 300.f)));
+	NpcShield->SetNpcType(ENpc_Type::Shield);
+
+	// Home
+	CUIHome* HomeWindow = CreateUIWindow<CUIHome>("HomeUI");
 
 	// Map
 	/*

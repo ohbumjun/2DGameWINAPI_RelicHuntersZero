@@ -24,7 +24,6 @@
 #include "../UI/UIGunStateHUD.h"
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
-#include "../UI/UIMain.h"
 
 // Static
 CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
@@ -569,7 +568,7 @@ void CPlayer::GunCurBulletNumUpdate()
 	if (m_CurrentGun)
 	{
 		// MPBar , HPBar
-		CUIMain* State = m_Scene->FindUIWindow<CUIMain>("MainUI");
+		CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 		int FullBullet = m_CurrentGun->GetGunFullBullet();
 		int FullH = FullBullet / 100, FullT = (FullBullet % 100) / 10, FullO = FullBullet % 10;
 		if (FullH != 0)

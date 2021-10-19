@@ -1,5 +1,6 @@
 #include "Npc.h"
 #include "../UI/UIText.h"
+#include "../UI/NumberWidget.h"
 #include "../Collision/ColliderBox.h"
 
 CNpc::CNpc()
@@ -32,17 +33,17 @@ void CNpc::TypeChange()
     {
     case ENpc_Type::Hp:
         NameText->SetText(TEXT("HP"));
+        m_TypeWidget->SetPos(-15.f, -90.f);
         break;
     case ENpc_Type::Mp:
         NameText->SetText(TEXT("MP"));
+        m_TypeWidget->SetPos(-15.f, -90.f);
         break;
     case ENpc_Type::Shield:
         NameText->SetText(TEXT("SHIELD"));
+        m_TypeWidget->SetPos(-40.f, -90.f);
         break;
     }
-    
-    NameText->SetTextColor(255, 255, 255);
-    m_TypeWidget->SetPos(-25.f, -125.f);
 }
 
 void CNpc::Start()
@@ -69,9 +70,11 @@ bool CNpc::Init()
 
     // Collider
     CColliderBox* Body = AddCollider<CColliderBox>("Body");
-    Body->SetExtent(82.f, 73.f);
-    Body->SetOffset(0.f, -39.5f);
+    Body->SetExtent(90.f, 130.f);
+    Body->SetOffset(-5.f, -5.f);
     Body->SetCollisionProfile("Player");
+
+
     return true;
 }
 
