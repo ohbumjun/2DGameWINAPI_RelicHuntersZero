@@ -248,6 +248,31 @@
 #define MONSTER_KAMIKAZECAGE_3_HIT    "KamikazeCage3Hit"
 #define MONSTER_KAMIKAZECAGE_DEATH    "KamikazeCageDeath"
 
+// Boss
+#define MONSTER_BOSS_EGG_START	  "BossEggStart"
+#define MONSTER_BOSS_EGG_CRACK    "BossEggCrack"
+#define MONSTER_BOSS_RIGHT_IDLE   "BossRightIdle"
+#define MONSTER_BOSS_RIGHT_WALK   "BossRightWalk"
+#define MONSTER_BOSS_RIGHT_RUN    "BossRightRun"
+#define MONSTER_BOSS_RIGHT_ATTACK "BossRightAttack"
+
+#define MONSTER_BOSS_LEFT_IDLE   "BossLeftIdle"
+#define MONSTER_BOSS_LEFT_WALK   "BossLeftWalk"
+#define MONSTER_BOSS_LEFT_RUN    "BossLeftRun"
+#define MONSTER_BOSS_LEFT_ATTACK "BossLeftAttack"
+
+#define MONSTER_BOSS_LEFT_DEATH  "BossLeftDeath"
+#define MONSTER_BOSS_RIGHT_DEATH "BossRightDeath"
+#define MONSTER_BOSS_LEFT_HIT    "BossLeftHit"
+#define MONSTER_BOSS_RIGHT_HIT   "BossRightHit"
+
+// Generator
+#define GENERATOR_IDLE  "GeneratorIdle"
+#define GENERATOR_START "GeneratorStart"
+#define GENERATOR_HIT   "GeneratorHit"
+#define GENERATOR_OFF   "GeneratorOff"
+
+
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"
 #define SHIELD_BOSS   "ShieldBoxx"

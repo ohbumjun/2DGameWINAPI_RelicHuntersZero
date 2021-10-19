@@ -10,15 +10,13 @@
 #include "../Object/Player.h"
 #include "../Object/Bullet.h"
 #include "../Object/Monster.h"
-#include "../Object/DuckMonster.h"
-#include "../Object/TurtleMonster.h"
+#include "../Object/BossMonster.h"
+#include "../Object/BossEgg.h"
 #include "../Object/EffectHit.h"
 #include "../Object/EffectDash.h"
-#include "../Object/TeleportMouse.h"
 #include "../Object/KamiKazeMonster.h"
 #include "../Object/KamiKazeCage.h"
 #include "../Object/StageDoor.h"
-#include "../Object/Potion.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
 // UI
@@ -69,7 +67,8 @@ bool CMain3Scene::Init()
 
 	// Monster
 	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
-
+	CBossEgg* BossEgg = CreateObject<CBossEgg>("BossEgg",
+		Vector2(1000.f, 500.f));
 
 	// Scroll Map
 	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
@@ -79,23 +78,11 @@ bool CMain3Scene::Init()
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
 	CScrollMap* Map = CreateMap<CScrollMap>("BackGroundMap");
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Sky", TEXT("Stage1Back.bmp")); 
+	Map->SetSize(2000.f, 1000.f);
+	Map->SetTexture("Sky", TEXT("Stage3Back.bmp")); 
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(-1);
-	/*
 
-	// Scroll Map : Mountain
-	Map = CreateMap<CScrollMap>("ScrollMap");
-	ScrollWidth = 2048.f - GetCamera()->GetResolution().x;  // Mountain.bmp : 2048 * 2048
-	ScrollHeight = 2048.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("Mountain", TEXT("Mountain.bmp"));
-	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
-	Map->SetZOrder(1);
-	Map->SetTextureColorKey(255, 0, 255);
-	*/
 
 	/*
 	Scroll Map Infinite Loop

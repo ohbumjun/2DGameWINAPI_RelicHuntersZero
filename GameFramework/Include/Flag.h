@@ -55,7 +55,8 @@ enum class EGun_Type
 	Heavy_Pistol,
 	Light_ShotGun,
 	Medium_ShotGun,
-	Heavy_ShotGun
+	Heavy_ShotGun,
+	Boss_Gun
 };
 
 enum ECollision_Channel

@@ -18,8 +18,8 @@ protected:
 	int		m_Count;
 	EMonster_Type m_MonsterType;
 	EMonsterAI m_AI;
-	float m_DashDistance;
-	float m_AttackDistance;
+	int m_DashDistance;
+	int m_AttackDistance;
 	bool m_TraceSurprise;
 	float m_SurpriseStopTime;
 protected :

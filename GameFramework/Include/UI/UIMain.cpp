@@ -32,6 +32,7 @@ bool CUIMain::Init()
 	// Text ---
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
+	/*
 	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
 
 	Back->SetTexture("Back", TEXT("Back.bmp"));
@@ -47,6 +48,7 @@ bool CUIMain::Init()
 	m_TextTime = 0.f;
 	m_OutputText = 0;
 	m_OutputIndex = 0;
+	*/
 
 	// Time ---
 	// m_NumberWidget

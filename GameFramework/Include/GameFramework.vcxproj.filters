@@ -396,6 +396,15 @@
     <ClCompile Include="Scene\Main3Scene.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClCompile>
+    <ClCompile Include="Object\GeneratorTower.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BossGun.cpp">
+      <Filter>03. Object\05. Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BossEgg.cpp">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -709,6 +718,15 @@
     </ClInclude>
     <ClInclude Include="Scene\Main3Scene.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GeneratorTower.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BossGun.h">
+      <Filter>03. Object\05. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BossEgg.h">
+      <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

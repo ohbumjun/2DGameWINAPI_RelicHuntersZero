@@ -34,15 +34,10 @@ private:
 	int		m_RenderCount;
 	int		m_RenderCapacity;
 	std::unordered_map<std::string, CSharedPtr<CGameObject>>	m_mapPrototype;
-	//std::list<CSharedPtr<CUIWindow>>	m_UIList;
 	CUIWindow** m_UIArray;
 	int		m_UICount;
 	int		m_UICapacity;
 	class CTileMap* m_TileMap;
-
-	// Player Laser 충돌 위치 : Vector2
-	// Vector2 m_LaserCollidePos;
-
 public:
 	CGameObject* FindObject(const std::string& Name);
 	CGameObject* FindObject(CGameObject* Obj);
@@ -92,13 +87,15 @@ public:
 public:
 	void SetLevel3MonsterAnimation();
 	void SetKamikazeCageMonsterAnimation();
+	void SetBossAnimation();
+	void SetGeneratorAnimation();
+
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();
 // UI Setiing
 public :
 	void SetBasicUIs();
-
 // Proto Setting
 public :
 	void SetBasicProtoTypes();

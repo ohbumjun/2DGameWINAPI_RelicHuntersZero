@@ -98,7 +98,7 @@ bool CMain2Scene::Init()
 	float	TileScrollMapHeight = GetCamera()->GetWorldResolution().y - GetCamera()->GetResolution().y;
 
 	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-	Map->SetSize(2000.f, 720.f);
+	Map->SetSize(2000.f,1000.f);
 	Map->SetTexture("Sky", TEXT("Stage2Back.bmp"));
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(-1);

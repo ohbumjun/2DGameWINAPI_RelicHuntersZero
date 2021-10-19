@@ -1378,17 +1378,7 @@ bool CScene::Update(float DeltaTime)
 {
 
 	if (m_Player)
-	{
-		/*
-		if (!m_Player->IsActive())
-		{
-			SAFE_RELEASE(m_Player);
-		}
-		else
-			m_Player->Update(DeltaTime); 
-		*/
 		m_Player->Update(DeltaTime * (m_Player->m_TimeScale));
-	}
 
 	{
 		auto iter = m_ObjList.begin();
@@ -1826,10 +1816,7 @@ void CScene::SetObjectsToWall()
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {
-	
-
 	CPlayer *Player = (CPlayer*)CSceneManager::GetInst()->GetPlayer();
-
 	if (!Player)
 	{
 		Player = CreateObject<CPlayer>("Player", Pos, Size);
@@ -2532,6 +2519,10 @@ void CScene::SetKamikaze1MonsterAnimation()
 
 void CScene::SetLevel3MonsterAnimation()
 {
+	SetKamikaze1MonsterAnimation();
+	SetKamikazeCageMonsterAnimation();
+	SetBossAnimation();
+	SetGeneratorAnimation();
 }
 
 void CScene::SetKamikazeCageMonsterAnimation()
@@ -2618,6 +2609,233 @@ void CScene::SetKamikazeCageMonsterAnimation()
 		}
 	}
 	
+}
+
+void CScene::SetBossAnimation()
+{
+	// Egg Start
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_EGG_START,
+		MONSTER_BOSS_EGG_START, TEXT("images/Monster/Boss/Boss_Egg_Start.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_EGG_START,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_EGG_START,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+	// Egg Crack
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_EGG_CRACK,
+		MONSTER_BOSS_EGG_CRACK, TEXT("images/Monster/Boss/Boss_Egg_Crack.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_EGG_CRACK,
+		255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_EGG_CRACK,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_RIGHT_IDLE,
+		MONSTER_BOSS_RIGHT_IDLE, TEXT("images/Monster/Boss/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_RIGHT_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (i == 3 && j == 2) break;
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_RIGHT_IDLE,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_RIGHT_WALK,
+		MONSTER_BOSS_RIGHT_WALK, TEXT("images/Monster/Boss/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_RIGHT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_RIGHT_WALK,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_RIGHT_RUN,
+		MONSTER_BOSS_RIGHT_RUN, TEXT("images/Monster/Boss/right_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_RIGHT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_RIGHT_RUN,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_LEFT_IDLE,
+		MONSTER_BOSS_LEFT_IDLE, TEXT("images/Monster/Boss/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 3; j >= 0; j--)
+		{
+			if (i == 3 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_LEFT_IDLE,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_LEFT_WALK,
+		MONSTER_BOSS_LEFT_WALK, TEXT("images/Monster/Boss/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_LEFT_WALK,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_LEFT_RUN,
+		MONSTER_BOSS_LEFT_RUN, TEXT("images/Monster/Boss/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_LEFT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 2; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_LEFT_RUN,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Death ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_LEFT_DEATH,
+		MONSTER_BOSS_LEFT_DEATH, TEXT("images/Monster/Boss/left_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_LEFT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 3; j >= 0; j--)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_LEFT_DEATH,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_RIGHT_DEATH,
+		MONSTER_BOSS_RIGHT_DEATH, TEXT("images/Monster/Boss/right_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_RIGHT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_RIGHT_DEATH,
+				j * 248.f, i * 208.f, 248.f, 208.f);
+		}
+	}
+
+	// Hit ---
+	// Left 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_LEFT_HIT,
+		MONSTER_BOSS_LEFT_HIT, TEXT("images/Monster/Boss/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 1; i >= 0; --i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_LEFT_HIT,
+			i * 248.f, 0.f, 248.f, 208.f);
+	}
+
+	// Right 
+	GetSceneResource()->CreateAnimationSequence(MONSTER_BOSS_RIGHT_HIT,
+		MONSTER_BOSS_RIGHT_HIT, TEXT("images/Monster/Boss/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(MONSTER_BOSS_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(MONSTER_BOSS_RIGHT_HIT,
+			i * 248.f, 0.f, 248.f, 208.f);
+	}
+}
+
+void CScene::SetGeneratorAnimation()
+{
+	// Idle
+	GetSceneResource()->CreateAnimationSequence(GENERATOR_IDLE,
+		GENERATOR_IDLE, TEXT("images/Monster/Boss/generator_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(GENERATOR_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(GENERATOR_IDLE,
+				j * 134.f, i * 155.f, 134.f, 155.f);
+		}
+	}
+
+	// Start ---
+	GetSceneResource()->CreateAnimationSequence(GENERATOR_START,
+		GENERATOR_START, TEXT("images/Monster/Boss/generator_start.bmp"));
+	GetSceneResource()->SetTextureColorKey(GENERATOR_START,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(GENERATOR_START,
+				j * 134.f, i * 155.f, 134.f, 155.f);
+		}
+	}
+
+	// Hit ---
+	GetSceneResource()->CreateAnimationSequence(GENERATOR_HIT,
+		GENERATOR_HIT, TEXT("images/Monster/Boss/generator_hit.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(GENERATOR_HIT,
+		255, 255, 255);
+	for (int j = 0; j < 2; j++)
+	{
+		GetSceneResource()->AddAnimationFrameData(GENERATOR_HIT,
+			j * 134.f, 0.f, 134.f, 155.f);
+	}
+
+	// Off --- 
+	GetSceneResource()->CreateAnimationSequence(GENERATOR_OFF,
+		GENERATOR_OFF, TEXT("images/Monster/Boss/generator_off.bmp"));
+	GetSceneResource()->SetTextureColorKey(GENERATOR_OFF, 255, 255, 255);
+
+	for (int j = 0; j <= 1; j++)
+	{
+		GetSceneResource()->AddAnimationFrameData(GENERATOR_OFF,
+			j * 134.f, 0.f, 134.f, 155.f);
+	}
 }
 
 void CScene::SetKamikaze2MonsterAnimation()

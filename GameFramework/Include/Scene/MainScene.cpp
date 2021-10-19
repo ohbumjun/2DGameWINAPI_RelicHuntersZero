@@ -58,11 +58,11 @@ bool CMainScene::Init()
 	TileMap->LoadFile("Stage1.map");
 
 	// Monster
-	// SetMonsterOnTileMap<
-	// 	CDuckMonster, 
-	// 	CDuckMonster, 
-	// 	CDuckMonster>
-	// 	(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
+	SetMonsterOnTileMap<
+		CDuckMonster, 
+		CDuckMonster, 
+		CDuckMonster>
+		(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 	
 	// Stage Door
 	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoor1",

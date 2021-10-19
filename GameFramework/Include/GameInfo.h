@@ -139,7 +139,6 @@ struct CharacterInfo
 	int Gold;
 	float AttackSpeed;
 	float AttackDistance;
-		
 };
 
 struct CollisionProfile
