@@ -1363,7 +1363,7 @@ void CPlayer::ShowNoGoldSign()
 	CSharedPtr<CEffectText> NoBulletText = m_Scene->CreateObject<CEffectText>(
 		"CEffectText",
 		EFFECT_TEXT_PROTO,
-		Vector2(m_Pos.x - m_Size.x,m_Pos.y - m_Size.y * 0.3),
+		Vector2(m_Pos.x - m_Size.x, m_Pos.y-m_Size.y*0.3f),
 		Vector2(50.f, 10.f));
 	NoBulletText->SetText(TEXT("No Gold"));
 	NoBulletText->SetTextColor(255, 0, 0);

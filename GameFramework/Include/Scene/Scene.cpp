@@ -8,6 +8,7 @@
 #include "../Object/EffectSurprise.h"
 #include "../Object/EffectCasing.h"
 #include "../Object/EffectAbilityUp.h"
+#include "../Object/EffectGrenade.h"
 #include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
@@ -1205,8 +1206,8 @@ void CScene::SetBasicProtoTypes()
 	CEffectText* EffectTextPrototype = CreatePrototype<CEffectText>(EFFECT_TEXT_PROTO);
 	// EffectAbilityUp
 	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
-
-	// Wall
+	// EffectAbilityUp
+	CEffectGrenade* EffectGrenadeProto = CreatePrototype<CEffectGrenade>(GRENADE_PROTO);
 	// Teleport
 	CWallObject* WallObjPrototype = CreatePrototype<CWallObject>(WALL_PROTO);
 
@@ -2534,6 +2535,7 @@ void CScene::SetLevel3MonsterAnimation()
 	SetKamikazeCageMonsterAnimation();
 	SetBossAnimation();
 	SetGeneratorAnimation();
+	SetGrenadeAnimation();
 }
 
 void CScene::SetKamikazeCageMonsterAnimation()
@@ -2846,6 +2848,25 @@ void CScene::SetGeneratorAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(GENERATOR_OFF,
 			j * 134.f, 0.f, 134.f, 155.f);
+	}
+}
+
+void CScene::SetGrenadeAnimation()
+{
+	// Idle
+	GetSceneResource()->CreateAnimationSequence(GENERATOR_IDLE,
+		GENERATOR_IDLE, TEXT("images/Monster/Boss/grenade_explosion.bmp"));
+	GetSceneResource()->SetTextureColorKey(GENERATOR_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i == 2 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(GENERATOR_IDLE,
+				j * 182.f, i * 194.f, 182.f, 194.f);
+		}
 	}
 }
 

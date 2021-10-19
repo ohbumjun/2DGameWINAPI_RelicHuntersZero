@@ -278,6 +278,8 @@
 #define GENERATOR_HIT   "GeneratorHit"
 #define GENERATOR_OFF   "GeneratorOff"
 
+// Grenade 
+#define GRENADE_ON   "Grenade"
 
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"

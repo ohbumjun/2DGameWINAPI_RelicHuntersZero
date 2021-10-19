@@ -3,12 +3,13 @@
 #include "../Collision/ColliderBox.h"
 #include "../Scene/Scene.h"
 #include"../Scene/SceneResource.h"
+#include "EffectGrenade.h"
 
 CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
 	m_MissileAttackTime(0.f),
 	m_GrenadeTime(0.f),
-	m_GrenadMaxTime(15.f),
+	m_GrenadMaxTime(1.f),
 	m_IsGeneratorAlive(false)
 {
 }
@@ -46,6 +47,18 @@ void CBossMonster::GrenadeUpdate(float DeltaTime)
 	if (m_GrenadeTime >= m_GrenadMaxTime)
 	{
 		m_GrenadeTime -= m_GrenadMaxTime;
+		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 6.0f)
+		{
+			CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
+				"GrenadeEffect",
+				GRENADE_PROTO, 
+				Vector2(
+					(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f), 
+					(m_Pos.y - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
+				);
+			EffectGrenade->SetTexture("Grenade", TEXT("images/Monster/Boss/grenade_img.bmp"));
+			EffectGrenade->SetTextureColorKey(255, 255, 255);
+		}
 	}
 }
 

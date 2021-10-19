@@ -8,7 +8,7 @@
 
 CBossEgg::CBossEgg() :
     m_EggStartEnable(true),
-    m_EggStartTime(5.f),
+    m_EggStartTime(1.f),
     m_EggCrackEnable(false),
     m_EggCrackTime(2.f)
 {
@@ -18,7 +18,7 @@ CBossEgg::CBossEgg(const CBossEgg& obj) : CMonster(obj)
 {
     m_EggStartEnable = true;
     m_EggCrackEnable = false;
-    m_EggStartTime = 5.f;
+    m_EggStartTime = 1.f;
     m_EggCrackTime = 2.f;
 }
 

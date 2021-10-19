@@ -89,6 +89,7 @@ public:
 	void SetKamikazeCageMonsterAnimation();
 	void SetBossAnimation();
 	void SetGeneratorAnimation();
+	void SetGrenadeAnimation();
 
 // Gun Setting 
 public :

@@ -13,6 +13,7 @@
 #define POTION_MP_PROTO						  "MPPotionProto"
 #define COIN_PROTO							  "CoinProto"
 #define SHIELD_PROTO						  "ShieldProto"
+#define GRENADE_PROTO						  "GrenadeProto"
 #define MONSTER_BULLET_PROTO                  "MonsterBulletProto"
 #define PLAYER_SKILL_SLOWMOTION_BULLET_PROTO  "SkillSlowMotionAttackBulletProto"
 
