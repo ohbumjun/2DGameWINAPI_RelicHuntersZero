@@ -33,7 +33,8 @@ CBossMonster::~CBossMonster()
 
 void CBossMonster::CreateGenerator(int GeneratorNum)
 {
-	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(600.f, 1200.f));
+	float TowerPoxX = GeneratorNum == 1 ? 600.f : 3200.f;
+	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1200.f));
 	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	GeneratorTower->SetBossMonster(this);
