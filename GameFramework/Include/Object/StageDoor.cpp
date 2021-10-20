@@ -85,7 +85,7 @@ void CStageDoor::Collision(float DeltaTime)
 					STAGE_DOOR_ABOVE_PROTO,
 					Vector2(m_Pos.x - m_Pivot.x * m_Size.x * 0.9f, m_Pos.y - m_Pivot.y * m_Size.y - PSize.y * 1.3f)
 					);
-				m_DoorEffectEnable = true;
+				m_DoorEffectEnable = true; //
 			}
 			m_PlayerCollision = true;
 
