@@ -23,6 +23,8 @@
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
 #include "../Object/Coin.h"
+#include "../Object/PistolGun.h"
+#include "../Object/ShotGun.h"
 // Map
 #include "../Map/MapBase.h"
 // UI
@@ -1318,74 +1320,74 @@ void CScene::SetBasicProtoTypes()
 	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
 
 	// Guns
-	CGun* GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_LIGHT_PROTO);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 200.f);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_LIGHT_R);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
+	CPistolGun* GunPistolProto= CreatePrototype<CPistolGun>(GUN_PISTOL_LIGHT_PROTO);
+	GunPistolProto->SetTexture(GUN_PISTOL_LIGHT_R, TEXT(TEXTURE_GUN_PISTOL_LIGHT_R));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetPos(200.f, 200.f);
+	GunPistolProto->SetRightTextureName(GUN_PISTOL_LIGHT_R);
+	GunPistolProto->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_MEDIUM_PROTO);
-	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_R, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 300.f);
-	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
+	GunPistolProto = CreatePrototype<CPistolGun>(GUN_PISTOL_MEDIUM_PROTO);
+	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_R, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_R));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetPos(200.f, 300.f);
+	GunPistolProto->SetGunClass(EGunClass::Medium);
+	GunPistolProto->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
+	GunPistolProto->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_PISTOL_HEAVY_PROTO);
-	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_R, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 400.f);
-	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
-	GunPistolLight->SetRightTextureName(GUN_PISTOL_HEAVY_R);
+	GunPistolProto = CreatePrototype<CPistolGun>(GUN_PISTOL_HEAVY_PROTO);
+	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_R, TEXT(TEXTURE_GUN_PISTOL_HEAVY_R));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
+	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetPos(200.f, 400.f);
+	GunPistolProto->SetGunClass(EGunClass::Heavy);
+	GunPistolProto->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
+	GunPistolProto->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_LIGHT_PROTO);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_R, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 500.f);
-	GunPistolLight->SetGunClass(EGunClass::Light);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
+	CShotGun* GunShotProto = CreatePrototype<CShotGun>(GUN_SHOTGUN_LIGHT_PROTO);
+	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_R, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_R));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetPos(200.f, 500.f);
+	GunShotProto->SetGunClass(EGunClass::Light);
+	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
+	GunShotProto->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_MEDIUM_PROTO);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_R, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 600.f);
-	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
+	GunShotProto = CreatePrototype<CShotGun>(GUN_SHOTGUN_MEDIUM_PROTO);
+	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_R, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_R));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetPos(200.f, 600.f);
+	GunShotProto->SetGunClass(EGunClass::Medium);
+	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
+	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
-	GunPistolLight = CreatePrototype<CGun>(GUN_SHOTGUN_HEAVY_PROTO);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_R, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 700.f);
-	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
-	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
+	GunShotProto = CreatePrototype<CShotGun>(GUN_SHOTGUN_HEAVY_PROTO);
+	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_R, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_R));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetPos(200.f, 700.f);
+	GunShotProto->SetGunClass(EGunClass::Heavy);
+	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
+	GunShotProto->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 
-	GunPistolLight = CreatePrototype<CGun>(BOSS_GUN_PROTO);
-	GunPistolLight->SetTexture(GUN_BOSS_L, TEXT(TEXTURE_BOSS_GUN_L));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetTexture(GUN_BOSS_R, TEXT(TEXTURE_BOSS_GUN_R));
-	GunPistolLight->SetTextureColorKey(255, 255, 255);
-	GunPistolLight->SetPos(200.f, 700.f);
-	GunPistolLight->SetGunClass(EGunClass::Boss);
-	GunPistolLight->SetLeftTextureName(GUN_BOSS_L);
-	GunPistolLight->SetRightTextureName(GUN_BOSS_R);
+	GunShotProto = CreatePrototype<CShotGun>(BOSS_GUN_PROTO);
+	GunShotProto->SetTexture(GUN_BOSS_L, TEXT(TEXTURE_BOSS_GUN_L));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetTexture(GUN_BOSS_R, TEXT(TEXTURE_BOSS_GUN_R));
+	GunShotProto->SetTextureColorKey(255, 255, 255);
+	GunShotProto->SetPos(200.f, 700.f);
+	GunShotProto->SetGunClass(EGunClass::Boss);
+	GunShotProto->SetLeftTextureName(GUN_BOSS_L);
+	GunShotProto->SetRightTextureName(GUN_BOSS_R);
 }
 
 void CScene::SetBasicProtoGuns()
