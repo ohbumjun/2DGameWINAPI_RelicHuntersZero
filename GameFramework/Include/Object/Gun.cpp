@@ -98,6 +98,14 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	EBullet_Type BulletType = MatchBulletToGun();
 	// Bullet Type
 	Bullet->SetBulletType(BulletType);
+	// if Boss Bullet, Set Owner
+	if (m_GunInfo.m_GunClass == EGunClass::Boss)
+	{
+		if (m_Dir.x < 0)
+			Bullet->SetCurrentAnimation(BULLET_LEFT_BOSS);
+		else
+			Bullet->SetCurrentAnimation(BULLET_RIGHT_BOSS);
+	}
 	// Bullet Damage
 	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
 	// Bullet Dir 
@@ -247,6 +255,8 @@ bool CGun::Init()
 void CGun::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_Owner)
+		m_Dir = m_Owner->GetDir();
 }
 
 void CGun::PostUpdate(float DeltaTime)

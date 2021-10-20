@@ -14,7 +14,8 @@
 #define BULLET_LIGHT  "BulletLight"
 #define BULLET_MEDIUM "BulletMedium"
 #define BULLET_HEAVY  "BulletHeavy"
-#define BULLET_BOSS   "BulletBoss"
+#define BULLET_LEFT_BOSS   "BulletLeftBoss"
+#define BULLET_RIGHT_BOSS   "BulletRightBoss"
 
 // Potion
 #define POTION_MP_ANIM  "MPPotion"

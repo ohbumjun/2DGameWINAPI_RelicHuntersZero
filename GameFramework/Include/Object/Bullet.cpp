@@ -9,7 +9,7 @@
 #include "../UI/WidgetComponent.h"
 #include "DamageFont.h"
 
-CBullet::CBullet()
+CBullet::CBullet() : m_Owner(nullptr)
 {
 	m_ObjType   = EObject_Type::Bullet;
 	m_BulletType = EBullet_Type::Light;
@@ -27,6 +27,10 @@ CBullet::CBullet(const CBullet& obj) : CGameObject(obj)
 	m_Distance = obj.m_Distance;
 	// m_TimeScale = obj.m_TimeScale;
 	m_TimeScale = 1.f;
+	if (obj.m_Owner)
+		m_Owner = obj.m_Owner;
+	else
+		m_Owner = nullptr;
 }
 
 CBullet::~CBullet()
@@ -48,7 +52,7 @@ void CBullet::SetBulletType(EBullet_Type BType)
 		SetCurrentAnimation(BULLET_HEAVY);
 		break;
 	case EBullet_Type::Boss:
-		SetCurrentAnimation(BULLET_BOSS);
+		SetCurrentAnimation(BULLET_RIGHT_BOSS);
 		m_MoveSpeed = 200.f;
 		break;
 	}
@@ -76,7 +80,8 @@ bool CBullet::Init()
 	AddAnimation(BULLET_LIGHT,true,0.1f);
 	AddAnimation(BULLET_MEDIUM,true,0.1f);
 	AddAnimation(BULLET_HEAVY,true,0.1f);
-	AddAnimation(BULLET_BOSS,true,0.1f);
+	AddAnimation(BULLET_LEFT_BOSS,true,0.1f);
+	AddAnimation(BULLET_RIGHT_BOSS,true,0.1f);
 	return true;
 }
 

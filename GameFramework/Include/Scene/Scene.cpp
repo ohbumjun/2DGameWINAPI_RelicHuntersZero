@@ -533,7 +533,7 @@ void CScene::SetBulletsAnimation()
 		}
 	}
 
-	// 총알
+	// Bullet Light
 	GetSceneResource()->CreateAnimationSequence(BULLET_LIGHT,
 		BULLET_LIGHT, TEXT("images/Weapon/Gun/Bullet/spr_bullet_light.bmp"));
 	GetSceneResource()->SetTextureColorKey(BULLET_LIGHT,
@@ -544,7 +544,7 @@ void CScene::SetBulletsAnimation()
 			i * 66.f, 0, 66.f, 50.f);
 	}
 
-	// 총알
+	// Bullet Medium
 	GetSceneResource()->CreateAnimationSequence(BULLET_MEDIUM,
 		BULLET_MEDIUM, TEXT("images/Weapon/Gun/Bullet/spr_bullet_medium.bmp"));
 	GetSceneResource()->SetTextureColorKey(BULLET_MEDIUM,
@@ -555,7 +555,7 @@ void CScene::SetBulletsAnimation()
 			i * 66.f, 0, 66.f, 50.f);
 	}
 
-	// 총알
+	// Bullet Heavy 
 	GetSceneResource()->CreateAnimationSequence(BULLET_HEAVY,
 		BULLET_HEAVY, TEXT("images/Weapon/Gun/Bullet/spr_bullet_heavy.bmp"));
 	GetSceneResource()->SetTextureColorKey(BULLET_HEAVY,
@@ -566,14 +566,24 @@ void CScene::SetBulletsAnimation()
 			i * 66.f, 0, 66.f, 50.f);
 	}
 
-	// 총알
-	GetSceneResource()->CreateAnimationSequence(BULLET_BOSS,
-		BULLET_BOSS, TEXT("images/Weapon/Gun/Bullet/spr_bullet_boss.bmp"));
-	GetSceneResource()->SetTextureColorKey(BULLET_BOSS,
+	// Bullet Boss Right
+	GetSceneResource()->CreateAnimationSequence(BULLET_RIGHT_BOSS,
+		BULLET_RIGHT_BOSS, TEXT("images/Weapon/Gun/Bullet/spr_bullet_boss.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_RIGHT_BOSS,
 		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(BULLET_BOSS,
+		GetSceneResource()->AddAnimationFrameData(BULLET_RIGHT_BOSS,
+			i * 58.f, 0, 58.f, 56.f);
+	}
+	// Bullet Boss Left 
+	GetSceneResource()->CreateAnimationSequence(BULLET_LEFT_BOSS,
+		BULLET_LEFT_BOSS, TEXT("images/Weapon/Gun/Bullet/left_spr_bullet_boss.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_LEFT_BOSS,
+		255, 255, 255);
+	for (int i = 1; i >= 0;--i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLET_LEFT_BOSS,
 			i * 58.f, 0, 58.f, 56.f);
 	}
 

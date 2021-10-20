@@ -15,8 +15,13 @@ protected:
 	Vector2		m_Dir;
 	float		m_Distance;
 	float		m_Damage;
+	CGun*		m_Owner;
 
 public:
+	void SetOwner(CGun* Owner)
+	{
+		m_Owner = Owner;
+	}
 	void SetBulletType(EBullet_Type BType);
 	void SetBulletDamage(float Damage)
 	{
