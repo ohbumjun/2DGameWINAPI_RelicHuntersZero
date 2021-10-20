@@ -240,6 +240,7 @@
     <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
+    <ClCompile Include="UI\UISceneStart.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
     <ClCompile Include="UI\UIText.cpp" />
     <ClCompile Include="UI\UIWidget.cpp" />
@@ -350,6 +351,7 @@
     <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIMain.h" />
+    <ClInclude Include="UI\UISceneStart.h" />
     <ClInclude Include="UI\UIStart.h" />
     <ClInclude Include="UI\UIText.h" />
     <ClInclude Include="UI\UIWidget.h" />

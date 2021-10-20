@@ -94,13 +94,13 @@ public:
 	void SetBossAnimation();
 	void SetGeneratorAnimation();
 	void SetGrenadeAnimation();
-
 // Gun Setting 
 public :
 	void SetBasicObjectGuns();
 // UI Setiing
 public :
 	void SetBasicUIs();
+	void SetSceneStartAnimation();
 // Proto Setting
 public :
 	void SetBasicProtoTypes();

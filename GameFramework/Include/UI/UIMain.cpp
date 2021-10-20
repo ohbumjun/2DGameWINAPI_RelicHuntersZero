@@ -11,7 +11,6 @@
 
 CUIMain::CUIMain() :
 	m_Minute(0),
-	m_DoorToStageOne(nullptr),
 	m_MinuteWidget(nullptr),
 	m_NumberWidget(nullptr),
 	m_Number1Widget(nullptr),

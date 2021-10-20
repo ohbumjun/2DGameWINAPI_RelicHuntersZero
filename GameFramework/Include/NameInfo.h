@@ -284,6 +284,11 @@
 #define GRENADE_ON   "GrenadeOnAnimation"
 #define GRENADE_OFF   "GrenadeOffAnimation"
 
+// Stage 
+#define STAGE1_START    "Stage1Start"
+#define STAGE2_START    "Stage2Start"
+#define STAGEBOSS_START "StageBossStart"
+
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"
 #define SHIELD_BOSS   "ShieldBoxx"

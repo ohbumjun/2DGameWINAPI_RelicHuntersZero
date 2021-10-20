@@ -24,8 +24,10 @@
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
+#include "../UI/UICommon.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIImage.h"
+#include "../UI/UISceneStart.h"
 // Map
 #include "../Map/ScrollMap.h"
 #include "../Map/TileMap.h"
@@ -77,6 +79,9 @@ bool CMainScene::Init()
 
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");
+	CUICommon* CommonWindow = CreateUIWindow<CUICommon>("CommonUI");
+	CommonWindow->SetSceneStage(ESceneStage::One);
+
 
 	// Scroll Map
 	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
@@ -124,6 +129,7 @@ void CMainScene::LoadAnimationSequence()
 	SetMouseAnimation();
 	SetPlayerAnimation();
 	SetShieldAnimation();
+	SetSceneStartAnimation();
 
 	SetLevel1MonsterAnimation();
 	SetKamikaze2MonsterAnimation();

@@ -25,9 +25,6 @@ private:
 	class   CNumberWidget* m_Number1Widget;
 	class   CNumberWidget* m_MinuteWidget;
 
-private :
-	// Door
-	class CStageDoor* m_DoorToStageOne;
 
 public:
 	virtual bool Init();

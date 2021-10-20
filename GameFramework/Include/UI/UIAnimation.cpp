@@ -1,17 +1,26 @@
 #include "UIAnimation.h"
 #include "../Animation/Animation.h"
 
-CUIAnimation::CUIAnimation()
+CUIAnimation::CUIAnimation() :
+	m_Animation(nullptr), 
+	m_Pos(Vector2(0.f,0.f)),
+	m_Pivot(Vector2(0.f,0.f)),
+	m_Offset(Vector2(0.f,0.f))
 {
 	
 }
 
 CUIAnimation::CUIAnimation(const CUIAnimation& widget)
 {
+	m_Pos = widget.m_Pos;
+	m_Pivot = widget.m_Pivot;
+	m_Offset = widget.m_Offset;
+	
 }
 
 CUIAnimation::~CUIAnimation()
 {
+	SAFE_DELETE(m_Animation);
 }
 
 void CUIAnimation::CreateAnimation()
@@ -140,4 +149,9 @@ void CUIAnimation::Render(HDC hDC)
 CUIAnimation* CUIAnimation::Clone()
 {
 	return new CUIAnimation(*this);
+}
+
+void CUIAnimation::AnimationDestroy()
+{
+	Destroy();
 }

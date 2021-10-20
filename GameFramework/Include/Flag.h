@@ -95,6 +95,13 @@ enum class EObject_Type
 	Effect
 };
 
+enum class ESceneStage
+{
+	One,
+	Two,
+	Boss
+};
+
 enum class EMonster_Type
 {
 	Duck1,

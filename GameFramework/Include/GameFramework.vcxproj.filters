@@ -408,6 +408,9 @@
     <ClCompile Include="Object\EffectExplodeTrace.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UISceneStart.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -733,6 +736,9 @@
     </ClInclude>
     <ClInclude Include="Object\EffectExplodeTrace.h">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UISceneStart.h">
+      <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

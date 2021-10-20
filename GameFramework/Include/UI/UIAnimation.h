@@ -1,5 +1,6 @@
 #pragma once
 #include "UIWidget.h"
+#include "../Animation/Animation.h"
 
 class CUIAnimation :
     public CUIWidget
@@ -34,5 +35,14 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CUIAnimation* Clone();
+protected :
+	void AnimationDestroy();
+protected:
+	template <typename T>
+	void SetAnimationEndNotify(const std::string& SequenceName,
+		T* Obj, void (T::* Func)())
+	{
+		m_Animation->SetEndNotify<T>(SequenceName, Obj, Func);
+	}
 };
 
