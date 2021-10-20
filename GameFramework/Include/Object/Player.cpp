@@ -6,6 +6,7 @@
 #include "EffectHit.h"
 #include "EffectText.h"
 #include "EffectShield.h"
+#include "EffectShieldStart.h"
 #include "EffectDash.h"
 #include "Coin.h"
 #include "Npc.h"
@@ -186,6 +187,11 @@ void CPlayer::UseShieldInv(float DeltaTime)
 		m_ShieldEnable = true;
 		m_ShieldTime = 10.f;
 		UpdateShieldInv(State);
+
+		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
+			"ShieldStart",
+			SHIELD_START_PROTO, Vector2(m_Pos.x,m_Pos.y-m_Size.y*0.5f));
+		ShieldStart->SetOwner(this);
 	}
 }
 void CPlayer::ShieldUpdate(float DeltaTime)

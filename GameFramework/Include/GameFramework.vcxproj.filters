@@ -402,8 +402,11 @@
     <ClCompile Include="Object\EffectGrenade.cpp">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Object\EffectShieldStart.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
     <ClCompile Include="Object\EffectExplodeTrace.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -725,8 +728,11 @@
     <ClInclude Include="Object\EffectGrenade.h">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Object\EffectShieldStart.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClInclude>
     <ClInclude Include="Object\EffectExplodeTrace.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

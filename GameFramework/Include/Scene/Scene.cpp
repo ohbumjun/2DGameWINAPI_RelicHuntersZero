@@ -14,6 +14,7 @@
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
 #include "../Object/EffectShield.h"
+#include "../Object/EffectShieldStart.h"
 #include "../Object/GeneratorTower.h"
 #include "../Object/DamageFont.h"
 #include "../Object/WallObject.h"
@@ -1240,6 +1241,11 @@ void CScene::SetBasicProtoTypes()
 	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
 	// Gun Reload 
 	CEffectReload* ReloadProto = CreatePrototype<CEffectReload>(RELOAD_PROTO);
+	// Shield Start
+	CEffectShieldStart* ShieldStartProto = CreatePrototype<CEffectShieldStart>(SHIELD_START_PROTO);
+	// Shield
+	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
+
 
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
@@ -1326,9 +1332,6 @@ void CScene::SetBasicProtoTypes()
 
 	// Coin
 	CCoin* CoinPrototype = CreatePrototype<CCoin>(COIN_PROTO);
-
-	// Shield
-	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
 
 	// Guns
 	CPistolGun* GunPistolProto= CreatePrototype<CPistolGun>(GUN_PISTOL_LIGHT_PROTO);

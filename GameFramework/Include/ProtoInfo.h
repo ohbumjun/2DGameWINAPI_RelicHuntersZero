@@ -14,6 +14,7 @@
 #define COIN_PROTO							  "CoinProto"
 #define RELOAD_PROTO					      "ReloadProto"
 #define SHIELD_PROTO						  "ShieldProto"
+#define SHIELD_START_PROTO					  "ShieldStartProto"
 #define GRENADE_PROTO						  "GrenadeProto"
 #define GENERATOR_PROTO						  "GeneratorProto"
 #define EXPLOSION_AFTER_PROTO				  "ExplosionAfterProto"
