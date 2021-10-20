@@ -23,6 +23,7 @@
 #include "../Object/KamikazeCage.h"
 #include "../Object/HPPotion.h"
 #include "../Object/MPPotion.h"
+#include "../Object/EffectReload.h"
 #include "../Object/Coin.h"
 #include "../Object/PistolGun.h"
 #include "../Object/ShotGun.h"
@@ -1237,9 +1238,9 @@ void CScene::SetBasicProtoTypes()
 	CEffectExplodeTrace* EffectExplodeTraceProto = CreatePrototype<CEffectExplodeTrace>(EXPLOSION_AFTER_PROTO);
 	// DamageFont 
 	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
-	// Generator Tower 
-	// CGeneratorTower* GeneratorTowerProto = CreatePrototype<CGeneratorTower>(GENERATOR_PROTO);
-	
+	// Gun Reload 
+	CEffectReload* ReloadProto = CreatePrototype<CEffectReload>(RELOAD_PROTO);
+
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 
@@ -1906,6 +1907,21 @@ void CScene::SetShieldAnimation()
 		for (int j = 0; j < 4; j++)
 		{
 			GetSceneResource()->AddAnimationFrameData(SHIELD_PLAYER,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Player Shield Start 
+	GetSceneResource()->CreateAnimationSequence(SHIELD_START,
+		SHIELD_START, TEXT("images/Weapon/Shield/shield_start.bmp"));
+	GetSceneResource()->SetTextureColorKey(SHIELD_START,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(SHIELD_START,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}

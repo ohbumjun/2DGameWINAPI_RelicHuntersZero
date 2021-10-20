@@ -359,13 +359,12 @@ bool CPlayer::Init()
 	// Teleport
 	AddAnimation(PLAYER_TELEPORT, false, 0.3f);
 
-	// Gun
-	// AddAnimation(RELOAD_EFFECT, false, 2.0f);
+	// Shield
+	AddAnimation(SHIELD_START, false, 0.5f);
 
 	// NotifyFunctions
 	SetNotifyFunctions();
 
-	// Collider ---
 	// Collider ---
 	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
 	Head->SetRadius(20.f);
@@ -625,7 +624,9 @@ void CPlayer::ReloadGun(float DelatTime)
 {
 	if (m_CurrentGun)
 	{
-		CEffectReload* ReloadAnim = m_Scene->CreateObject<CEffectReload>(RELOAD_EFFECT,
+		CEffectReload* ReloadAnim = m_Scene->CreateObject<CEffectReload>(
+			"ReloadEffect",
+			RELOAD_PROTO,
 			Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.1f), Vector2(10.f, 10.f));
 	}
 }

@@ -12,6 +12,7 @@
 #define POTION_HP_PROTO						  "HPPotionProto"
 #define POTION_MP_PROTO						  "MPPotionProto"
 #define COIN_PROTO							  "CoinProto"
+#define RELOAD_PROTO					      "ReloadProto"
 #define SHIELD_PROTO						  "ShieldProto"
 #define GRENADE_PROTO						  "GrenadeProto"
 #define GENERATOR_PROTO						  "GeneratorProto"

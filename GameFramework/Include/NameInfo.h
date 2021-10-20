@@ -288,3 +288,4 @@
 #define SHIELD_TURTLE "ShieldTurtle"
 #define SHIELD_BOSS   "ShieldBoxx"
 #define SHIELD_PLAYER "ShieldPlayer"
+#define SHIELD_START  "ShieldStart"
