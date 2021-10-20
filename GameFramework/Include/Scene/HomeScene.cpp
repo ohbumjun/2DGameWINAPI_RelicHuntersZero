@@ -47,11 +47,19 @@ bool CHomeScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Stage Door
-	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
-		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
+	CStageDoor* StageDoor = CreateObject<CStageDoor>("StageDoor", 
+		Vector2(1300.f, 2100.f),
 		Vector2(50.f,50.f));
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_One);
+	StageDoor = CreateObject<CStageDoor>("StageDoor",
+		Vector2(1950.f, 2100.f),
+		Vector2(50.f, 50.f));
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Two);
+	StageDoor = CreateObject<CStageDoor>("StageDoor",
+		Vector2(2600.f, 2100.f),
+		Vector2(50.f, 50.f));
 	// StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Three);
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Three);
 
 	// Potion
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
