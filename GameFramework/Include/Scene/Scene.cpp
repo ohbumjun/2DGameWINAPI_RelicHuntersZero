@@ -425,9 +425,12 @@ void CScene::SetItemsAnimation()
 {
 	// Door ---
 	GetSceneResource()->CreateAnimationSequence("StageDoor",
-		"StageDoor", TEXT("DoorToNextStage.bmp"));
+		"StageDoor", TEXT("images/Maps/Floor/bg_ship_window.bmp"));
 	GetSceneResource()->SetTextureColorKey("StageDoor",
-		255, 0, 255);
+		255, 255, 255);
+	GetSceneResource()->AddAnimationFrameData("StageDoor",
+		0.f, 0.f, 56.f, 28.f);
+	/*
 	for (int i = 0; i < 6; ++i)
 	{
 		for (int j = 0; j < 5; j++)
@@ -436,6 +439,7 @@ void CScene::SetItemsAnimation()
 				j * 192.f, i * 192.f, 192.f, 192.f);
 		}
 	}
+	*/
 
 	// Stage Door Effect ---
 	GetSceneResource()->CreateAnimationSequence(STAGE_DOOR_ABOVE_EFFECT,

@@ -43,8 +43,8 @@ bool CStageDoor::Init()
 
 	// Add Collider
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(100.f, 80.f);
-	Body->SetOffset(0.f, 25.f);
+	Body->SetExtent(80.f, 40.f);
+	Body->SetOffset(0.f, 0.f);
 
 	return true;
 }
@@ -83,7 +83,7 @@ void CStageDoor::Collision(float DeltaTime)
 				CEffectDoorAbove* AboveEffect = m_Scene->CreateObject<CEffectDoorAbove>(
 					"AboveEffect",
 					STAGE_DOOR_ABOVE_PROTO,
-					Vector2(m_Pos.x, m_Pos.y - m_Pivot.y * m_Size.y)
+					Vector2(m_Pos.x - m_Pivot.x * m_Size.x * 0.9f, m_Pos.y - m_Pivot.y * m_Size.y - PSize.y * 1.3f)
 					);
 				m_DoorEffectEnable = true;
 			}
