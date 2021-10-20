@@ -226,7 +226,7 @@ void CBullet::UpdateBossBullet()
 
 
 void CBullet::HitObject(CCharacter* const DestChar)
-{
+{//
 	// Disable If if Boss Monster 
 	CMonster* DestM = (CMonster*)DestChar;
 	if (DestM->GetMonsterType() == EMonster_Type::Boss) return;
