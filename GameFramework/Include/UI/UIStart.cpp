@@ -98,9 +98,9 @@ bool CUIStart::Init()
 void CUIStart::StartClick()
 {
 	// CSceneManager::GetInst()->CreateScene<CHomeScene>();
-	CSceneManager::GetInst()->CreateScene<CMainScene>();
+	// CSceneManager::GetInst()->CreateScene<CMainScene>();
 	// CSceneManager::GetInst()->CreateScene<CMain2Scene>();
-	// CSceneManager::GetInst()->CreateScene<CMain3Scene>();
+	CSceneManager::GetInst()->CreateScene<CMain3Scene>();
 }
 
 void CUIStart::ExitClick()

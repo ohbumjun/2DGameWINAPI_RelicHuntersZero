@@ -309,15 +309,6 @@
     <ClCompile Include="Object\TurtleMonster.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Object\LightBullet.cpp">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\HeavyBullet.cpp">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\MediumBullet.cpp">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Object\ShotGun.cpp">
       <Filter>03. Object\05. Gun</Filter>
     </ClCompile>
@@ -644,15 +635,6 @@
     <ClInclude Include="Object\DuckMonster.h">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Object\LightBullet.h">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\MediumBullet.h">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\HeavyBullet.h">
-      <Filter>03. Object\02. Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Object\ShotGun.h">
       <Filter>03. Object\05. Gun</Filter>
     </ClInclude>
@@ -742,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="Object\EffectGrenade.h">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectExplodeTrace.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

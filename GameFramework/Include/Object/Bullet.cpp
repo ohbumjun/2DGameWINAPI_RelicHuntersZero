@@ -49,6 +49,7 @@ void CBullet::SetBulletType(EBullet_Type BType)
 		break;
 	case EBullet_Type::Boss:
 		SetCurrentAnimation(BULLET_BOSS);
+		m_MoveSpeed = 200.f;
 		break;
 	}
 }
@@ -82,13 +83,15 @@ bool CBullet::Init()
 void CBullet::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+
 	Vector2 Dir = m_Dir;
 	Dir.Normalize();
 	Move(Dir);
-	m_Distance -= GetMoveSpeedFrame();
-	if (m_Distance <= 0.f)
-		Destroy();
-	WallCollision(); //
+
+	UpdateDistance();
+	UpdateBossBullet();
+
+	WallCollision(); 
 }
 
 void CBullet::PostUpdate(float DeltaTime)
@@ -211,5 +214,21 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 			ShieldEffect->SetOwner(DestOwner);
 			ShieldEffect->SetLifeTime(0.5f);
 		}
+	}
+}
+
+void CBullet::UpdateDistance()
+{
+	m_Distance -= GetMoveSpeedFrame();
+	if (m_Distance <= 0.f) Destroy();
+}
+
+void CBullet::UpdateBossBullet()
+{
+	if (m_BulletType == EBullet_Type::Boss)
+	{
+		CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+		float Angle = GetAngle(m_Pos, Player->GetPos());
+		SetDir(Angle);
 	}
 }

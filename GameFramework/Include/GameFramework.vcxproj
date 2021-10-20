@@ -192,13 +192,10 @@
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\GeneratorTower.cpp" />
     <ClCompile Include="Object\Gun.cpp" />
-    <ClCompile Include="Object\HeavyBullet.cpp" />
     <ClCompile Include="Object\HPPotion.cpp" />
     <ClCompile Include="Object\KamikazeCage.cpp" />
     <ClCompile Include="Object\KamiKazeMonster.cpp" />
     <ClCompile Include="Object\LaserObject.cpp" />
-    <ClCompile Include="Object\LightBullet.cpp" />
-    <ClCompile Include="Object\MediumBullet.cpp" />
     <ClCompile Include="Object\Npc.cpp" />
     <ClCompile Include="Object\PistolGun.cpp" />
     <ClCompile Include="Object\Potion.cpp" />
@@ -297,13 +294,10 @@
     <ClInclude Include="Object\Equipment.h" />
     <ClInclude Include="Object\GeneratorTower.h" />
     <ClInclude Include="Object\Gun.h" />
-    <ClInclude Include="Object\HeavyBullet.h" />
     <ClInclude Include="Object\HPPotion.h" />
     <ClInclude Include="Object\KamikazeCage.h" />
     <ClInclude Include="Object\KamiKazeMonster.h" />
     <ClInclude Include="Object\LaserObject.h" />
-    <ClInclude Include="Object\LightBullet.h" />
-    <ClInclude Include="Object\MediumBullet.h" />
     <ClInclude Include="Object\Npc.h" />
     <ClInclude Include="Object\PistolGun.h" />
     <ClInclude Include="Object\Potion.h" />
