@@ -15,7 +15,6 @@ CUIAnimation::CUIAnimation(const CUIAnimation& widget)
 	m_Pos = widget.m_Pos;
 	m_Pivot = widget.m_Pivot;
 	m_Offset = widget.m_Offset;
-	
 }
 
 CUIAnimation::~CUIAnimation()

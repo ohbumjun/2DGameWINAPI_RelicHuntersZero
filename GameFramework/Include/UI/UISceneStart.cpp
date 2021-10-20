@@ -1,4 +1,6 @@
 #include "UISceneStart.h"
+#include "../Scene/Camera.h"
+#include "../Scene/Scene.h"
 
 CUISceneStart::CUISceneStart()
 {
@@ -36,13 +38,19 @@ bool CUISceneStart::Init()
 	if (!CUIAnimation::Init()) return false;
 
 	CreateAnimation();
-	AddAnimation(STAGE1_START,false,2.f);
-	AddAnimation(STAGE2_START,false,2.f);
-	AddAnimation(STAGEBOSS_START,false,2.f);
+	AddAnimation(STAGE1_START,false,3.f);
+	AddAnimation(STAGE2_START,false,3.f);
+	AddAnimation(STAGEBOSS_START,false,3.f);
 
 	SetAnimationEndNotify<CUISceneStart>(STAGE1_START, this, &CUISceneStart::AnimationDestroy);
 	SetAnimationEndNotify<CUISceneStart>(STAGE2_START, this, &CUISceneStart::AnimationDestroy);
 	SetAnimationEndNotify<CUISceneStart>(STAGEBOSS_START, this, &CUISceneStart::AnimationDestroy);
+	
+	// SetPos
+	CCamera* Camera = m_Scene->GetCamera();
+	Vector2 Resolution = Camera->GetResolution();
+	m_Pos = Vector2(Resolution.x * 0.1f , Resolution.y * 0.3f);
+	
 	return true;
 }
 
