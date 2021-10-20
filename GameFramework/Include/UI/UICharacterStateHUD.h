@@ -20,6 +20,7 @@ private:
 	CSharedPtr<CProgressBar> m_HPBar;
 	CSharedPtr<CProgressBar> m_MPBar;
 	CSharedPtr<CProgressBar> m_SteminaBar;
+	CSharedPtr<CProgressBar> m_ShieldBar;
 private :
 	void SetAbilityUI();
 public:
@@ -34,6 +35,10 @@ public:
 	void SetSteminaPercent(float Percent)
 	{
 		m_SteminaBar->SetPercent(Percent);
+	}
+	void SetShieldPercent(float Percent)
+	{
+		m_ShieldBar->SetPercent(Percent);
 	}
 // Gold
 private :

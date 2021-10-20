@@ -185,7 +185,7 @@ void CPlayer::UseShieldInv(float DeltaTime)
 	{
 		m_ShieldInv -= 1;
 		m_ShieldEnable = true;
-		m_ShieldTime = 10.f;
+		m_ShieldTime = m_ShieldTimeMax;
 		UpdateShieldInv(State);
 
 		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
@@ -203,6 +203,9 @@ void CPlayer::ShieldUpdate(float DeltaTime)
 		{
 			m_ShieldEnable = false;
 		}
+		// Character State
+		CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+		State->SetShieldPercent(m_ShieldTime / (float)m_ShieldTimeMax);
 	}
 }
 void CPlayer::Start()

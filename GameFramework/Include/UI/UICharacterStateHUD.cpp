@@ -28,28 +28,23 @@ CUICharacterStateHUD::~CUICharacterStateHUD()
 void CUICharacterStateHUD::SetAbilityUI()
 {
 	// Hp, Mp, Stemina Bar ---
-	CUIImage* Back = CreateWidget<CUIImage>("HPBarBack");
-	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
-	Back->SetTextureColorKey(255, 0, 255);
+
 	m_HPBar = CreateWidget<CProgressBar>("HPBar");
 	m_HPBar->SetTexture("HPBar", TEXT("BarDefault.bmp"));
 	m_HPBar->SetPos(10.f, 10.f);
 
-	Back = CreateWidget<CUIImage>("MPBarBack");
-	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
-	Back->SetTextureColorKey(255, 0, 255);
-	Back->SetPos(0, 40.f);
 	m_MPBar = CreateWidget<CProgressBar>("MPBar");
 	m_MPBar->SetTexture("MPBar", TEXT("BarMP.bmp"));
 	m_MPBar->SetPos(10.f, 50.f);
 
-	Back = CreateWidget<CUIImage>("SteminaBarBack");
-	Back->SetTexture("BarBack", TEXT("BarBack.bmp"));
-	Back->SetTextureColorKey(255, 0, 255);
-	Back->SetPos(0, 80.f);
 	m_SteminaBar = CreateWidget<CProgressBar>("SteminaBar");
 	m_SteminaBar->SetTexture("SteminaBar", TEXT("BarStemina.bmp"));
 	m_SteminaBar->SetPos(10.f, 90.f);
+
+	m_ShieldBar = CreateWidget<CProgressBar>("ShieldBar");
+	m_ShieldBar->SetTexture("ShieldBar", TEXT("BarGunLight.bmp"));
+	m_ShieldBar->SetPos(10.f, 130.f);
+	SetShieldPercent(0.f);
 }
 
 void CUICharacterStateHUD::SetGoldUI(std::vector<std::wstring>& vecNumberFileName)
@@ -58,8 +53,6 @@ void CUICharacterStateHUD::SetGoldUI(std::vector<std::wstring>& vecNumberFileNam
 	m_GoldImage->SetTexture("GoldImage", TEXT("images/Items/coin_single.bmp"));
 	m_GoldImage->SetTextureColorKey(255, 255, 255);
 	m_GoldImage->SetPos(250.f, 10.f);
-
-
 
 	m_GoldHunderedWidget = CreateWidget<CNumberWidget>("Number");
 	m_GoldHunderedWidget->SetTexture("Number", vecNumberFileName);
@@ -240,18 +233,14 @@ bool CUICharacterStateHUD::Init()
 
 	// Ability ---
 	SetAbilityUI();
-
 	// Gold ---
 	SetGoldUI(vecNumberFileName);
-
 	// HpInv --- 
 	SetHpInvUI(vecNumberFileName);
 	// MpInv --- 
 	SetMpInvUI(vecNumberFileName);
 	// ShieldInv --- 
 	SetShieldInvUI(vecNumberFileName);
-	
-
 	// Bullet 
 	SetGunBulletUI(vecNumberFileName);
 

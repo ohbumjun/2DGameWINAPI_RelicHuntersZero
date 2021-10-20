@@ -17,7 +17,7 @@ CCharacter::CCharacter() :
 	m_HitDir(Vector2(0.f,0.f)),
 	m_ShieldEnable(false),
 	m_ShieldTime(0.f),
-	m_ShieldTimeMax(3.f),
+	m_ShieldTimeMax(10.f),
 	m_ShieldEnableTime(2.f),
 	m_Shield(nullptr)
 {
@@ -33,7 +33,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 
 	m_ShieldEnable = false;
 	m_ShieldTime = 0.f;
-	m_ShieldTimeMax = 3.f;
+	m_ShieldTimeMax = 10.f;
 	m_ShieldEnableTime = 2.f;
 
 	for (int i = 0; i < EGunClass::End; i++)
