@@ -3,7 +3,6 @@
 
 CPistolGun::CPistolGun()
 {
-	m_GunInfo.m_GunType = EGun_Type::Light_Pistol;
 }
 
 CPistolGun::CPistolGun(const CPistolGun& obj) : CGun(obj)

@@ -16,7 +16,6 @@ CGun::CGun() :
 	m_FireToggle(false)
 {
 	m_GunInfo.m_GunClass       = EGunClass::Light;
-	m_GunInfo.m_GunType        = EGun_Type::Light_Pistol;
 	m_GunInfo.m_Damage         = NORMAL_MONSTER_ATTACK;
 	m_GunInfo.m_BulletsLoaded  = PISTOL_BULLET_NUM;
 	m_GunInfo.m_BulletsFullNum = PISTOL_BULLET_NUM;
@@ -63,7 +62,11 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
+	// Bullet Type
+	EBullet_Type BulletType = MatchBulletToGun();
+	Bullet->SetBulletType(BulletType);
 
+	// Bullet Nums
 	m_GunInfo.m_BulletsLoaded -= 1;
 
 	// Angle 
@@ -92,6 +95,9 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 		MONSTER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
+	EBullet_Type BulletType = MatchBulletToGun();
+	// Bullet Type
+	Bullet->SetBulletType(BulletType);
 	// Bullet Damage
 	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
 	// Bullet Dir 
@@ -202,6 +208,21 @@ void CGun::AdjustGunTexture()
 			SetTexture(m_TextureImgNames[ETexture_Dir::Texture_Right]);
 			SetOffset(OwnerSize.x * 0.1f, 0);
 		}
+	}
+}
+
+EBullet_Type CGun::MatchBulletToGun()
+{
+	switch (m_GunInfo.m_GunClass)
+	{
+	case Light:
+		return EBullet_Type::Light;
+	case Medium:
+		return EBullet_Type::Medium;
+	case Heavy:
+		return EBullet_Type::Heavy;
+	case Boss:
+		return EBullet_Type::Boss;
 	}
 }
 

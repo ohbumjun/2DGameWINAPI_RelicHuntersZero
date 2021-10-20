@@ -35,10 +35,6 @@ public:
 	{
 		m_GunInfo.m_Damage = Damage;
 	}
-	void SetGunType(EGun_Type GunType)
-	{
-		m_GunInfo.m_GunType = GunType;
-	}
 	void SetBulletDistance(float &Dist)
 	{
 		m_GunInfo.m_BulletDistance = Dist;
@@ -76,10 +72,6 @@ public :
 	{
 		return	m_GunInfo.m_Damage;
 	}
-	EGun_Type GetGunTypee() const
-	{
-		return	m_GunInfo.m_GunType;
-	}
 	bool IsGunBulletEmpty() const
 	{
 		return	m_GunInfo.m_BulletEmpty;
@@ -91,6 +83,8 @@ public :
 	void CreateBulletEffect();
 	void ShowNoBulletSign();
 	void AdjustGunTexture();
+private :
+	EBullet_Type MatchBulletToGun();
 public:
 	virtual void Start();
 	virtual bool Init();

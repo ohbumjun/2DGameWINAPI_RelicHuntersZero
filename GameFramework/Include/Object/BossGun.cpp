@@ -2,7 +2,6 @@
 
 CBossGun::CBossGun()
 {
-    m_GunInfo.m_GunType = EGun_Type::Boss_Gun;
 }
 
 CBossGun::CBossGun(const CBossGun& obj) : CGun(obj)

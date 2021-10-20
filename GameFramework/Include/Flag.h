@@ -32,7 +32,8 @@ enum class EBullet_Type
 {
 	Light,
 	Medium,
-	Heavy
+	Heavy,
+	Boss
 };
 
 enum EItem_Type
@@ -49,16 +50,7 @@ enum EGunClass
 	Boss,
 	End
 };
-enum class EGun_Type
-{
-	Light_Pistol,
-	Medium_Pistol,
-	Heavy_Pistol,
-	Light_ShotGun,
-	Medium_ShotGun,
-	Heavy_ShotGun,
-	Boss_Gun
-};
+
 
 enum ECollision_Channel
 {

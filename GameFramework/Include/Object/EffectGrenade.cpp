@@ -131,7 +131,7 @@ void CEffectGrenade::DrawExplodeTrace()
 {
 	CEffectExplodeTrace* GrenadeTrace = m_Scene->CreateObject<CEffectExplodeTrace>(
 		"ExplodeAfter", 
-		EXPLODE_AFTER_PROTO,
+		EXPLOSION_AFTER_PROTO,
 		Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.7f));
 }
 

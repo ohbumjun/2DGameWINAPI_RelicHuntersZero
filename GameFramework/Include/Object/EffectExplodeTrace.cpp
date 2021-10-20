@@ -28,7 +28,7 @@ bool CEffectExplodeTrace::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation(GRENADE_OFF, true, 5.f);
+	AddAnimation(GRENADE_OFF, true, 10.f);
 
 	return true;
 }

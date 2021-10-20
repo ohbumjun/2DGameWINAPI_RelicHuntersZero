@@ -3,7 +3,6 @@
 
 CShotGun::CShotGun()
 {
-	m_GunInfo.m_GunType = EGun_Type::Light_ShotGun;
 }
 
 CShotGun::CShotGun(const CShotGun& obj) : CGun(obj)

@@ -564,6 +564,17 @@ void CScene::SetBulletsAnimation()
 			i * 66.f, 0, 66.f, 50.f);
 	}
 
+	// 총알
+	GetSceneResource()->CreateAnimationSequence(BULLET_BOSS,
+		BULLET_BOSS, TEXT("images/Weapon/Gun/Bullet/spr_bullet_boss.bmp"));
+	GetSceneResource()->SetTextureColorKey(BULLET_BOSS,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BULLET_BOSS,
+			i * 58.f, 0, 58.f, 56.f);
+	}
+
 	// Bullet Start Left
 	GetSceneResource()->CreateAnimationSequence(BULLETSTART_EFFECT_L,
 		BULLETSTART_EFFECT_L, TEXT("images/Weapon/Gun/Bullet/left_spr_bullet_start.bmp"));
@@ -1209,10 +1220,13 @@ void CScene::SetBasicProtoTypes()
 	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
 	// EffectGrenade
 	CEffectGrenade* EffectGrenadeProto = CreatePrototype<CEffectGrenade>(GRENADE_PROTO);
+	// Effect Explosion After
+	CEffectExplodeTrace* EffectExplodeTraceProto = CreatePrototype<CEffectExplodeTrace>(EXPLOSION_AFTER_PROTO);
 	// DamageFont 
 	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
 	
-	// CWallObject* WallObjPrototype = CreatePrototype<CWallObject>(WALL_PROTO);
+	
+	// CWallObject* WallObjPrototype = CreateP6rototype<CWallObject>(WALL_PROTO);
 
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
@@ -1320,7 +1334,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 300.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetGunType(EGun_Type::Medium_Pistol);
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
@@ -1331,7 +1344,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 400.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetGunType(EGun_Type::Heavy_Pistol);
 	GunPistolLight->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolLight->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
@@ -1342,7 +1354,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 500.f);
 	GunPistolLight->SetGunClass(EGunClass::Light);
-	GunPistolLight->SetGunType(EGun_Type::Light_ShotGun);
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
@@ -1353,7 +1364,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 600.f);
 	GunPistolLight->SetGunClass(EGunClass::Medium);
-	GunPistolLight->SetGunType(EGun_Type::Medium_ShotGun);
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
@@ -1364,7 +1374,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 700.f);
 	GunPistolLight->SetGunClass(EGunClass::Heavy);
-	GunPistolLight->SetGunType(EGun_Type::Heavy_ShotGun);
 	GunPistolLight->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunPistolLight->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 
@@ -1375,7 +1384,6 @@ void CScene::SetBasicProtoTypes()
 	GunPistolLight->SetTextureColorKey(255, 255, 255);
 	GunPistolLight->SetPos(200.f, 700.f);
 	GunPistolLight->SetGunClass(EGunClass::Boss);
-	GunPistolLight->SetGunType(EGun_Type::Boss_Gun);
 	GunPistolLight->SetLeftTextureName(GUN_BOSS_L);
 	GunPistolLight->SetRightTextureName(GUN_BOSS_R);
 }
@@ -2852,6 +2860,7 @@ void CScene::SetGeneratorAnimation()
 
 void CScene::SetGrenadeAnimation()
 {
+	// GreNade on
 	GetSceneResource()->CreateAnimationSequence(GRENADE_ON,
 		GRENADE_ON, TEXT("images/Monster/Boss/grenade_explosion.bmp"));
 	GetSceneResource()->SetTextureColorKey(GRENADE_ON,
@@ -2861,6 +2870,18 @@ void CScene::SetGrenadeAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(GRENADE_ON,
 			i * 194.f, 0.f, 194.f, 172.f);
+	}
+
+	// GreNade off
+	GetSceneResource()->CreateAnimationSequence(GRENADE_OFF,
+		GRENADE_OFF, TEXT("images/Monster/Boss/explosion_trace.bmp"));
+	GetSceneResource()->SetTextureColorKey(GRENADE_OFF,
+		255, 255, 255);
+
+	for (int i = 0; i < 8; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(GRENADE_OFF,
+			i * 87.f, 0.f, 87.f, 53.f);
 	}
 }
 

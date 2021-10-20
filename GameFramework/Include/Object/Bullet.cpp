@@ -47,6 +47,9 @@ void CBullet::SetBulletType(EBullet_Type BType)
 	case EBullet_Type::Heavy:
 		SetCurrentAnimation(BULLET_HEAVY);
 		break;
+	case EBullet_Type::Boss:
+		SetCurrentAnimation(BULLET_BOSS);
+		break;
 	}
 }
 
@@ -72,6 +75,7 @@ bool CBullet::Init()
 	AddAnimation(BULLET_LIGHT,true,0.1f);
 	AddAnimation(BULLET_MEDIUM,true,0.1f);
 	AddAnimation(BULLET_HEAVY,true,0.1f);
+	AddAnimation(BULLET_BOSS,true,0.1f);
 	return true;
 }
 
