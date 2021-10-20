@@ -279,7 +279,8 @@
 #define GENERATOR_OFF   "GeneratorOff"
 
 // Grenade 
-#define GRENADE_ON   "GrenadeAnimation"
+#define GRENADE_ON   "GrenadeOnAnimation"
+#define GRENADE_OFF   "GrenadeOffAnimation"
 
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"

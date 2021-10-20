@@ -9,6 +9,7 @@
 #include "../Object/EffectCasing.h"
 #include "../Object/EffectAbilityUp.h"
 #include "../Object/EffectGrenade.h"
+#include "../Object/EffectExplodeTrace.h"
 #include "../Object/EffectBulletStart.h"
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
@@ -1208,6 +1209,8 @@ void CScene::SetBasicProtoTypes()
 	CEffectAbilityUp* EffectAbilityUpPrototype = CreatePrototype<CEffectAbilityUp>(EFFECT_ABILITYUP_PROTO);
 	// EffectAbilityUp
 	CEffectGrenade* EffectGrenadeProto = CreatePrototype<CEffectGrenade>(GRENADE_PROTO);
+	// EffectExplosionTrace
+	CEffectExplodeTrace* EffectExplosionTraceProto = CreatePrototype<CEffectExplodeTrace>(GRENADE_PROTO);
 	// DamageFont 
 	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
 	
@@ -2851,6 +2854,7 @@ void CScene::SetGeneratorAnimation()
 
 void CScene::SetGrenadeAnimation()
 {
+	// Grenade Explosion
 	GetSceneResource()->CreateAnimationSequence(GRENADE_ON,
 		GRENADE_ON, TEXT("images/Monster/Boss/grenade_explosion.bmp"));
 	GetSceneResource()->SetTextureColorKey(GRENADE_ON,
@@ -2860,6 +2864,18 @@ void CScene::SetGrenadeAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(GRENADE_ON,
 			i * 194.f, 0.f, 194.f, 172.f);
+	}
+
+	// Trace After Explosion
+	GetSceneResource()->CreateAnimationSequence(GRENADE_OFF,
+		GRENADE_OFF, TEXT("images/Monster/Boss/explosion_trace.bmp"));
+	GetSceneResource()->SetTextureColorKey(GRENADE_OFF,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(GRENADE_OFF,
+			i * 87.f, 0.f, 87.f, 53.f);
 	}
 }
 
