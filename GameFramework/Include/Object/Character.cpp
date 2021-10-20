@@ -523,6 +523,7 @@ CGun* CCharacter::Equip(CGun* Gun)
 	m_GunEquipment[GunClass] = Gun;
 	// Set Current Gun
 	m_CurrentGun = m_GunEquipment[GunClass];
+	m_CurrentGun->RemoveGunCollider();
 
 	// Set Owner, Pos 
 	Gun->SetOwner(this);

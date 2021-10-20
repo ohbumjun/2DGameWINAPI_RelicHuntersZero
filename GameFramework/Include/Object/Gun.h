@@ -76,6 +76,7 @@ public :
 	{
 		return	m_GunInfo.m_BulletEmpty;
 	}
+	
 public :
 	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
@@ -85,6 +86,8 @@ public :
 	void AdjustGunTexture();
 private :
 	EBullet_Type MatchBulletToGun();
+public :
+	void RemoveGunCollider();
 public:
 	virtual void Start();
 	virtual bool Init();

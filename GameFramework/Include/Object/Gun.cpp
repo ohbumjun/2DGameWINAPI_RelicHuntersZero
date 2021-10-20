@@ -41,7 +41,6 @@ CGun::~CGun()
 {
 }
 
-
 void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
 	if (m_GunInfo.m_BulletsLoaded <= 0)
@@ -232,6 +231,12 @@ EBullet_Type CGun::MatchBulletToGun()
 	case Boss:
 		return EBullet_Type::Boss;
 	}
+}
+
+void CGun::RemoveGunCollider()
+{
+	CColliderSphere* ColliderSphere = (CColliderSphere*)FindCollider("Body");
+	ColliderSphere->Destroy();
 }
 
 void CGun::Start()
