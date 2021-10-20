@@ -38,6 +38,8 @@ bool CEffectReload::Init()
 void CEffectReload::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_Owner)
+		m_Pos = m_Owner->GetPos();
 }
 
 void CEffectReload::PostUpdate(float DeltaTime)

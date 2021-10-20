@@ -18,7 +18,13 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CEffectReload* Clone();
-
+private :
+	CGameObject* m_Owner;
+public :
+	void SetOwner(CGameObject* Obj)
+	{
+		m_Owner = Obj;
+	}
 public:
 	void AnimationFinish();
 };

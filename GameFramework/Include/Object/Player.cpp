@@ -628,6 +628,7 @@ void CPlayer::ReloadGun(float DelatTime)
 			"ReloadEffect",
 			RELOAD_PROTO,
 			Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.1f), Vector2(10.f, 10.f));
+		ReloadAnim->SetOwner(this);
 	}
 }
 

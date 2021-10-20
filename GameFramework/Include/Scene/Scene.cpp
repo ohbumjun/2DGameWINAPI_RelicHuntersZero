@@ -615,13 +615,13 @@ void CScene::SetBulletsAnimation()
 	GetSceneResource()->CreateAnimationSequence(RELOAD_EFFECT,
 		RELOAD_EFFECT, TEXT("images/Weapon/Gun/Bullet/GunReload.bmp"));
 	GetSceneResource()->SetTextureColorKey(RELOAD_EFFECT,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 4; ++j)
 		{
 			GetSceneResource()->AddAnimationFrameData(RELOAD_EFFECT,
-				j * 46.f, i * 46.f, 46.f, 46.f);
+				j * 66.f, i * 50.f, 66.f, 50.f);
 		}
 	}
 	
