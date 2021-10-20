@@ -472,7 +472,7 @@ void CCharacter::Hit()
 }
 void CCharacter::HitMove()
 {
-	Vector2	CurrentMove = m_HitDir * HIT_SPEED * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
+	Vector2	CurrentMove = m_HitDir * m_MoveSpeed * 0.6f * CGameManager::GetInst()->GetDeltaTime() * m_TimeScale;
 	m_Velocity += CurrentMove;
 	m_Pos += CurrentMove;
 	PreventWallMove();

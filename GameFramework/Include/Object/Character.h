@@ -67,6 +67,10 @@ protected:
 	bool  m_ShieldEnable;
 	class CEffectShield* m_Shield;
 public :
+	void SetShieldEnable(bool State)
+	{
+		m_ShieldEnable = State;
+	}
 	bool GetShieldEnable() const
 	{
 		return m_ShieldEnable;

@@ -31,6 +31,17 @@ CBossMonster::~CBossMonster()
 {
 }
 
+void CBossMonster::CreateGenerator(int GeneratorNum)
+{
+	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(600.f, 1200.f));
+	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
+		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	GeneratorTower->SetBossMonster(this);
+	if (GeneratorNum == 1) m_IsGenerator1Alive = true;
+	else m_IsGenerator2Alive = true;
+	m_ShieldEnable = true;
+}
+
 
 void CBossMonster::MissileUpdate(float DeltaTime)
 {
@@ -77,14 +88,7 @@ void CBossMonster::GeneratorUpdate(float DeltaTime)
 	{
 		// Make Generator 
 		if (!m_IsGenerator1Alive)
-		{
-			m_Generator = m_Scene->CreateObject<CGeneratorTower>(
-				"GeneratorTower", Vector2(600.f,1200.f)
-				);
-			m_Generator->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
-				NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-			m_IsGenerator1Alive = true;
-		}
+			CreateGenerator(1);
 		// Make Kage 
 
 		// Make Red Line To Generator From Monster
@@ -93,14 +97,7 @@ void CBossMonster::GeneratorUpdate(float DeltaTime)
 		m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.45f)
 	{
 		if (!m_IsGenerator2Alive)
-		{
-			m_Generator = m_Scene->CreateObject<CGeneratorTower>(
-				"GeneratorTower", Vector2(3200.f, 1300.f)
-				);
-			m_Generator->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
-				NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-			m_IsGenerator2Alive = true;
-		}
+			CreateGenerator(2);
 	}
 }
 

@@ -2,7 +2,6 @@
 
 CGeneratorTower::CGeneratorTower() 
 {
-	m_MoveSpeed = 0.f;
 	m_IsCreated = true;
 }
 
@@ -48,12 +47,14 @@ void CGeneratorTower::ChangeHitAnimation()
 
 void CGeneratorTower::CharacterDestroy()
 {
-	CMonster::CharacterDestroy();
+	Destroy();
+	m_BossMonster->SetShieldEnable(false);
 }
 
 void CGeneratorTower::Start()
 {
 	CMonster::Start();
+	SetAnimationEndNotify<CGeneratorTower>(GENERATOR_OFF, this, &CGeneratorTower::CharacterDestroy);
 	SetAnimationEndNotify<CGeneratorTower>(GENERATOR_START, this, &CGeneratorTower::ChangeIdleAnimation);
 }
 
@@ -72,8 +73,9 @@ bool CGeneratorTower::Init()
 
 void CGeneratorTower::Update(float DeltaTime)
 {
-	if (m_IsCreated) return;
 	CMonster::Update(DeltaTime);
+	// prevent Movement
+	m_MoveSpeed = 0.f;
 }
 
 void CGeneratorTower::PostUpdate(float DeltaTime)

@@ -1,5 +1,6 @@
 #pragma once
 #include "Monster.h"
+#include "BossMonster.h"
 class CGeneratorTower :
     public CMonster
 {
@@ -14,7 +15,6 @@ protected:
 	CGeneratorTower();
 	CGeneratorTower(const CGeneratorTower& obj);
 	virtual ~CGeneratorTower();
-	// Animation
 private :
 	bool m_IsCreated;
 public:
@@ -33,5 +33,12 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CGeneratorTower* Clone();
+private:
+	CSharedPtr<class CBossMonster> m_BossMonster;
+public :
+	void SetBossMonster(CBossMonster* BossMonster)
+	{
+		m_BossMonster = BossMonster;
+	}
 };
 
