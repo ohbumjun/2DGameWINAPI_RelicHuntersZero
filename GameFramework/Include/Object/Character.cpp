@@ -468,7 +468,7 @@ void CCharacter::Hit()
 	m_HitTime = HIT_TIME;
 	m_HitEnable = true;
 	// m_Pos += m_HitDir * m_Size.Length() * 0.1f;
-	ChangeHitAnimation();
+	ChangeHitAnimation(); //
 }
 void CCharacter::HitMove()
 {
