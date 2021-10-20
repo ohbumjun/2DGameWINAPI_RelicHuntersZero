@@ -14,6 +14,7 @@
 #include "../Object/EffectDash.h"
 #include "../Object/EffectText.h"
 #include "../Object/EffectShield.h"
+#include "../Object/GeneratorTower.h"
 #include "../Object/DamageFont.h"
 #include "../Object/WallObject.h"
 #include "../Object/DuckMonster.h"
@@ -1236,10 +1237,9 @@ void CScene::SetBasicProtoTypes()
 	CEffectExplodeTrace* EffectExplodeTraceProto = CreatePrototype<CEffectExplodeTrace>(EXPLOSION_AFTER_PROTO);
 	// DamageFont 
 	CDamageFont* DamageFontProto = CreatePrototype<CDamageFont>(DAMAGEFONT_PROTO);
+	// Generator Tower 
+	// CGeneratorTower* GeneratorTowerProto = CreatePrototype<CGeneratorTower>(GENERATOR_PROTO);
 	
-	
-	// CWallObject* WallObjPrototype = CreateP6rototype<CWallObject>(WALL_PROTO);
-
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 
@@ -2837,12 +2837,12 @@ void CScene::SetGeneratorAnimation()
 		GENERATOR_START, TEXT("images/Monster/Boss/generator_start.bmp"));
 	GetSceneResource()->SetTextureColorKey(GENERATOR_START,
 		255, 255, 255);
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 5; j++)
 		{
 			GetSceneResource()->AddAnimationFrameData(GENERATOR_START,
-				j * 134.f, i * 155.f, 134.f, 155.f);
+				j * 134.f, i * 148.f, 134.f, 148.f);
 		}
 	}
 
@@ -2866,7 +2866,7 @@ void CScene::SetGeneratorAnimation()
 	for (int j = 0; j <= 1; j++)
 	{
 		GetSceneResource()->AddAnimationFrameData(GENERATOR_OFF,
-			j * 134.f, 0.f, 134.f, 155.f);
+			j * 134.f, 0.f, 134.f, 148.f);
 	}
 }
 

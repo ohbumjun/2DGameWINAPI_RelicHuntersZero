@@ -14,6 +14,7 @@
 #define COIN_PROTO							  "CoinProto"
 #define SHIELD_PROTO						  "ShieldProto"
 #define GRENADE_PROTO						  "GrenadeProto"
+#define GENERATOR_PROTO						  "GeneratorProto"
 #define EXPLOSION_AFTER_PROTO				  "ExplosionAfterProto"
 #define DAMAGEFONT_PROTO					  "DamageFontProto"
 #define MONSTER_BULLET_PROTO                  "MonsterBulletProto"

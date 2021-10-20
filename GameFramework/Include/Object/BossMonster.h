@@ -16,7 +16,8 @@ protected:
 	CBossMonster(const CBossMonster& obj);
 	virtual ~CBossMonster();
 private :
-	std::list<CSharedPtr<CGeneratorTower>> m_GeneratorList;
+	bool m_IsGenerator1Alive;
+	bool m_IsGenerator2Alive;
 // Missile 
 private :
 	float m_MissileAttackTime;
@@ -31,7 +32,6 @@ private :
 	void GrenadeAttack(float DeltaTime);
 // Generator 
 private :
-	bool m_IsGeneratorAlive;
 	void GeneratorUpdate(float DeltaTime);
 	void GeneratorAttack(float DeltaTime);
 // UI

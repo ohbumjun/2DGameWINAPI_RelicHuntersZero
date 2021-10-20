@@ -21,9 +21,6 @@ public:
 	virtual void ChangeRunAnimation();
 	virtual void ChangeDeathAnimation();
 	virtual void ChangeHitAnimation();
-	// Set Animation
-private:
-	virtual void SetAnimation();
 private:
 	virtual void CharacterDestroy();
 public:

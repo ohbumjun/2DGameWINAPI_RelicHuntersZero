@@ -4,13 +4,15 @@
 #include "../Scene/Scene.h"
 #include"../Scene/SceneResource.h"
 #include "EffectGrenade.h"
+#include "GeneratorTower.h"
 
 CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
 	m_MissileAttackTime(0.f),
 	m_GrenadeTime(0.f),
 	m_GrenadMaxTime(3.f),
-	m_IsGeneratorAlive(false)
+	m_IsGenerator1Alive(false),
+	m_IsGenerator2Alive(false)
 {
 }
 
@@ -20,7 +22,8 @@ CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
 	m_MissileAttackTime = 0.f;
 	m_GrenadeTime = 0.f;
 	m_GrenadMaxTime = 3.f;
-	m_IsGeneratorAlive = false;
+	m_IsGenerator1Alive = false;
+	m_IsGenerator2Alive = false;
 }
 
 CBossMonster::~CBossMonster()
@@ -47,14 +50,14 @@ void CBossMonster::GrenadeUpdate(float DeltaTime)
 	if (m_GrenadeTime >= m_GrenadMaxTime)
 	{
 		m_GrenadeTime -= m_GrenadMaxTime;
-		for (float f = 0.0f; f < 2 * M_PI; f += M_PI )
+		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 6.f )
 		{
 			CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
 				"GrenadeEffect",
 				GRENADE_PROTO, 
 				Vector2(
-					(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f), 
-					(m_Pos.y - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
+					(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.8f * cos(f), 
+					(m_Pos.y - m_Size.y - m_Offset.y) + m_Size.Length() * 1.8f * sin(f))
 				);
 			EffectGrenade->SetTexture("Grenade", TEXT("images/Monster/Boss/grenade.bmp"));
 			EffectGrenade->SetTextureColorKey(255, 255, 255);
@@ -68,13 +71,31 @@ void CBossMonster::GrenadeAttack(float DeltaTime)
 
 void CBossMonster::GeneratorUpdate(float DeltaTime)
 {
-	if (m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.7)
+	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax * 0.45f
+		&& m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.7f)
 	{
+		// Make Generator 
+		if (!m_IsGenerator1Alive)
+		{
+			CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>(
+				"GeneratorTower", m_Pos
+				);
+			m_IsGenerator1Alive = true;
+		}
+		// Make Kage 
 
+		// Make Red Line To Generator From Monster
 	}
-	else if (m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.3)
+	else if (m_CharacterInfo.HP > m_CharacterInfo.HPMax * 0.25f && 
+		m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.45f)
 	{
-
+		if (!m_IsGenerator2Alive)
+		{
+			CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>(
+				"GeneratorTower", m_Pos
+				);
+			m_IsGenerator2Alive = true;
+		}
 	}
 }
 

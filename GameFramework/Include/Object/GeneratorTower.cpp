@@ -1,7 +1,9 @@
 #include "GeneratorTower.h"
+#include "../Collision/ColliderBox.h"
 
 CGeneratorTower::CGeneratorTower() 
 {
+	m_MoveSpeed = 0.f;
 }
 
 CGeneratorTower::CGeneratorTower(const CGeneratorTower& obj) : CMonster(obj)
@@ -42,14 +44,6 @@ void CGeneratorTower::ChangeHitAnimation()
 	ChangeAnimation(GENERATOR_HIT);
 }
 
-void CGeneratorTower::SetAnimation()
-{
-	AddAnimation(GENERATOR_IDLE, true, 2.f);
-	AddAnimation(GENERATOR_START, true, 4.f);
-	AddAnimation(GENERATOR_OFF, false, 0.1f);
-	AddAnimation(GENERATOR_HIT, false, 0.6f);
-
-}
 
 void CGeneratorTower::CharacterDestroy()
 {
@@ -59,22 +53,28 @@ void CGeneratorTower::CharacterDestroy()
 void CGeneratorTower::Start()
 {
 	CMonster::Start();
-	SetAnimationEndNotify<CGeneratorTower>(GENERATOR_START, this, &CGeneratorTower::CharacterDestroy);
+	SetAnimationEndNotify<CGeneratorTower>(GENERATOR_START, this, &CGeneratorTower::ChangeIdleAnimation);
 }
 
 bool CGeneratorTower::Init()
 {
 	if (!CMonster::Init()) return false;
-	SetAnimation();
-	SetAnimNames();
+
+	AddAnimation(GENERATOR_IDLE, true, 2.f);
+	AddAnimation(GENERATOR_START, false, 5.f);
+	AddAnimation(GENERATOR_OFF, true, 1.f);
+	AddAnimation(GENERATOR_HIT, false, 0.6f);
 	SetCurrentAnimation(GENERATOR_START);
+
+	CColliderBox* Body = (CColliderBox*)FindCollider("Body");
+	Body->SetCollisionProfile("Default");
 
 	return true;
 }
 
 void CGeneratorTower::Update(float DeltaTime)
 {
-	CMonster::Update(DeltaTime);
+	CCharacter::Update(DeltaTime);
 }
 
 void CGeneratorTower::PostUpdate(float DeltaTime)
