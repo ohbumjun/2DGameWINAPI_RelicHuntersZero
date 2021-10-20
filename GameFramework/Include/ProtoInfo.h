@@ -15,6 +15,7 @@
 #define RELOAD_PROTO					      "ReloadProto"
 #define SHIELD_PROTO						  "ShieldProto"
 #define SHIELD_START_PROTO					  "ShieldStartProto"
+#define STAGE_DOOR_ABOVE_PROTO				  "StageDoorAboveProto"
 #define GRENADE_PROTO						  "GrenadeProto"
 #define GENERATOR_PROTO						  "GeneratorProto"
 #define EXPLOSION_AFTER_PROTO				  "ExplosionAfterProto"

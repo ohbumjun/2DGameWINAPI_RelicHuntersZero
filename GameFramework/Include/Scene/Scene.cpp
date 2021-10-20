@@ -6,6 +6,7 @@
 // UI
 #include "../Object/EffectHit.h"
 #include "../Object/EffectSurprise.h"
+#include "../Object/EffectDoorAbove.h"
 #include "../Object/EffectCasing.h"
 #include "../Object/EffectAbilityUp.h"
 #include "../Object/EffectGrenade.h"
@@ -433,6 +434,20 @@ void CScene::SetItemsAnimation()
 		{
 			GetSceneResource()->AddAnimationFrameData("StageDoor",
 				j * 192.f, i * 192.f, 192.f, 192.f);
+		}
+	}
+
+	// Stage Door Effect ---
+	GetSceneResource()->CreateAnimationSequence(STAGE_DOOR_ABOVE_EFFECT,
+		STAGE_DOOR_ABOVE_EFFECT, TEXT("images/Items/StageDoorAbove.bmp"));
+	GetSceneResource()->SetTextureColorKey(STAGE_DOOR_ABOVE_EFFECT,
+		255, 0, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(STAGE_DOOR_ABOVE_EFFECT,
+				j * 50.f, i * 58.f, 50.f, 58.f);
 		}
 	}
 	
@@ -1283,7 +1298,8 @@ void CScene::SetBasicProtoTypes()
 	CEffectShieldStart* ShieldStartProto = CreatePrototype<CEffectShieldStart>(SHIELD_START_PROTO);
 	// Shield
 	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
-
+	// Shield
+	CEffectDoorAbove* StageDoorAbovePrototype = CreatePrototype<CEffectDoorAbove>(STAGE_DOOR_ABOVE_PROTO);
 
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);

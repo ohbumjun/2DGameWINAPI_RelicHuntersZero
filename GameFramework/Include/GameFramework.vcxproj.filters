@@ -324,9 +324,6 @@
     <ClCompile Include="Object\DamageFont.cpp">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Object\EffectAbilityUp.cpp">
-      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Object\EffectBulletStart.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
@@ -410,6 +407,12 @@
     </ClCompile>
     <ClCompile Include="UI\UISceneStart.cpp">
       <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectAbilityUp.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EffectDoorAbove.cpp">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -739,6 +742,9 @@
     </ClInclude>
     <ClInclude Include="UI\UISceneStart.h">
       <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\EffectDoorAbove.h">
+      <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

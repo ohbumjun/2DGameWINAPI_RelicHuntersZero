@@ -181,6 +181,7 @@
     <ClCompile Include="Object\DamageFont.cpp" />
     <ClCompile Include="Object\DuckMonster.cpp" />
     <ClCompile Include="Object\EffectDash.cpp" />
+    <ClCompile Include="Object\EffectDoorAbove.cpp" />
     <ClCompile Include="Object\EffectExplodeTrace.cpp" />
     <ClCompile Include="Object\EffectGrenade.cpp" />
     <ClCompile Include="Object\EffectHit.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="Object\Character.h" />
     <ClInclude Include="Object\DuckMonster.h" />
     <ClInclude Include="Object\EffectDash.h" />
+    <ClInclude Include="Object\EffectDoorAbove.h" />
     <ClInclude Include="Object\EffectExplodeTrace.h" />
     <ClInclude Include="Object\EffectGrenade.h" />
     <ClInclude Include="Object\EffectReload.h" />
