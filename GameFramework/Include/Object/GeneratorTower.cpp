@@ -1,13 +1,14 @@
 #include "GeneratorTower.h"
-#include "../Collision/ColliderBox.h"
 
 CGeneratorTower::CGeneratorTower() 
 {
 	m_MoveSpeed = 0.f;
+	m_IsCreated = true;
 }
 
 CGeneratorTower::CGeneratorTower(const CGeneratorTower& obj) : CMonster(obj)
 {
+	m_IsCreated = true;
 }
 
 CGeneratorTower::~CGeneratorTower()
@@ -66,15 +67,13 @@ bool CGeneratorTower::Init()
 	AddAnimation(GENERATOR_HIT, false, 0.6f);
 	SetCurrentAnimation(GENERATOR_START);
 
-	CColliderBox* Body = (CColliderBox*)FindCollider("Body");
-	Body->SetCollisionProfile("Default");
-
 	return true;
 }
 
 void CGeneratorTower::Update(float DeltaTime)
 {
-	CCharacter::Update(DeltaTime);
+	if (m_IsCreated) return;
+	CMonster::Update(DeltaTime);
 }
 
 void CGeneratorTower::PostUpdate(float DeltaTime)

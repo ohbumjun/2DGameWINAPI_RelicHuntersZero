@@ -190,7 +190,6 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 	CGameObject* DestOwner = Dest->GetOwner();
 	EObject_Type DestType = DestOwner->GetObjType();
 	Vector2 DestSize = DestOwner->GetSize();
-	Vector2 BulletDir = m_Dir;
 
 	if (DestType == EObject_Type::Player ||
 		DestType == EObject_Type::Monster)
@@ -199,25 +198,12 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 		bool DestShieldEnable = DestChar->GetShieldEnable();
 		if(!DestShieldEnable)
 		{
-			// Hit 
-			DestChar->SetHitDir(BulletDir);
-			DestChar->Hit();
-			int Armor = 0;
-			if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
-				Dest->GetOwner()->GetObjType() == EObject_Type::Player)
-				Armor = Dest->GetOwner()->GetArmor();
-			// Damage Font
-			CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
-			DamageFont->SetDamageNumber((int)(m_Damage - Armor));
-			// Damage
-			Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));
+			HitObject(DestChar);
+			DamageObject(Dest);
 		}
 		if (DestShieldEnable && DestType == EObject_Type::Player)
 		{
-			CEffectShield* ShieldEffect = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
-			ShieldEffect->SetShieldType(EShield_Type::Player);
-			ShieldEffect->SetOwner(DestOwner);
-			ShieldEffect->SetLifeTime(0.5f);
+			ShieldObject(DestOwner);
 		}
 	}
 }
@@ -236,4 +222,37 @@ void CBullet::UpdateBossBullet()
 		float Angle = GetAngle(m_Pos, Player->GetPos());
 		SetDir(Angle);
 	}
+}
+
+
+void CBullet::HitObject(CCharacter* const DestChar)
+{
+	// Disable If if Boss Monster 
+	CMonster* DestM = (CMonster*)DestChar;
+	if (DestM->GetMonsterType() == EMonster_Type::Boss) return;
+	// Hit 
+	DestChar->SetHitDir(m_Dir);
+	DestChar->Hit();
+}
+
+void CBullet::DamageObject(CCollider* const Dest)
+{
+	// Damage 
+	int Armor = 0;
+	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
+		Dest->GetOwner()->GetObjType() == EObject_Type::Player)
+		Armor = Dest->GetOwner()->GetArmor();
+	// Damage Font
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
+	DamageFont->SetDamageNumber((int)(m_Damage - Armor));
+	// Damage
+	Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));
+}
+
+void CBullet::ShieldObject(CGameObject* const  DestOwner)
+{
+	CEffectShield* ShieldEffect = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
+	ShieldEffect->SetShieldType(EShield_Type::Player);
+	ShieldEffect->SetOwner(DestOwner);
+	ShieldEffect->SetLifeTime(0.5f);
 }

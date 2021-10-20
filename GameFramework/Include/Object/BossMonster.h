@@ -16,6 +16,7 @@ protected:
 	CBossMonster(const CBossMonster& obj);
 	virtual ~CBossMonster();
 private :
+	CSharedPtr<class CGeneratorTower> m_Generator;
 	bool m_IsGenerator1Alive;
 	bool m_IsGenerator2Alive;
 // Missile 

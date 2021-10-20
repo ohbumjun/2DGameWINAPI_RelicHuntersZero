@@ -15,6 +15,8 @@ protected:
 	CGeneratorTower(const CGeneratorTower& obj);
 	virtual ~CGeneratorTower();
 	// Animation
+private :
+	bool m_IsCreated;
 public:
 	virtual void ChangeIdleAnimation();
 	virtual void ChangeMoveAnimation();

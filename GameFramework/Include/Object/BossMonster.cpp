@@ -14,6 +14,7 @@ CBossMonster::CBossMonster() :
 	m_IsGenerator1Alive(false),
 	m_IsGenerator2Alive(false)
 {
+	m_MonsterType = EMonster_Type::Boss;
 }
 
 CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
@@ -77,9 +78,11 @@ void CBossMonster::GeneratorUpdate(float DeltaTime)
 		// Make Generator 
 		if (!m_IsGenerator1Alive)
 		{
-			CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>(
-				"GeneratorTower", m_Pos
+			m_Generator = m_Scene->CreateObject<CGeneratorTower>(
+				"GeneratorTower", Vector2(600.f,1200.f)
 				);
+			m_Generator->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
+				NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 			m_IsGenerator1Alive = true;
 		}
 		// Make Kage 
@@ -91,9 +94,11 @@ void CBossMonster::GeneratorUpdate(float DeltaTime)
 	{
 		if (!m_IsGenerator2Alive)
 		{
-			CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>(
-				"GeneratorTower", m_Pos
+			m_Generator = m_Scene->CreateObject<CGeneratorTower>(
+				"GeneratorTower", Vector2(3200.f, 1300.f)
 				);
+			m_Generator->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
+				NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 			m_IsGenerator2Alive = true;
 		}
 	}

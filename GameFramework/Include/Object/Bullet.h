@@ -62,5 +62,9 @@ public:
 public :
 	void UpdateDistance();
 	void UpdateBossBullet();
+public :
+	void HitObject(class CCharacter* const DestChar);
+	void DamageObject(class CCollider* const Dest);
+	void ShieldObject(CGameObject* const DestOwner);
 };
 
