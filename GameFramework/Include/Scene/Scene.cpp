@@ -442,13 +442,10 @@ void CScene::SetItemsAnimation()
 		STAGE_DOOR_ABOVE_EFFECT, TEXT("images/Items/StageDoorAbove.bmp"));
 	GetSceneResource()->SetTextureColorKey(STAGE_DOOR_ABOVE_EFFECT,
 		255, 0, 255);
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 8; ++i)
 	{
-		for (int j = 0; j < 4; j++)
-		{
-			GetSceneResource()->AddAnimationFrameData(STAGE_DOOR_ABOVE_EFFECT,
-				j * 50.f, i * 58.f, 50.f, 58.f);
-		}
+		GetSceneResource()->AddAnimationFrameData(STAGE_DOOR_ABOVE_EFFECT,
+			0.f, i * 58.f, 50.f, 58.f);
 	}
 	
 	// Potion

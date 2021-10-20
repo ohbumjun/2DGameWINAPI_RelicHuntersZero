@@ -81,7 +81,7 @@ void CStageDoor::Collision(float DeltaTime)
 			if (!m_DoorEffectEnable)
 			{
 				CEffectDoorAbove* AboveEffect = m_Scene->CreateObject<CEffectDoorAbove>(
-					"DoorAboveEffect",
+					"AboveEffect",
 					STAGE_DOOR_ABOVE_PROTO,
 					Vector2(m_Pos.x, m_Pos.y - m_Pivot.y * m_Size.y)
 					);

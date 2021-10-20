@@ -18,17 +18,15 @@ CEffectDoorAbove::~CEffectDoorAbove()
 void CEffectDoorAbove::Start()
 {
 	CGameObject::Start();
-	// SetAnimationEndNotify<CEffectDoorAbove>(STAGE_DOOR_ABOVE_EFFECT, this, &CEffectDoorAbove::AnimationFinish);
+	SetAnimationEndNotify<CEffectDoorAbove>(STAGE_DOOR_ABOVE_EFFECT, this, &CEffectDoorAbove::AnimationFinish);
 }
 
 bool CEffectDoorAbove::Init()
 {
-	if (!CGameObject::Init())
-		return false;
+	if (!CGameObject::Init()) return false;
 
-	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, false, 0.7f);
+	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, false, 2.0f);
 
 	return true;
 }
