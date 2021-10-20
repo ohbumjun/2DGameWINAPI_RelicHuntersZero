@@ -40,5 +40,7 @@ public :
 	{
 		m_BossMonster = BossMonster;
 	}
+public :
+	void RenderLineToBossMonster(HDC hDC);
 };
 

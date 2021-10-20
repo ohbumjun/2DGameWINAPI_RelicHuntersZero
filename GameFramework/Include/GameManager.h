@@ -34,13 +34,12 @@ private:
 	HBRUSH		m_hBlueBrush;
 	HBRUSH		m_hLightBlueBrush;
 	HBRUSH		m_hDarkBlueBrush;
-	/*
-	HBRUSH		m_hYellowBrush;
 
-	*/
 	// Pen
 	HPEN		m_hGreenPen;
 	HPEN		m_hRedPen;
+	HPEN		m_hBluePen;
+
 	// 현재 에디트 모드인지 아닌지 --> Editor Scene에 들어가면 true로
 	bool        m_EditorMode;
 
@@ -56,6 +55,10 @@ public:
 	HPEN GetRedPen()	const
 	{
 		return m_hRedPen;
+	}
+	HPEN GetBluePen()	const
+	{
+		return m_hBluePen;
 	}
 	HBRUSH GetGreenBrush()	const
 	{
