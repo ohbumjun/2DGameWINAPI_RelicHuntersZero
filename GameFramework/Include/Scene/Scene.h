@@ -6,6 +6,9 @@
 #include "../Map/TileMap.h"
 #include "../Map/Tile.h"
 #include "../Object/Player.h"
+#include "../Object/Gun.h"
+#include "../Object/PistolGun.h"
+#include "../Object/ShotGun.h"
 #include "../Object/DuckMonster.h"
 
 class CScene
@@ -278,7 +281,8 @@ inline void CScene::SetMonsterOnTileMap(
 	A* MonsterA = nullptr;
 	B* MonsterB = nullptr;
 	C* MonsterC = nullptr;
-	CGun* PistolGun = nullptr;
+	class CPistolGun* PistolGun = nullptr;
+	class CShotGun* ShotGun = nullptr;
 	CTileMap* TileMap = GetTileMap();
 
 	if (TileMap)
@@ -301,29 +305,29 @@ inline void CScene::SetMonsterOnTileMap(
 				if (TileOption == ETileOption::MonsterLight)
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, TilePos);
+					ShotGun = CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, TilePos);
 					MonsterA = CreateObject<A>(std::to_string(EasyMNum), MonsterProtoA,
 						TilePos);
-					MonsterA->Equip(PistolGun);
+					MonsterA->Equip((CGun*)ShotGun);
 					EasyMNum += 1;
 				}
 				
 				if (TileOption == ETileOption::MonsterMedium)
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO,TilePos);
+					ShotGun = CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO,TilePos);
 					MonsterB = CreateObject<B>(std::to_string(MidMNum), MonsterProtoB,
 						TilePos);
-					MonsterB->Equip(PistolGun);
+					MonsterB->Equip((CGun*)ShotGun);
 					MidMNum += 1;
 				}
 				if (TileOption == ETileOption::MonsterHard)
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
-					PistolGun = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, TilePos);
+					PistolGun = CreateObject<CPistolGun>(GUN_PISTOL_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, TilePos);
 					MonsterC = CreateObject<C>(std::to_string(HardMNum), MonsterProtoC,
 						TilePos);
-					MonsterC->Equip(PistolGun);
+					MonsterC->Equip((CGun*)PistolGun);
 					HardMNum += 1;
 				}
 			}
