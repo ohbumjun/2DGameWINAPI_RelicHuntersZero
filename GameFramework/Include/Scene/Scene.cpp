@@ -702,7 +702,7 @@ void CScene::SetNpcAnimation()
 	GetSceneResource()->CreateAnimationSequence(NPC_IDLE,
 		NPC_IDLE, TEXT("images/Character/ass/spr_npc.bmp"));
 	GetSceneResource()->SetTextureColorKey(NPC_IDLE,
-		255, 0, 255);
+		255, 255, 255);
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 5; ++j)
@@ -1191,22 +1191,22 @@ void CScene::SetDuck3MonsterAnimation()
 void CScene::SetBasicObjectGuns()
 {
 	CGameObject* GunProto = FindPrototype(GUN_PISTOL_LIGHT_PROTO);
-	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, GunProto->m_Pos,GunProto->m_Size);
+	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, Vector2(2750.f,975.f),GunProto->m_Size);
 
 	GunProto = FindPrototype(GUN_PISTOL_MEDIUM_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, GunProto->m_Pos, GunProto->m_Size);
+	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, Vector2(2875.f, 975.f), GunProto->m_Size);
 
 	GunProto = FindPrototype(GUN_PISTOL_HEAVY_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, GunProto->m_Pos, GunProto->m_Size);
+	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, Vector2(3000.f, 975.f), GunProto->m_Size);
 
 	GunProto = FindPrototype(GUN_SHOTGUN_LIGHT_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, GunProto->m_Pos, GunProto->m_Size);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, Vector2(2750.f, 1525.f), GunProto->m_Size);
 
 	GunProto = FindPrototype(GUN_SHOTGUN_MEDIUM_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, GunProto->m_Pos, GunProto->m_Size);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, Vector2(2875.f, 1525.f), GunProto->m_Size);
 
 	GunProto = FindPrototype(GUN_SHOTGUN_HEAVY_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, GunProto->m_Pos, GunProto->m_Size);
+	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, Vector2(3000.f, 1525.f), GunProto->m_Size);
 }
 
 void CScene::SetBasicUIs()

@@ -246,7 +246,7 @@ bool CGun::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CColliderSphere* Body = AddCollider<CColliderSphere>("Body");
-	Body->SetRadius(25.f);
+	Body->SetRadius(100.f);
 	Body->SetOffset(0.f, 0.f);
 
 	return true;
