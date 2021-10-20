@@ -7,6 +7,7 @@
 CGeneratorTower::CGeneratorTower() 
 {
 	m_IsCreated = true;
+	m_MonsterType = EMonster_Type::Boss;
 }
 
 CGeneratorTower::CGeneratorTower(const CGeneratorTower& obj) : CMonster(obj)

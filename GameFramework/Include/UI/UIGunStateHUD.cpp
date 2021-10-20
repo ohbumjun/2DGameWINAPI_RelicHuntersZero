@@ -41,7 +41,7 @@ bool CUIGunStateHUD::Init()
 
 	m_LightGunText = CreateWidget<CUIText>("LightGunText");
 	m_LightGunText->SetText(TEXT("Light Gun"));
-	m_LightGunText->SetTextColor(0, 0, 0);
+	m_LightGunText->SetTextColor(255, 255, 255);
 	m_LightGunText->SetPos(50.f, 200.f);
 	m_LightGunText->SetZOrder(1);
 
@@ -57,7 +57,7 @@ bool CUIGunStateHUD::Init()
 
 	m_MediumGunText = CreateWidget<CUIText>("MediumGunText");
 	m_MediumGunText->SetText(TEXT("Medium Gun"));
-	m_MediumGunText->SetTextColor(0, 0, 0);
+	m_MediumGunText->SetTextColor(255, 255, 255);
 	m_MediumGunText->SetPos(50.f, 240.f);
 	m_MediumGunText->SetZOrder(1);
 
@@ -73,7 +73,7 @@ bool CUIGunStateHUD::Init()
 
 	m_HeavyGunText = CreateWidget<CUIText>("HeavyGunText");
 	m_HeavyGunText->SetText(TEXT("Heavy Gun"));
-	m_HeavyGunText->SetTextColor(0, 0, 0);
+	m_HeavyGunText->SetTextColor(255, 255, 255);
 	m_HeavyGunText->SetPos(50.f, 280.f);
 	m_HeavyGunText->SetZOrder(1);
 
@@ -94,7 +94,6 @@ bool CUIGunStateHUD::Init()
 	m_ThirdGunImage->SetTextureColorKey(255, 255, 255);
 	m_ThirdGunImage->SetPos(90.f, 600.f);
 
-	// Bullet Text 
 
 	return true;
 }

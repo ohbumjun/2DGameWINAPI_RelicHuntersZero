@@ -39,7 +39,7 @@ bool CHomeScene::Init()
 	// Guns
 	SetBasicObjectGuns();
 	// Objects
-	CPlayer* Player = CreatePlayer("Player", Vector2(230.f, 830.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(1900.f, 530.f));
 	SetPlayer(Player);
 
 	// Camera
@@ -50,8 +50,8 @@ bool CHomeScene::Init()
 	CStageDoor* StageDoor_One = CreateObject<CStageDoor>("StageDoor", 
 		Vector2(300.f + rand() % 700, 30.f + rand() % 100),
 		Vector2(50.f,50.f));
-	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
-	// StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Three);
+	// StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
+	StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_Three);
 
 	// Potion
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
@@ -64,19 +64,16 @@ bool CHomeScene::Init()
 	CCoin* Coin = CreateObject<CCoin>("MonsterCoin", COIN_PROTO, Vector2(500.f,500.f));
 
 	// Npc
-	CNpc* NpcMP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(500.f, 210.f)));
-	CNpc* NpcHP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(700.f, 250.f)));
+	CNpc* NpcMP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(600.f, 1000.f)));
+	CNpc* NpcHP     = CreateObject<CNpc>(NPC_IDLE,(Vector2(600.f, 1250.f)));
 	NpcHP->SetNpcType(ENpc_Type::Hp);
-	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(900.f, 300.f)));
+	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(600.f, 1500.f)));
 	NpcShield->SetNpcType(ENpc_Type::Shield);
 	NpcShield->SetCost(300.f);
 
 	// Map
-	/*
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
-	TileMap->LoadFile("Stage1.map");
-	TileMap->SetZOrder(0);
-	*/
+	TileMap->LoadFile("StageHome.map");
 	// TileMap->SetTileWorldResolution();
 
 	return true;
