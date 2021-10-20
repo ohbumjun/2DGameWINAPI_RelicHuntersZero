@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 class CEffectExplodeTrace :
-	public CGameObject
+    public CGameObject
 {
 	friend class CScene;
 
@@ -22,3 +22,4 @@ public:
 public:
 	void AnimationFinish();
 };
+

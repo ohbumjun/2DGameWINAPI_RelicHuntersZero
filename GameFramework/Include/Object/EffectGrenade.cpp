@@ -1,7 +1,10 @@
 #include "EffectGrenade.h"
+#include "EffectExplodeTrace.h"
 #include "EffectText.h"
 #include "DamageFont.h"
+#include "../GameManager.h"
 #include "../Scene/Scene.h"
+#include "../Scene/Camera.h"
 #include "../Scene/SceneResource.h"
 #include "Player.h"
 #include "EffectHit.h"
@@ -12,7 +15,8 @@ CEffectGrenade::CEffectGrenade() :
 	m_Damage(100.f),
 	m_Explode(false),
 	m_ExplodeTime(0.f),
-	m_ExplodeMaxTime(1.5f)
+	m_ExplodeMaxTime(1.5f),
+	m_ExplodeDist(100.f)
 {
 }
 
@@ -24,7 +28,8 @@ CEffectGrenade::CEffectGrenade(const CEffectGrenade& obj) :
 	m_Damage         = 100.f;
 	m_Explode        = false;
 	m_ExplodeTime    = 0.f;
-	m_ExplodeMaxTime = 1.5f;
+	m_ExplodeMaxTime = 3.f;
+	m_ExplodeDist    = 100.f;
 }
 
 CEffectGrenade::~CEffectGrenade()
@@ -65,6 +70,7 @@ void CEffectGrenade::Update(float DeltaTime)
 		if (m_ExplodeTime >= m_ExplodeMaxTime)
 		{
 			Explode();
+			DrawExplodeTrace();
 			Destroy();
 		}
 	}
@@ -98,7 +104,7 @@ void CEffectGrenade::ChangeExplosionAnimation()
 	SetOffset(Vector2(-m_Size.x * 0.45f, 0));
 	
 	// Activate Animation
-	AddAnimation(GRENADE_ON, false, 2.f);
+	AddAnimation(GRENADE_ON, false,  m_ExplodeMaxTime);
 
 	m_Explode = true;
 }
@@ -115,20 +121,39 @@ void CEffectGrenade::Explode()
 	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
 	if (DistToPlayer <= 150.f)
 	{
-		CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
-			PlayerPos, Vector2(178.f, 164.f));
-		m_Scene->GetSceneResource()->SoundPlay("Fire");
-
-		// Hit 
-		Player->SetHitDir(Vector2(-PlayerDir.x, -PlayerDir.y));
-		Player->Hit();
-		
-		int Armor = Player->GetArmor();
-		int FinalDamage = m_Damage - Armor;
-		// Damage Font
-		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont",DAMAGEFONT_PROTO,PlayerPos);
-		DamageFont->SetDamageNumber(FinalDamage);
-
-		Player->SetDamage(FinalDamage);
+		ExplodeHitPlayer(Player);
 	}
+
+	DrawExplodeTrace();
+}
+
+void CEffectGrenade::DrawExplodeTrace()
+{
+	CEffectExplodeTrace* GrenadeTrace = m_Scene->CreateObject<CEffectExplodeTrace>(
+		"ExplodeAfter", 
+		EXPLODE_AFTER_PROTO,
+		Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.7f));
+}
+
+void CEffectGrenade::ExplodeHitPlayer(class CPlayer* const Player)
+{
+	Vector2 PlayerPos = Player->GetPos();
+	Vector2 PlayerDir = Player->GetDir();
+
+	// Hit Effect 
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
+		PlayerPos, Vector2(178.f, 164.f));
+	m_Scene->GetSceneResource()->SoundPlay("Fire");
+
+	// Hit 
+	Player->SetHitDir(Vector2(-PlayerDir.x, -PlayerDir.y));
+	Player->Hit();
+
+	int Armor = Player->GetArmor();
+	int FinalDamage = m_Damage - Armor;
+	// Damage Font
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, PlayerPos);
+	DamageFont->SetDamageNumber(FinalDamage);
+
+	Player->SetDamage(FinalDamage);
 }

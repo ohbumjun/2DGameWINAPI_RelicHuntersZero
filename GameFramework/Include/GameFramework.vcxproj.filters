@@ -743,9 +743,6 @@
     <ClInclude Include="Object\EffectGrenade.h">
       <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Object\EffectExplodeTrace.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameFramework.rc">
