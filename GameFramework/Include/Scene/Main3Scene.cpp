@@ -22,6 +22,7 @@
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
+#include "../UI/UICommon.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIBossStateHUD.h"
 #include "../UI/UIImage.h"
@@ -61,6 +62,8 @@ bool CMain3Scene::Init()
 
 	// Windows
 	CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
+	CUICommon* CommonWindow = CreateUIWindow<CUICommon>("CommonUI");
+	CommonWindow->SetSceneStage(ESceneStage::Boss);
 
 	// Tile Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");
@@ -100,6 +103,7 @@ void CMain3Scene::LoadAnimationSequence()
 	SetMouseAnimation();
 	SetPlayerAnimation();
 	SetShieldAnimation();
+	SetSceneStartAnimation();
 
 	SetLevel3MonsterAnimation();
 }

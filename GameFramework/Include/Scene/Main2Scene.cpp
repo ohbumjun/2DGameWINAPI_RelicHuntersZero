@@ -25,6 +25,7 @@
 // UI
 #include "Camera.h"
 #include "../UI/UIMain.h"
+#include "../UI/UICommon.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIImage.h"
 // Map
@@ -77,6 +78,8 @@ bool CMain2Scene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Windows
+	CUICommon* CommonWindow = CreateUIWindow<CUICommon>("CommonUI");
+	CommonWindow->SetSceneStage(ESceneStage::Two);
 	// CUIMain* MainWindow = CreateUIWindow<CUIMain>("MainWindow");
 
 	// Tile Map
@@ -115,6 +118,7 @@ void CMain2Scene::LoadAnimationSequence()
 	SetMouseAnimation();
 	SetPlayerAnimation();
 	SetShieldAnimation();
+	SetSceneStartAnimation();
 
 	SetLevel2MonsterAnimation();
 }

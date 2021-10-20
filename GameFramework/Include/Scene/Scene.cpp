@@ -1232,25 +1232,25 @@ void CScene::SetSceneStartAnimation()
 
 	// Stage 2 Start
 	GetSceneResource()->CreateAnimationSequence(STAGE2_START,
-		STAGE2_START, TEXT("images/SceneStart/Stage2Start.bmp"));
+		STAGE2_START, TEXT("images/SceneStart/Scene2Start.bmp"));
 	GetSceneResource()->SetTextureColorKey(STAGE2_START,
 		255, 255, 255);
 
 	for (int i = 0; i < 13; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(STAGE1_START,
+		GetSceneResource()->AddAnimationFrameData(STAGE2_START,
 			0.f, i * 214.f, 1090.f, 214.f);
 	}
 
 	// Stage Boss Start 
 	GetSceneResource()->CreateAnimationSequence(STAGEBOSS_START,
-		STAGEBOSS_START, TEXT("images/SceneStart/Stage3Start.bmp"));
+		STAGEBOSS_START, TEXT("images/SceneStart/Scene3Start.bmp"));
 	GetSceneResource()->SetTextureColorKey(STAGEBOSS_START,
 		255, 255, 255);
 
 	for (int i = 0; i < 13; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(STAGE1_START,
+		GetSceneResource()->AddAnimationFrameData(STAGEBOSS_START,
 			0.f, i * 214.f, 1090.f, 214.f);
 	}
 }
