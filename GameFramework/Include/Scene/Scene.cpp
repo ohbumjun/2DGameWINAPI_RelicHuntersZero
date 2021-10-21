@@ -1281,6 +1281,22 @@ void CScene::SetSceneStartAnimation()
 	}
 }
 
+void CScene::SetSceneIntroAnimation()
+{
+	// SCENE_INTRO
+	// Stage 1 Start 
+	GetSceneResource()->CreateAnimationSequence(SCENE_INTRO,
+		SCENE_INTRO, TEXT("images/SceneStart/UIIntro.bmp"));
+	GetSceneResource()->SetTextureColorKey(SCENE_INTRO,
+		255, 255, 255);
+
+	for (int i = 0; i < 12; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(SCENE_INTRO,
+			10.f, 10.f + i * 740.f, 1280.f, 720.f);
+	}
+}
+
 void CScene::SetBasicProtoTypes()
 {
 	// EffectHit

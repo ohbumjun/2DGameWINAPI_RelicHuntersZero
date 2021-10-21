@@ -291,6 +291,9 @@
 #define STAGE2_START    "Stage2Start"
 #define STAGEBOSS_START "StageBossStart"
 
+// Intro
+#define SCENE_INTRO     "SceneIntro"
+
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"
 #define SHIELD_BOSS   "ShieldBoxx"

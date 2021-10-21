@@ -221,6 +221,7 @@
     <ClCompile Include="Scene\EditorDlg.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
     <ClCompile Include="Scene\HomeScene.cpp" />
+    <ClCompile Include="Scene\IntroScene.cpp" />
     <ClCompile Include="Scene\Main2Scene.cpp" />
     <ClCompile Include="Scene\Main3Scene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
@@ -240,6 +241,8 @@
     <ClCompile Include="UI\UICommon.cpp" />
     <ClCompile Include="UI\UIHome.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
+    <ClCompile Include="UI\UIIntro.cpp" />
+    <ClCompile Include="UI\UIIntroBack.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
     <ClCompile Include="UI\UISceneStart.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
@@ -332,6 +335,7 @@
     <ClInclude Include="Scene\EditorDlg.h" />
     <ClInclude Include="Scene\EditorScene.h" />
     <ClInclude Include="Scene\HomeScene.h" />
+    <ClInclude Include="Scene\IntroScene.h" />
     <ClInclude Include="Scene\Main2Scene.h" />
     <ClInclude Include="Scene\Main3Scene.h" />
     <ClInclude Include="Scene\MainScene.h" />
@@ -352,6 +356,8 @@
     <ClInclude Include="UI\UICommon.h" />
     <ClInclude Include="UI\UIHome.h" />
     <ClInclude Include="UI\UIImage.h" />
+    <ClInclude Include="UI\UIIntro.h" />
+    <ClInclude Include="UI\UIIntroBack.h" />
     <ClInclude Include="UI\UIMain.h" />
     <ClInclude Include="UI\UISceneStart.h" />
     <ClInclude Include="UI\UIStart.h" />

@@ -101,6 +101,7 @@ public :
 public :
 	void SetBasicUIs();
 	void SetSceneStartAnimation();
+	void SetSceneIntroAnimation();
 // Proto Setting
 public :
 	void SetBasicProtoTypes();
