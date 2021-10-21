@@ -23,13 +23,18 @@ CGun::CGun() :
 	m_GunInfo.m_BulletDistance = NORMAL_BULLET_DISTANCE;
 	
 	m_ObjType = EObject_Type::Weapon;
+	m_FireTime    = 0.f;
+	m_FireTimeMax = 1.f;
 }
 
 CGun::CGun(const CGun& obj) : CGameObject(obj)
 {
-	m_Owner      = nullptr;
-	m_GunInfo    = obj.m_GunInfo;
-	m_FireToggle = false;
+	m_Owner       = nullptr;
+	m_GunInfo     = obj.m_GunInfo;
+	m_FireToggle  = false;
+
+	m_FireTime    = obj.m_FireTime;
+	m_FireTimeMax = obj.m_FireTimeMax;
 
 	for (int i = 0; i < ETexture_Dir::Texture_End; i++)
 	{
@@ -114,10 +119,8 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("MonsterAttack");
-
 	// Casing
 	CreateCasing(Bullet);
-
 	// Bullet Effect
 	CreateBulletEffect();
 }

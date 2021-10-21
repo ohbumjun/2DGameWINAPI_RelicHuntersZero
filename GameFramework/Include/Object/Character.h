@@ -144,6 +144,9 @@ protected :
 		}
 	}
 // Equip
+protected:
+	float m_FireTime;
+	float m_FireTimeMax;
 public:
 	virtual CGun* Equip(CGun* Gun);
 };

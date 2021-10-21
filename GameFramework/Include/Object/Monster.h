@@ -11,8 +11,8 @@ protected:
 	virtual ~CMonster();
 
 protected:
-	float	m_FireTime;
-	float	m_FireTimeMax;
+	// float	m_FireTime;
+	// float	m_FireTimeMax;
 	float   m_RandomMoveTime;
 	Vector2 m_MoveTargetPos;
 	int		m_Count;

@@ -2,6 +2,7 @@
 
 CBossGun::CBossGun()
 {
+    m_FireTimeMax = 3.f;
 }
 
 CBossGun::CBossGun(const CBossGun& obj) : CGun(obj)

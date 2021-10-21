@@ -3,6 +3,7 @@
 
 CPistolGun::CPistolGun()
 {
+	m_FireTimeMax = 0.1f;
 }
 
 CPistolGun::CPistolGun(const CPistolGun& obj) : CGun(obj)

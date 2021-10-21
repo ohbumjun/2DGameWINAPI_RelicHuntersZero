@@ -10,9 +10,7 @@
 #include "../UI/ProgressBar.h"
 #include "Player.h"
 
-CMonster::CMonster() : m_FireTime(0.f),
-					   m_FireTimeMax(1.f),
-					   m_Count(0),
+CMonster::CMonster() : m_Count(0),
 					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME),
 					   m_AI(EMonsterAI::Idle),
 					   m_DashDistance(NORMAL_MONSTER_DASH_DISTANCE),
@@ -35,8 +33,6 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_Dir = obj.m_Dir;
 	m_DashDistance = obj.m_DashDistance;
 	m_AttackDistance = obj.m_AttackDistance;
-	m_FireTime = obj.m_FireTime;
-	m_FireTimeMax = obj.m_FireTimeMax;
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;

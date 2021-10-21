@@ -3,6 +3,7 @@
 
 CShotGun::CShotGun()
 {
+	m_FireTimeMax = 1.f;
 }
 
 CShotGun::CShotGun(const CShotGun& obj) : CGun(obj)

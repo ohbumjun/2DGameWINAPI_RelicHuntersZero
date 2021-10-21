@@ -14,6 +14,12 @@ protected :
 	EGunInfo m_GunInfo;
 	CGameObject* m_Owner;
 	const char* m_TextureImgNames[2];
+protected :
+	float m_FireTime;
+	float m_FireTimeMax;
+public :
+	float GetFireTime() const { return m_FireTime; }
+	float GetFireTimeMax() const { return m_FireTimeMax; }
 public:
 	void SetLeftTextureName(const char* Name)
 	{
@@ -80,6 +86,7 @@ public :
 public :
 	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
+private :
 	void CreateCasing(class CBullet* Bullet);
 	void CreateBulletEffect();
 	void ShowNoBulletSign();

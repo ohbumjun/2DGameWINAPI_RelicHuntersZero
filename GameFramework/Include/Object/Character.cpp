@@ -19,7 +19,9 @@ CCharacter::CCharacter() :
 	m_ShieldTime(0.f),
 	m_ShieldTimeMax(10.f),
 	m_ShieldEnableTime(2.f),
-	m_Shield(nullptr)
+	m_Shield(nullptr),
+	m_FireTime(0.f),
+	m_FireTimeMax(0.f)
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -36,13 +38,20 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 	m_ShieldTimeMax = 10.f;
 	m_ShieldEnableTime = 2.f;
 
+	m_FireTime    = obj.m_FireTime;
+	m_FireTimeMax = obj.m_FireTimeMax;
+
 	for (int i = 0; i < EGunClass::End; i++)
 	{
 		if (obj.m_GunEquipment[i])
 		{
 			m_GunEquipment[i] = obj.m_GunEquipment[i]->Clone();
 			if (!m_CurrentGun && m_GunEquipment[i]->GetName() == obj.m_CurrentGun->GetName())
+			{
 				m_CurrentGun = m_GunEquipment[i];
+				m_FireTime    = m_CurrentGun->GetFireTime();
+				m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+			}
 		}
 	}
 }
