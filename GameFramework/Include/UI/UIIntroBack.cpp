@@ -6,6 +6,8 @@
 CUIIntroBack::CUIIntroBack()
 {
 	m_ButtonState = EButton_State::Normal;
+	m_IntroStartTime = 0.f;
+	m_IntroStartTimeMax = 5.f;
 }
 
 CUIIntroBack::~CUIIntroBack()
@@ -30,36 +32,27 @@ bool CUIIntroBack::Init()
 void CUIIntroBack::Update(float DeltaTime)
 {
 	CUIAnimation::Update(DeltaTime);
-	if (m_ButtonState != EButton_State::Disable)
+	if (m_IntroStartTime <= m_IntroStartTimeMax)
+	{
+		m_IntroStartTime += DeltaTime;
+	}
+	if (m_IntroStartTime >= m_IntroStartTimeMax)
 	{
 		if (m_MouseHovered)
 		{
 			if (CInput::GetInst()->GetMouseDown())
-			{
 				m_ButtonState = EButton_State::Click;
-			}
-
 			else if (m_ButtonState == EButton_State::Click &&
 				CInput::GetInst()->GetMouseUp())
 			{
 				// 버튼 기능 동작.
 				if (m_ButtonClickCallback)
 					m_ButtonClickCallback();
-
 				m_ButtonState = EButton_State::MouseOn;
 			}
-
 			else if (m_ButtonState == EButton_State::Click &&
 				CInput::GetInst()->GetMousePush())
-			{
 				m_ButtonState = EButton_State::Click;
-			}
-
-			else
-			{
-				m_ButtonState = EButton_State::MouseOn;
-
-			}
 		}
 	}
 }

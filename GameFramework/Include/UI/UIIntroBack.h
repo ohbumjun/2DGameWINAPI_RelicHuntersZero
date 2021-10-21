@@ -10,6 +10,8 @@ public:
 private :
 	EButton_State			m_ButtonState;
 	std::function<void()>	m_ButtonClickCallback;
+	float m_IntroStartTime;
+	float m_IntroStartTimeMax;
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);
