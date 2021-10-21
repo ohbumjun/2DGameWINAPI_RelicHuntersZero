@@ -646,19 +646,29 @@ void CScene::SetBulletsAnimation()
 
 void CScene::SetCollideAnimation()
 {
-	// 충돌 효과 애니메이션 
+	// Collide Effect Animation
 	GetSceneResource()->CreateAnimationSequence(HIT_EFFECT,
 		HIT_EFFECT, TEXT("HitEffect.bmp"));
 	GetSceneResource()->SetTextureColorKey(HIT_EFFECT,
 		255, 255, 255);
-
 	for (int i = 0; i < 6; ++i)
 	{
 		GetSceneResource()->AddAnimationFrameData(HIT_EFFECT,
 			i * 96.f, 0.f, 96.f, 96.f);
 	}
 
-	// 충돌 효과 애니메이션 
+	// Boss Bullet Collide
+	GetSceneResource()->CreateAnimationSequence(BOSS_BULLET_HIT_EFFECT,
+		BOSS_BULLET_HIT_EFFECT, TEXT("images/Weapon/Gun/Bullet/boss_bullet_explode.bmp"));
+	GetSceneResource()->SetTextureColorKey(BOSS_BULLET_HIT_EFFECT,
+		255, 255, 255);
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BOSS_BULLET_HIT_EFFECT,
+			0.f, i * 270.f, 286.f, 270.f);
+	}
+
+	// Dash Effect 애니메이션 
 	GetSceneResource()->CreateAnimationSequence(DASH_EFFECT,
 		DASH_EFFECT, TEXT("images/Weapon/Sprint/dashEffect.bmp"));
 	GetSceneResource()->SetTextureColorKey(DASH_EFFECT,

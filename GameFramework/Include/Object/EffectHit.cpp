@@ -4,7 +4,7 @@
 #include "../Scene/Scene.h"
 #include "../Collision/ColliderBox.h"
 
-CEffectHit::CEffectHit()
+CEffectHit::CEffectHit() : m_IsBossGun(false)
 {
 	m_ObjType = EObject_Type::Effect;
 }
@@ -12,16 +12,24 @@ CEffectHit::CEffectHit()
 CEffectHit::CEffectHit(const CEffectHit& obj) :
 	CGameObject(obj)
 {
+	m_IsBossGun = false;
 }
 
 CEffectHit::~CEffectHit()
 {
 }
 
+void CEffectHit::SetIsBossGun()
+{
+	m_IsBossGun = true;
+	SetCurrentAnimation(BOSS_BULLET_HIT_EFFECT);
+}
+
 void CEffectHit::Start()
 {
 	CGameObject::Start();
 	SetAnimationEndNotify<CEffectHit>(HIT_EFFECT, this, &CEffectHit::AnimationFinish);
+	SetAnimationEndNotify<CEffectHit>(BOSS_BULLET_HIT_EFFECT, this, &CEffectHit::AnimationFinish);
 }
 
 bool CEffectHit::Init()
@@ -32,6 +40,8 @@ bool CEffectHit::Init()
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
 	AddAnimation(HIT_EFFECT, false, 0.3f);
+	AddAnimation(BOSS_BULLET_HIT_EFFECT, false, 0.5f);
+	SetCurrentAnimation(HIT_EFFECT);
 
 	return true;
 }

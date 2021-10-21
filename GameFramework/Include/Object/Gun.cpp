@@ -66,13 +66,12 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
+	Bullet->SetOwner(this);
 	// Bullet Type
 	EBullet_Type BulletType = MatchBulletToGun();
 	Bullet->SetBulletType(BulletType);
-
 	// Bullet Nums
 	m_GunInfo.m_BulletsLoaded -= 1;
-
 	// Angle 
 	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
 	Bullet->SetDir(Angle);
@@ -110,6 +109,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 		else
 			Bullet->SetCurrentAnimation(BULLET_RIGHT_BOSS);
 	}
+	Bullet->SetOwner(this);
 	// Bullet Damage
 	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
 	// Bullet Dir 

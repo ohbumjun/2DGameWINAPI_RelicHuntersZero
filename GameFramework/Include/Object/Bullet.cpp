@@ -183,9 +183,7 @@ void CBullet::CollisionBegin(CCollider* Src, CCollider* Dest, float DeltaTime)
 {
 	Destroy();
 
-	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
-		m_Pos, Vector2(178.f, 164.f));
-	m_Scene->GetSceneResource()->SoundPlay("Fire");
+	MakeHitEffect();
 
 	CGameObject* DestOwner = Dest->GetOwner();
 	EObject_Type DestType = DestOwner->GetObjType();
@@ -255,4 +253,15 @@ void CBullet::ShieldObject(CGameObject* const  DestOwner)
 	ShieldEffect->SetShieldType(EShield_Type::Player);
 	ShieldEffect->SetOwner(DestOwner);
 	ShieldEffect->SetLifeTime(0.5f);
+}
+
+void CBullet::MakeHitEffect()
+{
+	CEffectHit* HitEffect = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
+			m_Pos, Vector2(178.f, 164.f));
+	if (m_Owner->GetGunClass() == EGunClass::Boss)
+		HitEffect->SetIsBossGun();
+	
+	m_Scene->GetSceneResource()->SoundPlay("Fire");
+
 }

@@ -9,7 +9,10 @@ protected:
 	CEffectHit();
 	CEffectHit(const CEffectHit& obj);
 	virtual ~CEffectHit();
-
+private :
+	bool m_IsBossGun;
+public :
+	void SetIsBossGun();
 public:
 	virtual void Start();
 	virtual bool Init();

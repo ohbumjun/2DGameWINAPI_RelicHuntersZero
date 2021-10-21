@@ -3,11 +3,13 @@
 CBossGun::CBossGun()
 {
     m_FireTimeMax = 3.f;
+    m_GunInfo.m_GunClass = EGunClass::Boss;
 }
 
 CBossGun::CBossGun(const CBossGun& obj) : CGun(obj)
 {
     m_FireTimeMax = obj.m_FireTimeMax;
+    m_GunInfo.m_GunClass = EGunClass::Boss;
 }
 
 CBossGun::~CBossGun()

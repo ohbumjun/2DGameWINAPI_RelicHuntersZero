@@ -66,5 +66,6 @@ public :
 	void HitObject(class CCharacter* const DestChar);
 	void DamageObject(class CCollider* const Dest);
 	void ShieldObject(CGameObject* const DestOwner);
+	void MakeHitEffect();
 };
 

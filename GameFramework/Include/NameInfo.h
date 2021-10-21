@@ -1,15 +1,16 @@
 #pragma once
 
 // Effect ---
-#define DASH_EFFECT           "DashEffect"
-#define HIT_EFFECT            "HitEffect"
-#define RELOAD_EFFECT         "ReloadEffect"
-#define BULLETSTART_EFFECT_L  "LBulletStartEffect"
-#define BULLETSTART_EFFECT_R  "RBulletSTartEffect"
-#define SURPRISE_EFFECT		  "Surprise"
-#define ABILITYUP_EFFECT	  "AbilityUp"
+#define DASH_EFFECT               "DashEffect"
+#define HIT_EFFECT                "HitEffect"
+#define BOSS_BULLET_HIT_EFFECT    "BossBulletHitEffect" 
+#define RELOAD_EFFECT             "ReloadEffect"
+#define BULLETSTART_EFFECT_L      "LBulletStartEffect"
+#define BULLETSTART_EFFECT_R      "RBulletSTartEffect"
+#define SURPRISE_EFFECT		      "Surprise"
+#define ABILITYUP_EFFECT	      "AbilityUp"
 #define STAGE_DOOR_ABOVE_EFFECT	  "AbilityUp"
-#define MPHPUP_EFFECT         "HPMPUpEffect"
+#define MPHPUP_EFFECT             "HPMPUpEffect"
 
 // Bullet 
 #define BULLET_LIGHT  "BulletLight"
