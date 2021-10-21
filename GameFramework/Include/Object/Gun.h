@@ -87,10 +87,11 @@ public :
 	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
 private :
-	void CreateCasing(class CBullet* Bullet);
 	void CreateBulletEffect();
 	void ShowNoBulletSign();
 	void AdjustGunTexture();
+protected:
+	virtual void CreateCasing(class CBullet* Bullet);
 private :
 	EBullet_Type MatchBulletToGun();
 public :

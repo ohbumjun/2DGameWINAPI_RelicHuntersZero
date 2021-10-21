@@ -21,7 +21,7 @@ CCharacter::CCharacter() :
 	m_ShieldEnableTime(2.f),
 	m_Shield(nullptr),
 	m_FireTime(0.f),
-	m_FireTimeMax(0.f)
+	m_FireTimeMax(1.f)
 {
 	m_ObjType = EObject_Type::Character;
 }
@@ -536,10 +536,11 @@ CGun* CCharacter::Equip(CGun* Gun)
 
 	// Set Owner, Pos 
 	Gun->SetOwner(this);
-	// 아래의 코드가 반드시 있어야 한다... 왜지 ?
-	// Gun->SetPos(m_Pos);
-	// Gun->SetOffset(m_Size.x * 0.1, -m_Size.y * 0.3);
-	// Gun->SetPos(m_Size.x * 0.1, -m_Size.y * 0.3);
+	
+	// Fire Time Setting
+	m_FireTime = m_CurrentGun->GetFireTime();
+	m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+
 
 	return ExistingGun;
 }

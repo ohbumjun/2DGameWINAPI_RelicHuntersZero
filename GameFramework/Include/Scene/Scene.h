@@ -324,7 +324,7 @@ inline void CScene::SetMonsterOnTileMap(
 				if (TileOption == ETileOption::MonsterHard)
 				{
 					Vector2 TilePos = TileMap->GetTile(j, i)->GetPos();
-					PistolGun = CreateObject<CPistolGun>(GUN_PISTOL_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, TilePos);
+					PistolGun = CreateObject<CPistolGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, TilePos);
 					MonsterC = CreateObject<C>(std::to_string(HardMNum), MonsterProtoC,
 						TilePos);
 					MonsterC->Equip((CGun*)PistolGun);

@@ -16,5 +16,7 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CShotGun* Clone();
+private :
+	virtual void CreateCasing(class CBullet* Bullet);
 };
 

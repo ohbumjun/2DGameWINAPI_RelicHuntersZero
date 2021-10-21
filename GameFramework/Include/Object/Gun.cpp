@@ -92,7 +92,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
 	// Adjust Gun Texture
 	AdjustGunTexture();
-
+	// this
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
