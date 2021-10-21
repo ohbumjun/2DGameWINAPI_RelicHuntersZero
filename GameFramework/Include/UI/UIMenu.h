@@ -11,6 +11,10 @@ private:
 
 public:
 	virtual bool Init();
-
+private :
+	void StartClick();
+	void EditorClick();
+	void SettingClick();
+	void ExitClick();
 };
 

@@ -4,7 +4,7 @@
 #include "../UI/UIIntroLogo.h"
 #include "../GameManager.h"
 #include "../Scene/SceneManager.h"
-#include "../Scene/StartScene.h"
+#include "../Scene/MenuScene.h"
 #include "UIText.h"
 
 CUIIntro::CUIIntro()
@@ -36,9 +36,6 @@ bool CUIIntro::Init()
 
 void CUIIntro::IntroClick()
 {
-	CSceneManager::GetInst()->CreateScene<CStartScene>();
-	// CSceneManager::GetInst()->CreateScene<CMainScene>();
-	// CSceneManager::GetInst()->CreateScene<CMain2Scene>();
-	// CSceneManager::GetInst()->CreateScene<CMain3Scene>();
+	CSceneManager::GetInst()->CreateScene<CMenuScene>();
 }
 

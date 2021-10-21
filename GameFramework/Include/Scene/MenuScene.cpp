@@ -3,7 +3,7 @@
 #include "SceneResource.h"
 #include "../Object/EffectHit.h"
 #include "Camera.h"
-#include "../UI/UIStart.h"
+#include "../UI/UIMenu.h"
 
 CMenuScene::CMenuScene()
 {
@@ -19,7 +19,7 @@ bool CMenuScene::Init()
 
 	LoadAnimationSequence();
 
-	CUIStart* MenuWindow = CreateUIWindow<CUIStart>("MenuWindow");
+	CUIMenu* MenuWindow = CreateUIWindow<CUIMenu>("MenuWindow");
 
 	return true;
 }
