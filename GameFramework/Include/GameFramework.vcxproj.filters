@@ -118,9 +118,6 @@
     <Filter Include="03. Object\06. WallObj">
       <UniqueIdentifier>{7a2fa660-9af5-4019-bc82-b2112c034ce8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Object\01. Character\03. Npc">
-      <UniqueIdentifier>{dfb448ff-a46c-4ab8-9ab6-59b71487099b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Object\04. Items">
       <UniqueIdentifier>{2dc746a1-6b47-460b-95f3-f40578493cb7}</UniqueIdentifier>
     </Filter>
@@ -129,6 +126,9 @@
     </Filter>
     <Filter Include="03. Object\04. Items\2. Equipment">
       <UniqueIdentifier>{cb12c7b8-b7eb-4e93-b253-5a9709fd6ff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\01. Character\03. Npc">
+      <UniqueIdentifier>{dfb448ff-a46c-4ab8-9ab6-59b71487099b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -425,6 +425,12 @@
     </ClCompile>
     <ClCompile Include="UI\UIIntroLogo.cpp">
       <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\MenuScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIMenu.cpp">
+      <Filter>07. UI\02. Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -769,6 +775,12 @@
     </ClInclude>
     <ClInclude Include="UI\UIIntroLogo.h">
       <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\MenuScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIMenu.h">
+      <Filter>07. UI\02. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

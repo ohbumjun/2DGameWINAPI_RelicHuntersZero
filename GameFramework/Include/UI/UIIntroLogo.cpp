@@ -15,8 +15,8 @@ bool CUIIntroLogo::Init()
 	if (!CUIAnimation::Init()) return false;
 
 	CreateAnimation();
-	AddAnimation(SCENE_INTRO_LOGO_AFTR, false, 5.f);
-	AddAnimation(SCENE_INTRO_LOGO_PREV, false, 5.f);
+	AddAnimation(SCENE_INTRO_LOGO_AFTR, true, 2.f);
+	AddAnimation(SCENE_INTRO_LOGO_PREV, false, 7.f);
 	SetCurrentAnimation(SCENE_INTRO_LOGO_PREV);
 
 	SetAnimationEndNotify<CUIIntroLogo>(SCENE_INTRO_LOGO_PREV, this, &CUIIntroLogo::ChangeToNextAnimation);
@@ -24,7 +24,7 @@ bool CUIIntroLogo::Init()
 	// SetPos
 	CCamera* Camera = m_Scene->GetCamera();
 	Vector2 Resolution = Camera->GetResolution();
-	m_Pos = Vector2(Resolution.x * 0.1f, Resolution.y * 0.3f);
+	m_Pos = Vector2(Resolution.x * 0.3f, Resolution.y * 0.3f);
 
 	return true;
 }
@@ -46,5 +46,8 @@ void CUIIntroLogo::Render(HDC hDC)
 
 void CUIIntroLogo::ChangeToNextAnimation()
 {
+	CCamera* Camera = m_Scene->GetCamera();
+	Vector2 Resolution = Camera->GetResolution();
+	m_Pos = Vector2(Resolution.x * 0.175f, Resolution.y * 0.2f);
 	ChangeAnimation(SCENE_INTRO_LOGO_AFTR);
 }

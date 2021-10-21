@@ -1298,8 +1298,8 @@ void CScene::SetSceneIntroAnimation()
 	// Scene Start Logo 1
 	GetSceneResource()->CreateAnimationSequence(SCENE_INTRO_LOGO_PREV,
 		SCENE_INTRO_LOGO_PREV, TEXT("images/SceneStart/UIIntroLogoPrev.bmp"));
-	GetSceneResource()->SetTextureColorKey(SCENE_INTRO_LOGO_PREV,
-		255, 255, 255);
+	// GetSceneResource()->SetTextureColorKey(SCENE_INTRO_LOGO_PREV,
+		// 255, 255, 255);
 
 	for (int i = 0; i < 25; ++i)
 	{

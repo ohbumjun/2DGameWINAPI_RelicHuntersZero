@@ -225,6 +225,7 @@
     <ClCompile Include="Scene\Main2Scene.cpp" />
     <ClCompile Include="Scene\Main3Scene.cpp" />
     <ClCompile Include="Scene\MainScene.cpp" />
+    <ClCompile Include="Scene\MenuScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneCollision.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
@@ -245,6 +246,7 @@
     <ClCompile Include="UI\UIIntroBack.cpp" />
     <ClCompile Include="UI\UIIntroLogo.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
+    <ClCompile Include="UI\UIMenu.cpp" />
     <ClCompile Include="UI\UISceneStart.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
     <ClCompile Include="UI\UIText.cpp" />
@@ -340,6 +342,7 @@
     <ClInclude Include="Scene\Main2Scene.h" />
     <ClInclude Include="Scene\Main3Scene.h" />
     <ClInclude Include="Scene\MainScene.h" />
+    <ClInclude Include="Scene\MenuScene.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneCollision.h" />
     <ClInclude Include="Scene\SceneManager.h" />
@@ -361,6 +364,7 @@
     <ClInclude Include="UI\UIIntroBack.h" />
     <ClInclude Include="UI\UIIntroLogo.h" />
     <ClInclude Include="UI\UIMain.h" />
+    <ClInclude Include="UI\UIMenu.h" />
     <ClInclude Include="UI\UISceneStart.h" />
     <ClInclude Include="UI\UIStart.h" />
     <ClInclude Include="UI\UIText.h" />
