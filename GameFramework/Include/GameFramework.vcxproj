@@ -243,6 +243,7 @@
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIIntro.cpp" />
     <ClCompile Include="UI\UIIntroBack.cpp" />
+    <ClCompile Include="UI\UIIntroLogo.cpp" />
     <ClCompile Include="UI\UIMain.cpp" />
     <ClCompile Include="UI\UISceneStart.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
@@ -358,6 +359,7 @@
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIIntro.h" />
     <ClInclude Include="UI\UIIntroBack.h" />
+    <ClInclude Include="UI\UIIntroLogo.h" />
     <ClInclude Include="UI\UIMain.h" />
     <ClInclude Include="UI\UISceneStart.h" />
     <ClInclude Include="UI\UIStart.h" />

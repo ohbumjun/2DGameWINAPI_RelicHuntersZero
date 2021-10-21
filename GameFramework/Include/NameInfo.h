@@ -292,7 +292,9 @@
 #define STAGEBOSS_START "StageBossStart"
 
 // Intro
-#define SCENE_INTRO     "SceneIntro"
+#define SCENE_INTRO      "SceneIntro"
+#define SCENE_INTRO_LOGO_PREV "SceneIntroLogoPrev"
+#define SCENE_INTRO_LOGO_AFTR "SceneIntroLogoAfter"
 
 // Shiled
 #define SHIELD_TURTLE "ShieldTurtle"

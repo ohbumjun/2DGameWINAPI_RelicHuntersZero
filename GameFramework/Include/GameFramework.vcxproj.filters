@@ -423,6 +423,9 @@
     <ClCompile Include="UI\UIIntroBack.cpp">
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIIntroLogo.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -762,6 +765,9 @@
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIIntroBack.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIIntroLogo.h">
       <Filter>07. UI\01. Widget</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,7 @@
 
 #include "UIIntro.h"
 #include "UIIntroBack.h"
-#include "Button.h"
-#include "UIImage.h"
+#include "../UI/UIIntroLogo.h"
 #include "../GameManager.h"
 #include "../Scene/SceneManager.h"
 #include "../Scene/StartScene.h"
@@ -22,6 +21,9 @@ bool CUIIntro::Init()
 
 	CUIIntroBack* IntroBack = CreateWidget<CUIIntroBack>("UIIntroBack");
 	IntroBack->SetClickCallback<CUIIntro>(this, &CUIIntro::IntroClick);
+
+	CUIIntroLogo* IntroLogo = CreateWidget<CUIIntroLogo>("UIIntroLogo");
+	IntroLogo->SetZOrder(1);
 	
 	/*
 	CUIImage* Back = CreateWidget<CUIImage>("Back");
