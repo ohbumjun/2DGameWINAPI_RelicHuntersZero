@@ -44,6 +44,12 @@ bool CUIMenu::Init()
 	Button->SetZOrder(1);
 	// Button->SetClickCallback<CUIStart>(this, &CUIStart::StartClick);
 
+	CUIText* Text = CreateWidget<CUIText>("StartButtonText");
+	Text->SetText(TEXT("START GAME"));
+	Text->SetTextColor(255, 255, 255);
+	Text->SetPos(50.f, RS.Height / 2.f);
+	Text->SetZOrder(2);
+
 	// Btn 2
 	Button = CreateWidget<CButton>("EditorButton");
 	Button->SetTexture("EditorButton", TEXT("images/MenuScene/small_MenuBtn.bmp"));
@@ -56,6 +62,12 @@ bool CUIMenu::Init()
 	Button->SetMouseOnSound("ButtonMouseOn");
 	Button->SetClickSound("ButtonClick");
 	Button->SetZOrder(1);
+
+	Text = CreateWidget<CUIText>("SettingText");
+	Text->SetText(TEXT("SETTING"));
+	Text->SetTextColor(255, 255, 255);
+	Text->SetPos(50.f, RS.Height / 2.f + 75.f);
+	Text->SetZOrder(2);
 
 	// Btn 3
 	Button = CreateWidget<CButton>("SettingButton");
@@ -70,6 +82,12 @@ bool CUIMenu::Init()
 	Button->SetClickSound("ButtonClick");
 	Button->SetZOrder(1);
 
+	Text = CreateWidget<CUIText>("EditSceneText");
+	Text->SetText(TEXT("EDIT SCENE"));
+	Text->SetTextColor(255, 255, 255);
+	Text->SetPos(50.f, RS.Height / 2.f + 150.f);
+	Text->SetZOrder(2);
+
 	// Btn 4
 	Button = CreateWidget<CButton>("ExitButton");
 	Button->SetTexture("ExitButton", TEXT("images/MenuScene/small_MenuBtn.bmp"));
@@ -82,6 +100,12 @@ bool CUIMenu::Init()
 	Button->SetMouseOnSound("ButtonMouseOn");
 	Button->SetClickSound("ButtonClick");
 	Button->SetZOrder(1);
+
+	Text = CreateWidget<CUIText>("ExitText");
+	Text->SetText(TEXT("EXIT"));
+	Text->SetTextColor(255, 255, 255);
+	Text->SetPos(50.f, RS.Height / 2.f + 225.f);
+	Text->SetZOrder(2);
 
 	return true;
 }
