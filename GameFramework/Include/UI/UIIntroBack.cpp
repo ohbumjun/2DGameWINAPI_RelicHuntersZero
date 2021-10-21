@@ -1,9 +1,11 @@
 #include "UIIntroBack.h"
 #include "../Scene/Camera.h"
 #include "../Scene/Scene.h"
+#include "../Input.h"
 
 CUIIntroBack::CUIIntroBack()
 {
+	m_ButtonState = EButton_State::Normal;
 }
 
 CUIIntroBack::~CUIIntroBack()
@@ -28,6 +30,38 @@ bool CUIIntroBack::Init()
 void CUIIntroBack::Update(float DeltaTime)
 {
 	CUIAnimation::Update(DeltaTime);
+	if (m_ButtonState != EButton_State::Disable)
+	{
+		if (m_MouseHovered)
+		{
+			if (CInput::GetInst()->GetMouseDown())
+			{
+				m_ButtonState = EButton_State::Click;
+			}
+
+			else if (m_ButtonState == EButton_State::Click &&
+				CInput::GetInst()->GetMouseUp())
+			{
+				// 버튼 기능 동작.
+				if (m_ButtonClickCallback)
+					m_ButtonClickCallback();
+
+				m_ButtonState = EButton_State::MouseOn;
+			}
+
+			else if (m_ButtonState == EButton_State::Click &&
+				CInput::GetInst()->GetMousePush())
+			{
+				m_ButtonState = EButton_State::Click;
+			}
+
+			else
+			{
+				m_ButtonState = EButton_State::MouseOn;
+
+			}
+		}
+	}
 }
 
 void CUIIntroBack::PostUpdate(float DeltaTime)

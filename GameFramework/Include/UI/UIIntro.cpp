@@ -21,6 +21,8 @@ bool CUIIntro::Init()
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
 	CUIIntroBack* IntroBack = CreateWidget<CUIIntroBack>("UIIntroBack");
+	IntroBack->SetClickCallback<CUIIntro>(this, &CUIIntro::IntroClick);
+	
 	/*
 	CUIImage* Back = CreateWidget<CUIImage>("Back");
 	Back->SetTexture("IntroBack", TEXT("GameBack.bmp"));
