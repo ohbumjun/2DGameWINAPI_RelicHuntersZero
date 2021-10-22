@@ -9,6 +9,7 @@ private:
 	CUIMenu();
 	virtual ~CUIMenu();
 private :
+	bool m_Toggles[4];
 	std::vector<CSharedPtr<class CButton>> m_Buttons;
 	std::vector<CSharedPtr<class CUIText>> m_Texts;
 public:

@@ -10,10 +10,12 @@
 
 CUIMenu::CUIMenu()
 {
+	for (int i = 0; i < 4; i++) m_Toggles[i] = false;
 }
 
 CUIMenu::~CUIMenu()
 {
+	for (int i = 0; i < 4; i++) m_Toggles[i] = false;
 }
 
 bool CUIMenu::Init()
@@ -63,7 +65,7 @@ bool CUIMenu::Init()
 	m_Buttons[3]->SetClickCallback<CUIMenu>(this, &CUIMenu::ExitClick);
 
 	// Set Texts
-	m_Texts[0]->SetText(TEXT("GAME"));
+	m_Texts[0]->SetText(TEXT("START GAME"));
 	m_Texts[1]->SetText(TEXT("MAP EDIT"));
 	m_Texts[2]->SetText(TEXT("SETTINGS"));
 	m_Texts[3]->SetText(TEXT("EXIT"));
@@ -74,6 +76,23 @@ bool CUIMenu::Init()
 void CUIMenu::Update(float DeltaTime)
 {
 	CUIWindow::Update(DeltaTime);
+	for (size_t i = 0; i < 4; i++)
+	{
+		EButton_State BtnState =  m_Buttons[i]->GetButtonState();
+		Vector2 TxtPos = m_Texts[i]->GetPos();
+		if (BtnState == EButton_State::MouseOn && !m_Toggles[i])
+		{
+			m_Texts[i]->SetPos(TxtPos.x + 50.f, TxtPos.y);
+			m_Texts[i]->SetTextColor(255,0,0);
+			m_Toggles[i] = true;
+		}
+		else if (BtnState == EButton_State::Normal && m_Toggles[i])
+		{
+			m_Texts[i]->SetPos(TxtPos.x - 50.f, TxtPos.y);
+			m_Texts[i]->SetTextColor(255, 255, 255);
+			m_Toggles[i] = false;
+		}
+	}
 }
 
 
