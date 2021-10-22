@@ -15,5 +15,6 @@ public:
 private:
 	void LoadAnimationSequence();
 	void LoadSound();
+
 };
 
