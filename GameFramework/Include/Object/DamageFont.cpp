@@ -67,7 +67,7 @@ bool CDamageFont::Init()
 	for (int i = 0; i < 10; ++i)
 	{
 		TCHAR	FileName[256] = {};
-		wsprintf(FileName, TEXT("Number/%d.bmp"), i);
+		wsprintf(FileName, TEXT("Number/Given/%d.bmp"), i);
 		vecNumberFileName.push_back(FileName);
 	}
 	m_NumberWidget->SetTexture("Number", vecNumberFileName);
@@ -75,7 +75,7 @@ bool CDamageFont::Init()
 	// 따로 positioin은 세팅해줄 필요 없다
 	// 왜냐하면, CreateWidgetComponent 을 만들어내는 순간
 	// Owner인 G.O의 위치에 맞게 세팅되기 때문이다.
-	m_NumberWidget->SetSize(29.f, 48.f);
+	m_NumberWidget->SetSize(15.f, 22.f);
 
 	for (int i = 0; i < 10; i++)
 	{
