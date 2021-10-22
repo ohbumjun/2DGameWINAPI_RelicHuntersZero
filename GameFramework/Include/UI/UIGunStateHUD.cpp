@@ -34,7 +34,7 @@ bool CUIGunStateHUD::Init()
 	Back->SetTexture("GunLightBarBack", TEXT("BarBack.bmp"));
 	Back->SetTextureColorKey(255, 0, 255);
 	m_GunLightBar = CreateWidget<CProgressBar>("GunLightBar");
-	m_GunLightBar->SetTexture("GunLightBar", TEXT("gun_blank.bmp"));
+	m_GunLightBar->SetTexture("GunLightBar", TEXT("BarGunLight.bmp"));
 	m_GunLightBar->SetTextureColorKey(255, 255, 255);
 	m_GunLightBar->SetPos(10.f, 180.f);
 	m_GunLightBar->SetPercent(100.f);

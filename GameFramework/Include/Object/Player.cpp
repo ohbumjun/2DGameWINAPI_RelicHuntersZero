@@ -724,7 +724,6 @@ void CPlayer::GunCurBulletNumUpdate()
 			State->SetBulletOneWidget(CurO);
 		else
 			State->SetBulletOneRenderEnable(false);
-
 	}
 }
 
@@ -938,17 +937,13 @@ void CPlayer::DashStart()
 	// Dash Time 
 	m_DashTime   = DASH_TIME;
 	m_DashEnable = true;
-
 	// Speed 
 	SetMoveSpeed(DASH_SPEED);
-
 	// Stemina
 	if (m_CharacterInfo.Stemina >= 0.5f * m_CharacterInfo.SteminaMax)
 		m_CharacterInfo.Stemina -= 0.5f * m_CharacterInfo.SteminaMax;
-
 	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
-
 	// Animation
 	ChangeDashAnimation();
 }
@@ -1194,7 +1189,6 @@ void CPlayer::SetTeleportPos(float DeltaTime)
 	DeleteTeleportObj();
 	m_TeleportObj = m_Scene->CreateObject<CTeleportMouse>(TELEPORT_MOUSE_PROTO, TELEPORT_MOUSE_PROTO,
 														  m_TeleportPos);
-
 	m_TelePortTime = TELEPORT_MOUSE_DISPLAY_TIME;
 }
 
