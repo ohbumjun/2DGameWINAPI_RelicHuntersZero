@@ -56,14 +56,14 @@ void CUISetting::SetTextImages()
 
 void CUISetting::UpMainVol()
 {
-	if(m_MVVol < 99) m_MVVol += 1;
-	CGameManager::GetInst()->SetMasterVol(m_MVVol/100.f);
+	if(m_MVVol < 10) m_MVVol += 1;
+	CGameManager::GetInst()->SetMasterVol(m_MVVol * 10/100.f);
 }
 
 void CUISetting::DownMainVol()
 {
 	if (m_MVVol > 0) m_MVVol -= 1;
-	CGameManager::GetInst()->SetMasterVol(m_MVVol/100.f);
+	CGameManager::GetInst()->SetMasterVol(m_MVVol * 10/100.f);
 }
 
 void CUISetting::SetMainVolumeElements()
@@ -147,14 +147,14 @@ void CUISetting::MainVolumeUpdate()
 
 void CUISetting::UpBackGroundVol()
 {
-	if (m_BGVol < 99) m_BGVol += 1;
-	CGameManager::GetInst()->SetBGVol(m_BGVol);
+	if (m_BGVol < 10) m_BGVol += 1;
+	CGameManager::GetInst()->SetBGVol(m_BGVol * 10);
 }
 
 void CUISetting::DownBackGroundVol()
 {
 	if (m_BGVol > 0) m_BGVol -= 1;
-	CGameManager::GetInst()->SetBGVol(m_BGVol);
+	CGameManager::GetInst()->SetBGVol(m_BGVol * 10);
 }
 
 void CUISetting::SetBackgroundVolumeElements()
@@ -235,14 +235,14 @@ void CUISetting::BGVolumeUpdate()
 
 void CUISetting::UpEffectVol()
 {
-	if (m_EffectVol < 99) m_EffectVol += 1;
-	CGameManager::GetInst()->SetEffectVol(m_EffectVol);
+	if (m_EffectVol < 10) m_EffectVol += 1;
+	CGameManager::GetInst()->SetEffectVol(m_EffectVol * 10);
 }
 
 void CUISetting::DownEffectVol()
 {
 	if (m_EffectVol > 0) m_EffectVol -= 1;
-	CGameManager::GetInst()->SetEffectVol(m_EffectVol);
+	CGameManager::GetInst()->SetEffectVol(m_EffectVol * 10);
 }
 
 void CUISetting::SetEffectVolumeElements()
