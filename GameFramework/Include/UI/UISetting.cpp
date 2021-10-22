@@ -113,7 +113,6 @@ void CUISetting::SetBackgroundVolumeElements()
 	m_BVLeftBtn->SetClickSound("ButtonClick");
 	m_BVLeftBtn->SetZOrder(1);
 
-	// class CButton* m_MVRightBtn;
 	m_BVRightBtn = CreateWidget<CButton>("BVRightBtn");
 	m_BVRightBtn->SetTexture("BVRightBtn", TEXT("images/MenuScene/spr_menu_plus_0.bmp"));
 	m_BVRightBtn->SetTextureColorKey(255, 255, 255);
