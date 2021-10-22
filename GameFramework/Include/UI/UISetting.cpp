@@ -142,7 +142,7 @@ void CUISetting::MainVolumeUpdate()
 	if (FullT != 0 || FullO != 0)
 		m_MVOneWidget->SetNumber(FullO);
 	else
-		m_MVOneWidget->SetRenderEnable(false);
+		m_MVOneWidget->SetNumber(0);
 }
 
 void CUISetting::UpBackGroundVol()
@@ -228,7 +228,7 @@ void CUISetting::BGVolumeUpdate()
 	if (FullT != 0 || FullO != 0)
 		m_BVOneWidget->SetNumber(FullO);
 	else
-		m_BVOneWidget->SetRenderEnable(false);
+		m_BVOneWidget->SetNumber(0);
 }
 
 void CUISetting::UpEffectVol()
@@ -267,7 +267,6 @@ void CUISetting::SetEffectVolumeElements()
 	m_EVLeftBtn->SetZOrder(1);
 	m_EVLeftBtn->SetClickCallback<CUISetting>(this, &CUISetting::DownEffectVol);
 
-
 	m_EVRightBtn = CreateWidget<CButton>("EVRightBtn");
 	m_EVRightBtn->SetTexture("EVRightBtn", TEXT("images/MenuScene/spr_menu_plus_0.bmp"));
 	m_EVRightBtn->SetTextureColorKey(255, 255, 255);
@@ -280,7 +279,6 @@ void CUISetting::SetEffectVolumeElements()
 	m_EVRightBtn->SetClickSound("ButtonClick");
 	m_EVRightBtn->SetZOrder(1);
 	m_EVRightBtn->SetClickCallback<CUISetting>(this, &CUISetting::UpEffectVol);
-
 
 	std::vector<std::wstring>	vecNumberFileName;
 	for (int i = 0; i < 10; ++i)
@@ -318,7 +316,7 @@ void CUISetting::EffectVolumeUpdate()
 	if (FullT != 0 || FullO != 0)
 		m_EVOneWidget->SetNumber(FullO);
 	else
-		m_EVOneWidget->SetRenderEnable(false);
+		m_EVOneWidget->SetNumber(0);
 }
 
 bool CUISetting::Init()
