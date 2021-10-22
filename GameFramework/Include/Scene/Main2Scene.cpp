@@ -125,18 +125,22 @@ void CMain2Scene::LoadAnimationSequence()
 
 void CMain2Scene::LoadSound()
 {
+	float MasterVol = CGameManager::GetInst()->GetMasterVolume();
+	int BGVol = CGameManager::GetInst()->GetBGVolume();
+	int EffectVol = CGameManager::GetInst()->GetEffectVolume();
+
 	// GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
 	// GetSceneResource()->SoundPlay("StartBGM");
-	// GetSceneResource()->SetVolume("BGM", 1);
+	// GetSceneResource()->SetVolume("BGM", MasterVol * BGVol);
 
 	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
-	GetSceneResource()->SetVolume("Effect", 1);
-
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
+	GetSceneResource()->SetVolume("Effect", (int)(MasterVol * EffectVol));
 
 	// Player --> run, dash
 	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
+	GetSceneResource()->SetVolume("Player", (int)(MasterVol * EffectVol));
 }
 
 void CMain2Scene::GoBackToWaitingScene()

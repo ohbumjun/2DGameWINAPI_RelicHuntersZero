@@ -43,15 +43,15 @@ private:
 	// 현재 에디트 모드인지 아닌지 --> Editor Scene에 들어가면 true로
 	bool        m_EditorMode;
 private :
-	int m_MasterVolume;
+	float m_MasterVolume;
 	int m_BGVolume;
 	int m_EffectVolume;
 public :
-	void SetMasterVol(int Vol) { m_MasterVolume = Vol; }
+	void SetMasterVol(float Vol) { m_MasterVolume = Vol; }
 	void SetBGVol(int Vol) { m_BGVolume = Vol; }
 	void SetEffectVol(int Vol) { m_EffectVolume = Vol; }
 public :
-	int GetMasterVolume() const{return m_MasterVolume;}
+	float GetMasterVolume() const{return m_MasterVolume;}
 	int GetBGVolume() const{return m_BGVolume;}
 	int GetEffectVolume() const{return m_EffectVolume;}
 public:

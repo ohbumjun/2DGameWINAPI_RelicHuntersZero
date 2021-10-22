@@ -4,6 +4,7 @@
 #include "../Object/EffectHit.h"
 #include "Camera.h"
 #include "../UI/UIIntro.h"
+#include "../GameManager.h"
 
 CIntroScene::CIntroScene()
 {
@@ -31,12 +32,15 @@ void CIntroScene::LoadAnimationSequence()
 
 void CIntroScene::LoadSound()
 {
+	float MasterVol = CGameManager::GetInst()->GetMasterVolume();
+	int BGVol = CGameManager::GetInst()->GetBGVolume();
+	int EffectVol = CGameManager::GetInst()->GetEffectVolume();
+
 	GetSceneResource()->LoadSound("BGM", true, "IntroBGM", "MainBgm.mp3");
 	GetSceneResource()->SoundPlay("IntroBGM");
-	GetSceneResource()->SetVolume("BGM", 10);
+	GetSceneResource()->SetVolume("BGM", (int)(MasterVol * BGVol));
 
 	GetSceneResource()->LoadSound("UI", false, "ButtonMouseOn", "TeemoSmile.mp3");
 	GetSceneResource()->LoadSound("UI", false, "ButtonClick", "TeemoIntroClicck.mp3");
-
-	GetSceneResource()->SetVolume("UI", 3);
+	GetSceneResource()->SetVolume("UI", (int)(MasterVol * EffectVol));
 }

@@ -11,6 +11,7 @@ private:
 
 public:
 	virtual bool Init();
+	virtual bool Update(float DeltaTime);
 
 private:
 	void LoadAnimationSequence();
