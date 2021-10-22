@@ -61,7 +61,11 @@ public:
 protected:
 	virtual void CollisionMouseHoveredCallback(float DeltaTime);
 	virtual void CollisionMouseReleaseCallback(float DeltaTime);
-
+public :
+	EButton_State GetButtonState() const
+	{
+		return m_ButtonState;
+	}
 public:
 	template <typename T>
 	void SetClickCallback(T* Obj, void(T::* Func)())

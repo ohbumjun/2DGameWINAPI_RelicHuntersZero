@@ -8,9 +8,12 @@ class CUIMenu :
 private:
 	CUIMenu();
 	virtual ~CUIMenu();
-
+private :
+	std::vector<CSharedPtr<class CButton>> m_Buttons;
+	std::vector<CSharedPtr<class CUIText>> m_Texts;
 public:
 	virtual bool Init();
+	virtual void Update(float DeltaTime);
 private :
 	void StartClick();
 	void EditorClick();
