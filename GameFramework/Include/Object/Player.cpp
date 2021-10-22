@@ -575,16 +575,16 @@ CPlayer *CPlayer::Clone()
 	return new CPlayer(*this);
 }
 
-float CPlayer::SetDamage(float Damage)
+float CPlayer::SetDamage(int Damage)
 {
-	Damage = CCharacter::SetDamage(Damage);
+	Damage = (int)CCharacter::SetDamage((float)Damage);
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
-	return Damage;
+	return (float)Damage;
 }
 
 void CPlayer::AbilityUpdate(float DeltaTime)
@@ -1127,10 +1127,10 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 	if (m_MonsterCollideTime <= 0.f)
 	{
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
-		MonsterDamage -= m_CharacterInfo.Armor;
+		MonsterDamage -= (float)m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber((int)MonsterDamage);
-		SetDamage((float)MonsterDamage);
+		SetDamage((int)MonsterDamage);
 	}
 
 	// Bounc Back

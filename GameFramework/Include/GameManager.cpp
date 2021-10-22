@@ -29,7 +29,10 @@ CGameManager::CGameManager() :
 	m_hRedBrush{},
 	m_hRedPen{},
 	m_hBlueBrush{},
-	m_hLightBlueBrush{}
+	m_hLightBlueBrush{},
+	m_MasterVolume(10),
+	m_BGVolume(10),
+	m_EffectVolume(10)
 	/*
 	m_hYellowBrush{},
 	*/

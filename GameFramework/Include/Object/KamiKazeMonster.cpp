@@ -5,7 +5,7 @@
 CKamiKazeMonster::CKamiKazeMonster()
 {
 	m_MonsterType = EMonster_Type::KamiKaze1;
-	m_DashDistance = KAMIKAZE_MONSTER_DASH_DISTANCE;
+	m_DashDistance = (int)KAMIKAZE_MONSTER_DASH_DISTANCE;
 }
 
 CKamiKazeMonster::CKamiKazeMonster(const CKamiKazeMonster& obj) : CMonster(obj)

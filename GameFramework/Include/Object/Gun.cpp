@@ -233,6 +233,8 @@ EBullet_Type CGun::MatchBulletToGun()
 		return EBullet_Type::Heavy;
 	case Boss:
 		return EBullet_Type::Boss;
+	default:
+		return EBullet_Type::Light;
 	}
 }
 

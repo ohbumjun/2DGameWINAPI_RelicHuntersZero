@@ -47,12 +47,9 @@ private :
 	int m_BGVolume;
 	int m_EffectVolume;
 public :
-	void IncMasterVolume(){if(m_MasterVolume < 100 )m_MasterVolume += 1;}
-	void DecMasterVolume() { if (m_MasterVolume > 0) m_MasterVolume -= 1;}
-	void IncBGVolume(){ if (m_BGVolume < 100)m_BGVolume += 1; }
-	void DecBGVolume(){ if (m_BGVolume > 0) m_BGVolume -= 1; }
-	void IncEffectVolume(){ if (m_EffectVolume < 100)m_EffectVolume += 1; }
-	void DecEffectVolume(){ if (m_EffectVolume > 0) m_EffectVolume -= 1; }
+	void SetMasterVol(int Vol) { m_MasterVolume = Vol; }
+	void SetBGVol(int Vol) { m_BGVolume = Vol; }
+	void SetEffectVol(int Vol) { m_EffectVolume = Vol; }
 public :
 	int GetMasterVolume() const{return m_MasterVolume;}
 	int GetBGVolume() const{return m_BGVolume;}

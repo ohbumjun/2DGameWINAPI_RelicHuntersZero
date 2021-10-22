@@ -1414,7 +1414,7 @@ void CScene::SetBasicProtoTypes()
 
 	// KamiKaze Cage
 	CKamiKazeCage* KamiKazeCagePrototype = CreatePrototype<CKamiKazeCage>(MONSTER_KAMIKAZECAGE_PROTO);
-	KamiKazeCagePrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000.f,
+	KamiKazeCagePrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
 		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	KamiKazeCagePrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	KamiKazeCagePrototype->SetMonsterType(EMonster_Type::KamiKazeCage1);

@@ -77,7 +77,7 @@ bool CHomeScene::Init()
 	NpcHP->SetNpcType(ENpc_Type::Hp);
 	CNpc* NpcShield = CreateObject<CNpc>(NPC_IDLE,(Vector2(600.f, 1500.f)));
 	NpcShield->SetNpcType(ENpc_Type::Shield);
-	NpcShield->SetCost(300.f);
+	NpcShield->SetCost(300);
 
 	// Map
 	CTileMap* TileMap = CreateMap<CTileMap>("TileMap");

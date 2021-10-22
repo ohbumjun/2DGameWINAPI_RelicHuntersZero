@@ -148,11 +148,13 @@ void CUISetting::MainVolumeUpdate()
 void CUISetting::UpBackGroundVol()
 {
 	if (m_BGVol < 10) m_BGVol += 1;
+	CGameManager::GetInst()->SetBGVol(m_BGVol);
 }
 
 void CUISetting::DownBackGroundVol()
 {
 	if (m_BGVol > 0) m_BGVol -= 1;
+	CGameManager::GetInst()->SetBGVol(m_BGVol);
 }
 
 void CUISetting::SetBackgroundVolumeElements()

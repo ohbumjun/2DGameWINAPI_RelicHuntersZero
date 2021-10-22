@@ -244,7 +244,7 @@ void CBullet::DamageObject(CCollider* const Dest)
 	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
 	DamageFont->SetDamageNumber((int)(m_Damage - Armor));
 	// Damage
-	Dest->GetOwner()->SetDamage((int)(m_Damage - Armor));
+	Dest->GetOwner()->SetDamage(m_Damage - Armor);
 }
 
 void CBullet::ShieldObject(CGameObject* const  DestOwner)

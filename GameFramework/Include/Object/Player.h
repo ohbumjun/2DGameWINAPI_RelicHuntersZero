@@ -74,7 +74,7 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
-	virtual float SetDamage(float Damage);
+	virtual float SetDamage(int Damage);
 
 // Hp,Mp,Stemina (Ability)
 public :
