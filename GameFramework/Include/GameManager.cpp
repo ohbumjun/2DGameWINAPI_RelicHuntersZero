@@ -5,6 +5,7 @@
 #include "Scene/MainScene.h"
 #include "Scene/StartScene.h"
 #include "Scene/IntroScene.h"
+#include "Scene/SettingScene.h"
 #include "Input.h"
 #include "PathManager.h"
 #include "Resource/ResourceManager.h"
@@ -113,7 +114,8 @@ bool CGameManager::Init(HINSTANCE hInst)
 		return false;
 
 	// CSceneManager::GetInst()->CreateScene<CStartScene>();
-	CSceneManager::GetInst()->CreateScene<CIntroScene>();
+	// CSceneManager::GetInst()->CreateScene<CIntroScene>();
+	CSceneManager::GetInst()->CreateScene<CSettingScene>();
 
 	m_Timer = new CTimer;
 

@@ -1,6 +1,7 @@
 #include "UIMenu.h"
 #include "../GameManager.h"
 #include "../Scene/SceneManager.h"
+#include "../Scene/SettingScene.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/StartScene.h"
 #include "../Scene/EditorScene.h"
@@ -99,9 +100,6 @@ void CUIMenu::Update(float DeltaTime)
 void CUIMenu::StartClick()
 {
 	CSceneManager::GetInst()->CreateScene<CHomeScene>();
-	// CSceneManager::GetInst()->CreateScene<CMainScene>();
-	// CSceneManager::GetInst()->CreateScene<CMain2Scene>();
-	// CSceneManager::GetInst()->CreateScene<CMain3Scene>();
 }
 
 void CUIMenu::ExitClick()
@@ -116,4 +114,5 @@ void CUIMenu::EditorClick()
 
 void CUIMenu::SettingClick()
 {
+	CSceneManager::GetInst()->CreateScene<CSettingScene>();
 }
