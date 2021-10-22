@@ -758,9 +758,21 @@ void CPlayer::ChangeDashAnimation()
 {
 	if (m_HitEnable) return;
 	if (m_Dir.x < 0.f)
+	{
+		Vector2 DashPos = Vector2(m_Pos.x + m_Size.x * 0.2f,m_Pos.y - m_Size.y * 0.7f);
+		CEffectDash* EffectDash = m_Scene->CreateObject<CEffectDash>(
+			"PlayerDashEffect",
+			EFFECT_DASH_PROTO, DashPos);
 		ChangeAnimation(PLAYER_LEFT_DASH);
+	}
 	else
+	{
+		Vector2 DashPos = Vector2(m_Pos.x - m_Size.x * 0.2f, m_Pos.y - m_Size.y * 0.7f);
+		CEffectDash* EffectDash = m_Scene->CreateObject<CEffectDash>(
+			"PlayerDashEffect",
+			EFFECT_DASH_PROTO, DashPos);
 		ChangeAnimation(PLAYER_RIGHT_DASH);
+	}
 }
 
 void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
