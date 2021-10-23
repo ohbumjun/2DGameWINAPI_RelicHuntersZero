@@ -230,6 +230,7 @@
     <ClCompile Include="Scene\SceneCollision.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneResource.cpp" />
+    <ClCompile Include="Scene\SelectScene.cpp" />
     <ClCompile Include="Scene\SettingScene.cpp" />
     <ClCompile Include="Scene\StartScene.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -249,6 +250,7 @@
     <ClCompile Include="UI\UIMain.cpp" />
     <ClCompile Include="UI\UIMenu.cpp" />
     <ClCompile Include="UI\UISceneStart.cpp" />
+    <ClCompile Include="UI\UISelect.cpp" />
     <ClCompile Include="UI\UISetting.cpp" />
     <ClCompile Include="UI\UIStart.cpp" />
     <ClCompile Include="UI\UIText.cpp" />
@@ -349,6 +351,7 @@
     <ClInclude Include="Scene\SceneCollision.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneResource.h" />
+    <ClInclude Include="Scene\SelectScene.h" />
     <ClInclude Include="Scene\SettingScene.h" />
     <ClInclude Include="Scene\StartScene.h" />
     <ClInclude Include="SharedPtr.h" />
@@ -369,6 +372,7 @@
     <ClInclude Include="UI\UIMain.h" />
     <ClInclude Include="UI\UIMenu.h" />
     <ClInclude Include="UI\UISceneStart.h" />
+    <ClInclude Include="UI\UISelect.h" />
     <ClInclude Include="UI\UISetting.h" />
     <ClInclude Include="UI\UIStart.h" />
     <ClInclude Include="UI\UIText.h" />

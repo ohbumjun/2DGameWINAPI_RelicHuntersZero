@@ -438,6 +438,12 @@
     <ClCompile Include="UI\UISetting.cpp">
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UISelect.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SelectScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -793,6 +799,12 @@
     </ClInclude>
     <ClInclude Include="UI\UISetting.h">
       <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UISelect.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SelectScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
