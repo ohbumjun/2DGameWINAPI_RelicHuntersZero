@@ -1,9 +1,7 @@
 #include "UISetting.h"
 #include "../GameManager.h"
 #include "../Scene/SceneManager.h"
-#include "../Scene/HomeScene.h"
-#include "../Scene/StartScene.h"
-#include "../Scene/EditorScene.h"
+#include "../Scene/MenuScene.h"
 #include "UIText.h"
 #include "Button.h"
 #include "UIImage.h"
@@ -13,7 +11,8 @@ CUISetting::CUISetting() :
 	m_RTText(nullptr),
 	m_MVVol(10),
 	m_BGVol(10),
-	m_EffectVol(10)
+	m_EffectVol(10),
+	m_Toggle(false)
 {
 }
 
@@ -52,6 +51,29 @@ void CUISetting::SetTextImages()
 	m_RTText->SetPos(630.f, RS.Height / 2.f - 75.f);
 	m_RTText->SetText(TEXT("MUSIC OPTIONS"));
 	m_RTText->SetZOrder(2);
+}
+
+void CUISetting::BackClick()
+{
+	CSceneManager::GetInst()->CreateScene<CMenuScene>();
+}
+
+void CUISetting::BackBtnUpdate()
+{
+	EButton_State BtnState = m_MainMenuBackBtn->GetButtonState();
+	Vector2 TxtPos = m_MainMenuBackTxt->GetPos();
+	if (BtnState == EButton_State::MouseOn && !m_Toggle)
+	{
+		m_MainMenuBackTxt->SetPos(TxtPos.x + 50.f, TxtPos.y);
+		m_MainMenuBackTxt->SetTextColor(255, 0, 0);
+		m_Toggle          = true;
+	}
+	else if (BtnState == EButton_State::Normal && m_Toggle)
+	{
+		m_MainMenuBackTxt->SetPos(TxtPos.x - 50.f, TxtPos.y);
+		m_MainMenuBackTxt->SetTextColor(255, 255, 255);
+		m_Toggle          = false;
+	}
 }
 
 void CUISetting::UpMainVol()
@@ -330,6 +352,26 @@ bool CUISetting::Init()
 	CUIImage* Back = CreateWidget<CUIImage>("Back");
 	Back->SetTexture("MenuBack", TEXT("images/MenuScene/bg_menu_settings.bmp"));
 
+	m_MainMenuBackBtn = CreateWidget<CButton>("MainMenuBackBtn");
+	m_MainMenuBackBtn->SetTexture("MainMenuBackBtn", TEXT("images/MenuScene/small_MenuBtn.bmp"));
+	m_MainMenuBackBtn->SetTextureColorKey(255, 255, 255);
+	m_MainMenuBackBtn->SetPos(-25.f, RS.Height / 2.f + 175.f);
+	m_MainMenuBackBtn->SetFrameData(EButton_State::Normal, Vector2(100.f, 15.f), Vector2(470.f, 36.f));
+	m_MainMenuBackBtn->SetFrameData(EButton_State::MouseOn, Vector2(680.f, 15.f), Vector2(470.f, 36.f));
+	m_MainMenuBackBtn->SetFrameData(EButton_State::Click, Vector2(680.f, 15.f), Vector2(470.f, 36.f));
+	m_MainMenuBackBtn->SetFrameData(EButton_State::Disable, Vector2(680.f, 15.f), Vector2(470.f, 36.f));
+	m_MainMenuBackBtn->SetMouseOnSound("ButtonMouseOn");
+	m_MainMenuBackBtn->SetClickSound("ButtonClick");
+	m_MainMenuBackBtn->SetZOrder(1);
+	m_MainMenuBackBtn->SetClickCallback<CUISetting>(this, &CUISetting::BackClick);
+
+	// Texts
+	m_MainMenuBackTxt = CreateWidget<CUIText>("MainMenuBackTxt");
+	m_MainMenuBackTxt->SetTextColor(255, 255, 255);
+	m_MainMenuBackTxt->SetPos(50.f, RS.Height / 2.f + 175.f);
+	m_MainMenuBackTxt->SetZOrder(2);
+	m_MainMenuBackTxt->SetText(TEXT("B A C K"));
+
 	SetTextImages();
 	SetMainVolumeElements();
 	SetBackgroundVolumeElements();
@@ -349,24 +391,7 @@ void CUISetting::Update(float DeltaTime)
 	EffectVolumeUpdate();
 	BGVolumeUpdate();
 	MainVolumeUpdate();
+	BackBtnUpdate();
+
 }
 
-
-void CUISetting::StartClick()
-{
-	CSceneManager::GetInst()->CreateScene<CHomeScene>();
-}
-
-void CUISetting::ExitClick()
-{
-	CGameManager::GetInst()->Exit();
-}
-
-void CUISetting::EditorClick()
-{
-	CSceneManager::GetInst()->CreateScene<CEditorScene>();
-}
-
-void CUISetting::SettingClick()
-{
-}

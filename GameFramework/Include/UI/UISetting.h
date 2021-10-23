@@ -16,6 +16,13 @@ private :
 	class CUIImage* m_RTBackImg;
 	class CUIText* m_RTText;
 	void  SetTextImages();
+// Back to Main
+private  :
+	class CButton* m_MainMenuBackBtn;
+	class CUIText* m_MainMenuBackTxt;
+	void BackClick();
+	void BackBtnUpdate();
+	bool  m_Toggle;
 // Volume
 // Main Volume ---
 private :
@@ -120,10 +127,5 @@ public:
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);
-private:
-	void StartClick();
-	void EditorClick();
-	void SettingClick();
-	void ExitClick();
 };
 
