@@ -1413,4 +1413,3 @@ void CPlayer::ChangeDirToMouse()
 		m_Dir.x = 1;
 	}
 }
-

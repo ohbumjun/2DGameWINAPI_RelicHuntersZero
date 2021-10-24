@@ -11,6 +11,7 @@
 #include "PathManager.h"
 #include "Resource/ResourceManager.h"
 #include "Collision/CollisionManager.h"
+#include "Object/CharacterManager.h"
 
 CGameManager *CGameManager::m_Inst = nullptr;
 bool CGameManager::m_Loop = true;
@@ -115,6 +116,9 @@ bool CGameManager::Init(HINSTANCE hInst)
 		return false;
 
 	if (!CSceneManager::GetInst()->Init())
+		return false;
+
+	if (!CCharacterManager::GetInst()->Init())
 		return false;
 
 	// CSceneManager::GetInst()->CreateScene<CHomeScene>();

@@ -8,19 +8,16 @@ class CPlayer : public CCharacter
 {
 	friend class CScene;
 	friend class CSceneManager;
-
 protected:
 	CPlayer();
 	CPlayer(const CPlayer &obj);
 	virtual ~CPlayer();
-
 // Widget ---
 protected:
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
-
 // Laser Obj
 	CSharedPtr<CLaserObject> m_LaserBulletObj;
 // Inv 
@@ -100,11 +97,7 @@ private :
 	void  GunStateUIUpdate(class CUIGunStateHUD* State);
 	void  GunCurBulletNumUpdate();
 public :
-	CGun* GetCurrentGun() const
-	{
-		return m_CurrentGun;
-	}
-
+	CGun* GetCurrentGun() const{return m_CurrentGun;}
 // Move ---
 private:
 	void MoveUp(float DeltaTime);
@@ -114,7 +107,6 @@ private:
 	virtual void Move(const Vector2 &Dir);
 	virtual void Move(const Vector2 &Dir, float Speed);
 	void JumpKey(float DeltaTime);
-
 // Run ---
 private:
 	void RunLeft(float DeltaTime);
@@ -125,7 +117,6 @@ private:
 	bool m_RunEnable;
 	void RunStart();
 	void RunEnd();
-
 // Dash ---
 private:
 	void DashStart();
@@ -137,13 +128,11 @@ private:
 	void DashUpdate(float DeltaTime);
 	bool m_DashEnable;
 	float m_DashTime;
-
 // Other Skills ---
 private:
 	// Pause, Resume
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
-
 	// Slow Motion Attack
 	void SkillSlowMotionAttack(float DeltaTime);
 	void SkillSlowMotionAttackEnd();
@@ -151,21 +140,18 @@ private:
 	void SkillSlowMotionUpdate(float DeltaTime);
 	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
-
 	// Destory All
 	void SkillDestroyAllAttack(float DeltaTime);
 	void SkillDestroyAllAttackEnd();
 	void SkillDestoryAllAttackEnable();
 	bool m_SkillDestoryAllAttackEnable;
 	float m_SkillDestoryAllAttackTime;
-
 	// Attack Speed
 	virtual void SetAttackSpeed(float Speed)
 	{
 		CCharacter::SetAttackSpeed(Speed);
 		SetAnimationPlayScale(PLAYER_RIGHT_ATTACK, Speed);
 	}
-
 // Collision ---
 private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
@@ -173,7 +159,6 @@ private:
 	virtual void CollideBounceBack(Vector2 Dir);
 	void CollideMonsterBody(CGameObject* Monster);
 	float m_MonsterCollideTime;
-
 // Teleport ---
 private:
 	bool m_TeleportEnable;
@@ -196,7 +181,6 @@ public:
 	void FireTarget();
 	void BulletFireTarget(float);
 	CGameObject *FindClosestTarget(Vector2 PlayerPos);
-
 // Death ---
 public:
 	bool m_PlayerDeath;

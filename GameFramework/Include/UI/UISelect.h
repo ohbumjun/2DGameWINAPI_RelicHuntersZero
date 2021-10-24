@@ -13,8 +13,14 @@ public :
 private:
 	void SetCharacterInfoBox();
 	void SetCharacterInfo(EChar_Type &CharType);
-	void SetCharacterAbility();
+	void SetCharacterAbility(EChar_Type& CharType);
 	void SetCharacterImg(EChar_Type &CharType);
+private :
+	void SetHPAbility(CharacterInfo& CharInfo);
+	void SetMPAbility(CharacterInfo& CharInfo);
+	void SetAttackAbility(CharacterInfo& CharInfo);
+	void SetArmorAbility(CharacterInfo& CharInfo);
+	void SetSpeedAbility(CharacterInfo& CharInfo);
 private:
 	CSharedPtr<class CUIImage> m_CharImg;
 	std::list<CSharedPtr<class CUIImage>> m_CharInfo;

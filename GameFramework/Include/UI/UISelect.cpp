@@ -7,6 +7,7 @@
 #include "UIBtnAnimation.h"
 #include "UIText.h"
 #include "UIImage.h"
+#include "../Object/CharacterManager.h"
 
 CUISelect::CUISelect() : 
 	m_CharImg(nullptr),
@@ -55,11 +56,11 @@ void CUISelect::SetCharacterInfoBox()
 
 void CUISelect::SetCharacterInfo(EChar_Type& CharType)
 {
-	SetCharacterAbility();
+	SetCharacterAbility(CharType);
 	SetCharacterImg(CharType);
 }
 
-void CUISelect::SetCharacterAbility()
+void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 {
 	m_CharInfo.clear();
 	// Delete From Widget List
@@ -76,13 +77,18 @@ void CUISelect::SetCharacterAbility()
 			m_CharAbilityTexts[i]->SetPos(330.f, 280.f + 40.f * i);
 			m_CharAbilityTexts[i]->SetZOrder(4);
 		}
-
 		m_CharAbilityTexts[0]->SetText(TEXT("ATTACK"));
 		m_CharAbilityTexts[1]->SetText(TEXT("ARMOR"));
 		m_CharAbilityTexts[2]->SetText(TEXT("HP"));
 		m_CharAbilityTexts[3]->SetText(TEXT("MP"));
 		m_CharAbilityTexts[4]->SetText(TEXT("SPEED"));
 	}
+	CharacterInfo CharInfo = CCharacterManager::GetInst()->FindCharInfo(CharType);
+	SetHPAbility(CharInfo);
+	SetMPAbility(CharInfo);
+	SetAttackAbility(CharInfo);
+	SetArmorAbility(CharInfo);
+	SetSpeedAbility(CharInfo);
 }
 
 void CUISelect::SetCharacterImg(EChar_Type& CharType)
@@ -114,6 +120,26 @@ void CUISelect::SetCharacterImg(EChar_Type& CharType)
 	m_CharImg->SetTextureColorKey(255, 255, 255);
 	m_CharImg->SetPos(50.f, 250.f);
 	m_CharImg->SetZOrder(4);
+}
+
+void CUISelect::SetHPAbility(CharacterInfo &CharInfo)
+{
+}
+
+void CUISelect::SetMPAbility(CharacterInfo &CharInfo)
+{
+}
+
+void CUISelect::SetAttackAbility(CharacterInfo &CharInfo)
+{
+}
+
+void CUISelect::SetArmorAbility(CharacterInfo &CharInfo)
+{
+}
+
+void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo)
+{
 }
 
 void CUISelect::CharacterBarInit()
