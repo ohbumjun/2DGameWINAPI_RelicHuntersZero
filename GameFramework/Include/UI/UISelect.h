@@ -15,9 +15,11 @@ private:
 	void SetCharacterInfo(EChar_Type &CharType);
 	void SetCharacterAbility();
 	void SetCharacterImg(EChar_Type &CharType);
+private:
 	CSharedPtr<class CUIImage> m_CharImg;
 	std::list<CSharedPtr<class CUIImage>> m_CharInfo;
 	std::list<CSharedPtr<class CUIImage>> m_CommonElemInfo;
+	std::vector<CSharedPtr<class CUIText>> m_CharAbilityTexts;
 private:
 	void CharacterBarInit();
 	void AssInit();

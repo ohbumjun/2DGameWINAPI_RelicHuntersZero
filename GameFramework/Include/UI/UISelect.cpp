@@ -3,8 +3,8 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/StartScene.h"
-#include "../UI/Button.h"
-#include "../UI/UIBtnAnimation.h"
+#include "Button.h"
+#include "UIBtnAnimation.h"
 #include "UIText.h"
 #include "UIImage.h"
 
@@ -12,7 +12,8 @@ CUISelect::CUISelect() :
 	m_CharImg(nullptr),
 	m_CharInfo{},
 	m_CommonElemInfo{},
-	m_BtnAnimations{}
+	m_BtnAnimations{},
+	m_CharAbilityTexts{}
 {
 }
 
@@ -64,6 +65,24 @@ void CUISelect::SetCharacterAbility()
 	// Delete From Widget List
 
 	// Make New Widget 
+	// Texts
+	if (m_CharAbilityTexts.empty())
+	{
+		m_CharAbilityTexts.reserve(5);
+		for (int i = 0; i < 5; i++)
+		{
+			m_CharAbilityTexts.push_back(CreateWidget<CUIText>("AbilityText"));
+			m_CharAbilityTexts[i]->SetTextColor(255, 255, 255);
+			m_CharAbilityTexts[i]->SetPos(330.f, 280.f + 40.f * i);
+			m_CharAbilityTexts[i]->SetZOrder(4);
+		}
+
+		m_CharAbilityTexts[0]->SetText(TEXT("ATTACK"));
+		m_CharAbilityTexts[1]->SetText(TEXT("ARMOR"));
+		m_CharAbilityTexts[2]->SetText(TEXT("HP"));
+		m_CharAbilityTexts[3]->SetText(TEXT("MP"));
+		m_CharAbilityTexts[4]->SetText(TEXT("SPEED"));
+	}
 }
 
 void CUISelect::SetCharacterImg(EChar_Type& CharType)
