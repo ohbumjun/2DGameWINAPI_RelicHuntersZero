@@ -16,6 +16,17 @@ CUIBtnAnimation::~CUIBtnAnimation()
 {
 }
 
+void CUIBtnAnimation::SetButtonState(EButton_State State)
+{
+	m_ButtonState = State;
+}
+
+void CUIBtnAnimation::SetCardSelected(bool State)
+{
+	m_CardSelected = State;
+	m_ButtonState  = EButton_State::Normal;
+}
+
 bool CUIBtnAnimation::Init()
 {
     if (!CUIAnimation::Init()) return false;
@@ -34,7 +45,6 @@ void CUIBtnAnimation::Update(float DeltaTime)
 		{
 			if (CInput::GetInst()->GetMouseDown())
 				m_ButtonState = EButton_State::Click;
-
 			else if (m_ButtonState == EButton_State::Click && 
 				CInput::GetInst()->GetMouseUp())
 			{

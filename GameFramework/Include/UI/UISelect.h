@@ -18,6 +18,10 @@ private:
 	void PingkyInit();
 	void PunnyInit();
 	void RaffInit();
+private:
+	std::unordered_map<std::string, CSharedPtr<class CUIBtnAnimation>> m_BtnAnimations;
+public :
+	void ResetClick(const CUIBtnAnimation* BtnAnim);
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

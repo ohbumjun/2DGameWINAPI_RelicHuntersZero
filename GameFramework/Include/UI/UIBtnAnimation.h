@@ -12,6 +12,8 @@ private :
     std::function<void()>	m_ButtonClickCallback;
 	std::function<void()>	m_ButtonMouseOnCallback;
     CSharedPtr<CSound>		m_ButtonSound[2];
+public :
+	void SetButtonState(EButton_State State);
 private:
 	bool m_ClickAnimEnable;
 	bool m_HoverAnimEnable;
@@ -20,6 +22,9 @@ private:
 	std::string m_DefaultAnimation;
 private :
 	bool m_CardSelected;
+public :
+	void SetCardSelected(bool State);
+	bool GetCardSelected() const { return m_CardSelected; }
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

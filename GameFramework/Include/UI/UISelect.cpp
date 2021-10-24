@@ -14,6 +14,7 @@ CUISelect::CUISelect()
 
 CUISelect::~CUISelect()
 {
+	m_BtnAnimations.clear();
 }
 
 void CUISelect::CharacterClick()
@@ -43,7 +44,7 @@ void CUISelect::CharacterBarInit()
 
 void CUISelect::AssInit()
 {
-	CUIBtnAnimation* AssBtn = CreateWidget<CUIBtnAnimation>("AssDefaultBar");
+	CSharedPtr<CUIBtnAnimation> AssBtn = CreateWidget<CUIBtnAnimation>("AssDefaultBar");
 	AssBtn->SetDefaultAnimation(CARD_ASS_DEFAULT);
 	AssBtn->SetClickAnimation(CARD_ASS_CLICK);
 	AssBtn->SetMouseOnAnimation(CARD_ASS_HOVER);
@@ -51,6 +52,9 @@ void CUISelect::AssInit()
 	AssBtn->SetMouseOnSound("ButtonMouseOn");
 	AssBtn->SetClickSound("ButtonClick");
 	AssBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Ass", AssBtn));
+	AssBtn->SetOwner(this);
 }
 
 void CUISelect::BiuInit()
@@ -63,6 +67,9 @@ void CUISelect::BiuInit()
 	BiuBtn->SetMouseOnSound("ButtonMouseOn");
 	BiuBtn->SetClickSound("ButtonClick");
 	BiuBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Biu", BiuBtn));
+	BiuBtn->SetOwner(this);
 }
 
 void CUISelect::JimmyInit()
@@ -75,6 +82,9 @@ void CUISelect::JimmyInit()
 	JimmyBtn->SetMouseOnSound("ButtonMouseOn");
 	JimmyBtn->SetClickSound("ButtonClick");
 	JimmyBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Jimmy", JimmyBtn));
+	JimmyBtn->SetOwner(this);
 }
 
 void CUISelect::PingkyInit()
@@ -87,6 +97,9 @@ void CUISelect::PingkyInit()
 	PinkyBtn->SetMouseOnSound("ButtonMouseOn");
 	PinkyBtn->SetClickSound("ButtonClick");
 	PinkyBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Pinky", PinkyBtn));
+	PinkyBtn->SetOwner(this);
 }
 
 void CUISelect::PunnyInit()
@@ -99,6 +112,9 @@ void CUISelect::PunnyInit()
 	PunnyBtn->SetMouseOnSound("ButtonMouseOn");
 	PunnyBtn->SetClickSound("ButtonClick");
 	PunnyBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Punny", PunnyBtn));
+	PunnyBtn->SetOwner(this);
 }
 
 void CUISelect::RaffInit()
@@ -111,6 +127,23 @@ void CUISelect::RaffInit()
 	RaffBtn->SetMouseOnSound("ButtonMouseOn");
 	RaffBtn->SetClickSound("ButtonClick");
 	RaffBtn->SetZOrder(3);
+
+	m_BtnAnimations.insert(std::make_pair("Raff", RaffBtn));
+	RaffBtn->SetOwner(this);
+}
+
+void CUISelect::ResetClick(const CUIBtnAnimation* BtnAnim)
+{
+	auto iter    = m_BtnAnimations.begin();
+	auto iterEnd = m_BtnAnimations.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if (iter->second->GetName() == BtnAnim->GetName()) continue;
+		if (iter->second->GetCardSelected())
+		{
+			iter->second->SetCardSelected(false);
+		}
+	}
 }
 
 bool CUISelect::Init()
