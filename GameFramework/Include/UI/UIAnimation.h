@@ -13,7 +13,7 @@ public:
 // Animation
 protected:
 	class CAnimation* m_Animation;
-	Vector2		m_Pos;
+	// Vector2		m_Pos;
 	Vector2		m_Pivot;
 	Vector2		m_Offset;
 public:

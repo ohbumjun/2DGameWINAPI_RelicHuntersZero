@@ -106,6 +106,10 @@ public :
 public :
 	void SetBasicProtoTypes();
 	void SetBasicProtoGuns();
+// UI Character Cards
+public :
+	void SetCharacterCardUIs();
+	void SetAssCardUI();
 public:
 	virtual bool Init();
 	virtual bool Update(float DeltaTime);

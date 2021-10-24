@@ -27,6 +27,7 @@ bool CSelectScene::Init()
 
 void CSelectScene::LoadAnimationSequence()
 {
+	SetCharacterCardUIs();
 }
 
 void CSelectScene::LoadSound()

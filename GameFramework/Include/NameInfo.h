@@ -301,3 +301,8 @@
 #define SHIELD_BOSS   "ShieldBoxx"
 #define SHIELD_PLAYER "ShieldPlayer"
 #define SHIELD_START  "ShieldStart"
+
+// UI Cards
+#define CARD_ASS_DEFAULT "AssCard"
+#define CARD_ASS_HOVER   "AssHover"
+#define CARD_ASS_CLICK   "AssClick"

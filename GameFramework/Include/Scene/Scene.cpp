@@ -1512,6 +1512,49 @@ void CScene::SetBasicProtoGuns()
 {
 }
 
+void CScene::SetCharacterCardUIs()
+{
+	SetAssCardUI();
+}
+
+void CScene::SetAssCardUI()
+{
+	// Ass Default
+	GetSceneResource()->CreateAnimationSequence(CARD_ASS_DEFAULT,
+		CARD_ASS_DEFAULT, TEXT("images/MenuScene/ass/spr_char_assOn_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_ASS_DEFAULT,
+		255, 255, 255);
+
+	for (int i = 0; i < 1; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(CARD_ASS_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+	}
+
+	// Ass Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_ASS_HOVER,
+		CARD_ASS_HOVER, TEXT("images/MenuScene/ass/ass_hovered.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_ASS_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(CARD_ASS_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+	}
+
+	// Ass Click
+	GetSceneResource()->CreateAnimationSequence(CARD_ASS_CLICK,
+		CARD_ASS_CLICK, TEXT("images/MenuScene/ass/ass_clicked.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_ASS_CLICK,
+		255, 255, 255);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(CARD_ASS_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
+	}
+}
+
 bool CScene::Init()
 {
 	return true;

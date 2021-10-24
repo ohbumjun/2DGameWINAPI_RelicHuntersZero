@@ -3,7 +3,6 @@
 
 CUIAnimation::CUIAnimation() :
 	m_Animation(nullptr), 
-	m_Pos(Vector2(0.f,0.f)),
 	m_Pivot(Vector2(0.f,0.f)),
 	m_Offset(Vector2(0.f,0.f))
 {

@@ -198,9 +198,6 @@
     <ClCompile Include="Collision\ColliderSphere.cpp">
       <Filter>06. Collision</Filter>
     </ClCompile>
-    <ClCompile Include="UI\UIWindow.cpp">
-      <Filter>07. UI</Filter>
-    </ClCompile>
     <ClCompile Include="UI\UIWidget.cpp">
       <Filter>07. UI\01. Widget</Filter>
     </ClCompile>
@@ -444,6 +441,12 @@
     <ClCompile Include="Scene\SelectScene.cpp">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIBtnAnimation.cpp">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWindow.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -526,9 +529,6 @@
     </ClInclude>
     <ClInclude Include="Collision\ColliderSphere.h">
       <Filter>06. Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\UIWindow.h">
-      <Filter>07. UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIWidget.h">
       <Filter>07. UI\01. Widget</Filter>
@@ -805,6 +805,12 @@
     </ClInclude>
     <ClInclude Include="Scene\SelectScene.h">
       <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIBtnAnimation.h">
+      <Filter>07. UI\01. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIWindow.h">
+      <Filter>07. UI\02. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
