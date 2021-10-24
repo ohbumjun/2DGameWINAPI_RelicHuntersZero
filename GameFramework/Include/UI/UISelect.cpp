@@ -74,22 +74,22 @@ void CUISelect::SetCharacterImg(EChar_Type& CharType)
 	switch (CharType)
 	{
 	case EChar_Type::Ass:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_ASS));
+		m_CharImg->SetTexture("AssImg", TEXT(CARD_IMG_PATH_ASS));
 		break;
 	case EChar_Type::Biu:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_BIU));
+		m_CharImg->SetTexture("BiuImg", TEXT(CARD_IMG_PATH_BIU));
 		break;
 	case EChar_Type::Jimmy:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_JIMMY));
+		m_CharImg->SetTexture("JimmyImg", TEXT(CARD_IMG_PATH_JIMMY));
 		break;
 	case EChar_Type::Pinky:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_PINKY));
+		m_CharImg->SetTexture("PinkyImg", TEXT(CARD_IMG_PATH_PINKY));
 		break;
 	case EChar_Type::Punny:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_PUNNY));
+		m_CharImg->SetTexture("PunnyImg", TEXT(CARD_IMG_PATH_PUNNY));
 		break;
 	case EChar_Type::Raff:
-		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_RAFF));
+		m_CharImg->SetTexture("RaffImg", TEXT(CARD_IMG_PATH_RAFF));
 		break;
 	}
 	m_CharImg->SetTextureColorKey(255, 255, 255);
