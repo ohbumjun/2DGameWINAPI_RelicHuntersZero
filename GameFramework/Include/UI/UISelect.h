@@ -8,8 +8,16 @@ class CUISelect :
 private:
 	CUISelect();
 	virtual ~CUISelect();
+public :
+	void CharacterClick(EChar_Type &CharType);
 private:
-	void CharacterClick();
+	void SetCharacterInfoBox();
+	void SetCharacterInfo(EChar_Type &CharType);
+	void SetCharacterAbility();
+	void SetCharacterImg(EChar_Type &CharType);
+	CSharedPtr<class CUIImage> m_CharImg;
+	std::list<CSharedPtr<class CUIImage>> m_CharInfo;
+	std::list<CSharedPtr<class CUIImage>> m_CommonElemInfo;
 private:
 	void CharacterBarInit();
 	void AssInit();
@@ -24,7 +32,6 @@ public :
 	void ResetClick(const CUIBtnAnimation* BtnAnim);
 public:
 	virtual bool Init();
-	virtual void Update(float DeltaTime);
 private:
 	void StartClick();
 	void ExitClick();

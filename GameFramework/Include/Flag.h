@@ -78,6 +78,16 @@ enum class EButton_State
 	End
 };
 
+enum class EChar_Type
+{
+	Ass,
+	Biu,
+	Jimmy,
+	Pinky,
+	Punny,
+	Raff
+};
+
 enum class EObject_Type
 {
 	GameObject,

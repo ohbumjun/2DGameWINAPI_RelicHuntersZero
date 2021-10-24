@@ -8,28 +8,93 @@
 #include "UIText.h"
 #include "UIImage.h"
 
-CUISelect::CUISelect()
+CUISelect::CUISelect() : 
+	m_CharImg(nullptr),
+	m_CharInfo{},
+	m_CommonElemInfo{},
+	m_BtnAnimations{}
 {
 }
 
 CUISelect::~CUISelect()
 {
 	m_BtnAnimations.clear();
+	m_CommonElemInfo.clear();
+	m_CharInfo.clear();
 }
 
-void CUISelect::CharacterClick()
+void CUISelect::CharacterClick(EChar_Type& CharType)
 {
-	CUIImage* Back = CreateWidget<CUIImage>("CharacterBack");
-	Back->SetTexture("CharacterBack", TEXT("images/MenuScene/background3.bmp"));
-	Back->SetTextureColorKey(255, 255, 255);
-	Back->SetPos(150.f, 200.f);
-	Back->SetZOrder(2);
+	// Delete From Widget Array
 
-	Back = CreateWidget<CUIImage>("CharacterInfoBlock");
-	Back->SetTexture("CharacterInfoBlock", TEXT("images/MenuScene/background2.bmp"));
-	Back->SetTextureColorKey(255, 255, 255);
-	Back->SetPos(300.f, 260.f);
-	Back->SetZOrder(3);
+	// Delete From Character List
+	SetCharacterInfoBox();
+	SetCharacterInfo(CharType);
+}
+
+void CUISelect::SetCharacterInfoBox()
+{
+	if (m_CommonElemInfo.empty())
+	{
+		CUIImage* Box = CreateWidget<CUIImage>("CharacterBackBox");
+		Box->SetTexture("CharacterBackBox", TEXT("images/MenuScene/background3.bmp"));
+		Box->SetTextureColorKey(255, 255, 255);
+		Box->SetPos(150.f, 200.f);
+		Box->SetZOrder(2);
+		m_CommonElemInfo.push_back(Box);
+
+		Box = CreateWidget<CUIImage>("CharacterInfoBlock");
+		Box->SetTexture("CharacterInfoBlock", TEXT("images/MenuScene/background2.bmp"));
+		Box->SetTextureColorKey(255, 255, 255);
+		Box->SetPos(300.f, 260.f);
+		Box->SetZOrder(3);
+		m_CommonElemInfo.push_back(Box);
+	}
+}
+
+void CUISelect::SetCharacterInfo(EChar_Type& CharType)
+{
+	SetCharacterAbility();
+	SetCharacterImg(CharType);
+}
+
+void CUISelect::SetCharacterAbility()
+{
+	m_CharInfo.clear();
+	// Delete From Widget List
+
+	// Make New Widget 
+}
+
+void CUISelect::SetCharacterImg(EChar_Type& CharType)
+{
+	// Make New Widget 
+	if(!m_CharImg)
+		m_CharImg = CreateWidget<CUIImage>("CharImg");
+	switch (CharType)
+	{
+	case EChar_Type::Ass:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_ASS));
+		break;
+	case EChar_Type::Biu:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_BIU));
+		break;
+	case EChar_Type::Jimmy:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_JIMMY));
+		break;
+	case EChar_Type::Pinky:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_PINKY));
+		break;
+	case EChar_Type::Punny:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_PUNNY));
+		break;
+	case EChar_Type::Raff:
+		m_CharImg->SetTexture("CharImg", TEXT(CARD_IMG_PATH_RAFF));
+		break;
+	}
+	m_CharImg->SetTextureColorKey(255, 255, 255);
+	m_CharImg->SetPos(50.f, 250.f);
+	m_CharImg->SetZOrder(4);
 }
 
 void CUISelect::CharacterBarInit()
@@ -52,6 +117,7 @@ void CUISelect::AssInit()
 	AssBtn->SetMouseOnSound("ButtonMouseOn");
 	AssBtn->SetClickSound("ButtonClick");
 	AssBtn->SetZOrder(3);
+	AssBtn->SetCharType(EChar_Type::Ass);
 
 	m_BtnAnimations.insert(std::make_pair("Ass", AssBtn));
 	AssBtn->SetOwner(this);
@@ -67,6 +133,7 @@ void CUISelect::BiuInit()
 	BiuBtn->SetMouseOnSound("ButtonMouseOn");
 	BiuBtn->SetClickSound("ButtonClick");
 	BiuBtn->SetZOrder(3);
+	BiuBtn->SetCharType(EChar_Type::Biu);
 
 	m_BtnAnimations.insert(std::make_pair("Biu", BiuBtn));
 	BiuBtn->SetOwner(this);
@@ -82,6 +149,7 @@ void CUISelect::JimmyInit()
 	JimmyBtn->SetMouseOnSound("ButtonMouseOn");
 	JimmyBtn->SetClickSound("ButtonClick");
 	JimmyBtn->SetZOrder(3);
+	JimmyBtn->SetCharType(EChar_Type::Jimmy);
 
 	m_BtnAnimations.insert(std::make_pair("Jimmy", JimmyBtn));
 	JimmyBtn->SetOwner(this);
@@ -97,6 +165,7 @@ void CUISelect::PingkyInit()
 	PinkyBtn->SetMouseOnSound("ButtonMouseOn");
 	PinkyBtn->SetClickSound("ButtonClick");
 	PinkyBtn->SetZOrder(3);
+	PinkyBtn->SetCharType(EChar_Type::Pinky);
 
 	m_BtnAnimations.insert(std::make_pair("Pinky", PinkyBtn));
 	PinkyBtn->SetOwner(this);
@@ -112,6 +181,7 @@ void CUISelect::PunnyInit()
 	PunnyBtn->SetMouseOnSound("ButtonMouseOn");
 	PunnyBtn->SetClickSound("ButtonClick");
 	PunnyBtn->SetZOrder(3);
+	PunnyBtn->SetCharType(EChar_Type::Punny);
 
 	m_BtnAnimations.insert(std::make_pair("Punny", PunnyBtn));
 	PunnyBtn->SetOwner(this);
@@ -127,6 +197,7 @@ void CUISelect::RaffInit()
 	RaffBtn->SetMouseOnSound("ButtonMouseOn");
 	RaffBtn->SetClickSound("ButtonClick");
 	RaffBtn->SetZOrder(3);
+	RaffBtn->SetCharType(EChar_Type::Raff);
 
 	m_BtnAnimations.insert(std::make_pair("Raff", RaffBtn));
 	RaffBtn->SetOwner(this);
@@ -173,16 +244,8 @@ bool CUISelect::Init()
 
 	CharacterBarInit();
 
-	CharacterClick();
-
 	return true;
 }
-
-void CUISelect::Update(float DeltaTime)
-{
-	CUIWindow::Update(DeltaTime);
-}
-
 
 void CUISelect::StartClick()
 {

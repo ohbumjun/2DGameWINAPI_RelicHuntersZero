@@ -8,6 +8,13 @@ public :
 	CUIBtnAnimation();
 	virtual ~CUIBtnAnimation();
 private :
+	EChar_Type m_CharType;
+public :
+	void SetCharType(EChar_Type CharType)
+	{
+		m_CharType = CharType;
+	}
+private :
     EButton_State			m_ButtonState;
     std::function<void()>	m_ButtonClickCallback;
 	std::function<void()>	m_ButtonMouseOnCallback;

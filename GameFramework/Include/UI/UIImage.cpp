@@ -40,9 +40,7 @@ void CUIImage::SetTexture(const std::string& Name)
 void CUIImage::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
 {
 	m_Scene->GetSceneResource()->LoadTexture(Name, FileName, PathName);
-
 	m_Texture = m_Scene->GetSceneResource()->FindTexture(Name);
-
 	if (m_Texture)
 	{
 		m_Size.x = (float)m_Texture->GetWidth();

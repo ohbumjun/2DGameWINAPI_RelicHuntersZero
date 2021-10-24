@@ -326,3 +326,11 @@
 #define CARD_RAFF_DEFAULT "RaffCard"
 #define CARD_RAFF_HOVER   "RaffHover"
 #define CARD_RAFF_CLICK   "RaffClick"
+
+// Character Img Path
+#define CARD_IMG_PATH_ASS    "images/MenuScene/ass/spr_card_ass_0.bmp"
+#define CARD_IMG_PATH_BIU    "images/MenuScene/biu/spr_card_biu_0.bmp"
+#define CARD_IMG_PATH_JIMMY  "images/MenuScene/jimmy/spr_card_jimmy_0.bmp"
+#define CARD_IMG_PATH_PINKY  "images/MenuScene/pinky/spr_card_pinky_0.bmp"
+#define CARD_IMG_PATH_PUNNY  "images/MenuScene/punny/spr_card_punny_0.bmp"
+#define CARD_IMG_PATH_RAFF   "images/MenuScene/raff/spr_card_raff_0.bmp"

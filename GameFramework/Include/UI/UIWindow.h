@@ -111,7 +111,20 @@ public:
 
 		return nullptr;
 	}
-
+public:
+	void DeleteWidget(const std::string& Name)
+	{
+		for (int i = 0; i < m_WidgetCount; ++i)
+		{
+			if (m_WidgetArray[i]->GetName() == Name)
+			{
+				SAFE_DELETE(m_WidgetArray[i]);
+				for (int j = i; j < m_WidgetCount - 1; j++)
+					m_WidgetArray[j] = m_WidgetArray[j + 1];
+				--m_WidgetCount;
+			}
+		}
+	}
 public:
 	template <typename T>
 	T* CreateWidget(const std::string& Name)

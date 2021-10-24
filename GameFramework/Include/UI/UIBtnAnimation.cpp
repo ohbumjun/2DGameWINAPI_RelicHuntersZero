@@ -8,7 +8,8 @@
 CUIBtnAnimation::CUIBtnAnimation() :
 	m_ClickAnimEnable(false),
 	m_HoverAnimEnable(false),
-	m_CardSelected(false)
+	m_CardSelected(false),
+	m_CharType(EChar_Type::Ass)
 {
 	m_ButtonState = EButton_State::Normal;
 }
@@ -58,6 +59,7 @@ void CUIBtnAnimation::Update(float DeltaTime)
 
 				CUISelect* Owner = (CUISelect*)m_Owner;
 				Owner->ResetClick(this);
+				Owner->CharacterClick(m_CharType);
 			}
 
 			else if (m_ButtonState == EButton_State::Click &&
