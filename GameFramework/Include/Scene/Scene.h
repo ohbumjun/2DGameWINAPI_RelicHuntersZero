@@ -110,6 +110,11 @@ public :
 public :
 	void SetCharacterCardUIs();
 	void SetAssCardUI();
+	void SetBiuCardUI();
+	void SetJimmyCardUI();
+	void SetPinkyCardUI();
+	void SetPunnyCardUI();
+	void SetRaffCardUI();
 public:
 	virtual bool Init();
 	virtual bool Update(float DeltaTime);

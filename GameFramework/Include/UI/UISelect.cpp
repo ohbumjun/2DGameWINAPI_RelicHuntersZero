@@ -31,6 +31,16 @@ void CUISelect::CharacterClick()
 	Back->SetZOrder(3);
 }
 
+void CUISelect::CharacterBarInit()
+{
+	AssInit();
+	BiuInit();
+	JimmyInit();
+	PingkyInit();
+	PunnyInit();
+	RaffInit();
+}
+
 void CUISelect::AssInit()
 {
 	CUIBtnAnimation* AssBtn = CreateWidget<CUIBtnAnimation>("AssDefaultBar");
@@ -41,6 +51,66 @@ void CUISelect::AssInit()
 	AssBtn->SetMouseOnSound("ButtonMouseOn");
 	AssBtn->SetClickSound("ButtonClick");
 	AssBtn->SetZOrder(3);
+}
+
+void CUISelect::BiuInit()
+{
+	CUIBtnAnimation* BiuBtn = CreateWidget<CUIBtnAnimation>("BiuDefaultBar");
+	BiuBtn->SetDefaultAnimation(CARD_BIU_DEFAULT);
+	BiuBtn->SetClickAnimation(CARD_BIU_CLICK);
+	BiuBtn->SetMouseOnAnimation(CARD_BIU_HOVER);
+	BiuBtn->SetPos(950.f, 150.f);
+	BiuBtn->SetMouseOnSound("ButtonMouseOn");
+	BiuBtn->SetClickSound("ButtonClick");
+	BiuBtn->SetZOrder(3);
+}
+
+void CUISelect::JimmyInit()
+{
+	CUIBtnAnimation* JimmyBtn = CreateWidget<CUIBtnAnimation>("JimmyDefaultBar");
+	JimmyBtn->SetDefaultAnimation(CARD_JIMMY_DEFAULT);
+	JimmyBtn->SetClickAnimation(CARD_JIMMY_CLICK);
+	JimmyBtn->SetMouseOnAnimation(CARD_JIMMY_HOVER);
+	JimmyBtn->SetPos(950.f, 250.f);
+	JimmyBtn->SetMouseOnSound("ButtonMouseOn");
+	JimmyBtn->SetClickSound("ButtonClick");
+	JimmyBtn->SetZOrder(3);
+}
+
+void CUISelect::PingkyInit()
+{
+	CUIBtnAnimation* PinkyBtn = CreateWidget<CUIBtnAnimation>("PinkyDefaultBar");
+	PinkyBtn->SetDefaultAnimation(CARD_PINKY_DEFAULT);
+	PinkyBtn->SetClickAnimation(CARD_PINKY_CLICK);
+	PinkyBtn->SetMouseOnAnimation(CARD_PINKY_HOVER);
+	PinkyBtn->SetPos(950.f, 350.f);
+	PinkyBtn->SetMouseOnSound("ButtonMouseOn");
+	PinkyBtn->SetClickSound("ButtonClick");
+	PinkyBtn->SetZOrder(3);
+}
+
+void CUISelect::PunnyInit()
+{
+	CUIBtnAnimation* PunnyBtn = CreateWidget<CUIBtnAnimation>("PunnyDefaultBar");
+	PunnyBtn->SetDefaultAnimation(CARD_PUNNY_DEFAULT);
+	PunnyBtn->SetClickAnimation(CARD_PUNNY_CLICK);
+	PunnyBtn->SetMouseOnAnimation(CARD_PUNNY_HOVER);
+	PunnyBtn->SetPos(950.f, 450.f);
+	PunnyBtn->SetMouseOnSound("ButtonMouseOn");
+	PunnyBtn->SetClickSound("ButtonClick");
+	PunnyBtn->SetZOrder(3);
+}
+
+void CUISelect::RaffInit()
+{
+	CUIBtnAnimation* RaffBtn = CreateWidget<CUIBtnAnimation>("RaffDefaultBar");
+	RaffBtn->SetDefaultAnimation(CARD_RAFF_DEFAULT);
+	RaffBtn->SetClickAnimation(CARD_RAFF_CLICK);
+	RaffBtn->SetMouseOnAnimation(CARD_RAFF_HOVER);
+	RaffBtn->SetPos(950.f, 550.f);
+	RaffBtn->SetMouseOnSound("ButtonMouseOn");
+	RaffBtn->SetClickSound("ButtonClick");
+	RaffBtn->SetZOrder(3);
 }
 
 bool CUISelect::Init()
@@ -68,7 +138,7 @@ bool CUISelect::Init()
 	IntroBar->SetZOrder(2);
 	IntroBar->SetText(TEXT("Character Selection"));
 
-	AssInit();
+	CharacterBarInit();
 
 	CharacterClick();
 

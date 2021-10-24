@@ -1515,13 +1515,18 @@ void CScene::SetBasicProtoGuns()
 void CScene::SetCharacterCardUIs()
 {
 	SetAssCardUI();
+	SetBiuCardUI();
+	SetJimmyCardUI();
+	SetPinkyCardUI();
+	SetPunnyCardUI();
+	SetRaffCardUI();
 }
 
 void CScene::SetAssCardUI()
 {
 	// Ass Default
 	GetSceneResource()->CreateAnimationSequence(CARD_ASS_DEFAULT,
-		CARD_ASS_DEFAULT, TEXT("images/MenuScene/ass/spr_char_assOn_0.bmp"));
+		CARD_ASS_DEFAULT, TEXT("images/MenuScene/ass/spr_char_assOff_0.bmp"));
 	GetSceneResource()->SetTextureColorKey(CARD_ASS_DEFAULT,
 		255, 255, 255);
 
@@ -1553,6 +1558,156 @@ void CScene::SetAssCardUI()
 		GetSceneResource()->AddAnimationFrameData(CARD_ASS_CLICK,
 			i * 340.f, 0.f, 340.f, 92.f);
 	}
+}
+
+void CScene::SetBiuCardUI()
+{
+	// Biu Default
+	GetSceneResource()->CreateAnimationSequence(CARD_BIU_DEFAULT,
+		CARD_BIU_DEFAULT, TEXT("images/MenuScene/biu/spr_char_biuOff_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_BIU_DEFAULT,
+		255, 255, 255);
+	for (int i = 0; i < 1; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_BIU_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+
+	// Biu Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_BIU_HOVER,
+		CARD_BIU_HOVER, TEXT("images/MenuScene/biu/biu_hover.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_BIU_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_BIU_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+
+	// Biu Click
+	GetSceneResource()->CreateAnimationSequence(CARD_BIU_CLICK,
+		CARD_BIU_CLICK, TEXT("images/MenuScene/biu/biu_click.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_BIU_CLICK,
+		255, 255, 255);
+	for (int i = 0; i < 4; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_BIU_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
+}
+
+void CScene::SetJimmyCardUI()
+{
+	// Jimmy Default
+	GetSceneResource()->CreateAnimationSequence(CARD_JIMMY_DEFAULT,
+		CARD_JIMMY_DEFAULT, TEXT("images/MenuScene/jimmy/spr_char_jimmyOff_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_JIMMY_DEFAULT,
+		255, 255, 255);
+	for (int i = 0; i < 1; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_JIMMY_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+
+	// Jimmy Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_JIMMY_HOVER,
+		CARD_JIMMY_HOVER, TEXT("images/MenuScene/jimmy/jimmy_hover.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_JIMMY_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_JIMMY_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+
+	// Jimmy Click
+	GetSceneResource()->CreateAnimationSequence(CARD_JIMMY_CLICK,
+		CARD_JIMMY_CLICK, TEXT("images/MenuScene/jimmy/jimmy_click.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_JIMMY_CLICK,
+		255, 255, 255);
+	for (int i = 0; i < 4; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_JIMMY_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
+}
+
+void CScene::SetPinkyCardUI()
+{
+	// Pinky Default
+	GetSceneResource()->CreateAnimationSequence(CARD_PINKY_DEFAULT,
+		CARD_PINKY_DEFAULT, TEXT("images/MenuScene/pinky/spr_char_pinkyOff_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PINKY_DEFAULT,
+		255, 255, 255);
+	for (int i = 0; i < 1; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PINKY_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+
+	// Pinky Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_PINKY_HOVER,
+		CARD_PINKY_HOVER, TEXT("images/MenuScene/pinky/pinky_hover.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PINKY_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PINKY_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+
+	// Pinky Click
+	GetSceneResource()->CreateAnimationSequence(CARD_PINKY_CLICK,
+		CARD_PINKY_CLICK, TEXT("images/MenuScene/pinky/pinky_click.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PINKY_CLICK,
+		255, 255, 255);
+	for (int i = 0; i < 4; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PINKY_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
+}
+
+void CScene::SetPunnyCardUI()
+{
+	// Punny Default
+	GetSceneResource()->CreateAnimationSequence(CARD_PUNNY_DEFAULT,
+		CARD_PUNNY_DEFAULT, TEXT("images/MenuScene/punny/spr_char_punnyOff_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PUNNY_DEFAULT,
+		255, 255, 255);
+	for (int i = 0; i < 1; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PUNNY_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+
+	// Punny Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_PUNNY_HOVER,
+		CARD_PUNNY_HOVER, TEXT("images/MenuScene/punny/punny_hover.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PUNNY_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PUNNY_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+
+	// Punny Click
+	GetSceneResource()->CreateAnimationSequence(CARD_PUNNY_CLICK,
+		CARD_PUNNY_CLICK, TEXT("images/MenuScene/punny/punny_click.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_PUNNY_CLICK,
+		255, 255, 255);
+	for (int i = 0; i < 4; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_PUNNY_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
+}
+
+void CScene::SetRaffCardUI()
+{
+	// Punny Default
+	GetSceneResource()->CreateAnimationSequence(CARD_RAFF_DEFAULT,
+		CARD_RAFF_DEFAULT, TEXT("images/MenuScene/raff/spr_char_raffOff_0.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_RAFF_DEFAULT,
+		255, 255, 255);
+	for (int i = 0; i < 1; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_RAFF_DEFAULT,
+			0.f, 0.f, 320.f, 72.f);
+
+	// Punny Hover 
+	GetSceneResource()->CreateAnimationSequence(CARD_RAFF_HOVER,
+		CARD_RAFF_HOVER, TEXT("images/MenuScene/raff/raff_hover.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_RAFF_HOVER,
+		255, 255, 255);
+	for (int i = 0; i < 12; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_RAFF_HOVER,
+			i * 340.f, 0.f, 340.f, 92.f);
+
+	// Punny Click
+	GetSceneResource()->CreateAnimationSequence(CARD_RAFF_CLICK,
+		CARD_RAFF_CLICK, TEXT("images/MenuScene/raff/raff_click.bmp"));
+	GetSceneResource()->SetTextureColorKey(CARD_RAFF_CLICK,
+		255, 255, 255);
+	for (int i = 0; i < 4; ++i)
+		GetSceneResource()->AddAnimationFrameData(CARD_RAFF_CLICK,
+			i * 340.f, 0.f, 340.f, 92.f);
 }
 
 bool CScene::Init()

@@ -58,7 +58,7 @@ void CUIBtnAnimation::Update(float DeltaTime)
 			}
 		}
 
-		else
+		else if(!m_CardSelected)
 		{
 			m_ButtonState = EButton_State::Normal;
 			ChangeAnimation(m_DefaultAnimation);
@@ -119,5 +119,5 @@ void CUIBtnAnimation::SetMouseOnAnimation(const std::string& Name)
 {
 	m_HoverAnimation = Name;
 	m_HoverAnimEnable = true;
-	AddAnimation(Name, false);
+	AddAnimation(Name, false, 0.5f);
 }

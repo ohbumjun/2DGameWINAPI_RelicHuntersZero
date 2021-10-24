@@ -11,7 +11,13 @@ private:
 private:
 	void CharacterClick();
 private:
+	void CharacterBarInit();
 	void AssInit();
+	void BiuInit();
+	void JimmyInit();
+	void PingkyInit();
+	void PunnyInit();
+	void RaffInit();
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

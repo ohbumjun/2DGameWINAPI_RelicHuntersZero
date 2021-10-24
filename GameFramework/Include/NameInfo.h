@@ -306,3 +306,23 @@
 #define CARD_ASS_DEFAULT "AssCard"
 #define CARD_ASS_HOVER   "AssHover"
 #define CARD_ASS_CLICK   "AssClick"
+
+#define CARD_BIU_DEFAULT "BiuCard"
+#define CARD_BIU_HOVER   "BiuHover"
+#define CARD_BIU_CLICK   "BiuClick"
+
+#define CARD_JIMMY_DEFAULT "JimmyCard"
+#define CARD_JIMMY_HOVER   "JimmyHover"
+#define CARD_JIMMY_CLICK   "JimmyClick"
+
+#define CARD_PINKY_DEFAULT "PinkyCard"
+#define CARD_PINKY_HOVER   "PinkyHover"
+#define CARD_PINKY_CLICK   "PinkyClick"
+
+#define CARD_PUNNY_DEFAULT "PunnyCard"
+#define CARD_PUNNY_HOVER   "PunnyHover"
+#define CARD_PUNNY_CLICK   "PunnyClick"
+
+#define CARD_RAFF_DEFAULT "RaffCard"
+#define CARD_RAFF_HOVER   "RaffHover"
+#define CARD_RAFF_CLICK   "RaffClick"
