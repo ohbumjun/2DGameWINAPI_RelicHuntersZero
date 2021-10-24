@@ -11,21 +11,16 @@ private:
 public :
 	void CharacterClick(EChar_Type &CharType);
 private:
+	CSharedPtr<class CUIImage> m_CharImg;
 	void SetCharacterInfoBox();
-	void SetCharacterInfo(EChar_Type &CharType);
 	void SetCharacterAbility(EChar_Type& CharType);
 	void SetCharacterImg(EChar_Type &CharType);
 private :
-	void SetHPAbility(CharacterInfo& CharInfo);
-	void SetMPAbility(CharacterInfo& CharInfo);
-	void SetAttackAbility(CharacterInfo& CharInfo);
-	void SetArmorAbility(CharacterInfo& CharInfo);
-	void SetSpeedAbility(CharacterInfo& CharInfo);
-private:
-	CSharedPtr<class CUIImage> m_CharImg;
-	std::list<CSharedPtr<class CUIImage>> m_CharInfo;
-	std::list<CSharedPtr<class CUIImage>> m_CommonElemInfo;
-	std::vector<CSharedPtr<class CUIText>> m_CharAbilityTexts;
+	void SetHPAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetMPAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetAttackAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetArmorAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetSpeedAbility(CharacterInfo& CharInfo, int StartIdx);
 private:
 	void CharacterBarInit();
 	void AssInit();
@@ -34,6 +29,11 @@ private:
 	void PingkyInit();
 	void PunnyInit();
 	void RaffInit();
+private :
+	void CharacterStatsInit();
+	std::vector<CSharedPtr<class CUIImage>> m_StatsUIs;
+	std::list<CSharedPtr<class CUIImage>>   m_CharImgBackGrounds;
+	std::vector<CSharedPtr<class CUIText>>  m_CharAbilityTexts;
 private:
 	std::unordered_map<std::string, CSharedPtr<class CUIBtnAnimation>> m_BtnAnimations;
 public :

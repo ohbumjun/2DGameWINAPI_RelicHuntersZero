@@ -45,30 +45,23 @@ CGameManager::CGameManager() :
 CGameManager::~CGameManager()
 {
 	CSceneManager::DestroyInst();
-
 	CInput::DestroyInst();
-
 	CCollisionManager::DestroyInst();
-
 	CResourceManager::DestroyInst();
 	CPathManager::DestroyInst();
+	CCharacterManager::DestroyInst();
 
 	SAFE_DELETE(m_Timer);
 
 	SelectObject(m_hBackDC, m_hPrevBackBmp);
 
 	DeleteObject(m_hBackBmp);
-
 	DeleteDC(m_hBackDC);
-
 	DeleteObject(m_hGreenBrush);
 	DeleteObject(m_hRedBrush);
 	DeleteObject(m_hBlueBrush);
 	DeleteObject(m_hLightBlueBrush);
 	DeleteObject(m_hDarkBlueBrush);
-	/*
-	DeleteObject(m_hYellowBrush);
-	*/
 	DeleteObject(m_hGreenPen);
 	DeleteObject(m_hRedPen);
 	DeleteObject(m_hBluePen);

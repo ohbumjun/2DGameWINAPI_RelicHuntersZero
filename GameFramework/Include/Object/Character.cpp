@@ -24,6 +24,7 @@ CCharacter::CCharacter() :
 	m_FireTimeMax(1.f)
 {
 	m_ObjType = EObject_Type::Character;
+	m_MoveSpeed = m_CharacterInfo.MoveSpeed;
 }
 
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)

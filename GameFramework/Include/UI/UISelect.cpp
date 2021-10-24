@@ -11,18 +11,17 @@
 
 CUISelect::CUISelect() : 
 	m_CharImg(nullptr),
-	m_CharInfo{},
-	m_CommonElemInfo{},
+	m_CharImgBackGrounds{},
 	m_BtnAnimations{},
-	m_CharAbilityTexts{}
+	m_CharAbilityTexts{},
+	m_StatsUIs{}
 {
 }
 
 CUISelect::~CUISelect()
 {
 	m_BtnAnimations.clear();
-	m_CommonElemInfo.clear();
-	m_CharInfo.clear();
+	m_CharImgBackGrounds.clear();
 }
 
 void CUISelect::CharacterClick(EChar_Type& CharType)
@@ -31,64 +30,39 @@ void CUISelect::CharacterClick(EChar_Type& CharType)
 
 	// Delete From Character List
 	SetCharacterInfoBox();
-	SetCharacterInfo(CharType);
+	SetCharacterAbility(CharType);
+	SetCharacterImg(CharType);
+
 }
 
 void CUISelect::SetCharacterInfoBox()
 {
-	if (m_CommonElemInfo.empty())
-	{
-		CUIImage* Box = CreateWidget<CUIImage>("CharacterBackBox");
-		Box->SetTexture("CharacterBackBox", TEXT("images/MenuScene/background3.bmp"));
-		Box->SetTextureColorKey(255, 255, 255);
-		Box->SetPos(150.f, 200.f);
-		Box->SetZOrder(2);
-		m_CommonElemInfo.push_back(Box);
-
-		Box = CreateWidget<CUIImage>("CharacterInfoBlock");
-		Box->SetTexture("CharacterInfoBlock", TEXT("images/MenuScene/background2.bmp"));
-		Box->SetTextureColorKey(255, 255, 255);
-		Box->SetPos(300.f, 260.f);
-		Box->SetZOrder(3);
-		m_CommonElemInfo.push_back(Box);
-	}
+	auto iter = m_CharImgBackGrounds.begin();
+	auto iterEnd = m_CharImgBackGrounds.end();
+	for (; iter != iterEnd; ++iter)
+		(*iter)->SetVisibility(true);
 }
-
-void CUISelect::SetCharacterInfo(EChar_Type& CharType)
-{
-	SetCharacterAbility(CharType);
-	SetCharacterImg(CharType);
-}
-
 void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 {
-	m_CharInfo.clear();
-	// Delete From Widget List
+	// Ability Texts
+	auto iter    = m_CharAbilityTexts.begin();
+	auto iterEnd = m_CharAbilityTexts.end();
+	for (; iter != iterEnd; iter++)
+		(*iter)->SetVisibility(true);
 
-	// Make New Widget 
-	// Texts
-	if (m_CharAbilityTexts.empty())
-	{
-		m_CharAbilityTexts.reserve(5);
-		for (int i = 0; i < 5; i++)
-		{
-			m_CharAbilityTexts.push_back(CreateWidget<CUIText>("AbilityText"));
-			m_CharAbilityTexts[i]->SetTextColor(255, 255, 255);
-			m_CharAbilityTexts[i]->SetPos(330.f, 280.f + 40.f * i);
-			m_CharAbilityTexts[i]->SetZOrder(4);
-		}
-		m_CharAbilityTexts[0]->SetText(TEXT("ATTACK"));
-		m_CharAbilityTexts[1]->SetText(TEXT("ARMOR"));
-		m_CharAbilityTexts[2]->SetText(TEXT("HP"));
-		m_CharAbilityTexts[3]->SetText(TEXT("MP"));
-		m_CharAbilityTexts[4]->SetText(TEXT("SPEED"));
-	}
+	// Ability Stats
+	for (int i = 0; i < m_StatsUIs.size(); i++)
+		m_StatsUIs[i]->SetVisibility(false);
 	CharacterInfo CharInfo = CCharacterManager::GetInst()->FindCharInfo(CharType);
-	SetHPAbility(CharInfo);
-	SetMPAbility(CharInfo);
-	SetAttackAbility(CharInfo);
-	SetArmorAbility(CharInfo);
-	SetSpeedAbility(CharInfo);
+	for (int i = 0; i < 5; i++)
+	{
+		int StIdx = i * 5;
+		if(i == 0) SetAttackAbility(CharInfo, StIdx);
+		if(i == 1) SetArmorAbility(CharInfo, StIdx);
+		if(i == 2) SetHPAbility(CharInfo, StIdx);
+		if(i == 3) SetMPAbility(CharInfo, StIdx);
+		if(i == 4) SetSpeedAbility(CharInfo, StIdx);
+	}
 }
 
 void CUISelect::SetCharacterImg(EChar_Type& CharType)
@@ -122,24 +96,54 @@ void CUISelect::SetCharacterImg(EChar_Type& CharType)
 	m_CharImg->SetZOrder(4);
 }
 
-void CUISelect::SetHPAbility(CharacterInfo &CharInfo)
+void CUISelect::SetHPAbility(CharacterInfo &CharInfo, int StartIdx)
 {
+	int CharHPMax  = CCharacterManager::GetInst()->GetCharMaxHP();
+	int CharHP     = CharInfo.HPMax;
+	int HPRatio    = (int)((CharHP / (float)CharHPMax) * 10);
+	int NumStats   = (int)(HPRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
 }
 
-void CUISelect::SetMPAbility(CharacterInfo &CharInfo)
+void CUISelect::SetMPAbility(CharacterInfo &CharInfo, int StartIdx)
 {
+	int CharMPMax = CCharacterManager::GetInst()->GetCharMaxMP();
+	int CharMP = CharInfo.MPMax;
+	int MPRatio = (int)((CharMP / (float)CharMPMax) * 10);
+	int NumStats = (int)(MPRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
 }
 
-void CUISelect::SetAttackAbility(CharacterInfo &CharInfo)
+void CUISelect::SetAttackAbility(CharacterInfo &CharInfo, int StartIdx)
 {
+	int CharAttackMax = CCharacterManager::GetInst()->GetCharMaxAttack();
+	int CharAttack = CharInfo.Attack;
+	int AttackRatio = (int)((CharAttack / (float)CharAttackMax) * 10);
+	int NumStats = (int)(AttackRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
 }
 
-void CUISelect::SetArmorAbility(CharacterInfo &CharInfo)
+void CUISelect::SetArmorAbility(CharacterInfo &CharInfo, int StartIdx)
 {
+	int CharArmorMax = CCharacterManager::GetInst()->GetCharMaxArmor();
+	int CharArmor = CharInfo.Armor;
+	int ArmorRatio = (int)((CharArmor / (float)CharArmorMax) * 10);
+	int NumStats = (int)(ArmorRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
 }
 
-void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo)
+void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo, int StartIdx)
 {
+	int CharSpeedMax = CCharacterManager::GetInst()->GetCharMaxSpeed();
+	int CharSpeed = CharInfo.MoveSpeed;
+	int SpeedRatio = (int)((CharSpeed / (float)CharSpeedMax) * 10);
+	int NumStats = (int)(SpeedRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
 }
 
 void CUISelect::CharacterBarInit()
@@ -248,6 +252,60 @@ void CUISelect::RaffInit()
 	RaffBtn->SetOwner(this);
 }
 
+void CUISelect::CharacterStatsInit()
+{
+	// Texts
+	m_CharAbilityTexts.reserve(5);
+	for (int i = 0; i < 5; i++)
+	{
+		m_CharAbilityTexts.push_back(CreateWidget<CUIText>("AbilityText"));
+		m_CharAbilityTexts[i]->SetTextColor(255, 255, 255);
+		m_CharAbilityTexts[i]->SetPos(330.f, 280.f + 40.f * i);
+		m_CharAbilityTexts[i]->SetZOrder(4);
+		m_CharAbilityTexts[i]->SetVisibility(false);
+	}
+	m_CharAbilityTexts[0]->SetText(TEXT("ATTACK"));
+	m_CharAbilityTexts[1]->SetText(TEXT("ARMOR"));
+	m_CharAbilityTexts[2]->SetText(TEXT("HP"));
+	m_CharAbilityTexts[3]->SetText(TEXT("MP"));
+	m_CharAbilityTexts[4]->SetText(TEXT("SPEED"));
+
+	// Bar 
+	m_StatsUIs.reserve(25);
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			CUIImage* Stat = CreateWidget<CUIImage>("CharStatBar");
+			TCHAR	FileName[256] = {};
+			wsprintf(FileName, TEXT("images/Character/Stats/spr_char_statBar_%d.bmp"), i);
+			Stat->SetTexture("CharStatBar", FileName);
+			Stat->SetTextureColorKey(255, 255, 255);
+			Stat->SetPos(430.f + j * 20.f, 280.f + i * 40.f);
+			Stat->SetZOrder(5);
+			Stat->SetVisibility(false);
+			m_StatsUIs.push_back(Stat);
+		}
+	}
+	
+	// BackGround Boxes
+	CUIImage* Box = CreateWidget<CUIImage>("CharacterBackBox");
+	Box->SetTexture("CharacterBackBox", TEXT("images/MenuScene/background3.bmp"));
+	Box->SetTextureColorKey(255, 255, 255);
+	Box->SetPos(150.f, 200.f);
+	Box->SetZOrder(2);
+	Box->SetVisibility(false);
+	m_CharImgBackGrounds.push_back(Box);
+
+	Box = CreateWidget<CUIImage>("CharacterInfoBlock");
+	Box->SetTexture("CharacterInfoBlock", TEXT("images/MenuScene/background2.bmp"));
+	Box->SetTextureColorKey(255, 255, 255);
+	Box->SetPos(300.f, 260.f);
+	Box->SetZOrder(3);
+	Box->SetVisibility(false);
+	m_CharImgBackGrounds.push_back(Box);
+}
+
 void CUISelect::ResetClick(const CUIBtnAnimation* BtnAnim)
 {
 	auto iter    = m_BtnAnimations.begin();
@@ -288,6 +346,7 @@ bool CUISelect::Init()
 	IntroBar->SetText(TEXT("Character Selection"));
 
 	CharacterBarInit();
+	CharacterStatsInit();
 
 	return true;
 }
