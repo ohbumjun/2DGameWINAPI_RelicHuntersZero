@@ -2,6 +2,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Input.h"
+#include "UISelect.h"
 
 
 CUIBtnAnimation::CUIBtnAnimation() :
@@ -54,6 +55,9 @@ void CUIBtnAnimation::Update(float DeltaTime)
 					ChangeAnimation(m_ClickAnimation);
 				if (m_ButtonSound[1])
 					m_ButtonSound[1]->Play();
+
+				CUISelect* Owner = (CUISelect*)m_Owner;
+				Owner->ResetClick(this);
 			}
 
 			else if (m_ButtonState == EButton_State::Click &&
