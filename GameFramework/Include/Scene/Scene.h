@@ -61,6 +61,13 @@ public:
 // Animation Setting 
 public :
 	void SetPlayerAnimation();
+	void SetPlayerAssAnimation();
+	void SetPlayerJimmyAnimation();
+	void SetPlayerBiuAnimation();
+	void SetPlayerPinkyAnimation();
+	void SetPlayerPunnyAnimation();
+	void SetPlayerRaffAnimation();
+public :
 	void SetItemsAnimation();
 	void SetBulletsAnimation();
 	void SetCollideAnimation();

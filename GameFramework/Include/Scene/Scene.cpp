@@ -199,70 +199,80 @@ CGameObject *CScene::SetPlayer(CGameObject *Player)
 
 void CScene::SetPlayerAnimation()
 {
+	SetPlayerAssAnimation();
+	SetPlayerJimmyAnimation();
+	SetPlayerBiuAnimation();
+	SetPlayerPinkyAnimation();
+	SetPlayerPunnyAnimation();
+	SetPlayerRaffAnimation();
+}
+
+void CScene::SetPlayerAssAnimation()
+{
 	// RightIdle
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_IDLE,
-		PLAYER_RIGHT_IDLE, TEXT("images/Character/jimmy/right_idle.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_IDLE,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_IDLE,
+		ASS_PLAYER_RIGHT_IDLE, TEXT("images/Character/ass/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_IDLE,
 		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_IDLE,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_IDLE,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 	// Right Walk
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_WALK,
-		PLAYER_RIGHT_WALK, TEXT("images/Character/jimmy/right_walk.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_WALK,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_WALK,
+		ASS_PLAYER_RIGHT_WALK, TEXT("images/Character/ass/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_WALK,
 		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_WALK,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Right Run
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_RUN,
-		PLAYER_RIGHT_RUN, TEXT("images/Character/jimmy/right_run.bmp"));
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_RUN,
+		ASS_PLAYER_RIGHT_RUN, TEXT("images/Character/ass/right_run.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_RUN,
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_RUN,
 		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_RUN,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_RUN,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_ATTACK,
-		PLAYER_RIGHT_ATTACK, TEXT("images/Character/jimmy/right_idle.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_ATTACK,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_ATTACK,
+		ASS_PLAYER_RIGHT_ATTACK, TEXT("images/Character/ass/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_ATTACK,
 		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_ATTACK,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_ATTACK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Right Dash
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_DASH,
-		PLAYER_RIGHT_DASH, TEXT("images/Character/jimmy/right_dash.bmp"));
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_DASH,
+		ASS_PLAYER_RIGHT_DASH, TEXT("images/Character/ass/right_dash.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_DASH,
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_DASH,
 		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
@@ -270,63 +280,59 @@ void CScene::SetPlayerAnimation()
 		for (int j = 0; j < 2; j++)
 		{
 			if (i == 1 && j == 1) break;
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_DASH,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_DASH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Player Left ---
 	// Left Idle 
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_IDLE,
-		PLAYER_LEFT_IDLE, TEXT("images/Character/jimmy/left_idle.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_IDLE, 255, 255, 255);
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_IDLE,
+		ASS_PLAYER_LEFT_IDLE, TEXT("images/Character/ass/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_IDLE, 255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_IDLE,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_IDLE,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Left  Walk
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_WALK,
-		PLAYER_LEFT_WALK, TEXT("images/Character/jimmy/left_walk.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_WALK,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_WALK,
+		ASS_PLAYER_LEFT_WALK, TEXT("images/Character/ass/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_WALK,
 		255, 255, 255);
-
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_WALK,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_WALK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Left Run
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_RUN,
-		PLAYER_LEFT_RUN, TEXT("images/Character/jimmy/left_run.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_RUN,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_RUN,
+		ASS_PLAYER_LEFT_RUN, TEXT("images/Character/ass/left_run.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_RUN,
 		255, 255, 255);
-
 	for (int i = 0; i < 2; ++i)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_RUN,
+			if (i == 1 && j == 2) break;
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_RUN,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Left Dash
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_DASH,
-		PLAYER_LEFT_DASH, TEXT("images/Character/jimmy/left_dash.bmp"));
-
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_DASH,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_DASH,
+		ASS_PLAYER_LEFT_DASH, TEXT("images/Character/ass/left_dash.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_DASH,
 		255, 255, 255);
 
 	for (int i = 0; i < 2; ++i)
@@ -334,90 +340,1024 @@ void CScene::SetPlayerAnimation()
 		for (int j = 0; j < 2; j++)
 		{
 			if (i == 1 && j == 1) break;
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_DASH,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_DASH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_ATTACK,
-		PLAYER_LEFT_ATTACK, TEXT("images/Character/jimmy/left_idle.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_ATTACK, 255, 255, 255);
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_ATTACK,
+		ASS_PLAYER_LEFT_ATTACK, TEXT("images/Character/ass/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_ATTACK, 255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_ATTACK,
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_ATTACK,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
 
 	// Death ---
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_DEATH,
-		PLAYER_LEFT_DEATH, TEXT("images/Character/jimmy/left_death.bmp"));
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_DEATH,
+		ASS_PLAYER_LEFT_DEATH, TEXT("images/Character/ass/left_death.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_DEATH,
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_DEATH,
 		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_DEATH,
+			if (i == 2 && j == 3) break;
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_DEATH,
-		PLAYER_RIGHT_DEATH, TEXT("images/Character/jimmy/death.bmp"));
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_DEATH,
+		ASS_PLAYER_RIGHT_DEATH, TEXT("images/Character/ass/right_death.bmp"));
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_DEATH,
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_DEATH,
 		255, 255, 255);
 
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_DEATH,
+			if (i == 2 && j == 3) break;
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_DEATH,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
 	}
-	
+
 	// Hit ---
 	// Stun
-	GetSceneResource()->CreateAnimationSequence(PLAYER_LEFT_HIT,
-		PLAYER_LEFT_HIT, TEXT("images/Character/jimmy/left_hit.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_LEFT_HIT,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_LEFT_HIT,
+		ASS_PLAYER_LEFT_HIT, TEXT("images/Character/ass/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_LEFT_HIT,
 		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(PLAYER_LEFT_HIT,
+		GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_LEFT_HIT,
 			i * 134.f, 0, 134.f, 114.f);
 	}
-	GetSceneResource()->CreateAnimationSequence(PLAYER_RIGHT_HIT,
-		PLAYER_RIGHT_HIT, TEXT("images/Character/jimmy/right_hit.bmp"));
-	GetSceneResource()->SetTextureColorKey(PLAYER_RIGHT_HIT,
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_RIGHT_HIT,
+		ASS_PLAYER_RIGHT_HIT, TEXT("images/Character/ass/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_RIGHT_HIT,
 		255, 255, 255);
 	for (int i = 0; i < 2; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(PLAYER_RIGHT_HIT,
+		GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_RIGHT_HIT,
 			i * 134.f, 0, 134.f, 114.f);
 	}
 
 	// Teleport --- 
-	GetSceneResource()->CreateAnimationSequence(PLAYER_TELEPORT,
-		PLAYER_TELEPORT, TEXT("images/Character/jimmy/teleport.bmp"));
+	GetSceneResource()->CreateAnimationSequence(ASS_PLAYER_TELEPORT,
+		ASS_PLAYER_TELEPORT, TEXT("images/Character/ass/teleport.bmp"));
+	GetSceneResource()->SetTextureColorKey(ASS_PLAYER_TELEPORT,
+		255, 255, 255);
+	for (int i = 0; i < 5; ++i)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(ASS_PLAYER_TELEPORT,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+}
 
-	GetSceneResource()->SetTextureColorKey(PLAYER_TELEPORT,
+void CScene::SetPlayerJimmyAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_IDLE,
+		JIMMY_PLAYER_RIGHT_IDLE, TEXT("images/Character/jimmy/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_IDLE,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_WALK,
+		JIMMY_PLAYER_RIGHT_WALK, TEXT("images/Character/jimmy/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_RUN,
+		JIMMY_PLAYER_RIGHT_RUN, TEXT("images/Character/jimmy/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_ATTACK,
+		JIMMY_PLAYER_RIGHT_ATTACK, TEXT("images/Character/jimmy/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_ATTACK,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_ATTACK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Right Dash
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_DASH,
+		JIMMY_PLAYER_RIGHT_DASH, TEXT("images/Character/jimmy/right_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			if (i == 1 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_DASH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_IDLE,
+		JIMMY_PLAYER_LEFT_IDLE, TEXT("images/Character/jimmy/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_IDLE,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_WALK,
+		JIMMY_PLAYER_LEFT_WALK, TEXT("images/Character/jimmy/left_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_WALK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_RUN,
+		JIMMY_PLAYER_LEFT_RUN, TEXT("images/Character/jimmy/left_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Left Dash
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_DASH,
+		JIMMY_PLAYER_LEFT_DASH, TEXT("images/Character/jimmy/left_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			if (i == 1 && j == 1) break;
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_DASH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_ATTACK,
+		JIMMY_PLAYER_LEFT_ATTACK, TEXT("images/Character/jimmy/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_ATTACK, 255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_ATTACK,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Death ---
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_DEATH,
+		JIMMY_PLAYER_LEFT_DEATH, TEXT("images/Character/jimmy/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_DEATH,
+		JIMMY_PLAYER_RIGHT_DEATH, TEXT("images/Character/jimmy/death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_DEATH,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	// Hit ---
+	// Stun
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_LEFT_HIT,
+		JIMMY_PLAYER_LEFT_HIT, TEXT("images/Character/jimmy/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_RIGHT_HIT,
+		JIMMY_PLAYER_RIGHT_HIT, TEXT("images/Character/jimmy/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Teleport --- 
+	GetSceneResource()->CreateAnimationSequence(JIMMY_PLAYER_TELEPORT,
+		JIMMY_PLAYER_TELEPORT, TEXT("images/Character/jimmy/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(JIMMY_PLAYER_TELEPORT,
 		255, 255, 255);
 
 	for (int i = 0; i < 4; ++i)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			GetSceneResource()->AddAnimationFrameData(PLAYER_TELEPORT,
+			GetSceneResource()->AddAnimationFrameData(JIMMY_PLAYER_TELEPORT,
 				j * 134.f, i * 114.f, 134.f, 114.f);
 		}
+	}
+}
+
+void CScene::SetPlayerBiuAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_IDLE,
+		BIU_PLAYER_RIGHT_IDLE, TEXT("images/Character/biu/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_WALK,
+		BIU_PLAYER_RIGHT_WALK, TEXT("images/Character/biu/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_RUN,
+		BIU_PLAYER_RIGHT_RUN, TEXT("images/Character/biu/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
+	}
+
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_ATTACK,
+		BIU_PLAYER_RIGHT_ATTACK, TEXT("images/Character/biu/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Dash
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_DASH,
+		BIU_PLAYER_RIGHT_DASH, TEXT("images/Character/biu/right_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_IDLE,
+		BIU_PLAYER_LEFT_IDLE, TEXT("images/Character/biu/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_WALK,
+		BIU_PLAYER_LEFT_WALK, TEXT("images/Character/biu/left_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_RUN,
+		BIU_PLAYER_LEFT_RUN, TEXT("images/Character/biu/left_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Dash
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_DASH,
+		BIU_PLAYER_LEFT_DASH, TEXT("images/Character/biu/left_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+
+	// Left Attack
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_ATTACK,
+		BIU_PLAYER_LEFT_ATTACK, TEXT("images/Character/biu/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_ATTACK, 255, 255, 255);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Death ---
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_DEATH,
+		BIU_PLAYER_LEFT_DEATH, TEXT("images/Character/biu/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_DEATH,
+		BIU_PLAYER_RIGHT_DEATH, TEXT("images/Character/biu/right_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Hit ---
+	// Stun
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_LEFT_HIT,
+		BIU_PLAYER_LEFT_HIT, TEXT("images/Character/biu/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_RIGHT_HIT,
+		BIU_PLAYER_RIGHT_HIT, TEXT("images/Character/biu/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Teleport --- 
+	GetSceneResource()->CreateAnimationSequence(BIU_PLAYER_TELEPORT,
+		BIU_PLAYER_TELEPORT, TEXT("images/Character/biu/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(BIU_PLAYER_TELEPORT,
+		255, 255, 255);
+
+	for (int i = 0; i < 26; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(BIU_PLAYER_TELEPORT,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+}
+
+void CScene::SetPlayerPinkyAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_IDLE,
+		PINKY_PLAYER_RIGHT_IDLE, TEXT("images/Character/pinky/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_WALK,
+		PINKY_PLAYER_RIGHT_WALK, TEXT("images/Character/pinky/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_RUN,
+		PINKY_PLAYER_RIGHT_RUN, TEXT("images/Character/pinky/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_ATTACK,
+		PINKY_PLAYER_RIGHT_ATTACK, TEXT("images/Character/pinky/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Dash
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_DASH,
+		PINKY_PLAYER_RIGHT_DASH, TEXT("images/Character/pinky/right_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_IDLE,
+		PINKY_PLAYER_LEFT_IDLE, TEXT("images/Character/pinky/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_WALK,
+		PINKY_PLAYER_LEFT_WALK, TEXT("images/Character/pinky/left_walk.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_RUN,
+		PINKY_PLAYER_LEFT_RUN, TEXT("images/Character/pinky/left_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Dash
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_DASH,
+		PINKY_PLAYER_LEFT_DASH, TEXT("images/Character/pinky/left_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+
+	// Left Attack
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_ATTACK,
+		PINKY_PLAYER_LEFT_ATTACK, TEXT("images/Character/pinky/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_ATTACK, 255, 255, 255);
+
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Death ---
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_DEATH,
+		PINKY_PLAYER_LEFT_DEATH, TEXT("images/Character/pinky/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_DEATH,
+		PINKY_PLAYER_RIGHT_DEATH, TEXT("images/Character/pinky/right_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Hit ---
+	// Stun
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_LEFT_HIT,
+		PINKY_PLAYER_LEFT_HIT, TEXT("images/Character/pinky/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_RIGHT_HIT,
+		PINKY_PLAYER_RIGHT_HIT, TEXT("images/Character/pinky/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Teleport --- 
+	GetSceneResource()->CreateAnimationSequence(PINKY_PLAYER_TELEPORT,
+		PINKY_PLAYER_TELEPORT, TEXT("images/Character/pinky/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PINKY_PLAYER_TELEPORT,
+		255, 255, 255);
+
+	for (int i = 0; i < 5; ++i)
+	{
+		for(int j = 0 ; j > 5; j++)
+			GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_TELEPORT,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+	}
+}
+
+void CScene::SetPlayerPunnyAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_IDLE,
+		PUNNY_PLAYER_RIGHT_IDLE, TEXT("images/Character/punny/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_WALK,
+		PUNNY_PLAYER_RIGHT_WALK, TEXT("images/Character/punny/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_RUN,
+		PUNNY_PLAYER_RIGHT_RUN, TEXT("images/Character/punny/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		for(int j = 0 ; j < 3; j++)
+			GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_RUN,
+				j * 134.f, i * 114.f, 134.f, 114.f);
+	}
+
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_ATTACK,
+		PUNNY_PLAYER_RIGHT_ATTACK, TEXT("images/Character/punny/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Dash
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_DASH,
+		PUNNY_PLAYER_RIGHT_DASH, TEXT("images/Character/punny/right_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_IDLE,
+		PUNNY_PLAYER_LEFT_IDLE, TEXT("images/Character/punny/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_WALK,
+		PUNNY_PLAYER_LEFT_WALK, TEXT("images/Character/punny/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_RUN,
+		PUNNY_PLAYER_LEFT_RUN, TEXT("images/Character/punny/left_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Dash
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_DASH,
+		PUNNY_PLAYER_LEFT_DASH, TEXT("images/Character/punny/left_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+
+	// Left Attack
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_ATTACK,
+		PUNNY_PLAYER_LEFT_ATTACK, TEXT("images/Character/punny/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_ATTACK, 255, 255, 255);
+
+	for (int i = 0; i < 9; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Death ---
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_DEATH,
+		PUNNY_PLAYER_LEFT_DEATH, TEXT("images/Character/punny/left_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_DEATH,
+		PUNNY_PLAYER_RIGHT_DEATH, TEXT("images/Character/punny/right_death.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Hit ---
+	// Stun
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_LEFT_HIT,
+		PUNNY_PLAYER_LEFT_HIT, TEXT("images/Character/punny/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_RIGHT_HIT,
+		PUNNY_PLAYER_RIGHT_HIT, TEXT("images/Character/punny/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Teleport --- 
+	GetSceneResource()->CreateAnimationSequence(PUNNY_PLAYER_TELEPORT,
+		PUNNY_PLAYER_TELEPORT, TEXT("images/Character/punny/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(PUNNY_PLAYER_TELEPORT,
+		255, 255, 255);
+
+	for (int i = 0; i < 26; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_TELEPORT,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+}
+
+void CScene::SetPlayerRaffAnimation()
+{
+	// RightIdle
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_IDLE,
+		RAFF_PLAYER_RIGHT_IDLE, TEXT("images/Character/raff/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_IDLE,
+		255, 255, 255);
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	// Right Walk
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_WALK,
+		RAFF_PLAYER_RIGHT_WALK, TEXT("images/Character/raff/right_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_WALK,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Run
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_RUN,
+		RAFF_PLAYER_RIGHT_RUN, TEXT("images/Character/raff/right_run.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_RUN,
+		255, 255, 255);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_ATTACK,
+		RAFF_PLAYER_RIGHT_ATTACK, TEXT("images/Character/raff/right_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_ATTACK,
+		255, 255, 255);
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Right Dash
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_DASH,
+		RAFF_PLAYER_RIGHT_DASH, TEXT("images/Character/raff/right_dash.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_DASH,
+		255, 255, 255);
+	for (int i = 0; i < 3; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Player Left ---
+	// Left Idle 
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_IDLE,
+		RAFF_PLAYER_LEFT_IDLE, TEXT("images/Character/raff/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_IDLE, 255, 255, 255);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_IDLE,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left  Walk
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_WALK,
+		RAFF_PLAYER_LEFT_WALK, TEXT("images/Character/raff/left_walk.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_WALK,
+		255, 255, 255);
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_WALK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Run
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_RUN,
+		RAFF_PLAYER_LEFT_RUN, TEXT("images/Character/raff/left_run.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_RUN,
+		255, 255, 255);
+	for (int i = 0; i < 6; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_RUN,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Left Dash
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_DASH,
+		RAFF_PLAYER_LEFT_DASH, TEXT("images/Character/raff/left_dash.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_DASH,
+		255, 255, 255);
+
+	for (int i = 0; i < 3; ++i)
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_DASH,
+			i * 134.f, 0.f, 134.f, 114.f);
+
+	// Left Attack
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_ATTACK,
+		RAFF_PLAYER_LEFT_ATTACK, TEXT("images/Character/raff/left_idle.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_ATTACK, 255, 255, 255);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_ATTACK,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Death ---
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_DEATH,
+		RAFF_PLAYER_LEFT_DEATH, TEXT("images/Character/raff/left_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_DEATH,
+		RAFF_PLAYER_RIGHT_DEATH, TEXT("images/Character/raff/right_death.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_DEATH,
+		255, 255, 255);
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_DEATH,
+			i * 134.f, 0.f, 134.f, 114.f);
+	}
+
+	// Hit ---
+	// Stun
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_LEFT_HIT,
+		RAFF_PLAYER_LEFT_HIT, TEXT("images/Character/raff/left_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_LEFT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_LEFT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_RIGHT_HIT,
+		RAFF_PLAYER_RIGHT_HIT, TEXT("images/Character/raff/right_hit.bmp"));
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_RIGHT_HIT,
+		255, 255, 255);
+	for (int i = 0; i < 2; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_RIGHT_HIT,
+			i * 134.f, 0, 134.f, 114.f);
+	}
+
+	// Teleport --- 
+	GetSceneResource()->CreateAnimationSequence(RAFF_PLAYER_TELEPORT,
+		RAFF_PLAYER_TELEPORT, TEXT("images/Character/raff/teleport.bmp"));
+
+	GetSceneResource()->SetTextureColorKey(RAFF_PLAYER_TELEPORT,
+		255, 255, 255);
+
+	for (int i = 0; i < 5; ++i)
+	{
+		for(int j = 0 ; j < 5; j++)
+			GetSceneResource()->AddAnimationFrameData(RAFF_PLAYER_TELEPORT,
+				j * 134.f, i *114.f, 134.f, 114.f);
 	}
 }
 

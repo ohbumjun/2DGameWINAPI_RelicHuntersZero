@@ -105,6 +105,120 @@
 #define PLAYER_LEFT_HIT    "PlayerLeftHit"
 #define PLAYER_RIGHT_HIT   "PlayerRightHit"
 
+// Jimmy Player  ---
+#define JIMMY_PLAYER_RIGHT_IDLE   "JimmyPlayerRightIdle"
+#define JIMMY_PLAYER_RIGHT_WALK   "JimmyPlayerRightWalk"
+#define JIMMY_PLAYER_RIGHT_RUN    "JimmyPlayerRightRun"
+#define JIMMY_PLAYER_RIGHT_DASH   "JimmyPlayerRightDash"
+#define JIMMY_PLAYER_RIGHT_ATTACK "JimmyPlayerRightAttack"
+
+#define JIMMY_PLAYER_LEFT_IDLE   "JimmyPlayerLeftIdle"
+#define JIMMY_PLAYER_LEFT_WALK   "JimmyPlayerLeftWalk"
+#define JIMMY_PLAYER_LEFT_RUN    "JimmyPlayerLeftRun"
+#define JIMMY_PLAYER_LEFT_DASH   "JimmyPlayerLeftDash"
+#define JIMMY_PLAYER_LEFT_ATTACK "JimmyPlayerLeftAttack"
+
+#define JIMMY_PLAYER_TELEPORT    "JimmyPlayerTeleport"
+#define JIMMY_PLAYER_LEFT_DEATH  "JimmyPlayerLeftDeath"
+#define JIMMY_PLAYER_RIGHT_DEATH "JimmyPlayerRightDeath"
+#define JIMMY_PLAYER_LEFT_HIT    "JimmyPlayerLeftHit"
+#define JIMMY_PLAYER_RIGHT_HIT   "JimmyPlayerRightHit"
+
+// Biu Player  ---
+#define BIU_PLAYER_RIGHT_IDLE   "BiuPlayerRightIdle"
+#define BIU_PLAYER_RIGHT_WALK   "BiuPlayerRightWalk"
+#define BIU_PLAYER_RIGHT_RUN    "BiuPlayerRightRun"
+#define BIU_PLAYER_RIGHT_DASH   "BiuPlayerRightDash"
+#define BIU_PLAYER_RIGHT_ATTACK "BiuPlayerRightAttack"
+
+#define BIU_PLAYER_LEFT_IDLE   "BiuPlayerLeftIdle"
+#define BIU_PLAYER_LEFT_WALK   "BiuPlayerLeftWalk"
+#define BIU_PLAYER_LEFT_RUN    "BiuPlayerLeftRun"
+#define BIU_PLAYER_LEFT_DASH   "BiuPlayerLeftDash"
+#define BIU_PLAYER_LEFT_ATTACK "BiuPlayerLeftAttack"
+
+#define BIU_PLAYER_TELEPORT    "BiuPlayerTeleport"
+#define BIU_PLAYER_LEFT_DEATH  "BiuPlayerLeftDeath"
+#define BIU_PLAYER_RIGHT_DEATH "BiuPlayerRightDeath"
+#define BIU_PLAYER_LEFT_HIT    "BiuPlayerLeftHit"
+#define BIU_PLAYER_RIGHT_HIT   "BiuPlayerRightHit"
+
+// Ass Player  ---
+#define ASS_PLAYER_RIGHT_IDLE   "AssPlayerRightIdle"
+#define ASS_PLAYER_RIGHT_WALK   "AssPlayerRightWalk"
+#define ASS_PLAYER_RIGHT_RUN    "AssPlayerRightRun"
+#define ASS_PLAYER_RIGHT_DASH   "AssPlayerRightDash"
+#define ASS_PLAYER_RIGHT_ATTACK "AssPlayerRightAttack"
+
+#define ASS_PLAYER_LEFT_IDLE   "AssPlayerLeftIdle"
+#define ASS_PLAYER_LEFT_WALK   "AssPlayerLeftWalk"
+#define ASS_PLAYER_LEFT_RUN    "AssPlayerLeftRun"
+#define ASS_PLAYER_LEFT_DASH   "AssPlayerLeftDash"
+#define ASS_PLAYER_LEFT_ATTACK "AssPlayerLeftAttack"
+
+#define ASS_PLAYER_TELEPORT    "AssPlayerTeleport"
+#define ASS_PLAYER_LEFT_DEATH  "AssPlayerLeftDeath"
+#define ASS_PLAYER_RIGHT_DEATH "AssPlayerRightDeath"
+#define ASS_PLAYER_LEFT_HIT    "AssPlayerLeftHit"
+#define ASS_PLAYER_RIGHT_HIT   "AssPlayerRightHit"
+
+// Pinky Player  ---
+#define PINKY_PLAYER_RIGHT_IDLE   "PinkyPlayerRightIdle"
+#define PINKY_PLAYER_RIGHT_WALK   "PinkyPlayerRightWalk"
+#define PINKY_PLAYER_RIGHT_RUN    "PinkyPlayerRightRun"
+#define PINKY_PLAYER_RIGHT_DASH   "PinkyPlayerRightDash"
+#define PINKY_PLAYER_RIGHT_ATTACK "PinkyPlayerRightAttack"
+
+#define PINKY_PLAYER_LEFT_IDLE   "PinkyPlayerLeftIdle"
+#define PINKY_PLAYER_LEFT_WALK   "PinkyPlayerLeftWalk"
+#define PINKY_PLAYER_LEFT_RUN    "PinkyPlayerLeftRun"
+#define PINKY_PLAYER_LEFT_DASH   "PinkyPlayerLeftDash"
+#define PINKY_PLAYER_LEFT_ATTACK "PinkyPlayerLeftAttack"
+
+#define PINKY_PLAYER_TELEPORT    "PinkyPlayerTeleport"
+#define PINKY_PLAYER_LEFT_DEATH  "PinkyPlayerLeftDeath"
+#define PINKY_PLAYER_RIGHT_DEATH "PinkyPlayerRightDeath"
+#define PINKY_PLAYER_LEFT_HIT    "PinkyPlayerLeftHit"
+#define PINKY_PLAYER_RIGHT_HIT   "PinkyPlayerRightHit"
+
+// Player  ---
+#define PUNNY_PLAYER_RIGHT_IDLE   "PunnyPlayerRightIdle"
+#define PUNNY_PLAYER_RIGHT_WALK   "PunnyPlayerRightWalk"
+#define PUNNY_PLAYER_RIGHT_RUN    "PunnyPlayerRightRun"
+#define PUNNY_PLAYER_RIGHT_DASH   "PunnyPlayerRightDash"
+#define PUNNY_PLAYER_RIGHT_ATTACK "PunnyPlayerRightAttack"
+
+#define PUNNY_PLAYER_LEFT_IDLE   "PunnyPlayerLeftIdle"
+#define PUNNY_PLAYER_LEFT_WALK   "PunnyPlayerLeftWalk"
+#define PUNNY_PLAYER_LEFT_RUN    "PunnyPlayerLeftRun"
+#define PUNNY_PLAYER_LEFT_DASH   "PunnyPlayerLeftDash"
+#define PUNNY_PLAYER_LEFT_ATTACK "PunnyPlayerLeftAttack"
+
+#define PUNNY_PLAYER_TELEPORT    "PunnyPlayerTeleport"
+#define PUNNY_PLAYER_LEFT_DEATH  "PunnyPlayerLeftDeath"
+#define PUNNY_PLAYER_RIGHT_DEATH "PunnyPlayerRightDeath"
+#define PUNNY_PLAYER_LEFT_HIT    "PunnyPlayerLeftHit"
+#define PUNNY_PLAYER_RIGHT_HIT   "PunnyPlayerRightHit"
+
+// RAFF Player  ---
+#define RAFF_PLAYER_RIGHT_IDLE   "RaffPlayerRightIdle"
+#define RAFF_PLAYER_RIGHT_WALK   "RaffPlayerRightWalk"
+#define RAFF_PLAYER_RIGHT_RUN    "RaffPlayerRightRun"
+#define RAFF_PLAYER_RIGHT_DASH   "RaffPlayerRightDash"
+#define RAFF_PLAYER_RIGHT_ATTACK "RaffPlayerRightAttack"
+
+#define RAFF_PLAYER_LEFT_IDLE   "RaffPlayerLeftIdle"
+#define RAFF_PLAYER_LEFT_WALK   "RaffPlayerLeftWalk"
+#define RAFF_PLAYER_LEFT_RUN    "RaffPlayerLeftRun"
+#define RAFF_PLAYER_LEFT_DASH   "RaffPlayerLeftDash"
+#define RAFF_PLAYER_LEFT_ATTACK "RaffPlayerLeftAttack"
+
+#define RAFF_PLAYER_TELEPORT    "RaffPlayerTeleport"
+#define RAFF_PLAYER_LEFT_DEATH  "RaffPlayerLeftDeath"
+#define RAFF_PLAYER_RIGHT_DEATH "RaffPlayerRightDeath"
+#define RAFF_PLAYER_LEFT_HIT    "RaffPlayerLeftHit"
+#define RAFF_PLAYER_RIGHT_HIT   "RaffPlayerRightHit"
+
 // Monster ( Common ) ---
 #define MONSTER_RIGHT_IDLE   "MonsterRightIdle"
 #define MONSTER_RIGHT_WALK   "MonsterRightWalk"
