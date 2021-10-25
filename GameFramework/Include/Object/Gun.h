@@ -86,6 +86,8 @@ public :
 public :
 	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
+public :
+	void SkillSlowMotionAttack();
 private :
 	void CreateBulletEffect();
 	void ShowNoBulletSign();

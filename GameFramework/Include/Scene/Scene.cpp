@@ -159,12 +159,38 @@ void CScene::DestroyAllAttackObjects()
 	auto iterEnd = m_ObjList.end();
 	for (; iter != iterEnd; ++iter)
 	{
+		// Destroy Bullets
 		if ((*iter)->GetObjType() == EObject_Type::Bullet)
 		{
 			Vector2 ObjPos = (*iter)->GetPos();
 			(*iter)->Destroy();
 			CEffectHit *Hit = CreateObject<CEffectHit>(EFFECT_HIT_PROTO, EFFECT_HIT_PROTO,
 													   ObjPos, Vector2(178.f, 164.f));
+			GetSceneResource()->SoundPlay("Fire");
+		}
+		// Damage Monsters
+		if ((*iter)->GetObjType() == EObject_Type::Monster)
+		{
+			int m_Damage = m_Player->GetAttack();
+			// Actual Damage
+			(*iter)->SetDamage(m_Damage);
+
+			// Damage Font
+			Vector2 MonstPos  = (*iter)->GetPos();
+			Vector2 MonstSize = (*iter)->GetSize();
+			CDamageFont* DamageFont = CreateObject<CDamageFont>(
+				"DamageFont", 
+				DAMAGEFONT_PROTO,
+				Vector2(MonstPos.x , MonstPos.y - MonstSize.y));
+			DamageFont->SetDamageNumber((int)(m_Damage));
+
+			// Hit Effect 
+			CEffectHit* HitEffect = CreateObject<CEffectHit>(
+				"HitEffect", 
+				EFFECT_HIT_PROTO,
+				Vector2(MonstPos.x - MonstSize.x  * 0.5f, MonstPos.y),
+				Vector2(178.f, 164.f));
+			// Sound Effect
 			GetSceneResource()->SoundPlay("Fire");
 		}
 	}
@@ -2296,10 +2322,6 @@ void CScene::SetBasicProtoTypes()
 	// Player Bullet 
 	CBullet* PlayerBullet = CreatePrototype<CBullet>(PLAYER_BULLET_PROTO);
 	PlayerBullet->SetCollisionProfile("PlayerAttack");
-
-	// Player SlowMotion Bullet 
-	CBullet* SlowMotionAttackBullet = CreatePrototype<CBullet>(PLAYER_SKILL_SLOWMOTION_BULLET_PROTO);
-	SlowMotionAttackBullet->SetCollisionProfile("PlayerAttack");
 
 	// Duck Monster
 	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);

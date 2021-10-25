@@ -11,7 +11,7 @@
 #define PLAYER_INIT_STEMINA 5.f
 
 // Skill Time
-#define SLOW_MOTION_ATTACK_TIME 1.5f
+#define SLOW_MOTION_ATTACK_TIME 2.5f
 
 // Speed 
 #define NORMAL_SPEED 200.f

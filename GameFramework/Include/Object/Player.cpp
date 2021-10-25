@@ -56,12 +56,16 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					m_SteminaBarWidget(nullptr),
 					m_HpPotionInv(0),
 					m_MpPotionInv(0),
-					m_ShieldInv(0)
+					m_ShieldInv(0),
+					m_SkillTime(0.f),
+					m_SkillTimeMax(20.f),
+					m_SkillEnable(false)
 			
 {
 	m_ObjType = EObject_Type::Player;
 	m_TimeScale = 1.f;
 	m_CharacterInfo = m_SelectedCharacterInfo;
+	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -80,11 +84,15 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_DeathAnimationTime = 0.f;
 	m_SkillDestoryAllAttackEnable = false;
 	m_SkillDestoryAllAttackTime   = 0.f;
-	m_MoveSpeed = NORMAL_SPEED;
+	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
 
 	m_HpPotionInv = obj.m_HpPotionInv;
 	m_MpPotionInv = obj.m_MpPotionInv;
 	m_ShieldInv = obj.m_ShieldInv;
+
+	m_SkillTime    = 0.f;
+	m_SkillTimeMax = 20.f;
+	m_SkillEnable  = false;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -242,11 +250,11 @@ void CPlayer::Start()
 		this, &CPlayer::ReloadGun);
 
 	// 1) Slow Motion
-	CInput::GetInst()->SetCallback<CPlayer>("SkillSlowMotionAttack", KeyState_Down,
-											this, &CPlayer::SkillSlowMotionAttack);
+	CInput::GetInst()->SetCallback<CPlayer>("ActivateSkill", KeyState_Down,
+											this, &CPlayer::ActivateSkills);
 	// 2) Destroy All
-	CInput::GetInst()->SetCallback<CPlayer>("SkillDestoryAll", KeyState_Down,
-											this, &CPlayer::SkillDestroyAllAttack);
+	// CInput::GetInst()->SetCallback<CPlayer>("SkillDestoryAll", KeyState_Down,
+	//										this, &CPlayer::SkillDestroyAllAttack);
 
 	// Move
 	CInput::GetInst()->SetCallback<CPlayer>("MoveUp", KeyState_Push,
@@ -332,12 +340,6 @@ void CPlayer::SetNotifyFunctions()
 	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
 
-	// Skill
-	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
-	SetAnimationEndNotify<CPlayer>("SkillSlowMotionAttack", this, &CPlayer::SkillSlowMotionAttackEnd);
-
-	AddAnimationNotify<CPlayer>("SkillDestoryAll", 2, this, &CPlayer::SkillDestoryAllAttackEnable);
-	SetAnimationEndNotify<CPlayer>("SkillDestoryAll", this, &CPlayer::SkillDestroyAllAttackEnd);
 }
 
 bool CPlayer::Init()
@@ -369,6 +371,10 @@ bool CPlayer::Init()
 	// AnimName + NotifyFunctions
 	SetAnimName();
 	SetNotifyFunctions();
+
+	// Set Initial Animation As Right Idle
+	std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+	ChangeAnimation(Anim);
 
 	// Collider ---
 	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
@@ -412,7 +418,6 @@ bool CPlayer::Init()
 	SetSideWallCheck(true);
 	*/
 
-	SetAnimName();
 
 	return true;
 }
@@ -444,10 +449,6 @@ void CPlayer::Update(float DeltaTime)
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
 		CollideMonsterBody(CollideMonster);
-
-	// Skill Slow Motion
-	// if (m_SkillSlowMotionAttackEnable)
-		// SkillSlowMotionUpdate(DeltaTime);
 
 	// Hp, Mp, Stemina
 	AbilityUpdate(DeltaTime);
@@ -500,6 +501,14 @@ void CPlayer::Update(float DeltaTime)
 
 	// Shield Update
 	ShieldUpdate(DeltaTime);
+
+	// Skill Update
+	SkillTimeUpdate(DeltaTime);
+
+	// Jimmy : Skill Slow Motion
+	if (m_SkillSlowMotionAttackEnable)
+		SkillSlowMotionUpdate(DeltaTime);
+
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -1049,55 +1058,10 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	if (m_CharacterInfo.Stemina <= 0.95 * m_CharacterInfo.SteminaMax)
-		return;
-	ChangeAnimation("SkillSlowMotionAttack");
-}
-
-void CPlayer::SkillSlowMotionAttackEnd()
-{
-	ChangeIdleAnimation();
-}
-
-void CPlayer::SkillSlowMotionAttackEnable()
-{
-	// Slow Motion
-	if (!m_CurrentGun)
-	{
-		// 메세지
-		return;
-	}
-
 	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(100.f);
+	SetTimeScale(10.f);
 	m_SkillSlowMotionAttackEnable = true;
-
-	// MP Decrease
-	m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
-
-	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) 
-	{
-		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
-																	"SkillSlowMotionAttackBullet",
-																	Vector2((m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f), (m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
-																	Vector2(m_Size.x, m_Size.y));
-
-		CCollider *BulletBody = Bullet->FindCollider("Body");
-		BulletBody->SetCollisionProfile("PlayerAttack");
-
-		CGameObject *ClosestMonster = FindClosestTarget(Bullet->GetPos());
-		if (ClosestMonster)
-		{
-			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
-			Bullet->SetDir(AngleBtwBulletMonster);
-		}
-		else
-		{
-			Bullet->SetDir(m_Dir);
-		}
-		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
-		Bullet->SetTimeScale(m_TimeScale);
-	}
+	m_CurrentGun->SkillSlowMotionAttack();
 }
 
 void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
@@ -1115,17 +1079,19 @@ void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
 
 void CPlayer::SkillDestroyAllAttack(float DeltaTime)
 {
-	ChangeAnimation("SkillDestoryAll");
-}
-
-void CPlayer::SkillDestroyAllAttackEnd()
-{
-	ChangeIdleAnimation();
-}
-
-void CPlayer::SkillDestoryAllAttackEnable()
-{
 	m_Scene->DestroyAllAttackObjects();
+}
+
+void CPlayer::SkillIncAbility()
+{
+	m_SkillTime = m_SkillTimeMax;
+	m_SkillEnable = true;
+	// Attack Inc
+	m_CharacterInfo.Attack *= 2.f;
+	// Armor Inc
+	m_CharacterInfo.Armor *= 2.f;
+	// Speed Inc
+	m_MoveSpeed *= 1.5f;
 }
 
 CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
@@ -1788,4 +1754,92 @@ void CPlayer::AddRaffAnimName()
 	AddAnimation(RAFF_PLAYER_LEFT_HIT, true, 0.6f);
 
 	AddAnimation(RAFF_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::SkillTimeUpdate(float DeltaTime)
+{
+	if (m_SkillTime >= 0.f && m_SkillEnable)
+	{
+		m_SkillTime -= DeltaTime;
+		if (m_SkillTime <= 0.f)
+		{
+			m_SkillEnable = false;
+			DeActivateSkills(DeltaTime);
+		}
+	}
+}
+
+void CPlayer::ActivateSkills(float DeltaTime)
+{
+	if (m_SkillEnable) return;
+	if (m_CharacterInfo.MP <= 0.5 * m_CharacterInfo.MPMax)
+		return;
+	// Slow Motion
+	if (!m_CurrentGun)
+	{
+		// 메세지
+		CSharedPtr<CEffectText> NoBulletText = m_Scene->CreateObject<CEffectText>(
+			"CEffectText",
+			EFFECT_TEXT_PROTO,
+			Vector2(m_Pos.x - m_Size.x, m_Pos.y - m_Size.y * 0.3f),
+			Vector2(50.f, 10.f));
+		NoBulletText->SetText(TEXT("Equip Gun"));
+		NoBulletText->SetTextColor(255, 0, 0);
+		return;
+	}
+
+	// Idle Animation 
+	ChangeIdleAnimation();
+
+	// MP Decrease
+	// m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
+
+	switch (m_CharType)
+	{
+	case EChar_Type::Ass:
+		break;
+	case EChar_Type::Biu:
+		break;
+	case EChar_Type::Jimmy:
+		SkillSlowMotionAttack(DeltaTime);
+		break;
+	case EChar_Type::Pinky:
+		break;
+	case EChar_Type::Punny:
+		SkillDestroyAllAttack(DeltaTime);
+		break;
+	case EChar_Type::Raff:
+		SkillIncAbility();
+		break;
+	default:
+		break;
+	}
+}
+
+void CPlayer::DeActivateSkills(float DeltaTime)
+{
+	switch (m_CharType)
+	{
+	case EChar_Type::Ass:
+		break;
+	case EChar_Type::Biu:
+		break;
+	case EChar_Type::Jimmy:
+		return;
+	case EChar_Type::Pinky:
+		break;
+	case EChar_Type::Punny:
+		return;
+	case EChar_Type::Raff:
+	{
+		m_CharacterInfo.Attack /= 2.f;
+		// Armor Inc
+		m_CharacterInfo.Armor /= 2.f;
+		// Speed Inc
+		m_MoveSpeed /= 1.5f;
+	}
+		break;
+	default:
+		return;
+	}
 }

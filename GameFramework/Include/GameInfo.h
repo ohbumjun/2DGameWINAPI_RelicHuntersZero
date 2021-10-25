@@ -140,7 +140,7 @@ struct CharacterInfo
 	float AttackSpeed;
 	float AttackDistance;
 	CharacterInfo() :
-		Attack(10),Armor(5),HP(200),HPMax(200),MP(100),MPMax(100),Stemina(5.f),SteminaMax(5.f),
+		Attack(30),Armor(20),HP(200),HPMax(200),MP(100),MPMax(100),Stemina(5.f),SteminaMax(5.f),
 		Level(1),Exp(0),Gold(0),MoveSpeed(200.f),AttackSpeed(1.f),AttackDistance(300.f)
 	{
 	}

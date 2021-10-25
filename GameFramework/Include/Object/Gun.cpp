@@ -125,6 +125,36 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	CreateBulletEffect();
 }
 
+void CGun::SkillSlowMotionAttack()
+{
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 15.0f)
+	{
+		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
+			PLAYER_BULLET_PROTO,
+			Vector2(
+				(m_Pos.x - m_Offset.x) + m_Size.Length() * cos(f), 
+				(m_Pos.y - m_Offset.y) + m_Size.Length() * sin(f)),
+			Vector2(m_Size.x, m_Size.y));
+		Bullet->SetOwner(this);
+
+		CPlayer* Owner = (CPlayer*)m_Owner;
+		CGameObject* ClosestMonster = Owner->FindClosestTarget(Bullet->GetPos());
+		if (ClosestMonster)
+		{
+			float AngleBtwBulletMonster = GetAngle(Bullet->GetPos(), ClosestMonster->GetPos());
+			Bullet->SetDir(AngleBtwBulletMonster);
+		}
+		else
+		{
+			Bullet->SetDir(m_Dir);
+		}
+
+		int AttackDamage = Owner->GetAttack();
+		Bullet->SetBulletDamage((float)AttackDamage);
+		Bullet->SetTimeScale(m_TimeScale);
+	}
+}
+
 void CGun::CreateCasing(CBullet* Bullet)
 {
 	// Casing Effect

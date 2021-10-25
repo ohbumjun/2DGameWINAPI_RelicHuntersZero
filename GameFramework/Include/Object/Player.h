@@ -133,25 +133,6 @@ private:
 	// Pause, Resume
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
-	// Slow Motion Attack
-	void SkillSlowMotionAttack(float DeltaTime);
-	void SkillSlowMotionAttackEnd();
-	void SkillSlowMotionAttackEnable();
-	void SkillSlowMotionUpdate(float DeltaTime);
-	bool m_SkillSlowMotionAttackEnable;
-	float m_SkillSlowMotionAttackTime;
-	// Destory All
-	void SkillDestroyAllAttack(float DeltaTime);
-	void SkillDestroyAllAttackEnd();
-	void SkillDestoryAllAttackEnable();
-	bool m_SkillDestoryAllAttackEnable;
-	float m_SkillDestoryAllAttackTime;
-	// Attack Speed
-	virtual void SetAttackSpeed(float Speed)
-	{
-		CCharacter::SetAttackSpeed(Speed);
-		SetAnimationPlayScale(PLAYER_RIGHT_ATTACK, Speed);
-	}
 // Collision ---
 private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);
@@ -223,6 +204,30 @@ private :
 	void AddPinkyAnimName();
 	void AddPunnyAnimName();
 	void AddRaffAnimName();
+// Skills
+private :
+	float m_SkillTime;
+	float m_SkillTimeMax;
+	bool  m_SkillEnable;
+	void SkillTimeUpdate(float DeltaTime);
+private :
+	void ActivateSkills(float DeltaTime);
+	void DeActivateSkills(float DeltaTime);
+	// Ass : Make Clones 
+	void SkillMakeClones(float DeltaTime);
+	// Biu : Drop Rocks
+	// Pinky : Create Knight
+	// Jimmy :  Slow Motion Attack
+	void SkillSlowMotionAttack(float DeltaTime);
+	void SkillSlowMotionUpdate(float DeltaTime);
+	bool m_SkillSlowMotionAttackEnable;
+	float m_SkillSlowMotionAttackTime;
+	// Punny : Destory All
+	void SkillDestroyAllAttack(float DeltaTime);
+	bool m_SkillDestoryAllAttackEnable;
+	float m_SkillDestoryAllAttackTime;
+	// Raff : Attack Speed Up
+	void SkillIncAbility();
 // Static
 private :
 	static CharacterInfo m_SelectedCharacterInfo;
