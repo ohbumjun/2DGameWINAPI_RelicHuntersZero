@@ -1080,6 +1080,10 @@ void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
 void CPlayer::SkillDestroyAllAttack(float DeltaTime)
 {
 	m_Scene->DestroyAllAttackObjects();
+	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
+	m_SkillEnable = true;
+	CGameManager::GetInst()->SetTimeScale(0.01f);
+	SetTimeScale(10.f);
 }
 
 void CPlayer::SkillIncAbility()
@@ -1760,7 +1764,8 @@ void CPlayer::SkillTimeUpdate(float DeltaTime)
 {
 	if (m_SkillTime >= 0.f && m_SkillEnable)
 	{
-		m_SkillTime -= DeltaTime;
+
+		m_SkillTime -= DeltaTime * m_TimeScale;
 		if (m_SkillTime <= 0.f)
 		{
 			m_SkillEnable = false;
@@ -1829,6 +1834,10 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 	case EChar_Type::Pinky:
 		break;
 	case EChar_Type::Punny:
+	{
+		SetTimeScale(1.f);
+		CGameManager::GetInst()->SetTimeScale(1.f);
+	}
 		return;
 	case EChar_Type::Raff:
 	{

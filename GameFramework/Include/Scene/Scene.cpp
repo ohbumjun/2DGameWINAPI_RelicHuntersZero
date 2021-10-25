@@ -171,27 +171,31 @@ void CScene::DestroyAllAttackObjects()
 		// Damage Monsters
 		if ((*iter)->GetObjType() == EObject_Type::Monster)
 		{
-			int m_Damage = m_Player->GetAttack();
-			// Actual Damage
-			(*iter)->SetDamage(m_Damage);
+			float Dist = Distance(m_Player->GetPos(),(*iter)->GetPos());
+			if (Dist <= 800.f)
+			{
+				int m_Damage = m_Player->GetAttack();
+				// Actual Damage
+				(*iter)->SetDamage(m_Damage * 3);
 
-			// Damage Font
-			Vector2 MonstPos  = (*iter)->GetPos();
-			Vector2 MonstSize = (*iter)->GetSize();
-			CDamageFont* DamageFont = CreateObject<CDamageFont>(
-				"DamageFont", 
-				DAMAGEFONT_PROTO,
-				Vector2(MonstPos.x , MonstPos.y - MonstSize.y));
-			DamageFont->SetDamageNumber((int)(m_Damage));
+				// Damage Font
+				Vector2 MonstPos = (*iter)->GetPos();
+				Vector2 MonstSize = (*iter)->GetSize();
+				CDamageFont* DamageFont = CreateObject<CDamageFont>(
+					"DamageFont",
+					DAMAGEFONT_PROTO,
+					Vector2(MonstPos.x, MonstPos.y - MonstSize.y));
+				DamageFont->SetDamageNumber((int)(m_Damage));
 
-			// Hit Effect 
-			CEffectHit* HitEffect = CreateObject<CEffectHit>(
-				"HitEffect", 
-				EFFECT_HIT_PROTO,
-				Vector2(MonstPos.x - MonstSize.x  * 0.5f, MonstPos.y),
-				Vector2(178.f, 164.f));
-			// Sound Effect
-			GetSceneResource()->SoundPlay("Fire");
+				// Hit Effect 
+				CEffectHit* HitEffect = CreateObject<CEffectHit>(
+					"HitEffect",
+					EFFECT_HIT_PROTO,
+					Vector2(MonstPos.x - MonstSize.x * 0.5f, MonstPos.y),
+					Vector2(178.f, 164.f));
+				// Sound Effect
+				GetSceneResource()->SoundPlay("Fire");
+			}
 		}
 	}
 }
