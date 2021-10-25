@@ -61,6 +61,7 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 {
 	m_ObjType = EObject_Type::Player;
 	m_TimeScale = 1.f;
+	m_CharacterInfo = m_SelectedCharacterInfo;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -166,7 +167,7 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 	if (m_HpPotionInv > 0)
 	{
 		m_HpPotionInv -= 1;
-		m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
+		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 		UpdateHpPotionInv(State);
 	}
 }
@@ -177,7 +178,7 @@ void CPlayer::UseMpPotionInv(float DeltaTime)
 	if (m_MpPotionInv > 0)
 	{
 		m_MpPotionInv -= 1;
-		m_SelectedCharacterInfo.MP = m_SelectedCharacterInfo.MPMax;
+		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
 		UpdateMpPotionInv(State);
 	}
 }
@@ -437,7 +438,7 @@ void CPlayer::Update(float DeltaTime)
 
 	MoveWithinWorldResolution();
 	// Death
-	if (m_SelectedCharacterInfo.HP <= 0 )
+	if (m_CharacterInfo.HP <= 0 )
 	{
 		ChangeDeathAnimation();
 		return;
@@ -472,13 +473,13 @@ void CPlayer::Update(float DeltaTime)
 	if (State)
 		AbilityStateUIUpdate(State);
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
-	MPBar->SetPercent(m_SelectedCharacterInfo.MP / (float)m_SelectedCharacterInfo.MPMax);
+	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
-	HPBar->SetPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
+	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	CProgressBar* SteminaBar = (CProgressBar*)m_SteminaBarWidget->GetWidget();
-	SteminaBar->SetPercent(m_SelectedCharacterInfo.Stemina / (float)m_SelectedCharacterInfo.SteminaMax);
+	SteminaBar->SetPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
 
 	// Gold 
 	CurGoldNumUpdate(State);
@@ -577,18 +578,18 @@ float CPlayer::SetDamage(int Damage)
 	Damage = (int)CCharacter::SetDamage((float)Damage);
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
-		State->SetHPPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
+		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
-	HPBar->SetPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
+	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	return (float)Damage;
 }
 
 void CPlayer::AbilityUpdate(float DeltaTime)
 {
-	m_SelectedCharacterInfo.Stemina += 1.5f * DeltaTime;
-	if (m_SelectedCharacterInfo.Stemina >= m_SelectedCharacterInfo.SteminaMax)
-		m_SelectedCharacterInfo.Stemina = m_SelectedCharacterInfo.SteminaMax;
+	m_CharacterInfo.Stemina += 1.5f * DeltaTime;
+	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
 
 	/*
 	if (m_SelectedCharacterInfo.HP > m_SelectedCharacterInfo.HPMax)
@@ -601,9 +602,9 @@ void CPlayer::AbilityUpdate(float DeltaTime)
 
 void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
 {
-	State->SetMPPercent(m_SelectedCharacterInfo.MP / (float)m_SelectedCharacterInfo.MPMax);
-	State->SetHPPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
-	State->SetSteminaPercent(m_SelectedCharacterInfo.Stemina / (float)m_SelectedCharacterInfo.SteminaMax);
+	State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+	State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
 }
 
 
@@ -793,7 +794,7 @@ void CPlayer::ChangeDashAnimation()
 
 void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
 {
-	int Gold = m_SelectedCharacterInfo.Gold;
+	int Gold = m_CharacterInfo.Gold;
 	int FullH = Gold / 100, FullT = (Gold % 100) / 10, FullO = Gold % 10;
 	if (FullH != 0)
 		State->SetGoldHundredWidget(FullH);
@@ -905,15 +906,15 @@ void CPlayer::RunDown(float DeltaTime)
 
 void CPlayer::RunUpdate(float DeltaTime)
 {
-	if (m_SelectedCharacterInfo.Stemina > 0)
-		m_SelectedCharacterInfo.Stemina -= 3 * DeltaTime;
-	if (m_SelectedCharacterInfo.Stemina <= 0)
+	if (m_CharacterInfo.Stemina > 0)
+		m_CharacterInfo.Stemina -= 3 * DeltaTime;
+	if (m_CharacterInfo.Stemina <= 0)
 		RunEnd();
 }
 
 void CPlayer::RunStart()
 {
-	if (m_SelectedCharacterInfo.Stemina <= 0.2 * m_SelectedCharacterInfo.SteminaMax || m_RunEnable) return;
+	if (m_CharacterInfo.Stemina <= 0.2 * m_CharacterInfo.SteminaMax || m_RunEnable) return;
 	m_RunEnable = true;
 
 	Vector2 PlayerBtm;
@@ -959,7 +960,7 @@ void CPlayer::RunEnd()
 void CPlayer::DashStart()
 {
 	if (m_DashEnable) return;
-	if (m_DashEnable || m_SelectedCharacterInfo.Stemina < 0.5 * m_SelectedCharacterInfo.SteminaMax) return;
+	if (m_DashEnable || m_CharacterInfo.Stemina < 0.5 * m_CharacterInfo.SteminaMax) return;
 
 	// Dash Time 
 	m_DashTime   = DASH_TIME;
@@ -967,8 +968,8 @@ void CPlayer::DashStart()
 	// Speed 
 	SetMoveSpeed(DASH_SPEED);
 	// Stemina
-	if (m_SelectedCharacterInfo.Stemina >= 0.5f * m_SelectedCharacterInfo.SteminaMax)
-		m_SelectedCharacterInfo.Stemina -= 0.5f * m_SelectedCharacterInfo.SteminaMax;
+	if (m_CharacterInfo.Stemina >= 0.5f * m_CharacterInfo.SteminaMax)
+		m_CharacterInfo.Stemina -= 0.5f * m_CharacterInfo.SteminaMax;
 	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 	// Animation
@@ -1041,7 +1042,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	if (m_SelectedCharacterInfo.Stemina <= 0.95 * m_SelectedCharacterInfo.SteminaMax)
+	if (m_CharacterInfo.Stemina <= 0.95 * m_CharacterInfo.SteminaMax)
 		return;
 	ChangeAnimation("SkillSlowMotionAttack");
 }
@@ -1065,7 +1066,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
-	m_SelectedCharacterInfo.MP -= m_SelectedCharacterInfo.MPMax * 0.5f;
+	m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
 
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) 
 	{
@@ -1087,7 +1088,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		{
 			Bullet->SetDir(m_Dir);
 		}
-		Bullet->SetBulletDamage((float)m_SelectedCharacterInfo.Attack);
+		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
 	}
 }
@@ -1158,7 +1159,7 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 	if (m_MonsterCollideTime <= 0.f)
 	{
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
-		MonsterDamage -= (float)m_SelectedCharacterInfo.Armor;
+		MonsterDamage -= (float)m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber((int)MonsterDamage);
 		SetDamage((int)MonsterDamage);
@@ -1194,7 +1195,7 @@ void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 void CPlayer::Teleport(float DeltaTime)
 {
 
-	if (!m_TeleportEnable || m_SelectedCharacterInfo.MP < 0.2 * m_SelectedCharacterInfo.MPMax)
+	if (!m_TeleportEnable || m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
 		return;
 
 	// Animation Settings
@@ -1205,8 +1206,8 @@ void CPlayer::Teleport(float DeltaTime)
 	// m_TeleportEnable
 	m_TeleportEnable = false;
 
-	if (m_SelectedCharacterInfo.MP >= 0.2f * m_SelectedCharacterInfo.MPMax)
-		m_SelectedCharacterInfo.MP -= 0.2f * m_SelectedCharacterInfo.MPMax;
+	if (m_CharacterInfo.MP >= 0.2f * m_CharacterInfo.MPMax)
+		m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
 
 	// TeleportMouse Cursor Animation
 	DeleteTeleportObj();
@@ -1214,7 +1215,7 @@ void CPlayer::Teleport(float DeltaTime)
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
-	if (m_SelectedCharacterInfo.MP < 0.2 * m_SelectedCharacterInfo.MPMax)
+	if (m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
 		return;
 
 	m_TeleportEnable = true;
@@ -1264,7 +1265,7 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 void CPlayer::FireTarget()
 {
 	if (m_CurrentGun)
-		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_SelectedCharacterInfo.Attack);
+		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_CharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -1340,9 +1341,9 @@ void CPlayer::AcquireItem(float DeltaTime)
 		{
 			EPotion_Type PType = Potion->GetPotionType();
 			if (PType == EPotion_Type::HP)
-				m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
+				m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 			else
-				m_SelectedCharacterInfo.MP = m_SelectedCharacterInfo.MPMax;
+				m_CharacterInfo.MP = m_CharacterInfo.MPMax;
 			Potion->Destroy();
 			break;
 			return;
@@ -1364,7 +1365,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 		CCoin* Coin = (*iter)->IsCollisionWithCoin();
 		if (Coin)
 		{
-			m_SelectedCharacterInfo.Gold += Coin->GetCoinGold();
+			m_CharacterInfo.Gold += Coin->GetCoinGold();
 			Coin->Destroy();
 			break;
 		}
@@ -1388,27 +1389,27 @@ void CPlayer::BuyItem(float)
 			switch (NpcType)
 			{
 			case ENpc_Type::Hp:
-				if (m_SelectedCharacterInfo.Gold >= Cost)
+				if (m_CharacterInfo.Gold >= Cost)
 				{
-					m_SelectedCharacterInfo.Gold -= Cost;
+					m_CharacterInfo.Gold -= Cost;
 					m_HpPotionInv += 1;
 					UpdateHpPotionInv(State);
 					CanBuy = true;
 				}
 				break;
 			case ENpc_Type::Mp:
-				if (m_SelectedCharacterInfo.Gold >= Cost)
+				if (m_CharacterInfo.Gold >= Cost)
 				{
-					m_SelectedCharacterInfo.Gold -= Cost;
+					m_CharacterInfo.Gold -= Cost;
 					m_MpPotionInv += 1;
 					UpdateMpPotionInv(State);
 					CanBuy = true;
 				}
 				break;
 			case ENpc_Type::Shield:
-				if (m_SelectedCharacterInfo.Gold >= Cost)
+				if (m_CharacterInfo.Gold >= Cost)
 				{
-					m_SelectedCharacterInfo.Gold -= Cost;
+					m_CharacterInfo.Gold -= Cost;
 					m_ShieldInv += 1;
 					UpdateShieldInv(State);
 					CanBuy = true;
