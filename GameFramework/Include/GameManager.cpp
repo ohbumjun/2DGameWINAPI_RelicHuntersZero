@@ -116,7 +116,6 @@ bool CGameManager::Init(HINSTANCE hInst)
 
 	// CSceneManager::GetInst()->CreateScene<CHomeScene>();
 	// CSceneManager::GetInst()->CreateScene<CIntroScene>();
-	// CSceneManager::GetInst()->CreateScene<CSettingScene>();
 	CSceneManager::GetInst()->CreateScene<CSelectScene>();
 
 	m_Timer = new CTimer;

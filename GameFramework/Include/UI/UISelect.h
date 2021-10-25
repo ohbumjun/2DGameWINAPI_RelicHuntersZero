@@ -15,6 +15,7 @@ private:
 	void SetCharacterInfoBox();
 	void SetCharacterAbility(EChar_Type& CharType);
 	void SetCharacterImg(EChar_Type &CharType);
+	void SetStartBtn();
 private :
 	void SetHPAbility(CharacterInfo& CharInfo, int StartIdx);
 	void SetMPAbility(CharacterInfo& CharInfo, int StartIdx);

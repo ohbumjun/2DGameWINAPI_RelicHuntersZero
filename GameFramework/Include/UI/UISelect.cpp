@@ -26,13 +26,10 @@ CUISelect::~CUISelect()
 
 void CUISelect::CharacterClick(EChar_Type& CharType)
 {
-	// Delete From Widget Array
-
-	// Delete From Character List
 	SetCharacterInfoBox();
 	SetCharacterAbility(CharType);
 	SetCharacterImg(CharType);
-
+	SetStartBtn();
 }
 
 void CUISelect::SetCharacterInfoBox()
@@ -94,6 +91,29 @@ void CUISelect::SetCharacterImg(EChar_Type& CharType)
 	m_CharImg->SetTextureColorKey(255, 255, 255);
 	m_CharImg->SetPos(50.f, 250.f);
 	m_CharImg->SetZOrder(4);
+}
+
+void CUISelect::SetStartBtn()
+{
+	// Game Start Btn
+	CButton* StartBtn = CreateWidget<CButton>("GameStartBtn");
+	StartBtn->SetTexture("GameStartBtn", TEXT("images/Character/Stats/charSelectBtn.bmp"));
+	StartBtn->SetTextureColorKey(255, 255, 255);
+	StartBtn->SetPos(425.f, 550.f);
+	StartBtn->SetFrameData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
+	StartBtn->SetFrameData(EButton_State::MouseOn, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
+	StartBtn->SetFrameData(EButton_State::Click, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
+	StartBtn->SetFrameData(EButton_State::Disable, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
+	StartBtn->SetMouseOnSound("ButtonMouseOn");
+	StartBtn->SetClickSound("ButtonClick");
+	StartBtn->SetZOrder(6);
+	StartBtn->SetClickCallback<CUISelect>(this, &CUISelect::StartClick);
+
+	CUIText* StartBtnTxt = CreateWidget<CUIText>("GameStartBtnTxt");
+	StartBtnTxt->SetTextColor(255, 255, 255);
+	StartBtnTxt->SetPos(495.f, 565.f);
+	StartBtnTxt->SetZOrder(7);
+	StartBtnTxt->SetText(TEXT("S T A R T"));
 }
 
 void CUISelect::SetHPAbility(CharacterInfo &CharInfo, int StartIdx)

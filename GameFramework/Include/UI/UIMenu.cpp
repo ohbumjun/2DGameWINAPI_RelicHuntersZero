@@ -3,6 +3,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/SettingScene.h"
 #include "../Scene/HomeScene.h"
+#include "../Scene/SelectScene.h"
 #include "../Scene/StartScene.h"
 #include "../Scene/EditorScene.h"
 #include "../UI/Button.h"
@@ -99,7 +100,7 @@ void CUIMenu::Update(float DeltaTime)
 
 void CUIMenu::StartClick()
 {
-	CSceneManager::GetInst()->CreateScene<CHomeScene>();
+	CSceneManager::GetInst()->CreateScene<CSelectScene>();
 }
 
 void CUIMenu::ExitClick()

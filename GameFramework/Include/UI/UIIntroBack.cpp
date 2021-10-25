@@ -7,7 +7,7 @@ CUIIntroBack::CUIIntroBack()
 {
 	m_ButtonState = EButton_State::Normal;
 	m_IntroStartTime = 0.f;
-	m_IntroStartTimeMax = 5.f;
+	m_IntroStartTimeMax = 4.f;
 }
 
 CUIIntroBack::~CUIIntroBack()
