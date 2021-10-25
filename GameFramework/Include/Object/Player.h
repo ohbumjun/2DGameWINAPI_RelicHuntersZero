@@ -203,9 +203,13 @@ public :
 // Direction
 private :
 	void ChangeDirToMouse();
+// SetName
+private :
+	void SetCharName();
 // SetAnimation
 public :
 	void SetAnimName();
+private :
 	void SetAssAnimName();
 	void SetJimmyAnimName();
 	void SetBiuAnimName();

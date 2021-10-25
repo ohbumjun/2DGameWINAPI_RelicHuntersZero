@@ -401,11 +401,7 @@ bool CPlayer::Init()
 	m_SteminaBarWidget->SetPos(-25.f, -85.f);
 
 	// Name
-	m_NameWidget = CreateWidgetComponent(NAMEWIDGET_COMPONENET);
-	CUIText *NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
-	NameText->SetText(TEXT("Lucid"));
-	NameText->SetTextColor(255, 0, 0);
-	m_NameWidget->SetPos(-25.f, -125.f);
+	SetCharName();
 
 
 	// 수업용 : 물리 적용
@@ -1473,6 +1469,36 @@ void CPlayer::ChangeDirToMouse()
 		ChangeAnimation(Anim);
 		m_Dir.x = 1;
 	}
+}
+
+void CPlayer::SetCharName()
+{
+	m_NameWidget = CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	CUIText* NameText = m_NameWidget->CreateWidget<CUIText>("NameText");
+	switch (m_CharType)
+	{
+	case EChar_Type::Ass:
+		NameText->SetText(TEXT("Ass"));
+		break;
+	case EChar_Type::Biu:
+		NameText->SetText(TEXT("Biu"));
+		break;
+	case EChar_Type::Jimmy:
+		NameText->SetText(TEXT("Jimmy"));
+		break;
+	case EChar_Type::Pinky:
+		NameText->SetText(TEXT("Pinky"));
+		break;
+	case EChar_Type::Punny:
+		NameText->SetText(TEXT("Punny"));
+		break;
+	case EChar_Type::Raff:
+		NameText->SetText(TEXT("Raff"));
+		break;
+	}
+	
+	NameText->SetTextColor(255, 0, 0);
+	m_NameWidget->SetPos(-25.f, -140.f);
 }
 
 void CPlayer::SetAnimName()
