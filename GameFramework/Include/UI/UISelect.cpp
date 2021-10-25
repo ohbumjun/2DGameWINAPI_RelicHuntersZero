@@ -8,6 +8,7 @@
 #include "UIText.h"
 #include "UIImage.h"
 #include "../Object/CharacterManager.h"
+#include "../Object/Player.h"
 
 CUISelect::CUISelect() : 
 	m_CharImg(nullptr),
@@ -60,6 +61,10 @@ void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 		if(i == 3) SetMPAbility(CharInfo, StIdx);
 		if(i == 4) SetSpeedAbility(CharInfo, StIdx);
 	}
+
+	// Set CharInfo, CharType
+	m_SelectedCharInfo = CharInfo;
+	m_SelectedCharType = CharType;
 }
 
 void CUISelect::SetCharacterImg(EChar_Type& CharType)
@@ -376,6 +381,10 @@ bool CUISelect::Init()
 void CUISelect::StartClick()
 {
 	CSceneManager::GetInst()->CreateScene<CHomeScene>();
+	// Set Player Ability 
+	CPlayer::SetStaticPlayerCharType(m_SelectedCharType);
+	CPlayer::SetStaticCharacterInfo(m_SelectedCharInfo);
+
 }
 
 void CUISelect::ExitClick()

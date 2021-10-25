@@ -21,7 +21,8 @@ CCharacter::CCharacter() :
 	m_ShieldEnableTime(2.f),
 	m_Shield(nullptr),
 	m_FireTime(0.f),
-	m_FireTimeMax(1.f)
+	m_FireTimeMax(1.f),
+	m_mapAnimName{}
 {
 	m_ObjType = EObject_Type::Character;
 	m_MoveSpeed = m_CharacterInfo.MoveSpeed;

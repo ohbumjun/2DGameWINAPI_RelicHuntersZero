@@ -9,7 +9,8 @@ protected:
 	CCharacter();
 	CCharacter(const CCharacter &obj);
 	virtual ~CCharacter();
-
+protected:
+	std::unordered_map<std::string, std::string> m_mapAnimName;
 protected:
 	CharacterInfo m_CharacterInfo;
 	class CSharedPtr<CGun> m_GunEquipment[EGunClass::End];

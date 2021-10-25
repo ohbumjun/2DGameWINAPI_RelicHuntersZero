@@ -203,4 +203,22 @@ public :
 // Direction
 private :
 	void ChangeDirToMouse();
+// SetAnimation
+public :
+	void SetAnimName();
+// Static
+private :
+	static CharacterInfo m_SelectedCharacterInfo;
+	static EChar_Type m_CharType ;
+public :
+	static EChar_Type GetStaticCharType() { return m_CharType; }
+	static CharacterInfo GetCharacterInfo() { return m_SelectedCharacterInfo; }
+	static void SetStaticPlayerCharType(EChar_Type CharType)
+	{
+		m_CharType = CharType;
+	}
+	static void SetStaticCharacterInfo(CharacterInfo CharInfo)
+	{
+		m_SelectedCharacterInfo = CharInfo;
+	}
 };

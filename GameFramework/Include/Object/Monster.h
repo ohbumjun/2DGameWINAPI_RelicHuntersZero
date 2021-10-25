@@ -26,7 +26,6 @@ protected :
 	CSharedPtr<CWidgetComponent> m_HPBarWidget;
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 protected:
-	std::unordered_map<std::string, std::string> m_mapAnimName;
 	bool m_TypeChanged;
 public :
 	void SetMonsterType(EMonster_Type MonsterType)

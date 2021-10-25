@@ -17,7 +17,6 @@ CMonster::CMonster() : m_Count(0),
 					   m_AttackDistance((int)NORMAL_MONSTER_ATTACK_DISTANCE),
 					   m_TraceSurprise(false),
 						m_SurpriseStopTime(0.0f),
-						m_mapAnimName{},
 						m_TypeChanged(false),
 						m_MonsterType(EMonster_Type::Duck1)
 {

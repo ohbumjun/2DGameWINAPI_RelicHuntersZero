@@ -29,6 +29,10 @@
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 
+
+EChar_Type CPlayer::m_CharType = EChar_Type::Ass;
+CharacterInfo CPlayer::m_SelectedCharacterInfo = {};
+
 // Static
 CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_SkillSlowMotionAttackTime(0.f),
@@ -211,6 +215,8 @@ void CPlayer::ShieldUpdate(float DeltaTime)
 void CPlayer::Start()
 {
 	CCharacter::Start();
+
+	SetAnimName();
 
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
@@ -1412,4 +1418,8 @@ void CPlayer::ChangeDirToMouse()
 		ChangeAnimation(PLAYER_RIGHT_IDLE);
 		m_Dir.x = 1;
 	}
+}
+
+void CPlayer::SetAnimName()
+{
 }

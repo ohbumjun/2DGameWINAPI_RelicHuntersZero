@@ -10,6 +10,8 @@ private:
 	virtual ~CUISelect();
 public :
 	void CharacterClick(EChar_Type &CharType);
+	CharacterInfo m_SelectedCharInfo;
+	EChar_Type m_SelectedCharType;
 private:
 	CSharedPtr<class CUIImage> m_CharImg;
 	void SetCharacterInfoBox();
