@@ -272,14 +272,16 @@ void CUISelect::CharacterStatsInit()
 
 	// Bar 
 	m_StatsUIs.reserve(25);
+	CUIImage* Stat = nullptr;
 	for (int i = 0; i < 5; i++)
 	{
+		TCHAR	FileName[256] = {};
+		wsprintf(FileName, TEXT("images/Character/Stats/spr_char_statBar_%d.bmp"), i);
 		for (int j = 0; j < 5; j++)
 		{
-			CUIImage* Stat = CreateWidget<CUIImage>("CharStatBar");
-			TCHAR	FileName[256] = {};
-			wsprintf(FileName, TEXT("images/Character/Stats/spr_char_statBar_%d.bmp"), i);
-			Stat->SetTexture("CharStatBar", FileName);
+			const std::string StatWidName = std::to_string(i * 5 + j);
+			Stat = CreateWidget<CUIImage>(StatWidName);
+			Stat->SetTexture(StatWidName, FileName);
 			Stat->SetTextureColorKey(255, 255, 255);
 			Stat->SetPos(430.f + j * 20.f, 280.f + i * 40.f);
 			Stat->SetZOrder(5);
