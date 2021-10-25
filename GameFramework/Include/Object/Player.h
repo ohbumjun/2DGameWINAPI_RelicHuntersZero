@@ -206,6 +206,19 @@ private :
 // SetAnimation
 public :
 	void SetAnimName();
+	void SetAssAnimName();
+	void SetJimmyAnimName();
+	void SetBiuAnimName();
+	void SetPinkyAnimName();
+	void SetPunnyAnimName();
+	void SetRaffAnimName();
+private :
+	void AddAssAnimName();
+	void AddJimmyAnimName();
+	void AddBiuAnimName();
+	void AddPinkyAnimName();
+	void AddPunnyAnimName();
+	void AddRaffAnimName();
 // Static
 private :
 	static CharacterInfo m_SelectedCharacterInfo;

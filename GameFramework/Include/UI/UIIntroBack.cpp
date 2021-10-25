@@ -7,7 +7,7 @@ CUIIntroBack::CUIIntroBack()
 {
 	m_ButtonState = EButton_State::Normal;
 	m_IntroStartTime = 0.f;
-	m_IntroStartTimeMax = 4.f;
+	m_IntroStartTimeMax = 3.f;
 }
 
 CUIIntroBack::~CUIIntroBack()
@@ -32,10 +32,7 @@ bool CUIIntroBack::Init()
 void CUIIntroBack::Update(float DeltaTime)
 {
 	CUIAnimation::Update(DeltaTime);
-	if (m_IntroStartTime <= m_IntroStartTimeMax)
-	{
-		m_IntroStartTime += DeltaTime;
-	}
+	m_IntroStartTime += DeltaTime;
 	if (m_IntroStartTime >= m_IntroStartTimeMax)
 	{
 		if (m_MouseHovered)

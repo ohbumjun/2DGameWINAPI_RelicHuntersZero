@@ -166,7 +166,7 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 	if (m_HpPotionInv > 0)
 	{
 		m_HpPotionInv -= 1;
-		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+		m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
 		UpdateHpPotionInv(State);
 	}
 }
@@ -177,7 +177,7 @@ void CPlayer::UseMpPotionInv(float DeltaTime)
 	if (m_MpPotionInv > 0)
 	{
 		m_MpPotionInv -= 1;
-		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+		m_SelectedCharacterInfo.MP = m_SelectedCharacterInfo.MPMax;
 		UpdateMpPotionInv(State);
 	}
 }
@@ -310,19 +310,26 @@ void CPlayer::Start()
 void CPlayer::SetNotifyFunctions()
 {
 	// Teleport
-	SetAnimationEndNotify<CPlayer>(PLAYER_TELEPORT, this, &CPlayer::ChangeMoveAnimation);
+	std::string AnimName = m_mapAnimName.find(PLAYER_TELEPORT)->second;
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::ChangeMoveAnimation);
 
 	// Attack
-	AddAnimationNotify<CPlayer>(PLAYER_RIGHT_ATTACK, 2, this, &CPlayer::FireTarget);
-	AddAnimationNotify<CPlayer>(PLAYER_LEFT_ATTACK, 2, this, &CPlayer::FireTarget);
-	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_ATTACK, this, &CPlayer::AttackEnd);
-	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_ATTACK, this, &CPlayer::AttackEnd);
+	AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
+	AddAnimationNotify<CPlayer>(AnimName, 2, this, &CPlayer::FireTarget);
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
+	AddAnimationNotify<CPlayer>(AnimName, 2, this, &CPlayer::FireTarget);
+	AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::AttackEnd);
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::AttackEnd);
 
 	// Death
-	AddAnimationNotify<CPlayer>(PLAYER_LEFT_DEATH, 11, this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>(PLAYER_LEFT_DEATH , this, &CPlayer::Destroy);
-	AddAnimationNotify<CPlayer>(PLAYER_RIGHT_DEATH, 11, this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>(PLAYER_RIGHT_DEATH, this, &CPlayer::Destroy);
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
+	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
+	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
+	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
 
 	// Skill
 	AddAnimationNotify<CPlayer>("SkillSlowMotionAttack", 2, this, &CPlayer::SkillSlowMotionAttackEnable);
@@ -341,20 +348,15 @@ bool CPlayer::Init()
 
 	// Animation ---
 	CreateAnimation();
+	AddAssAnimName();
+	AddJimmyAnimName();
+	AddBiuAnimName();
+	AddPinkyAnimName();
+	AddPunnyAnimName();
+	AddRaffAnimName();
 
-	// Right
-	AddAnimation(PLAYER_RIGHT_IDLE,true, 2.f);
-	AddAnimation(PLAYER_RIGHT_WALK, true, 1.f);
-	AddAnimation(PLAYER_RIGHT_ATTACK, false, 0.1f);
-	AddAnimation(PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
-	AddAnimation(PLAYER_RIGHT_RUN, true, 0.6f);
-
-	// Left
-	AddAnimation(PLAYER_LEFT_IDLE, true, 2.f);
-	AddAnimation(PLAYER_LEFT_WALK, true, 1.f);
-	AddAnimation(PLAYER_LEFT_ATTACK, false, 0.1f);
-	AddAnimation(PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
-	AddAnimation(PLAYER_LEFT_RUN, true, 0.6f);
+	// Shield
+	AddAnimation(SHIELD_START, false, 0.5f);
 
 	// Skill
 	AddAnimation("SkillSlowMotionAttack", false, 0.5f);
@@ -363,21 +365,8 @@ bool CPlayer::Init()
 	// Target
 	AddAnimation("LucidNunNaTargetAttack", false, 0.6f);
 
-	// Death
-	AddAnimation(PLAYER_LEFT_DEATH, false, 0.1f);
-	AddAnimation(PLAYER_RIGHT_DEATH, false, 0.1f);
-
-	// Hit
-	AddAnimation(PLAYER_LEFT_HIT, true, 0.6f);
-	AddAnimation(PLAYER_RIGHT_HIT, true, 0.6f);
-
-	// Teleport
-	AddAnimation(PLAYER_TELEPORT, false, 0.3f);
-
-	// Shield
-	AddAnimation(SHIELD_START, false, 0.5f);
-
-	// NotifyFunctions
+	// AnimName + NotifyFunctions
+	SetAnimName();
 	SetNotifyFunctions();
 
 	// Collider ---
@@ -426,6 +415,8 @@ bool CPlayer::Init()
 	SetSideWallCheck(true);
 	*/
 
+	SetAnimName();
+
 	return true;
 }
 
@@ -446,7 +437,7 @@ void CPlayer::Update(float DeltaTime)
 
 	MoveWithinWorldResolution();
 	// Death
-	if (m_CharacterInfo.HP <= 0 )
+	if (m_SelectedCharacterInfo.HP <= 0 )
 	{
 		ChangeDeathAnimation();
 		return;
@@ -481,13 +472,13 @@ void CPlayer::Update(float DeltaTime)
 	if (State)
 		AbilityStateUIUpdate(State);
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
-	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
+	MPBar->SetPercent(m_SelectedCharacterInfo.MP / (float)m_SelectedCharacterInfo.MPMax);
 
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
-	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	HPBar->SetPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
 
 	CProgressBar* SteminaBar = (CProgressBar*)m_SteminaBarWidget->GetWidget();
-	SteminaBar->SetPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+	SteminaBar->SetPercent(m_SelectedCharacterInfo.Stemina / (float)m_SelectedCharacterInfo.SteminaMax);
 
 	// Gold 
 	CurGoldNumUpdate(State);
@@ -586,33 +577,33 @@ float CPlayer::SetDamage(int Damage)
 	Damage = (int)CCharacter::SetDamage((float)Damage);
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
-		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+		State->SetHPPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
-	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
+	HPBar->SetPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
 
 	return (float)Damage;
 }
 
 void CPlayer::AbilityUpdate(float DeltaTime)
 {
-	m_CharacterInfo.Stemina += 1.5f * DeltaTime;
-	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
-		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
+	m_SelectedCharacterInfo.Stemina += 1.5f * DeltaTime;
+	if (m_SelectedCharacterInfo.Stemina >= m_SelectedCharacterInfo.SteminaMax)
+		m_SelectedCharacterInfo.Stemina = m_SelectedCharacterInfo.SteminaMax;
 
 	/*
-	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax)
-		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+	if (m_SelectedCharacterInfo.HP > m_SelectedCharacterInfo.HPMax)
+		m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
 
-	if (m_CharacterInfo.MP <= m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP += DeltaTime;
+	if (m_SelectedCharacterInfo.MP <= m_SelectedCharacterInfo.MPMax)
+		m_SelectedCharacterInfo.MP += DeltaTime;
 	*/
 }
 
 void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
 {
-	State->SetMPPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
-	State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
-	State->SetSteminaPercent(m_CharacterInfo.Stemina / (float)m_CharacterInfo.SteminaMax);
+	State->SetMPPercent(m_SelectedCharacterInfo.MP / (float)m_SelectedCharacterInfo.MPMax);
+	State->SetHPPercent(m_SelectedCharacterInfo.HP / (float)m_SelectedCharacterInfo.HPMax);
+	State->SetSteminaPercent(m_SelectedCharacterInfo.Stemina / (float)m_SelectedCharacterInfo.SteminaMax);
 }
 
 
@@ -736,27 +727,45 @@ void CPlayer::GunCurBulletNumUpdate()
 void CPlayer::ChangeIdleAnimation()
 {
 	CCharacter::ChangeIdleAnimation();
-	if (m_Dir.x < 0.f)
-		ChangeAnimation(PLAYER_LEFT_IDLE);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(PLAYER_RIGHT_IDLE);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::ChangeDeathAnimation()
 {
 	if (m_Dir.x < 0)
-		ChangeAnimation(PLAYER_LEFT_DEATH);
-	else 
-		ChangeAnimation(PLAYER_RIGHT_DEATH);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
+		ChangeAnimation(Anim);
+	}
+	else
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::ChangeRunAnimation()
 {
 	CCharacter::ChangeRunAnimation();
-	if (m_Dir.x == -1.f)
-		ChangeAnimation(PLAYER_LEFT_RUN);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_RUN)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(PLAYER_RIGHT_RUN);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_RUN)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::ChangeDashAnimation()
@@ -768,7 +777,8 @@ void CPlayer::ChangeDashAnimation()
 		CEffectDash* EffectDash = m_Scene->CreateObject<CEffectDash>(
 			"PlayerDashEffect",
 			EFFECT_DASH_PROTO, DashPos);
-		ChangeAnimation(PLAYER_LEFT_DASH);
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_DASH)->second;
+		ChangeAnimation(Anim);
 	}
 	else
 	{
@@ -776,13 +786,14 @@ void CPlayer::ChangeDashAnimation()
 		CEffectDash* EffectDash = m_Scene->CreateObject<CEffectDash>(
 			"PlayerDashEffect",
 			EFFECT_DASH_PROTO, DashPos);
-		ChangeAnimation(PLAYER_RIGHT_DASH);
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_DASH)->second;
+		ChangeAnimation(Anim);
 	}
 }
 
 void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
 {
-	int Gold = m_CharacterInfo.Gold;
+	int Gold = m_SelectedCharacterInfo.Gold;
 	int FullH = Gold / 100, FullT = (Gold % 100) / 10, FullO = Gold % 10;
 	if (FullH != 0)
 		State->SetGoldHundredWidget(FullH);
@@ -851,10 +862,16 @@ void CPlayer::ChangeMoveAnimation()
 {
 	if (m_HitEnable) return;
 	CCharacter::ChangeMoveAnimation();
-	if (m_Dir.x < 0.f)
-		ChangeAnimation(PLAYER_LEFT_WALK);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_WALK)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(PLAYER_RIGHT_WALK);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_WALK)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::JumpKey(float DeltaTime)
@@ -888,15 +905,15 @@ void CPlayer::RunDown(float DeltaTime)
 
 void CPlayer::RunUpdate(float DeltaTime)
 {
-	if (m_CharacterInfo.Stemina > 0)
-		m_CharacterInfo.Stemina -= 3 * DeltaTime;
-	if (m_CharacterInfo.Stemina <= 0)
+	if (m_SelectedCharacterInfo.Stemina > 0)
+		m_SelectedCharacterInfo.Stemina -= 3 * DeltaTime;
+	if (m_SelectedCharacterInfo.Stemina <= 0)
 		RunEnd();
 }
 
 void CPlayer::RunStart()
 {
-	if (m_CharacterInfo.Stemina <= 0.2 * m_CharacterInfo.SteminaMax || m_RunEnable) return;
+	if (m_SelectedCharacterInfo.Stemina <= 0.2 * m_SelectedCharacterInfo.SteminaMax || m_RunEnable) return;
 	m_RunEnable = true;
 
 	Vector2 PlayerBtm;
@@ -925,20 +942,24 @@ void CPlayer::RunEnd()
 	m_RunEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
 
-	if (CheckCurrentAnimation(PLAYER_RIGHT_RUN))
+	std::string RightRunAnim = m_mapAnimName.find(PLAYER_RIGHT_RUN)->second;
+	std::string LeftRunAnim  = m_mapAnimName.find(PLAYER_LEFT_RUN)->second;
+	if (CheckCurrentAnimation(RightRunAnim))
 	{
-		ChangeAnimation(PLAYER_RIGHT_WALK);
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_WALK)->second;
+		ChangeAnimation(Anim);
 	}
-	if (CheckCurrentAnimation(PLAYER_LEFT_RUN))
+	if (CheckCurrentAnimation(LeftRunAnim))
 	{
-		ChangeAnimation(PLAYER_LEFT_WALK);
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_WALK)->second;
+		ChangeAnimation(Anim);
 	}
 }
 
 void CPlayer::DashStart()
 {
 	if (m_DashEnable) return;
-	if (m_DashEnable || m_CharacterInfo.Stemina < 0.5 * m_CharacterInfo.SteminaMax) return;
+	if (m_DashEnable || m_SelectedCharacterInfo.Stemina < 0.5 * m_SelectedCharacterInfo.SteminaMax) return;
 
 	// Dash Time 
 	m_DashTime   = DASH_TIME;
@@ -946,8 +967,8 @@ void CPlayer::DashStart()
 	// Speed 
 	SetMoveSpeed(DASH_SPEED);
 	// Stemina
-	if (m_CharacterInfo.Stemina >= 0.5f * m_CharacterInfo.SteminaMax)
-		m_CharacterInfo.Stemina -= 0.5f * m_CharacterInfo.SteminaMax;
+	if (m_SelectedCharacterInfo.Stemina >= 0.5f * m_SelectedCharacterInfo.SteminaMax)
+		m_SelectedCharacterInfo.Stemina -= 0.5f * m_SelectedCharacterInfo.SteminaMax;
 	// Sound 
 	m_Scene->GetSceneResource()->SoundPlay("Dash");
 	// Animation
@@ -960,13 +981,17 @@ void CPlayer::DashEnd()
 	m_DashEnable = false;
 	SetMoveSpeed(NORMAL_SPEED);
 
-	if (CheckCurrentAnimation(PLAYER_RIGHT_DASH))
+	std::string RightDashAnim = m_mapAnimName.find(PLAYER_RIGHT_DASH)->second;
+	std::string LeftDashAnim  = m_mapAnimName.find(PLAYER_LEFT_DASH)->second;
+	if (CheckCurrentAnimation(RightDashAnim))
 	{
-		ChangeAnimation(PLAYER_RIGHT_WALK);
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_WALK)->second;
+		ChangeAnimation(Anim);
 	}
-	if (CheckCurrentAnimation(PLAYER_LEFT_DASH))
+	if (CheckCurrentAnimation(LeftDashAnim))
 	{
-		ChangeAnimation(PLAYER_LEFT_WALK);
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_WALK)->second;
+		ChangeAnimation(Anim);
 	}
 }
 
@@ -1016,7 +1041,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
-	if (m_CharacterInfo.Stemina <= 0.95 * m_CharacterInfo.SteminaMax)
+	if (m_SelectedCharacterInfo.Stemina <= 0.95 * m_SelectedCharacterInfo.SteminaMax)
 		return;
 	ChangeAnimation("SkillSlowMotionAttack");
 }
@@ -1040,7 +1065,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 	m_SkillSlowMotionAttackEnable = true;
 
 	// MP Decrease
-	m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
+	m_SelectedCharacterInfo.MP -= m_SelectedCharacterInfo.MPMax * 0.5f;
 
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 9.0f) 
 	{
@@ -1062,7 +1087,7 @@ void CPlayer::SkillSlowMotionAttackEnable()
 		{
 			Bullet->SetDir(m_Dir);
 		}
-		Bullet->SetBulletDamage((float)m_CharacterInfo.Attack);
+		Bullet->SetBulletDamage((float)m_SelectedCharacterInfo.Attack);
 		Bullet->SetTimeScale(m_TimeScale);
 	}
 }
@@ -1133,7 +1158,7 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 	if (m_MonsterCollideTime <= 0.f)
 	{
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
-		MonsterDamage -= (float)m_CharacterInfo.Armor;
+		MonsterDamage -= (float)m_SelectedCharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber((int)MonsterDamage);
 		SetDamage((int)MonsterDamage);
@@ -1150,10 +1175,16 @@ void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 
 void CPlayer::ChangeHitAnimation()
 {
-	if (m_Dir.x < 0.f)
-		ChangeAnimation(PLAYER_LEFT_HIT);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_HIT)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(PLAYER_RIGHT_HIT);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_HIT)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
@@ -1163,7 +1194,7 @@ void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 void CPlayer::Teleport(float DeltaTime)
 {
 
-	if (!m_TeleportEnable || m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
+	if (!m_TeleportEnable || m_SelectedCharacterInfo.MP < 0.2 * m_SelectedCharacterInfo.MPMax)
 		return;
 
 	// Animation Settings
@@ -1174,8 +1205,8 @@ void CPlayer::Teleport(float DeltaTime)
 	// m_TeleportEnable
 	m_TeleportEnable = false;
 
-	if (m_CharacterInfo.MP >= 0.2f * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
+	if (m_SelectedCharacterInfo.MP >= 0.2f * m_SelectedCharacterInfo.MPMax)
+		m_SelectedCharacterInfo.MP -= 0.2f * m_SelectedCharacterInfo.MPMax;
 
 	// TeleportMouse Cursor Animation
 	DeleteTeleportObj();
@@ -1183,7 +1214,7 @@ void CPlayer::Teleport(float DeltaTime)
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
-	if (m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
+	if (m_SelectedCharacterInfo.MP < 0.2 * m_SelectedCharacterInfo.MPMax)
 		return;
 
 	m_TeleportEnable = true;
@@ -1213,10 +1244,16 @@ void CPlayer::TeleportUpdate(float DeltaTime)
 
 void CPlayer::AttackEnd()
 {
-	if (m_Dir.x > 0)
-		ChangeAnimation(PLAYER_RIGHT_IDLE);
+	if (m_Dir.x < 0)
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 	else
-		ChangeAnimation(PLAYER_LEFT_IDLE);
+	{
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_IDLE)->second;
+		ChangeAnimation(Anim);
+	}
 }
 
 void CPlayer::RemoveTargetPos(float DeltaTime)
@@ -1227,7 +1264,7 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 void CPlayer::FireTarget()
 {
 	if (m_CurrentGun)
-		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_CharacterInfo.Attack);
+		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_SelectedCharacterInfo.Attack);
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)
@@ -1273,10 +1310,13 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
 
+
+	std::string RAnim = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
+	std::string LAnim = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
 	if (m_Dir.x > 0)
-		ChangeAnimation(PLAYER_RIGHT_ATTACK);
+		ChangeAnimation(RAnim);
 	else
-		ChangeAnimation(PLAYER_LEFT_ATTACK);
+		ChangeAnimation(LAnim);
 }
 
 void CPlayer::CharacterDestroy()
@@ -1300,9 +1340,9 @@ void CPlayer::AcquireItem(float DeltaTime)
 		{
 			EPotion_Type PType = Potion->GetPotionType();
 			if (PType == EPotion_Type::HP)
-				m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+				m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
 			else
-				m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+				m_SelectedCharacterInfo.MP = m_SelectedCharacterInfo.MPMax;
 			Potion->Destroy();
 			break;
 			return;
@@ -1324,7 +1364,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 		CCoin* Coin = (*iter)->IsCollisionWithCoin();
 		if (Coin)
 		{
-			m_CharacterInfo.Gold += Coin->GetCoinGold();
+			m_SelectedCharacterInfo.Gold += Coin->GetCoinGold();
 			Coin->Destroy();
 			break;
 		}
@@ -1348,27 +1388,27 @@ void CPlayer::BuyItem(float)
 			switch (NpcType)
 			{
 			case ENpc_Type::Hp:
-				if (m_CharacterInfo.Gold >= Cost)
+				if (m_SelectedCharacterInfo.Gold >= Cost)
 				{
-					m_CharacterInfo.Gold -= Cost;
+					m_SelectedCharacterInfo.Gold -= Cost;
 					m_HpPotionInv += 1;
 					UpdateHpPotionInv(State);
 					CanBuy = true;
 				}
 				break;
 			case ENpc_Type::Mp:
-				if (m_CharacterInfo.Gold >= Cost)
+				if (m_SelectedCharacterInfo.Gold >= Cost)
 				{
-					m_CharacterInfo.Gold -= Cost;
+					m_SelectedCharacterInfo.Gold -= Cost;
 					m_MpPotionInv += 1;
 					UpdateMpPotionInv(State);
 					CanBuy = true;
 				}
 				break;
 			case ENpc_Type::Shield:
-				if (m_CharacterInfo.Gold >= Cost)
+				if (m_SelectedCharacterInfo.Gold >= Cost)
 				{
-					m_CharacterInfo.Gold -= Cost;
+					m_SelectedCharacterInfo.Gold -= Cost;
 					m_ShieldInv += 1;
 					UpdateShieldInv(State);
 					CanBuy = true;
@@ -1422,4 +1462,289 @@ void CPlayer::ChangeDirToMouse()
 
 void CPlayer::SetAnimName()
 {
+	switch (m_CharType)
+	{
+	case EChar_Type::Ass:
+		SetAssAnimName();
+		break;
+	case EChar_Type::Biu:
+		SetBiuAnimName();
+		break;
+	case EChar_Type::Jimmy:
+		SetJimmyAnimName();
+		break;
+	case EChar_Type::Pinky:
+		SetPinkyAnimName();
+		break;
+	case EChar_Type::Punny:
+		SetPunnyAnimName();
+		break;
+	case EChar_Type::Raff:
+		SetRaffAnimName();
+		break;
+	}
+}
+
+void CPlayer::SetAssAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, ASS_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, ASS_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, ASS_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, ASS_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, ASS_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, ASS_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, ASS_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, ASS_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, ASS_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, ASS_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, ASS_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, ASS_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, ASS_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, ASS_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, ASS_PLAYER_TELEPORT));
+}
+
+void CPlayer::SetJimmyAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, JIMMY_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, JIMMY_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, JIMMY_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, JIMMY_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, JIMMY_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, JIMMY_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, JIMMY_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, JIMMY_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, JIMMY_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, JIMMY_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, JIMMY_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, JIMMY_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, JIMMY_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, JIMMY_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, JIMMY_PLAYER_TELEPORT));
+}
+
+void CPlayer::SetBiuAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, BIU_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, BIU_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, BIU_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, BIU_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, BIU_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, BIU_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, BIU_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, BIU_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, BIU_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, BIU_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, BIU_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, BIU_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, BIU_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, BIU_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, BIU_PLAYER_TELEPORT));
+}
+
+void CPlayer::SetPinkyAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, PINKY_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, PINKY_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, PINKY_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, PINKY_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, PINKY_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, PINKY_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, PINKY_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, PINKY_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, PINKY_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, PINKY_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, PINKY_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, PINKY_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, PINKY_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, PINKY_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, PINKY_PLAYER_TELEPORT));
+}
+
+void CPlayer::SetPunnyAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, PUNNY_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, PUNNY_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, PUNNY_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, PUNNY_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, PUNNY_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, PUNNY_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, PUNNY_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, PUNNY_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, PUNNY_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, PUNNY_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, PUNNY_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, PUNNY_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, PUNNY_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, PUNNY_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, PUNNY_PLAYER_TELEPORT));
+}
+
+void CPlayer::SetRaffAnimName()
+{
+	m_mapAnimName.clear();
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_IDLE, RAFF_PLAYER_RIGHT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_WALK, RAFF_PLAYER_RIGHT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_ATTACK, RAFF_PLAYER_RIGHT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_RUN, RAFF_PLAYER_RIGHT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DEATH, RAFF_PLAYER_RIGHT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_DASH, RAFF_PLAYER_RIGHT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_RIGHT_HIT, RAFF_PLAYER_RIGHT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_IDLE, RAFF_PLAYER_LEFT_IDLE));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_WALK, RAFF_PLAYER_LEFT_WALK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_ATTACK, RAFF_PLAYER_LEFT_ATTACK));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_RUN, RAFF_PLAYER_LEFT_RUN));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DEATH, RAFF_PLAYER_LEFT_DEATH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_DASH, RAFF_PLAYER_LEFT_DASH));
+	m_mapAnimName.insert(std::make_pair(PLAYER_LEFT_HIT, RAFF_PLAYER_LEFT_HIT));
+
+	m_mapAnimName.insert(std::make_pair(PLAYER_TELEPORT, RAFF_PLAYER_TELEPORT));
+}
+
+void CPlayer::AddAssAnimName()
+{
+	AddAnimation(ASS_PLAYER_RIGHT_IDLE,true,2.f);
+	AddAnimation(ASS_PLAYER_RIGHT_WALK,true,1.f);
+	AddAnimation(ASS_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(ASS_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(ASS_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(ASS_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(ASS_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(ASS_PLAYER_LEFT_IDLE,true,2.f);
+	AddAnimation(ASS_PLAYER_LEFT_WALK,true,1.f);
+	AddAnimation(ASS_PLAYER_LEFT_ATTACK,false,0.1f);
+	AddAnimation(ASS_PLAYER_LEFT_RUN,true,0.6f);
+	AddAnimation(ASS_PLAYER_LEFT_DEATH,false,0.1f);
+	AddAnimation(ASS_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(ASS_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(ASS_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::AddJimmyAnimName()
+{
+	AddAnimation(JIMMY_PLAYER_RIGHT_IDLE, true, 2.f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(JIMMY_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(JIMMY_PLAYER_LEFT_IDLE, true, 2.f);
+	AddAnimation(JIMMY_PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(JIMMY_PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_LEFT_RUN, true, 0.6f);
+	AddAnimation(JIMMY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(JIMMY_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(JIMMY_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::AddBiuAnimName()
+{
+	AddAnimation(BIU_PLAYER_RIGHT_IDLE, true, 2.f);
+	AddAnimation(BIU_PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(BIU_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(BIU_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(BIU_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(BIU_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(BIU_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(BIU_PLAYER_LEFT_IDLE, true, 2.f);
+	AddAnimation(BIU_PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(BIU_PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(BIU_PLAYER_LEFT_RUN, true, 0.6f);
+	AddAnimation(BIU_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(BIU_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(BIU_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(BIU_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::AddPinkyAnimName()
+{
+	AddAnimation(PINKY_PLAYER_RIGHT_IDLE, true, 2.f);
+	AddAnimation(PINKY_PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(PINKY_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(PINKY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(PINKY_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(PINKY_PLAYER_LEFT_IDLE, true, 2.f);
+	AddAnimation(PINKY_PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(PINKY_PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_LEFT_RUN, true, 0.6f);
+	AddAnimation(PINKY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(PINKY_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(PINKY_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::AddPunnyAnimName()
+{
+	AddAnimation(PUNNY_PLAYER_RIGHT_IDLE, true, 2.f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(PUNNY_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(PUNNY_PLAYER_LEFT_IDLE, true, 2.f);
+	AddAnimation(PUNNY_PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(PUNNY_PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_LEFT_RUN, true, 0.6f);
+	AddAnimation(PUNNY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(PUNNY_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(PUNNY_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayer::AddRaffAnimName()
+{
+	AddAnimation(RAFF_PLAYER_RIGHT_IDLE, true, 2.f);
+	AddAnimation(RAFF_PLAYER_RIGHT_WALK, true, 1.f);
+	AddAnimation(RAFF_PLAYER_RIGHT_ATTACK, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_RIGHT_RUN, true, 0.6f);
+	AddAnimation(RAFF_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(RAFF_PLAYER_RIGHT_HIT, true, 0.6f);
+
+	AddAnimation(RAFF_PLAYER_LEFT_IDLE, true, 2.f);
+	AddAnimation(RAFF_PLAYER_LEFT_WALK, true, 1.f);
+	AddAnimation(RAFF_PLAYER_LEFT_ATTACK, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_LEFT_RUN, true, 0.6f);
+	AddAnimation(RAFF_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
+	AddAnimation(RAFF_PLAYER_LEFT_HIT, true, 0.6f);
+
+	AddAnimation(RAFF_PLAYER_TELEPORT, false, 0.3f);
 }

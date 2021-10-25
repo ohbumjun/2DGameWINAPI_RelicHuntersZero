@@ -3097,8 +3097,6 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 	if (!Player)
 	{
 		Player = CreateObject<CPlayer>("Player", Pos, Size);
-		Player->SetCharacterInfo(200, 100, PLAYER_INIT_HP, PLAYER_INIT_MP, PLAYER_INIT_STEMINA, 1, 1, 1,
-								 NORMAL_SPEED, NORMAL_ATTACK_DISTANCE, NORMAL_ATTACK_DISTANCE);
 		return Player;
 	}
 
@@ -3106,7 +3104,7 @@ CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const
 	Player->SetPos(Pos);
 	Player->SetSize(Size);
 	Player->SetName(Name);
-
+	Player->Start();
 	Player->SetNotifyFunctions();
 	m_ObjList.push_back(Player);
 
