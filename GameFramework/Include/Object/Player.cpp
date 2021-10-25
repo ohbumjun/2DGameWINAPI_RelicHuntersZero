@@ -490,7 +490,9 @@ void CPlayer::Update(float DeltaTime)
 		GunStateUIUpdate(GunState);
 
 	// Dir Set toward Mouse Pos
-	if (CheckCurrentAnimation(PLAYER_RIGHT_IDLE) || CheckCurrentAnimation(PLAYER_LEFT_IDLE))
+	std::string RIdleAnim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+	std::string LIdleAnim = m_mapAnimName.find(PLAYER_LEFT_IDLE)->second;
+	if (CheckCurrentAnimation(RIdleAnim) || CheckCurrentAnimation(LIdleAnim))
 		ChangeDirToMouse();
 
 	// Gun Bullet Update
@@ -506,20 +508,29 @@ void CPlayer::Update(float DeltaTime)
 
 void CPlayer::PostUpdate(float DeltaTime)
 {
+	std::string RIdleAnim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+	std::string RWalkAnim = m_mapAnimName.find(PLAYER_RIGHT_WALK)->second;
+	std::string RRunAnim  = m_mapAnimName.find(PLAYER_RIGHT_RUN)->second;
+	std::string RDashAnim = m_mapAnimName.find(PLAYER_RIGHT_DASH)->second;
 	CCharacter::PostUpdate(DeltaTime);
-	if ((CheckCurrentAnimation(PLAYER_RIGHT_WALK) ||
-		CheckCurrentAnimation(PLAYER_RIGHT_RUN) || 
-		CheckCurrentAnimation(PLAYER_RIGHT_DASH)) &&
+	if ((CheckCurrentAnimation(RWalkAnim) ||
+		CheckCurrentAnimation(RRunAnim) ||
+		CheckCurrentAnimation(RDashAnim)) &&
 		m_Velocity.Length() == 0.f)
 	{
-		ChangeAnimation(PLAYER_RIGHT_IDLE);
+		ChangeAnimation(RIdleAnim);
 	}
-	if ((CheckCurrentAnimation(PLAYER_LEFT_WALK) ||
-		CheckCurrentAnimation(PLAYER_LEFT_RUN) ||
-		CheckCurrentAnimation(PLAYER_LEFT_DASH)) &&
+
+	std::string LIdleAnim = m_mapAnimName.find(PLAYER_LEFT_IDLE)->second;
+	std::string LWalkAnim = m_mapAnimName.find(PLAYER_LEFT_WALK)->second;
+	std::string LRunAnim  = m_mapAnimName.find(PLAYER_LEFT_RUN)->second;
+	std::string LDashAnim = m_mapAnimName.find(PLAYER_LEFT_DASH)->second;
+	if ((CheckCurrentAnimation(LWalkAnim) ||
+		CheckCurrentAnimation(LRunAnim) ||
+		CheckCurrentAnimation(LDashAnim)) &&
 		m_Velocity.Length() == 0.f)
 	{
-		ChangeAnimation(PLAYER_LEFT_IDLE);
+		ChangeAnimation(LIdleAnim);
 	}
 }
 
@@ -1199,7 +1210,8 @@ void CPlayer::Teleport(float DeltaTime)
 		return;
 
 	// Animation Settings
-	ChangeAnimation(PLAYER_TELEPORT);
+	std::string Anim = m_mapAnimName.find(PLAYER_TELEPORT)->second;
+	ChangeAnimation(Anim);
 
 	m_Pos = m_TeleportPos;
 
@@ -1451,12 +1463,14 @@ void CPlayer::ChangeDirToMouse()
 	// Animation Change
 	if (MousePlayerPosDiff.x >= 0)
 	{
-		ChangeAnimation(PLAYER_LEFT_IDLE);
+		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_IDLE)->second;
+		ChangeAnimation(Anim);
 		m_Dir.x = -1;
 	}
 	else
 	{
-		ChangeAnimation(PLAYER_RIGHT_IDLE);
+		std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+		ChangeAnimation(Anim);
 		m_Dir.x = 1;
 	}
 }
