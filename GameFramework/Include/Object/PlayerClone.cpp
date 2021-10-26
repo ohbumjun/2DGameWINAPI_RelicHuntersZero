@@ -41,32 +41,14 @@ bool CPlayerClone::Init()
 	AddPunnyAnimName();
 	AddRaffAnimName();
 
-	// Name
-	SetCharName();
-
-	// Collider ---
-	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
-	Head->SetRadius(20.f);
-	Head->SetOffset(0.f, -60.f);
-	Head->SetCollisionProfile("Player");
-
+	// Collider
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(80.f, 45.f);
 	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
-
-	// Widget ---
-	// HPBar
-	m_HPBarWidget = CreateWidgetComponent(HPWIDGET_COMPONENET);
-	CProgressBar* HPBar = m_HPBarWidget->CreateWidget<CProgressBar>("HPBar");
-	HPBar->SetTexture("WorldHPBar", TEXT("CharacterHPBar.bmp"));
-	m_HPBarWidget->SetPos(-25.f, -105.f);
-
-	// MPBar
-	m_MPBarWidget = CreateWidgetComponent(MPWIDGET_COMPONENET);
-	CProgressBar* MPBar = m_MPBarWidget->CreateWidget<CProgressBar>("MPBar");
-	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
-	m_MPBarWidget->SetPos(-25.f, -95.f);
+	
+	// Pivot
+	SetPivot(0.5f, 1.f);
 
     return true;
 }
@@ -82,12 +64,6 @@ void CPlayerClone::Update(float DeltaTime)
 		ChangeDeathAnimation();
 		return;
 	}
-	// Widgets
-	CProgressBar* MPBar = (CProgressBar*)m_MPBarWidget->GetWidget();
-	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
-
-	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
-	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
 	// Move
 	float DirLength = m_Dir.Length();
@@ -102,34 +78,25 @@ void CPlayerClone::Update(float DeltaTime)
 		float DistToPlayer = Distance(m_Pos, MonsterPos);
 		if (DistToPlayer   <= m_DashDistance)
 		{
-			if (DistToPlayer < m_AttackDistance)
-				m_AI = EMonsterAI::Attack;
-			else
-				m_AI = EMonsterAI::Trace;
+			if (DistToPlayer < m_AttackDistance) m_AI = EMonsterAI::Attack;
+			else m_AI = EMonsterAI::Trace;
 		}
 		else
 		{
 			SetPlayerTargetDir();
-			if (m_Dir.x == 0.f && m_Dir.y == 0.f)
-				m_AI = EMonsterAI::Idle;
-			else
-				m_AI = EMonsterAI::Walk;
+			if (m_Dir.x == 0.f && m_Dir.y == 0.f) m_AI = EMonsterAI::Idle;
+			else m_AI = EMonsterAI::Walk;
 		}
 	}
 	else
 	{
 		SetPlayerTargetDir();
-		if (m_Dir.x == 0.f && m_Dir.y == 0.f)
-			m_AI = EMonsterAI::Idle;
-		else
-			m_AI = EMonsterAI::Walk;
+		if (m_Dir.x == 0.f && m_Dir.y == 0.f) m_AI = EMonsterAI::Idle;
+		else m_AI = EMonsterAI::Walk;
 	}
 
 	if (m_CharacterInfo.HP <= 0)
-	{
 		m_AI = EMonsterAI::Death;
-	}
-
 
 	switch (m_AI)
 	{
@@ -405,6 +372,8 @@ void CPlayerClone::SetAnimName()
 	// Set Init Animation
 	std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
 	ChangeAnimation(Anim);
+	// Name
+	SetCharName();
 }
 
 void CPlayerClone::SetAssAnimName()
@@ -673,8 +642,7 @@ void CPlayerClone::AddRaffAnimName()
 
 void CPlayerClone::SetNotifyFunctions()
 {
-	// Notify Functions
-// Attack
+	// Attack
 	std::string AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
 	AddAnimationNotify<CPlayerClone>(AnimName, 2, this, &CPlayerClone::Fire);
 	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;

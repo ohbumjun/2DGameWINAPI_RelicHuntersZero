@@ -1783,7 +1783,7 @@ void CPlayer::ActivateSkills(float DeltaTime)
 		SkillMakeGrenades(DeltaTime);
 		break;
 	case EChar_Type::Biu:
-		SkillBiu(DeltaTime);
+		SkillClone(DeltaTime);
 		break;
 	case EChar_Type::Jimmy:
 		SkillSlowMotionAttack(DeltaTime);
@@ -1875,7 +1875,7 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 	}
 }
 
-void CPlayer::SkillBiu(float DeltaTime)
+void CPlayer::SkillClone(float DeltaTime)
 {
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 2.f)
 	{

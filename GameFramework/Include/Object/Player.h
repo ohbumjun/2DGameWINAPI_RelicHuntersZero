@@ -216,7 +216,7 @@ private :
 	// Ass : Make Clones 
 	void SkillMakeGrenades(float DeltaTime);
 	// Biu : Drop Rocks
-	void SkillBiu(float DeltaTime);
+	void SkillClone(float DeltaTime);
 	// Pinky : Create Knight
 	// Jimmy :  Slow Motion Attack
 	void SkillSlowMotionAttack(float DeltaTime);

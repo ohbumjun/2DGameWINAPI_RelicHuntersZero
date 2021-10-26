@@ -127,7 +127,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 void CGun::SkillSlowMotionAttack()
 {
-	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 15.0f)
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 30.0f)
 	{
 		CSharedPtr<CBullet> Bullet = m_Scene->CreateObject<CBullet>("Bullet",
 			PLAYER_BULLET_PROTO,

@@ -768,7 +768,6 @@ void CGameObject::PrevRender()
 		Size = FrameData.Size;
 	}
 	Vector2	LT = m_RenderPos - m_Pivot * Size + m_Offset;
-
 	m_CameraCull = false;
 
 	Vector2 CameraResolution = Camera->GetResolution();
@@ -794,7 +793,6 @@ void CGameObject::Render(HDC hDC)
 		AnimationInfo* AnimInfo = m_Animation->m_CurrentAnimation;
 		const AnimationFrameData& FrameData = AnimInfo->Sequence->GetFrameData(AnimInfo->Frame);
 		Vector2	LT = m_RenderPos - m_Pivot * FrameData.Size + m_Offset;
-
 		if (AnimInfo->Sequence->GetTextureType() == ETexture_Type::Atlas)
 		{
 			AnimInfo->Sequence->GetTexture()->Render(hDC, LT,
