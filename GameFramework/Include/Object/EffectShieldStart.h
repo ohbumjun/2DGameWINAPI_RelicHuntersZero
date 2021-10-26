@@ -9,7 +9,8 @@ protected:
 	CEffectShieldStart();
 	CEffectShieldStart(const CEffectShieldStart& obj);
 	virtual ~CEffectShieldStart();
-
+private :
+	bool m_InfiniteEnable;
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -20,7 +21,7 @@ public:
 	virtual CEffectShieldStart* Clone();
 
 public:
-	void AnimationFinish();
+	void AddInfiniteAnimation();
 private :
 	CGameObject* m_Owner;
 public :

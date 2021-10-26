@@ -7,11 +7,13 @@
 CEffectShieldStart::CEffectShieldStart()
 {
 	m_ObjType = EObject_Type::Effect;
+	m_InfiniteEnable = false;
 }
 
 CEffectShieldStart::CEffectShieldStart(const CEffectShieldStart& obj) :
 	CGameObject(obj)
 {
+	m_InfiniteEnable = false;
 }
 
 CEffectShieldStart::~CEffectShieldStart()
@@ -21,7 +23,6 @@ CEffectShieldStart::~CEffectShieldStart()
 void CEffectShieldStart::Start()
 {
 	CGameObject::Start();
-	
 }
 
 bool CEffectShieldStart::Init()
@@ -31,7 +32,7 @@ bool CEffectShieldStart::Init()
 
 	SetPivot(0.5f, 0.5f);
 	CreateAnimation();
-	AddAnimation(SHIELD_START,false,1.f);
+	AddAnimation(SHIELD_START,true,1.f);
 
 	return true;
 }
@@ -64,9 +65,4 @@ void CEffectShieldStart::Render(HDC hDC)
 CEffectShieldStart* CEffectShieldStart::Clone()
 {
 	return new CEffectShieldStart(*this);
-}
-
-void CEffectShieldStart::AnimationFinish()
-{
-	Destroy();
 }

@@ -217,14 +217,12 @@ private :
 	void SkillMakeGrenades(float DeltaTime);
 	// Biu : Drop Rocks
 	void SkillClone(float DeltaTime);
-	// Pinky : Create Knight
+	// Pinky : Slow Motion 
+	void SkillSlowMotion(float DeltaTime);
 	// Jimmy :  Slow Motion Attack
-	void SkillSlowMotionAttack(float DeltaTime);
-	float m_SkillSlowMotionAttackTime;
+	void SkillMultipleBulletAttack(float DeltaTime);
 	// Punny : Destory All
 	void SkillDestroyAllAttack(float DeltaTime);
-	bool m_SkillDestoryAllAttackEnable;
-	float m_SkillDestoryAllAttackTime;
 	// Raff : Attack Speed Up
 	void SkillIncAbility();
 // Static

@@ -200,7 +200,6 @@ void CGameObject::SetAnimationPlayScale(const std::string& Name,
 {
 	if (!m_Animation)
 		return;
-
 	m_Animation->SetPlayScale(Name, PlayScale);
 }
 

@@ -199,6 +199,7 @@ void CPlayer::UseShieldInv(float DeltaTime)
 			"ShieldStart",
 			SHIELD_START_PROTO, Vector2(m_Pos.x,m_Pos.y-m_Size.y*0.5f));
 		ShieldStart->SetOwner(this);
+		ShieldStart->SetLifeTime(1.f);
 	}
 }
 void CPlayer::ShieldUpdate(float DeltaTime)
@@ -1046,7 +1047,7 @@ void CPlayer::Resume(float DeltaTime)
 	CGameManager::GetInst()->SetTimeScale(1.f);
 }
 
-void CPlayer::SkillSlowMotionAttack(float DeltaTime)
+void CPlayer::SkillMultipleBulletAttack(float DeltaTime)
 {
 	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(10.f);
@@ -1074,6 +1075,12 @@ void CPlayer::SkillIncAbility()
 	m_CharacterInfo.Armor *= 2;
 	// Speed Inc
 	m_MoveSpeed *= 1.5f;
+
+	CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
+		"ShieldStart",
+		SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
+	ShieldStart->SetOwner(this);
+	ShieldStart->SetLifeTime(m_SkillTimeMax);
 }
 
 CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
@@ -1786,9 +1793,10 @@ void CPlayer::ActivateSkills(float DeltaTime)
 		SkillClone(DeltaTime);
 		break;
 	case EChar_Type::Jimmy:
-		SkillSlowMotionAttack(DeltaTime);
+		SkillMultipleBulletAttack(DeltaTime);
 		break;
 	case EChar_Type::Pinky:
+		SkillSlowMotion(DeltaTime);
 		break;
 	case EChar_Type::Punny:
 		SkillDestroyAllAttack(DeltaTime);
@@ -1816,7 +1824,9 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 	}
 		return;
 	case EChar_Type::Pinky:
-		break;
+		SetTimeScale(1.f);
+		CGameManager::GetInst()->SetTimeScale(1.f);
+		return;
 	case EChar_Type::Punny:
 	{
 		SetTimeScale(1.f);
@@ -1896,4 +1906,12 @@ void CPlayer::SkillClone(float DeltaTime)
 			PlayerClone->Equip(GunClone);
 		}
 	}
+}
+
+void CPlayer::SkillSlowMotion(float DeltaTime)
+{
+	CGameManager::GetInst()->SetTimeScale(0.01f);
+	SetTimeScale(100.f);
+	m_SkillTime = SLOW_MOTION_ATTACK_TIME * 5;
+	m_SkillEnable = true;
 }
