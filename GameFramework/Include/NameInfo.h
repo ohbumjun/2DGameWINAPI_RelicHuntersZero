@@ -397,8 +397,10 @@
 #define GENERATOR_OFF   "GeneratorOff"
 
 // Grenade 
-#define GRENADE_ON   "GrenadeOnAnimation"
-#define GRENADE_OFF   "GrenadeOffAnimation"
+#define GRENADE_ON           "GrenadeOnAnimation"
+#define GRENADE_OFF          "GrenadeOffAnimation"
+#define PLAYER_GRENADE_ON    "PlayerGrenadeOnAnimation"
+#define PLAYER_GRENADE_OFF   "PlayerGrenadeOffAnimation"
 
 // Stage 
 #define STAGE1_START    "Stage1Start"

@@ -7,7 +7,8 @@ public :
     CEffectGrenade();
     CEffectGrenade(const CEffectGrenade& Grenade);
     virtual ~CEffectGrenade();
-
+private :
+	bool m_IsPlayerGrenade;
 private:
 	// 랜덤 방향과 속도
 	float m_SpeedX;
@@ -26,9 +27,18 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CEffectGrenade* Clone();
 public :
+	void SetPlayerGrenage(bool State)
+	{
+		m_IsPlayerGrenade = State;
+	}
+public :
 	void ChangeExplosionAnimation();
+	void ChangePlayerExplosionAnimation();
 	void Explode();
 	void DrawExplodeTrace();
+	void ExplodeDamagePlayer();
+	void ExplodeDamageMonster();
 	void ExplodeHitPlayer(class CPlayer* const Player);
+	void ExplodeHitMonster();
 };
 

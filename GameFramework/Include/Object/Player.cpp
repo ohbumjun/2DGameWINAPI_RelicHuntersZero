@@ -6,6 +6,7 @@
 #include "EffectHit.h"
 #include "EffectText.h"
 #include "EffectShield.h"
+#include "EffectGrenade.h"
 #include "EffectShieldStart.h"
 #include "EffectDash.h"
 #include "Coin.h"
@@ -34,9 +35,7 @@ EChar_Type CPlayer::m_CharType = EChar_Type::Ass;
 CharacterInfo CPlayer::m_SelectedCharacterInfo = {};
 
 // Static
-CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
-					 m_SkillSlowMotionAttackTime(0.f),
-					 m_RunEnable(false),
+CPlayer::CPlayer() : m_RunEnable(false),
 					 m_DashEnable(false),
 					 m_TargetEnable(false),
 					 m_DashTime(0.f),
@@ -46,8 +45,6 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 					 m_TeleportPos(Vector2(0.f, 0.f)),
 					 m_DeathAnimationTime(0.f),
 					m_MonsterCollideTime(0.f),
-					 m_SkillDestoryAllAttackEnable(false),
-					 m_SkillDestoryAllAttackTime(0.f),
 					 m_LaserBulletObj(nullptr),
 					 m_PlayerDeath(false),
 					m_HPBarWidget(nullptr),
@@ -70,8 +67,6 @@ CPlayer::CPlayer() : m_SkillSlowMotionAttackEnable(false),
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 {
-	m_SkillSlowMotionAttackTime = obj.m_SkillSlowMotionAttackTime;
-	m_SkillSlowMotionAttackEnable = false;
 	m_TeleportEnable = false;
 	m_PlayerDeath = false;
 	m_TargetEnable = obj.m_TargetEnable;
@@ -82,8 +77,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_TeleportObj = obj.m_TeleportObj;
 	m_TeleportPos = obj.m_TeleportPos;
 	m_DeathAnimationTime = 0.f;
-	m_SkillDestoryAllAttackEnable = false;
-	m_SkillDestoryAllAttackTime   = 0.f;
 	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
 
 	m_HpPotionInv = obj.m_HpPotionInv;
@@ -504,10 +497,6 @@ void CPlayer::Update(float DeltaTime)
 
 	// Skill Update
 	SkillTimeUpdate(DeltaTime);
-
-	// Jimmy : Skill Slow Motion
-	if (m_SkillSlowMotionAttackEnable)
-		SkillSlowMotionUpdate(DeltaTime);
 
 }
 
@@ -1060,21 +1049,9 @@ void CPlayer::SkillSlowMotionAttack(float DeltaTime)
 {
 	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(10.f);
-	m_SkillSlowMotionAttackEnable = true;
+	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
+	m_SkillEnable = true;
 	m_CurrentGun->SkillSlowMotionAttack();
-}
-
-void CPlayer::SkillSlowMotionUpdate(float DeltaTime)
-{
-	m_SkillSlowMotionAttackTime += DeltaTime * m_TimeScale;
-
-	if (m_SkillSlowMotionAttackTime >= SLOW_MOTION_ATTACK_TIME)
-	{
-		SetTimeScale(1.f);
-		CGameManager::GetInst()->SetTimeScale(1.f);
-		m_SkillSlowMotionAttackEnable = false;
-		m_SkillSlowMotionAttackTime = 0.f;
-	}
 }
 
 void CPlayer::SkillDestroyAllAttack(float DeltaTime)
@@ -1091,9 +1068,9 @@ void CPlayer::SkillIncAbility()
 	m_SkillTime = m_SkillTimeMax;
 	m_SkillEnable = true;
 	// Attack Inc
-	m_CharacterInfo.Attack *= 2.f;
+	m_CharacterInfo.Attack *= 2;
 	// Armor Inc
-	m_CharacterInfo.Armor *= 2.f;
+	m_CharacterInfo.Armor *= 2;
 	// Speed Inc
 	m_MoveSpeed *= 1.5f;
 }
@@ -1802,6 +1779,7 @@ void CPlayer::ActivateSkills(float DeltaTime)
 	switch (m_CharType)
 	{
 	case EChar_Type::Ass:
+		SkillMakeGrenades(DeltaTime);
 		break;
 	case EChar_Type::Biu:
 		break;
@@ -1830,6 +1808,10 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 	case EChar_Type::Biu:
 		break;
 	case EChar_Type::Jimmy:
+	{
+		SetTimeScale(1.f);
+		CGameManager::GetInst()->SetTimeScale(1.f);
+	}
 		return;
 	case EChar_Type::Pinky:
 		break;
@@ -1841,14 +1823,35 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 		return;
 	case EChar_Type::Raff:
 	{
-		m_CharacterInfo.Attack /= 2.f;
+		m_CharacterInfo.Attack /= 2;
 		// Armor Inc
-		m_CharacterInfo.Armor /= 2.f;
+		m_CharacterInfo.Armor /= 2;
 		// Speed Inc
 		m_MoveSpeed /= 1.5f;
 	}
 		break;
 	default:
 		return;
+	}
+}
+
+void CPlayer::SkillMakeGrenades(float DeltaTime)
+{
+	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
+	m_SkillEnable = true;
+
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
+	{
+		CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
+			"GrenadeEffect",
+			GRENADE_PROTO,
+			Vector2(
+				(m_Pos.x - m_Offset.x) + m_Size.Length() * 2.5f * cos(f),
+				(m_Pos.y - m_Size.y * 3 - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
+			);
+		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
+		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
+		EffectGrenade->SetTextureColorKey(255, 255, 255);
+		EffectGrenade->SetPlayerGrenage(true);
 	}
 }

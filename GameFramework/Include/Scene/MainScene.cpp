@@ -130,6 +130,8 @@ void CMainScene::LoadAnimationSequence()
 	SetPlayerAnimation();
 	SetShieldAnimation();
 	SetSceneStartAnimation();
+	SetGrenadeAnimation();
+
 
 	SetLevel1MonsterAnimation();
 	SetKamikaze2MonsterAnimation();

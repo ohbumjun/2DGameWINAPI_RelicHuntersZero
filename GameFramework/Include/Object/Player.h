@@ -214,13 +214,11 @@ private :
 	void ActivateSkills(float DeltaTime);
 	void DeActivateSkills(float DeltaTime);
 	// Ass : Make Clones 
-	void SkillMakeClones(float DeltaTime);
+	void SkillMakeGrenades(float DeltaTime);
 	// Biu : Drop Rocks
 	// Pinky : Create Knight
 	// Jimmy :  Slow Motion Attack
 	void SkillSlowMotionAttack(float DeltaTime);
-	void SkillSlowMotionUpdate(float DeltaTime);
-	bool m_SkillSlowMotionAttackEnable;
 	float m_SkillSlowMotionAttackTime;
 	// Punny : Destory All
 	void SkillDestroyAllAttack(float DeltaTime);

@@ -119,6 +119,8 @@ void CMain2Scene::LoadAnimationSequence()
 	SetPlayerAnimation();
 	SetShieldAnimation();
 	SetSceneStartAnimation();
+	SetGrenadeAnimation();
+
 
 	SetLevel2MonsterAnimation();
 }

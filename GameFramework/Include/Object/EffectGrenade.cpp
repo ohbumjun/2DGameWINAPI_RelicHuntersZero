@@ -15,21 +15,23 @@ CEffectGrenade::CEffectGrenade() :
 	m_Damage(100),
 	m_Explode(false),
 	m_ExplodeTime(0.f),
-	m_ExplodeMaxTime(1.5f),
-	m_ExplodeDist(100.f)
+	m_ExplodeMaxTime(2.5f),
+	m_ExplodeDist(100.f),
+	m_IsPlayerGrenade(false)
 {
 }
 
 CEffectGrenade::CEffectGrenade(const CEffectGrenade& obj) :
 	CGameObject(obj)
 {
-	m_SpeedX         = obj.m_SpeedX;
-	m_FallTime       = 0.f;
-	m_Damage         = 100;
-	m_Explode        = false;
-	m_ExplodeTime    = 0.f;
-	m_ExplodeMaxTime = 3.f;
-	m_ExplodeDist    = 100.f;
+	m_SpeedX          = obj.m_SpeedX;
+	m_FallTime        = 0.f;
+	m_Damage          = 100;
+	m_Explode         = false;
+	m_ExplodeTime     = 0.f;
+	m_ExplodeMaxTime  = 3.f;
+	m_ExplodeDist     = 100.f;
+	m_IsPlayerGrenade = false;
 }
 
 CEffectGrenade::~CEffectGrenade()
@@ -51,7 +53,6 @@ void CEffectGrenade::Start()
 bool CEffectGrenade::Init()
 {
 	if (!CGameObject::Init()) return false;
-
 	SetPhysicsSimulate(true);
 	return true;
 }
@@ -62,7 +63,12 @@ void CEffectGrenade::Update(float DeltaTime)
 	
 	m_FallTime += DeltaTime;
 	if (m_FallTime >= 0.7f)
-		ChangeExplosionAnimation();
+	{
+		if(m_IsPlayerGrenade)
+			ChangePlayerExplosionAnimation();
+		else 
+			ChangeExplosionAnimation();
+	}
 
 	if (m_Explode)
 	{
@@ -101,7 +107,7 @@ void CEffectGrenade::ChangeExplosionAnimation()
 {
 	m_IsGround = true;
 
-	SetOffset(Vector2(-m_Size.x * 0.45f, 0));
+	// SetOffset(Vector2(-m_Size.x * 0.45f, 0));
 	
 	// Activate Animation
 	AddAnimation(GRENADE_ON, false,  m_ExplodeMaxTime);
@@ -109,20 +115,24 @@ void CEffectGrenade::ChangeExplosionAnimation()
 	m_Explode = true;
 }
 
+void CEffectGrenade::ChangePlayerExplosionAnimation()
+{
+	m_IsGround = true;
+
+	// SetOffset(Vector2(-m_Size.x * 0.45f, 0));
+
+	// Activate Animation
+	AddAnimation(PLAYER_GRENADE_ON, false, m_ExplodeMaxTime);
+
+	m_Explode = true;
+}
+
 void CEffectGrenade::Explode()
 {
-	// Damage 200.f to Player If Dist from Grenade to Player is below 100.f 
-	Vector2 GrenadePos = m_Pos ;
-	CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
-
-	Vector2 PlayerPos = Player->GetPos();
-	Vector2 PlayerDir = Player->GetDir();
-
-	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
-	if (DistToPlayer <= 150.f)
-	{
-		ExplodeHitPlayer(Player);
-	}
+	if (m_IsPlayerGrenade)
+		ExplodeDamagePlayer();
+	else
+		ExplodeDamageMonster();
 
 	DrawExplodeTrace();
 }
@@ -133,6 +143,33 @@ void CEffectGrenade::DrawExplodeTrace()
 		"ExplodeAfter", 
 		EXPLOSION_AFTER_PROTO,
 		Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.7f));
+}
+
+void CEffectGrenade::ExplodeDamagePlayer()
+{
+	// Damage 200.f to Player If Dist from Grenade to Player is below 100.f 
+	Vector2 GrenadePos = m_Pos;
+	CPlayer* Player    = (CPlayer*)m_Scene->GetPlayer();
+
+	Vector2 PlayerPos = Player->GetPos();
+
+	float DistToPlayer = Distance(GrenadePos, PlayerPos);
+	if (DistToPlayer <= 150.f)
+		ExplodeHitPlayer(Player);
+}
+
+void CEffectGrenade::ExplodeDamageMonster()
+{
+	// Damage 200.f to Player If Dist from Grenade to Player is below 100.f 
+	Vector2 GrenadePos = m_Pos;
+	CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+
+	Vector2 PlayerPos = Player->GetPos();
+	Vector2 PlayerDir = Player->GetDir();
+
+	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
+	if (DistToPlayer <= 150.f)
+		ExplodeHitPlayer(Player);
 }
 
 void CEffectGrenade::ExplodeHitPlayer(class CPlayer* const Player)

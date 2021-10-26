@@ -98,6 +98,7 @@ void CHomeScene::LoadAnimationSequence()
 	SetSkillAnimation();
 	SetShieldAnimation();
 	SetNpcAnimation();
+	SetGrenadeAnimation();
 
 	// Map
 	SetLevel1MonsterAnimation();

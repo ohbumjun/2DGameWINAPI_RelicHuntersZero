@@ -3839,7 +3839,6 @@ void CScene::SetLevel3MonsterAnimation()
 	SetKamikazeCageMonsterAnimation();
 	SetBossAnimation();
 	SetGeneratorAnimation();
-	SetGrenadeAnimation();
 }
 
 void CScene::SetKamikazeCageMonsterAnimation()
@@ -4167,6 +4166,18 @@ void CScene::SetGrenadeAnimation()
 	{
 		GetSceneResource()->AddAnimationFrameData(GRENADE_ON,
 			i * 194.f, 0.f, 194.f, 172.f);
+	}
+
+	// Player GreNade on
+	GetSceneResource()->CreateAnimationSequence(PLAYER_GRENADE_ON,
+		PLAYER_GRENADE_ON, TEXT("images/Character/ass/ass_explosion.bmp"));
+	GetSceneResource()->SetTextureColorKey(PLAYER_GRENADE_ON,
+		255, 255, 255);
+
+	for (int i = 0; i < 11; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData(PLAYER_GRENADE_ON,
+			i * 149.5f, 0.f, 149.5f, 167.f);
 	}
 
 	// GreNade off
