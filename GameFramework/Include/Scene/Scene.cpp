@@ -1230,7 +1230,7 @@ void CScene::SetPlayerPunnyAnimation()
 
 	for (int i = 0; i < 26; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_TELEPORT,
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_TELEPORT,
 			i * 134.f, 0.f, 134.f, 114.f);
 	}
 }
