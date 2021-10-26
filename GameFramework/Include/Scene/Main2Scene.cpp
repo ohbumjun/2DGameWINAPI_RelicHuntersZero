@@ -120,7 +120,7 @@ void CMain2Scene::LoadAnimationSequence()
 	SetShieldAnimation();
 	SetSceneStartAnimation();
 	SetGrenadeAnimation();
-
+	SetBossAnimation();
 
 	SetLevel2MonsterAnimation();
 }

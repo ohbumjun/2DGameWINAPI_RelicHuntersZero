@@ -60,6 +60,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 
 CCharacter::~CCharacter()
 {
+	m_mapAnimName.clear();
 }
 
 

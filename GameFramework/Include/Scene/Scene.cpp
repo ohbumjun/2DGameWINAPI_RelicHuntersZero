@@ -128,7 +128,7 @@ CGameObject* CScene::FindObject(CGameObject* Obj)
 	return nullptr;
 }
 
-CGameObject *CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
+CGameObject *CScene::FindClosestMonster(Vector2 PlayerPos)
 {
 	auto iter = m_ObjList.begin();
 	auto iterEnd = m_ObjList.end();

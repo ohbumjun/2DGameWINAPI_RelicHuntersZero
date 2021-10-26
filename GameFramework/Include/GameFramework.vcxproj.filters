@@ -450,6 +450,9 @@
     <ClCompile Include="Object\CharacterManager.cpp">
       <Filter>03. Object\01. Character</Filter>
     </ClCompile>
+    <ClCompile Include="Object\PlayerClone.cpp">
+      <Filter>03. Object\01. Character\02. Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -817,6 +820,9 @@
     </ClInclude>
     <ClInclude Include="Object\CharacterManager.h">
       <Filter>03. Object\01. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\PlayerClone.h">
+      <Filter>03. Object\01. Character\02. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

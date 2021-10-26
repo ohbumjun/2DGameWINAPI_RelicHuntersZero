@@ -3,6 +3,7 @@
 #include "../GameManager.h"
 // Object
 #include "Player.h"
+#include "PlayerClone.h"
 #include "EffectHit.h"
 #include "EffectText.h"
 #include "EffectShield.h"
@@ -1077,7 +1078,7 @@ void CPlayer::SkillIncAbility()
 
 CGameObject *CPlayer::FindClosestTarget(Vector2 PlayerPos)
 {
-	return m_Scene->FindClosestMonsterToPlayer(PlayerPos);
+	return m_Scene->FindClosestMonster(PlayerPos);
 }
 
 
@@ -1782,6 +1783,7 @@ void CPlayer::ActivateSkills(float DeltaTime)
 		SkillMakeGrenades(DeltaTime);
 		break;
 	case EChar_Type::Biu:
+		SkillBiu(DeltaTime);
 		break;
 	case EChar_Type::Jimmy:
 		SkillSlowMotionAttack(DeltaTime);
@@ -1870,5 +1872,21 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
 		EffectGrenade->SetTextureColorKey(255, 255, 255);
 		EffectGrenade->SetPlayerGrenage(true);
+	}
+}
+
+void CPlayer::SkillBiu(float DeltaTime)
+{
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 3.f)
+	{
+		CPlayerClone* PlayerClone = (CPlayerClone*)m_Scene->CreateObject<CPlayerClone>(
+			"PlayerClone", 
+			Vector2(
+				(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f),
+				(m_Pos.y - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
+			);
+		PlayerClone->SetLifeTime(5.f);
+		PlayerClone->SetCharType(m_CharType);
+		PlayerClone->SetAnimName();
 	}
 }

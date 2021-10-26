@@ -201,6 +201,7 @@
     <ClCompile Include="Object\LaserObject.cpp" />
     <ClCompile Include="Object\Npc.cpp" />
     <ClCompile Include="Object\PistolGun.cpp" />
+    <ClCompile Include="Object\PlayerClone.cpp" />
     <ClCompile Include="Object\Potion.cpp" />
     <ClCompile Include="Object\Monster.cpp" />
     <ClCompile Include="Object\MPPotion.cpp" />
@@ -318,6 +319,7 @@
     <ClInclude Include="Object\LaserObject.h" />
     <ClInclude Include="Object\Npc.h" />
     <ClInclude Include="Object\PistolGun.h" />
+    <ClInclude Include="Object\PlayerClone.h" />
     <ClInclude Include="Object\Potion.h" />
     <ClInclude Include="Object\MPPotion.h" />
     <ClInclude Include="Object\ShotGun.h" />

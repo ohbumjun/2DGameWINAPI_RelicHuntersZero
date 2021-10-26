@@ -45,7 +45,7 @@ private:
 public:
 	CGameObject* FindObject(const std::string& Name);
 	CGameObject* FindObject(CGameObject* Obj);
-	CGameObject* FindClosestMonsterToPlayer(Vector2 PlayerPos);
+	CGameObject* FindClosestMonster(Vector2 PlayerPos);
 	CGameObject* FindMonsterInDist(Vector2 Pos,float Dist);
 	void DestroyAllAttackObjects();
 	CGameObject* SetPlayer(const std::string& Name);
@@ -143,7 +143,10 @@ private:
 	CGameObject* FindPrototype(const std::string& Name);
 // Wall Object
 public :
-	// void SetObjectsToWall();
+	void AddObjectToScene(CGameObject* Obj)
+	{
+		m_ObjList.push_back(Obj);
+	}
 
 public:
 	class CPlayer* CreatePlayer(const std::string& Name,
