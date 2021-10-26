@@ -193,7 +193,7 @@ void CPlayer::UseShieldInv(float DeltaTime)
 		m_ShieldInv -= 1;
 		m_ShieldEnable = true;
 		m_ShieldTime = m_ShieldTimeMax;
-		UpdateShieldInv(State);
+		UpdateShieldInv(State); //
 
 		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
 			"ShieldStart",
