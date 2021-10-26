@@ -129,7 +129,7 @@ void CEffectGrenade::ChangePlayerExplosionAnimation()
 
 void CEffectGrenade::Explode()
 {
-	if (m_IsPlayerGrenade)
+	if (!m_IsPlayerGrenade)
 		ExplodeDamagePlayer();
 	else
 		ExplodeDamageMonster();
@@ -162,14 +162,10 @@ void CEffectGrenade::ExplodeDamageMonster()
 {
 	// Damage 200.f to Player If Dist from Grenade to Player is below 100.f 
 	Vector2 GrenadePos = m_Pos;
-	CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
 
-	Vector2 PlayerPos = Player->GetPos();
-	Vector2 PlayerDir = Player->GetDir();
-
-	float DistToPlayer = Distance(GrenadePos, Player->GetPos());
-	if (DistToPlayer <= 150.f)
-		ExplodeHitPlayer(Player);
+	CGameObject* MonsterNearBy = m_Scene->FindMonsterInDist(m_Pos,200.f);
+	if(MonsterNearBy)
+		ExplodeHitMonster(MonsterNearBy);
 }
 
 void CEffectGrenade::ExplodeHitPlayer(class CPlayer* const Player)
@@ -193,4 +189,30 @@ void CEffectGrenade::ExplodeHitPlayer(class CPlayer* const Player)
 	DamageFont->SetDamageNumber(FinalDamage);
 
 	Player->SetDamage(FinalDamage);
+}
+
+void CEffectGrenade::ExplodeHitMonster(CGameObject* Monster)
+{
+	CMonster* M_Monster = (CMonster*)Monster;
+	Vector2 MonsterPos = M_Monster->GetPos();
+	Vector2 MonsterDir = M_Monster->GetDir();
+
+	// Hit Effect 
+	CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
+		MonsterPos, Vector2(178.f, 164.f));
+	m_Scene->GetSceneResource()->SoundPlay("Fire");
+
+	// Hit 
+	M_Monster->SetHitDir(Vector2(-MonsterDir.x, -MonsterDir.y));
+	M_Monster->Hit();
+
+	int Armor = M_Monster->GetArmor();
+	int FinalDamage = m_Damage - Armor;
+	// Damage Font
+	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>(
+		"DamageFont", DAMAGEFONT_PROTO, 
+		MonsterPos);
+	DamageFont->SetDamageNumber(FinalDamage);
+
+	M_Monster->SetDamage(FinalDamage);
 }

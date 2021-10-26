@@ -101,24 +101,29 @@ void CUISelect::SetCharacterImg(EChar_Type& CharType)
 void CUISelect::SetStartBtn()
 {
 	// Game Start Btn
-	CButton* StartBtn = CreateWidget<CButton>("GameStartBtn");
-	StartBtn->SetTexture("GameStartBtn", TEXT("images/Character/Stats/charSelectBtn.bmp"));
-	StartBtn->SetTextureColorKey(255, 255, 255);
-	StartBtn->SetPos(425.f, 550.f);
-	StartBtn->SetFrameData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
-	StartBtn->SetFrameData(EButton_State::MouseOn, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
-	StartBtn->SetFrameData(EButton_State::Click, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
-	StartBtn->SetFrameData(EButton_State::Disable, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
-	StartBtn->SetMouseOnSound("ButtonMouseOn");
-	StartBtn->SetClickSound("ButtonClick");
-	StartBtn->SetZOrder(6);
-	StartBtn->SetClickCallback<CUISelect>(this, &CUISelect::StartClick);
-
-	CUIText* StartBtnTxt = CreateWidget<CUIText>("GameStartBtnTxt");
-	StartBtnTxt->SetTextColor(255, 255, 255);
-	StartBtnTxt->SetPos(495.f, 565.f);
-	StartBtnTxt->SetZOrder(7);
-	StartBtnTxt->SetText(TEXT("S T A R T"));
+	if (!m_StartBtn)
+	{
+		m_StartBtn = CreateWidget<CButton>("GameStartBtn");
+		m_StartBtn->SetTexture("GameStartBtn", TEXT("images/Character/Stats/charSelectBtn.bmp"));
+		m_StartBtn->SetTextureColorKey(255, 255, 255);
+		m_StartBtn->SetFrameData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
+		m_StartBtn->SetFrameData(EButton_State::MouseOn, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
+		m_StartBtn->SetFrameData(EButton_State::Click, Vector2(0.f, 0.f), Vector2(240.f, 63.f));
+		m_StartBtn->SetFrameData(EButton_State::Disable, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
+		m_StartBtn->SetPos(425.f, 550.f);
+		m_StartBtn->SetMouseOnSound("ButtonMouseOn");
+		m_StartBtn->SetClickSound("ButtonClick");
+		m_StartBtn->SetZOrder(6);
+		m_StartBtn->SetClickCallback<CUISelect>(this, &CUISelect::StartClick);
+	}
+	if (!m_StartTxt)
+	{
+		m_StartTxt = CreateWidget<CUIText>("GameStartBtnTxt");
+		m_StartTxt->SetTextColor(255, 255, 255);
+		m_StartTxt->SetPos(495.f, 565.f);
+		m_StartTxt->SetZOrder(7);
+		m_StartTxt->SetText(TEXT("S T A R T"));
+	}
 }
 
 void CUISelect::SetHPAbility(CharacterInfo &CharInfo, int StartIdx)

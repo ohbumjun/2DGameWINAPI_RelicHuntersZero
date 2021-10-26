@@ -39,6 +39,6 @@ public :
 	void ExplodeDamagePlayer();
 	void ExplodeDamageMonster();
 	void ExplodeHitPlayer(class CPlayer* const Player);
-	void ExplodeHitMonster();
+	void ExplodeHitMonster(CGameObject* Monster);
 };
 

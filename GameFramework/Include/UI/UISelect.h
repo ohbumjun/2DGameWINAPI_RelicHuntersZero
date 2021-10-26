@@ -14,6 +14,8 @@ public :
 	EChar_Type m_SelectedCharType;
 private:
 	CSharedPtr<class CUIImage> m_CharImg;
+	CSharedPtr<class CButton> m_StartBtn;
+	CSharedPtr<class CUIText> m_StartTxt;
 	void SetCharacterInfoBox();
 	void SetCharacterAbility(EChar_Type& CharType);
 	void SetCharacterImg(EChar_Type &CharType);

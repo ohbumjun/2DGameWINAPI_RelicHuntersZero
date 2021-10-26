@@ -153,6 +153,20 @@ CGameObject *CScene::FindClosestMonsterToPlayer(Vector2 PlayerPos)
 	return ClosestObj;
 }
 
+CGameObject* CScene::FindMonsterInDist(Vector2 Pos, float Dist)
+{
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetObjType() != EObject_Type::Monster) continue;
+		float DistWithMonster = Distance((*iter)->GetPos(),Pos);
+		if (DistWithMonster < Dist) return (*iter);
+	}
+	return nullptr;
+}
+
 void CScene::DestroyAllAttackObjects()
 {
 	auto iter = m_ObjList.begin();

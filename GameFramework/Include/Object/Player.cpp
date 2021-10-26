@@ -1840,6 +1840,23 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
 
+	// 1st Nearby
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
+	{
+		CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
+			"GrenadeEffect",
+			GRENADE_PROTO,
+			Vector2(
+				(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f),
+				(m_Pos.y - m_Size.y * 2.5 - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
+			);
+		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
+		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
+		EffectGrenade->SetTextureColorKey(255, 255, 255);
+		EffectGrenade->SetPlayerGrenage(true);
+	}
+
+	// 2nd Nearby
 	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
 	{
 		CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
@@ -1847,7 +1864,7 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 			GRENADE_PROTO,
 			Vector2(
 				(m_Pos.x - m_Offset.x) + m_Size.Length() * 2.5f * cos(f),
-				(m_Pos.y - m_Size.y * 3 - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
+				(m_Pos.y - m_Size.y * 2.5 - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
 			);
 		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
 		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));

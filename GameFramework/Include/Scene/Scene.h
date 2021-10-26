@@ -46,6 +46,7 @@ public:
 	CGameObject* FindObject(const std::string& Name);
 	CGameObject* FindObject(CGameObject* Obj);
 	CGameObject* FindClosestMonsterToPlayer(Vector2 PlayerPos);
+	CGameObject* FindMonsterInDist(Vector2 Pos,float Dist);
 	void DestroyAllAttackObjects();
 	CGameObject* SetPlayer(const std::string& Name);
 	CGameObject* SetPlayer(CGameObject* Player);
