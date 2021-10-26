@@ -10,7 +10,7 @@ CPlayerClone::CPlayerClone() :
 	m_AI(EMonsterAI::Idle),
 	m_CharType(EChar_Type::Ass),
 	m_DashDistance((int)NORMAL_MONSTER_DASH_DISTANCE),
-	m_AttackDistance((int)NORMAL_MONSTER_ATTACK_DISTANCE),
+	m_AttackDistance((int)NORMAL_ATTACK_DISTANCE),
 	m_ClosestMonster(nullptr)
 {
 }
@@ -68,25 +68,6 @@ bool CPlayerClone::Init()
 	MPBar->SetTexture("WorldMPBar", TEXT("CharacterMPBar.bmp"));
 	m_MPBarWidget->SetPos(-25.f, -95.f);
 
-	// Notify Functions
-	// Attack
-	std::string AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
-	AddAnimationNotify<CPlayerClone>(AnimName, 2, this, &CPlayerClone::Fire);
-	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
-	AddAnimationNotify<CPlayerClone>(AnimName, 2, this, &CPlayerClone::Fire);
-	AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
-	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::AttackEnd);
-	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
-	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::AttackEnd);
-
-	// Death
-	AnimName = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
-	AddAnimationNotify<CPlayerClone>(AnimName, 11, this, &CPlayerClone::Destroy);
-	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::Destroy);
-	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
-	AddAnimationNotify<CPlayerClone>(AnimName, 11, this, &CPlayerClone::Destroy);
-	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::Destroy);
-
     return true;
 }
 
@@ -115,16 +96,25 @@ void CPlayerClone::Update(float DeltaTime)
 	Move(m_Dir);
 
 	m_ClosestMonster = m_Scene->FindClosestMonster(m_Pos);
-	if (!m_ClosestMonster)
-		m_ClosestMonster = m_Scene->GetPlayer();
-	Vector2 MonsterPos = m_ClosestMonster->GetPos();
-	float DistToPlayer = Distance(m_Pos, MonsterPos);
-	if (DistToPlayer   <= m_DashDistance)
+	if (m_ClosestMonster)
 	{
-		if (DistToPlayer < m_AttackDistance)
-			m_AI = EMonsterAI::Attack;
+		Vector2 MonsterPos = m_ClosestMonster->GetPos();
+		float DistToPlayer = Distance(m_Pos, MonsterPos);
+		if (DistToPlayer   <= m_DashDistance)
+		{
+			if (DistToPlayer < m_AttackDistance)
+				m_AI = EMonsterAI::Attack;
+			else
+				m_AI = EMonsterAI::Trace;
+		}
 		else
-			m_AI = EMonsterAI::Trace;
+		{
+			SetPlayerTargetDir();
+			if (m_Dir.x == 0.f && m_Dir.y == 0.f)
+				m_AI = EMonsterAI::Idle;
+			else
+				m_AI = EMonsterAI::Walk;
+		}
 	}
 	else
 	{
@@ -139,10 +129,7 @@ void CPlayerClone::Update(float DeltaTime)
 	{
 		m_AI = EMonsterAI::Death;
 	}
-	if (m_HitEnable)
-	{
-		m_AI = EMonsterAI::Hit;
-	}
+
 
 	switch (m_AI)
 	{
@@ -221,6 +208,7 @@ void CPlayerClone::Fire()
 	if (m_ClosestMonster)
 	{
 		Vector2 Pos = m_ClosestMonster->GetPos();
+		m_CurrentGun->SetReloadBullet();
 		m_CurrentGun->PlayerFire(Pos, (float)m_CharacterInfo.Attack);
 	}
 }
@@ -383,7 +371,8 @@ CGun* CPlayerClone::Equip(CGun* Gun)
 {
 	CGun* ExitingGun = CCharacter::Equip(Gun);
 	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
-	GunBody->SetCollisionProfile("PlayerAttack");
+	if(GunBody)
+		GunBody->SetCollisionProfile("PlayerAttack");
 	return ExitingGun;
 }
 
@@ -411,6 +400,11 @@ void CPlayerClone::SetAnimName()
 		SetRaffAnimName();
 		break;
 	}
+	// Set Notify Functions
+	SetNotifyFunctions();
+	// Set Init Animation
+	std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
+	ChangeAnimation(Anim);
 }
 
 void CPlayerClone::SetAssAnimName()
@@ -675,6 +669,28 @@ void CPlayerClone::AddRaffAnimName()
 	AddAnimation(RAFF_PLAYER_LEFT_HIT, true, 0.6f);
 
 	AddAnimation(RAFF_PLAYER_TELEPORT, false, 0.3f);
+}
+
+void CPlayerClone::SetNotifyFunctions()
+{
+	// Notify Functions
+// Attack
+	std::string AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
+	AddAnimationNotify<CPlayerClone>(AnimName, 2, this, &CPlayerClone::Fire);
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
+	AddAnimationNotify<CPlayerClone>(AnimName, 2, this, &CPlayerClone::Fire);
+	AnimName = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
+	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::AttackEnd);
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
+	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::AttackEnd);
+
+	// Death
+	AnimName = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
+	AddAnimationNotify<CPlayerClone>(AnimName, 11, this, &CPlayerClone::Destroy);
+	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::Destroy);
+	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
+	AddAnimationNotify<CPlayerClone>(AnimName, 11, this, &CPlayerClone::Destroy);
+	SetAnimationEndNotify<CPlayerClone>(AnimName, this, &CPlayerClone::Destroy);
 }
 
 void CPlayerClone::SetCharName()

@@ -1877,7 +1877,7 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 
 void CPlayer::SkillBiu(float DeltaTime)
 {
-	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 3.f)
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 2.f)
 	{
 		CPlayerClone* PlayerClone = (CPlayerClone*)m_Scene->CreateObject<CPlayerClone>(
 			"PlayerClone", 
@@ -1885,8 +1885,15 @@ void CPlayer::SkillBiu(float DeltaTime)
 				(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f),
 				(m_Pos.y - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
 			);
-		PlayerClone->SetLifeTime(5.f);
+		PlayerClone->SetLifeTime(20.f);
 		PlayerClone->SetCharType(m_CharType);
 		PlayerClone->SetAnimName();
+
+		// Equip Gun
+		if (m_CurrentGun)
+		{
+			CGun* GunClone = m_CurrentGun->Clone();
+			PlayerClone->Equip(GunClone);
+		}
 	}
 }

@@ -23,7 +23,8 @@ public :
 	{
 		m_CharType = Type;
 	}
-private:
+private :
+	void SetNotifyFunctions();
 	void SetCharName();
 public:
 	void SetAnimName();

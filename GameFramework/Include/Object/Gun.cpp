@@ -271,7 +271,8 @@ EBullet_Type CGun::MatchBulletToGun()
 void CGun::RemoveGunCollider()
 {
 	CColliderSphere* ColliderSphere = (CColliderSphere*)FindCollider("Body");
-	ColliderSphere->Destroy();
+	if(ColliderSphere)
+		ColliderSphere->Destroy();
 }
 
 void CGun::Start()
