@@ -130,6 +130,9 @@
     <Filter Include="03. Object\01. Character\03. Npc">
       <UniqueIdentifier>{dfb448ff-a46c-4ab8-9ab6-59b71487099b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object\04. Items\3. Coin">
+      <UniqueIdentifier>{3f49b601-1b81-4caa-8d92-fa6fd2f6cfbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -366,9 +369,6 @@
     <ClCompile Include="Object\KamikazeCage.cpp">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Coin.cpp">
-      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Object\EffectShield.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClCompile>
@@ -452,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="Object\PlayerClone.cpp">
       <Filter>03. Object\01. Character\02. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Coin.cpp">
+      <Filter>03. Object\04. Items\3. Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,9 +743,6 @@
     <ClInclude Include="Object\KamikazeCage.h">
       <Filter>03. Object\01. Character\01. Monster</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Coin.h">
-      <Filter>03. Object\03. Effect\01. DynamicEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Object\EffectShield.h">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
     </ClInclude>
@@ -823,6 +823,9 @@
     </ClInclude>
     <ClInclude Include="Object\PlayerClone.h">
       <Filter>03. Object\01. Character\02. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Coin.h">
+      <Filter>03. Object\04. Items\3. Coin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

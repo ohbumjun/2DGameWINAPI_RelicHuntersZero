@@ -190,7 +190,7 @@ void CScene::DestroyAllAttackObjects()
 			{
 				int m_Damage = m_Player->GetAttack();
 				// Actual Damage
-				(*iter)->SetDamage(m_Damage * 3);
+				(*iter)->SetDamage(m_Damage * 5);
 
 				// Damage Font
 				Vector2 MonstPos = (*iter)->GetPos();

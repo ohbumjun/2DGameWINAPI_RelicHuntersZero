@@ -28,22 +28,21 @@ CUICharacterStateHUD::~CUICharacterStateHUD()
 void CUICharacterStateHUD::SetAbilityUI()
 {
 	// Hp, Mp, Stemina Bar ---
-
 	m_HPBar = CreateWidget<CProgressBar>("HPBar");
 	m_HPBar->SetTexture("HPBar", TEXT("BarDefault.bmp"));
-	m_HPBar->SetPos(10.f, 10.f);
+	m_HPBar->SetPos(0.f, 10.f);
 
 	m_MPBar = CreateWidget<CProgressBar>("MPBar");
 	m_MPBar->SetTexture("MPBar", TEXT("BarMP.bmp"));
-	m_MPBar->SetPos(10.f, 50.f);
+	m_MPBar->SetPos(0.f, 40.f);
 
 	m_SteminaBar = CreateWidget<CProgressBar>("SteminaBar");
 	m_SteminaBar->SetTexture("SteminaBar", TEXT("BarStemina.bmp"));
-	m_SteminaBar->SetPos(10.f, 90.f);
+	m_SteminaBar->SetPos(0.f, 70.f);
 
 	m_ShieldBar = CreateWidget<CProgressBar>("ShieldBar");
 	m_ShieldBar->SetTexture("ShieldBar", TEXT("BarGunLight.bmp"));
-	m_ShieldBar->SetPos(10.f, 130.f);
+	m_ShieldBar->SetPos(0.f, 100.f);
 	SetShieldPercent(0.f);
 }
 

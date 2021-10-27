@@ -498,6 +498,9 @@ void CPlayer::Update(float DeltaTime)
 	// Skill Update
 	SkillTimeUpdate(DeltaTime);
 
+	// Coin
+	AutoAcquireCoin(DeltaTime);
+
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -1060,7 +1063,7 @@ void CPlayer::SkillDestroyAllAttack(float DeltaTime)
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
 	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(10.f);
+	SetTimeScale(100.f);
 }
 
 void CPlayer::SkillIncAbility()
@@ -1321,13 +1324,22 @@ void CPlayer::AcquireItem(float DeltaTime)
 			Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
 			break;
 		}
+	}
+}
 
+void CPlayer::AutoAcquireCoin(float)
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
 		// Coin
 		CCoin* Coin = (*iter)->IsCollisionWithCoin();
 		if (Coin)
 		{
-			m_CharacterInfo.Gold += Coin->GetCoinGold();
-			Coin->Destroy();
+			// m_CharacterInfo.Gold += Coin->GetCoinGold();
+			Vector2 CenterPos = Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f);
+			Coin->SetMoveToPlayer(true, CenterPos);
 			break;
 		}
 	}
@@ -1821,14 +1833,16 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 	}
 		return;
 	case EChar_Type::Pinky:
+	{
 		SetTimeScale(1.f);
 		CGameManager::GetInst()->SetTimeScale(1.f);
+		m_CharacterInfo.Attack /= 4;
+	}
 		return;
 	case EChar_Type::Punny:
 	{
 		SetTimeScale(1.f);
 		CGameManager::GetInst()->SetTimeScale(1.f);
-		m_CharacterInfo.Attack /= 4;
 	}
 		break;
 	case EChar_Type::Raff:

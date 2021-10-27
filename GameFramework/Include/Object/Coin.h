@@ -13,7 +13,15 @@ private:
 	float m_DirX;
 	Vector2 m_InitPos;
 	int m_Gold;
+	bool m_MoveToPlayerEnable;
+	Vector2 m_TargetPlayerPos;
 public:
+	void SetMoveToPlayer(bool State, Vector2 PlayerPos)
+	{
+		m_MoveToPlayerEnable = State;
+		m_TargetPlayerPos = PlayerPos;
+		m_MoveSpeed = 100.f;
+	}
 	void SetGold(int Gold)
 	{
 		m_Gold = Gold;
@@ -39,5 +47,7 @@ public:
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual CCoin* Clone();
+public :
+	void MoveToPlayer();
 };
 

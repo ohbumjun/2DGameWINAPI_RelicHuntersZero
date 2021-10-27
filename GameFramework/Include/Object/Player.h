@@ -174,7 +174,12 @@ public:
 // Item --
 public:
 	void AcquireItem(float);
+	void AutoAcquireCoin(float);
 	void BuyItem(float);
+	void AddCoin(int Coin)
+	{
+		m_CharacterInfo.Gold += Coin;
+	}
 private :
 	void ShowNoGoldSign();
 // Gun

@@ -1,10 +1,13 @@
 #include "Coin.h"
 #include "../Collision/ColliderSphere.h"
+#include "../Scene/Scene.h"
 
 CCoin::CCoin() :
 	m_DirX(0),
-	m_Gold(50.f)
+	m_Gold(50.f),
+	m_MoveToPlayerEnable(false)
 {
+	m_MoveSpeed = 0.f;
 	m_ObjType = EObject_Type::Coin;
 }
 
@@ -13,6 +16,7 @@ CCoin::CCoin(const CCoin& obj) :
 {
 	m_DirX = obj.m_DirX;
 	m_Gold = obj.m_Gold;
+	m_MoveToPlayerEnable = false;
 }
 
 CCoin::~CCoin()
@@ -46,7 +50,7 @@ bool CCoin::Init()
 
 	// Collider
 	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
-	Head->SetRadius(20.f);
+	Head->SetRadius(40.f);
 	Head->SetOffset(23.f, 20.f);
 	Head->SetCollisionProfile("Default");
 
@@ -61,6 +65,8 @@ void CCoin::Update(float DeltaTime)
 	// Stop Falling
 	if (m_Pos.y > m_InitPos.y + 10.f)
 		m_IsGround = true;
+
+	MoveToPlayer();
 }
 
 void CCoin::PostUpdate(float DeltaTime)
@@ -82,3 +88,22 @@ CCoin* CCoin::Clone()
 {
 	return new CCoin(*this);
 }
+
+void CCoin::MoveToPlayer()
+{
+	if (m_MoveToPlayerEnable)
+	{
+		Vector2 CenterPos = Vector2(m_Pos.x + m_Size.x * 0.5f ,m_Pos.y);
+		float Angle = GetAngle(CenterPos, m_TargetPlayerPos);
+		SetDir(Angle);
+		Move(m_Dir);
+		
+		if (Distance(CenterPos, m_TargetPlayerPos) <= 5.f)
+		{
+			Destroy();
+			CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+			Player->AddCoin(m_Gold);
+		}
+	}
+}
+
