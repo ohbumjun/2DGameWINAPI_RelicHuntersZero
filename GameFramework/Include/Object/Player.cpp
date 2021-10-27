@@ -47,7 +47,6 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					 m_TeleportPos(Vector2(0.f, 0.f)),
 					 m_DeathAnimationTime(0.f),
 					m_MonsterCollideTime(0.f),
-					 m_UIPause(nullptr),
 					 m_PlayerDeath(false),
 					m_HPBarWidget(nullptr),
 					m_MPBarWidget(nullptr),
@@ -89,7 +88,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillTimeMax = 20.f;
 	m_SkillEnable  = false;
 
-	m_UIPause = nullptr;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -1053,7 +1051,7 @@ void CPlayer::DashDown(float DeltaTime)
 void CPlayer::Pause(float DeltaTime)
 {
 	CGameManager::GetInst()->SetTimeScale(0.f);
-	m_UIPause = m_Scene->CreateUIWindow<CUIPause>("PauseUI");
+	CUIPause* UIPause = m_Scene->CreateUIWindow<CUIPause>("PauseUI");
 }
 
 void CPlayer::Resume(float DeltaTime)

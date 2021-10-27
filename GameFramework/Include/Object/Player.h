@@ -18,8 +18,6 @@ protected:
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
-// Laser Obj
-	CSharedPtr<class CUIPause> m_UIPause;
 // Inv 
 private :
 	int m_HpPotionInv;
