@@ -1828,6 +1828,7 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 	{
 		SetTimeScale(1.f);
 		CGameManager::GetInst()->SetTimeScale(1.f);
+		m_CharacterInfo.Attack /= 4;
 	}
 		break;
 	case EChar_Type::Raff:
@@ -1908,5 +1909,12 @@ void CPlayer::SkillSlowMotion(float DeltaTime)
 	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME * 5;
+	m_CharacterInfo.Attack *= 4;
 	m_SkillEnable = true;
+	CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
+		"ShieldStart",
+		SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
+	ShieldStart->SetOwner(this);
+	ShieldStart->SetLifeTime(m_SkillTime);
+	ShieldStart->SetTimeScale(m_TimeScale);
 }
