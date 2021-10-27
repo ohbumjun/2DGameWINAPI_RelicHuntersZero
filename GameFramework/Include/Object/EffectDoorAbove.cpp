@@ -26,7 +26,7 @@ bool CEffectDoorAbove::Init()
 	if (!CGameObject::Init()) return false;
 
 	CreateAnimation();
-	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, false, 2.0f);
+	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, true, 2.0f);
 
 	return true;
 }
@@ -34,6 +34,13 @@ bool CEffectDoorAbove::Init()
 void CEffectDoorAbove::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+	if (m_Owner)
+	{
+		Vector2 OwnerSize = m_Owner->GetSize();
+		Vector2 OwnerPos = m_Owner->GetPos();
+		m_Pos.y = OwnerPos.y - OwnerSize.y * 0.5f;
+		m_Pos.x = OwnerPos.x;
+	}
 }
 
 void CEffectDoorAbove::PostUpdate(float DeltaTime)

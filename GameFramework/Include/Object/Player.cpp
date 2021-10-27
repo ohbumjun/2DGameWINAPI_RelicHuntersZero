@@ -10,6 +10,7 @@
 #include "EffectGrenade.h"
 #include "EffectShieldStart.h"
 #include "EffectDash.h"
+#include "EffectDoorAbove.h"
 #include "Coin.h"
 #include "Npc.h"
 #include "EffectReload.h"
@@ -170,6 +171,11 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 		m_HpPotionInv -= 1;
 		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 		UpdateHpPotionInv(State);
+		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
+			"ShieldStart",
+			SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
+		ShieldStart->SetOwner(this);
+		ShieldStart->SetLifeTime(0.2f);
 	}
 }
 
@@ -181,6 +187,11 @@ void CPlayer::UseMpPotionInv(float DeltaTime)
 		m_MpPotionInv -= 1;
 		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
 		UpdateMpPotionInv(State);
+		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
+			"ShieldStart",
+			SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
+		ShieldStart->SetOwner(this);
+		ShieldStart->SetLifeTime(0.2f);
 	}
 }
 
@@ -1406,9 +1417,9 @@ CGun* CPlayer::Equip(CGun* Gun)
 	GunBody->SetCollisionProfile("PlayerAttack");
 
 	// FireTime Update
-	if(Gun->GetGunType())
-	m_FireTime = m_CurrentGun->GetFireTime();
-	m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+	EGun_Type GunType = m_CurrentGun->GetGunType();
+	if (GunType == EGun_Type::Pistol)
+		m_FireTimeMax = 0.1f;
 
 	return ExitingGun;
 }

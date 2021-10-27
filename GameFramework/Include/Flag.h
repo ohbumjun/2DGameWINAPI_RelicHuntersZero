@@ -36,10 +36,11 @@ enum class EBullet_Type
 	Boss
 };
 
-enum EItem_Type
+enum class EGun_Type
 {
-	Item_Gun,
-	Item_End
+	Pistol,
+	ShotGun,
+	BossGun
 };
 
 enum EGunClass

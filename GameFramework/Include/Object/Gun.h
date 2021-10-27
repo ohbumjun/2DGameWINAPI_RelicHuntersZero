@@ -74,6 +74,10 @@ public :
 	{
 		return m_GunInfo.m_GunClass;
 	}
+	EGun_Type GetGunType() const
+	{
+		return m_GunInfo.m_GunType;
+	}
 	float GetGunDamage() const
 	{
 		return	m_GunInfo.m_Damage;

@@ -6,6 +6,7 @@
 CShotGun::CShotGun()
 {
 	m_FireTimeMax = 1.f;
+	m_GunInfo.m_GunType = EGun_Type::ShotGun;
 }
 
 CShotGun::CShotGun(const CShotGun& obj) : CGun(obj)

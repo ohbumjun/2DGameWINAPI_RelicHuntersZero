@@ -4,6 +4,7 @@
 CPistolGun::CPistolGun()
 {
 	m_FireTimeMax = 0.5f;
+	m_GunInfo.m_GunType = EGun_Type::Pistol;
 }
 
 
