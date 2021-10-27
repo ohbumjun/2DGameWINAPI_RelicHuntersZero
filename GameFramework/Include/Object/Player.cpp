@@ -451,12 +451,10 @@ void CPlayer::Update(float DeltaTime)
 		RunUpdate(DeltaTime);
 
 	// Dash
-	if (m_DashEnable)
-		DashUpdate(DeltaTime);
+	if (m_DashEnable) DashUpdate(DeltaTime);
 
 	// Teleport
-	if (m_TeleportEnable)
-		TeleportUpdate(DeltaTime);
+	if (m_TeleportEnable) TeleportUpdate(DeltaTime);
 
 	// MPBar , HPBar
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
@@ -473,7 +471,6 @@ void CPlayer::Update(float DeltaTime)
 
 	// Gold 
 	CurGoldNumUpdate(State);
-
 	// Gun 
 	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
 	if (GunState)
@@ -487,20 +484,16 @@ void CPlayer::Update(float DeltaTime)
 
 	// Gun Bullet Update
 	GunCurBulletNumUpdate();
-	
 	// Update m_MonsterCollideTime
-	if (m_MonsterCollideTime >= 0.f)
-		m_MonsterCollideTime -= DeltaTime;
-
+	if (m_MonsterCollideTime >= 0.f) m_MonsterCollideTime -= DeltaTime;
 	// Shield Update
 	ShieldUpdate(DeltaTime);
-
 	// Skill Update
 	SkillTimeUpdate(DeltaTime);
-
 	// Coin
 	AutoAcquireCoin(DeltaTime);
-
+	// Gun
+	GunTimeUpdate(DeltaTime);
 }
 
 void CPlayer::PostUpdate(float DeltaTime)
@@ -616,11 +609,16 @@ void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
 }
 
 
+void CPlayer::GunTimeUpdate(float DeltaTime)
+{
+	if(m_FireTime <= m_FireTimeMax)
+		m_FireTime += DeltaTime;
+}
+
 void CPlayer::ChangeGunToLight(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Light])
 		m_CurrentGun = m_GunEquipment[EGunClass::Light];
-
 }
 
 void CPlayer::ChangeGunToMedium(float DeltaTime)
@@ -1264,18 +1262,13 @@ void CPlayer::SetTargetPos(float DeltaTime)
 
 void CPlayer::BulletFireTarget(float DeltaTime)
 {
-	if (!m_CurrentGun)
-	{
-		// 경고 메세지 
-		return;
-	}
+	if (!m_CurrentGun) return;
+	if (m_FireTime < m_FireTimeMax) return;
+	m_FireTime = 0.f;
 	Vector2 PlayerDir = m_Dir;
-
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
-
-
 	std::string RAnim = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
 	std::string LAnim = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
 	if (m_Dir.x > 0)
@@ -1411,6 +1404,12 @@ CGun* CPlayer::Equip(CGun* Gun)
 	CGun* ExitingGun   = CCharacter::Equip(Gun);
 	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
 	GunBody->SetCollisionProfile("PlayerAttack");
+
+	// FireTime Update
+	if(Gun->GetGunType())
+	m_FireTime = m_CurrentGun->GetFireTime();
+	m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+
 	return ExitingGun;
 }
 

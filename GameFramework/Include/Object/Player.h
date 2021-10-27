@@ -89,6 +89,7 @@ private :
 	void ChangeDashAnimation();
 // Gun
 private :
+	void  GunTimeUpdate(float DeltaTime);
 	void  ChangeGunToLight(float DeltaTime);
 	void  ChangeGunToMedium(float DeltaTime);
 	void  ChangeGunToHeavy(float DeltaTime);

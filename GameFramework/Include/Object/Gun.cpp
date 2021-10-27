@@ -54,10 +54,8 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		ShowNoBulletSign();
 		return;
 	}
-	
 	// Adjust Gun Texture
 	AdjustGunTexture();
-
 	// Offet의 경우 , Gun의 Offset 위치에 맞춰야 한다 
 	CScene* Scene = m_Owner->GetScene();
 	// Vector2 BulletOffset = m_Owner->CheckCurrentAnimation(PLAYER_RIGHT_ATTACK) ? Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15, -m_Size.y * 0.3f);
