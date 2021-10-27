@@ -31,7 +31,6 @@
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 
-
 EChar_Type CPlayer::m_CharType = EChar_Type::Ass;
 CharacterInfo CPlayer::m_SelectedCharacterInfo = {};
 
@@ -334,7 +333,6 @@ void CPlayer::SetNotifyFunctions()
 	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
 	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
 	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
-
 }
 
 bool CPlayer::Init()
@@ -1050,7 +1048,7 @@ void CPlayer::Resume(float DeltaTime)
 void CPlayer::SkillMultipleBulletAttack(float DeltaTime)
 {
 	CGameManager::GetInst()->SetTimeScale(0.01f);
-	SetTimeScale(10.f);
+	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
 	m_CurrentGun->SkillSlowMotionAttack();
@@ -1749,8 +1747,7 @@ void CPlayer::SkillTimeUpdate(float DeltaTime)
 {
 	if (m_SkillTime >= 0.f && m_SkillEnable)
 	{
-
-		m_SkillTime -= DeltaTime * m_TimeScale;
+		m_SkillTime -= DeltaTime ;
 		if (m_SkillTime <= 0.f)
 		{
 			m_SkillEnable = false;
@@ -1832,7 +1829,7 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 		SetTimeScale(1.f);
 		CGameManager::GetInst()->SetTimeScale(1.f);
 	}
-		return;
+		break;
 	case EChar_Type::Raff:
 	{
 		m_CharacterInfo.Attack /= 2;
@@ -1842,8 +1839,6 @@ void CPlayer::DeActivateSkills(float DeltaTime)
 		m_MoveSpeed /= 1.5f;
 	}
 		break;
-	default:
-		return;
 	}
 }
 

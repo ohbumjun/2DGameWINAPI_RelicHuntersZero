@@ -117,7 +117,7 @@ void CMonster::Update(float DeltaTime)
 
 	// Wall Move
 	bool WallCollision = PreventWallMove();
-	if (WallCollision && m_AI != EMonsterAI::Death) SetRandomTargetDir();
+	// if (WallCollision) SetRandomTargetDir();
 
 	CGameObject *Player = m_Scene->GetPlayer();
 	Vector2 PlayerPos   = Player->GetPos();

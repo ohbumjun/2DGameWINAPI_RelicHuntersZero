@@ -17,7 +17,6 @@ private:
 				관리를 위한 id를 식별하기 위하여 HWND가 필요하다.
 	- HINSTANCE = 핸들 인스턴스  , 프로그램의 인스턴스 식별자 , 쉽게 보면 프로그램 자체의 실체화된 주소.
 	- 결론 : HINSTANCE는 프로그램 자체의 핸들이며 , HWND는 프로그램안의 윈도우창의 번호 !!
-
 	*/
 	HINSTANCE	m_hInst;
 	HWND		m_hWnd;
@@ -34,12 +33,10 @@ private:
 	HBRUSH		m_hBlueBrush;
 	HBRUSH		m_hLightBlueBrush;
 	HBRUSH		m_hDarkBlueBrush;
-
 	// Pen
 	HPEN		m_hGreenPen;
 	HPEN		m_hRedPen;
 	HPEN		m_hBluePen;
-
 	// 현재 에디트 모드인지 아닌지 --> Editor Scene에 들어가면 true로
 	bool        m_EditorMode;
 private :
@@ -92,18 +89,10 @@ public:
 	{
 		return m_hDarkBlueBrush;
 	}
-	/*
-	HBRUSH GetYellowBrush()	const
-	{
-		return m_hYellowBrush;
-	}
-
-	*/
 	HDC GetWindowDC()	const
 	{
 		return m_hDC;
 	}
-
 	HWND GetWindowHandle()	const
 	{
 		return m_hWnd;
@@ -124,11 +113,8 @@ public:
 	{
 		m_EditorMode = Mode;
 	}
-	void SetTimeScale(float TimeScale)
-	{
-		m_TimeScale = TimeScale;
-	}
-	float GetTimeScale();
+	void SetTimeScale(float TimeScale);
+	float GetTimeScale() const ;
 
 public:
 	float GetDeltaTime()	const;

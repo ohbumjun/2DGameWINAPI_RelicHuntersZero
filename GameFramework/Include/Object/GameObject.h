@@ -154,6 +154,7 @@ public:
 	void SetAnimationLoop(const std::string& Name, bool Loop);
 
 public:
+	float GetTimeScale() const { return m_TimeScale; }
 	std::string GetProtoTypeName() const
 	{
 		return m_ProtoTypeName;

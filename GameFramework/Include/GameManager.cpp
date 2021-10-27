@@ -69,7 +69,12 @@ CGameManager::~CGameManager()
 	ReleaseDC(m_hWnd, m_hDC);
 }
 
-float CGameManager::GetTimeScale()
+void CGameManager::SetTimeScale(float TimeScale)
+{
+	m_TimeScale = TimeScale;
+}
+
+float CGameManager::GetTimeScale() const
 {
 	return m_TimeScale;
 }

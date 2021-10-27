@@ -67,6 +67,8 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
 	Bullet->SetOwner(this);
+	// TimeScale
+	Bullet->SetTimeScale(m_Owner->GetTimeScale());
 	// Bullet Type
 	EBullet_Type BulletType = MatchBulletToGun();
 	Bullet->SetBulletType(BulletType);

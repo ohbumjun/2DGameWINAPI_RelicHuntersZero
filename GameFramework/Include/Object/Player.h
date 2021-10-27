@@ -72,7 +72,6 @@ public:
 	virtual void Render(HDC hDC);
 	virtual CPlayer *Clone();
 	virtual float SetDamage(int Damage);
-
 // Hp,Mp,Stemina (Ability)
 public :
 	void AbilityUpdate(float DeltaTime);
