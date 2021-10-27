@@ -19,7 +19,7 @@ protected:
 	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 // Laser Obj
-	CSharedPtr<CLaserObject> m_LaserBulletObj;
+	CSharedPtr<class CUIPause> m_UIPause;
 // Inv 
 private :
 	int m_HpPotionInv;
@@ -51,6 +51,7 @@ private :
 	{
 		m_ShieldInv = Shield;
 	}
+
 private :
 	void UpdateHpPotionInv(class CUICharacterStateHUD* const State);
 	void UpdateMpPotionInv(class CUICharacterStateHUD* const State);
@@ -129,7 +130,7 @@ private:
 	bool m_DashEnable;
 	float m_DashTime;
 // Other Skills ---
-private:
+public:
 	// Pause, Resume
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);

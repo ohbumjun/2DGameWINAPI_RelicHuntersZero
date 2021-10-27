@@ -74,9 +74,7 @@ CScene::~CScene()
 		auto iter = m_MapList.begin();
 		auto iterEnd = m_MapList.end();
 		for (; iter != iterEnd; ++iter)
-		{
 			SAFE_DELETE((*iter));
-		}
 		m_MapList.clear();
 	}
 
@@ -2670,7 +2668,6 @@ void CScene::SetRaffCardUI()
 	for (int i = 0; i < 1; ++i)
 		GetSceneResource()->AddAnimationFrameData(CARD_RAFF_DEFAULT,
 			0.f, 0.f, 320.f, 72.f);
-
 	// Punny Hover 
 	GetSceneResource()->CreateAnimationSequence(CARD_RAFF_HOVER,
 		CARD_RAFF_HOVER, TEXT("images/MenuScene/raff/raff_hover.bmp"));
@@ -2889,7 +2886,6 @@ bool CScene::Collision(float DeltaTime)
 			}
 
 			m_UIArray[i]->Collision(DeltaTime);
-
 			m_Collision->AddUIWindow(m_UIArray[i]);
 
 			++i;

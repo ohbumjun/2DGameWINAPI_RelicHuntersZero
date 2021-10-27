@@ -456,6 +456,9 @@
     <ClCompile Include="Object\Coin.cpp">
       <Filter>03. Object\04. Items\3. Coin</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIPause.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -826,6 +829,9 @@
     </ClInclude>
     <ClInclude Include="Object\Coin.h">
       <Filter>03. Object\04. Items\3. Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIPause.h">
+      <Filter>07. UI\02. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

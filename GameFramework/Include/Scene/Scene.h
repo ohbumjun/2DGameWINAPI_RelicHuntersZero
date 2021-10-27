@@ -14,23 +14,18 @@
 class CScene
 {
 	friend class CSceneManager;
-
 protected:
 	CScene();
 	virtual ~CScene();
-
 protected:
 	class CSceneResource* m_Resource;
 	class CSceneCollision* m_Collision;
 	class CCamera* m_Camera;
-
 public:
 	class CSceneResource* GetSceneResource()	const;
 	class CSceneCollision* GetSceneCollision()	const;
 	class CCamera* GetCamera()	const;
-
 private:
-	// ¸Ê ¸ñ·Ï 
 	std::vector<class CMapBase*> m_MapList;
 	CSharedPtr<CGameObject>	m_Player;
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
@@ -58,7 +53,6 @@ public:
 	{
 		return m_TileMap;
 	}
-
 // Animation Setting 
 public :
 	void SetPlayerAnimation();
