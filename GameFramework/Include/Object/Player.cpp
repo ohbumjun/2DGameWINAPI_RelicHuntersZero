@@ -1305,6 +1305,9 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 void CPlayer::CharacterDestroy()
 {
 	Destroy();
+	// Stop the Game
+	CGameManager::GetInst()->SetTimeScale(0.f);
+	// Game Over Effect
 }
 
 void CPlayer::AcquireItem(float DeltaTime)

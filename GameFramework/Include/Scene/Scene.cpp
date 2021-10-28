@@ -2709,7 +2709,9 @@ bool CScene::Init()
 bool CScene::Update(float DeltaTime)
 {
 	if (m_Player)
+	{
 		m_Player->Update(DeltaTime * (m_Player->m_TimeScale));
+	}
 	{
 		auto iter = m_ObjList.begin();
 		auto iterEnd = m_ObjList.end();
