@@ -101,6 +101,7 @@ public :
 	void SetBasicObjectGuns();
 // UI Setiing
 public :
+	void SetPauseUIVisbility(bool State);
 	void SetBasicUIs();
 	void SetSceneStartAnimation();
 	void SetSceneIntroAnimation();
@@ -256,6 +257,22 @@ public:
 		}
 
 		return nullptr;
+	}
+
+	bool DestroyUIWindow(const std::string& Name)
+	{
+		for (int i = 0; i < m_UICount; ++i)
+		{
+			if (m_UIArray[i]->GetName() == Name)
+			{
+				for (int j = i; j < m_UICount - 1; j++)
+					m_UIArray[j] = m_UIArray[j + 1];
+				m_UICount--;
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	template <typename T>

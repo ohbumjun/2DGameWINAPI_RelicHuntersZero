@@ -3,11 +3,13 @@
 #include "Bullet.h"
 #include "LaserObject.h"
 #include "TeleportMouse.h"
+#include "../UI/UIPause.h"
 
 class CPlayer : public CCharacter
 {
 	friend class CScene;
 	friend class CSceneManager;
+	friend class CUIPause;
 protected:
 	CPlayer();
 	CPlayer(const CPlayer &obj);
@@ -128,10 +130,12 @@ private:
 	bool m_DashEnable;
 	float m_DashTime;
 // Other Skills ---
-public:
+private:
 	// Pause, Resume
 	void Pause(float DeltaTime);
 	void Resume(float DeltaTime);
+	class CUIPause* m_UIPause;
+
 // Collision ---
 private:
 	void CollisionBegin(class CCollider *Src, class CCollider *Dest, float DeltaTime);

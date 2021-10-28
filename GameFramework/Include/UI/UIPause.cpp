@@ -103,7 +103,7 @@ void CUIPause::Update(float DeltaTime)
 void CUIPause::ContinueClick()
 {
 	m_Player->Resume(0.f);
-	Destroy();
+	m_Scene->SetPauseUIVisbility(false);
 }
 void CUIPause::SelectClick()
 {

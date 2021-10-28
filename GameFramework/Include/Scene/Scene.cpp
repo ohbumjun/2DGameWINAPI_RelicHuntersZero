@@ -2217,11 +2217,24 @@ void CScene::SetBasicObjectGuns()
 	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, Vector2(3000.f, 1525.f), GunProto->m_Size);
 }
 
+void CScene::SetPauseUIVisbility(bool State)
+{
+	CUIPause* m_UIPause = FindUIWindow<CUIPause>("PauseUI");
+	m_UIPause->SetVisibility(State);
+
+	CUICharacterStateHUD* StateWindow = FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	StateWindow->SetVisibility(!State);
+	CUIGunStateHUD* GunStateWindow = FindUIWindow<CUIGunStateHUD>("GunStateHUD");
+	GunStateWindow->SetVisibility(!State);
+}
+
 void CScene::SetBasicUIs()
 {
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	CUIGunStateHUD*		  GunStateWindow = CreateUIWindow<CUIGunStateHUD>("GunStateHUD");
+	CUIPause* m_UIPause = CreateUIWindow<CUIPause>("PauseUI");
+	m_UIPause->SetVisibility(false);
 }
 
 void CScene::SetSceneStartAnimation()
@@ -2717,6 +2730,7 @@ bool CScene::Update(float DeltaTime)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
+				SAFE_RELEASE(m_UIArray[i]);
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
@@ -2765,6 +2779,7 @@ bool CScene::PostUpdate(float DeltaTime)
 			if (!m_UIArray[i]->IsActive())
 			{
 				--m_UICount;
+				SAFE_RELEASE(m_UIArray[i]);
 				for (int j = i; j < m_UICount; ++j)
 				{
 					m_UIArray[j] = m_UIArray[j + 1];
@@ -2862,10 +2877,8 @@ bool CScene::Collision(float DeltaTime)
 
 	{
 		if (m_UICount >= 2)
-		{
 			qsort(m_UIArray, (size_t)m_UICount, sizeof(CUIWindow *),
 				  CScene::SortZOrder);
-		}
 
 		for (int i = 0; i < m_UICount;)
 		{
