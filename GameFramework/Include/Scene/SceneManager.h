@@ -27,6 +27,10 @@ public:
 		m_CommonPlayer.clear();
 		m_CommonPlayer.push_back(Object->Clone());
 	}
+	void DeleteStaticPlayer()
+	{
+		m_CommonPlayer.clear();
+	}
 
 public:
 	bool Init();

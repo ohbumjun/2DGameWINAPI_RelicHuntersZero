@@ -107,11 +107,15 @@ void CUIPause::ContinueClick()
 }
 void CUIPause::SelectClick()
 {
+	m_Scene->SetPauseUIVisbility(false);
 	CSceneManager::GetInst()->CreateScene<CSelectScene>();
+	// CSceneManager::GetInst()->DeleteStaticPlayer();
 }
 void CUIPause::MainMenuClick()
 {
+	m_Scene->SetPauseUIVisbility(false);
 	CSceneManager::GetInst()->CreateScene<CMenuScene>();
+	// CSceneManager::GetInst()->DeleteStaticPlayer();
 }
 void CUIPause::ExitClick()
 {

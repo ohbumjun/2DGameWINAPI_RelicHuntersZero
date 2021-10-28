@@ -2223,9 +2223,10 @@ void CScene::SetPauseUIVisbility(bool State)
 	m_UIPause->SetVisibility(State);
 
 	CUICharacterStateHUD* StateWindow = FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
-	StateWindow->SetVisibility(!State);
+	if(StateWindow)	StateWindow->SetVisibility(!State);
+
 	CUIGunStateHUD* GunStateWindow = FindUIWindow<CUIGunStateHUD>("GunStateHUD");
-	GunStateWindow->SetVisibility(!State);
+	if(GunStateWindow) GunStateWindow->SetVisibility(!State);
 }
 
 void CScene::SetBasicUIs()

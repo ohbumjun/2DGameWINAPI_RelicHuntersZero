@@ -107,6 +107,7 @@ private:
 	void MoveRight(float DeltaTime);
 	virtual void Move(const Vector2 &Dir);
 	virtual void Move(const Vector2 &Dir, float Speed);
+	virtual void HitMove();
 	void JumpKey(float DeltaTime);
 // Run ---
 private:

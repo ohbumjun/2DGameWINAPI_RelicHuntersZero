@@ -26,7 +26,7 @@ bool CEffectDoorAbove::Init()
 	if (!CGameObject::Init()) return false;
 
 	CreateAnimation();
-	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, true, 2.0f);
+	AddAnimation(STAGE_DOOR_ABOVE_EFFECT, false, 2.0f);
 
 	return true;
 }

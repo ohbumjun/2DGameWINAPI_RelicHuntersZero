@@ -342,11 +342,11 @@ void CPlayer::SetNotifyFunctions()
 
 	// Death
 	AnimName = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
-	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
+	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::CharacterDestroy);
 	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
-	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::Destroy);
-	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::Destroy);
+	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
+	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::CharacterDestroy);
 }
 
 bool CPlayer::Init()
@@ -446,8 +446,10 @@ void CPlayer::Update(float DeltaTime)
 
 	MoveWithinWorldResolution();
 	// Death
-	if (m_CharacterInfo.HP <= 0 )
+	if (m_CharacterInfo.HP < 0 )
 	{
+		m_PlayerDeath = true;
+		m_ColliderList.clear();
 		ChangeDeathAnimation();
 		return;
 	}
@@ -866,6 +868,7 @@ void CPlayer::Move(const Vector2 &Dir)
 		if (m_DashEnable)
 			return;
 	}
+	if (m_PlayerDeath) return;
 	CCharacter::Move(Dir);
 }
 
@@ -876,7 +879,14 @@ void CPlayer::Move(const Vector2 &Dir, float Speed)
 		if (m_DashEnable)
 			return;
 	}
+	if(m_PlayerDeath) return;
 	CCharacter::Move(Dir, Speed);
+}
+
+void CPlayer::HitMove()
+{
+	if (m_PlayerDeath) return;
+	CCharacter::HitMove();
 }
 
 void CPlayer::ChangeMoveAnimation()
@@ -1294,11 +1304,7 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 
 void CPlayer::CharacterDestroy()
 {
-	m_DeathAnimationTime = DEATH_TIME;
-	if (m_Dir.x <= 0.f)
-		ChangeAnimation("LucidNunNaLeftDeath");
-	else
-		ChangeAnimation("LucidNunNaRightDeath");
+	Destroy();
 }
 
 void CPlayer::AcquireItem(float DeltaTime)
