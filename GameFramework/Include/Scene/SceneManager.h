@@ -5,6 +5,7 @@
 
 class CSceneManager
 {
+	friend class CGameManager;
 private:
 	CSceneManager();
 	~CSceneManager();
@@ -12,24 +13,23 @@ private:
 private:
 	CScene* m_Scene;
 	CScene* m_NextScene;
-	std::vector<class CGameObject*> m_CommonPlayer;
+	CSharedPtr<class CGameObject> m_CommonPlayer;
 
 public:
 	CScene* GetScene() { return m_Scene; }
 	class CGameObject* GetPlayer() {
-		if (!m_CommonPlayer.empty())
-			return m_CommonPlayer.back();
+		if (m_CommonPlayer)
+			return m_CommonPlayer;
 		return nullptr;
 	}
-	void UpdateStaticObjects(CGameObject* &Object)
+	void UpdateStaticObjects(CGameObject*& Object)
 	{
 		// 어차피 공유되는 Object는 Player 한명이기 때문이다 
-		m_CommonPlayer.clear();
-		m_CommonPlayer.push_back(Object->Clone());
+		m_CommonPlayer = Object->Clone();
 	}
-	void DeleteStaticPlayer()
+	void SetCommonPlayerColliderSceneNull()
 	{
-		m_CommonPlayer.clear();
+		m_CommonPlayer->SetColliderSceneNull();
 	}
 
 public:

@@ -15,7 +15,6 @@ CSceneManager::~CSceneManager()
 {
 	SAFE_DELETE(m_NextScene);
 	SAFE_DELETE(m_Scene);
-	m_CommonPlayer.clear();
 }
 
 bool CSceneManager::Init()

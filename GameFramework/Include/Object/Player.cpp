@@ -119,7 +119,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 CPlayer::~CPlayer()
 {
-	DeleteTeleportObj();
 }
 
 void CPlayer::UpdateHpPotionInv(CUICharacterStateHUD* const State)

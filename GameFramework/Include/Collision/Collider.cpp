@@ -27,7 +27,7 @@ CCollider::CCollider(const CCollider &collider) : CRef(collider),
 
 CCollider::~CCollider()
 {
-	if(m_Scene)
+	if(m_Scene && m_Scene->GetSceneCollision())
 		m_Scene->GetSceneCollision()->ClearMouseCollision(this);
 	
 	auto iter = m_CollisionList.begin();

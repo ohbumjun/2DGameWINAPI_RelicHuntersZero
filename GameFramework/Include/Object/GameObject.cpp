@@ -109,7 +109,6 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 CGameObject::~CGameObject()
 {
 	SAFE_DELETE(m_Animation);
-
 	auto	iter = m_ColliderList.begin();
 	auto	iterEnd = m_ColliderList.end();
 
@@ -117,8 +116,9 @@ CGameObject::~CGameObject()
 	{
 		(*iter)->ClearCollisionList();
 	}
-	m_ColliderList.clear();
+
 	m_WidgetComponentList.clear();
+	m_ColliderList.clear();
 }
 
 void CGameObject::SetCollisionProfile(const std::string& Name)
@@ -144,6 +144,16 @@ bool CGameObject::IsCollisionCheck()
 		}
 	}
 	return false;
+}
+
+void CGameObject::SetColliderSceneNull()
+{
+	auto iter = m_ColliderList.begin();
+	auto iterEnd = m_ColliderList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		(*iter)->m_Scene = nullptr;
+	}
 }
 
 CCollider* CGameObject::FindCollider(const std::string& Name)

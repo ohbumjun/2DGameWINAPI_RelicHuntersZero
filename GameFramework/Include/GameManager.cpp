@@ -45,6 +45,7 @@ CGameManager::CGameManager() :
 
 CGameManager::~CGameManager()
 {
+	CSceneManager::GetInst()->SetCommonPlayerColliderSceneNull();
 	CSceneManager::DestroyInst();
 	CInput::DestroyInst();
 	CCollisionManager::DestroyInst();

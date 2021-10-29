@@ -9,9 +9,8 @@ protected:
 	CCollider();
 	CCollider(const CCollider &collider);
 	virtual ~CCollider() = 0;
-
 protected:
-	class CScene *m_Scene;
+	class CScene* m_Scene;
 	class CGameObject *m_Owner;
 	// bool m_IsWallCollider;
 	ECollider_Type m_Type;

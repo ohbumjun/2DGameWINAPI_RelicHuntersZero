@@ -124,7 +124,6 @@ public:
 	bool Init(HINSTANCE hInst);
 	int Run();
 
-
 private:
 	void Logic();
 	bool Update(float DeltaTime);

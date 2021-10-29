@@ -10,7 +10,7 @@ CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
 	m_MissileAttackTime(0.f),
 	m_GrenadeTime(0.f),
-	m_GrenadMaxTime(3.f),
+	m_GrenadMaxTime(10.f),
 	m_IsGenerator1Alive(false),
 	m_IsGenerator2Alive(false)
 {
@@ -63,7 +63,7 @@ void CBossMonster::GrenadeUpdate(float DeltaTime)
 	if (m_GrenadeTime >= m_GrenadMaxTime)
 	{
 		m_GrenadeTime -= m_GrenadMaxTime;
-		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 6.f )
+		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 3.f )
 		{
 			CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
 				"GrenadeEffect",
@@ -231,4 +231,3 @@ CBossMonster* CBossMonster::Clone()
 {
 	return new CBossMonster(*this);
 }
-

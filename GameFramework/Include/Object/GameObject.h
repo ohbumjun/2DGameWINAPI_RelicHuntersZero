@@ -42,12 +42,12 @@ protected:
 public :
 	void SetCollisionProfile(const std::string& Name);
 	bool IsCollisionCheck();
-
+	void SetColliderSceneNull();
 // Physics
 protected :
 	bool m_PhysicsSimulate;
-	float m_FallTime; // �������� �ð�
-	float m_FallStartY; // ���� ���� ( ���� ������ y��ǥ )
+	float m_FallTime;
+	float m_FallStartY; 
 	bool m_Jump;
 	float m_JumpVelocity;
 	float m_GravityAccel;
