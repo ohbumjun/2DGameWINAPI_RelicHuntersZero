@@ -18,6 +18,12 @@ CUIWidget::~CUIWidget()
 {
 }
 
+void CUIWidget::Move(Vector2& Dir, float Speed)
+{
+	Vector2	CurrentMove = Dir * Speed ;
+	m_Pos += CurrentMove;
+}
+
 bool CUIWidget::Init()
 {
 	return true;

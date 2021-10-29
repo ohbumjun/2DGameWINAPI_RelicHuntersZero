@@ -169,6 +169,7 @@ public:
 // Death ---
 public:
 	bool m_PlayerDeath;
+	bool m_DeathWidgetCreate;
 	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
 	virtual void GoOppDirection(Vector2 Dir)

@@ -15,7 +15,7 @@
 #include "Object/CharacterManager.h"
 
 CGameManager *CGameManager::m_Inst = nullptr;
-bool CGameManager::m_Loop = true;
+bool CGameManager::m_Loop          = true;
 
 CGameManager::CGameManager() : 
 	m_Timer(nullptr),

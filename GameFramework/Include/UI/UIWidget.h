@@ -9,7 +9,6 @@ public:
 	CUIWidget();
 	CUIWidget(const CUIWidget& widget);
 	virtual ~CUIWidget();
-
 protected:
 	class CScene* m_Scene;
 	int m_ZOrder;
@@ -18,7 +17,6 @@ protected:
 	Vector2 m_Pos;
 	Vector2 m_Size;
 	bool    m_MouseHovered;
-
 public:
 	Vector2 GetPos()    const
 	{
@@ -79,6 +77,8 @@ public:
 	{
 		return m_ZOrder;
 	}
+public :
+	void Move(Vector2& Dir, float Speed);
 
 public:
 	virtual bool Init();

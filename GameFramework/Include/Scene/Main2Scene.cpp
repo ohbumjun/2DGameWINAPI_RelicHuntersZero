@@ -73,7 +73,7 @@ bool CMain2Scene::Init()
 	DoorNameWidget->SetPos(-60.f, 20.f);
 	CUIText* NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorHomeText");
 	NameText->SetTextColor(255, 255, 255);
-	NameText->SetText(TEXT("STAGE Home"));
+	NameText->SetText(TEXT("STAGE HOME"));
 
 	StageDoor = CreateObject<CStageDoor>("StageDoor3",
 		Vector2(3500.f, 2200.f),

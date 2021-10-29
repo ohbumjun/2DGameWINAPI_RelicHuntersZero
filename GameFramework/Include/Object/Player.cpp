@@ -59,7 +59,8 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					m_ShieldInv(0),
 					m_SkillTime(0.f),
 					m_SkillTimeMax(20.f),
-					m_SkillEnable(false)
+					m_SkillEnable(false),
+					m_DeathWidgetCreate(false)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -91,6 +92,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillEnable  = false;
 
 	m_UIPause = nullptr;
+	m_DeathWidgetCreate = false;
 
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
@@ -1305,11 +1307,16 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 void CPlayer::CharacterDestroy()
 {
 	Destroy();
-	// Stop the Game
-	// CGameManager::GetInst()->SetTimeScale(0.f);
+
 	// Game Over Effect
+	if (m_DeathWidgetCreate) return;
 	CUIGameOver* GameOverUI = m_Scene->FindUIWindow<CUIGameOver>("GameOverUI");
 	GameOverUI->SetGameOverWidgets();
+	CUICharacterStateHUD* StateWindow = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	StateWindow->SetVisibility(false);
+	CUIGunStateHUD* GunStateWindow = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
+	GunStateWindow->SetVisibility(false);
+	m_DeathWidgetCreate = true;
 
 }
 
