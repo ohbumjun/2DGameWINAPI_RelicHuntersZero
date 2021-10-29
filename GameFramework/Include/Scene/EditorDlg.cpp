@@ -3,7 +3,7 @@
 #include "../PathManager.h"
 #include "EditorScene.h"
 #include "Scene.h"
-#include "StartScene.h"
+#include "MenuScene.h"
 #include "SceneResource.h"
 #include "SceneManager.h"
 #include "../Resource/Texture.h"
@@ -46,7 +46,6 @@ bool CEditorDlg::Init(int ID)
 	// Modal : 부모윈도우는 멈추고, 열리는 다이얼로그만 동작되는 방식
 	// Modeless : 부모윈도우와 다이얼로그 모두 동작되는 방식
 	m_hDlg = CreateDialog(
-		
 		CGameManager::GetInst()->GetWindowInstance(),
 		// 이름
 		MAKEINTRESOURCE(ID),
@@ -426,8 +425,6 @@ void CEditorDlg::ChangeFrame()
 		SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEX, (int)Data.End.x, TRUE);
 		SetDlgItemInt(m_hDlg, IDC_EDIT_ENDFRAMEY, (int)Data.End.y, TRUE);
 	}
-
-	
 }
 
 void CEditorDlg::Save()
@@ -593,7 +590,7 @@ LRESULT CEditorDlg::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 			DestroyWindow(hWnd);
 			// By setting Null, we can create Dialog newly afterwards
 			// hWnd = NULL;
-			CSceneManager::GetInst()->CreateScene<CStartScene>();
+			CSceneManager::GetInst()->CreateScene<CMenuScene>();
 			break;
 		case IDC_BUTTON_CREATEMAP :
 			// 이때 map 생성해준다 
