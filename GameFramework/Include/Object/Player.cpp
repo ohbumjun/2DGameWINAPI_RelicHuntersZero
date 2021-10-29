@@ -32,6 +32,7 @@
 #include "../UI/ProgressBar.h"
 #include "../UI/UIText.h"
 #include "../UI/UIPause.h"
+#include "../UI/UIGameOver.h"
 
 EChar_Type CPlayer::m_CharType = EChar_Type::Ass;
 CharacterInfo CPlayer::m_SelectedCharacterInfo = {};
@@ -1306,8 +1307,11 @@ void CPlayer::CharacterDestroy()
 {
 	Destroy();
 	// Stop the Game
-	CGameManager::GetInst()->SetTimeScale(0.f);
+	// CGameManager::GetInst()->SetTimeScale(0.f);
 	// Game Over Effect
+	CUIGameOver* GameOverUI = m_Scene->FindUIWindow<CUIGameOver>("GameOverUI");
+	GameOverUI->SetGameOverWidgets();
+
 }
 
 void CPlayer::AcquireItem(float DeltaTime)

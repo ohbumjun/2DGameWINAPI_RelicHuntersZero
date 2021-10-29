@@ -243,6 +243,7 @@
     <ClCompile Include="UI\UIBossStateHUD.cpp" />
     <ClCompile Include="UI\UIBtnAnimation.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
+    <ClCompile Include="UI\UIGameOver.cpp" />
     <ClCompile Include="UI\UIGunStateHUD.cpp" />
     <ClCompile Include="UI\UICommon.cpp" />
     <ClCompile Include="UI\UIHome.cpp" />
@@ -369,6 +370,7 @@
     <ClInclude Include="UI\UIBossStateHUD.h" />
     <ClInclude Include="UI\UIBtnAnimation.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
+    <ClInclude Include="UI\UIGameOver.h" />
     <ClInclude Include="UI\UIGunStateHUD.h" />
     <ClInclude Include="UI\UICommon.h" />
     <ClInclude Include="UI\UIHome.h" />

@@ -15,6 +15,7 @@
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UICommon.h"
 #include "../UI/UIHome.h"
+#include "../UI/WidgetComponent.h"
 #include "../Map/TileMap.h"
 #include "../GameManager.h"
 
@@ -48,24 +49,39 @@ bool CHomeScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	// Stage Door
-	CStageDoor* StageDoor = CreateObject<CStageDoor>("StageDoor", 
+	CStageDoor* StageDoor1 = CreateObject<CStageDoor>("StageDoorOne", 
 		Vector2(1300.f, 2100.f),
 		Vector2(50.f,50.f));
-	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_One);
-	StageDoor = CreateObject<CStageDoor>("StageDoor",
+	StageDoor1->SetDoorStageType(EDoorStage_Type::Stage_One);
+	CWidgetComponent* DoorNameWidget = StageDoor1->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-40.f, 20.f);
+	CUIText* NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorOneText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE 1"));
+
+	CStageDoor* StageDoor2 = CreateObject<CStageDoor>("StageDoorTwo",
 		Vector2(1950.f, 2100.f),
 		Vector2(50.f, 50.f));
-	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Two);
-	StageDoor = CreateObject<CStageDoor>("StageDoor",
+	StageDoor2->SetDoorStageType(EDoorStage_Type::Stage_Two);
+	DoorNameWidget = StageDoor2->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-40.f, 20.f);
+	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorTwoText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE 2"));
+
+	CStageDoor* StageDoor3 = CreateObject<CStageDoor>("StageDoorThree",
 		Vector2(2600.f, 2100.f),
 		Vector2(50.f, 50.f));
-	// StageDoor_One->SetDoorStageType(EDoorStage_Type::Stage_One);
-	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Three);
+	StageDoor3->SetDoorStageType(EDoorStage_Type::Stage_Three);
+	DoorNameWidget = StageDoor3->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-40.f, 20.f);
+	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorThreeText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE 3"));
 
 	// Potion
 	CMPPotion* MPPotion1 = CreateObject<CMPPotion>(POTION_MP_PROTO, POTION_MP_PROTO);
 	MPPotion1->SetPos(Vector2(300.f, 230.f));
-
 	CHPPotion* HPPotion1 = CreateObject<CHPPotion>(POTION_HP_PROTO, POTION_HP_PROTO);
 	HPPotion1->SetPos(Vector2(200.f, 210.f));
 

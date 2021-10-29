@@ -50,6 +50,11 @@ bool CMain3Scene::Init()
 		Vector2(600.f, 300.f),
 		Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
+	CWidgetComponent* DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-60.f, 20.f);
+	CUIText* NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorThreeText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE Home"));
 
 
 	// Player

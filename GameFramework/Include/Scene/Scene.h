@@ -142,7 +142,6 @@ public :
 	{
 		m_ObjList.push_back(Obj);
 	}
-
 public:
 	class CPlayer* CreatePlayer(const std::string& Name,
 		const Vector2& Pos = Vector2(0.f, 0.f),

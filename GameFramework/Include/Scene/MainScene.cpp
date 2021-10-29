@@ -71,11 +71,21 @@ bool CMainScene::Init()
 														 Vector2(200.f,300.f),
 														 Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
+	CWidgetComponent* DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-60.f, 20.f);
+	CUIText* NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorHomeText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE Home"));
+
 	StageDoor = CreateObject<CStageDoor>("StageDoor2",
 		Vector2(3500.f, 2200.f),
 		Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Two);
-
+	DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-40.f, 20.f);
+	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorThreeText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE 2"));
 
 	// Windows
 	CUIMain *MainWindow = CreateUIWindow<CUIMain>("MainWindow");

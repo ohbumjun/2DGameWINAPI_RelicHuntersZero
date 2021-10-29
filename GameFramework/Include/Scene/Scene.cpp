@@ -34,6 +34,7 @@
 // UI
 #include "../UI/UIMain.h"
 #include "../UI/UICommon.h"
+#include "../UI/UIGameOver.h"
 #include "../UI/UICharacterStateHUD.h"
 #include "../UI/UIGunStateHUD.h"
 
@@ -2234,8 +2235,9 @@ void CScene::SetBasicUIs()
 	// Window
 	CUICharacterStateHUD* StateWindow = CreateUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	CUIGunStateHUD*		  GunStateWindow = CreateUIWindow<CUIGunStateHUD>("GunStateHUD");
-	CUIPause* m_UIPause = CreateUIWindow<CUIPause>("PauseUI");
-	m_UIPause->SetVisibility(false);
+	CUIPause*			  UIPause = CreateUIWindow<CUIPause>("PauseUI");
+	UIPause->SetVisibility(false);
+	CUIGameOver*          UIGameOver = CreateUIWindow<CUIGameOver>("GameOverUI");
 }
 
 void CScene::SetSceneStartAnimation()
@@ -2723,6 +2725,7 @@ bool CScene::Update(float DeltaTime)
 				iterEnd = m_ObjList.end();
 				continue;
 			}
+			float TimeScale = (*iter)->m_TimeScale;
 			(*iter)->Update(DeltaTime * (*iter)->m_TimeScale);
 			++iter;
 		}
