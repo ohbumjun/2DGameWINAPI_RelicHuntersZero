@@ -3830,6 +3830,19 @@ void CScene::SetKamikaze1MonsterAnimation()
 	}
 }
 
+void CScene::ClearAllMonsters()
+{
+	auto iter    = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->GetObjType() == EObject_Type::Monster)
+		{
+			(*iter)->Destroy();
+		}
+	}
+}
+
 void CScene::SetLevel3MonsterAnimation()
 {
 	SetKamikaze1MonsterAnimation();

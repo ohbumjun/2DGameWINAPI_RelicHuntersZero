@@ -1,5 +1,8 @@
 #include "BossMonster.h"
 #include "../UI/UIBossStateHUD.h"
+#include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIGunStateHUD.h"
+#include "../UI/UIBossEnd.h"
 #include "../Collision/ColliderBox.h"
 #include "../Scene/Scene.h"
 #include"../Scene/SceneResource.h"
@@ -15,11 +18,13 @@ CBossMonster::CBossMonster() :
 	m_GrenadeTime(0.f),
 	m_GrenadMaxTime(5.f),
 	m_IsGenerator1Alive(false),
-	m_IsGenerator2Alive(false)
+	m_IsGenerator2Alive(false),
+	m_MonsterDeath(false)
 {
 	m_MonsterType = EMonster_Type::Boss;
 	m_AttackDistance = 2000.f;
 	m_DashDistance = 3000.f;
+	m_CharacterInfo.HP = -1;
 }
 
 CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
@@ -30,6 +35,7 @@ CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
 	m_GrenadMaxTime = 3.f;
 	m_IsGenerator1Alive = false;
 	m_IsGenerator2Alive = false;
+	m_MonsterDeath = false;
 }
 
 CBossMonster::~CBossMonster()
@@ -40,13 +46,16 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 {
 	float TowerPoxX = GeneratorNum == 1 ? 600.f : 3300.f;
 	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1300.f));
-	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 3000,
+	// GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 3000,
+	//	5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 100,
 		5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	GeneratorTower->SetBossMonster(this);
 	if (GeneratorNum == 1) m_IsGenerator1Alive = true;
 	else m_IsGenerator2Alive = true;
 	m_ShieldEnable = true;
 
+	/*
 	for (int i = 0; i < 3; i++)
 	{
 		Vector2 TowerPos = GeneratorTower->GetPos();
@@ -55,6 +64,7 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 		KamiKaze->SetMonsterType(EMonster_Type::KamiKazeCage2);
 		KamiKaze->SetMoveSpeed(0.f);
 	}
+	*/
 
 	CreateSubMonsters();
 }
@@ -62,6 +72,7 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 
 void CBossMonster::MissileUpdate(float DeltaTime)
 {
+	if (m_MonsterDeath) return;
 	m_MissileAttackTime += DeltaTime;
 	if (m_MissileAttackTime >= m_MissileAttackMaxTime)
 	{
@@ -75,6 +86,7 @@ void CBossMonster::MissileAttack(float DeltaTime)
 
 void CBossMonster::GrenadeUpdate(float DeltaTime)
 {
+	if (m_MonsterDeath) return;
 	m_GrenadeTime += DeltaTime;
 	if (m_GrenadeTime >= m_GrenadMaxTime)
 	{
@@ -100,6 +112,7 @@ void CBossMonster::GrenadeAttack(float DeltaTime)
 
 void CBossMonster::GeneratorUpdate(float DeltaTime)
 {
+	if (m_MonsterDeath) return;
 	if (m_CharacterInfo.HP > m_CharacterInfo.HPMax * 0.45f
 		&& m_CharacterInfo.HP <= m_CharacterInfo.HPMax * 0.7f)
 	{
@@ -129,6 +142,9 @@ void CBossMonster::CreateSubMonsters()
 	CDuckMonster* DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK1_PROTO);
 	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f , rand() % 1000 + 1000.f));
 	DuckMonster->Equip((CGun*)ShotGun);
+
+	/*
+	* 
 	DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK2_PROTO);
 	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
 	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
@@ -151,10 +167,14 @@ void CBossMonster::CreateSubMonsters()
 	TurtleMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
 	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
 	TurtleMonster->Equip((CGun*)ShotGun);
+
+	*/
+
 }
 
 void CBossMonster::UIUpdate(float DeltaTime)
 {
+	if (m_MonsterDeath) return;
 	CUIBossStateHUD* State = m_Scene->FindUIWindow<CUIBossStateHUD>("BossStateHUD");
 	State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 }
@@ -205,6 +225,13 @@ void CBossMonster::ChangeHitAnimation()
 		ChangeAnimation(MONSTER_BOSS_RIGHT_HIT);
 }
 
+void CBossMonster::AIDeath(float DeltaTime)
+{
+	CMonster::AIDeath(DeltaTime);
+	// 화면내 Player 제외 모든 몬스터 제외 
+	m_MonsterDeath = true;
+}
+
 void CBossMonster::SetAnimation()
 {
 	// Right
@@ -227,12 +254,35 @@ void CBossMonster::SetAnimation()
 
 void CBossMonster::CharacterDestroy()
 {
-	CMonster::CharacterDestroy();
+	CCharacter::CharacterDestroy();
+	// Create End Widget
+	CUIBossEnd* SelectWindow = m_Scene->CreateUIWindow<CUIBossEnd>("UIEnd");
+
+	// Clear Monsters
+	m_Scene->ClearAllMonsters();
+
+	// Equip Boss Gun To Player
+	CGun* BossGun = m_Scene->CreateObject<CGun>("BossGun", BOSS_GUN_PROTO, m_Pos);
+	CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+	Player->Equip(BossGun);
+
+	// Clear UI 
+	CUICharacterStateHUD* StateWindow = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	if (StateWindow) StateWindow->SetVisibility(false);
+
+	CUIGunStateHUD* GunStateWindow = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
+	if (GunStateWindow) GunStateWindow->SetVisibility(false);
+
+	CUIBossStateHUD* BossStateWindow = m_Scene->FindUIWindow<CUIBossStateHUD>("BossStateHUD");
+	if (BossStateWindow) BossStateWindow->SetVisibility(false);
 }
 
 void CBossMonster::Start()
 {
 	CMonster::Start();
+
+	SetAnimationEndNotify<CBossMonster>(MONSTER_BOSS_LEFT_DEATH , this, &CBossMonster::CharacterDestroy);
+	SetAnimationEndNotify<CBossMonster>(MONSTER_BOSS_RIGHT_DEATH, this, &CBossMonster::CharacterDestroy);
 }
 
 bool CBossMonster::Init()
@@ -278,3 +328,6 @@ CBossMonster* CBossMonster::Clone()
 {
 	return new CBossMonster(*this);
 }
+
+
+// CUISelect* SelectWindow = CreateUIWindow<CUISelect>("MenuWindow");

@@ -48,6 +48,11 @@ public:
 	virtual void ChangeRunAnimation();
 	virtual void ChangeDeathAnimation();
 	virtual void ChangeHitAnimation();
+// Death Animation
+private:
+	bool m_MonsterDeath;
+	virtual void AIDeath(float DeltaTime);
+	
 // Set Animation
 private:
 	virtual void SetAnimation();

@@ -222,6 +222,7 @@
     <ClCompile Include="Scene\Camera.cpp" />
     <ClCompile Include="Scene\EditorDlg.cpp" />
     <ClCompile Include="Scene\EditorScene.cpp" />
+    <ClCompile Include="Scene\EndScene.cpp" />
     <ClCompile Include="Scene\HomeScene.cpp" />
     <ClCompile Include="Scene\IntroScene.cpp" />
     <ClCompile Include="Scene\Main2Scene.cpp" />
@@ -243,6 +244,8 @@
     <ClCompile Include="UI\UIBossStateHUD.cpp" />
     <ClCompile Include="UI\UIBtnAnimation.cpp" />
     <ClCompile Include="UI\UICharacterStateHUD.cpp" />
+    <ClCompile Include="UI\UIBossEnd.cpp" />
+    <ClCompile Include="UI\UIEnd.cpp" />
     <ClCompile Include="UI\UIGameOver.cpp" />
     <ClCompile Include="UI\UIGunStateHUD.cpp" />
     <ClCompile Include="UI\UICommon.cpp" />
@@ -348,6 +351,7 @@
     <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Scene\EditorDlg.h" />
     <ClInclude Include="Scene\EditorScene.h" />
+    <ClInclude Include="Scene\EndScene.h" />
     <ClInclude Include="Scene\HomeScene.h" />
     <ClInclude Include="Scene\IntroScene.h" />
     <ClInclude Include="Scene\Main2Scene.h" />
@@ -370,6 +374,8 @@
     <ClInclude Include="UI\UIBossStateHUD.h" />
     <ClInclude Include="UI\UIBtnAnimation.h" />
     <ClInclude Include="UI\UICharacterStateHUD.h" />
+    <ClInclude Include="UI\UIBossEnd.h" />
+    <ClInclude Include="UI\UIEnd.h" />
     <ClInclude Include="UI\UIGameOver.h" />
     <ClInclude Include="UI\UIGunStateHUD.h" />
     <ClInclude Include="UI\UICommon.h" />

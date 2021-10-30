@@ -69,14 +69,14 @@ public :
 	void SetMouseAnimation();
 	void SetSkillAnimation();
 	void SetNpcAnimation();
-// Monster Setting 
+// Monster Related
 public :
 	void SetLevel1MonsterAnimation();
 	void SetDuck1MonsterAnimation();
 	void SetDuck2MonsterAnimation();
 	void SetDuck3MonsterAnimation();
 	void SetKamikaze1MonsterAnimation();
-
+	void ClearAllMonsters();
 	template<typename A = CDuckMonster, typename B = CDuckMonster, typename C = CDuckMonster>
 	void SetMonsterOnTileMap(
 		const std::string&  MonsterProtoA,

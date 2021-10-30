@@ -379,10 +379,10 @@ void CPlayer::SetNotifyFunctions()
 
 	// Death
 	AnimName = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
-	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
+	// AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
 	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::CharacterDestroy);
 	AnimName = m_mapAnimName.find(PLAYER_RIGHT_DEATH)->second;
-	AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
+	// AddAnimationNotify<CPlayer>(AnimName, 11, this, &CPlayer::CharacterDestroy);
 	SetAnimationEndNotify<CPlayer>(AnimName, this, &CPlayer::CharacterDestroy);
 }
 

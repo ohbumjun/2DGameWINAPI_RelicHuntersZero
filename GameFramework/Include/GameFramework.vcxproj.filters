@@ -462,6 +462,15 @@
     <ClCompile Include="UI\UIGameOver.cpp">
       <Filter>07. UI\02. Window</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\EndScene.cpp">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIBossEnd.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIEnd.cpp">
+      <Filter>07. UI\02. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -837,6 +846,15 @@
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
     <ClInclude Include="UI\UIGameOver.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EndScene.h">
+      <Filter>01. GameManager\02. Scene\04. SubScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIBossEnd.h">
+      <Filter>07. UI\02. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIEnd.h">
       <Filter>07. UI\02. Window</Filter>
     </ClInclude>
   </ItemGroup>
