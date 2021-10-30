@@ -136,8 +136,6 @@ CCharacter *CCharacter::Clone()
 float CCharacter::SetDamage(float Damage)
 {
 	Damage = CGameObject::SetDamage(Damage);
-	Damage -= m_CharacterInfo.Armor;
-	if (Damage < 0) Damage = 0;
 	m_CharacterInfo.HP -= (int)Damage;
 	return Damage;
 }
@@ -536,9 +534,9 @@ CGun* CCharacter::Equip(CGun* Gun)
 	// Set Current Gun
 	m_CurrentGun = m_GunEquipment[GunClass];
 	m_CurrentGun->RemoveGunCollider();
+	
 	// Attack Dist Setting
 	m_CurrentGun->SetBulletDistance(m_CharacterInfo.AttackDistance);
-
 	// Set Owner, Pos 
 	Gun->SetOwner(this);
 	// Fire Time Setting

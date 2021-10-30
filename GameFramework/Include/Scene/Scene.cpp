@@ -2357,53 +2357,53 @@ void CScene::SetBasicProtoTypes()
 
 	// Duck Monster
 	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	DuckMonsterPrototype->SetCharacterInfo(100, 120, 300,
+		300, 1, 100, 100, 10, 400.f, 700.f);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK2_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	DuckMonsterPrototype->SetCharacterInfo(120, 140, 400,
+		400, 1, 100, 100, 20, 450.f, 700.f);
+	DuckMonsterPrototype->SetMoveSpeed(200.f);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck2);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK3_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	DuckMonsterPrototype->SetCharacterInfo(150, 180, 500,
+		500, 1, 100, 100, 50, 600.f, 800.f);
+	DuckMonsterPrototype->SetMoveSpeed(300.f);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck3);
 
 	// Turtle Monster
 	CTurtleMonster* TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE1_PROTO);
-	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	TurtleMonsterPrototype->SetCharacterInfo(140, 140, 350,
+		350, 1, 100, 100, 20, 450.f, 750.f);
 	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle1);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE2_PROTO);
-	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	TurtleMonsterPrototype->SetCharacterInfo(160, 160, 400,
+		400, 1, 100, 100, 30, 500.f, 750.f);
+	TurtleMonsterPrototype->SetMoveSpeed(200.f);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle2);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE3_PROTO);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle3);
-	TurtleMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	TurtleMonsterPrototype->SetCharacterInfo(200, 200, 600,
+		600, 1, 100, 100, 80, 700.f, 800.f);
+	TurtleMonsterPrototype->SetMoveSpeed(300.f);
 
 	// KamiKaze Monster
 	CKamiKazeMonster* KamiKazeMonsterPrototype = CreatePrototype<CKamiKazeMonster>(MONSTER_KAMIKAZE1_PROTO);
-	KamiKazeMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	KamiKazeMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	KamiKazeMonsterPrototype->SetCharacterInfo(100, 120, 300,
+		300, 1, 100, 100, 10, 500.f, 800.f);
+	KamiKazeMonsterPrototype->SetMoveSpeed(400.f);
 	KamiKazeMonsterPrototype->SetMonsterType(EMonster_Type::KamiKaze1);
 
 	KamiKazeMonsterPrototype = CreatePrototype<CKamiKazeMonster>(MONSTER_KAMIKAZE2_PROTO);
-	KamiKazeMonsterPrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	KamiKazeMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+	KamiKazeMonsterPrototype->SetCharacterInfo(100, 120, 400,
+		300, 1, 100, 100, 10, 600.f, 1000.f);
+	KamiKazeMonsterPrototype->SetMoveSpeed(450.f);
 	KamiKazeMonsterPrototype->SetMonsterType(EMonster_Type::KamiKaze2);
 
 	// KamiKaze Cage

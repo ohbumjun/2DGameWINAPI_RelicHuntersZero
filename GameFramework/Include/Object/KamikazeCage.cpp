@@ -149,16 +149,18 @@ void CKamiKazeCage::CharacterDestroy()
 	std::string ProtoName = m_MonsterType == EMonster_Type::KamiKazeCage1 ? MONSTER_KAMIKAZE1_PROTO : MONSTER_KAMIKAZE2_PROTO;
 	CKamiKazeMonster * KamikazeMonster = nullptr;
 
-	for (int i = 0; i < 5; i++)
+	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 3.0f)
 	{
 		KamikazeMonster = m_Scene->CreateObject<CKamiKazeMonster>(
-			"Kamikaze"+std::to_string(i), ProtoName,
-			m_Pos + i*2.f);
+			"Kamikaze", ProtoName,
+			Vector2(
+				(m_Pos.x - m_Offset.x) + 100.f* cos(f),
+				(m_Pos.y - m_Offset.y) + 100.f * sin(f)),
+			Vector2(m_Size.x, m_Size.y));
 		KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
 			NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 		KamikazeMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 		KamikazeMonster->SetMonsterType(newMType);
-		KamikazeMonster->SetDir(float(1*i % 2), float(1*i % 2));
 	}
 
 	CCharacter::CharacterDestroy();

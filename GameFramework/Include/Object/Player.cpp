@@ -182,7 +182,9 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 	if (m_HpPotionInv > 0)
 	{
 		m_HpPotionInv -= 1;
-		m_CharacterInfo.HP = m_CharacterInfo.HPMax;
+		m_CharacterInfo.HP += 1000;
+		if(m_CharacterInfo.HP > m_CharacterInfo.HPMax)
+			m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 		UpdateHpPotionInv(State);
 		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
 			"ShieldStart",
@@ -198,7 +200,9 @@ void CPlayer::UseMpPotionInv(float DeltaTime)
 	if (m_MpPotionInv > 0)
 	{
 		m_MpPotionInv -= 1;
-		m_CharacterInfo.MP = m_CharacterInfo.MPMax;
+		m_CharacterInfo.MP += 100;
+		if (m_CharacterInfo.MP > m_CharacterInfo.MPMax)
+			m_CharacterInfo.MP = m_CharacterInfo.MPMax;
 		UpdateMpPotionInv(State);
 		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
 			"ShieldStart",
@@ -1838,7 +1842,7 @@ void CPlayer::ActivateSkills(float DeltaTime)
 	ChangeIdleAnimation();
 
 	// MP Decrease
-	// m_CharacterInfo.MP -= m_CharacterInfo.MPMax * 0.5f;
+	m_CharacterInfo.MP -= 100;
 
 	switch (m_CharType)
 	{

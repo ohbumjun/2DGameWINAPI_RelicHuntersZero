@@ -131,7 +131,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 
 void CGun::SkillSlowMotionAttack()
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 30.0f)
 		{
