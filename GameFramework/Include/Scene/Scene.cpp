@@ -36,6 +36,7 @@
 #include "../UI/UICommon.h"
 #include "../UI/UIGameOver.h"
 #include "../UI/UICharacterStateHUD.h"
+#include "../UI/UIBossStateHUD.h"
 #include "../UI/UIGunStateHUD.h"
 
 CScene::CScene()
@@ -2232,6 +2233,9 @@ void CScene::SetPauseUIVisbility(bool State)
 
 	CUIGunStateHUD* GunStateWindow = FindUIWindow<CUIGunStateHUD>("GunStateHUD");
 	if(GunStateWindow) GunStateWindow->SetVisibility(!State);
+
+	CUIBossStateHUD* BossStateWindow = FindUIWindow<CUIBossStateHUD>("BossStateHUD");
+	if (BossStateWindow) BossStateWindow->SetVisibility(!State);
 }
 
 void CScene::SetBasicUIs()
@@ -2399,15 +2403,15 @@ void CScene::SetBasicProtoTypes()
 
 	// KamiKaze Monster
 	CKamiKazeMonster* KamiKazeMonsterPrototype = CreatePrototype<CKamiKazeMonster>(MONSTER_KAMIKAZE1_PROTO);
-	KamiKazeMonsterPrototype->SetCharacterInfo(100, 120, 300,
+	KamiKazeMonsterPrototype->SetCharacterInfo(250, 120, 300,
 		300, 1, 100, 100, 10, 500.f, 800.f);
-	KamiKazeMonsterPrototype->SetMoveSpeed(400.f);
+	KamiKazeMonsterPrototype->SetMoveSpeed(300.f);
 	KamiKazeMonsterPrototype->SetMonsterType(EMonster_Type::KamiKaze1);
 
 	KamiKazeMonsterPrototype = CreatePrototype<CKamiKazeMonster>(MONSTER_KAMIKAZE2_PROTO);
-	KamiKazeMonsterPrototype->SetCharacterInfo(100, 120, 400,
+	KamiKazeMonsterPrototype->SetCharacterInfo(250, 120, 400,
 		300, 1, 100, 100, 10, 600.f, 1000.f);
-	KamiKazeMonsterPrototype->SetMoveSpeed(450.f);
+	KamiKazeMonsterPrototype->SetMoveSpeed(350.f);
 	KamiKazeMonsterPrototype->SetMonsterType(EMonster_Type::KamiKaze2);
 
 	// KamiKaze Cage
@@ -3832,6 +3836,7 @@ void CScene::SetLevel3MonsterAnimation()
 	SetKamikazeCageMonsterAnimation();
 	SetBossAnimation();
 	SetGeneratorAnimation();
+	SetKamikaze2MonsterAnimation();
 }
 
 void CScene::SetKamikazeCageMonsterAnimation()

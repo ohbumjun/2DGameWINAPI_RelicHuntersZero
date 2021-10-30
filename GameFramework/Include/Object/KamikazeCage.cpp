@@ -8,10 +8,14 @@
 CKamiKazeCage::CKamiKazeCage()
 {
 	m_MonsterType = EMonster_Type::KamiKazeCage1;
+	m_DashDistance = 1000.f;
+	m_AttackDistance = 50.f;
 }
 
 CKamiKazeCage::CKamiKazeCage(const CKamiKazeCage& obj) : CMonster(obj)
 {
+	m_DashDistance = 1000.f;
+	m_AttackDistance = 50.f;
 }
 
 CKamiKazeCage::~CKamiKazeCage()

@@ -5,6 +5,7 @@
 #include"../Scene/SceneResource.h"
 #include "EffectGrenade.h"
 #include "GeneratorTower.h"
+#include "KamikazeCage.h"
 
 CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
@@ -33,14 +34,23 @@ CBossMonster::~CBossMonster()
 
 void CBossMonster::CreateGenerator(int GeneratorNum)
 {
-	float TowerPoxX = GeneratorNum == 1 ? 600.f : 3200.f;
-	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1200.f));
+	float TowerPoxX = GeneratorNum == 1 ? 600.f : 3300.f;
+	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1300.f));
 	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 3000,
 		5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	GeneratorTower->SetBossMonster(this);
 	if (GeneratorNum == 1) m_IsGenerator1Alive = true;
 	else m_IsGenerator2Alive = true;
 	m_ShieldEnable = true;
+
+	for (int i = 0; i < 3; i++)
+	{
+		Vector2 TowerPos = GeneratorTower->GetPos();
+		CKamiKazeCage* KamiKaze = m_Scene->CreateObject<CKamiKazeCage>("KamiKazeCage", MONSTER_KAMIKAZECAGE_PROTO,
+			TowerPos);
+		KamiKaze->SetMonsterType(EMonster_Type::KamiKazeCage2);
+		KamiKaze->SetMoveSpeed(0.f);
+	}
 }
 
 

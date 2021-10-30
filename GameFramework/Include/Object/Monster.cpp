@@ -13,8 +13,6 @@
 CMonster::CMonster() : m_Count(0),
 					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME),
 					   m_AI(EMonsterAI::Idle),
-					   m_DashDistance((int)NORMAL_MONSTER_DASH_DISTANCE),
-					   m_AttackDistance((int)NORMAL_MONSTER_ATTACK_DISTANCE),
 					   m_TraceSurprise(false),
 						m_SurpriseStopTime(0.0f),
 						m_TypeChanged(false),
@@ -23,6 +21,8 @@ CMonster::CMonster() : m_Count(0),
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
 	m_ObjType         = EObject_Type::Monster;
+	m_AttackDistance = m_CharacterInfo.AttackDistance;
+	m_DashDistance = m_CharacterInfo.DashDistance;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
@@ -30,12 +30,13 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_TypeChanged = false;
 	m_ObjType = EObject_Type::Monster;
 	m_Dir = obj.m_Dir;
-	m_DashDistance = obj.m_DashDistance;
-	m_AttackDistance = obj.m_AttackDistance;
 	m_Count = obj.m_Count;
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
+
+	m_AttackDistance = m_CharacterInfo.AttackDistance;
+	m_DashDistance = m_CharacterInfo.DashDistance;
 
 	//this
 	m_AI = EMonsterAI::Idle;
@@ -264,6 +265,7 @@ void CMonster::Fire()
 	{
 		// Fire
 		m_CurrentGun->MonsterFire(Player->GetPos(),(float)m_CharacterInfo.Attack);
+		m_FireEnable = true;
 	}
 }
 
@@ -348,12 +350,12 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
 
 	m_FireTime += DeltaTime;
-	if (m_FireTime >= m_FireTimeMax)
+	if (m_FireTime >= m_FireTimeMax && m_FireEnable)
 	{
 		m_FireTime -= m_FireTimeMax;
 		++m_Count;
+		m_FireEnable = false;
 		Fire();
-		AttackEnd();
 	}
 }
 

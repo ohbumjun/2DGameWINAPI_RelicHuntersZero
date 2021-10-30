@@ -12,6 +12,7 @@ protected:
 protected:
 	std::unordered_map<std::string, std::string> m_mapAnimName;
 protected:
+	bool m_FireEnable;
 	CharacterInfo m_CharacterInfo;
 	class CSharedPtr<CGun> m_GunEquipment[EGunClass::End];
 	CSharedPtr<CGun> m_CurrentGun;
@@ -22,7 +23,7 @@ public :
 	}
 	void SetCharacterInfo(int Attack, int Armor, int HP, int MP, float Stemina,int Level,
 						  int Exp, int Gold, float AttackSpeed,
-						  float AttackDistance, float DashDistance = 0.f)
+						  float AttackDistance, float DashDistance = 700.f)
 	{
 		m_CharacterInfo.Attack = Attack;
 		m_CharacterInfo.Armor = Armor;
@@ -37,6 +38,7 @@ public :
 		m_CharacterInfo.Gold = Gold;
 		m_CharacterInfo.AttackSpeed = AttackSpeed;
 		m_CharacterInfo.AttackDistance = AttackDistance;
+		m_CharacterInfo.DashDistance = DashDistance;
 	}
 	// Get
 	void SetAttackSpeed(float Speed)

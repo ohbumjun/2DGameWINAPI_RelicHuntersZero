@@ -98,6 +98,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillTimeMax = 20.f;
 	m_SkillEnable  = false;
 
+
 	m_UIPause = nullptr;
 	m_DeathWidgetCreate = false;
 
@@ -253,14 +254,14 @@ void CPlayer::Start()
 	ChangeIdleAnimation();
 
 	// Add Collider
-	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
-	Head->SetRadius(20.f);
-	Head->SetOffset(0.f, -60.f);
-	Head->SetCollisionProfile("Player");
+	// CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
+	// Head->SetRadius(20.f);
+	// Head->SetOffset(0.f, -60.f);
+	// Head->SetCollisionProfile("Player");
 
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(80.f, 45.f);
-	Body->SetOffset(0.f, -22.5f);
+	Body->SetExtent(60.f, 65.f);
+	Body->SetOffset(0.f, -42.5f);
 	Body->SetCollisionProfile("Player");
 	
 	// Increase Attack, Armor If CurrentGun Exist
@@ -1919,37 +1920,26 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
 
-	// 1st Nearby
-	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
+	for (int i = 1; i < 4; i++)
 	{
-		CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
-			"GrenadeEffect",
-			GRENADE_PROTO,
-			Vector2(
-				(m_Pos.x - m_Offset.x) + 300.f * 1.5f * cos(f),
-				(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + 300.f * 1.5f * (float)sin(f))
-			);
-		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
-		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
-		EffectGrenade->SetTextureColorKey(255, 255, 255);
-		EffectGrenade->SetPlayerGrenage(true);
+		// 1st Nearby
+		for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
+		{
+			CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
+				"GrenadeEffect",
+				GRENADE_PROTO,
+				Vector2(
+					(m_Pos.x - m_Offset.x) + 100.f * i * cos(f),
+					(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + 100.f * i * (float)sin(f))
+				);
+			EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
+			EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
+			EffectGrenade->SetTextureColorKey(255, 255, 255);
+			EffectGrenade->SetPlayerGrenage(true);
+			EffectGrenade->SetDamage(m_CharacterInfo.Attack * 2);
+		}
 	}
-
-	// 2nd Nearby
-	for (float f = 0.0f; f < 2 * M_PI; f += M_PI / 12.f)
-	{
-		CEffectGrenade* EffectGrenade = m_Scene->CreateObject<CEffectGrenade>(
-			"GrenadeEffect",
-			GRENADE_PROTO,
-			Vector2(
-				(m_Pos.x - m_Offset.x) + m_Size.Length() * 2.5f * cos(f),
-				(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
-			);
-		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
-		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
-		EffectGrenade->SetTextureColorKey(255, 255, 255);
-		EffectGrenade->SetPlayerGrenage(true);
-	}
+	
 }
 
 void CPlayer::SkillClone(float DeltaTime)

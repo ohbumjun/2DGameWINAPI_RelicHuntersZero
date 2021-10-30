@@ -16,6 +16,7 @@ CCharacter::CCharacter() :
 	m_HitTime(0.f),
 	m_HitDir(Vector2(0.f,0.f)),
 	m_ShieldEnable(false),
+	m_FireEnable(true),
 	m_ShieldTime(0.f),
 	m_ShieldTimeMax(10.f),
 	m_ShieldEnableTime(2.f),

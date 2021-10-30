@@ -26,7 +26,7 @@ CEffectGrenade::CEffectGrenade(const CEffectGrenade& obj) :
 {
 	m_SpeedX          = obj.m_SpeedX;
 	m_FallTime        = 0.f;
-	m_Damage          = 100;
+	m_Damage          = obj.m_Damage;
 	m_Explode         = false;
 	m_ExplodeTime     = 0.f;
 	m_ExplodeMaxTime  = 3.f;
