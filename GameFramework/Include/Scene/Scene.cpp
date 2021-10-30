@@ -3104,43 +3104,6 @@ CGameObject *CScene::FindPrototype(const std::string &Name)
 	return iter->second;
 }
 
-/*
-void CScene::SetObjectsToWall()
-{
-	CTileMap* TileMap = GetTileMap();
-
-	if (TileMap)
-	{
-		// Tile Idx 
-		int LeftIndexX, TopIndexY, RightIndexX, BottomIndexY;
-		LeftIndexX = TileMap->GetOriginTileIndexX(0);
-		RightIndexX = TileMap->GetTileCountX() - 1;
-		TopIndexY = TileMap->GetOriginTileIndexY(0);
-		BottomIndexY = TileMap->GetTileCountY() - 1;
-
-		int WallNum = 0;
-
-		CGameObject* WallObj = nullptr;
-
-		// From Down to Up
-		for (int i = TopIndexY; i <= BottomIndexY; i++)
-		{
-			for (int j = LeftIndexX; j <= RightIndexX; j++)
-			{
-				Vector2 TilePos        = TileMap->GetTile(j, i)->GetPos();
-				Vector2 TileSize       = TileMap->GetTile(j, i)->GetSize();
-				ETileOption TileOption = TileMap->GetTile(j, i)->GetTileOption();
-				Vector2 WallObjPos     = Vector2(TilePos.x + 0.5*TileSize.x, TilePos.y);
-				if (TileOption == ETileOption::Wall)
-				{
-					WallObj = CreateObject<CWallObject>(std::to_string(WallNum),WALL_PROTO, WallObjPos, TileSize);
-					WallNum += 1;
-				}
-			}
-		}
-	}
-}
-*/
 
 CPlayer *CScene::CreatePlayer(const std::string &Name, const Vector2 &Pos, const Vector2 &Size)
 {

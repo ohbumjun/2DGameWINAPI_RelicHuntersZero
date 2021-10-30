@@ -10,7 +10,7 @@ class CPlayer : public CCharacter
 	friend class CScene;
 	friend class CSceneManager;
 	friend class CUIPause;
-protected:
+public:
 	CPlayer();
 	CPlayer(const CPlayer &obj);
 	virtual ~CPlayer();
@@ -167,16 +167,18 @@ public:
 	void BulletFireTarget(float);
 	CGameObject *FindClosestTarget(Vector2 PlayerPos);
 // Death ---
-public:
+private:
 	bool m_PlayerDeath;
 	bool m_DeathWidgetCreate;
-	virtual void CharacterDestroy();
 	float m_DeathAnimationTime;
+public:
+	virtual void CharacterDestroy();
 	virtual void GoOppDirection(Vector2 Dir)
 	{
 		Vector2 Dist = Vector2(Dir.x * 20, Dir.y * 20);
 		m_Pos += Dist;
 	};
+
 // Item --
 public:
 	void AcquireItem(float);

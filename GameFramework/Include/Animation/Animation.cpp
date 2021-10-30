@@ -58,19 +58,18 @@ void CAnimation::AddAnimation(const std::string& SequenceName,
 {
 	// 애니메이션 제작에 필요한 이미지가 없다면 return;
 	CAnimationSequence* Sequence = m_Scene->GetSceneResource()->FindAnimationSequence(SequenceName);
-	if (!Sequence)
-		return;
+	if (!Sequence) return;
 
 	// 이미 같은 이름의 AnimationInfo 정보가 있다면 return
 	if (FindInfo(SequenceName)) return;
 
 	AnimationInfo* Info = new AnimationInfo;
 
-	Info->Sequence = Sequence;
-	Info->Loop = Loop;
-	Info->PlayTime = PlayTime;
+	Info->Sequence  = Sequence;
+	Info->Loop      = Loop;
+	Info->PlayTime  = PlayTime;
 	Info->PlayScale = PlayScale;
-	Info->Reverse = Reverse;
+	Info->Reverse   = Reverse;
 	Info->FrameTime = PlayTime / Sequence->GetFrameCount();
 
 	// 처음 추가되는 애니메이션일 경우 이 애니메이션을 기본 애니메이션으로

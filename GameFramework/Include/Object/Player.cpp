@@ -117,6 +117,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 			m_SteminaBarWidget = (*iter);
 		}
 	}
+
 }
 
 CPlayer::~CPlayer()
@@ -235,7 +236,22 @@ void CPlayer::Start()
 {
 	CCharacter::Start();
 
+
 	SetAnimName();
+
+	// Change Animation To Idle
+	ChangeIdleAnimation();
+
+	// Add Collider
+	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
+	Head->SetRadius(20.f);
+	Head->SetOffset(0.f, -60.f);
+	Head->SetCollisionProfile("Player");
+
+	CColliderBox* Body = AddCollider<CColliderBox>("Body");
+	Body->SetExtent(80.f, 45.f);
+	Body->SetOffset(0.f, -22.5f);
+	Body->SetCollisionProfile("Player");
 
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
@@ -384,17 +400,6 @@ bool CPlayer::Init()
 	// Set Initial Animation As Right Idle
 	std::string Anim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
 	ChangeAnimation(Anim);
-
-	// Collider ---
-	CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
-	Head->SetRadius(20.f);
-	Head->SetOffset(0.f, -60.f);
-	Head->SetCollisionProfile("Player");
-
-	CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(80.f, 45.f);
-	Body->SetOffset(0.f, -22.5f);
-	Body->SetCollisionProfile("Player");
 
 	// Widget ---
 	// HPBar
@@ -766,6 +771,11 @@ void CPlayer::ChangeIdleAnimation()
 
 void CPlayer::ChangeDeathAnimation()
 {
+	if (!m_PlayerDeath)
+	{
+		ChangeIdleAnimation();
+		return;
+	}
 	if (m_Dir.x < 0)
 	{
 		std::string Anim = m_mapAnimName.find(PLAYER_LEFT_DEATH)->second;
@@ -1306,10 +1316,11 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 
 void CPlayer::CharacterDestroy()
 {
-	Destroy();
+	// Destroy();
 
 	// Game Over Effect
 	if (m_DeathWidgetCreate) return;
+
 	CUIGameOver* GameOverUI = m_Scene->FindUIWindow<CUIGameOver>("GameOverUI");
 	GameOverUI->SetGameOverWidgets();
 	CUICharacterStateHUD* StateWindow = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");

@@ -147,6 +147,21 @@ public:
 		const Vector2& Pos = Vector2(0.f, 0.f),
 		const Vector2& Size = Vector2(100.f, 100.f));
 
+	bool DeleteObject(const std::string& Name)
+	{
+		auto iter = m_ObjList.begin();
+		auto iterEnd = m_ObjList.end();
+		for (; iter != iterEnd;++iter)
+		{
+			if ((*iter)->GetName() == Name)
+			{
+				m_ObjList.erase(iter);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	template <typename T>
 	T* CreateObject(const std::string& Name,
 		const Vector2& Pos = Vector2(0.f, 0.f),
