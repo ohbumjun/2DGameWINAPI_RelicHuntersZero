@@ -77,7 +77,7 @@ bool CMain3Scene::Init()
 	// Monster
 	// SetMonsterOnTileMap<CTurtleMonster>(MONSTER_TURTLE1_PROTO, MONSTER_TURTLE2_PROTO, MONSTER_TURTLE3_PROTO);
 	CBossEgg* BossEgg = CreateObject<CBossEgg>("BossEgg",
-		Vector2(1000.f, 500.f));
+		Vector2(1700.f, 1500.f));
 
 	// Scroll Map
 	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;

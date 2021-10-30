@@ -18,8 +18,8 @@ CBossMonster::CBossMonster() :
 	m_IsGenerator2Alive(false)
 {
 	m_MonsterType = EMonster_Type::Boss;
-	m_AttackDistance = 2500.f;
-	m_DashDistance = 2600.f;
+	m_AttackDistance = 2000.f;
+	m_DashDistance = 3000.f;
 }
 
 CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)

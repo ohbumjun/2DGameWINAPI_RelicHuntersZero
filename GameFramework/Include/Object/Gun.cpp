@@ -123,6 +123,9 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("MonsterAttack");
+	CMonster* OwnerMonster = (CMonster*)m_Owner;
+	if(OwnerMonster->GetMonsterType() == EMonster_Type::Boss)
+		BulletBody->SetCollisionProfile("Monster");
 	// Casing
 	CreateCasing(Bullet);
 	// Bullet Effect
