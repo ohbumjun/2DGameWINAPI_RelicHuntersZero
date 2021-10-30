@@ -536,10 +536,11 @@ CGun* CCharacter::Equip(CGun* Gun)
 	// Set Current Gun
 	m_CurrentGun = m_GunEquipment[GunClass];
 	m_CurrentGun->RemoveGunCollider();
+	// Attack Dist Setting
+	m_CurrentGun->SetBulletDistance(m_CharacterInfo.AttackDistance);
 
 	// Set Owner, Pos 
 	Gun->SetOwner(this);
-	
 	// Fire Time Setting
 	m_FireTime = m_CurrentGun->GetFireTime();
 	m_FireTimeMax = m_CurrentGun->GetFireTimeMax();

@@ -16,7 +16,7 @@ protected:
 	class CSharedPtr<CGun> m_GunEquipment[EGunClass::End];
 	CSharedPtr<CGun> m_CurrentGun;
 public :
-	void SetCharInfo(CharacterInfo Info)
+	void SetCharacterInfo(CharacterInfo Info)
 	{
 		m_CharacterInfo = Info;
 	}

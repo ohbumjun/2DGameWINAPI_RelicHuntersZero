@@ -20,6 +20,10 @@ protected:
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
+private :
+	float m_RunSpeed;
+	float m_NormalSpeed;
+	float m_DashSpeed;
 // Inv 
 private :
 	int m_HpPotionInv;

@@ -67,6 +67,9 @@ CPlayer::CPlayer() : m_RunEnable(false),
 	m_TimeScale = 1.f;
 	m_CharacterInfo = m_SelectedCharacterInfo;
 	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
+	m_RunSpeed = m_SelectedCharacterInfo.MoveSpeed * 1.5f;
+	m_NormalSpeed = m_SelectedCharacterInfo.MoveSpeed;
+	m_DashSpeed = m_SelectedCharacterInfo.MoveSpeed * 2.5f;
 }
 
 CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
@@ -81,7 +84,11 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_TeleportObj = obj.m_TeleportObj;
 	m_TeleportPos = obj.m_TeleportPos;
 	m_DeathAnimationTime = 0.f;
+
 	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
+	m_RunSpeed = m_SelectedCharacterInfo.MoveSpeed * 1.5f;
+	m_NormalSpeed = m_SelectedCharacterInfo.MoveSpeed;
+	m_DashSpeed = m_SelectedCharacterInfo.MoveSpeed * 2.5f;
 
 	m_HpPotionInv = obj.m_HpPotionInv;
 	m_MpPotionInv = obj.m_MpPotionInv;
@@ -440,7 +447,6 @@ void CPlayer::Update(float DeltaTime)
 {
 	// this	
 	CCharacter::Update(DeltaTime);
-
 	// Wall Move
 	bool WallCollision = PreventWallMove();
 	if (WallCollision)
@@ -448,7 +454,7 @@ void CPlayer::Update(float DeltaTime)
 		if (m_DashEnable)
 			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
 		if (m_RunEnable)
-			SetMoveSpeed(NORMAL_SPEED);
+			SetMoveSpeed(m_NormalSpeed);
 	}
 
 	MoveWithinWorldResolution();
@@ -973,7 +979,7 @@ void CPlayer::RunStart()
 		Vector2(5.f,5.f));
 
 	m_Scene->GetSceneResource()->SoundPlay("Run");
-	SetMoveSpeed(FAST_SPEED);
+	SetMoveSpeed(m_RunSpeed);
 
 	// Animation
 	ChangeRunAnimation();
@@ -983,7 +989,7 @@ void CPlayer::RunEnd()
 {
 	if (!m_RunEnable) return;
 	m_RunEnable = false;
-	SetMoveSpeed(NORMAL_SPEED);
+	SetMoveSpeed(m_NormalSpeed);
 
 	std::string RightRunAnim = m_mapAnimName.find(PLAYER_RIGHT_RUN)->second;
 	std::string LeftRunAnim  = m_mapAnimName.find(PLAYER_LEFT_RUN)->second;
@@ -1008,7 +1014,7 @@ void CPlayer::DashStart()
 	m_DashTime   = DASH_TIME;
 	m_DashEnable = true;
 	// Speed 
-	SetMoveSpeed(DASH_SPEED);
+	SetMoveSpeed(m_DashSpeed);
 	// Stemina
 	if (m_CharacterInfo.Stemina >= 0.5f * m_CharacterInfo.SteminaMax)
 		m_CharacterInfo.Stemina -= 0.5f * m_CharacterInfo.SteminaMax;
@@ -1022,7 +1028,7 @@ void CPlayer::DashEnd()
 {
 	if (!m_DashEnable) return;
 	m_DashEnable = false;
-	SetMoveSpeed(NORMAL_SPEED);
+	SetMoveSpeed(m_NormalSpeed);
 
 	std::string RightDashAnim = m_mapAnimName.find(PLAYER_RIGHT_DASH)->second;
 	std::string LeftDashAnim  = m_mapAnimName.find(PLAYER_LEFT_DASH)->second;
@@ -1952,7 +1958,7 @@ void CPlayer::SkillClone(float DeltaTime)
 		PlayerClone->SetLifeTime(20.f);
 		PlayerClone->SetCharType(m_CharType);
 		PlayerClone->SetAnimName();
-
+		PlayerClone->SetCharacterInfo(m_CharacterInfo);
 		// Equip Gun
 		if (m_CurrentGun)
 		{

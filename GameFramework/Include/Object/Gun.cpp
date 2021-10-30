@@ -65,6 +65,9 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 		PLAYER_BULLET_PROTO,
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
+	// Bullet Distance
+	Bullet->SetDistance(m_GunInfo.m_BulletDistance);
+	// Owner
 	Bullet->SetOwner(this);
 	// TimeScale
 	Bullet->SetTimeScale(m_Owner->GetTimeScale());
@@ -85,14 +88,12 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	CreateCasing(Bullet);
 	// Bullet Effect
 	CreateBulletEffect();
-
 }
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
 	// Adjust Gun Texture
 	AdjustGunTexture();
-	// this
 	CScene* Scene = m_Owner->GetScene();
 	Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f);
 	CSharedPtr<CBullet> Bullet = Scene->CreateObject<CBullet>("Bullet",
@@ -100,6 +101,8 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 		Vector2(m_Pos + BulletOffset),
 		Vector2(50.f, 50.f));
 	EBullet_Type BulletType = MatchBulletToGun();
+	// Bullet Distance
+	Bullet->SetDistance(m_GunInfo.m_BulletDistance);
 	// Bullet Type
 	Bullet->SetBulletType(BulletType);
 	// if Boss Bullet, Set Owner
