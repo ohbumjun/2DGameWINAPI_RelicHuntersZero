@@ -2365,39 +2365,39 @@ void CScene::SetBasicProtoTypes()
 
 	// Duck Monster
 	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(100, 120, 300,
+	DuckMonsterPrototype->SetCharacterInfo(100, 120, 1300,
 		300, 1, 100, 100, 10, 400.f, 700.f);
 	DuckMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck1);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK2_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(120, 140, 400,
+	DuckMonsterPrototype->SetCharacterInfo(120, 140, 1400,
 		400, 1, 100, 100, 20, 450.f, 700.f);
 	DuckMonsterPrototype->SetMoveSpeed(200.f);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck2);
 
 	DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK3_PROTO);
-	DuckMonsterPrototype->SetCharacterInfo(150, 180, 500,
+	DuckMonsterPrototype->SetCharacterInfo(150, 180, 1500,
 		500, 1, 100, 100, 50, 600.f, 800.f);
 	DuckMonsterPrototype->SetMoveSpeed(300.f);
 	DuckMonsterPrototype->SetMonsterType(EMonster_Type::Duck3);
 
 	// Turtle Monster
 	CTurtleMonster* TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE1_PROTO);
-	TurtleMonsterPrototype->SetCharacterInfo(140, 140, 350,
+	TurtleMonsterPrototype->SetCharacterInfo(140, 140, 1350,
 		350, 1, 100, 100, 20, 450.f, 750.f);
 	TurtleMonsterPrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle1);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE2_PROTO);
-	TurtleMonsterPrototype->SetCharacterInfo(160, 160, 400,
+	TurtleMonsterPrototype->SetCharacterInfo(160, 160, 1400,
 		400, 1, 100, 100, 30, 500.f, 750.f);
 	TurtleMonsterPrototype->SetMoveSpeed(200.f);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle2);
 
 	TurtleMonsterPrototype = CreatePrototype<CTurtleMonster>(MONSTER_TURTLE3_PROTO);
 	TurtleMonsterPrototype->SetMonsterType(EMonster_Type::Turtle3);
-	TurtleMonsterPrototype->SetCharacterInfo(200, 200, 600,
+	TurtleMonsterPrototype->SetCharacterInfo(200, 200, 1600,
 		600, 1, 100, 100, 80, 700.f, 800.f);
 	TurtleMonsterPrototype->SetMoveSpeed(300.f);
 
@@ -2476,7 +2476,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 500.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Light, 50);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Light, 650);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
@@ -2486,7 +2486,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 600.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Medium, 70);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Medium, 850);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
@@ -2496,7 +2496,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 700.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Heavy, 100);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Heavy, 1050);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 

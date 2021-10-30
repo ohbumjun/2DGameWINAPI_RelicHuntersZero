@@ -21,7 +21,7 @@ bool CUIEnd::Init()
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
 	CUIImage* Back = CreateWidget<CUIImage>("Back");
-	Back->SetTexture("MenuBack", TEXT("images/MenuScene/bg_end.bmp"));
+	Back->SetTexture("Back", TEXT("images/MenuScene/bg_end.bmp"));
 	
 	CUIIntroLogo* IntroLogo = CreateWidget<CUIIntroLogo>("UIIntroLogo");
 	IntroLogo->SetZOrder(1);
