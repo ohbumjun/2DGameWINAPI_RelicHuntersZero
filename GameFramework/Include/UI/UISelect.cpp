@@ -11,6 +11,7 @@
 #include "../Object/Player.h"
 
 CUISelect::CUISelect() : 
+	m_SelectedCharType(EChar_Type::Ass),
 	m_CharImg(nullptr),
 	m_CharImgBackGrounds{},
 	m_BtnAnimations{},
@@ -171,8 +172,8 @@ void CUISelect::SetArmorAbility(CharacterInfo &CharInfo, int StartIdx)
 void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo, int StartIdx)
 {
 	int CharSpeedMax = CCharacterManager::GetInst()->GetCharMaxSpeed();
-	int CharSpeed = CharInfo.MoveSpeed;
-	int SpeedRatio = (int)((CharSpeed / (float)CharSpeedMax) * 10);
+	float CharSpeed = CharInfo.MoveSpeed;
+	int SpeedRatio = (int)((CharSpeed / CharSpeedMax) * 10);
 	int NumStats = (int)(SpeedRatio / 2.f);
 	for (int i = StartIdx; i < StartIdx + NumStats; i++)
 		m_StatsUIs[i]->SetVisibility(true);
@@ -181,8 +182,8 @@ void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo, int StartIdx)
 void CUISelect::SetAttackDistAbility(CharacterInfo& CharInfo, int StartIdx)
 {
 	int CharAttackDistMax = CCharacterManager::GetInst()->GetCharMaxAttackDist();
-	int CharAttackDist = CharInfo.AttackDistance;
-	int DistRatio = (int)((CharAttackDist / (float)CharAttackDistMax) * 10);
+	float CharAttackDist = CharInfo.AttackDistance;
+	int DistRatio = (int)((CharAttackDist / CharAttackDistMax) * 10);
 	int NumStats = (int)(DistRatio / 2.f);
 	for (int i = StartIdx; i < StartIdx + NumStats; i++)
 		m_StatsUIs[i]->SetVisibility(true);
@@ -190,9 +191,9 @@ void CUISelect::SetAttackDistAbility(CharacterInfo& CharInfo, int StartIdx)
 
 void CUISelect::SetStemina(CharacterInfo& CharInfo, int StartIdx)
 {
-	int CharSteminaMax = CCharacterManager::GetInst()->GetCharMaxStemina();
-	int CharStemina = CharInfo.Stemina;
-	int SteminaRatio = (int)((CharStemina / (float)CharSteminaMax) * 10);
+	float CharSteminaMax = CCharacterManager::GetInst()->GetCharMaxStemina();
+	float CharStemina = CharInfo.Stemina;
+	int SteminaRatio = (int)((CharStemina / CharSteminaMax) * 10);
 	int NumStats = (int)(SteminaRatio / 2.f);
 	for (int i = StartIdx; i < StartIdx + NumStats; i++)
 		m_StatsUIs[i]->SetVisibility(true);

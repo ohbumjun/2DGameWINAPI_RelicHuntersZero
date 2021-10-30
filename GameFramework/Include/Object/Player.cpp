@@ -247,7 +247,6 @@ void CPlayer::Start()
 {
 	CCharacter::Start();
 
-
 	SetAnimName();
 
 	// Change Animation To Idle
@@ -263,6 +262,9 @@ void CPlayer::Start()
 	Body->SetExtent(80.f, 45.f);
 	Body->SetOffset(0.f, -22.5f);
 	Body->SetCollisionProfile("Player");
+	
+	// Increase Attack, Armor If CurrentGun Exist
+
 
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
@@ -607,16 +609,16 @@ CPlayer *CPlayer::Clone()
 	return new CPlayer(*this);
 }
 
-float CPlayer::SetDamage(int Damage)
+int CPlayer::SetDamage(int Damage)
 {
-	Damage = (int)CCharacter::SetDamage((float)Damage);
+	Damage = (int)CCharacter::SetDamage(Damage);
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
 	if (State)
 		State->SetHPPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 
-	return (float)Damage;
+	return Damage;
 }
 
 void CPlayer::AbilityUpdate(float DeltaTime)
@@ -1161,13 +1163,14 @@ void CPlayer::CollideBounceBack(Vector2 Dir)
 
 void CPlayer::CollideMonsterBody(CGameObject* CollideMonster)
 {
-	float MonsterDamage = (float)CollideMonster->GetAttack();
+	CMonster* ColliderMonster = (CMonster*)CollideMonster;
+	int MonsterDamage = ColliderMonster->GetAttack();
 	// this
 	// Damage Font
 	if (m_MonsterCollideTime <= 0.f)
 	{
 		CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
-		MonsterDamage -= (float)m_CharacterInfo.Armor;
+		MonsterDamage -= m_CharacterInfo.Armor;
 		if (MonsterDamage <= 0) MonsterDamage = 0;
 		DamageFont->SetDamageNumber((int)MonsterDamage);
 		SetDamage((int)MonsterDamage);
@@ -1456,6 +1459,9 @@ CGun* CPlayer::Equip(CGun* Gun)
 	CGun* ExitingGun   = CCharacter::Equip(Gun);
 	CCollider* GunBody = m_CurrentGun->FindCollider("Body");
 	GunBody->SetCollisionProfile("PlayerAttack");
+
+	// Inc Attack, Armor
+	m_CharacterInfo.Attack = m_SelectedCharacterInfo.Attack + m_CurrentGun->GetGunDamage();
 
 	// FireTime Update
 	EGun_Type GunType = m_CurrentGun->GetGunType();
@@ -1920,8 +1926,8 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 			"GrenadeEffect",
 			GRENADE_PROTO,
 			Vector2(
-				(m_Pos.x - m_Offset.x) + m_Size.Length() * 1.5f * cos(f),
-				(m_Pos.y - m_Size.y * 2.5 - m_Offset.y) + m_Size.Length() * 1.5f * sin(f))
+				(m_Pos.x - m_Offset.x) + 300.f * 1.5f * cos(f),
+				(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + 300.f * 1.5f * (float)sin(f))
 			);
 		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
 		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));
@@ -1937,7 +1943,7 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 			GRENADE_PROTO,
 			Vector2(
 				(m_Pos.x - m_Offset.x) + m_Size.Length() * 2.5f * cos(f),
-				(m_Pos.y - m_Size.y * 2.5 - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
+				(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + m_Size.Length() * 2.5f * sin(f))
 			);
 		EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
 		EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));

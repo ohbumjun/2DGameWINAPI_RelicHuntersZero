@@ -219,7 +219,7 @@ void CMonster::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-float CMonster::SetDamage(float Damage)
+int CMonster::SetDamage(int Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
 	CProgressBar *HPBar = (CProgressBar *)m_HPBarWidget->GetWidget();
@@ -376,6 +376,9 @@ CGun* CMonster::Equip(CGun* Gun)
 	{
 		CCollider* GunBody = m_CurrentGun->FindCollider("Body");
 		GunBody->SetCollisionProfile("MonsterAttack");
+		
+		// Inc Attack, Armor
+		m_CharacterInfo.Attack += m_CurrentGun->GetGunDamage();
 	}
 	return EquipedGun;
 }

@@ -266,16 +266,6 @@ float CGameObject::GetBottom() const
 	return m_Pos.y + (1.f - m_Pivot.y) * Size.y + m_Offset.y;
 }
 
-int CGameObject::GetArmor() const
-{
-	return 0;
-}
-
-int CGameObject::GetAttack() const
-{
-	return 0;
-}
-
 void CGameObject::SetScene(CScene* Scene)
 {
 	m_Scene = Scene;
@@ -861,10 +851,10 @@ CGameObject* CGameObject::Clone()
 	return new CGameObject(*this);
 }
 
-float CGameObject::SetDamage(float Damage)
+int CGameObject::SetDamage(int Damage)
 {
 	if (!m_DamageEnable)
-		return 0.f;
+		return 0;
 
 	return Damage;
 }

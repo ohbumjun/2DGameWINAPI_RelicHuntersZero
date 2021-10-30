@@ -10,7 +10,7 @@ CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
 	m_MissileAttackTime(0.f),
 	m_GrenadeTime(0.f),
-	m_GrenadMaxTime(10.f),
+	m_GrenadMaxTime(5.f),
 	m_IsGenerator1Alive(false),
 	m_IsGenerator2Alive(false)
 {
@@ -35,8 +35,8 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 {
 	float TowerPoxX = GeneratorNum == 1 ? 600.f : 3200.f;
 	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1200.f));
-	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 3000,
+		5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	GeneratorTower->SetBossMonster(this);
 	if (GeneratorNum == 1) m_IsGenerator1Alive = true;
 	else m_IsGenerator2Alive = true;

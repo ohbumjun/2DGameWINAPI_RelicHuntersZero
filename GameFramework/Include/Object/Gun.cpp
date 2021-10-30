@@ -80,7 +80,7 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
 	Bullet->SetDir(Angle);
 	// Damage 
-	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
+	Bullet->SetBulletDamage((int)OwnerAttackDamage + m_GunInfo.m_Damage);
 	// Collision Profile
 	CCollider* BulletBody = Bullet->FindCollider("Body");
 	BulletBody->SetCollisionProfile("PlayerAttack");
@@ -115,7 +115,7 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	}
 	Bullet->SetOwner(this);
 	// Bullet Damage
-	Bullet->SetBulletDamage(OwnerAttackDamage + (float)m_GunInfo.m_Damage);
+	Bullet->SetBulletDamage((int)OwnerAttackDamage + m_GunInfo.m_Damage);
 	// Bullet Dir 
 	float Angle = GetAngle(Bullet->GetPos(), TargetPos);
 	Bullet->SetDir(Angle);
@@ -156,7 +156,7 @@ void CGun::SkillSlowMotionAttack()
 			}
 
 			int AttackDamage = Owner->GetAttack();
-			Bullet->SetBulletDamage((float)AttackDamage);
+			Bullet->SetBulletDamage(AttackDamage);
 			Bullet->SetTimeScale(m_TimeScale);
 		}
 	}

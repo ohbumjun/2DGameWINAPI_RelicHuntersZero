@@ -103,7 +103,7 @@ public:
 	virtual void PrevRender();
 	virtual void Render(HDC hDC);
 	virtual CGameObject* Clone();
-	virtual float SetDamage(float Damage);
+	virtual int SetDamage(int Damage);
 	virtual void Move(const Vector2& Dir);
 	virtual void Move(const Vector2& Dir, float Speed);
 // Wall
@@ -203,8 +203,6 @@ public:
 		return m_Scene;
 	}
 	float GetBottom()	const;
-	virtual int GetArmor()const;
-	virtual int GetAttack()const;
 public:
 	void SetScene(class CScene* Scene);
 	void SetDir(Vector2 Dir)

@@ -21,6 +21,12 @@ public :
 	float GetFireTime() const { return m_FireTime; }
 	float GetFireTimeMax() const { return m_FireTimeMax; }
 public:
+	void SetGunInfo(EGun_Type GunType, EGunClass GunClass, int GunDamage)
+	{
+		m_GunInfo.m_GunType  = GunType;
+		m_GunInfo.m_GunClass = GunClass;
+		m_GunInfo.m_Damage = GunDamage;
+	}
 	void SetLeftTextureName(const char* Name)
 	{
 		m_TextureImgNames[ETexture_Dir::Texture_Left] = Name;
@@ -37,7 +43,7 @@ public:
 	{
 		m_Owner = Obj;
 	}
-	void SetGunDamage(float &Damage)
+	void SetGunDamage(int &Damage)
 	{
 		m_GunInfo.m_Damage = Damage;
 	}
@@ -78,7 +84,7 @@ public :
 	{
 		return m_GunInfo.m_GunType;
 	}
-	float GetGunDamage() const
+	int GetGunDamage() const
 	{
 		return	m_GunInfo.m_Damage;
 	}

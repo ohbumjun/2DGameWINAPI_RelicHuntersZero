@@ -157,7 +157,7 @@ void CPlayerClone::Render(HDC hDC)
 	CCharacter::Render(hDC);
 }
 
-float CPlayerClone::SetDamage(float Damage)
+int CPlayerClone::SetDamage(int Damage)
 {
 	Damage = CCharacter::SetDamage(Damage);
 	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();

@@ -115,7 +115,7 @@ struct EGunInfo
 {
 	EGun_Type m_GunType = EGun_Type::Pistol;
 	EGunClass m_GunClass;
-	float m_Damage;
+	int   m_Damage;
 	int   m_BulletsLoaded;
 	int   m_BulletsFullNum;
 	bool  m_BulletEmpty;
@@ -129,8 +129,8 @@ struct CharacterInfo
 	int Armor;
 	int HP;
 	int HPMax;
-	float MP;
-	float MPMax;
+	int MP;
+	int MPMax;
 	float Stemina;
 	float SteminaMax;
 	int Level;

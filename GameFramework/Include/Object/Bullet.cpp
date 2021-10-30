@@ -239,14 +239,17 @@ void CBullet::DamageObject(CCollider* const Dest)
 	int Armor = 0;
 	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster ||
 		Dest->GetOwner()->GetObjType() == EObject_Type::Player)
-		Armor = Dest->GetOwner()->GetArmor();
+	{
+		CCharacter* Char = (CCharacter*)Dest->GetOwner();
+		Armor = Char->GetArmor();
+	}
 	// Damage Font
 	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, m_Pos);
 	int DamageAmount = m_Damage - Armor;
 	if (DamageAmount < 0) DamageAmount = 1;
 	DamageFont->SetDamageNumber(DamageAmount);
 	// Damage
-	Dest->GetOwner()->SetDamage((float)DamageAmount);
+	Dest->GetOwner()->SetDamage(DamageAmount);
 }
 
 void CBullet::ShieldObject(CGameObject* const  DestOwner)

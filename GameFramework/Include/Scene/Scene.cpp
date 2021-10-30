@@ -187,7 +187,8 @@ void CScene::DestroyAllAttackObjects()
 			float Dist = Distance(m_Player->GetPos(),(*iter)->GetPos());
 			if (Dist <= 800.f)
 			{
-				int m_Damage = m_Player->GetAttack();
+				CSharedPtr<CPlayer> Player = CSharedPtr<CPlayer>(m_Player);
+				int m_Damage = Player->GetAttack();
 				// Actual Damage
 				(*iter)->SetDamage(m_Damage * 5);
 
@@ -213,16 +214,17 @@ void CScene::DestroyAllAttackObjects()
 	}
 }
 
-CGameObject *CScene::SetPlayer(const std::string &Name)
+/*
+CPlayer*CScene::SetPlayer(const std::string &Name)
 {
-	CGameObject *Player = FindObject(Name);
+	CPlayer*Player = (CPlayer*)FindObject(Name);
 	return SetPlayer(Player);
 }
+*/
 
-CGameObject *CScene::SetPlayer(CGameObject *Player)
+CSharedPtr<CPlayer> CScene::SetPlayer(CSharedPtr<CPlayer> Player)
 {
-	if (!Player)
-		return nullptr;
+	if (!Player) return nullptr;
 
 	m_Player = Player;
 
@@ -1050,9 +1052,11 @@ void CScene::SetPlayerPinkyAnimation()
 
 	for (int i = 0; i < 5; ++i)
 	{
-		for(int j = 0 ; j > 5; j++)
+		for (int j = 0; j < 5; j++)
+		{
 			GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_TELEPORT,
 				j * 134.f, i * 114.f, 134.f, 114.f);
+		}
 	}
 }
 
@@ -2409,7 +2413,7 @@ void CScene::SetBasicProtoTypes()
 	// KamiKaze Cage
 	CKamiKazeCage* KamiKazeCagePrototype = CreatePrototype<CKamiKazeCage>(MONSTER_KAMIKAZECAGE_PROTO);
 	KamiKazeCagePrototype->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
-		NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+		5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	KamiKazeCagePrototype->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
 	KamiKazeCagePrototype->SetMonsterType(EMonster_Type::KamiKazeCage1);
 	
@@ -2437,6 +2441,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
+	GunPistolProto->SetGunInfo(EGun_Type::Pistol,EGunClass::Light,10);
 	GunPistolProto->SetPos(200.f, 200.f);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_LIGHT_R);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
@@ -2447,7 +2452,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 300.f);
-	GunPistolProto->SetGunClass(EGunClass::Medium);
+	GunPistolProto->SetGunInfo(EGun_Type::Pistol, EGunClass::Medium,20);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
@@ -2457,7 +2462,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 400.f);
-	GunPistolProto->SetGunClass(EGunClass::Heavy);
+	GunPistolProto->SetGunInfo(EGun_Type::Pistol, EGunClass::Heavy,25);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
@@ -2467,7 +2472,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 500.f);
-	GunShotProto->SetGunClass(EGunClass::Light);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Light, 50);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
@@ -2477,7 +2482,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 600.f);
-	GunShotProto->SetGunClass(EGunClass::Medium);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Medium, 70);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
@@ -2487,7 +2492,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 700.f);
-	GunShotProto->SetGunClass(EGunClass::Heavy);
+	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Heavy, 100);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 

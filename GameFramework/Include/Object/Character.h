@@ -20,7 +20,7 @@ public :
 	{
 		m_CharacterInfo = Info;
 	}
-	void SetCharacterInfo(int Attack, int Armor, int HP, float MP, float Stemina,int Level,
+	void SetCharacterInfo(int Attack, int Armor, int HP, int MP, float Stemina,int Level,
 						  int Exp, int Gold, float AttackSpeed,
 						  float AttackDistance, float DashDistance = 0.f)
 	{
@@ -48,15 +48,15 @@ public :
 		if (newHP > m_CharacterInfo.HPMax) newHP = m_CharacterInfo.HPMax;
 		m_CharacterInfo.HP = newHP;
 	}
-	void SetMP(float newMP)
+	void SetMP(int newMP)
 	{
 		m_CharacterInfo.MP = newMP;
 	}
 	// Get 
 	int GetHP()      { return m_CharacterInfo.HP; }
 	int GetHPMax() { return m_CharacterInfo.HPMax; }
-	float GetMP()    { return m_CharacterInfo.MP; }
-	float GetMPMax() { return m_CharacterInfo.MPMax; }
+	int GetMP()    { return m_CharacterInfo.MP; }
+	int GetMPMax() { return m_CharacterInfo.MPMax; }
 	int GetArmor()const 
 	{
 		return m_CharacterInfo.Armor;
@@ -89,7 +89,7 @@ public:
 	virtual void PrevRender();
 	virtual void Render(HDC hDC);
 	virtual CCharacter *Clone();
-	virtual float SetDamage(float Damage);
+	virtual int SetDamage(int Damage);
 	
 protected :
 	void SetScene(class CScene* Scene);

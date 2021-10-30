@@ -4,7 +4,7 @@
 
 CCoin::CCoin() :
 	m_DirX(0),
-	m_Gold(50.f),
+	m_Gold(50),
 	m_MoveToPlayerEnable(false)
 {
 	m_MoveSpeed = 0.f;

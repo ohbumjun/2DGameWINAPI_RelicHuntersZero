@@ -157,9 +157,7 @@ void CKamiKazeCage::CharacterDestroy()
 				(m_Pos.x - m_Offset.x) + 100.f* cos(f),
 				(m_Pos.y - m_Offset.y) + 100.f * sin(f)),
 			Vector2(m_Size.x, m_Size.y));
-		KamikazeMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, NORMAL_MONSTER_HP_MAX,
-			NORMAL_MONSTER_MP_MAX, 1, 100, 100, 100, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-		KamikazeMonster->SetMoveSpeed(NORMAL_MONSTER_MOVE_SPEED);
+		KamikazeMonster->SetMoveSpeed(400.f);
 		KamikazeMonster->SetMonsterType(newMType);
 	}
 

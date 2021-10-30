@@ -12,7 +12,7 @@
 CEffectGrenade::CEffectGrenade() :
 	m_SpeedX(100.f),
 	m_FallTime(0.f),
-	m_Damage(100),
+	m_Damage(220),
 	m_Explode(false),
 	m_ExplodeTime(0.f),
 	m_ExplodeMaxTime(2.5f),
@@ -154,7 +154,7 @@ void CEffectGrenade::ExplodeDamagePlayer()
 	Vector2 PlayerPos = Player->GetPos();
 
 	float DistToPlayer = Distance(GrenadePos, PlayerPos);
-	if (DistToPlayer <= 150.f)
+	if (DistToPlayer <= 350.f)
 		ExplodeHitPlayer(Player);
 }
 

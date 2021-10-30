@@ -7,13 +7,13 @@ CNpc::CNpc() :
     m_CostHunderedWidget(nullptr),
     m_CostTenWidget(nullptr),
     m_CostOneWidget(nullptr),
-    m_Cost(100.f),
+    m_Cost(100),
     m_TypeChanged(false),
     m_CostChanged(false)
 {
     m_ObjType = EObject_Type::NPC;
     m_NpcType = ENpc_Type::Mp;
-    m_Cost = 100.f;
+    m_Cost = 100;
     m_TypeWidget = nullptr;
 }
 

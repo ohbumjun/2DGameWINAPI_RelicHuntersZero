@@ -133,10 +133,10 @@ CCharacter *CCharacter::Clone()
 	return nullptr;
 }
 
-float CCharacter::SetDamage(float Damage)
+int CCharacter::SetDamage(int Damage)
 {
 	Damage = CGameObject::SetDamage(Damage);
-	m_CharacterInfo.HP -= (int)Damage;
+	m_CharacterInfo.HP -= Damage;
 	return Damage;
 }
 
@@ -534,7 +534,6 @@ CGun* CCharacter::Equip(CGun* Gun)
 	// Set Current Gun
 	m_CurrentGun = m_GunEquipment[GunClass];
 	m_CurrentGun->RemoveGunCollider();
-	
 	// Attack Dist Setting
 	m_CurrentGun->SetBulletDistance(m_CharacterInfo.AttackDistance);
 	// Set Owner, Pos 

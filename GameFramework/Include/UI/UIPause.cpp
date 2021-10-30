@@ -12,7 +12,8 @@
 #include "UIImage.h"
 #include "../Object/Player.h"
 
-CUIPause::CUIPause()
+CUIPause::CUIPause() :
+	m_Player(nullptr)
 {
 	for (int i = 0; i < 4; i++) m_Toggles[i] = false;
 }

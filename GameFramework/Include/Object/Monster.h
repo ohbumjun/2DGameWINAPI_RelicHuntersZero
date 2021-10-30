@@ -44,7 +44,7 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
-	virtual float SetDamage(float Damage);
+	virtual int SetDamage(int Damage);
 // Coin
 protected :
 	void CharacterDestroy();

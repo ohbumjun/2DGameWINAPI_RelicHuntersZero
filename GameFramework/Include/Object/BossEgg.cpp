@@ -12,6 +12,8 @@ CBossEgg::CBossEgg() :
     m_EggCrackEnable(false),
     m_EggCrackTime(2.f)
 {
+    m_FireTime = 0.f;
+    m_FireTimeMax = 0.7f;
 }
 
 CBossEgg::CBossEgg(const CBossEgg& obj) : CMonster(obj)
@@ -67,8 +69,8 @@ void CBossEgg::MonsterAppear()
 {
     CBossMonster* BossMonster = m_Scene->CreateObject<CBossMonster>("BossMonster",
         Vector2(1000.f, 500.f));
-    BossMonster->SetCharacterInfo(NORMAL_MONSTER_ATTACK, NORMAL_MONSTER_ARMOR, 1000,
-        NORMAL_MONSTER_MP_MAX, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
+    BossMonster->SetCharacterInfo(500, 100,12000,
+        300, 1, 100, 100, 10, 100.f, 1800.f, 1900.f);
     CGun* BossGun = m_Scene->CreateObject<CGun>("BossGun", BOSS_GUN_PROTO, m_Pos);
     BossMonster->Equip(BossGun);
     Destroy();

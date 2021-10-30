@@ -27,7 +27,7 @@ public:
 	class CCamera* GetCamera()	const;
 private:
 	std::vector<class CMapBase*> m_MapList;
-	CSharedPtr<CGameObject>	m_Player;
+	CSharedPtr<CPlayer>	m_Player;
 	std::list<CSharedPtr<CGameObject>>	m_ObjList;
 	CGameObject** m_RenderArray;
 	int		m_RenderCount;
@@ -43,8 +43,8 @@ public:
 	CGameObject* FindClosestMonster(Vector2 PlayerPos);
 	CGameObject* FindMonsterInDist(Vector2 Pos,float Dist);
 	void DestroyAllAttackObjects();
-	CGameObject* SetPlayer(const std::string& Name);
-	CGameObject* SetPlayer(CGameObject* Player);
+	// CPlayer* SetPlayer(const std::string& Name);
+	CSharedPtr<CPlayer> SetPlayer(CSharedPtr<CPlayer> Player);
 	CGameObject* GetPlayer()	const
 	{
 		return m_Player;

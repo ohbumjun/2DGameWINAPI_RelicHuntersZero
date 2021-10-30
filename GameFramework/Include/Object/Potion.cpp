@@ -76,6 +76,7 @@ void CPotion::Collision(float DeltaTime)
 	{
 		CPlayer* Player = (*iter)->IsCollisionWithPlayer();
 		// 만약 Player와 충돌했다면
+		/*
 		if (Player)
 		{
 			// 일정 시간동안, Player HP를 올려준다 
@@ -89,7 +90,7 @@ void CPotion::Collision(float DeltaTime)
 				}
 				else if(m_PotionType == EPotion_Type::MP)
 				{
-					float MPMax = Player->GetMPMax();
+					int MPMax = Player->GetMPMax();
 					Player->SetMP(Player->GetMP() + MPMax * 0.1f);
 				}
 				m_PotionPauseTime = 1.f;
@@ -100,6 +101,7 @@ void CPotion::Collision(float DeltaTime)
 					Vector2(PlayerPos.x + PlayerSize.x * 0.4f,PlayerPos.y - PlayerSize.y * 0.7f), Vector2(10.f, 10.f));
 			}
 		}
+		*/
 	}
 };
 
