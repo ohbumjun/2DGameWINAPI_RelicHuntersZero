@@ -1199,8 +1199,7 @@ void CPlayer::CollisionBegin(CCollider *Src, CCollider *Dest, float DeltaTime)
 void CPlayer::Teleport(float DeltaTime)
 {
 
-	if (!m_TeleportEnable || m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
-		return;
+	if (!m_TeleportEnable || m_CharacterInfo.MP < 50 ) return;
 
 	// Animation Settings
 	std::string Anim = m_mapAnimName.find(PLAYER_TELEPORT)->second;
@@ -1211,8 +1210,7 @@ void CPlayer::Teleport(float DeltaTime)
 	// m_TeleportEnable
 	m_TeleportEnable = false;
 
-	if (m_CharacterInfo.MP >= 0.2f * m_CharacterInfo.MPMax)
-		m_CharacterInfo.MP -= 0.2f * m_CharacterInfo.MPMax;
+	m_CharacterInfo.MP -= 50;
 
 	// TeleportMouse Cursor Animation
 	DeleteTeleportObj();
@@ -1220,8 +1218,7 @@ void CPlayer::Teleport(float DeltaTime)
 
 void CPlayer::SetTeleportPos(float DeltaTime)
 {
-	if (m_CharacterInfo.MP < 0.2 * m_CharacterInfo.MPMax)
-		return;
+	if (m_CharacterInfo.MP < 50) return;
 
 	m_TeleportEnable = true;
 
@@ -1821,8 +1818,8 @@ void CPlayer::SkillTimeUpdate(float DeltaTime)
 void CPlayer::ActivateSkills(float DeltaTime)
 {
 	if (m_SkillEnable) return;
-	if (m_CharacterInfo.MP <= 0.5 * m_CharacterInfo.MPMax)
-		return;
+	if (m_CharacterInfo.MP < 100) return;
+
 	// Slow Motion
 	if (!m_CurrentGun)
 	{
