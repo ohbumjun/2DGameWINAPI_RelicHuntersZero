@@ -36,10 +36,7 @@ CGameManager::CGameManager() :
 	m_MasterVolume(1.f),
 	m_BGVolume(10),
 	m_EffectVolume(10)
-	/*
-	m_hYellowBrush{},
-	*/
-	{
+{
 	// init commit 
 }
 
@@ -139,9 +136,6 @@ bool CGameManager::Init(HINSTANCE hInst)
 	m_hBlueBrush      = CreateSolidBrush(RGB(0, 0, 255));
 	m_hLightBlueBrush = CreateSolidBrush(RGB(255, 255, 255));
 	m_hDarkBlueBrush  = CreateSolidBrush(RGB(0, 0, 63));
-	/*
-	m_hYellowBrush = CreateSolidBrush(RGB(255, 255, 0));
-	*/
 	
 	m_hGreenPen = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
@@ -190,7 +184,6 @@ void CGameManager::Logic()
 
 bool CGameManager::Update(float DeltaTime)
 {
-	// m_Timer->Update();
 	return CSceneManager::GetInst()->Update(DeltaTime);
 }
 
@@ -207,11 +200,8 @@ bool CGameManager::Collision(float DeltaTime)
 void CGameManager::Render(float DeltaTime)
 {
 	Rectangle(m_hBackDC, -1, -1, m_RS.Width + 1, m_RS.Height + 1);
-
 	CSceneManager::GetInst()->Render(m_hBackDC);
-
 	CInput::GetInst()->Render(m_hBackDC);
-
 	BitBlt(m_hDC, 0, 0, m_RS.Width, m_RS.Height, m_hBackDC, 0, 0, SRCCOPY);
 }
 

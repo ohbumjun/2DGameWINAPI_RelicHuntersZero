@@ -26,6 +26,8 @@ private :
 	void SetAttackAbility(CharacterInfo& CharInfo, int StartIdx);
 	void SetArmorAbility(CharacterInfo& CharInfo, int StartIdx);
 	void SetSpeedAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetAttackDistAbility(CharacterInfo& CharInfo, int StartIdx);
+	void SetStemina(CharacterInfo& CharInfo, int StartIdx);
 private:
 	void CharacterBarInit();
 	void AssInit();

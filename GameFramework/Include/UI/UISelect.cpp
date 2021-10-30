@@ -52,7 +52,7 @@ void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 	for (int i = 0; i < m_StatsUIs.size(); i++)
 		m_StatsUIs[i]->SetVisibility(false);
 	CharacterInfo CharInfo = CCharacterManager::GetInst()->FindCharInfo(CharType);
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		int StIdx = i * 5;
 		if(i == 0) SetAttackAbility(CharInfo, StIdx);
@@ -60,6 +60,8 @@ void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 		if(i == 2) SetHPAbility(CharInfo, StIdx);
 		if(i == 3) SetMPAbility(CharInfo, StIdx);
 		if(i == 4) SetSpeedAbility(CharInfo, StIdx);
+		if(i == 5) SetAttackDistAbility(CharInfo, StIdx);
+		if(i == 6) SetStemina(CharInfo, StIdx);
 	}
 
 	// Set CharInfo, CharType
@@ -176,6 +178,26 @@ void CUISelect::SetSpeedAbility(CharacterInfo &CharInfo, int StartIdx)
 		m_StatsUIs[i]->SetVisibility(true);
 }
 
+void CUISelect::SetAttackDistAbility(CharacterInfo& CharInfo, int StartIdx)
+{
+	int CharAttackDistMax = CCharacterManager::GetInst()->GetCharMaxAttackDist();
+	int CharAttackDist = CharInfo.AttackDistance;
+	int DistRatio = (int)((CharAttackDist / (float)CharAttackDistMax) * 10);
+	int NumStats = (int)(DistRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
+}
+
+void CUISelect::SetStemina(CharacterInfo& CharInfo, int StartIdx)
+{
+	int CharSteminaMax = CCharacterManager::GetInst()->GetCharMaxStemina();
+	int CharStemina = CharInfo.Stemina;
+	int SteminaRatio = (int)((CharStemina / (float)CharSteminaMax) * 10);
+	int NumStats = (int)(SteminaRatio / 2.f);
+	for (int i = StartIdx; i < StartIdx + NumStats; i++)
+		m_StatsUIs[i]->SetVisibility(true);
+}
+
 void CUISelect::CharacterBarInit()
 {
 	AssInit();
@@ -285,8 +307,8 @@ void CUISelect::RaffInit()
 void CUISelect::CharacterStatsInit()
 {
 	// Texts
-	m_CharAbilityTexts.reserve(5);
-	for (int i = 0; i < 5; i++)
+	m_CharAbilityTexts.reserve(7);
+	for (int i = 0; i < 7; i++)
 	{
 		m_CharAbilityTexts.push_back(CreateWidget<CUIText>("AbilityText"));
 		m_CharAbilityTexts[i]->SetTextColor(255, 255, 255);
@@ -299,11 +321,13 @@ void CUISelect::CharacterStatsInit()
 	m_CharAbilityTexts[2]->SetText(TEXT("HP"));
 	m_CharAbilityTexts[3]->SetText(TEXT("MP"));
 	m_CharAbilityTexts[4]->SetText(TEXT("SPEED"));
+	m_CharAbilityTexts[5]->SetText(TEXT("ATTACK DIST"));
+	m_CharAbilityTexts[6]->SetText(TEXT("STEMINA"));
 
 	// Bar 
-	m_StatsUIs.reserve(25);
+	m_StatsUIs.reserve(30);
 	CUIImage* Stat = nullptr;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		TCHAR	FileName[256] = {};
 		wsprintf(FileName, TEXT("images/Character/Stats/spr_char_statBar_%d.bmp"), i);

@@ -8,8 +8,11 @@ struct ECharMaxInfo
 	int HPMax;
 	int MPMax;
 	int SpeedMax;
+	int AttackDistMax;
+	int SteminaMax;
 	ECharMaxInfo() :
-		AttackMax(20), ArmorMax(20), HPMax(250), MPMax(200), SpeedMax(300){}
+		AttackMax(210), ArmorMax(80), HPMax(600), MPMax(400), 
+		SpeedMax(400), AttackDistMax(1000.f), SteminaMax(9.f){}
 };
 
 class CCharacterManager
@@ -30,6 +33,8 @@ public :
 	int GetCharMaxAttack() const { return m_CharMaxInfo.AttackMax; }
 	int GetCharMaxArmor() const  { return m_CharMaxInfo.ArmorMax; }
 	int GetCharMaxSpeed() const  { return m_CharMaxInfo.SpeedMax; }
+	int GetCharMaxAttackDist() const  { return m_CharMaxInfo.AttackDistMax; }
+	int GetCharMaxStemina() const  { return m_CharMaxInfo.SteminaMax; }
 public:
 	bool Init();
 private:

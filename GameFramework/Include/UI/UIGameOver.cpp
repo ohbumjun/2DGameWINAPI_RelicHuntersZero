@@ -56,10 +56,15 @@ void CUIGameOver::SetGameOverWidgets()
 {
 	Resolution	RS = CGameManager::GetInst()->GetResolution();
 
-	m_UpperImg = CreateWidget<CUIImage>("Back");
+	CUIImage* GameOverImg = CreateWidget<CUIImage>("GameOver");
+	GameOverImg->SetTexture("GameOver", TEXT("images/MenuScene/gameover.bmp"));
+	GameOverImg->SetPos(340.f, 270.f);
+	GameOverImg->SetTextureColorKey(255, 255, 255);
+
+	m_UpperImg = CreateWidget<CUIImage>("GameOver1");
 	m_UpperImg->SetTexture("MenuBack", TEXT("images/MenuScene/black_background.bmp"));
 	m_UpperImg->SetPos(0.f, -720.f);
-	m_DownImg = CreateWidget<CUIImage>("Back");
+	m_DownImg = CreateWidget<CUIImage>("GameOver2");
 	m_DownImg->SetTexture("MenuBack", TEXT("images/MenuScene/black_background.bmp"));
 	m_DownImg->SetPos(0.f, 720.f);
 
