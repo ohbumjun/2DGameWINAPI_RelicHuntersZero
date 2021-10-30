@@ -92,7 +92,6 @@ CGameObject::CGameObject(const CGameObject& obj)	:
 			m_WidgetComponentList.push_back(Widget);
 		}
 	}
-
 	m_PrevPos      = obj.m_PrevPos;
 	m_Pos          = obj.m_Pos;
 	m_Size         = obj.m_Size;

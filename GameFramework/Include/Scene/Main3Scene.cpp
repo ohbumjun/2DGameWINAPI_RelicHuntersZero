@@ -111,6 +111,12 @@ void CMain3Scene::LoadAnimationSequence()
 	SetSceneStartAnimation();
 	SetGrenadeAnimation();
 
+	SetDuck1MonsterAnimation();
+	SetDuck2MonsterAnimation();
+	SetDuck3MonsterAnimation();
+	SetTurtle1MonsterAnimation();
+	SetTurtle2MonsterAnimation();
+	SetTurtle3MonsterAnimation();
 
 	SetLevel3MonsterAnimation();
 }

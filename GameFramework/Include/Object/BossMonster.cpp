@@ -6,6 +6,8 @@
 #include "EffectGrenade.h"
 #include "GeneratorTower.h"
 #include "KamikazeCage.h"
+#include "DuckMonster.h"
+#include "TurtleMonster.h"
 
 CBossMonster::CBossMonster() :
 	m_MissileAttackMaxTime(5.f),
@@ -16,6 +18,8 @@ CBossMonster::CBossMonster() :
 	m_IsGenerator2Alive(false)
 {
 	m_MonsterType = EMonster_Type::Boss;
+	m_AttackDistance = 2500.f;
+	m_DashDistance = 2600.f;
 }
 
 CBossMonster::CBossMonster(const CBossMonster& obj) : CMonster(obj)
@@ -51,6 +55,8 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 		KamiKaze->SetMonsterType(EMonster_Type::KamiKazeCage2);
 		KamiKaze->SetMoveSpeed(0.f);
 	}
+
+	CreateSubMonsters();
 }
 
 
@@ -114,6 +120,37 @@ void CBossMonster::GeneratorUpdate(float DeltaTime)
 
 void CBossMonster::GeneratorAttack(float DeltaTime)
 {
+}
+
+void CBossMonster::CreateSubMonsters()
+{
+	CShotGun* ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+
+	CDuckMonster* DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK1_PROTO);
+	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f , rand() % 1000 + 1000.f));
+	DuckMonster->Equip((CGun*)ShotGun);
+	DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK2_PROTO);
+	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
+	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+	DuckMonster->Equip((CGun*)ShotGun);
+	DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK3_PROTO);
+	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
+	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+	DuckMonster->Equip((CGun*)ShotGun);
+
+	// Turtle Monster
+	CTurtleMonster* TurtleMonster = m_Scene->CreateObject<CTurtleMonster>("TurtleMonster",MONSTER_TURTLE1_PROTO);
+	TurtleMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
+	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+	TurtleMonster->Equip((CGun*)ShotGun);
+	TurtleMonster = m_Scene->CreateObject<CTurtleMonster>("TurtleMonster",MONSTER_TURTLE2_PROTO);
+	TurtleMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
+	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+	TurtleMonster->Equip((CGun*)ShotGun);
+	TurtleMonster = m_Scene->CreateObject<CTurtleMonster>("TurtleMonster",MONSTER_TURTLE3_PROTO);
+	TurtleMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
+	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
+	TurtleMonster->Equip((CGun*)ShotGun);
 }
 
 void CBossMonster::UIUpdate(float DeltaTime)

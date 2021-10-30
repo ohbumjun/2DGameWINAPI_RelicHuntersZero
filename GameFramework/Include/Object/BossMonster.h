@@ -35,6 +35,9 @@ private :
 private :
 	void GeneratorUpdate(float DeltaTime);
 	void GeneratorAttack(float DeltaTime);
+// SubMonsters
+private :
+	void CreateSubMonsters();
 // UI
 private :
 	void UIUpdate(float DeltaTime);

@@ -98,6 +98,11 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillTimeMax = 20.f;
 	m_SkillEnable  = false;
 
+	if (m_CurrentGun)
+	{
+		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol)
+			m_FireTimeMax = 0.1f;
+	}
 
 	m_UIPause = nullptr;
 	m_DeathWidgetCreate = false;
@@ -340,11 +345,11 @@ void CPlayer::Start()
 	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Push,
 											this, &CPlayer::SetTargetPos);
 	CInput::GetInst()->SetCallback<CPlayer>("MouseRButton", KeyState_Up,
-											this, &CPlayer::RemoveTargetPos);
+ 										this, &CPlayer::RemoveTargetPos);
 	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Push,
 											this, &CPlayer::BulletFireTarget);
-	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Up,
-											this, &CPlayer::RemoveTargetPos);
+	// CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Up,
+	// 										this, &CPlayer::RemoveTargetPos);
 	
 	// Inv
 	CInput::GetInst()->SetCallback<CPlayer>("UseHpPotion", KeyState_Down,
@@ -463,7 +468,6 @@ void CPlayer::Update(float DeltaTime)
 		if (m_RunEnable)
 			SetMoveSpeed(m_NormalSpeed);
 	}
-
 	MoveWithinWorldResolution();
 	// Death
 	if (m_CharacterInfo.HP < 0 )
@@ -473,7 +477,7 @@ void CPlayer::Update(float DeltaTime)
 		ChangeDeathAnimation();
 		return;
 	}
-
+	
 	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
@@ -481,7 +485,7 @@ void CPlayer::Update(float DeltaTime)
 
 	// Hp, Mp, Stemina
 	AbilityUpdate(DeltaTime);
-
+	
 	// Run
 	if (m_RunEnable)
 		RunUpdate(DeltaTime);
@@ -1312,7 +1316,7 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 {
 	if (!m_CurrentGun) return;
 	if (m_FireTime < m_FireTimeMax) return;
-	m_FireTime = 0.f;
+	m_FireTime -= m_FireTimeMax;
 	Vector2 PlayerDir = m_Dir;
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
@@ -1929,8 +1933,8 @@ void CPlayer::SkillMakeGrenades(float DeltaTime)
 				"GrenadeEffect",
 				GRENADE_PROTO,
 				Vector2(
-					(m_Pos.x - m_Offset.x) + 100.f * i * cos(f),
-					(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + 100.f * i * (float)sin(f))
+					(m_Pos.x - m_Offset.x) + 150.f * i * cos(f),
+					(m_Pos.y - m_Size.y * 2.5f - m_Offset.y) + 150.f * i * (float)sin(f))
 				);
 			EffectGrenade->SetOffset(Vector2(-EffectGrenade->GetSize().x * 0.45f, 0));
 			EffectGrenade->SetTexture("Grenade", TEXT("images/Character/ass/ass_explosion_texture.bmp"));

@@ -172,6 +172,8 @@ void CBullet::WallCollision()
 					Destroy();
 					CEffectHit* Hit = m_Scene->CreateObject<CEffectHit>("HitEffect", EFFECT_HIT_PROTO,
 						m_Pos, Vector2(178.f, 164.f));
+					if (m_Owner->GetGunClass() == EGunClass::Boss)
+						Hit->SetIsBossGun();
 					m_Scene->GetSceneResource()->SoundPlay("Fire");
 				}
 			}

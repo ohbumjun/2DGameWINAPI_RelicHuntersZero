@@ -40,12 +40,6 @@ bool CPlayerClone::Init()
 	AddPinkyAnimName();
 	AddPunnyAnimName();
 	AddRaffAnimName();
-
-	// Collider
-	CColliderBox* Body = AddCollider<CColliderBox>("Body");
-	Body->SetExtent(80.f, 45.f);
-	Body->SetOffset(0.f, -22.5f);
-	Body->SetCollisionProfile("Player");
 	
 	// Pivot
 	SetPivot(0.5f, 1.f);
