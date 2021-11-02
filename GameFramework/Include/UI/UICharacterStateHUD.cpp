@@ -92,20 +92,20 @@ void CUICharacterStateHUD::SetHpInvUI(std::vector<std::wstring>& vecNumberFileNa
 	m_HpInvImage = CreateWidget<CUIImage>("HpInvImage");
 	m_HpInvImage->SetTexture("HpInvImage", TEXT("images/Items/hp.bmp"));
 	m_HpInvImage->SetTextureColorKey(255, 255, 255);
-	m_HpInvImage->SetPos(350.f, 530.f);
+	m_HpInvImage->SetPos(200.f, 600.f);
 
-	m_HpInvTenWidget = CreateWidget<CNumberWidget>("Number");
-	m_HpInvTenWidget->SetTexture("Number", vecNumberFileName);
-	m_HpInvTenWidget->SetPos(380.f, 530.f);
+	m_HpInvTenWidget = CreateWidget<CNumberWidget>("HpInvTenNumber");
+	m_HpInvTenWidget->SetTexture("HpInvTenNumber", vecNumberFileName);
+	m_HpInvTenWidget->SetPos(220.f, 600.f);
 	m_HpInvTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
 		m_HpInvTenWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_HpInvOneWidget = CreateWidget<CNumberWidget>("Number");
-	m_HpInvOneWidget->SetTexture("Number", vecNumberFileName);
-	m_HpInvOneWidget->SetPos(410.f, 530.f);
+	m_HpInvOneWidget = CreateWidget<CNumberWidget>("HpInvOneNumber");
+	m_HpInvOneWidget->SetTexture("HpInvOneNumber", vecNumberFileName);
+	m_HpInvOneWidget->SetPos(240.f, 600.f);
 	m_HpInvOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
@@ -118,20 +118,20 @@ void CUICharacterStateHUD::SetMpInvUI(std::vector<std::wstring>& vecNumberFileNa
 	m_MpInvImage = CreateWidget<CUIImage>("MpInvImage");
 	m_MpInvImage->SetTexture("MpInvImage", TEXT("images/Items/mp.bmp"));
 	m_MpInvImage->SetTextureColorKey(255, 255, 255);
-	m_MpInvImage->SetPos(450.f, 530.f);
+	m_MpInvImage->SetPos(300.f, 600.f);
 
-	m_MpInvTenWidget = CreateWidget<CNumberWidget>("Number");
-	m_MpInvTenWidget->SetTexture("Number", vecNumberFileName);
-	m_MpInvTenWidget->SetPos(300.f, 530.f);
+	m_MpInvTenWidget = CreateWidget<CNumberWidget>("MpInvTenNumber");
+	m_MpInvTenWidget->SetTexture("MpInvTenNumber", vecNumberFileName);
+	m_MpInvTenWidget->SetPos(320.f, 600.f);
 	m_MpInvTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
 		m_MpInvTenWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_MpInvOneWidget = CreateWidget<CNumberWidget>("Number");
-	m_MpInvOneWidget->SetTexture("Number", vecNumberFileName);
-	m_MpInvOneWidget->SetPos(510.f, 530.f);
+	m_MpInvOneWidget = CreateWidget<CNumberWidget>("MpInvOneNumber");
+	m_MpInvOneWidget->SetTexture("MpInvOneNumber", vecNumberFileName);
+	m_MpInvOneWidget->SetPos(340.f, 600.f);
 	m_MpInvOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
@@ -144,20 +144,20 @@ void CUICharacterStateHUD::SetShieldInvUI(std::vector<std::wstring>& vecNumberFi
 	m_ShieldInvImage = CreateWidget<CUIImage>("ShieldInvImage");
 	m_ShieldInvImage->SetTexture("ShieldInvImage", TEXT("images/Items/shield.bmp"));
 	m_ShieldInvImage->SetTextureColorKey(255, 255, 255);
-	m_ShieldInvImage->SetPos(550.f, 530.f);
+	m_ShieldInvImage->SetPos(400.f, 580.f);
 
-	m_ShieldInvTenWidget = CreateWidget<CNumberWidget>("Number");
-	m_ShieldInvTenWidget->SetTexture("Number", vecNumberFileName);
-	m_ShieldInvTenWidget->SetPos(580.f, 530.f);
+	m_ShieldInvTenWidget = CreateWidget<CNumberWidget>("ShieldInvTenNumber");
+	m_ShieldInvTenWidget->SetTexture("ShieldInvTenNumber", vecNumberFileName);
+	m_ShieldInvTenWidget->SetPos(460.f, 600.f);
 	m_ShieldInvTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
 		m_ShieldInvTenWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_ShieldInvOneWidget = CreateWidget<CNumberWidget>("Number");
-	m_ShieldInvOneWidget->SetTexture("Number", vecNumberFileName);
-	m_ShieldInvOneWidget->SetPos(610.f, 530.f);
+	m_ShieldInvOneWidget = CreateWidget<CNumberWidget>("ShieldInvOneNumber");
+	m_ShieldInvOneWidget->SetTexture("ShieldInvOneNumber", vecNumberFileName);
+	m_ShieldInvOneWidget->SetPos(480.f, 600.f);
 	m_ShieldInvOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
@@ -167,8 +167,8 @@ void CUICharacterStateHUD::SetShieldInvUI(std::vector<std::wstring>& vecNumberFi
 
 void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFileName)
 {
-	m_BulletHunderedWidget = CreateWidget<CNumberWidget>("Number");
-	m_BulletHunderedWidget->SetTexture("Number", vecNumberFileName);
+	m_BulletHunderedWidget = CreateWidget<CNumberWidget>("BulletHundNumber");
+	m_BulletHunderedWidget->SetTexture("BulletHundNumber", vecNumberFileName);
 	m_BulletHunderedWidget->SetPos(CURRENT_GUN_X_POS + 120.f, CURRENT_GUN_Y_POS);
 	m_BulletHunderedWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
@@ -176,8 +176,8 @@ void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFi
 		m_BulletHunderedWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_BulletTenWidget = CreateWidget<CNumberWidget>("Number");
-	m_BulletTenWidget->SetTexture("Number", vecNumberFileName);
+	m_BulletTenWidget = CreateWidget<CNumberWidget>("BulletTenNumber");
+	m_BulletTenWidget->SetTexture("BulletTenNumber", vecNumberFileName);
 	m_BulletTenWidget->SetPos(CURRENT_GUN_X_POS + 140.f, CURRENT_GUN_Y_POS);
 	m_BulletTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
@@ -185,8 +185,8 @@ void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFi
 		m_BulletTenWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_BulletOneWidget = CreateWidget<CNumberWidget>("Number");
-	m_BulletOneWidget->SetTexture("Number", vecNumberFileName);
+	m_BulletOneWidget = CreateWidget<CNumberWidget>("BulletOneNumber");
+	m_BulletOneWidget->SetTexture("BulletOneNumber", vecNumberFileName);
 	m_BulletOneWidget->SetPos(CURRENT_GUN_X_POS + 160.f, CURRENT_GUN_Y_POS);
 	m_BulletOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
@@ -195,8 +195,8 @@ void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFi
 	}
 
 	// Bullet Full 
-	m_FullBulletHunderedWidget = CreateWidget<CNumberWidget>("Number");
-	m_FullBulletHunderedWidget->SetTexture("Number", vecNumberFileName);
+	m_FullBulletHunderedWidget = CreateWidget<CNumberWidget>("FullBulletHundNumber");
+	m_FullBulletHunderedWidget->SetTexture("FullBulletHundNumber", vecNumberFileName);
 	m_FullBulletHunderedWidget->SetPos(CURRENT_GUN_X_POS + 200.f, CURRENT_GUN_Y_POS);
 	m_FullBulletHunderedWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
@@ -204,8 +204,8 @@ void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFi
 		m_FullBulletHunderedWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_FullBulletTenWidget = CreateWidget<CNumberWidget>("Number");
-	m_FullBulletTenWidget->SetTexture("Number", vecNumberFileName);
+	m_FullBulletTenWidget = CreateWidget<CNumberWidget>("FullBulletTenNumber");
+	m_FullBulletTenWidget->SetTexture("FullBulletTenNumber", vecNumberFileName);
 	m_FullBulletTenWidget->SetPos(CURRENT_GUN_X_POS + 220.f, CURRENT_GUN_Y_POS);
 	m_FullBulletTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
@@ -213,8 +213,8 @@ void CUICharacterStateHUD::SetGunBulletUI(std::vector<std::wstring>& vecNumberFi
 		m_FullBulletTenWidget->SetTextureColorKey(255, 255, 255, i);
 	}
 
-	m_FullBulletOneWidget = CreateWidget<CNumberWidget>("Number");
-	m_FullBulletOneWidget->SetTexture("Number", vecNumberFileName);
+	m_FullBulletOneWidget = CreateWidget<CNumberWidget>("FullBulletOneNumber");
+	m_FullBulletOneWidget->SetTexture("FullBulletOneNumber", vecNumberFileName);
 	m_FullBulletOneWidget->SetPos(CURRENT_GUN_X_POS + 240.f, CURRENT_GUN_Y_POS);
 	m_FullBulletOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)

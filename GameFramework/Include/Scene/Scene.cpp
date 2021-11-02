@@ -1200,7 +1200,7 @@ void CScene::SetPlayerPunnyAnimation()
 
 	for (int i = 0; i < 11; ++i)
 	{
-		GetSceneResource()->AddAnimationFrameData(PINKY_PLAYER_RIGHT_DEATH,
+		GetSceneResource()->AddAnimationFrameData(PUNNY_PLAYER_RIGHT_DEATH,
 			i * 134.f, 0.f, 134.f, 114.f);
 	}
 

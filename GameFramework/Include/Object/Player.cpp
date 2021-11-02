@@ -465,8 +465,7 @@ void CPlayer::Update(float DeltaTime)
 	{
 		if (m_DashEnable)
 			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
-		if (m_RunEnable)
-			SetMoveSpeed(m_NormalSpeed);
+		else SetMoveSpeed(200.f);
 	}
 	MoveWithinWorldResolution();
 	// Death
@@ -865,6 +864,7 @@ void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
 void CPlayer::MoveUp(float DeltaTime)
 {
 	RunEnd();
+	SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(0.f, -1.f));
 	ChangeMoveAnimation();
 }
@@ -872,6 +872,7 @@ void CPlayer::MoveUp(float DeltaTime)
 void CPlayer::MoveDown(float DeltaTime)
 {
 	RunEnd();
+	SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(0.f, 1.f));
 	ChangeMoveAnimation();
 }
@@ -879,6 +880,7 @@ void CPlayer::MoveDown(float DeltaTime)
 void CPlayer::MoveLeft(float DeltaTime)
 {
 	RunEnd();
+	SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(-1.f, 0.f));
 	ChangeMoveAnimation();
 }
@@ -886,6 +888,7 @@ void CPlayer::MoveLeft(float DeltaTime)
 void CPlayer::MoveRight(float DeltaTime)
 {
 	RunEnd();
+	SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(1.f, 0.f));
 	ChangeMoveAnimation();
 }

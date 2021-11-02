@@ -60,7 +60,7 @@ bool CCoin::Init()
 void CCoin::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	Move(Vector2(m_DirX * 100.f * DeltaTime, 0.f));
+	Move(Vector2(m_DirX * 500.f * DeltaTime, 0.f));
 
 	// Stop Falling
 	if (m_Pos.y > m_InitPos.y + 10.f)
