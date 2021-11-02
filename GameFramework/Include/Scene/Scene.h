@@ -217,7 +217,6 @@ public:
 
 		T* Obj = (T*)Prototype->Clone();
 
-
 		Obj->SetScene(this);
 		Obj->SetPos(Pos);
 		Obj->SetSize(Size);
@@ -324,6 +323,7 @@ inline void CScene::SetMonsterOnTileMap(
 	const std::string& MonsterProtoB,
 	const std::string& MonsterProtoC)
 {
+
 	A* MonsterA = nullptr;
 	B* MonsterB = nullptr;
 	C* MonsterC = nullptr;

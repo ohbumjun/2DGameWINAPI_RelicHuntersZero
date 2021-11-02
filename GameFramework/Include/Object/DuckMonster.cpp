@@ -236,7 +236,6 @@ bool CDuckMonster::Init()
 	if (!CMonster::Init()) return false;
 	SetAnimation();
 	SetAnimNames();
-
 	return true;
 }
 

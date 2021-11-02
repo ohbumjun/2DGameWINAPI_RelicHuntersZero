@@ -23,7 +23,37 @@ CPlayerClone::CPlayerClone(const CPlayerClone& obj) : CCharacter(obj)
 	m_DashDistance   = obj.m_DashDistance;
 	m_AttackDistance = obj.m_AttackDistance;
 	m_ClosestMonster = nullptr;
-	m_MoveEnable = true;
+	m_MoveEnable     = true;
+
+	if (obj.m_Animation)
+		m_Animation = obj.m_Animation->Clone();
+	else
+		m_Animation = nullptr;
+
+	m_WidgetComponentList.clear();
+	{
+		auto	iter = obj.m_WidgetComponentList.begin();
+		auto	iterEnd = obj.m_WidgetComponentList.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			CWidgetComponent* Widget = (*iter)->Clone();
+			// CWidgetComponent* Widget = (*iter);
+			Widget->SetOwner(this);
+			Widget->SetScene(m_Scene);
+			m_WidgetComponentList.push_back(Widget);
+		}
+	}
+
+	{
+		auto iter    = obj.m_mapAnimName.begin();
+		auto iterEnd = obj.m_mapAnimName.end();
+		for (; iter != iterEnd; ++iter)
+		{
+			std::string key = iter->first;
+			std::string val = iter->second;
+			m_mapAnimName.insert(std::make_pair(key,val));
+		}
+	}
 }
 
 CPlayerClone::~CPlayerClone()
@@ -159,6 +189,11 @@ int CPlayerClone::SetDamage(int Damage)
 	CProgressBar* HPBar = (CProgressBar*)m_HPBarWidget->GetWidget();
 	HPBar->SetPercent(m_CharacterInfo.HP / (float)m_CharacterInfo.HPMax);
 	return Damage;
+}
+
+CPlayerClone* CPlayerClone::Clone()
+{
+	return new CPlayerClone(*this);
 }
 
 void CPlayerClone::CharacterDestroy()

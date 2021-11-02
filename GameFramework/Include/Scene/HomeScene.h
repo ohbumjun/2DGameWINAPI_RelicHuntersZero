@@ -9,6 +9,8 @@ private:
 	CHomeScene();
 	virtual ~CHomeScene();
 
+private :
+	std::list<CSharedPtr<class CPlayerClone>> PlayerCloneLists;
 public:
 	virtual bool Init();
 

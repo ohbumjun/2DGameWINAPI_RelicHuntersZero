@@ -54,6 +54,7 @@ public :
 	virtual void Collision(float DeltaTime);
 	virtual void Render(HDC hDC);
 	virtual int SetDamage(int Damage);
+	virtual CPlayerClone* Clone();
 	virtual void CharacterDestroy();
 public:
 	void Fire();

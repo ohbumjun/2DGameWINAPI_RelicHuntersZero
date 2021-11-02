@@ -15,7 +15,11 @@ private:
 	ETexture_Type	m_TextureType;
 	CSharedPtr<CTexture>	m_Texture;
 	std::vector<AnimationFrameData>	m_vecFrameData;
-
+public :
+	void ClearVecFrameData()
+	{
+		m_vecFrameData.clear();
+	}
 public:
 	CTexture* GetTexture()
 	{

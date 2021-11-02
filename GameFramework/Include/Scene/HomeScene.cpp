@@ -27,6 +27,11 @@ CHomeScene::CHomeScene()
 
 CHomeScene::~CHomeScene()
 {
+	auto iter    = PlayerCloneLists.begin();
+	auto iterEnd = PlayerCloneLists.end();
+	for (; iter != iterEnd; ++iter)
+		(*iter)->Destroy();
+	PlayerCloneLists.clear();
 }
 
 bool CHomeScene::Init()
@@ -61,13 +66,14 @@ bool CHomeScene::Init()
 
 	// Characters
 	CharacterInfo DefaultCharInfo;
-	CPlayerClone* PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+	CPlayerClone* PlayerClone = CreateObject<CPlayerClone>(
 		"PlayerClone1",
 		Vector2(1500.f, 1200.f));
 	PlayerClone->SetCharType(EChar_Type::Ass);
 	PlayerClone->SetAnimName();
 	PlayerClone->SetCharacterInfo(DefaultCharInfo);
 	PlayerClone->SetMoveEnable(false);
+
 	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
 		"PlayerClone2",
 		Vector2(1650.f, 1200.f));
@@ -75,6 +81,7 @@ bool CHomeScene::Init()
 	PlayerClone->SetAnimName();
 	PlayerClone->SetCharacterInfo(DefaultCharInfo);
 	PlayerClone->SetMoveEnable(false);
+
 	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
 		"PlayerClone3",
 		Vector2(1800.f, 1200.f));
@@ -82,6 +89,7 @@ bool CHomeScene::Init()
 	PlayerClone->SetAnimName();
 	PlayerClone->SetCharacterInfo(DefaultCharInfo);
 	PlayerClone->SetMoveEnable(false);
+
 	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
 		"PlayerClone4",
 		Vector2(1950.f, 1200.f));
@@ -89,6 +97,7 @@ bool CHomeScene::Init()
 	PlayerClone->SetAnimName();
 	PlayerClone->SetCharacterInfo(DefaultCharInfo);
 	PlayerClone->SetMoveEnable(false);
+
 	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
 		"PlayerClone5",
 		Vector2(2100.f, 1200.f));
@@ -96,6 +105,7 @@ bool CHomeScene::Init()
 	PlayerClone->SetAnimName();
 	PlayerClone->SetCharacterInfo(DefaultCharInfo);
 	PlayerClone->SetMoveEnable(false);
+
 	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
 		"PlayerClone6",
 		Vector2(2250.f, 1200.f));
@@ -170,9 +180,6 @@ void CHomeScene::LoadAnimationSequence()
 	SetShieldAnimation();
 	SetNpcAnimation();
 	SetGrenadeAnimation();
-
-	// Map
-	SetLevel1MonsterAnimation();
 }
 
 void CHomeScene::LoadSound()

@@ -134,6 +134,8 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 		}
 	}
 
+	// 충돌체 지워주기 
+	m_ColliderList.clear();
 }
 
 CPlayer::~CPlayer()
@@ -462,7 +464,7 @@ void CPlayer::Update(float DeltaTime)
 {
 	// this	
 	CCharacter::Update(DeltaTime);
-
+	
 	// Wall Move
 	m_WallCollision = PreventWallMove();
 	if (m_WallCollision)
@@ -638,13 +640,6 @@ void CPlayer::AbilityUpdate(float DeltaTime)
 	if (m_CharacterInfo.Stemina >= m_CharacterInfo.SteminaMax)
 		m_CharacterInfo.Stemina = m_CharacterInfo.SteminaMax;
 
-	/*
-	if (m_SelectedCharacterInfo.HP > m_SelectedCharacterInfo.HPMax)
-		m_SelectedCharacterInfo.HP = m_SelectedCharacterInfo.HPMax;
-
-	if (m_SelectedCharacterInfo.MP <= m_SelectedCharacterInfo.MPMax)
-		m_SelectedCharacterInfo.MP += DeltaTime;
-	*/
 }
 
 void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
@@ -657,7 +652,7 @@ void CPlayer::AbilityStateUIUpdate(CUICharacterStateHUD* State)
 
 void CPlayer::GunTimeUpdate(float DeltaTime)
 {
-	if(m_FireTime <= m_FireTimeMax)
+	if(m_FireTime < m_FireTimeMax)
 		m_FireTime += DeltaTime;
 }
 

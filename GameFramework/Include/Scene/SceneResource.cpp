@@ -162,7 +162,8 @@ bool CSceneResource::CreateAnimationSequence(const std::string& SequenceName,
 		return false;
 
 	CAnimationSequence* Sequence = CResourceManager::GetInst()->FindAnimationSequence(SequenceName);
-
+	
+	Sequence->ClearVecFrameData();
 	m_mapAnimationSequence.insert(std::make_pair(SequenceName, Sequence));
 
 	return true;
@@ -205,8 +206,7 @@ void CSceneResource::AddAnimationFrameData(const std::string& SequenceName,
 {
 	CAnimationSequence* Sequence = FindAnimationSequence(SequenceName);
 
-	if (!Sequence)
-		return;
+	if (!Sequence) return;
 
 	Sequence->AddFrameData(PosX, PosY, SizeX, SizeY);
 }

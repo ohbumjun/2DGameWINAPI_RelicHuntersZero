@@ -28,6 +28,7 @@
 #include "../Object/EffectReload.h"
 #include "../Object/Coin.h"
 #include "../Object/PistolGun.h"
+#include "../Object/PlayerClone.h"
 #include "../Object/ShotGun.h"
 // Map
 #include "../Map/MapBase.h"
@@ -215,13 +216,6 @@ void CScene::DestroyAllAttackObjects()
 	}
 }
 
-/*
-CPlayer*CScene::SetPlayer(const std::string &Name)
-{
-	CPlayer*Player = (CPlayer*)FindObject(Name);
-	return SetPlayer(Player);
-}
-*/
 
 CSharedPtr<CPlayer> CScene::SetPlayer(CSharedPtr<CPlayer> Player)
 {
@@ -2359,13 +2353,11 @@ void CScene::SetBasicProtoTypes()
 	CEffectShield* ShieldPrototype = CreatePrototype<CEffectShield>(SHIELD_PROTO);
 	// Shield
 	CEffectDoorAbove* StageDoorAbovePrototype = CreatePrototype<CEffectDoorAbove>(STAGE_DOOR_ABOVE_PROTO);
-
 	// Teleport
 	CTeleportMouse* TeleportMousePrototype = CreatePrototype<CTeleportMouse>(TELEPORT_MOUSE_PROTO);
 	// Player Bullet 
 	CBullet* PlayerBullet = CreatePrototype<CBullet>(PLAYER_BULLET_PROTO);
 	PlayerBullet->SetCollisionProfile("PlayerAttack");
-
 	// Duck Monster
 	CDuckMonster* DuckMonsterPrototype = CreatePrototype<CDuckMonster>(MONSTER_DUCK1_PROTO);
 	DuckMonsterPrototype->SetCharacterInfo(100, 120, 1300,
@@ -2714,6 +2706,7 @@ void CScene::SetRaffCardUI()
 		GetSceneResource()->AddAnimationFrameData(CARD_RAFF_CLICK,
 			i * 340.f, 0.f, 340.f, 92.f);
 }
+
 
 bool CScene::Init()
 {
