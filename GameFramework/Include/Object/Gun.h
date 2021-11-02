@@ -94,8 +94,8 @@ public :
 	}
 	
 public :
-	void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
-	void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
+	virtual void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
+	virtual void MonsterFire(Vector2 TargetPos, float OwnerAttackDamage);
 public :
 	void SkillSlowMotionAttack();
 private :
@@ -104,7 +104,7 @@ private :
 	void AdjustGunTexture();
 protected:
 	virtual void CreateCasing(class CBullet* Bullet);
-private :
+protected :
 	EBullet_Type MatchBulletToGun();
 public :
 	void RemoveGunCollider();

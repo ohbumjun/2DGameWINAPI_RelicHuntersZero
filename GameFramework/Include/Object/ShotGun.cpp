@@ -18,6 +18,45 @@ CShotGun::~CShotGun()
 {
 }
 
+void CShotGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
+{
+	CGun::PlayerFire(TargetPos, OwnerAttackDamage);
+	bool HoriDir = true;
+	float HoriDirAbs = abs(m_Owner->GetDir().x);
+	float CoriDirAbs = abs(m_Owner->GetDir().y);
+	HoriDirAbs > CoriDirAbs ? HoriDir = true : HoriDir = false;
+
+	Vector2 RTargetPos = HoriDir ? Vector2(TargetPos.x, TargetPos.y - 75.f) : Vector2(TargetPos.x - 75.f, TargetPos.y);
+	for (int i = 0; i < 4; i++)
+	{
+		Vector2 BulletOffset = m_Owner->GetDir().x > 0 ? Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f) : Vector2(m_Size.x * 0.15f, -m_Size.y * 0.3f);
+		CSharedPtr<CBullet> Bullet = m_Owner->GetScene()->CreateObject<CBullet>("Bullet",
+			PLAYER_BULLET_PROTO,
+			Vector2(m_Pos + BulletOffset),
+			Vector2(50.f, 50.f));
+		// Bullet Distance
+		Bullet->SetDistance(m_GunInfo.m_BulletDistance);
+		// Owner
+		Bullet->SetOwner(this);
+		// TimeScale
+		Bullet->SetTimeScale(m_Owner->GetTimeScale());
+		// Bullet Type
+		EBullet_Type BulletType = MatchBulletToGun();
+		Bullet->SetBulletType(BulletType);
+		// Bullet Nums
+		m_GunInfo.m_BulletsLoaded -= 1;
+		// Angle 
+		Vector2 NTargetPos = HoriDir ? Vector2(RTargetPos.x, RTargetPos.y + 50.f * i) : Vector2(RTargetPos.x + 50.f * i, RTargetPos.y);
+		float Angle = GetAngle(Bullet->GetPos(), NTargetPos);
+		Bullet->SetDir(Angle);
+		// Damage 
+		Bullet->SetBulletDamage((int)OwnerAttackDamage + m_GunInfo.m_Damage);
+		// Collision Profile
+		CCollider* BulletBody = Bullet->FindCollider("Body");
+		BulletBody->SetCollisionProfile("PlayerAttack");
+	}
+}
+
 void CShotGun::Start()
 {
 	CGun::Start();

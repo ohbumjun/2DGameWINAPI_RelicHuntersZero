@@ -1283,7 +1283,17 @@ void CPlayer::RemoveTargetPos(float DeltaTime)
 void CPlayer::FireTarget()
 {
 	if (m_CurrentGun)
+	{
+		// Set Dir To Mouse
+		Vector2 MousePos = CInput::GetInst()->GetMousePos();
+		Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
+		Vector2 MousePlayerPosDiff = m_Pos - (MousePos + CameraPos);
+		float Angle = GetAngle(m_Pos - CameraPos, MousePos);
+		SetDir(Angle);
+
+		// Fire
 		m_CurrentGun->PlayerFire(m_TargetPos, (float)m_CharacterInfo.Attack);
+	}
 }
 
 void CPlayer::SetTargetPos(float DeltaTime)

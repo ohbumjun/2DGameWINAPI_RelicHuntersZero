@@ -8,6 +8,8 @@ public:
 	CShotGun();
 	CShotGun(const CShotGun& obj);
 	virtual ~CShotGun();
+public :
+	virtual void PlayerFire(Vector2 TargetPos, float OwnerAttackDamage);
 public:
 	virtual void Start();
 	virtual bool Init();
