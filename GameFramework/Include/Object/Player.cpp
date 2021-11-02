@@ -1492,6 +1492,7 @@ void CPlayer::ChangeDirToMouse()
 	Vector2 MousePlayerPosDiff = m_Pos - (MousePos + CameraPos);
 	float Angle = GetAngle(m_Pos, MousePos);
 	SetDir(Angle);
+
 	// Animation Change
 	if (MousePlayerPosDiff.x >= 0)
 	{

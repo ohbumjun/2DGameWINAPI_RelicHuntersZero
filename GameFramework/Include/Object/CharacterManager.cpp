@@ -12,7 +12,6 @@ CCharacterManager::~CCharacterManager()
 
 void CCharacterManager::InitCharAbilityInfos()
 {
-	// 350, 2500
 	CharacterInfo AssCharInfo;
 	AssCharInfo.Attack = 310, AssCharInfo.Armor = 80, AssCharInfo.HP = 10000,
 		AssCharInfo.HPMax = 10000, AssCharInfo.MP = 400, AssCharInfo.MPMax = 400,

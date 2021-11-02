@@ -2,11 +2,13 @@
 #include "SceneResource.h"
 #include "SceneManager.h"
 #include "../Object/Player.h"
+#include "../Object/PlayerClone.h"
 #include "../Object/LaserObject.h"
 #include "../Object/Npc.h"
 #include "../Scene/Camera.h"
 #include "../Object/Gun.h"
 #include "../Object/Coin.h"
+#include "../Object/EffectBigWindow.h"
 #include "../Object/Monster.h"
 #include "../Object/StageDoor.h"
 #include "../Object/EffectHit.h"
@@ -48,6 +50,59 @@ bool CHomeScene::Init()
 	// Camera
 	GetCamera()->SetTarget(Player);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
+
+	// Big Window
+	CEffectBigWindow* BigWindow = CreateObject<CEffectBigWindow>("BigWindow",
+		Vector2(1650.f, 1100.f),
+		Vector2(50.f, 50.f));
+	BigWindow = CreateObject<CEffectBigWindow>("BigWindow2",
+		Vector2(2150.f, 1100.f),
+		Vector2(50.f, 50.f));
+
+	// Characters
+	CharacterInfo DefaultCharInfo;
+	CPlayerClone* PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone1",
+		Vector2(1500.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Ass);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
+	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone2",
+		Vector2(1650.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Biu);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
+	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone3",
+		Vector2(1800.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Jimmy);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
+	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone4",
+		Vector2(1950.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Pinky);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
+	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone5",
+		Vector2(2100.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Punny);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
+	PlayerClone = (CPlayerClone*)CreateObject<CPlayerClone>(
+		"PlayerClone6",
+		Vector2(2250.f, 1200.f));
+	PlayerClone->SetCharType(EChar_Type::Raff);
+	PlayerClone->SetAnimName();
+	PlayerClone->SetCharacterInfo(DefaultCharInfo);
+	PlayerClone->SetMoveEnable(false);
 
 	// Stage Door
 	CStageDoor* StageDoor1 = CreateObject<CStageDoor>("StageDoorOne", 

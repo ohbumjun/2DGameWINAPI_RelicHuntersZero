@@ -176,6 +176,7 @@
     <ClCompile Include="Object\CharacterManager.cpp" />
     <ClCompile Include="Object\Coin.cpp" />
     <ClCompile Include="Object\EffectAbilityUp.cpp" />
+    <ClCompile Include="Object\EffectBigWindow.cpp" />
     <ClCompile Include="Object\EffectBulletStart.cpp" />
     <ClCompile Include="Object\EffectCasing.cpp" />
     <ClCompile Include="Object\Character.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Object\CharacterManager.h" />
     <ClInclude Include="Object\Coin.h" />
     <ClInclude Include="Object\EffectAbilityUp.h" />
+    <ClInclude Include="Object\EffectBigWindow.h" />
     <ClInclude Include="Object\EffectBulletStart.h" />
     <ClInclude Include="Object\EffectCasing.h" />
     <ClInclude Include="Object\Character.h" />

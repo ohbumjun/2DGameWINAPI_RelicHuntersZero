@@ -1418,16 +1418,7 @@ void CScene::SetItemsAnimation()
 		255, 255, 255);
 	GetSceneResource()->AddAnimationFrameData("StageDoor",
 		0.f, 0.f, 56.f, 28.f);
-	/*
-	for (int i = 0; i < 6; ++i)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			GetSceneResource()->AddAnimationFrameData("StageDoor",
-				j * 192.f, i * 192.f, 192.f, 192.f);
-		}
-	}
-	*/
+
 
 	// Stage Door Effect ---
 	GetSceneResource()->CreateAnimationSequence(STAGE_DOOR_ABOVE_EFFECT,
@@ -1521,6 +1512,18 @@ void CScene::SetItemsAnimation()
 			GetSceneResource()->AddAnimationFrameData("Coin",
 				j * 46.f, i * 46.f, 46.f, 46.f);
 		}
+	}
+
+	// Big Window 
+	GetSceneResource()->CreateAnimationSequence("BigWindow",
+		"BigWindow", TEXT("images/Items/big_window.bmp"));
+	GetSceneResource()->SetTextureColorKey("BigWindow",
+		255, 255, 255);
+
+	for (int i = 0; i < 60; ++i)
+	{
+		GetSceneResource()->AddAnimationFrameData("BigWindow",
+			i * 516.f, 0.f, 516.f, 124.f);
 	}
 }
 

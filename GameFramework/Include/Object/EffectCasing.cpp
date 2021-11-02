@@ -45,7 +45,6 @@ void CEffectCasing::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
 	Move(Vector2(m_DirX * m_SpeedX * DeltaTime, 0.f));
-
 }
 
 void CEffectCasing::PostUpdate(float DeltaTime)

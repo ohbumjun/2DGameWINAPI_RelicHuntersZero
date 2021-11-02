@@ -12,6 +12,7 @@ protected:
 	CSharedPtr<CWidgetComponent> m_MPBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 private :
+	bool m_MoveEnable;
 	EChar_Type m_CharType;
 	EMonsterAI m_AI;
 	int m_DashDistance;
@@ -19,6 +20,10 @@ private :
 private :
 	CGameObject* m_ClosestMonster;
 public :
+	void SetMoveEnable(bool State)
+	{
+		m_MoveEnable = State;
+	}
 	void SetCharType(EChar_Type Type)
 	{
 		m_CharType = Type;

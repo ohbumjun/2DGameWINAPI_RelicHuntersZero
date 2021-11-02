@@ -11,7 +11,8 @@ CPlayerClone::CPlayerClone() :
 	m_CharType(EChar_Type::Ass),
 	m_DashDistance((int)650.f),
 	m_AttackDistance((int)550.f),
-	m_ClosestMonster(nullptr)
+	m_ClosestMonster(nullptr),
+	m_MoveEnable(true)
 {
 }
 
@@ -22,6 +23,7 @@ CPlayerClone::CPlayerClone(const CPlayerClone& obj) : CCharacter(obj)
 	m_DashDistance   = obj.m_DashDistance;
 	m_AttackDistance = obj.m_AttackDistance;
 	m_ClosestMonster = nullptr;
+	m_MoveEnable = true;
 }
 
 CPlayerClone::~CPlayerClone()
@@ -190,11 +192,13 @@ void CPlayerClone::AttackEnd()
 
 void CPlayerClone::Move(const Vector2& Dir)
 {
+	if (!m_MoveEnable) return;
 	CCharacter::Move(Dir);
 }
 
 void CPlayerClone::Move(const Vector2& Dir, float Speed)
 {
+	if (!m_MoveEnable) return;
 	CCharacter::Move(Dir, Speed);
 }
 
@@ -288,12 +292,14 @@ void CPlayerClone::AIIdle(float DeltaTime)
 
 void CPlayerClone::AIWalk(float DeltaTime)
 {
+	if(!m_MoveEnable) return;
 	m_MoveSpeed = m_CharacterInfo.MoveSpeed;
 	ChangeMoveAnimation();
 }
 
 void CPlayerClone::AITrace(float DeltaTime, Vector2 MonsterPos)
 {
+	if (!m_MoveEnable) return;
 	m_MoveSpeed = m_CharacterInfo.MoveSpeed;
 	ChangeRunAnimation();
 	float Angle = GetAngle(m_Pos, MonsterPos);
@@ -302,6 +308,7 @@ void CPlayerClone::AITrace(float DeltaTime, Vector2 MonsterPos)
 
 void CPlayerClone::AIAttack(float DeltaTime, Vector2 MonsterPos)
 {
+	if(!m_MoveEnable) return;
 	EObject_Type ObjType = m_ClosestMonster->GetObjType();
 	if (ObjType == EObject_Type::Player) return;
 	float Angle = GetAngle(m_Pos, MonsterPos);
