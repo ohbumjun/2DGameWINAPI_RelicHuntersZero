@@ -14,15 +14,15 @@ CMonster::CMonster() : m_Count(0),
 					   m_RandomMoveTime(MONSTER_TARGET_POS_LIMIT_TIME),
 					   m_AI(EMonsterAI::Idle),
 					   m_TraceSurprise(false),
-						m_SurpriseStopTime(0.0f),
-						m_TypeChanged(false),
-						m_MonsterType(EMonster_Type::Duck1)
+					   m_SurpriseStopTime(0.0f),
+					   m_TypeChanged(false),
+					   m_MonsterType(EMonster_Type::Duck1)
 {
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
 	m_ObjType         = EObject_Type::Monster;
-	m_AttackDistance = m_CharacterInfo.AttackDistance;
-	m_DashDistance = m_CharacterInfo.DashDistance;
+	m_AttackDistance  = m_CharacterInfo.AttackDistance;
+	m_DashDistance    = m_CharacterInfo.DashDistance;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)

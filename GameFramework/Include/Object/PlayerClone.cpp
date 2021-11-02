@@ -9,8 +9,8 @@
 CPlayerClone::CPlayerClone() :
 	m_AI(EMonsterAI::Idle),
 	m_CharType(EChar_Type::Ass),
-	m_DashDistance((int)NORMAL_MONSTER_DASH_DISTANCE),
-	m_AttackDistance((int)NORMAL_ATTACK_DISTANCE),
+	m_DashDistance((int)650.f),
+	m_AttackDistance((int)550.f),
 	m_ClosestMonster(nullptr)
 {
 }

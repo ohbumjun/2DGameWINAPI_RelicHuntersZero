@@ -60,7 +60,8 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					m_SkillTime(0.f),
 					m_SkillTimeMax(20.f),
 					m_SkillEnable(false),
-					m_DeathWidgetCreate(false)
+					m_DeathWidgetCreate(false),
+					m_WallCollision(false)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -97,6 +98,8 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillTime    = 0.f;
 	m_SkillTimeMax = 20.f;
 	m_SkillEnable  = false;
+
+	m_WallCollision = false;
 
 	if (m_CurrentGun)
 	{
@@ -258,11 +261,11 @@ void CPlayer::Start()
 	// Change Animation To Idle
 	ChangeIdleAnimation();
 
-	// Add Collider
-	// CColliderSphere* Head = AddCollider<CColliderSphere>("Head");
-	// Head->SetRadius(20.f);
-	// Head->SetOffset(0.f, -60.f);
-	// Head->SetCollisionProfile("Player");
+	// Update HUD
+	CUICharacterStateHUD* State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
+	UpdateHpPotionInv(State);
+	UpdateMpPotionInv(State);
+	UpdateShieldInv(State);
 
 	CColliderBox* Body = AddCollider<CColliderBox>("Body");
 	Body->SetExtent(60.f, 65.f);
@@ -459,15 +462,19 @@ void CPlayer::Update(float DeltaTime)
 {
 	// this	
 	CCharacter::Update(DeltaTime);
+
 	// Wall Move
-	bool WallCollision = PreventWallMove();
-	if (WallCollision)
+	m_WallCollision = PreventWallMove();
+	if (m_WallCollision)
 	{
 		if (m_DashEnable)
 			CollideBounceBack(Vector2(-m_Dir.x, -m_Dir.y));
-		else SetMoveSpeed(200.f);
+		else // Run or Move
+			SetMoveSpeed(200.f);
 	}
+
 	MoveWithinWorldResolution();
+
 	// Death
 	if (m_CharacterInfo.HP < 0 )
 	{
@@ -858,13 +865,12 @@ void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
 		State->SetGoldOneWidget(FullO);
 	else
 		State->SetGoldOneRenderEnable(false);
-
 }
 
 void CPlayer::MoveUp(float DeltaTime)
 {
 	RunEnd();
-	SetMoveSpeed(m_NormalSpeed);
+	if(!m_WallCollision) SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(0.f, -1.f));
 	ChangeMoveAnimation();
 }
@@ -872,7 +878,7 @@ void CPlayer::MoveUp(float DeltaTime)
 void CPlayer::MoveDown(float DeltaTime)
 {
 	RunEnd();
-	SetMoveSpeed(m_NormalSpeed);
+	if(!m_WallCollision) SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(0.f, 1.f));
 	ChangeMoveAnimation();
 }
@@ -880,7 +886,7 @@ void CPlayer::MoveDown(float DeltaTime)
 void CPlayer::MoveLeft(float DeltaTime)
 {
 	RunEnd();
-	SetMoveSpeed(m_NormalSpeed);
+	if(!m_WallCollision) SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(-1.f, 0.f));
 	ChangeMoveAnimation();
 }
@@ -888,7 +894,7 @@ void CPlayer::MoveLeft(float DeltaTime)
 void CPlayer::MoveRight(float DeltaTime)
 {
 	RunEnd();
-	SetMoveSpeed(m_NormalSpeed);
+	if(!m_WallCollision) SetMoveSpeed(m_NormalSpeed);
 	Move(Vector2(1.f, 0.f));
 	ChangeMoveAnimation();
 }
@@ -1421,7 +1427,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_HpPotionInv += 1;
+					m_HpPotionInv += 10;
 					UpdateHpPotionInv(State);
 					CanBuy = true;
 				}
@@ -1430,7 +1436,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_MpPotionInv += 1;
+					m_MpPotionInv += 10;
 					UpdateMpPotionInv(State);
 					CanBuy = true;
 				}
@@ -1439,7 +1445,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_ShieldInv += 1;
+					m_ShieldInv += 10;
 					UpdateShieldInv(State);
 					CanBuy = true;
 				}

@@ -352,8 +352,7 @@ bool CCharacter::PreventWallMove()
 				// Tile의 일차원 배열상의 idx 
 				int	Index = i * TileMap->GetTileCountX() + j;
 
-				if (TileMap->GetTile(Index)->GetTileOption() != ETileOption::Wall)
-					continue;
+				if (TileMap->GetTile(Index)->GetTileOption() != ETileOption::Wall) continue;
 
 				// 해당 Tile의 위치, size 정보를 가져온다 
 				// TilePos : Tile의 위쪽을 의미한다 
@@ -369,9 +368,9 @@ bool CCharacter::PreventWallMove()
 					WallCollision = true;
 
 					RectInfo CharRect, WallRect;
-					CharRect.Left = LT.x;
-					CharRect.Right = RB.x;
-					CharRect.Top = LT.y;
+					CharRect.Left   = LT.x;
+					CharRect.Right  = RB.x;
+					CharRect.Top    = LT.y;
 					CharRect.Bottom = RB.y;
 
 					WallRect.Left   = TilePos.x;

@@ -21,6 +21,7 @@ protected:
 	CSharedPtr<CWidgetComponent> m_SteminaBarWidget;
 	CSharedPtr<CWidgetComponent> m_NameWidget;
 private :
+	bool  m_WallCollision;
 	float m_RunSpeed;
 	float m_NormalSpeed;
 	float m_DashSpeed;
