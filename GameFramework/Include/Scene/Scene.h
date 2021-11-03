@@ -134,7 +134,7 @@ public:
 	static int SortY(const void* Src, const void* Dest);
 	static int SortZOrder(const void* Src, const void* Dest);
 	static int SortZOrderMap(const void* Src, const void* Dest);
-private:
+public:
 	CGameObject* FindPrototype(const std::string& Name);
 // Wall Object
 public :

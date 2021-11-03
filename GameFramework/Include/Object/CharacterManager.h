@@ -11,7 +11,7 @@ struct ECharMaxInfo
 	int AttackDistMax;
 	float SteminaMax;
 	ECharMaxInfo() :
-		AttackMax(450), ArmorMax(220), HPMax(15000), MPMax(700),
+		AttackMax(450), ArmorMax(220), HPMax(17000), MPMax(700),
 		SpeedMax(400), AttackDistMax(1000), SteminaMax(9.f){}
 };
 

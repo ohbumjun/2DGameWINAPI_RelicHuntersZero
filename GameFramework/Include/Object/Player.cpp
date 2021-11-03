@@ -59,6 +59,7 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					m_ShieldInv(0),
 					m_SkillTime(0.f),
 					m_SkillTimeMax(20.f),
+					m_MonsterKilled(0),
 					m_SkillEnable(false),
 					m_DeathWidgetCreate(false),
 					m_WallCollision(false)
@@ -85,7 +86,9 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_TeleportObj = obj.m_TeleportObj;
 	m_TeleportPos = obj.m_TeleportPos;
 	m_DeathAnimationTime = 0.f;
-
+	
+	m_CharacterInfo.Attack = m_SelectedCharacterInfo.Attack;
+	m_CharacterInfo.Armor  = m_SelectedCharacterInfo.Armor;
 	m_MoveSpeed = m_SelectedCharacterInfo.MoveSpeed;
 	m_RunSpeed = m_SelectedCharacterInfo.MoveSpeed * 1.5f;
 	m_NormalSpeed = m_SelectedCharacterInfo.MoveSpeed;
@@ -99,17 +102,22 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	m_SkillTimeMax = 20.f;
 	m_SkillEnable  = false;
 
+	m_MonsterKilled = obj.m_MonsterKilled;
+
 	m_WallCollision = false;
 
 	if (m_CurrentGun)
 	{
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol)
+		{
 			m_FireTimeMax = FIREMAX_TIME;
+			m_CharacterInfo.Attack += m_CurrentGun->GetGunDamage();
+		}
 	}
 
 	m_UIPause = nullptr;
 	m_DeathWidgetCreate = false;
-
+	
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
 	auto iterEnd = m_WidgetComponentList.end();
@@ -133,7 +141,6 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 			m_SteminaBarWidget = (*iter);
 		}
 	}
-
 	// 충돌체 지워주기 
 	m_ColliderList.clear();
 }
@@ -193,7 +200,7 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 	if (m_HpPotionInv > 0)
 	{
 		m_HpPotionInv -= 1;
-		m_CharacterInfo.HP += 1000;
+		m_CharacterInfo.HP += 2000;
 		if(m_CharacterInfo.HP > m_CharacterInfo.HPMax)
 			m_CharacterInfo.HP = m_CharacterInfo.HPMax;
 		UpdateHpPotionInv(State);
@@ -231,7 +238,7 @@ void CPlayer::UseShieldInv(float DeltaTime)
 		m_ShieldInv -= 1;
 		m_ShieldEnable = true;
 		m_ShieldTime = m_ShieldTimeMax;
-		UpdateShieldInv(State); //
+		UpdateShieldInv(State); 
 
 		CEffectShieldStart* ShieldStart = m_Scene->CreateObject<CEffectShieldStart>(
 			"ShieldStart",
@@ -274,9 +281,6 @@ void CPlayer::Start()
 	Body->SetOffset(0.f, -42.5f);
 	Body->SetCollisionProfile("Player");
 	
-	// Increase Attack, Armor If CurrentGun Exist
-
-
 	// Item
 	CInput::GetInst()->SetCallback<CPlayer>("GetItem", KeyState_Down,
 											this, &CPlayer::AcquireItem);
@@ -353,8 +357,6 @@ void CPlayer::Start()
  										this, &CPlayer::RemoveTargetPos);
 	CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Push,
 											this, &CPlayer::BulletFireTarget);
-	// CInput::GetInst()->SetCallback<CPlayer>("MouseLButton", KeyState_Up,
-	// 										this, &CPlayer::RemoveTargetPos);
 	
 	// Inv
 	CInput::GetInst()->SetCallback<CPlayer>("UseHpPotion", KeyState_Down,
@@ -461,9 +463,9 @@ bool CPlayer::Init()
 }
 
 void CPlayer::Update(float DeltaTime)
-{
-	//this	
+{	
 	CCharacter::Update(DeltaTime);
+	
 	
 	// Wall Move
 	m_WallCollision = PreventWallMove();
@@ -484,7 +486,7 @@ void CPlayer::Update(float DeltaTime)
 		ChangeDeathAnimation();
 		return;
 	}
-
+	
 	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 
@@ -1129,7 +1131,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillMultipleBulletAttack(float DeltaTime)
 {
-	CGameManager::GetInst()->SetTimeScale(0.2f);
+	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
@@ -1141,7 +1143,7 @@ void CPlayer::SkillDestroyAllAttack(float DeltaTime)
 	m_Scene->DestroyAllAttackObjects();
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
-	CGameManager::GetInst()->SetTimeScale(0.2f);
+	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
 }
 
@@ -1400,8 +1402,24 @@ void CPlayer::AcquireItem(float DeltaTime)
 			// Equip(Gun->Clone());
 			// Have to Add Newly Cloned Gun to Scene 
 			// So that it can be update within Scene.cpp
-			Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
-			break;
+			CGun* GunProto = (CGun*)m_Scene->FindPrototype(ProtoTypeName);
+			int GunMonsterKillLimit = GunProto->GetMonsterKillLimit();
+
+			if (m_MonsterKilled >= GunMonsterKillLimit)
+			{
+				Equip(m_Scene->CreateObject<CGun>(ProtoTypeName,ProtoTypeName));
+				break;
+			}
+			else
+			{
+				CSharedPtr<CEffectText> NoBulletText = m_Scene->CreateObject<CEffectText>(
+					"CEffectText",
+					EFFECT_TEXT_PROTO,
+					Vector2(m_Pos.x - m_Size.x * 1.7, m_Pos.y - m_Size.y * 0.3f),
+					Vector2(50.f, 10.f));
+				NoBulletText->SetText(TEXT("Kill More Monster"));
+				NoBulletText->SetTextColor(255, 0, 0);
+			}
 		}
 	}
 }
@@ -1444,7 +1462,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_HpPotionInv += 10;
+					m_HpPotionInv += 1;
 					UpdateHpPotionInv(State);
 					CanBuy = true;
 				}
@@ -1453,7 +1471,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_MpPotionInv += 10;
+					m_MpPotionInv += 1;
 					UpdateMpPotionInv(State);
 					CanBuy = true;
 				}
@@ -1462,7 +1480,7 @@ void CPlayer::BuyItem(float)
 				if (m_CharacterInfo.Gold >= Cost)
 				{
 					m_CharacterInfo.Gold -= Cost;
-					m_ShieldInv += 10;
+					m_ShieldInv += 1;
 					UpdateShieldInv(State);
 					CanBuy = true;
 				}
@@ -1998,7 +2016,7 @@ void CPlayer::SkillClone(float DeltaTime)
 
 void CPlayer::SkillSlowMotion(float DeltaTime)
 {
-	CGameManager::GetInst()->SetTimeScale(0.2f);
+	CGameManager::GetInst()->SetTimeScale(0.01f);
 	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME * 5;
 	m_CharacterInfo.Attack *= 4;

@@ -17,10 +17,16 @@ protected :
 protected :
 	float m_FireTime;
 	float m_FireTimeMax;
+	int   m_MonsterKillLimit;
 public :
 	float GetFireTime() const { return m_FireTime; }
 	float GetFireTimeMax() const { return m_FireTimeMax; }
+	int   GetMonsterKillLimit() const { return m_MonsterKillLimit; }
 public:
+	void SetMonsterKillLimit(int limit)
+	{
+		m_MonsterKillLimit = limit;
+	}
 	void SetGunInfo(EGunClass GunClass, int GunDamage)
 	{
 		m_GunInfo.m_GunClass = GunClass;

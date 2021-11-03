@@ -148,7 +148,7 @@ void CUICharacterStateHUD::SetShieldInvUI(std::vector<std::wstring>& vecNumberFi
 
 	m_ShieldInvTenWidget = CreateWidget<CNumberWidget>("ShieldInvTenNumber");
 	m_ShieldInvTenWidget->SetTexture("ShieldInvTenNumber", vecNumberFileName);
-	m_ShieldInvTenWidget->SetPos(510.f, 600.f);
+	m_ShieldInvTenWidget->SetPos(510.f, 610.f);
 	m_ShieldInvTenWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{
@@ -157,7 +157,7 @@ void CUICharacterStateHUD::SetShieldInvUI(std::vector<std::wstring>& vecNumberFi
 
 	m_ShieldInvOneWidget = CreateWidget<CNumberWidget>("ShieldInvOneNumber");
 	m_ShieldInvOneWidget->SetTexture("ShieldInvOneNumber", vecNumberFileName);
-	m_ShieldInvOneWidget->SetPos(530.f, 600.f);
+	m_ShieldInvOneWidget->SetPos(530.f, 610.f);
 	m_ShieldInvOneWidget->SetSize(16.f, 30.f);
 	for (int i = 0; i < 10; i++)
 	{

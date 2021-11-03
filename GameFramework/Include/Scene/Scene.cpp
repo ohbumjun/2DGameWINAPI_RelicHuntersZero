@@ -2451,7 +2451,8 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 300.f);
-	GunPistolProto->SetGunInfo(EGunClass::Medium,50);
+	GunPistolProto->SetGunInfo(EGunClass::Medium,65);
+	GunPistolProto->SetMonsterKillLimit(20);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
@@ -2461,7 +2462,8 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 400.f);
-	GunPistolProto->SetGunInfo(EGunClass::Heavy,65);
+	GunPistolProto->SetGunInfo(EGunClass::Heavy,130);
+	GunPistolProto->SetMonsterKillLimit(80);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
@@ -2471,7 +2473,8 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 500.f);
-	GunShotProto->SetGunInfo(EGunClass::Light, 250);
+	GunShotProto->SetGunInfo(EGunClass::Light, 200);
+	GunShotProto->SetMonsterKillLimit(5);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
@@ -2481,7 +2484,8 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 600.f);
-	GunShotProto->SetGunInfo(EGunClass::Medium, 350);
+	GunShotProto->SetGunInfo(EGunClass::Medium, 550);
+	GunShotProto->SetMonsterKillLimit(25);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
@@ -2491,7 +2495,8 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 700.f);
-	GunShotProto->SetGunInfo(EGunClass::Heavy, 450);
+	GunShotProto->SetGunInfo(EGunClass::Heavy, 850);
+	GunShotProto->SetMonsterKillLimit(85);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 

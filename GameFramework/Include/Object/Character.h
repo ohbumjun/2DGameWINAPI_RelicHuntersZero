@@ -72,7 +72,7 @@ protected:
 	float m_ShieldTimeMax;
 	float m_ShieldEnableTime;
 	bool  m_ShieldEnable;
-	class CEffectShield* m_Shield;
+	CSharedPtr<class CEffectShield> m_Shield;
 public :
 	void SetShieldEnable(bool State)
 	{

@@ -13,7 +13,8 @@
 CGun::CGun() :
 	m_TextureImgNames{},
 	m_Owner(nullptr),
-	m_FireToggle(false)
+	m_FireToggle(false),
+	m_MonsterKillLimit(0)
 {
 	m_GunInfo.m_GunType = EGun_Type::Pistol;
 	m_GunInfo.m_GunClass       = EGunClass::Light;

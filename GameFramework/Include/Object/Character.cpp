@@ -32,6 +32,7 @@ CCharacter::CCharacter() :
 CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 {
 	m_CharacterInfo = obj.m_CharacterInfo;
+
 	m_HitEnable    = false;
 	m_HitTime      = 0.f;
 	m_HitDir = Vector2(0.f, 0.f);
@@ -49,7 +50,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 		if (obj.m_GunEquipment[i])
 		{
 			m_GunEquipment[i] = obj.m_GunEquipment[i]->Clone();
-			if (!m_CurrentGun && m_GunEquipment[i]->GetName() == obj.m_CurrentGun->GetName())
+			if (obj.m_GunEquipment[i]->GetName() == obj.m_CurrentGun->GetName())
 			{
 				m_CurrentGun = m_GunEquipment[i];
 				m_FireTime    = m_CurrentGun->GetFireTime();
@@ -57,6 +58,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 			}
 		}
 	}
+	
 }
 
 CCharacter::~CCharacter()

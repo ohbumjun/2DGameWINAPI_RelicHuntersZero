@@ -25,6 +25,7 @@ private :
 	float m_RunSpeed;
 	float m_NormalSpeed;
 	float m_DashSpeed;
+	int   m_MonsterKilled;
 // Inv 
 private :
 	int m_HpPotionInv;
@@ -56,7 +57,11 @@ private :
 	{
 		m_ShieldInv = Shield;
 	}
-
+public:
+	void IncMonsterKilled()
+	{
+		m_MonsterKilled += 1;
+	}
 private :
 	void UpdateHpPotionInv(class CUICharacterStateHUD* const State);
 	void UpdateMpPotionInv(class CUICharacterStateHUD* const State);

@@ -16,11 +16,11 @@ void CCharacterManager::InitCharAbilityInfos()
 	AssCharInfo.Attack = 310, AssCharInfo.Armor = 140, AssCharInfo.HP = 10000,
 		AssCharInfo.HPMax = 10000, AssCharInfo.MP = 400, AssCharInfo.MPMax = 400,
 		AssCharInfo.Stemina = 6.f, AssCharInfo.SteminaMax = 6.f, AssCharInfo.MoveSpeed = 300.f,
-		AssCharInfo.AttackSpeed = 1.f, AssCharInfo.AttackDistance = 700.f;
+		AssCharInfo.AttackSpeed = 1.f, AssCharInfo.AttackDistance = 750.f;
 	m_CharAbilityInfo.insert(std::make_pair(EChar_Type::Ass, AssCharInfo));
 
 	CharacterInfo BiuCharInfo;
-	BiuCharInfo.Attack = 450, BiuCharInfo.Armor = 220, BiuCharInfo.HP = 15000,
+	BiuCharInfo.Attack = 450, BiuCharInfo.Armor = 220, BiuCharInfo.HP = 17000,
 		BiuCharInfo.HPMax = 12500, BiuCharInfo.MP = 300, BiuCharInfo.MPMax = 300,
 		BiuCharInfo.Stemina = 4.f, BiuCharInfo.SteminaMax = 4.f, BiuCharInfo.MoveSpeed = 230.f,
 		BiuCharInfo.AttackSpeed = 1.f, BiuCharInfo.AttackDistance = 500.f;
@@ -37,7 +37,7 @@ void CCharacterManager::InitCharAbilityInfos()
 	PinkyCharInfo.Attack = 290, PinkyCharInfo.Armor = 150, PinkyCharInfo.HP = 9200,
 		PinkyCharInfo.HPMax = 9200, PinkyCharInfo.MP = 600, PinkyCharInfo.MPMax = 600,
 		PinkyCharInfo.Stemina = 3.f, PinkyCharInfo.SteminaMax = 3.f, PinkyCharInfo.MoveSpeed = 350.f,
-		PinkyCharInfo.AttackSpeed = 1.f, PinkyCharInfo.AttackDistance = 800.f;
+		PinkyCharInfo.AttackSpeed = 1.f, PinkyCharInfo.AttackDistance = 850.f;
 	m_CharAbilityInfo.insert(std::make_pair(EChar_Type::Pinky, PinkyCharInfo));
 
 	CharacterInfo PunnyCharInfo;
@@ -51,7 +51,7 @@ void CCharacterManager::InitCharAbilityInfos()
 	RaffCharInfo.Attack = 290, RaffCharInfo.Armor = 130, RaffCharInfo.HP = 9750,
 		RaffCharInfo.HPMax = 9750, RaffCharInfo.MP = 700, RaffCharInfo.MPMax = 700,
 		RaffCharInfo.Stemina = 9.f, RaffCharInfo.SteminaMax = 9.f, RaffCharInfo.MoveSpeed = 350.f,
-		RaffCharInfo.AttackSpeed = 1.f, RaffCharInfo.AttackDistance = 700.f;
+		RaffCharInfo.AttackSpeed = 1.f, RaffCharInfo.AttackDistance = 800.f;
 	m_CharAbilityInfo.insert(std::make_pair(EChar_Type::Raff, RaffCharInfo));
 }
 

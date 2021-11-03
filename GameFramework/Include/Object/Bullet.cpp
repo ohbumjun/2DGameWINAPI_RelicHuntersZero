@@ -250,8 +250,21 @@ void CBullet::DamageObject(CCollider* const Dest)
 	int DamageAmount = m_Damage - Armor;
 	if (DamageAmount < 0) DamageAmount = 1;
 	DamageFont->SetDamageNumber(DamageAmount);
+
 	// Damage
 	Dest->GetOwner()->SetDamage(DamageAmount);
+
+	// If Monster Death, Increase Monster Kill of Player
+	if (Dest->GetOwner()->GetObjType() == EObject_Type::Monster)
+	{
+		CMonster* Monster = (CMonster*)Dest->GetOwner();
+		int MonsterHp = Monster->GetHP();
+		if (MonsterHp - DamageAmount <= 0) // Monster Death
+		{
+			CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+			Player->IncMonsterKilled();
+		}
+	}
 }
 
 void CBullet::ShieldObject(CGameObject* const  DestOwner)
