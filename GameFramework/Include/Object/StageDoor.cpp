@@ -8,8 +8,11 @@
 #include "../Collision/ColliderBox.h"
 #include "Player.h"
 #include "EffectDoorAbove.h"
+#include "EffectText.h"
 
-CStageDoor::CStageDoor() : m_DoorEffectEnable(false)
+CStageDoor::CStageDoor() : 
+	m_DoorEffectEnable(false),
+	m_LimitPlayerPass(true)
 {
     m_DoorStageType = EDoorStage_Type::Stage_Default;
 	m_ObjType = EObject_Type::GameObject;
@@ -20,6 +23,7 @@ CStageDoor::CStageDoor(const CStageDoor& obj) :
 {
 	m_DoorStageType = obj.m_DoorStageType;
 	m_DoorEffectEnable = false;
+	m_LimitPlayerPass = true;
 }
 
 CStageDoor::~CStageDoor()
@@ -122,10 +126,36 @@ void CStageDoor::ChangeScene()
 		CSceneManager::GetInst()->CreateScene<CMainScene>();
 		break;
 	case EDoorStage_Type::Stage_Two:
-		CSceneManager::GetInst()->CreateScene<CMain2Scene>();
+	{
+		CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+		bool PlayerStage1End = Player->GetState1End();
+		if (PlayerStage1End)
+		{
+			Player->SetState1End(true);
+			CSceneManager::GetInst()->CreateScene<CMain2Scene>();
+		}
+		else if (!m_LimitPlayerPass)
+		{
+			Player->SetState1End(true);
+			CSceneManager::GetInst()->CreateScene<CMain2Scene>();
+		}
+	}
 		break;
 	case EDoorStage_Type::Stage_Three:
-		CSceneManager::GetInst()->CreateScene<CMain3Scene>();
+	{
+		CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
+		bool PlayerStage2End = Player->GetState2End();
+		if (PlayerStage2End)
+		{
+			Player->SetState2End(true);
+			CSceneManager::GetInst()->CreateScene<CMain3Scene>();
+		}
+		else if (!m_LimitPlayerPass)
+		{
+			Player->SetState2End(true);
+			CSceneManager::GetInst()->CreateScene<CMain3Scene>();
+		}
+	}
 		break;
 	}
 }

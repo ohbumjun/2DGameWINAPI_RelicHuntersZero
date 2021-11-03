@@ -286,6 +286,7 @@ void CTurtleMonster::ShieldUpdate(float DeltaTime)
 		m_Shield = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
 		m_Shield->SetShieldType(EShield_Type::Turtle);
 		m_Shield->SetOwner(this);
+		m_Shield->SetLifeTime(m_ShieldEnableTime);
 		m_ShieldEnable = true;
 		m_ShieldEnableTime = 1.f;
 	}

@@ -12,9 +12,14 @@ public:
 private:
 	// Door Type : 다음 Scene이 어디가 될지를 결정한다
 	EDoorStage_Type m_DoorStageType;
+	bool m_LimitPlayerPass;
 private :
 	bool m_DoorEffectEnable;
 public:
+	void SetLimitPlayerPass(bool State)
+	{
+		m_LimitPlayerPass = State;
+	}
 	void SetDoorStageType(EDoorStage_Type DoorStageType)
 	{
 		m_DoorStageType = DoorStageType;

@@ -19,9 +19,6 @@ CEffectShield::~CEffectShield()
 void CEffectShield::Start()
 {
 	CGameObject::Start();
-	// SetAnimationEndNotify<CEffectShield>(SHIELD_TURTLE, this, &CEffectShield::AnimationFinish);
-	// SetAnimationEndNotify<CEffectShield>(SHIELD_PLAYER, this, &CEffectShield::AnimationFinish);
-	// SetAnimationEndNotify<CEffectShield>(SHIELD_BOSS,   this, &CEffectShield::AnimationFinish);
 }
 
 bool CEffectShield::Init()

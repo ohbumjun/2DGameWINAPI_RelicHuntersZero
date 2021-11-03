@@ -25,7 +25,6 @@ private :
 	float m_RunSpeed;
 	float m_NormalSpeed;
 	float m_DashSpeed;
-	int   m_MonsterKilled;
 // Inv 
 private :
 	int m_HpPotionInv;
@@ -57,11 +56,6 @@ private :
 	{
 		m_ShieldInv = Shield;
 	}
-public:
-	void IncMonsterKilled()
-	{
-		m_MonsterKilled += 1;
-	}
 private :
 	void UpdateHpPotionInv(class CUICharacterStateHUD* const State);
 	void UpdateMpPotionInv(class CUICharacterStateHUD* const State);
@@ -72,7 +66,25 @@ private :
 	void UseShieldInv(float DeltaTime);
 private :
 	void ShieldUpdate(float DeltaTime);
-// Functions
+// Monster Kill Info
+private:
+	int   m_MonsterKilled;
+
+public:
+	void IncMonsterKilled()
+	{
+		m_MonsterKilled += 1;
+	}
+// State 1, 2
+private :
+	bool m_State1End;
+	bool m_State2End;
+public :
+	bool GetState1End() const { return m_State1End; }
+	bool GetState2End() const { return m_State2End; }
+	void SetState1End(bool State) { m_State1End = State; }
+	void SetState2End(bool State) { m_State2End = State; }
+// Normal Functions
 public:
 	virtual void Start();
 	virtual void SetNotifyFunctions();

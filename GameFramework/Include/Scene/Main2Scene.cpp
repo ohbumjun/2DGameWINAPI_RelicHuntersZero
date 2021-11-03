@@ -75,20 +75,11 @@ bool CMain2Scene::Init()
 	NameText->SetTextColor(255, 255, 255);
 	NameText->SetText(TEXT("STAGE HOME"));
 
-	StageDoor = CreateObject<CStageDoor>("StageDoorHome2",
-		Vector2(3300.f, 2200.f),
-		Vector2(50.f, 50.f));
-	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
-	DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
-	DoorNameWidget->SetPos(-60.f, 20.f);
-	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorHomeText2");
-	NameText->SetTextColor(255, 255, 255);
-	NameText->SetText(TEXT("STAGE HOME"));
-
 	StageDoor = CreateObject<CStageDoor>("StageDoor3",
 		Vector2(3500.f, 2200.f),
 		Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Three);
+	StageDoor->SetLimitPlayerPass(false);
 	DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
 	DoorNameWidget->SetPos(-40.f, 20.f);
 	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorThreeText");

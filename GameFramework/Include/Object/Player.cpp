@@ -62,7 +62,9 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					m_MonsterKilled(0),
 					m_SkillEnable(false),
 					m_DeathWidgetCreate(false),
-					m_WallCollision(false)
+					m_WallCollision(false),
+					m_State1End(false),
+					m_State2End(false)
 			
 {
 	m_ObjType = EObject_Type::Player;
@@ -117,6 +119,9 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 	m_UIPause = nullptr;
 	m_DeathWidgetCreate = false;
+
+	m_State1End = obj.m_State1End;
+	m_State2End = obj.m_State2End;
 	
 	// GameObj 에서, 해당 목록으로 복사되어 들어온다 
 	auto iter = m_WidgetComponentList.begin();
