@@ -532,6 +532,7 @@ CGun* CCharacter::Equip(CGun* Gun)
 	CGun*ExistingGun = m_GunEquipment[GunClass];
 	m_GunEquipment[GunClass] = Gun;
 	// Set Current Gun
+	if (m_CurrentGun) m_CurrentGun->Destroy();
 	m_CurrentGun = m_GunEquipment[GunClass];
 	m_CurrentGun->RemoveGunCollider();
 	// Attack Dist Setting

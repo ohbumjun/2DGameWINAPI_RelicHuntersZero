@@ -104,7 +104,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	if (m_CurrentGun)
 	{
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol)
-			m_FireTimeMax = 0.05f;
+			m_FireTimeMax = 0.01f;
 	}
 
 	m_UIPause = nullptr;
@@ -487,8 +487,8 @@ void CPlayer::Update(float DeltaTime)
 
 	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
-	if (CollideMonster)
-		CollideMonsterBody(CollideMonster);
+
+	if (CollideMonster) CollideMonsterBody(CollideMonster);
 
 	// Hp, Mp, Stemina
 	AbilityUpdate(DeltaTime);
@@ -659,13 +659,13 @@ void CPlayer::ChangeGunToLight(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Light])
 	{
-		m_CurrentGun = nullptr;
+		m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Light];
 
 		m_FireTime    = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.05f;
+			m_FireTimeMax = 0.01f;
 	}
 }
 
@@ -673,13 +673,13 @@ void CPlayer::ChangeGunToMedium(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Medium])
 	{
-		m_CurrentGun = nullptr;
+		m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Medium];
 
 		m_FireTime = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.05f;
+			m_FireTimeMax = 0.01f;
 	}
 }
 
@@ -687,13 +687,13 @@ void CPlayer::ChangeGunToHeavy(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Heavy])
 	{
-		m_CurrentGun = nullptr;
+		m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
 
 		m_FireTime = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.05f;
+			m_FireTimeMax = 0.01f;
 	}
 }
 
@@ -1510,7 +1510,7 @@ CGun* CPlayer::Equip(CGun* Gun)
 	// FireTime Update
 	EGun_Type GunType = m_CurrentGun->GetGunType();
 	if (GunType == EGun_Type::Pistol)
-		m_FireTimeMax = 0.05f;
+		m_FireTimeMax = 0.01f;
 
 	return ExitingGun;
 }
