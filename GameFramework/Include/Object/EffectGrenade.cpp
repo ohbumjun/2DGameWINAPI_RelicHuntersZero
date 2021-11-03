@@ -154,7 +154,7 @@ void CEffectGrenade::ExplodeDamagePlayer()
 	Vector2 PlayerPos = Player->GetPos();
 
 	float DistToPlayer = Distance(GrenadePos, PlayerPos);
-	if (DistToPlayer <= 350.f)
+	if (DistToPlayer <= 250.f)
 		ExplodeHitPlayer(Player);
 }
 
@@ -183,7 +183,7 @@ void CEffectGrenade::ExplodeHitPlayer(class CPlayer* const Player)
 	Player->Hit();
 
 	int Armor = Player->GetArmor();
-	int FinalDamage = m_Damage - Armor;
+	int FinalDamage = m_Damage * 3 - Armor;
 	// Damage Font
 	CDamageFont* DamageFont = m_Scene->CreateObject<CDamageFont>("DamageFont", DAMAGEFONT_PROTO, PlayerPos);
 	DamageFont->SetDamageNumber(FinalDamage);

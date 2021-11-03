@@ -48,14 +48,13 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 	CGeneratorTower* GeneratorTower = m_Scene->CreateObject<CGeneratorTower>("GeneratorTower", Vector2(TowerPoxX, 1300.f));
 	// GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 3000,
 	//	5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
-	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 100, 100,
+	GeneratorTower->SetCharacterInfo(NORMAL_MONSTER_ATTACK, 250, 18000,
 		5, 1, 100, 100, 600, NORMAL_MONSTER_ATTACK_DISTANCE, NORMAL_MONSTER_DASH_DISTANCE);
 	GeneratorTower->SetBossMonster(this);
 	if (GeneratorNum == 1) m_IsGenerator1Alive = true;
 	else m_IsGenerator2Alive = true;
 	m_ShieldEnable = true;
 
-	/*
 	for (int i = 0; i < 3; i++)
 	{
 		Vector2 TowerPos = GeneratorTower->GetPos();
@@ -64,7 +63,6 @@ void CBossMonster::CreateGenerator(int GeneratorNum)
 		KamiKaze->SetMonsterType(EMonster_Type::KamiKazeCage2);
 		KamiKaze->SetMoveSpeed(0.f);
 	}
-	*/
 
 	CreateSubMonsters();
 }
@@ -142,9 +140,6 @@ void CBossMonster::CreateSubMonsters()
 	CDuckMonster* DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK1_PROTO);
 	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f , rand() % 1000 + 1000.f));
 	DuckMonster->Equip((CGun*)ShotGun);
-
-	/*
-	* 
 	DuckMonster = m_Scene->CreateObject<CDuckMonster>("DuckMonster",MONSTER_DUCK2_PROTO);
 	DuckMonster->SetPos(Vector2(rand() % 1000 + 1000.f, rand() % 1000 + 1000.f));
 	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
@@ -168,7 +163,6 @@ void CBossMonster::CreateSubMonsters()
 	ShotGun = m_Scene->CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO);
 	TurtleMonster->Equip((CGun*)ShotGun);
 
-	*/
 
 }
 

@@ -16,11 +16,11 @@ void CCharacterManager::InitCharAbilityInfos()
 	AssCharInfo.Attack = 310, AssCharInfo.Armor = 140, AssCharInfo.HP = 10000,
 		AssCharInfo.HPMax = 10000, AssCharInfo.MP = 400, AssCharInfo.MPMax = 400,
 		AssCharInfo.Stemina = 6.f, AssCharInfo.SteminaMax = 6.f, AssCharInfo.MoveSpeed = 300.f,
-		AssCharInfo.AttackSpeed = 1.f, AssCharInfo.AttackDistance = 600.f;
+		AssCharInfo.AttackSpeed = 1.f, AssCharInfo.AttackDistance = 700.f;
 	m_CharAbilityInfo.insert(std::make_pair(EChar_Type::Ass, AssCharInfo));
 
 	CharacterInfo BiuCharInfo;
-	BiuCharInfo.Attack = 350, BiuCharInfo.Armor = 200, BiuCharInfo.HP = 12500,
+	BiuCharInfo.Attack = 450, BiuCharInfo.Armor = 220, BiuCharInfo.HP = 15000,
 		BiuCharInfo.HPMax = 12500, BiuCharInfo.MP = 300, BiuCharInfo.MPMax = 300,
 		BiuCharInfo.Stemina = 4.f, BiuCharInfo.SteminaMax = 4.f, BiuCharInfo.MoveSpeed = 230.f,
 		BiuCharInfo.AttackSpeed = 1.f, BiuCharInfo.AttackDistance = 500.f;
@@ -30,7 +30,7 @@ void CCharacterManager::InitCharAbilityInfos()
 	JimmyCharInfo.Attack = 300, JimmyCharInfo.Armor = 160, JimmyCharInfo.HP = 9800,
 		JimmyCharInfo.HPMax = 9800, JimmyCharInfo.MP = 400, JimmyCharInfo.MPMax = 400,
 		JimmyCharInfo.Stemina = 5.f, JimmyCharInfo.SteminaMax = 5.f, JimmyCharInfo.MoveSpeed = 260.f,
-		JimmyCharInfo.AttackSpeed = 1.f, JimmyCharInfo.AttackDistance = 600.f;
+		JimmyCharInfo.AttackSpeed = 1.f, JimmyCharInfo.AttackDistance = 700.f;
 	m_CharAbilityInfo.insert(std::make_pair(EChar_Type::Jimmy, JimmyCharInfo));
 
 	CharacterInfo PinkyCharInfo;
