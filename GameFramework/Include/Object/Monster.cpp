@@ -380,7 +380,10 @@ CGun* CMonster::Equip(CGun* Gun)
 		GunBody->SetCollisionProfile("MonsterAttack");
 		
 		// Inc Attack, Armor
-		m_CharacterInfo.Attack += m_CurrentGun->GetGunDamage();
+		if(m_CurrentGun->GetGunType() == EGun_Type::Pistol)
+			m_CharacterInfo.Attack += m_CurrentGun->GetGunDamage() + 50;
+		if (m_CurrentGun->GetGunType() == EGun_Type::ShotGun)
+			m_CharacterInfo.Attack += m_CurrentGun->GetGunDamage() - 100;
 	}
 	return EquipedGun;
 }

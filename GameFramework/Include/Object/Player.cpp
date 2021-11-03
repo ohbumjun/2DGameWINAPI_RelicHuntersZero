@@ -104,7 +104,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	if (m_CurrentGun)
 	{
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol)
-			m_FireTimeMax = 0.01f;
+			m_FireTimeMax = FIREMAX_TIME;
 	}
 
 	m_UIPause = nullptr;
@@ -462,7 +462,7 @@ bool CPlayer::Init()
 
 void CPlayer::Update(float DeltaTime)
 {
-	// this	
+	//this	
 	CCharacter::Update(DeltaTime);
 	
 	// Wall Move
@@ -505,8 +505,7 @@ void CPlayer::Update(float DeltaTime)
 
 	// MPBar , HPBar
 	CUICharacterStateHUD *State = m_Scene->FindUIWindow<CUICharacterStateHUD>("CharacterStateHUD");
-	if (State)
-		AbilityStateUIUpdate(State);
+	if (State) AbilityStateUIUpdate(State);
 	CProgressBar *MPBar = (CProgressBar *)m_MPBarWidget->GetWidget();
 	MPBar->SetPercent(m_CharacterInfo.MP / (float)m_CharacterInfo.MPMax);
 
@@ -520,8 +519,7 @@ void CPlayer::Update(float DeltaTime)
 	CurGoldNumUpdate(State);
 	// Gun 
 	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
-	if (GunState)
-		GunStateUIUpdate(GunState);
+	if (GunState) GunStateUIUpdate(GunState);
 
 	// Dir Set toward Mouse Pos
 	std::string RIdleAnim = m_mapAnimName.find(PLAYER_RIGHT_IDLE)->second;
@@ -665,7 +663,7 @@ void CPlayer::ChangeGunToLight(float DeltaTime)
 		m_FireTime    = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.01f;
+			m_FireTimeMax = FIREMAX_TIME;
 	}
 }
 
@@ -679,7 +677,7 @@ void CPlayer::ChangeGunToMedium(float DeltaTime)
 		m_FireTime = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.01f;
+			m_FireTimeMax = FIREMAX_TIME;
 	}
 }
 
@@ -693,7 +691,7 @@ void CPlayer::ChangeGunToHeavy(float DeltaTime)
 		m_FireTime = m_CurrentGun->GetFireTime();
 		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
-			m_FireTimeMax = 0.01f;
+			m_FireTimeMax = FIREMAX_TIME;
 	}
 }
 
@@ -1131,7 +1129,7 @@ void CPlayer::Resume(float DeltaTime)
 
 void CPlayer::SkillMultipleBulletAttack(float DeltaTime)
 {
-	CGameManager::GetInst()->SetTimeScale(0.01f);
+	CGameManager::GetInst()->SetTimeScale(0.2f);
 	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
@@ -1143,7 +1141,7 @@ void CPlayer::SkillDestroyAllAttack(float DeltaTime)
 	m_Scene->DestroyAllAttackObjects();
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME;
 	m_SkillEnable = true;
-	CGameManager::GetInst()->SetTimeScale(0.01f);
+	CGameManager::GetInst()->SetTimeScale(0.2f);
 	SetTimeScale(100.f);
 }
 
@@ -1327,25 +1325,6 @@ void CPlayer::SetTargetPos(float DeltaTime)
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	Vector2 Resolution = m_Scene->GetCamera()->GetResolution();
-
-	/*
-	if (MousePos.x < 0.f || MousePos.x > Resolution.x ||
-		MousePos.y < 0.f || MousePos.y > Resolution.y)
-	{
-		// MousePos = m_Pos;
-		return;
-	}
-
-	m_LaserBulletObj = m_Scene->CreateObject<CLaserObject>("Laser",
-		"PlayerLaserProto",
-		m_Pos,
-		m_Size * Vector2(0.1f, 0.1f));
-	m_LaserBulletObj->SetCollisionProfile("PlayerLaser");
-	float Angle = GetAngle(m_Pos, MousePos);
-	m_LaserBulletObj->SetDir(Angle);
-	m_LaserBulletObj->SetDistance(Distance(m_Pos, MousePos));
-
-	*/
 	
 	m_TargetEnable = true;
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
@@ -1356,22 +1335,30 @@ void CPlayer::BulletFireTarget(float DeltaTime)
 	if (!m_CurrentGun) return;
 	if (m_FireTime < m_FireTimeMax) return;
 	m_FireTime -= m_FireTimeMax;
+
+	// Set Target Pos
 	Vector2 PlayerDir = m_Dir;
 	Vector2 MousePos = CInput::GetInst()->GetMousePos();
 	Vector2 CameraPos = m_Scene->GetCamera()->GetPos();
 	m_TargetPos = Vector2((float)(MousePos.x + CameraPos.x), (float)(MousePos.y + CameraPos.y));
-	std::string RAnim = m_mapAnimName.find(PLAYER_RIGHT_ATTACK)->second;
-	std::string LAnim = m_mapAnimName.find(PLAYER_LEFT_ATTACK)->second;
-	if (m_Dir.x > 0)
-		ChangeAnimation(RAnim);
-	else
-		ChangeAnimation(LAnim);
+	
+	// Change Animation
+	ChangeIdleAnimation();
+
+	// Set Dir To Mouse
+	float Angle = GetAngle(m_Pos - CameraPos, MousePos);
+	SetDir(Angle);
+
+	// Fire
+	m_CurrentGun->PlayerFire(m_TargetPos, (float)m_CharacterInfo.Attack);
+	
+	
 }
 
 void CPlayer::CharacterDestroy()
 {
 	// Destroy();
-
+	
 	// Game Over Effect
 	if (m_DeathWidgetCreate) return;
 
@@ -1510,7 +1497,7 @@ CGun* CPlayer::Equip(CGun* Gun)
 	// FireTime Update
 	EGun_Type GunType = m_CurrentGun->GetGunType();
 	if (GunType == EGun_Type::Pistol)
-		m_FireTimeMax = 0.01f;
+		m_FireTimeMax = FIREMAX_TIME;
 
 	return ExitingGun;
 }
@@ -1737,7 +1724,7 @@ void CPlayer::AddAssAnimName()
 	AddAnimation(ASS_PLAYER_RIGHT_WALK,true,1.f);
 	AddAnimation(ASS_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(ASS_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(ASS_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(ASS_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(ASS_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(ASS_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1745,7 +1732,7 @@ void CPlayer::AddAssAnimName()
 	AddAnimation(ASS_PLAYER_LEFT_WALK,true,1.f);
 	AddAnimation(ASS_PLAYER_LEFT_ATTACK,false,0.1f);
 	AddAnimation(ASS_PLAYER_LEFT_RUN,true,0.6f);
-	AddAnimation(ASS_PLAYER_LEFT_DEATH,false,0.1f);
+	AddAnimation(ASS_PLAYER_LEFT_DEATH,false,FIREMAX_TIME);
 	AddAnimation(ASS_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(ASS_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -1758,7 +1745,7 @@ void CPlayer::AddJimmyAnimName()
 	AddAnimation(JIMMY_PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(JIMMY_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(JIMMY_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(JIMMY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(JIMMY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(JIMMY_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1766,7 +1753,7 @@ void CPlayer::AddJimmyAnimName()
 	AddAnimation(JIMMY_PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(JIMMY_PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(JIMMY_PLAYER_LEFT_RUN, true, 0.6f);
-	AddAnimation(JIMMY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(JIMMY_PLAYER_LEFT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(JIMMY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(JIMMY_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -1779,7 +1766,7 @@ void CPlayer::AddBiuAnimName()
 	AddAnimation(BIU_PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(BIU_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(BIU_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(BIU_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(BIU_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(BIU_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(BIU_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1787,7 +1774,7 @@ void CPlayer::AddBiuAnimName()
 	AddAnimation(BIU_PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(BIU_PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(BIU_PLAYER_LEFT_RUN, true, 0.6f);
-	AddAnimation(BIU_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(BIU_PLAYER_LEFT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(BIU_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(BIU_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -1800,7 +1787,7 @@ void CPlayer::AddPinkyAnimName()
 	AddAnimation(PINKY_PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(PINKY_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(PINKY_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(PINKY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(PINKY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PINKY_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1808,7 +1795,7 @@ void CPlayer::AddPinkyAnimName()
 	AddAnimation(PINKY_PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(PINKY_PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(PINKY_PLAYER_LEFT_RUN, true, 0.6f);
-	AddAnimation(PINKY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(PINKY_PLAYER_LEFT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(PINKY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PINKY_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -1821,7 +1808,7 @@ void CPlayer::AddPunnyAnimName()
 	AddAnimation(PUNNY_PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(PUNNY_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(PUNNY_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(PUNNY_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(PUNNY_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PUNNY_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1829,7 +1816,7 @@ void CPlayer::AddPunnyAnimName()
 	AddAnimation(PUNNY_PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(PUNNY_PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(PUNNY_PLAYER_LEFT_RUN, true, 0.6f);
-	AddAnimation(PUNNY_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(PUNNY_PLAYER_LEFT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(PUNNY_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(PUNNY_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -1842,7 +1829,7 @@ void CPlayer::AddRaffAnimName()
 	AddAnimation(RAFF_PLAYER_RIGHT_WALK, true, 1.f);
 	AddAnimation(RAFF_PLAYER_RIGHT_ATTACK, false, 0.1f);
 	AddAnimation(RAFF_PLAYER_RIGHT_RUN, true, 0.6f);
-	AddAnimation(RAFF_PLAYER_RIGHT_DEATH, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_RIGHT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(RAFF_PLAYER_RIGHT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(RAFF_PLAYER_RIGHT_HIT, true, 0.6f);
 
@@ -1850,7 +1837,7 @@ void CPlayer::AddRaffAnimName()
 	AddAnimation(RAFF_PLAYER_LEFT_WALK, true, 1.f);
 	AddAnimation(RAFF_PLAYER_LEFT_ATTACK, false, 0.1f);
 	AddAnimation(RAFF_PLAYER_LEFT_RUN, true, 0.6f);
-	AddAnimation(RAFF_PLAYER_LEFT_DEATH, false, 0.1f);
+	AddAnimation(RAFF_PLAYER_LEFT_DEATH, false, FIREMAX_TIME);
 	AddAnimation(RAFF_PLAYER_LEFT_DASH, false, DASH_TIME * 0.5);
 	AddAnimation(RAFF_PLAYER_LEFT_HIT, true, 0.6f);
 
@@ -2011,7 +1998,7 @@ void CPlayer::SkillClone(float DeltaTime)
 
 void CPlayer::SkillSlowMotion(float DeltaTime)
 {
-	CGameManager::GetInst()->SetTimeScale(0.01f);
+	CGameManager::GetInst()->SetTimeScale(0.2f);
 	SetTimeScale(100.f);
 	m_SkillTime = SLOW_MOTION_ATTACK_TIME * 5;
 	m_CharacterInfo.Attack *= 4;

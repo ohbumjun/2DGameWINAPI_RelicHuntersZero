@@ -3,6 +3,7 @@
 // Time
 #define HIT_TIME 0.5f
 #define DASH_TIME 0.3f
+#define FIREMAX_TIME 0.1f
 #define TELEPORT_MOUSE_DISPLAY_TIME 5.f
 
 // MP,HP,Stemina

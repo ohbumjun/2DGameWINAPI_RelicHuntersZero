@@ -2440,7 +2440,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
-	GunPistolProto->SetGunInfo(EGunClass::Light,20);
+	GunPistolProto->SetGunInfo(EGunClass::Light, 35);
 	GunPistolProto->SetPos(200.f, 200.f);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_LIGHT_R);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
@@ -2451,7 +2451,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 300.f);
-	GunPistolProto->SetGunInfo(EGunClass::Medium,35);
+	GunPistolProto->SetGunInfo(EGunClass::Medium,50);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
@@ -2461,7 +2461,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 400.f);
-	GunPistolProto->SetGunInfo(EGunClass::Heavy,50);
+	GunPistolProto->SetGunInfo(EGunClass::Heavy,65);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 

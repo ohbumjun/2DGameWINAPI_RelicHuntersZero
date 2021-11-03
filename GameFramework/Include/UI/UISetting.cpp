@@ -9,18 +9,18 @@
 CUISetting::CUISetting() : 
 	m_LTText(nullptr),
 	m_RTText(nullptr),
-	m_MVVol(10),
-	m_BGVol(10),
-	m_EffectVol(10),
+	m_MVVol(5),
+	m_BGVol(5),
+	m_EffectVol(5),
 	m_Toggle(false)
 {
 }
 
 CUISetting::~CUISetting()
 {
-	m_MVVol = 10;
-	m_BGVol = 10;
-	m_EffectVol = 10;
+	m_MVVol = 5;
+	m_BGVol = 5;
+	m_EffectVol = 5;
 }
 
 void CUISetting::SetTextImages()
@@ -156,7 +156,7 @@ void CUISetting::SetMainVolumeElements()
 
 void CUISetting::MainVolumeUpdate()
 {
-	int FullT = (m_MVVol % 100) / 10, FullO = m_MVVol % 10;
+	int FullT = m_MVVol / 10, FullO = m_MVVol % 10;
 	if (FullT != 0)
 		m_MVTenWidget->SetNumber(FullT);
 	else
@@ -244,7 +244,7 @@ void CUISetting::SetBackgroundVolumeElements()
 
 void CUISetting::BGVolumeUpdate()
 {
-	int FullT = (m_BGVol % 100) / 10, FullO = m_BGVol % 10;
+	int FullT = m_BGVol / 10, FullO = m_BGVol % 10;
 	if (FullT != 0)
 		m_BVTenWidget->SetNumber(FullT);
 	else
@@ -334,7 +334,7 @@ void CUISetting::SetEffectVolumeElements()
 
 void CUISetting::EffectVolumeUpdate()
 {
-	int FullT = (m_EffectVol % 100) / 10, FullO = m_EffectVol % 10;
+	int FullT = m_EffectVol / 10, FullO = m_EffectVol % 10;
 	if (FullT != 0)
 		m_EVTenWidget->SetNumber(FullT);
 	else

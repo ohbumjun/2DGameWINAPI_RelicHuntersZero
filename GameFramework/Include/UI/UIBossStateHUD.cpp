@@ -20,10 +20,10 @@ void CUIBossStateHUD::SetHpBarUI()
 
 void CUIBossStateHUD::SetGeneratorUI()
 {
-	m_GeneratorImage = CreateWidget<CUIImage>("GoldImage");
-	m_GeneratorImage->SetTexture("GoldImage", TEXT("images/Items/coin_single.bmp"));
-	m_GeneratorImage->SetTextureColorKey(255, 255, 255);
-	m_GeneratorImage->SetPos(250.f, 10.f);
+	// m_GeneratorImage = CreateWidget<CUIImage>("GoldImage");
+	// m_GeneratorImage->SetTexture("GoldImage", TEXT("images/Items/coin_single.bmp"));
+	// m_GeneratorImage->SetTextureColorKey(255, 255, 255);
+	// m_GeneratorImage->SetPos(250.f, 10.f);
 }
 
 bool CUIBossStateHUD::Init()
