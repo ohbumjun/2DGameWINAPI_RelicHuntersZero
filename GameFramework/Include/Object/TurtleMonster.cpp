@@ -269,6 +269,13 @@ CTurtleMonster* CTurtleMonster::Clone()
 	return new CTurtleMonster(*this);
 }
 
+void CTurtleMonster::AIDeath(float DeltaTime)
+{
+	CMonster::AIDeath(DeltaTime);
+	if (m_Shield)
+		m_Shield->SetOwner(nullptr);
+}
+
 void CTurtleMonster::ShieldUpdate(float DeltaTime)
 {
 	m_ShieldTime += DeltaTime;

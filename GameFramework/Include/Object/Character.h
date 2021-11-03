@@ -67,6 +67,7 @@ public :
 	{
 		return m_CharacterInfo.Attack;
 	}
+	CSharedPtr<CGun> GetCurrentGun() const { return m_CurrentGun; }
 protected:
 	float m_ShieldTime;
 	float m_ShieldTimeMax;

@@ -67,13 +67,23 @@ bool CMainScene::Init()
 		(MONSTER_DUCK1_PROTO, MONSTER_DUCK2_PROTO, MONSTER_DUCK3_PROTO);
 	
 	// Stage Door
-	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoor1",
+	CStageDoor *StageDoor = CreateObject<CStageDoor>("StageDoorHome",
 														 Vector2(200.f,300.f),
 														 Vector2(50.f, 50.f));
 	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
 	CWidgetComponent* DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
 	DoorNameWidget->SetPos(-60.f, 20.f);
 	CUIText* NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorHomeText");
+	NameText->SetTextColor(255, 255, 255);
+	NameText->SetText(TEXT("STAGE HOME"));
+
+	StageDoor = CreateObject<CStageDoor>("StageDoorHome2",
+		Vector2(3300.f, 2200.f),
+		Vector2(50.f, 50.f));
+	StageDoor->SetDoorStageType(EDoorStage_Type::Stage_Home);
+	DoorNameWidget = StageDoor->CreateWidgetComponent(NAMEWIDGET_COMPONENET);
+	DoorNameWidget->SetPos(-60.f, 20.f);
+	NameText = DoorNameWidget->CreateWidget<CUIText>("StageDoorHomeText2");
 	NameText->SetTextColor(255, 255, 255);
 	NameText->SetText(TEXT("STAGE HOME"));
 
@@ -105,27 +115,6 @@ bool CMainScene::Init()
 	Map->SetTexture("Sky", TEXT("Stage1Back.bmp")); 
 	Map->SetScrollRatio(ScrollWidth / TileScrollMapWidth, ScrollHeight / TileScrollMapHeight);
 	Map->SetZOrder(-1);
-
-	/*
-	Scroll Map Infinite Loop
-
-	GetCamera()->SetWorldResolution(300000.f, 120000.f);
-	// ScrollMap Size 1500.f, 1200.f
-	// Scroll Map : Sky
-	CScrollMap* Map = CreateMap<CScrollMap>("ScrollMap");
-
-	float	ScrollWidth = 1500.f - GetCamera()->GetResolution().x;
-	float	ScrollHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	float	TileMapWidth = 3000.f - GetCamera()->GetResolution().x;
-	float	TileMapHeight = 1200.f - GetCamera()->GetResolution().y;
-
-	Map->SetSize(1280.f, 720.f);
-	Map->SetTexture("ScrollBack", TEXT("Sky.bmp"));
-	Map->SetLoop(true);
-	Map->SetZOrder(0);
-
-	*/
 
 	return true;
 }

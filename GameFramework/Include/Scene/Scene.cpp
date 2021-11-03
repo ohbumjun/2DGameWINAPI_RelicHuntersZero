@@ -2485,7 +2485,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 600.f);
 	GunShotProto->SetGunInfo(EGunClass::Medium, 550);
-	GunShotProto->SetMonsterKillLimit(25);
+	// GunShotProto->SetMonsterKillLimit(25);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 

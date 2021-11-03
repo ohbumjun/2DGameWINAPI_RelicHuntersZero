@@ -629,10 +629,7 @@ bool CGameObject::Init()
 void CGameObject::Update(float DeltaTime)
 {
 	// this
-	if (!m_Start)
-	{
-		Start();
-	}
+	if (!m_Start) Start();
 
 	if (m_LifeTime >= 0.f)
 	{

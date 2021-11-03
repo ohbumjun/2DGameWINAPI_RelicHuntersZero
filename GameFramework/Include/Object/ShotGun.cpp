@@ -25,6 +25,7 @@ CShotGun::~CShotGun()
 void CShotGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 {
 	CGun::PlayerFire(TargetPos, OwnerAttackDamage);
+	if (m_GunInfo.m_BulletsLoaded <= 0) return;
 	bool HoriDir = true;
 	float HoriDirAbs = abs(m_Owner->GetDir().x);
 	float CoriDirAbs = abs(m_Owner->GetDir().y);

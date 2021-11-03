@@ -38,6 +38,8 @@ CGun::CGun(const CGun& obj) : CGameObject(obj)
 	m_FireTime    = obj.m_FireTime;
 	m_FireTimeMax = obj.m_FireTimeMax;
 
+	m_MonsterKillLimit = obj.m_MonsterKillLimit;
+
 	for (int i = 0; i < ETexture_Dir::Texture_End; i++)
 	{
 		m_TextureImgNames[i] = obj.m_TextureImgNames[i];
@@ -327,6 +329,12 @@ void CGun::PrevRender()
 
 void CGun::Render(HDC hDC)
 {
+	CCharacter* Owner = (CCharacter*)m_Owner;
+	if (Owner)
+	{
+		CSharedPtr<CGun> CurrentGun = Owner->GetCurrentGun();
+		if (CurrentGun != this) return;
+	}
 	CGameObject::Render(hDC);
 }
 

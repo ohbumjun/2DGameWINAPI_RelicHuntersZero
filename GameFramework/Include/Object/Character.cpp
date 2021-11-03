@@ -118,7 +118,6 @@ void CCharacter::Collision(float DeltaTime)
 
 void CCharacter::PrevRender()
 {
-	
 	CGameObject::PrevRender();
 	if (m_CurrentGun)
 		m_CurrentGun->PrevRender();
@@ -533,18 +532,21 @@ CGun* CCharacter::Equip(CGun* Gun)
 	// Chnage Equipment 
 	CGun*ExistingGun = m_GunEquipment[GunClass];
 	m_GunEquipment[GunClass] = Gun;
+
 	// Set Current Gun
 	if (m_CurrentGun) m_CurrentGun->Destroy();
 	m_CurrentGun = m_GunEquipment[GunClass];
 	m_CurrentGun->RemoveGunCollider();
+
 	// Attack Dist Setting
 	m_CurrentGun->SetBulletDistance(m_CharacterInfo.AttackDistance);
+
 	// Set Owner, Pos 
 	Gun->SetOwner(this);
+
 	// Fire Time Setting
 	m_FireTime = m_CurrentGun->GetFireTime();
 	m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
-
 
 	return ExistingGun;
 }

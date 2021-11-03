@@ -96,7 +96,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 
 	m_HpPotionInv = obj.m_HpPotionInv;
 	m_MpPotionInv = obj.m_MpPotionInv;
-	m_ShieldInv = obj.m_ShieldInv;
+	m_ShieldInv   = obj.m_ShieldInv;
 
 	m_SkillTime    = 0.f;
 	m_SkillTimeMax = 20.f;
@@ -466,7 +466,6 @@ void CPlayer::Update(float DeltaTime)
 {	
 	CCharacter::Update(DeltaTime);
 	
-	
 	// Wall Move
 	m_WallCollision = PreventWallMove();
 	if (m_WallCollision)
@@ -496,8 +495,7 @@ void CPlayer::Update(float DeltaTime)
 	AbilityUpdate(DeltaTime);
 	
 	// Run
-	if (m_RunEnable)
-		RunUpdate(DeltaTime);
+	if (m_RunEnable) RunUpdate(DeltaTime);
 
 	// Dash
 	if (m_DashEnable) DashUpdate(DeltaTime);
@@ -519,6 +517,7 @@ void CPlayer::Update(float DeltaTime)
 
 	// Gold 
 	CurGoldNumUpdate(State);
+
 	// Gun 
 	CUIGunStateHUD *GunState = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
 	if (GunState) GunStateUIUpdate(GunState);
@@ -531,7 +530,9 @@ void CPlayer::Update(float DeltaTime)
 
 	// Gun Bullet Update
 	GunCurBulletNumUpdate();
+
 	// Update m_MonsterCollideTime
+
 	if (m_MonsterCollideTime >= 0.f) m_MonsterCollideTime -= DeltaTime;
 	// Shield Update
 	ShieldUpdate(DeltaTime);
@@ -595,17 +596,6 @@ void CPlayer::Render(HDC hDC)
 		Vector2 ScreenPlayerPos = m_Pos - CameraPos;
 		Vector2 ScreenTargetPos = m_TargetPos - CameraPos;
 
-		// LaserObj 가 충돌을 일으켰다면, LaserObj의 위치로 세팅
-		// 그렇지 않다면, MousePos로 세팅 
-		/*
-		bool LaserCollide = m_LaserBulletObj->IsCollisionCheck();
-		if (LaserCollide) // 특정 물체와 충돌했다면 
-		{
-			ScreenTargetPos = m_LaserBulletObj->GetPos() - CameraPos;
-			m_LaserBulletObj->Destroy();
-		}
-		*/
-
 		MoveToEx(hDC, (int)ScreenPlayerPos.x, (int)ScreenPlayerPos.y, nullptr);
 		LineTo(hDC, (int)ScreenTargetPos.x, (int)ScreenTargetPos.y);
 		Ellipse(hDC, (int)(ScreenTargetPos.x - 5), (int)(ScreenTargetPos.y - 5),
@@ -659,7 +649,7 @@ void CPlayer::ChangeGunToLight(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Light])
 	{
-		m_CurrentGun->Destroy();
+		if(m_CurrentGun) m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Light];
 
 		m_FireTime    = m_CurrentGun->GetFireTime();
@@ -673,7 +663,7 @@ void CPlayer::ChangeGunToMedium(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Medium])
 	{
-		m_CurrentGun->Destroy();
+		if(m_CurrentGun) m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Medium];
 
 		m_FireTime = m_CurrentGun->GetFireTime();
@@ -687,7 +677,7 @@ void CPlayer::ChangeGunToHeavy(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Heavy])
 	{
-		m_CurrentGun->Destroy();
+		if(m_CurrentGun) m_CurrentGun->Destroy();
 		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
 
 		m_FireTime = m_CurrentGun->GetFireTime();
@@ -708,7 +698,6 @@ void CPlayer::ReloadGun(float DelatTime)
 		ReloadAnim->SetOwner(this);
 	}
 }
-
 
 void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 {
@@ -742,6 +731,7 @@ void CPlayer::GunStateUIUpdate(CUIGunStateHUD* State)
 	// 2) Gun Image Setting  ---
 	if (m_CurrentGun)
 		State->SetCurrentGunImage(m_CurrentGun->GetRightTextureName());
+
 	bool SetThirdGun = false;
 	for (int i = 0; i < EGunClass::End; i++)
 	{
