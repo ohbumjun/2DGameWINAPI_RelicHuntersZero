@@ -7,11 +7,15 @@ CShotGun::CShotGun()
 {
 	m_FireTimeMax = 1.f;
 	m_GunInfo.m_GunType = EGun_Type::ShotGun;
+	m_GunInfo.m_BulletsLoaded = 50;
+	m_GunInfo.m_BulletsFullNum = 50;
 }
 
 CShotGun::CShotGun(const CShotGun& obj) : CGun(obj)
 {
 	m_FireTimeMax = obj.m_FireTimeMax;
+	m_GunInfo.m_BulletsLoaded = 50;
+	m_GunInfo.m_BulletsFullNum = 50;
 }
 
 CShotGun::~CShotGun()

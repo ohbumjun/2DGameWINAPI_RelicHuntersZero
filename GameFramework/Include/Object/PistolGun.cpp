@@ -5,12 +5,16 @@ CPistolGun::CPistolGun()
 {
 	m_FireTimeMax = 0.5f;
 	m_GunInfo.m_GunType = EGun_Type::Pistol;
+	m_GunInfo.m_BulletsLoaded = 200;
+	m_GunInfo.m_BulletsFullNum = 200;
 }
 
 
 CPistolGun::CPistolGun(const CPistolGun& obj) : CGun(obj)
 {
 	m_FireTimeMax = obj.m_FireTimeMax;
+	m_GunInfo.m_BulletsLoaded = 200;
+	m_GunInfo.m_BulletsFullNum = 200;
 }
 
 CPistolGun::~CPistolGun()

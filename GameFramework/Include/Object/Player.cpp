@@ -104,7 +104,7 @@ CPlayer::CPlayer(const CPlayer &obj) : CCharacter(obj)
 	if (m_CurrentGun)
 	{
 		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol)
-			m_FireTimeMax = 0.1f;
+			m_FireTimeMax = 0.05f;
 	}
 
 	m_UIPause = nullptr;
@@ -474,9 +474,8 @@ void CPlayer::Update(float DeltaTime)
 		else // Run or Move
 			SetMoveSpeed(200.f);
 	}
-
 	MoveWithinWorldResolution();
-
+	
 	// Death
 	if (m_CharacterInfo.HP < 0 )
 	{
@@ -485,7 +484,7 @@ void CPlayer::Update(float DeltaTime)
 		ChangeDeathAnimation();
 		return;
 	}
-	
+
 	// Collide Monster 
 	CGameObject *CollideMonster = MonsterCollisionCheck();
 	if (CollideMonster)
@@ -659,19 +658,43 @@ void CPlayer::GunTimeUpdate(float DeltaTime)
 void CPlayer::ChangeGunToLight(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Light])
+	{
+		m_CurrentGun = nullptr;
 		m_CurrentGun = m_GunEquipment[EGunClass::Light];
+
+		m_FireTime    = m_CurrentGun->GetFireTime();
+		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
+			m_FireTimeMax = 0.05f;
+	}
 }
 
 void CPlayer::ChangeGunToMedium(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Medium])
+	{
+		m_CurrentGun = nullptr;
 		m_CurrentGun = m_GunEquipment[EGunClass::Medium];
+
+		m_FireTime = m_CurrentGun->GetFireTime();
+		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
+			m_FireTimeMax = 0.05f;
+	}
 }
 
 void CPlayer::ChangeGunToHeavy(float DeltaTime)
 {
 	if (m_GunEquipment[EGunClass::Heavy])
+	{
+		m_CurrentGun = nullptr;
 		m_CurrentGun = m_GunEquipment[EGunClass::Heavy];
+
+		m_FireTime = m_CurrentGun->GetFireTime();
+		m_FireTimeMax = m_CurrentGun->GetFireTimeMax();
+		if (m_CurrentGun->GetGunType() == EGun_Type::Pistol) 
+			m_FireTimeMax = 0.05f;
+	}
 }
 
 void CPlayer::ReloadGun(float DelatTime)
@@ -846,6 +869,8 @@ void CPlayer::ChangeDashAnimation()
 
 void CPlayer::CurGoldNumUpdate(class CUICharacterStateHUD* State)
 {
+	if (m_CharacterInfo.Gold >= 1000)
+		m_CharacterInfo.Gold = 999;
 	int Gold = m_CharacterInfo.Gold;
 	int FullH = Gold / 100, FullT = (Gold % 100) / 10, FullO = Gold % 10;
 	if (FullH != 0)
@@ -1485,7 +1510,7 @@ CGun* CPlayer::Equip(CGun* Gun)
 	// FireTime Update
 	EGun_Type GunType = m_CurrentGun->GetGunType();
 	if (GunType == EGun_Type::Pistol)
-		m_FireTimeMax = 0.1f;
+		m_FireTimeMax = 0.05f;
 
 	return ExitingGun;
 }

@@ -96,7 +96,7 @@ void CCoin::MoveToPlayer()
 		Vector2 CenterPos = Vector2(m_Pos.x + m_Size.x * 0.5f ,m_Pos.y);
 		float Angle = GetAngle(CenterPos, m_TargetPlayerPos);
 		SetDir(Angle);
-		Move(m_Dir);
+		Move(m_Dir, 500.f);
 		
 		if (Distance(CenterPos, m_TargetPlayerPos) <= 5.f)
 		{

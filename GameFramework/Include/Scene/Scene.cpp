@@ -2201,23 +2201,23 @@ void CScene::SetDuck3MonsterAnimation()
 
 void CScene::SetBasicObjectGuns()
 {
-	CGameObject* GunProto = FindPrototype(GUN_PISTOL_LIGHT_PROTO);
-	CGun* GunPistolLight = CreateObject<CGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, Vector2(2750.f,975.f),GunProto->m_Size);
+	CGun* GunProto = (CGun*)FindPrototype(GUN_PISTOL_LIGHT_PROTO);
+	CGun* GunObj = CreateObject<CPistolGun>(GUN_PISTOL_LIGHT, GUN_PISTOL_LIGHT_PROTO, Vector2(2750.f,975.f),GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_PISTOL_MEDIUM_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, Vector2(2875.f, 975.f), GunProto->m_Size);
+	GunProto     = (CGun*)FindPrototype(GUN_PISTOL_MEDIUM_PROTO);
+	GunObj		 = CreateObject<CPistolGun>(GUN_PISTOL_MEDIUM, GUN_PISTOL_MEDIUM_PROTO, Vector2(2875.f, 975.f), GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_PISTOL_HEAVY_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, Vector2(3000.f, 975.f), GunProto->m_Size);
+	GunProto     = (CGun*)FindPrototype(GUN_PISTOL_HEAVY_PROTO);
+	GunObj		 = CreateObject<CPistolGun>(GUN_PISTOL_HEAVY, GUN_PISTOL_HEAVY_PROTO, Vector2(3000.f, 975.f), GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_LIGHT_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, Vector2(2750.f, 1525.f), GunProto->m_Size);
+	GunProto = (CGun*)FindPrototype(GUN_SHOTGUN_LIGHT_PROTO);
+	GunObj = CreateObject<CShotGun>(GUN_SHOTGUN_LIGHT, GUN_SHOTGUN_LIGHT_PROTO, Vector2(2750.f, 1525.f), GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_MEDIUM_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, Vector2(2875.f, 1525.f), GunProto->m_Size);
+	GunProto = (CGun*)FindPrototype(GUN_SHOTGUN_MEDIUM_PROTO);
+	GunObj = CreateObject<CShotGun>(GUN_SHOTGUN_MEDIUM, GUN_SHOTGUN_MEDIUM_PROTO, Vector2(2875.f, 1525.f), GunProto->m_Size);
 
-	GunProto = FindPrototype(GUN_SHOTGUN_HEAVY_PROTO);
-	GunPistolLight		 = CreateObject<CGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, Vector2(3000.f, 1525.f), GunProto->m_Size);
+	GunProto = (CGun*)FindPrototype(GUN_SHOTGUN_HEAVY_PROTO);
+	GunObj = CreateObject<CShotGun>(GUN_SHOTGUN_HEAVY, GUN_SHOTGUN_HEAVY_PROTO, Vector2(3000.f, 1525.f), GunProto->m_Size);
 }
 
 void CScene::SetPauseUIVisbility(bool State)
@@ -2440,7 +2440,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetTexture(GUN_PISTOL_LIGHT_L, TEXT(TEXTURE_GUN_PISTOL_LIGHT_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
-	GunPistolProto->SetGunInfo(EGun_Type::Pistol,EGunClass::Light,10);
+	GunPistolProto->SetGunInfo(EGunClass::Light,20);
 	GunPistolProto->SetPos(200.f, 200.f);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_LIGHT_R);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_LIGHT_L);
@@ -2451,7 +2451,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_MEDIUM_L, TEXT(TEXTURE_GUN_PISTOL_MEDIUM_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 300.f);
-	GunPistolProto->SetGunInfo(EGun_Type::Pistol, EGunClass::Medium,20);
+	GunPistolProto->SetGunInfo(EGunClass::Medium,35);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_MEDIUM_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_MEDIUM_R);
 
@@ -2461,7 +2461,7 @@ void CScene::SetBasicProtoTypes()
 	GunPistolProto->SetTexture(GUN_PISTOL_HEAVY_L, TEXT(TEXTURE_GUN_PISTOL_HEAVY_L));
 	GunPistolProto->SetTextureColorKey(255, 255, 255);
 	GunPistolProto->SetPos(200.f, 400.f);
-	GunPistolProto->SetGunInfo(EGun_Type::Pistol, EGunClass::Heavy,25);
+	GunPistolProto->SetGunInfo(EGunClass::Heavy,50);
 	GunPistolProto->SetLeftTextureName(GUN_PISTOL_HEAVY_L);
 	GunPistolProto->SetRightTextureName(GUN_PISTOL_HEAVY_R);
 
@@ -2471,7 +2471,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_LIGHT_L, TEXT(TEXTURE_GUN_SHOTGUN_LIGHT_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 500.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Light, 650);
+	GunShotProto->SetGunInfo(EGunClass::Light, 250);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_LIGHT_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_LIGHT_R);
 
@@ -2481,7 +2481,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_MEDIUM_L, TEXT(TEXTURE_GUN_SHOTGUN_MEDIUM_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 600.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Medium, 850);
+	GunShotProto->SetGunInfo(EGunClass::Medium, 350);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_MEDIUM_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_MEDIUM_R);
 
@@ -2491,7 +2491,7 @@ void CScene::SetBasicProtoTypes()
 	GunShotProto->SetTexture(GUN_SHOTGUN_HEAVY_L, TEXT(TEXTURE_GUN_SHOTGUN_HEAVY_L));
 	GunShotProto->SetTextureColorKey(255, 255, 255);
 	GunShotProto->SetPos(200.f, 700.f);
-	GunPistolProto->SetGunInfo(EGun_Type::ShotGun, EGunClass::Heavy, 1050);
+	GunShotProto->SetGunInfo(EGunClass::Heavy, 450);
 	GunShotProto->SetLeftTextureName(GUN_SHOTGUN_HEAVY_L);
 	GunShotProto->SetRightTextureName(GUN_SHOTGUN_HEAVY_R);
 
