@@ -135,6 +135,7 @@ void CEffectGrenade::Explode()
 		ExplodeDamageMonster();
 
 	DrawExplodeTrace();
+	m_Scene->GetSceneResource()->SoundPlay("GreNade");
 }
 
 void CEffectGrenade::DrawExplodeTrace()

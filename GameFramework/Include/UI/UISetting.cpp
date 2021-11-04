@@ -10,8 +10,8 @@ CUISetting::CUISetting() :
 	m_LTText(nullptr),
 	m_RTText(nullptr),
 	m_MVVol(5),
-	m_BGVol(5),
-	m_EffectVol(5),
+	m_BGVol(1),
+	m_EffectVol(4),
 	m_Toggle(false)
 {
 }

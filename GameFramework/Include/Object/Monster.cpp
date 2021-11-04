@@ -21,8 +21,8 @@ CMonster::CMonster() : m_Count(0),
 	m_Dir.x           = (float)(rand() % 2);
 	m_Dir.y           = (float)(rand() % 2);
 	m_ObjType         = EObject_Type::Monster;
-	m_AttackDistance  = m_CharacterInfo.AttackDistance;
-	m_DashDistance    = m_CharacterInfo.DashDistance;
+	m_AttackDistance  = (int)m_CharacterInfo.AttackDistance;
+	m_DashDistance    = (int)m_CharacterInfo.DashDistance;
 }
 
 CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
@@ -35,8 +35,8 @@ CMonster::CMonster(const CMonster &obj) : CCharacter(obj)
 	m_MonsterType = obj.m_MonsterType;
 	m_TraceSurprise = false;
 
-	m_AttackDistance = m_CharacterInfo.AttackDistance;
-	m_DashDistance = m_CharacterInfo.DashDistance;
+	m_AttackDistance = (int)m_CharacterInfo.AttackDistance;
+	m_DashDistance   = (int)m_CharacterInfo.DashDistance;
 
 	//this
 	m_AI = EMonsterAI::Idle;
@@ -132,7 +132,6 @@ void CMonster::Update(float DeltaTime)
 			Vector2 RT = Vector2(LT.x + m_Size.x * 0.8f, LT.y + m_Size.y * 0.4f);
 			CEffectSurprise* Surprise = m_Scene->CreateObject<CEffectSurprise>(SURPRISE_EFFECT, EFFECT_SURPRISE_PROTO,
 				RT, Vector2(10.f, 10.f));
-			m_Scene->GetSceneResource()->SoundPlay("Fire");
 			m_TraceSurprise = true;
 		}
 		if (DistToPlayer < m_AttackDistance)
@@ -232,6 +231,7 @@ void CMonster::CharacterDestroy()
 {
 	CCharacter::CharacterDestroy();
 	CreateCoin();
+	m_Scene->GetSceneResource()->SoundPlay("MonsterDestroy");
 }
 
 CCoin* CMonster::CreateCoin()

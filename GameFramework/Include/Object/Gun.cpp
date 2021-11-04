@@ -6,6 +6,7 @@
 #include "EffectText.h"
 #include "EffectBulletStart.h"
 #include"../Scene/Scene.h"
+#include"../Scene/SceneResource.h"
 #include"../Scene/Camera.h"
 // UI
 #include "../UI/UIText.h"
@@ -91,6 +92,12 @@ void CGun::PlayerFire(Vector2 TargetPos, float OwnerAttackDamage)
 	CreateCasing(Bullet);
 	// Bullet Effect
 	CreateBulletEffect();
+	// Sound 
+	EGun_Type GunType = m_GunInfo.m_GunType;
+	if (GunType == EGun_Type::Pistol)
+		m_Scene->GetSceneResource()->SoundPlay("PistolFire");
+	else if(GunType == EGun_Type::ShotGun)
+		m_Scene->GetSceneResource()->SoundPlay("ShotGunFire");
 }
 
 void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
@@ -131,6 +138,13 @@ void CGun::MonsterFire(Vector2 TargetPos, float OwnerAttackDamage)
 	CreateCasing(Bullet);
 	// Bullet Effect
 	CreateBulletEffect();
+	EGun_Type GunType = m_GunInfo.m_GunType;
+	/*
+	if (GunType == EGun_Type::Pistol)
+		m_Scene->GetSceneResource()->SoundPlay("PistolFire");
+	else if (GunType == EGun_Type::ShotGun)
+		m_Scene->GetSceneResource()->SoundPlay("ShotGunFire");
+		*/
 }
 
 void CGun::SkillSlowMotionAttack()
