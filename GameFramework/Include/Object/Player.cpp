@@ -1376,6 +1376,7 @@ void CPlayer::CharacterDestroy()
 	CUIGunStateHUD* GunStateWindow = m_Scene->FindUIWindow<CUIGunStateHUD>("GunStateHUD");
 	GunStateWindow->SetVisibility(false);
 	m_DeathWidgetCreate = true;
+	m_Scene->GetSceneResource()->SoundPlay("GameEnd");
 
 }
 

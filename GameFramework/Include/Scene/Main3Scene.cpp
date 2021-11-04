@@ -138,6 +138,7 @@ void CMain3Scene::LoadSound()
 	GetSceneResource()->LoadSound("Effect", false, "MonsterDestroy", "Death.wav");
 	GetSceneResource()->LoadSound("Effect", false, "PistolFire", "Pistol.mp3");
 	GetSceneResource()->LoadSound("Effect", false, "ShotGunFire", "ShotGun.wav");
+	GetSceneResource()->LoadSound("Effect", false, "GameEnd", "GameEnd.wav");
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
 	GetSceneResource()->SetVolume("Effect", (int)(MasterVol * EffectVol));
 
