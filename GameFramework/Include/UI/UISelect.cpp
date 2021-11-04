@@ -1,6 +1,7 @@
 #include "UISelect.h"
 #include "../GameManager.h"
 #include "../Scene/SceneManager.h"
+#include "../Scene/SceneResource.h"
 #include "../Scene/HomeScene.h"
 #include "../Scene/StartScene.h"
 #include "Button.h"
@@ -32,6 +33,7 @@ void CUISelect::CharacterClick(EChar_Type& CharType)
 	SetCharacterAbility(CharType);
 	SetCharacterImg(CharType);
 	SetStartBtn();
+	m_Scene->GetSceneResource()->SoundPlay("ButtonMouseOn");
 }
 
 void CUISelect::SetCharacterInfoBox()
@@ -115,7 +117,6 @@ void CUISelect::SetStartBtn()
 		m_StartBtn->SetFrameData(EButton_State::Disable, Vector2(250.f, 0.f), Vector2(240.f, 63.f));
 		m_StartBtn->SetPos(425.f, 550.f);
 		m_StartBtn->SetMouseOnSound("ButtonMouseOn");
-		m_StartBtn->SetClickSound("ButtonClick");
 		m_StartBtn->SetZOrder(6);
 		m_StartBtn->SetClickCallback<CUISelect>(this, &CUISelect::StartClick);
 	}

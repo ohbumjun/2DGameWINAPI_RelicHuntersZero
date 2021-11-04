@@ -121,7 +121,8 @@ bool CGameManager::Init(HINSTANCE hInst)
 
 	// CSceneManager::GetInst()->CreateScene<CHomeScene>();
 	// CSceneManager::GetInst()->CreateScene<CPauseScene>();
-	CSceneManager::GetInst()->CreateScene<CMenuScene>();
+	// CSceneManager::GetInst()->CreateScene<CMenuScene>();
+	CSceneManager::GetInst()->CreateScene<CIntroScene>();
 	// CSceneManager::GetInst()->CreateScene<CSelectScene>();
 	// CSceneManager::GetInst()->CreateScene<CMainScene>();
 

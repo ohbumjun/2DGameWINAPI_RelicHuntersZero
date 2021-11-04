@@ -208,7 +208,7 @@ void CTurtleMonster::SetTurtle3AnimName()
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_RUN, MONSTER_TURTLE3_RIGHT_RUN));
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_DEATH, MONSTER_TURTLE3_RIGHT_DEATH));
 	m_mapAnimName.insert(std::make_pair(MONSTER_RIGHT_HIT, MONSTER_TURTLE3_RIGHT_HIT));
-
+	
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_IDLE, MONSTER_TURTLE3_LEFT_IDLE));
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_WALK, MONSTER_TURTLE3_LEFT_WALK));
 	m_mapAnimName.insert(std::make_pair(MONSTER_LEFT_ATTACK, MONSTER_TURTLE3_LEFT_ATTACK));
@@ -286,9 +286,9 @@ void CTurtleMonster::ShieldUpdate(float DeltaTime)
 		m_Shield = m_Scene->CreateObject<CEffectShield>("Shield", SHIELD_PROTO, m_Pos);
 		m_Shield->SetShieldType(EShield_Type::Turtle);
 		m_Shield->SetOwner(this);
+		m_ShieldEnableTime = 1.f;
 		m_Shield->SetLifeTime(m_ShieldEnableTime);
 		m_ShieldEnable = true;
-		m_ShieldEnableTime = 1.f;
 	}
 	// Maintain Shield for 1sec
 	if (m_ShieldEnable && m_ShieldEnableTime > 0.f)

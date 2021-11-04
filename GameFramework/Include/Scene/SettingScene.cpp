@@ -48,11 +48,11 @@ void CSettingScene::LoadSound()
 	int BGVol = CGameManager::GetInst()->GetBGVolume();
 	int EffectVol = CGameManager::GetInst()->GetEffectVolume();
 
-	GetSceneResource()->LoadSound("BGM", true, "SettingBGM", "MainBgm.mp3");
+	GetSceneResource()->LoadSound("BGM", true, "SettingBGM", "Menu1Bgm.wav");
 	GetSceneResource()->SoundPlay("SettingBGM");
 	GetSceneResource()->SetVolume("BGM", (int)(MasterVol * BGVol));
 
-	GetSceneResource()->LoadSound("UI", false, "ButtonMouseOn", "TeemoSmile.mp3");
-	GetSceneResource()->LoadSound("UI", false, "ButtonClick", "TeemoSettingClicck.mp3");
+	GetSceneResource()->LoadSound("UI", false, "ButtonMouseOn", "UI_Hover.wav");
+	// GetSceneResource()->LoadSound("UI", false, "ButtonClick", "TeemoSettingClicck.mp3");
 	GetSceneResource()->SetVolume("UI", (int)(MasterVol * EffectVol));
 }

@@ -214,6 +214,8 @@ void CPlayer::UseHpPotionInv(float DeltaTime)
 			SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
 		ShieldStart->SetOwner(this);
 		ShieldStart->SetLifeTime(0.2f);
+
+		m_Scene->GetSceneResource()->SoundPlay("ItemUse");
 	}
 }
 
@@ -232,6 +234,8 @@ void CPlayer::UseMpPotionInv(float DeltaTime)
 			SHIELD_START_PROTO, Vector2(m_Pos.x, m_Pos.y - m_Size.y * 0.5f));
 		ShieldStart->SetOwner(this);
 		ShieldStart->SetLifeTime(0.2f);
+
+		m_Scene->GetSceneResource()->SoundPlay("ItemUse");
 	}
 }
 
@@ -250,6 +254,8 @@ void CPlayer::UseShieldInv(float DeltaTime)
 			SHIELD_START_PROTO, Vector2(m_Pos.x,m_Pos.y-m_Size.y*0.5f));
 		ShieldStart->SetOwner(this);
 		ShieldStart->SetLifeTime(1.f);
+
+		m_Scene->GetSceneResource()->SoundPlay("ItemUse");
 	}
 }
 void CPlayer::ShieldUpdate(float DeltaTime)
@@ -701,6 +707,8 @@ void CPlayer::ReloadGun(float DelatTime)
 			RELOAD_PROTO,
 			Vector2(m_Pos.x, m_Pos.y + m_Size.y * 0.1f), Vector2(10.f, 10.f));
 		ReloadAnim->SetOwner(this);
+
+		m_Scene->GetSceneResource()->SoundPlay("Reload");
 	}
 }
 
@@ -1002,9 +1010,9 @@ void CPlayer::RunStart()
 
 	Vector2 PlayerBtm;
 	float PlayerBtmy = m_Pos.y + (1.f - m_Pivot.y) * m_Size.y + m_Offset.y - m_Size.y / 2;
-	if(m_Dir.x < 0 ) // 왼쪽 
+	if(m_Dir.x < 0 ) // Left
 		PlayerBtm = Vector2(m_Pos.x + (m_Pivot.x * m_Size.x),PlayerBtmy);
-	else // 오른쪽 
+	else // Right
 		PlayerBtm = Vector2(m_Pos.x - (m_Pivot.x * m_Size.x),PlayerBtmy);
 
 
@@ -1250,6 +1258,8 @@ void CPlayer::Teleport(float DeltaTime)
 
 	// TeleportMouse Cursor Animation
 	DeleteTeleportObj();
+
+	m_Scene->GetSceneResource()->SoundPlay("Teleport");
 }
 
 void CPlayer::SetTeleportPos(float DeltaTime)
@@ -1410,7 +1420,7 @@ void CPlayer::AcquireItem(float DeltaTime)
 				CSharedPtr<CEffectText> NoBulletText = m_Scene->CreateObject<CEffectText>(
 					"CEffectText",
 					EFFECT_TEXT_PROTO,
-					Vector2(m_Pos.x - m_Size.x * 1.7, m_Pos.y - m_Size.y * 0.3f),
+					Vector2(m_Pos.x - m_Size.x * 1.7f, m_Pos.y - m_Size.y * 0.3f),
 					Vector2(50.f, 10.f));
 				NoBulletText->SetText(TEXT("Kill More Monster"));
 				NoBulletText->SetTextColor(255, 0, 0);
@@ -1481,7 +1491,11 @@ void CPlayer::BuyItem(float)
 				}
 				break;
 			}
-			if (CanBuy) break;
+			if (CanBuy)
+			{
+				m_Scene->GetSceneResource()->SoundPlay("Buy");
+				break;
+			}
 			else ShowNoGoldSign();
 		}
 	}
@@ -1511,6 +1525,8 @@ CGun* CPlayer::Equip(CGun* Gun)
 	EGun_Type GunType = m_CurrentGun->GetGunType();
 	if (GunType == EGun_Type::Pistol)
 		m_FireTimeMax = FIREMAX_TIME;
+
+	m_Scene->GetSceneResource()->SoundPlay("Equip");
 
 	return ExitingGun;
 }

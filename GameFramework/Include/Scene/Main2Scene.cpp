@@ -87,7 +87,7 @@ bool CMain2Scene::Init()
 	NameText->SetText(TEXT("STAGE 3"));
 
 	// Player
-	CPlayer* Player = CreatePlayer("Player", Vector2(600.f, 330.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(600.f, 500.f));
 	SetPlayer(Player);
 
 	// Camera
@@ -148,17 +148,27 @@ void CMain2Scene::LoadSound()
 	int BGVol = CGameManager::GetInst()->GetBGVolume();
 	int EffectVol = CGameManager::GetInst()->GetEffectVolume();
 
-	// GetSceneResource()->LoadSound("BGM", true, "StartBGM", "MainBgm.mp3");
-	// GetSceneResource()->SoundPlay("StartBGM");
-	// GetSceneResource()->SetVolume("BGM", MasterVol * BGVol);
+	// GetSceneResource()->LoadSound("BGM", true, "StartBGM", "HomeBgm.wav");
+	GetSceneResource()->LoadSound("BGM", true, "NormalBGM", "NormalBgm.wav");
+	// GetSceneResource()->LoadSound("BGM", true, "BossBGM", "BossBgm.wav");
+	GetSceneResource()->SoundPlay("NormalBGM");
+	GetSceneResource()->SetVolume("BGM", (int)(MasterVol * BGVol));
 
-	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
+	GetSceneResource()->LoadSound("Effect", false, "GreNade", "GreNade.mp3");
+	GetSceneResource()->LoadSound("Effect", false, "MonsterDestroy", "MonsterDestroy.wav");
+	GetSceneResource()->LoadSound("Effect", false, "PistolFire", "Pistol.mp3");
+	GetSceneResource()->LoadSound("Effect", false, "ShotGunFire", "ShotGun.wav");
 	GetSceneResource()->LoadSound("Effect", false, "TextSound", "water-step-01.ogg");
 	GetSceneResource()->SetVolume("Effect", (int)(MasterVol * EffectVol));
 
 	// Player --> run, dash
 	GetSceneResource()->LoadSound("Player", false, "Run", "snow-step-1.ogg");
 	GetSceneResource()->LoadSound("Player", false, "Dash", "snow-step-2.ogg");
+	GetSceneResource()->LoadSound("Player", false, "Equip", "Equip.wav");
+	GetSceneResource()->LoadSound("Player", false, "Teleport", "Teleport.wav");
+	GetSceneResource()->LoadSound("Player", false, "ItemUse", "ItemUse.wav");
+	GetSceneResource()->LoadSound("Player", false, "Buy", "BuyItem.wav");
+	GetSceneResource()->LoadSound("Player", false, "Reload", "Reload.mp3");
 	GetSceneResource()->SetVolume("Player", (int)(MasterVol * EffectVol));
 }
 

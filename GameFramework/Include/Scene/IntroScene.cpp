@@ -36,7 +36,7 @@ void CIntroScene::LoadSound()
 	int BGVol = CGameManager::GetInst()->GetBGVolume();
 	int EffectVol = CGameManager::GetInst()->GetEffectVolume();
 
-	GetSceneResource()->LoadSound("BGM", true, "IntroBGM", "MainBgm.mp3");
+	GetSceneResource()->LoadSound("BGM", true, "IntroBGM", "IntroBgm.wav");
 	GetSceneResource()->SoundPlay("IntroBGM");
 	GetSceneResource()->SetVolume("BGM", (int)(MasterVol * BGVol));
 
