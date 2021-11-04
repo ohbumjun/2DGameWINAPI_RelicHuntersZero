@@ -1,6 +1,7 @@
 #include "Coin.h"
 #include "../Collision/ColliderSphere.h"
 #include "../Scene/Scene.h"
+#include "../Scene/SceneResource.h"
 
 CCoin::CCoin() :
 	m_DirX(0),
@@ -103,6 +104,7 @@ void CCoin::MoveToPlayer()
 			Destroy();
 			CPlayer* Player = (CPlayer*)m_Scene->GetPlayer();
 			Player->AddCoin(m_Gold);
+			m_Scene->GetSceneResource()->SoundPlay("Buy");
 		}
 	}
 }

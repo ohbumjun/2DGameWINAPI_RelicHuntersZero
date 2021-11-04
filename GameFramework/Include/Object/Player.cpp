@@ -1905,6 +1905,9 @@ void CPlayer::ActivateSkills(float DeltaTime)
 		return;
 	}
 
+	// Sound
+	m_Scene->GetSceneResource()->SoundPlay("Skill");
+
 	// Idle Animation 
 	ChangeIdleAnimation();
 

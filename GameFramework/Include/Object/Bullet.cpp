@@ -174,7 +174,8 @@ void CBullet::WallCollision()
 						m_Pos, Vector2(178.f, 164.f));
 					if (m_Owner->GetGunClass() == EGunClass::Boss)
 						Hit->SetIsBossGun();
-					m_Scene->GetSceneResource()->SoundPlay("Fire");
+					// m_Scene->GetSceneResource()->SoundPlay("Fire");
+					m_Scene->GetSceneResource()->SoundPlay("Hit");
 				}
 			}
 		}
@@ -281,5 +282,6 @@ void CBullet::MakeHitEffect()
 			m_Pos, Vector2(178.f, 164.f));
 	if (m_Owner->GetGunClass() == EGunClass::Boss)
 		HitEffect->SetIsBossGun();
-	m_Scene->GetSceneResource()->SoundPlay("Fire");
+	// m_Scene->GetSceneResource()->SoundPlay("Fire");
+	m_Scene->GetSceneResource()->SoundPlay("Hit");
 }

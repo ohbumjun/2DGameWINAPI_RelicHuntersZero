@@ -195,7 +195,7 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->SetVolume("BGM", (int)(MasterVol * BGVol));
 
 	GetSceneResource()->LoadSound("Effect", false, "GreNade", "GreNade.mp3");
-	GetSceneResource()->LoadSound("Effect", false, "Fire", "Fire1.wav");
+	GetSceneResource()->LoadSound("Effect", false, "Hit", "BulletHit.wav");
 	GetSceneResource()->LoadSound("Effect", false, "MonsterDestroy", "MonsterDestroy.wav");
 	GetSceneResource()->LoadSound("Effect", false, "PistolFire", "Pistol.mp3");
 	GetSceneResource()->LoadSound("Effect", false, "ShotGunFire", "ShotGun.wav");
@@ -210,6 +210,7 @@ void CHomeScene::LoadSound()
 	GetSceneResource()->LoadSound("Player", false, "ItemUse", "ItemUse.wav");
 	GetSceneResource()->LoadSound("Player", false, "Buy", "BuyItem.wav");
 	GetSceneResource()->LoadSound("Player", false, "Reload", "Reload.wav");
+	GetSceneResource()->LoadSound("Player", false, "Skill", "Skill.wav");
 	GetSceneResource()->SetVolume("Player", (int)(MasterVol * EffectVol));
 
 }
