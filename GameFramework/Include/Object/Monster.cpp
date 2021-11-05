@@ -348,8 +348,9 @@ void CMonster::AIAttack(float DeltaTime, Vector2 PlayerPos)
 	ChangeIdleAnimation();
 
 	m_RandomMoveTime = MONSTER_TARGET_POS_LIMIT_TIME;
-
+	
 	m_FireTime += DeltaTime;
+
 	if (m_FireTime >= m_FireTimeMax && m_FireEnable)
 	{
 		m_FireTime -= m_FireTimeMax;

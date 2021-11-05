@@ -44,6 +44,7 @@ CCharacter::CCharacter(const CCharacter &obj) : CGameObject(obj)
 
 	m_FireTime    = obj.m_FireTime;
 	m_FireTimeMax = obj.m_FireTimeMax;
+	m_FireEnable = true;
 
 	for (int i = 0; i < EGunClass::End; i++)
 	{
