@@ -7,7 +7,8 @@ CSceneManager* CSceneManager::m_Inst = nullptr;
 CSceneManager::CSceneManager() :
 	m_Scene(nullptr),
 	m_NextScene(nullptr),
-	m_CommonPlayer(nullptr)
+	m_CommonPlayer(nullptr),
+	m_NewPlay(false)
 {
 }
 
@@ -50,15 +51,20 @@ bool CSceneManager::Render(HDC hDC)
 
 bool CSceneManager::ChangeScene()
 {
+
 	if (m_NextScene)
 	{
-		CPlayer* CurPlayer = (CPlayer*)m_Scene->GetPlayer();
-		
-		if (CurPlayer)
+		if (m_NewPlay)
+			m_NewPlay = false;
+		else
 		{
-			if (CurPlayer->m_PlayerDeath)
-				CurPlayer->m_CharacterInfo.HP = CurPlayer->m_CharacterInfo.HPMax;
-			UpdateStaticObjects(CurPlayer);
+			CPlayer* CurPlayer = (CPlayer*)m_Scene->GetPlayer();
+			if (CurPlayer)
+			{
+				if (CurPlayer->m_PlayerDeath)
+					CurPlayer->m_CharacterInfo.HP = CurPlayer->m_CharacterInfo.HPMax;
+				UpdateStaticObjects(CurPlayer);
+			}
 		}
 
 		SAFE_DELETE(m_Scene);

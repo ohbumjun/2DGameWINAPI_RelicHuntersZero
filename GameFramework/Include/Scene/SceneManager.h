@@ -11,11 +11,13 @@ private:
 	~CSceneManager();
 
 private:
+	bool    m_NewPlay;
 	CScene* m_Scene;
 	CScene* m_NextScene;
 	CSharedPtr<class CGameObject> m_CommonPlayer;
 
 public:
+	void SetNewPlay(bool State) { m_NewPlay = State; }
 	CScene* GetScene() { return m_Scene; }
 	class CGameObject* GetPlayer() {
 		if (m_CommonPlayer)

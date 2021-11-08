@@ -54,7 +54,9 @@ void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 	// Ability Stats
 	for (int i = 0; i < m_StatsUIs.size(); i++)
 		m_StatsUIs[i]->SetVisibility(false);
+
 	CharacterInfo CharInfo = CCharacterManager::GetInst()->FindCharInfo(CharType);
+
 	for (int i = 0; i < 7; i++)
 	{
 		int StIdx = i * 5;
@@ -70,6 +72,7 @@ void CUISelect::SetCharacterAbility(EChar_Type& CharType)
 	// Set CharInfo, CharType
 	m_SelectedCharInfo = CharInfo;
 	m_SelectedCharType = CharType;
+
 }
 
 void CUISelect::SetCharacterImg(EChar_Type& CharType)

@@ -67,6 +67,7 @@ CPlayer::CPlayer() : m_RunEnable(false),
 					m_State2End(false)
 			
 {
+
 	m_ObjType = EObject_Type::Player;
 	m_TimeScale = 1.f;
 	m_CharacterInfo = m_SelectedCharacterInfo;

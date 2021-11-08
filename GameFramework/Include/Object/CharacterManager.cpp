@@ -58,12 +58,14 @@ void CCharacterManager::InitCharAbilityInfos()
 CharacterInfo CCharacterManager::FindCharInfo(EChar_Type CharType)
 {
 	auto iter = m_CharAbilityInfo.find(CharType);
+
 	if (iter == m_CharAbilityInfo.end())
 	{
 		CharacterInfo nullCharInfo;
 		nullCharInfo.HP = -1;
 		return nullCharInfo;
 	}
+
 	return iter->second;
 }
 

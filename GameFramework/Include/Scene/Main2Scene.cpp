@@ -87,7 +87,7 @@ bool CMain2Scene::Init()
 	NameText->SetText(TEXT("STAGE 3"));
 
 	// Player
-	CPlayer* Player = CreatePlayer("Player", Vector2(600.f, 500.f));
+	CPlayer* Player = CreatePlayer("Player", Vector2(600.f, 700.f));
 	SetPlayer(Player);
 
 	// Camera

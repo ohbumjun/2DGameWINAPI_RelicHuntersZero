@@ -110,15 +110,17 @@ void CUIPause::SelectClick()
 {
 	m_Scene->SetPauseUIVisbility(false);
 	CGameManager::GetInst()->SetTimeScale(1.f);
+	CSceneManager::GetInst()->DeleteStaticPlayer();
+	CSceneManager::GetInst()->SetNewPlay(true);
 	CSceneManager::GetInst()->CreateScene<CSelectScene>();
-	// CSceneManager::GetInst()->DeleteStaticPlayer();
 }
 void CUIPause::MainMenuClick()
 {
 	m_Scene->SetPauseUIVisbility(false);
 	CGameManager::GetInst()->SetTimeScale(1.f);
+	CSceneManager::GetInst()->DeleteStaticPlayer();
+	CSceneManager::GetInst()->SetNewPlay(true);
 	CSceneManager::GetInst()->CreateScene<CMenuScene>();
-	// CSceneManager::GetInst()->DeleteStaticPlayer();
 }
 void CUIPause::ExitClick()
 {

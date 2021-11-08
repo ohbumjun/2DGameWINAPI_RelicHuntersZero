@@ -112,6 +112,7 @@ void CUIGameOver::SetGameOverWidgets()
 void CUIGameOver::MenuClick()
 {
 	CSceneManager::GetInst()->CreateScene<CMenuScene>();
+	CSceneManager::GetInst()->DeleteStaticPlayer();
 }
 
 void CUIGameOver::AgainClick()
