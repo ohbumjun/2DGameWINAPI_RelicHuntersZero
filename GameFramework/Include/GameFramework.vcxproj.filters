@@ -138,9 +138,6 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>01. GameManager</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>01. GameManager\01. Timer</Filter>
     </ClCompile>
@@ -473,6 +470,9 @@
     </ClCompile>
     <ClCompile Include="Object\EffectBigWindow.cpp">
       <Filter>03. Object\03. Effect\02. StaticEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>01. GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

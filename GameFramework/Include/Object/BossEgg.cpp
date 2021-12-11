@@ -69,7 +69,7 @@ void CBossEgg::MonsterAppear()
 {
     CBossMonster* BossMonster = m_Scene->CreateObject<CBossMonster>("BossMonster",
         Vector2(1700.f, 1500.f));
-    BossMonster->SetCharacterInfo(500, 200, 20000,
+    BossMonster->SetCharacterInfo(500, 200, 40000,
         300, 1, 100, 100, 10, 100.f, 3000.f, 4000.f);
     CGun* BossGun = m_Scene->CreateObject<CGun>("BossGun", BOSS_GUN_PROTO, m_Pos);
     BossMonster->Equip(BossGun);
